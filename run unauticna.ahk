@@ -1,0 +1,1 @@
+﻿run , D:\2new\Unauticna test\unauticna build 0.1.18 alpha delux\Unauticna.exe

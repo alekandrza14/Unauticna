@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://new_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Buttondebug.cs" type="Script" id=2]
+[ext_resource path="res://Buttonresset.cs" type="Script" id=3]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_top = 0.893
+anchor_right = 0.576
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 0.199951
+margin_right = -431.824
+margin_bottom = -3.0
+theme = ExtResource( 1 )
+text = "rejime debug/режим отладки"
+flat = true
+script = ExtResource( 2 )
+
+[node name="Button2" type="Button" parent="CanvasLayer"]
+anchor_left = 0.745
+anchor_right = 1.006
+anchor_bottom = 0.125
+margin_left = 0.119934
+margin_top = -1.0
+margin_right = -3.14404
+margin_bottom = 3.0
+theme = ExtResource( 1 )
+text = "resset/сброс"
+flat = true
+script = ExtResource( 3 )
+
+[connection signal="button_down" from="CanvasLayer/Button" to="CanvasLayer/Button" method="_on_Button_button_down"]
+[connection signal="button_down" from="CanvasLayer/Button2" to="CanvasLayer/Button2" method="_on_Button2_button_down"]
