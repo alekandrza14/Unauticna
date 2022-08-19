@@ -16,27 +16,56 @@ public class button6 : MonoBehaviour
     public bool p4;
     public bool p5;
     public Collider other;
+    public Sphere sp;
     private void Start()
     {
-        if (portallNumer.p2 == true && iaw)
+        if (!sp)
         {
-            musave.load(transform);
-            portallNumer.p2 = false;
+            if (portallNumer.p2 == true && iaw)
+            {
+                musave.load(transform);
+                portallNumer.p2 = false;
+            }
+            if (portallNumer.p3 == true && p3)
+            {
+                musave.load(transform);
+                portallNumer.p3 = false;
+            }
+            if (portallNumer.p4 == true && p4)
+            {
+                musave.load(transform);
+                portallNumer.p4 = false;
+            }
+            if (portallNumer.p5 == true && p5)
+            {
+                musave.load(transform);
+                portallNumer.p5 = false;
+            }
         }
-        if (portallNumer.p3 == true && p3)
+        if (sp)
         {
-            musave.load(transform);
-            portallNumer.p3 = false;
-        }
-        if (portallNumer.p4 == true && p4)
-        {
-            musave.load(transform);
-            portallNumer.p4 = false;
-        }
-        if (portallNumer.p5 == true && p5)
-        {
-            musave.load(transform);
-            portallNumer.p5 = false;
+            PolarTransform pt = sp.p2.inverse();
+
+            if (portallNumer.p2 == true && iaw)
+            {
+                musave.load5(pt, sp.v1);
+                portallNumer.p2 = false;
+            }
+            if (portallNumer.p3 == true && p3)
+            {
+                musave.load5(pt, sp.v1);
+                portallNumer.p3 = false;
+            }
+            if (portallNumer.p4 == true && p4)
+            {
+                musave.load5(pt, sp.v1);
+                portallNumer.p4 = false;
+            }
+            if (portallNumer.p5 == true && p5)
+            {
+                musave.load5(pt, sp.v1);
+                portallNumer.p5 = false;
+            }
         }
 
     }

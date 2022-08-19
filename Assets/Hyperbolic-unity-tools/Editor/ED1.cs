@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,9 +9,23 @@ using UnityEngine.UIElements;
 public class ED1 : Editor
 {
     const string resourceFilename = "custom-editor-uie";
+    public static bool load;
     public override void OnInspectorGUI()
     {
-        Camd mp = (Camd)target;
+     
+
+        
+            
+
+
+    Camd mp = (Camd)target;
+        if (File.Exists("Assets/player.json") &&!load)
+        {
+            editorsave es = new editorsave();
+            es = JsonUtility.FromJson<editorsave>(File.ReadAllText("Assets/player.json"));
+            mp.polarTransform = es.pos;
+            load = true;
+        }
         mp.move();
 
         for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)

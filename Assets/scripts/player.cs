@@ -265,6 +265,33 @@ public class musave : MonoBehaviourPunCallbacks
         }
 
     }
+    static public void load5(PolarTransform pl,float i3)
+    {
+        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        {
+
+
+            GameObject.FindObjectsOfType<mover>()[0].cd.polarTransform = pl;
+            GameObject.FindObjectsOfType<mover>()[0].transform.position = new Vector3(0,i3,0);
+        }
+        if (GameObject.FindObjectsOfType<player>().Length != 0)
+        {
+            Photon.Pun.PhotonView[] players = new Photon.Pun.PhotonView[0];
+            players = GameObject.FindObjectsOfType<Photon.Pun.PhotonView>();
+
+            for (int i = 0; i < players.Length; i++)
+            {
+
+                if (players[i].IsMine)
+                {
+                    players[i].GetComponent<player>().cd.polarTransform = pl;
+                    players[i].GetComponent<player>().transform.position = new Vector3(0, i3, 0);
+                }
+
+            }
+        }
+
+    }
     static public void GetUF()
     {
         if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A)
