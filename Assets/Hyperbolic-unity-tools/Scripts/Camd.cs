@@ -158,7 +158,7 @@ public class Camd : MonoBehaviour
         
         polarTransform.preApplyTranslationZ(v.x);
         polarTransform.preApplyTranslationY(v.y);
-
+        
         if (Input.GetKeyDown(KeyCode.F5))
         {
             transform.rotation = Quaternion.identity;

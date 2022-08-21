@@ -1476,11 +1476,24 @@ public class player : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.Tab) && Getstats.GetPlayerLevel() >= 1)
             {
-
-                if (tics >= 2)
+                if (cd)
                 {
-                    transform.Translate(0, 0, 5);
-                    tics = 0;
+                    if (tics >= 2)
+                    {
+                        
+                            cd.polarTransform.preApplyTranslationZ(-1.0f / 5);
+                        tics = 0;
+                    }
+                }
+                else
+                {
+
+
+                    if (tics >= 2)
+                    {
+                        transform.Translate(0, 0, 5);
+                        tics = 0;
+                    }
                 }
             }
             if (!Input.GetKey(KeyCode.F))
