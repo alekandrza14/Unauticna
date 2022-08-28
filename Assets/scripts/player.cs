@@ -272,7 +272,7 @@ public class musave : MonoBehaviourPunCallbacks
 
 
             GameObject.FindObjectsOfType<mover>()[0].cd.polarTransform = pl;
-            GameObject.FindObjectsOfType<mover>()[0].transform.position = new Vector3(0,i3,0);
+            GameObject.FindObjectsOfType<mover>()[0].transform.position = new Vector3(0,i3*2,0);
         }
         if (GameObject.FindObjectsOfType<player>().Length != 0)
         {

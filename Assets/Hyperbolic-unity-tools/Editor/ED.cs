@@ -11,6 +11,7 @@ public class ED : Editor
     const string resourceFilename = "custom-editor-uie";
     public static tringle mp1; public static tringle mp2;
     
+    
     public override void OnInspectorGUI()
     {
         

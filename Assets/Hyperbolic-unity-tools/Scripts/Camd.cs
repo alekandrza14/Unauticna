@@ -142,11 +142,7 @@ public class Camd : MonoBehaviour
         {
             Application.Quit();
         }
-        for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
-        {
-            GameObject.FindObjectsOfType<tringle>()[i].up2(polarTransform);
-
-        }
+        
         for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
         {
             GameObject.FindObjectsOfType<Sphere>()[i].Update();

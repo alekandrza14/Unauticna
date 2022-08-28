@@ -3420,6 +3420,7 @@ public class tringle : MonoBehaviour
     public bool px1; public bool py1; public bool mx1; public bool my1;
     public bool px2; public bool py2; public bool mx2; public bool my2;
    static public bool iseditor = false;
+    float ods1 = 1;
     public float x;
     public void move()
     {
@@ -3503,7 +3504,7 @@ public class tringle : MonoBehaviour
         Deplacement();
 
     }
-    
+
     public void Createmath(Vector3 v1, Vector3 v2, Vector3 v3)
     {
 
@@ -3531,7 +3532,7 @@ public class tringle : MonoBehaviour
        };
         }
         m.SetVertices(verticles);
-        m.triangles=tranglse;
+        m.triangles = tranglse;
         m.uv = uv;
         m.normals = n;
         if (ds >= 0)
@@ -3547,160 +3548,47 @@ public class tringle : MonoBehaviour
             mc.sharedMesh = null;
         }
     }
-
-
-    void Deplacement()
+    public void Clearmath()
     {
-        PVector p = new PVector(0, 0, 0); 
-        if (w)
+
+        if (mf.sharedMesh != null)
         {
 
 
-
-
-
-
-
-            //multiplication par le facteur hyperbolique
-
             
 
 
-            PMatrix3D copytr = new PMatrix3D();
-            copytr.set(p2.getMatrix());
-
-            PVector prevPoint = new PVector();
-            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-
-            float inc = 0.1f;
-            for (float i = 0; i < inc * 2; i += inc)
-            {
-                PVector nextPoint = MathHyper.polarVector(i, 1.255f);
-                //Apply currentTransform on nextPoint and save the result in nextPoint 
-
-
-
-                copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
-
-                nextPoint = MathHyper.projectOntoScreen(nextPoint);
-                if (i >= inc)
-                {
-                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x,0 ,prevPoint.y)); if (iseditor)
-                    {
-                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
-                    }
-                    if (!iseditor)
-                    {
-                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y );
-                    }
-                }
-
-                    prevPoint = nextPoint;
-
-
-            }
-            PMatrix3D copytr1 = new PMatrix3D();
-            copytr1.set(p3.getMatrix());
-
-            PVector prevPoint1 = new PVector();
-            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-
-            float inc1 = 0.1f;
-            for (float i = 0; i < inc1 * 2; i += inc)
-            {
-                PVector nextPoint2 = MathHyper.polarVector(i, 1.255f);
-                //Apply currentTransform on nextPoint and save the result in nextPoint 
-
-
-
-                copytr1.mult(nextPoint2, nextPoint2);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint2, nextPoint2);
-
-                nextPoint2 = MathHyper.projectOntoScreen(nextPoint2); 
-                    if (i >= inc1)
-                    {
-                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint1.x, 0, prevPoint1.y));
-                    if (iseditor)
-                    {
-
-
-                        v32 = new Vector3(prevPoint1.x, v2 * ds - 0.001f, prevPoint1.y);
-                    }
-                    if (!iseditor)
-                    {
-
-
-                        v32 = new Vector3(prevPoint1.x, v2 * ds, prevPoint1.y);
-                    }
-                }
-
-
-                    prevPoint1 = nextPoint2;
-
-
-            }
-            PMatrix3D copytr2 = new PMatrix3D();
-            copytr2.set(p4.getMatrix());
-
-            PVector prevPoint2 = new PVector();
-            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-            
-            float inc2 = 0.1f;
-            for (float i = 0; i < inc2 * 2; i += inc)
-            {
-                PVector nextPoint3 = MathHyper.polarVector(i, 1.255f);
-                //Apply currentTransform on nextPoint and save the result in nextPoint 
-
-
-
-                copytr2.mult(nextPoint3, nextPoint3);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint3, nextPoint3);
-
-                nextPoint3 = MathHyper.projectOntoScreen(nextPoint3); 
-                    if (i >= inc)
-                    {
-                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint2.x, 0, prevPoint2.y)); if (iseditor)
-                    {
-                        v33 = new Vector3(prevPoint2.x - 0.001f, v3 * ds, prevPoint2.y);
-                    }
-                    if (!iseditor)
-                    {
-                        v33 = new Vector3(prevPoint2.x, v3 * ds, prevPoint2.y);
-                    }
-                }
-
-
-                    prevPoint2 = nextPoint3;
-
-
-            }
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
-
-            Createmath(v31, v32, v33);
-
-
-
-            //sert pour baisser a la bonne hauteur
 
 
 
 
-
-
-
+            mf.sharedMesh = null;
+            mc.sharedMesh = null;
         }
-        
-        if (!w)
+
+    }
+
+
+        void Deplacement()
+    {
+        float ds1 =1;
+        PVector p = new PVector(0, 0, 0);
+
+
+
+
+
+
+
+
+        //multiplication par le facteur hyperbolique
+
+
+
+
+
+        if (ods1 > 0.4f)
         {
-
-
-
-            //multiplication par le facteur hyperbolique
-
-
-
-
             PMatrix3D copytr = new PMatrix3D();
             copytr.set(p2.getMatrix());
 
@@ -3721,7 +3609,9 @@ public class tringle : MonoBehaviour
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
                 {
-                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y)); if (iseditor)
+                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y));
+                    ds1 = ds;
+                    if (iseditor)
                     {
                         v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
                     }
@@ -3735,6 +3625,203 @@ public class tringle : MonoBehaviour
 
 
             }
+        }
+        else if (UnityEngine.Random.Range(0, 2) == 1 && ods1 > 0.4f)
+        {
+            PMatrix3D copytr = new PMatrix3D();
+            copytr.set(p2.getMatrix());
+
+            PVector prevPoint = new PVector();
+            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+            float inc = 0.1f;
+            for (float i = 0; i < inc * 2; i += inc)
+            {
+                PVector nextPoint = MathHyper.polarVector(i, 1.255f);
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+
+                copytr.mult(nextPoint, nextPoint);
+                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+
+                nextPoint = MathHyper.projectOntoScreen(nextPoint);
+                if (i >= inc)
+                {
+                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y));
+                    ds1 = ds;
+                    if (iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
+                    }
+                    if (!iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                    }
+                }
+
+                prevPoint = nextPoint;
+
+
+            }
+        }
+        else if (UnityEngine.Random.Range(0, 3) == 2 && ods1 > 0.3f)
+        {
+            PMatrix3D copytr = new PMatrix3D();
+            copytr.set(p2.getMatrix());
+
+            PVector prevPoint = new PVector();
+            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+            float inc = 0.1f;
+            for (float i = 0; i < inc * 2; i += inc)
+            {
+                PVector nextPoint = MathHyper.polarVector(i, 1.255f);
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+
+                copytr.mult(nextPoint, nextPoint);
+                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+
+                nextPoint = MathHyper.projectOntoScreen(nextPoint);
+                if (i >= inc)
+                {
+                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y));
+                    ds1 = ds;
+                    if (iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
+                    }
+                    if (!iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                    }
+                }
+
+                prevPoint = nextPoint;
+
+
+            }
+        }
+        else if (UnityEngine.Random.Range(0, 4) == 3 && ods1 > 0.2f)
+        {
+            PMatrix3D copytr = new PMatrix3D();
+            copytr.set(p2.getMatrix());
+
+            PVector prevPoint = new PVector();
+            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+            float inc = 0.1f;
+            for (float i = 0; i < inc * 2; i += inc)
+            {
+                PVector nextPoint = MathHyper.polarVector(i, 1.255f);
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+
+                copytr.mult(nextPoint, nextPoint);
+                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+
+                nextPoint = MathHyper.projectOntoScreen(nextPoint);
+                if (i >= inc)
+                {
+                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y));
+                    ds1 = ds;
+                    if (iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
+                    }
+                    if (!iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                    }
+                }
+
+                prevPoint = nextPoint;
+
+
+            }
+        }
+        else if (UnityEngine.Random.Range(0, 5) == 4 && ods1 > 0.1f)
+        {
+            PMatrix3D copytr = new PMatrix3D();
+            copytr.set(p2.getMatrix());
+
+            PVector prevPoint = new PVector();
+            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+            float inc = 0.1f;
+            for (float i = 0; i < inc * 2; i += inc)
+            {
+                PVector nextPoint = MathHyper.polarVector(i, 1.255f);
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+
+                copytr.mult(nextPoint, nextPoint);
+                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+
+                nextPoint = MathHyper.projectOntoScreen(nextPoint);
+                if (i >= inc)
+                {
+                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y));
+                    ds1 = ds;
+                    if (iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
+                    }
+                    if (!iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                    }
+                }
+
+                prevPoint = nextPoint;
+
+
+            }
+        }
+        else if (UnityEngine.Random.Range(0, 6) == 5)
+        {
+            PMatrix3D copytr = new PMatrix3D();
+            copytr.set(p2.getMatrix());
+
+            PVector prevPoint = new PVector();
+            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+            float inc = 0.1f;
+            for (float i = 0; i < inc * 2; i += inc)
+            {
+                PVector nextPoint = MathHyper.polarVector(i, 1.255f);
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+
+                copytr.mult(nextPoint, nextPoint);
+                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+
+                nextPoint = MathHyper.projectOntoScreen(nextPoint);
+                if (i >= inc)
+                {
+                    float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint.x, 0, prevPoint.y));
+                    ds1 = ds;
+                    if (iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y - 0.001f);
+                    }
+                    if (!iseditor)
+                    {
+                        v31 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                    }
+                }
+
+                prevPoint = nextPoint;
+
+
+            }
+        }
+        if (ds1 > 0.4f) {
             PMatrix3D copytr1 = new PMatrix3D();
             copytr1.set(p3.getMatrix());
 
@@ -3742,7 +3829,7 @@ public class tringle : MonoBehaviour
             //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
 
             float inc1 = 0.1f;
-            for (float i = 0; i < inc1 * 2; i += inc)
+            for (float i = 0; i < inc1 * 2; i += inc1)
             {
                 PVector nextPoint2 = MathHyper.polarVector(i, 1.255f);
                 //Apply currentTransform on nextPoint and save the result in nextPoint 
@@ -3782,7 +3869,7 @@ public class tringle : MonoBehaviour
             //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
 
             float inc2 = 0.1f;
-            for (float i = 0; i < inc2 * 2; i += inc)
+            for (float i = 0; i < inc2 * 2; i += inc2)
             {
                 PVector nextPoint3 = MathHyper.polarVector(i, 1.255f);
                 //Apply currentTransform on nextPoint and save the result in nextPoint 
@@ -3793,7 +3880,7 @@ public class tringle : MonoBehaviour
                 Camd.Main().polarTransform.getMatrix().mult(nextPoint3, nextPoint3);
 
                 nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
-                if (i >= inc)
+                if (i >= inc2)
                 {
                     float ds = MathHyper.Facteur2(gameObject, new Vector3(prevPoint2.x, 0, prevPoint2.y)); if (iseditor)
                     {
@@ -3810,32 +3897,58 @@ public class tringle : MonoBehaviour
 
 
             }
-
-            //sert pour baisser a la bonne hauteur
-
-
-
-
-
-
-
-
-
-
-
-
         }
+            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            if (ds1 > 0.4f)
+        {
+            Createmath(v31, v32, v33);
+        }
+        else
+        {
+            
+            Clearmath();
+        }
+        ods1 = ds1;
+
+
+        //sert pour baisser a la bonne hauteur
+
+
+
+
+
+
+
+
+
+
+
+
+        //sert pour baisser a la bonne hauteur
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
         // transform.Translate(0, (nouveauFacteur - ancienFacteur) / 2,0);
 
 
-    }
 
-    private void Update()
+
+        private void Update()
     {
-        
-        
+
+        up();
         
 
 
