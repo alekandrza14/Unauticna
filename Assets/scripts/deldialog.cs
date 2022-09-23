@@ -266,6 +266,10 @@ public class deldialog : MonoBehaviour
         {
             nabor(sm, s);
         }
+        if (VarSave.GetString("lenguage_english") == "")
+        {
+            nabor(sm, s);
+        }
         if (VarSave.GetString("lenguage_english") == "none")
         {
             nabor(smu, su);

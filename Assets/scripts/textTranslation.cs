@@ -19,6 +19,9 @@ public class textTranslation : MonoBehaviour
             case "False":
                 txt.text = translation_rus;
                 break;
+            case "":
+                txt.text = translation_rus;
+                break;
             case "none":
                 txt.text = translation_uné;
                 break;
