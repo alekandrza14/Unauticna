@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+public enum type1
+{
+    inty,booly
+}
 
 public class apple : MonoBehaviour
 {
     [Header("до")]
     public int varpp;
+    public bool varpp2;
+    public type1 yt = type1.inty;
     public string var = "ap";
     public GameObject[] objects;
     [Header("после")]
@@ -17,18 +23,33 @@ public class apple : MonoBehaviour
 
     void Start()
     {
-        if (VarSave.GetInt(var) == 1)
+        if (yt == type1.inty) 
         {
-            varpp = 1;
+            if (VarSave.GetInt(var) == 1 && yt == type1.inty)
+            {
+                varpp = 1;
+            }
+            if (VarSave.GetInt(var) == 0 && yt == type1.inty)
+            {
+                varpp = 0;
+            }
+            if (VarSave.GetInt(var) == 2 && yt == type1.inty)
+            {
+                varpp = 2;
+            }
         }
-        if (VarSave.GetInt(var) == 0)
+        if (yt == type1.booly)
         {
-            varpp = 0;
+            if (VarSave.GetBool(var) == false && yt == type1.booly)
+            {
+                varpp = 2;
+            }
+            if (VarSave.GetBool(var) == true && yt == type1.booly)
+            {
+                varpp = 0;
+            }
         }
-        if (VarSave.GetInt(var) == 2)
-        {
-            varpp = 2;
-        }
+
         if (varpp == 0)
         {
             for (int i = 0; i < objects.Length; i++)
@@ -36,7 +57,7 @@ public class apple : MonoBehaviour
 
 
                 objects[i].SetActive(true);
-                
+
             }
             for (int i = 0; i < objects2.Length; i++)
             {
@@ -106,15 +127,30 @@ public class apple : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    public void OnTriggerEnter(Collider collision)
+    public void OnTriggerStay(Collider collision)
     {
-        if (collision.tag == "Player" && VarSave.GetInt(var) != 1 && VarSave.GetInt(var) != 2) 
+        if (yt == type1.inty)
         {
-            musave.save();
-            VarSave.SetInt(var, 1);
-            musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+
+
+            if (collision.tag == "Player" && VarSave.GetInt(var) != 1 && VarSave.GetInt(var) != 2)
+            {
+                musave.save();
+                VarSave.SetInt(var, 1);
+                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+        if (yt == type1.booly)
+        {
+            if (collision.tag == "Player" && VarSave.GetBool(var) && !VarSave.GetBool(var+1))
+            {
+                musave.save();
+                VarSave.SetBool(var, true);
+                VarSave.SetBool(var+1, true);
+                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 }
