@@ -15,6 +15,12 @@ public class deldialog : MonoBehaviour
     public string sme = "yeap...";
     public string[] su = new string[1];
     public string smu = "Очивитдн...";
+    public string[] rs = new string[1];
+    public string rsm = "Очевидно...";
+    public string[] rse = new string[1];
+    public string rsme = "yeap...";
+    public string[] rsu = new string[1];
+    public string rsmu = "Очивитдн...";
     public TextMeshProUGUI text;
     public Animator anim;
     public bool enter; public bool act;
@@ -28,7 +34,15 @@ public class deldialog : MonoBehaviour
     public int cur;
     public string tr;
 
-
+    void resset()
+    {
+        s = rs;
+        sm = rsm;
+        se = rse;
+        sme = rsme;
+        su = rsu;
+        smu = rsmu;
+    }
     void Start()
     {
        tir2 = VarSave.GetInt(del);
@@ -165,10 +179,24 @@ public class deldialog : MonoBehaviour
                         VarSave.SetInt(tr, VarSave.GetInt(tr) + 1);
                         SceneManager.LoadScene(45);
                     }
-                    
+
 
                 }
-                else if (sm == "s2-chargetr().")
+                else if (sm == "s2-chargedialog")
+                {
+                    stopPlayer = false;
+
+
+                    resset();
+
+
+                        tir2 = 0;
+                        tir = 0;
+                    
+
+
+                }
+                    else if (sm == "s2-chargetr().")
                 {
                     stopPlayer = false;
                     tir2 = 0;
