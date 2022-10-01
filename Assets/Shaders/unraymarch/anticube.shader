@@ -7,7 +7,7 @@ Shader "Unlit/anticube"
     }
     SubShader
     {
-        Tags { "Queue" = "Transparent" }
+Tags { "Queue" = "Transparent" }        
 ZWrite off
             Cull off
         LOD 100
