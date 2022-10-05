@@ -16,7 +16,7 @@ public class World : MonoBehaviour {
     public Material material;
     public BlockType[] blocktypes;
 
-    Chunk[,] chunks = new Chunk[VoxelData.WorldSizeInChunks, VoxelData.WorldSizeInChunks];
+    Chunkd[,] chunks = new Chunkd[VoxelData.WorldSizeInChunks, VoxelData.WorldSizeInChunks];
 
     List<ChunkCoord> activeChunks = new List<ChunkCoord>();
     ChunkCoord playerChunkCoord;
@@ -242,7 +242,7 @@ public class World : MonoBehaviour {
 
     void CreateNewChunk (int x, int z) {
 
-        chunks[x, z] = new Chunk(new ChunkCoord(x, z), this);
+        chunks[x, z] = new Chunkd(new ChunkCoord(x, z), this);
         activeChunks.Add(new ChunkCoord(x, z));
 
     }

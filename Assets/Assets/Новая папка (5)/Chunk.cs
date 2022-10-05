@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chunk {
+public class Chunkd {
 
     public ChunkCoord coord;
 
@@ -19,7 +19,7 @@ public class Chunk {
 
     World world;
 
-    public Chunk (ChunkCoord _coord, World _world) {
+    public Chunkd (ChunkCoord _coord, World _world) {
 
         coord = _coord;
         world = _world;
