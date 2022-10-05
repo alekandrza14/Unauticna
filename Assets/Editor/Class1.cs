@@ -31,7 +31,7 @@ public class ScriptBatch
         BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Unauticna.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
         //_" + mainversion + "." + neoversion + "." + version + "
         // Copy a file from the project folder to the build folder, alongside the built game.
-        if (File.Exists(path + "/Launcher Unauticna.exe")) {
+        if (!File.Exists(path + "/Launcher Unauticna.exe")) {
             FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Launcher Unauticna.exe", path + "/Launcher Unauticna.exe");
             FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Launcher Unauticna.pdb", path + "/Launcher Unauticna.pdb");
         }
