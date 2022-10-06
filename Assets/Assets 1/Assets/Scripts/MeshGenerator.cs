@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteAlways]
 public class MeshGenerator : MonoBehaviour {
 
     const int threadGroupSize = 8;
@@ -30,15 +30,16 @@ public class MeshGenerator : MonoBehaviour {
     public float boundsSize = 1;
     public Vector3 offset = Vector3.zero;
 
-    [Range (2, 100)]
-    public int numPointsPerAxis = 30;
+    [Range (2, 200)]
+    public int numPointsPerAxis = 32;
 
     [Header ("Gizmos")]
     public bool showBoundsGizmo = true;
     public Color boundsGizmoCol = Color.white;
 
     GameObject chunkHolder;
-    const string chunkHolderName = "Chunks Holder";
+    public string chunkHolderName = "Chunks Holder";
+    public GameObject chunkHolderobj;
     List<Chunk> chunks;
     Dictionary<Vector3Int, Chunk> existingChunks;
     Queue<Chunk> recycleableChunks;
@@ -51,14 +52,23 @@ public class MeshGenerator : MonoBehaviour {
     bool settingsUpdated;
 
     void Awake () {
+        
+#if !UNITY_EDITOR
+numPointsPerAxis = 100;
+        RequestMeshUpdate();
+#endif
+        #if UNITY_EDITOR
+        numPointsPerAxis = 30;
+        RequestMeshUpdate();
+
         if (Application.isPlaying && !fixedMapSize) {
             InitVariableChunkStructures ();
-
             var oldChunks = FindObjectsOfType<Chunk> ();
             for (int i = oldChunks.Length - 1; i >= 0; i--) {
                 Destroy (oldChunks[i].gameObject);
             }
         }
+#endif
     }
 
     void Update () {
@@ -280,13 +290,10 @@ public class MeshGenerator : MonoBehaviour {
 
     void CreateChunkHolder () {
         // Create/find mesh holder object for organizing chunks under in the hierarchy
-        if (chunkHolder == null) {
-            if (GameObject.Find (chunkHolderName)) {
-                chunkHolder = GameObject.Find (chunkHolderName);
-            } else {
-                chunkHolder = new GameObject (chunkHolderName);
-            }
-        }
+        
+
+            chunkHolder = chunkHolderobj;
+        
     }
 
     // Create/get references to all chunks
@@ -342,7 +349,6 @@ public class MeshGenerator : MonoBehaviour {
     }
 
     struct Triangle {
-#pragma warning disable 649 // disable unassigned variable warning
         public Vector3 a;
         public Vector3 b;
         public Vector3 c;

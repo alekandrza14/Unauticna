@@ -28,7 +28,7 @@ public class ScriptBatch
             version = int.Parse( File.ReadAllText("vers"));
         }
         // Build player.
-        BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Unauticna.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
+        BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Unauticna.exe", BuildTarget.StandaloneWindows64, BuildOptions.None);
         //_" + mainversion + "." + neoversion + "." + version + "
         // Copy a file from the project folder to the build folder, alongside the built game.
         if (!File.Exists(path + "/Launcher Unauticna.exe")) {

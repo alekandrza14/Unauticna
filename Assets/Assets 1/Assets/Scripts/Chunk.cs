@@ -57,7 +57,6 @@ public class Chunk : MonoBehaviour {
                 meshCollider.sharedMesh = mesh;
             }
             // force update
-            meshCollider.enabled = false;
             meshCollider.enabled = true;
         }
 
