@@ -323,7 +323,7 @@ public class musave : MonoBehaviourPunCallbacks
         {
 
 
-            r = GameObject.FindObjectOfType<mover>().g2.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            r = GameObject.FindObjectOfType<mover>().g2.transform.GetChild(0).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         }
         if (GameObject.FindObjectsOfType<player>().Length != 0)
         {
@@ -335,7 +335,8 @@ public class musave : MonoBehaviourPunCallbacks
 
                 if (players[i].IsMine)
                 {
-                    r = players[i].GetComponent<player>().g2.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                    
+                    r = players[i].GetComponent<player>().g2.transform.GetChild(0).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                 }
 
             }
@@ -591,6 +592,7 @@ public class player : MonoBehaviour
     }
     public void main_load()
     {
+
         if (isplanet)
         {
             gameObject.AddComponent<PlanetGravity>().body = transform;
@@ -828,6 +830,7 @@ public class player : MonoBehaviour
     }
     private void Awake()
     {
+        Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>().targetDisplay = 2;
         if (GetComponent<Photon.Pun.PhotonView>().IsMine)
         {
             GetComponent<Photon.Pun.PhotonView>().RPC("setColor", RpcTarget.OthersBuffered, memat.color.r, memat.color.g, memat.color.b);
@@ -868,6 +871,11 @@ public class player : MonoBehaviour
         if (GetComponent<Photon.Pun.PhotonView>().IsMine)
         {
             Instantiate(Resources.Load<GameObject>("player inventory"));
+
+        }
+        if (GetComponent<Photon.Pun.PhotonView>().IsMine && VarSave.GetBool("postrender") == true)
+        {
+            Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
         }
         main_load();

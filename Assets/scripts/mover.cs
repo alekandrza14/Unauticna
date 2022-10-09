@@ -211,6 +211,7 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
+        Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>().targetDisplay = 2;
         if (cd)
         {
             load1.pt = cd.polarTransform;
@@ -240,6 +241,11 @@ public class mover : MonoBehaviour
             load1.bg2 = g2.GetComponent<Camera>().clearFlags;
             Photon.Pun.PhotonNetwork.Instantiate("nr", transform.position, Quaternion.identity);
             Destroy(gameObject);
+
+        }
+        if (VarSave.GetBool("postrender") == true)
+        {
+            Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
         }
         if (File.Exists("unauticna.license"))

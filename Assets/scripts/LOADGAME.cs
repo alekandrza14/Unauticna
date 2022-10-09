@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,11 +13,31 @@ public class LOADGAME : MonoBehaviour
     public ParticleSystem[] ps;
     public Material mat;
     public Animator camera;
+    public Toggle postrender;
+    public Toggle isnotwindowed;
+    public Color prc;
+    public TMP_Dropdown dd;
+    public Button[] buttons;
+    public TMP_Dropdown ddpr;
+    public FileSelectorExample fse;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
-        Screen.SetResolution(1924, 867, true);
+        if (!VarSave.EnterFloat("res3"))
+        {
+
+
+            Screen.SetResolution(1924, 867, true);
+        }
+        if (VarSave.EnterFloat("res3"))
+        {
+
+
+            Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
+        }
+        isnotwindowed.isOn = !VarSave.GetBool("windowed");
+        postrender.isOn = VarSave.GetBool("postrender");
         Directory.CreateDirectory("unsave"); 
         Directory.CreateDirectory("unsavet");
         Directory.CreateDirectory("munsave");
@@ -81,6 +102,7 @@ public class LOADGAME : MonoBehaviour
         {
             ps[i].gameObject.SetActive(!VarSave.GetBool("partic"));
         }
+        voidupdate();
         
     }
     public void LOAD()
@@ -148,5 +170,96 @@ public class LOADGAME : MonoBehaviour
     {
         mat.color = Color.black;
         VarSave.SetString("color", "black");
+    }
+    public void setgraficsetings()
+    {
+        VarSave.SetBool("postrender", postrender.isOn);
+        VarSave.SetBool("windowed",!isnotwindowed.isOn);
+        if (dd.value == 0)
+        {
+            Screen.SetResolution(640, 480, isnotwindowed.isOn);
+            VarSave.SetInt("res3", 640);
+            VarSave.SetInt("res4", 480);
+        }
+        if (dd.value == 1)
+        {
+            Screen.SetResolution(1024, 768, isnotwindowed.isOn);
+            VarSave.SetInt("res3", 1024);
+            VarSave.SetInt("res4", 768);
+        }
+        if (dd.value == 2)
+        {
+            Screen.SetResolution(1600, 1200, isnotwindowed.isOn);
+            VarSave.SetInt("res3", 1600);
+            VarSave.SetInt("res4", 1200);
+        }
+        if (dd.value == 3)
+        {
+            Screen.SetResolution(2560, 1600, isnotwindowed.isOn);
+            VarSave.SetInt("res3", 2560);
+            VarSave.SetInt("res4", 1600);
+        }
+        if (postrender.isOn)
+        {
+            
+
+            if (ddpr.value == 0)
+            {
+                VarSave.SetInt("res1", 640);
+                VarSave.SetInt("res2", 480);
+            }
+            if (ddpr.value == 1)
+            {
+                VarSave.SetInt("res1", 1024);
+                VarSave.SetInt("res2", 768);
+            }
+            if (ddpr.value == 2)
+            {
+                VarSave.SetInt("res1", 1600);
+                VarSave.SetInt("res2", 1200);
+            }
+            if (ddpr.value == 3)
+            {
+                VarSave.SetInt("res1", 2560);
+                VarSave.SetInt("res2", 1600);
+            }
+        }
+    }
+    public void setcolorpr()
+    {
+
+        fse.usewindowOpen = true;
+    }
+    public void voidupdate()
+    {
+        if (fse.usewindowOpen)
+        {
+            for (int i = 0;i < buttons.Length;i++)
+            {
+                buttons[i].interactable = false;
+            }
+            postrender.interactable = false;
+            ddpr.interactable = false; 
+            dd.interactable = false;
+            isnotwindowed.interactable = false;
+        }
+        else
+        {
+            if (File.Exists(fse.path))
+            {
+
+
+                VarSave.SetString("postrender_color", File.ReadAllText(fse.path));
+            }
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].interactable = true;
+            }
+            postrender.interactable = true;
+            ddpr.interactable = true;
+            dd.interactable = true;
+
+            isnotwindowed.interactable = true;
+        }
     }
 }
