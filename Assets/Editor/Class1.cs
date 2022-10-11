@@ -28,12 +28,13 @@ public class ScriptBatch
             version = int.Parse( File.ReadAllText("vers"));
         }
         // Build player.
-        BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Unauticna.exe", BuildTarget.StandaloneWindows64, BuildOptions.None);
+        BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Dop.dll", BuildTarget.StandaloneWindows64, BuildOptions.None);
         //_" + mainversion + "." + neoversion + "." + version + "
         // Copy a file from the project folder to the build folder, alongside the built game.
         if (!File.Exists(path + "/Launcher Unauticna.exe")) {
             FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Launcher Unauticna.exe", path + "/Launcher Unauticna.exe");
-            FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Launcher Unauticna.pdb", path + "/Launcher Unauticna.pdb");
+            FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex.exe", path + "/Application/Unauticna_sig.exe");
+            FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex2.exe", path + "/Application/Unauticna.exe");
         }
 
         // Run the game (Process class from System.Diagnostics).

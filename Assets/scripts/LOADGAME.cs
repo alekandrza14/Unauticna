@@ -23,6 +23,9 @@ public class LOADGAME : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject g = new GameObject("init");
+        gameInit.Init(g);
+        DontDestroyOnLoad(g);
         Cursor.lockState = CursorLockMode.None;
         if (!VarSave.EnterFloat("res3"))
         {
