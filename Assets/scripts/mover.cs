@@ -211,7 +211,9 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
-        Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>().targetDisplay = 2;
+        Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
+        c.targetDisplay = 2;
+        c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
         if (cd)
         {
             load1.pt = cd.polarTransform;

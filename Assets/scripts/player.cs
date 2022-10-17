@@ -324,6 +324,7 @@ public class musave : MonoBehaviourPunCallbacks
 
 
             r = GameObject.FindObjectOfType<mover>().g2.transform.GetChild(0).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            GameObject.FindObjectOfType<mover>().g2.transform.GetChild(0).GetComponent<Camera>().targetDisplay = 2;
         }
         if (GameObject.FindObjectsOfType<player>().Length != 0)
         {
@@ -337,6 +338,7 @@ public class musave : MonoBehaviourPunCallbacks
                 {
                     
                     r = players[i].GetComponent<player>().g2.transform.GetChild(0).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+                    players[i].GetComponent<player>().g2.transform.GetChild(0).GetComponent<Camera>().targetDisplay = 2;
                 }
 
             }
@@ -830,7 +832,9 @@ public class player : MonoBehaviour
     }
     private void Awake()
     {
-        Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>().targetDisplay = 2;
+        Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
+        c.targetDisplay = 2;
+        c.targetTexture = new RenderTexture(Screen.width,Screen.height,1000);
         if (GetComponent<Photon.Pun.PhotonView>().IsMine)
         {
             GetComponent<Photon.Pun.PhotonView>().RPC("setColor", RpcTarget.OthersBuffered, memat.color.r, memat.color.g, memat.color.b);
