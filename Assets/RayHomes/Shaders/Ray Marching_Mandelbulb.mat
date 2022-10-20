@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Cube 1
-  m_Shader: {fileID: 4800000, guid: 23d2a10c823fec54895e5318ca6fb61c, type: 3}
+  m_Name: Ray Marching_Mandelbulb
+  m_Shader: {fileID: 4800000, guid: 16a3517f173b93d459ea4df5ff5f404b, type: 3}
   m_ValidKeywords:
   - _AMBIENTOCCLUSION_ON
   - _NORMALAPPROXMODE_FORWARD
   - _NORMALFILTERING_ON
   - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
+  - _SHADOWMODE_SOFT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,29 +27,25 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - P1: 0
-    - P2: 0
-    - P3: 0
-    - P4: 0
     - _AmbientOcclusion: 1
     - _AmbientOcclusionMultiplier: 1
     - _AmbientOcclusionSamples: 5
     - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2.09
-    - _Iterations: 10
-    - _MaxDistance: 100
-    - _MaxSteps: 200
+    - _EscapeRadius: 2
+    - _Iterations: 8
+    - _MaxDistance: 300
+    - _MaxSteps: 95
     - _Metallic: 1
     - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.0002
+    - _NormalApproxStep: 0.001
     - _NormalFiltering: 1
     - _Power: 8
     - _RelativeTolerance: 1
-    - _Scale: 0.5
-    - _ShadowMode: 0
-    - _Smoothness: 1
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.00001
+    - _Scale: 0.4
+    - _ShadowMode: 2
+    - _Smoothness: 0.308
+    - _SoftShadowFactor: 60
+    - _Tolerance: 0.01
     m_Colors:
-    - _Tint: {r: 0, g: 0, b: 0, a: 1}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
