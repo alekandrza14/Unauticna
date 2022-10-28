@@ -355,25 +355,113 @@ public class ElementalInventory : MonoBehaviour {
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.F4) && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
-        {
+		if (Input.GetKeyDown(KeyCode.F4) && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
+		{
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null)
-                {
-                    Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
+			Ray r = musave.pprey();
+			RaycastHit hit;
+			if (Physics.Raycast(r, out hit))
+			{
+				if (hit.collider != null)
+				{
+					Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
+					Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
 
-                }
+				}
 
-            }
-            removeitem("box1");
+			}
+			removeitem("box1");
+		}
+		if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
+		{
+			Ray r = musave.pprey();
+			RaycastHit hit;
+			if (Physics.Raycast(r, out hit))
+			{
+				if (hit.collider != null)
+				{
+					if (hit.collider.gameObject.layer == 6)
+					{
+						Destroy(hit.collider.gameObject);
+					}
+				}
+			}
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
+		{
+
+			Ray r = musave.pprey();
+			RaycastHit hit;
+			if (Physics.Raycast(r, out hit))
+			{
+				if (hit.collider != null)
+				{
+					if (hit.collider.gameObject.layer != 6)
+					{
+						Instantiate(inv2("пена").gameObject, hit.point + Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+					}
+				}
+
+			}
+			if (Physics.Raycast(r, out hit))
+			{
+				if (hit.collider != null)
+				{
+					if (hit.collider.gameObject.layer == 6)
+					{
+						if (hit.point.x > hit.collider.transform.position.x + 0.4f)
+						{
+							Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
+						}
+
+					}
+					if (hit.collider.gameObject.layer == 6)
+					{
+						if (hit.point.x < hit.collider.transform.position.x - 0.4f)
+						{
+							Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.right, Quaternion.identity);
+						}
+
+					}
+					if (hit.collider.gameObject.layer == 6)
+					{
+						if (hit.point.y > hit.collider.transform.position.y + 0.4f)
+						{
+							Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.up, Quaternion.identity);
+						}
+
+					}
+					if (hit.collider.gameObject.layer == 6)
+					{
+						if (hit.point.y < hit.collider.transform.position.y - 0.4f)
+						{
+							Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.up, Quaternion.identity);
+						}
+
+					}
+					if (hit.collider.gameObject.layer == 6)
+					{
+						if (hit.point.z > hit.collider.transform.position.z + 0.4f)
+						{
+							Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.forward, Quaternion.identity);
+						}
+
+					}
+					if (hit.collider.gameObject.layer == 6)
+					{
+						if (hit.point.z < hit.collider.transform.position.z - 0.4f)
+						{
+							Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.forward, Quaternion.identity);
+						}
+
+					}
+				}
+
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
         {
 
             Ray r = musave.pprey();
@@ -440,18 +528,18 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("belock");
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab) && select == 0 && boxItem.getInventory("i3").inventory == this && !nosell)
+        if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
         {
 
             Ray r = musave.pprey();
             RaycastHit hit;
             if (Physics.Raycast(r, out hit))
             {
-                if (hit.collider && Cells[0].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+                if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
                 {
 
 
-                    setItem(toname(hit.collider.tag), 1, Color.red, 0);
+                    setItem(toname(hit.collider.tag), 1, Color.red, select);
                     Destroy(hit.collider.gameObject);
                     sh = true;
                 }
@@ -461,47 +549,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Tab) && select == 1 && boxItem.getInventory("i3").inventory == this && !nosell)
-        {
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider && Cells[1].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
-                {
-
-
-                    setItem(toname(hit.collider.tag), 1, Color.red, 1);
-                    Destroy(hit.collider.gameObject);
-                    sh = true;
-                }
-
-            }
-
-
-
-
-        }
-        if (Input.GetKeyDown(KeyCode.Tab) && select == 2 && boxItem.getInventory("i3").inventory == this && !nosell)
-        {
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider && Cells[2].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
-                {
-
-
-                    setItem(toname(hit.collider.tag), 1, Color.red, 2);
-                    Destroy(hit.collider.gameObject);
-                    sh = true;
-                }
-
-            }
-
-
-
-        }
+		
 		if (FindObjectsOfType<Camd>().Length == 0)
 		{
 
@@ -525,18 +573,18 @@ public class ElementalInventory : MonoBehaviour {
 
 	private void euclideanray()
 	{
-		if (Input.GetKeyDown(KeyCode.Tab) && select == 0 && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
+		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
 
 			Ray r = musave.pprey();
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
-				if (hit.collider && Cells[0].elementCount != 0)
+				if (hit.collider && Cells[select].elementCount != 0)
 				{
-					Instantiate(inv2(Cells[0].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[0].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
-					setItem("", 0, Color.red, 0);
-					Cells[0].UpdateCellInterface();
+					Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+					setItem("", 0, Color.red, select);
+					Cells[select].UpdateCellInterface();
 				}
 
 			}
@@ -544,53 +592,18 @@ public class ElementalInventory : MonoBehaviour {
 
 
 		}
-		if (Input.GetKeyDown(KeyCode.Tab) && select == 1 && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
-		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
-				if (hit.collider && Cells[1].elementCount != 0)
-				{
-					Instantiate(inv2(Cells[1].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[1].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
-					setItem("", 0, Color.red, 1);
-					Cells[1].UpdateCellInterface();
-				}
-
-			}
-
-
-
-		}
-		if (Input.GetKeyDown(KeyCode.Tab) && select == 2 && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
-		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
-				if (hit.collider && Cells[2].elementCount != 0)
-				{
-					Instantiate(inv2(Cells[2].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[2].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
-					setItem("", 0, Color.red, 2);
-					Cells[2].UpdateCellInterface();
-				}
-
-			}
-
-
-
-		}
+		
 	}
 	private void hyperbolicray()
 	{
-		if (Input.GetKeyDown(KeyCode.Tab) && select == 0 && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
+		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
 
 			Ray r = musave.pprey();
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
-				if (hit.collider && Cells[0].elementCount != 0)
+				if (hit.collider && Cells[select].elementCount != 0)
 				{
 					Vector3 v3;
 					v3 = hit.point - musave.isplayer().position;
@@ -598,16 +611,16 @@ public class ElementalInventory : MonoBehaviour {
 					Camd c = Camd.Main();
 					
 					
-					Transform t = Instantiate(inv2(Cells[0].elementName).gameObject, Vector3.up * inv2(Cells[0].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+					Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
 					t.Translate(0,v3.y,0);
 					t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
 					t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
 					t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
 					t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-					t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[0].elementName).gameObject.transform.localScale;
+					t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
 
 					Destroy(t.gameObject.GetComponent<Rigidbody>());
-					setItem("", 0, Color.red, 0);
+					setItem("", 0, Color.red, select);
 					Cells[0].UpdateCellInterface();
 				}
 
@@ -616,68 +629,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 		}
-		if (Input.GetKeyDown(KeyCode.Tab) && select == 1 && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
-		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
-				if (hit.collider && Cells[1].elementCount != 0)
-				{
-					Vector3 v3;
-					v3 = hit.point - musave.isplayer().position;
-					v3 /= 20;
-					Camd c = Camd.Main();
-
-
-					Transform t = Instantiate(inv2(Cells[1].elementName).gameObject, Vector3.up * inv2(Cells[1].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-					t.Translate(0, v3.y, 0);
-					t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-					t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-					t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-					t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-					t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[1].elementName).gameObject.transform.localScale;
-					Destroy(t.gameObject.GetComponent<Rigidbody>());
-					setItem("", 0, Color.red, 1);
-					Cells[1].UpdateCellInterface();
-				}
-
-			}
-
-
-
-		}
-		if (Input.GetKeyDown(KeyCode.Tab) && select == 2 && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
-		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
-				if (hit.collider && Cells[2].elementCount != 0)
-				{
-					Vector3 v3;
-					v3 = hit.point - musave.isplayer().position;
-					v3 /= 20;
-					Camd c = Camd.Main();
-
-
-					Transform t = Instantiate(inv2(Cells[2].elementName).gameObject, Vector3.up * inv2(Cells[2].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-					t.Translate(0, v3.y, 0);
-					t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-					t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-					t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-					t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x); 
-					t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[2].elementName).gameObject.transform.localScale;
-					Destroy(t.gameObject.GetComponent<Rigidbody>());
-					setItem("", 0, Color.red, 2);
-					Cells[2].UpdateCellInterface();
-				}
-
-			}
-
-
-
-		}
+		
 	}
 
 	public bool contains (string name, int count, Color color)
