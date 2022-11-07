@@ -17,7 +17,7 @@ public class MeshGenerator : MonoBehaviour {
     public Transform viewer;
     [ConditionalHide (nameof (fixedMapSize), false)]
     public float viewDistance = 30;
-
+    public bool generate;
     [Space ()]
     public bool autoUpdateInEditor = true;
     public bool autoUpdateInGame = true;
@@ -52,12 +52,20 @@ public class MeshGenerator : MonoBehaviour {
     bool settingsUpdated;
 
     void Awake () {
-        
+
 #if !UNITY_EDITOR
 numPointsPerAxis = 100;
         RequestMeshUpdate();
+        if (Application.isPlaying && !fixedMapSize && generate) {
+        numPointsPerAxis = 50;
+            InitVariableChunkStructures ();
+            var oldChunks = FindObjectsOfType<Chunk> ();
+            for (int i = oldChunks.Length - 1; i >= 0; i--) {
+                Destroy (oldChunks[i].gameObject);
+            }
+        }
 #endif
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         numPointsPerAxis = 30;
         RequestMeshUpdate();
 

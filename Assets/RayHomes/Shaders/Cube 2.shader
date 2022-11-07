@@ -52,7 +52,7 @@
         float Hash(float2 p)
         {
             float d = dot(p, float2(12.9898f, 78.233f));
-            return frac(sin(d) * 43758.543123f);
+            return frac(sin(d) * 43758.5453123f);
         }
         float Noise(float2 p) {
             float2 i = floor(p);
@@ -175,6 +175,7 @@
 
                 }
             }
+            
             if (pos.x - P1 > 40) {
                 f = 1;
             }if (pos.x - P1 < -40) {

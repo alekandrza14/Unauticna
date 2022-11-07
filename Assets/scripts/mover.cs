@@ -86,7 +86,17 @@ public class mover : MonoBehaviour
     bool fly; bool Xray;
     public GameObject[] mybody;
     public Camd cd;
+    public GameObject model;
+    public bool inglobalspace;
 
+    public bool GETistp()
+    {
+        return isthirdperson;
+    }
+    public void SETistp(bool a)
+    {
+        isthirdperson =a;
+    }
     public Vector4 convertPvectorinVector4(Camd c1)
     {
         Vector4 v4 = new Vector4();
@@ -211,6 +221,7 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
+
         Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
         c.targetDisplay = 2;
         c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
@@ -297,7 +308,7 @@ public class mover : MonoBehaviour
             }
 
         }
-        if (!Photon.Pun.PhotonNetwork.IsConnected && !tutorial)
+        if (!Photon.Pun.PhotonNetwork.IsConnected && !tutorial && inglobalspace != true)
         {
             Instantiate(Resources.Load<GameObject>("player inventory"));
             WorldSave.GetVector4("var");
@@ -317,8 +328,23 @@ public class mover : MonoBehaviour
                 g1.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4 && !portallNumer.p5 && !portallNumer.p6 && !portallNumer.p7 && !portallNumer.p8)
                 {
-                    g.transform.position = save.pos;
-                    sr.transform.position = save.pos2;
+                    if (true) {
+                        g.transform.position = save.pos;
+
+                        sr.transform.position = save.pos2;
+                        g2.transform.position = sr.transform.position;
+                       
+                    }
+                    if (Globalprefs.isnew)
+                    {
+
+
+                        g.transform.position += Globalprefs.newv3;
+                        g.transform.rotation = Globalprefs.q[0];
+                        sr.transform.rotation = Globalprefs.q[2];
+                        g2.transform.rotation = Globalprefs.q[1];
+                        Globalprefs.isnew = false;
+                    }
                 }
                 g.transform.rotation = save.q1;
                 sr.transform.rotation = save.q3;
@@ -390,6 +416,14 @@ public class mover : MonoBehaviour
             }
         
    }
+
+    private void OnGUI()
+    {
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            GUI.DrawTexture(new Rect((Screen.width/2)-10, (Screen.height/2) - 10,  20,   20),Resources.Load<Texture>("cursor"));
+        }
+    }
     void Start()
     {
 
@@ -423,11 +457,13 @@ public class mover : MonoBehaviour
                 tsave = JsonUtility.FromJson<tsave>(File.ReadAllText("unsave/capter-" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text + "-" + (di.GetFiles().Length - 1)));
                 g1.angularVelocity = tsave.angularvelosyty;
                 g1.velocity = tsave.velosyty;
-                g.transform.position = tsave.pos; g2.transform.position = tsave.pos2;
-                sr.transform.position = tsave.pos2;
+                g.transform.position = tsave.pos;
                 g.transform.rotation = tsave.q1;
-                sr.transform.rotation = tsave.q3;
-                g2.transform.rotation = tsave.q2;
+                sr.transform.rotation = tsave.q2;
+                g2.transform.rotation = tsave.q3;
+                
+                sr.transform.position = tsave.pos2;
+                g2.transform.position = sr.transform.position;
                 if (cd!=null)
                 {
 
@@ -510,18 +546,23 @@ public class mover : MonoBehaviour
     }
     public void stop()
     {
-        GetComponent<CapsuleCollider>().height = vel;
-        if (tjump < -vel * 2)
+        if (inglobalspace != true)
         {
 
 
-            GetComponent<CapsuleCollider>().height += -tjump * 0.5f;
-        }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
-        {
+            GetComponent<CapsuleCollider>().height = vel;
+            if (tjump < -vel * 2)
+            {
 
 
-            g1.velocity = Vector3.zero;
+                GetComponent<CapsuleCollider>().height += -tjump * 0.5f;
+            }
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+            {
+
+
+                g1.velocity = Vector3.zero;
+            }
         }
 
     }
@@ -686,10 +727,11 @@ public class mover : MonoBehaviour
         if (!isthirdperson)
         {
             g2.transform.position = sr.transform.position;
+            model.SetActive(false);
         }
         if (isthirdperson)
         {
-
+            model.SetActive(true);
             Ray r = new Ray(sr.transform.position, -sr.transform.forward);
             RaycastHit hit1;
             if (Physics.Raycast(r, out hit1))
@@ -857,7 +899,9 @@ public class mover : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
         }
-        if (!issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+        
+
+            if (!issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
         {
 
             RenderSettings.fogStartDistance = fog;
@@ -960,7 +1004,7 @@ public class mover : MonoBehaviour
 
             isthirdperson = !isthirdperson;
         }
-        if (!Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G))
+        if (!Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && inglobalspace != true)
         {
             tics += Time.deltaTime;
             g1.useGravity = true;
@@ -989,7 +1033,7 @@ public class mover : MonoBehaviour
             }
         }
 
-        if (issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
+        if (issweming && inglobalspace == true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
         {
             if (!del.stopPlayer)
             {
@@ -1049,7 +1093,7 @@ public class mover : MonoBehaviour
                 }
             }
             }
-        if (!issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
+        if (!issweming&& inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
         {
             if (!del.stopPlayer)
             {
@@ -1111,7 +1155,7 @@ public class mover : MonoBehaviour
                 }
             }
             }
-        if (issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+        if (issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
         {
 
 
@@ -1227,7 +1271,7 @@ public class mover : MonoBehaviour
         gsave.hp = hp;
 
 
-        if (Input.GetKey(KeyCode.F1) && !tutorial)
+        if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace)
         {
             playerdata.Saveeffect();
             save.idsave = ifd.text;
@@ -1249,14 +1293,14 @@ public class mover : MonoBehaviour
         load();
        
         
-        if (c == null && !issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G))
+        if (c == null && !issweming && !Input.GetKey(KeyCode.F) && inglobalspace != true && !Input.GetKey(KeyCode.G))
         {
             tjump -= Time.deltaTime * gr;
 
             g1.velocity += -transform.up * 10;
         }
-        
-        if (issweming)
+
+        if (issweming && inglobalspace != true)
         {
             if (tjump > 0)
             {
@@ -1280,25 +1324,97 @@ public class mover : MonoBehaviour
                 igr = false;
             }
         }
-        if (Input.GetKey(KeyCode.Space) && !igr && !issweming && s2 && !Input.GetKey(KeyCode.LeftShift))
+        if (inglobalspace == true && Input.GetKey(KeyCode.W))
+        {
+
+            anim.SetBool("swem", true);
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+            g1.velocity += g2.transform.forward * pl;
+            g1.useGravity = false;
+
+
+
+        }
+        if (inglobalspace == true && Input.GetKey(KeyCode.S))
+        {
+
+            anim.SetBool("swem", true);
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+            g1.velocity -= g2.transform.forward * pl;
+            g1.useGravity = false;
+
+
+
+        }
+        if (inglobalspace == true && Input.GetKey(KeyCode.D))
+        {
+
+            anim.SetBool("swem", true);
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+            g1.velocity += g2.transform.right * pl;
+            g1.useGravity = false;
+
+
+
+        }
+        if (inglobalspace == true && Input.GetKey(KeyCode.A))
+        {
+
+            anim.SetBool("swem", true);
+
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            g1.velocity -= g2.transform.right * pl;
+            g1.useGravity = false;
+
+
+
+        }
+        if (inglobalspace == true && Input.GetKey(KeyCode.Space))
+        {
+
+            anim.SetBool("swem", true);
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+            g1.velocity += g2.transform.up * pl;
+            g1.useGravity = false;
+
+
+
+        }
+        if (inglobalspace == true && Input.GetKey(KeyCode.LeftControl))
+        {
+
+            anim.SetBool("swem", true);
+
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            g1.velocity -= g2.transform.up * pl;
+            g1.useGravity = false;
+
+
+
+        }
+        if (Input.GetKey(KeyCode.Space) && !igr && !issweming && inglobalspace != true && s2 && !Input.GetKey(KeyCode.LeftShift))
         {
             igr = true;
         }
-        if (igr && !issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && s2)
+        if (igr && !issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && s2 && inglobalspace != true)
         {
             g1.velocity += transform.up * jump * tjump;
         }
-        if (igr && !issweming && !s2)
+        if (igr && !issweming && !s2 && inglobalspace != true)
         {
             g1.velocity -= transform.up * tjump;
             g1.velocity += -transform.up * -50;
         }
 
-        if (Input.GetKey(KeyCode.Space) && !igr && issweming && tjump < rjump / 2 && !Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.Space) && !igr && issweming && tjump < rjump / 2 && !Input.GetKey(KeyCode.LeftShift) && inglobalspace != true )
         {
             igr = true;
         }
-        if (igr && issweming)
+        if (igr && issweming && inglobalspace != true)
         {
             tjump = rjump;
         }
@@ -1410,7 +1526,7 @@ public class mover : MonoBehaviour
 
 
 
-        if (!tutorial && !Input.GetKey(KeyCode.G) && Random.Range(0,3) ==2)
+        if (!tutorial && !Input.GetKey(KeyCode.G) && Random.Range(0,8) ==2)
         {
 
 
@@ -1420,7 +1536,7 @@ public class mover : MonoBehaviour
             tsave.q1 = g.transform.rotation;
             tsave.q2 = g2.transform.rotation;
             tsave.pos = g.transform.position;
-            tsave.pos2 = g2.transform.position;
+            tsave.pos2 = sr.transform.position;
             tsave.vive = Camera.main.fieldOfView;
             if (cd != null)
             {

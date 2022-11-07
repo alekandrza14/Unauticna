@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum param
 {
-    i,j, k, u,y,o
+    i, j, k, u, y, o
 }
+
 [ExecuteAlways]
 [ExecuteInEditMode]
 public class snow : MonoBehaviour
@@ -23,15 +24,16 @@ public class snow : MonoBehaviour
     public bool y;
     public MeshRenderer m;
     public param p;
+    public decimal Fract(decimal value) { return value - decimal.Truncate(value); }
 
     public float Frac(float value)
     {
-        return (float)((decimal)value - decimal.Truncate((decimal)value));
+        return (float)Fract((decimal)value);
     }
     float Hash(Vector2 p)
     {
-        float d = Vector2.Dot(p, new Vector2(12.9898f, 78.233f));
-        return Frac(Mathf.Sin(d) * 43758.543123f);
+        float d = Vector2.Dot(-p, new Vector2(12.9898f, 78.233f));
+        return Frac(Mathf.Sin(d) * 43758.5453123f);
     }
     
     float Noise(Vector2 p)
@@ -173,6 +175,7 @@ public class snow : MonoBehaviour
             t.position = v3;
             
         }
+        /*
         if (v3.x > 40 * f)
         {
             v3.y = -Mathf.Infinity;
@@ -189,6 +192,7 @@ public class snow : MonoBehaviour
         {
             v3.y = -Mathf.Infinity;
         }
+        */
        f4 = v3.y;
         if (v3.y * f > t.position.y + f2 && p == param.o)
         {

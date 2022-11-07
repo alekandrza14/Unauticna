@@ -17,6 +17,7 @@ public class tesseraktenemy4 : MonoBehaviour
     public float move_speed = 10;
     public float rotation_speed = 100;
     public Transform enemy;
+    public bool tes;
     // Start is called before the first frame update
     void Start()
     {

@@ -323,8 +323,8 @@ public class musave : MonoBehaviourPunCallbacks
         {
 
 
-            r = GameObject.FindObjectOfType<mover>().g2.transform.GetChild(0).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            GameObject.FindObjectOfType<mover>().g2.transform.GetChild(0).GetComponent<Camera>().targetDisplay = 2;
+            r = GameObject.FindObjectOfType<mover>().g2.transform.GetChild(1).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            GameObject.FindObjectOfType<mover>().g2.transform.GetChild(1).GetComponent<Camera>().targetDisplay = 2;
         }
         if (GameObject.FindObjectsOfType<player>().Length != 0)
         {
@@ -539,6 +539,7 @@ public class player : MonoBehaviour
     public Color d;
     public Camd cd = null;
     public Camdpoint sp = null;
+    public GameObject model;
     public Vector4 convertPvectorinVector4(Camd c1)
     {
         Vector4 v4 = new Vector4();
@@ -1120,10 +1121,11 @@ public class player : MonoBehaviour
             if (!isthirdperson)
             {
                 g2.transform.position = sr.transform.position;
+                model.SetActive(false);
             }
             if (isthirdperson)
             {
-
+                model.SetActive(true);
                 Ray r = new Ray(sr.transform.position, -sr.transform.forward);
                 RaycastHit hit;
                 if (Physics.Raycast(r, out hit))
