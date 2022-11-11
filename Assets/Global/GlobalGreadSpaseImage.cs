@@ -31,7 +31,7 @@ public class GlobalGreadSpaseImage : MonoBehaviour
     {
         Debug.Log(Path.GetDirectoryName(Application.dataPath) + @"\unsave\var\Screenshot.png");
         Debug.Log(Path.GetDirectoryName("unsave/var/Screenshot.png"));
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(Path.GetDirectoryName(Application.dataPath) + @"\unsave\var\Screenshot.png"))
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\unsave\var\Screenshot.png"))
         {
             yield return uwr.SendWebRequest();
 
