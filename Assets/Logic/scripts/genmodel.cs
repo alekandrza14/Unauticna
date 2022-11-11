@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public class custommedelsave
+{
+    public string[] name;
+    public Vector3[] v3;
+}
 
 
 public class genmodel : MonoBehaviour
@@ -8,16 +13,18 @@ public class genmodel : MonoBehaviour
    public MeshFilter mf;
     public Vector3[] verti;
     public int[] tria;
+    public string s;
     // Start is called before the first frame update
     void Start()
     {
        mf.mesh = generate();
+        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
     }
 
     private Mesh generate()
     {
         ObjParser.Obj newobj = new ObjParser.Obj();
-        newobj.LoadObj("res/cube.obj");
+        newobj.LoadObj("res/"+s+".obj");
         var mesh = new Mesh();
         mesh.name = "cube";
         Vector3[] vertices = new Vector3[newobj.VertexList.Count];

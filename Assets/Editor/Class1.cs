@@ -37,6 +37,7 @@ public class ScriptBatch
             FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex2.exe", path + "/Application/Unauticna.exe");
         }
         FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Array", path + "/windows");
+        FileUtil.CopyFileOrDirectory("res", path + "/res");
 
         // Run the game (Process class from System.Diagnostics).
         /*

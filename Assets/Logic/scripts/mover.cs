@@ -88,6 +88,239 @@ public class mover : MonoBehaviour
     public Camd cd;
     public GameObject model;
     public bool inglobalspace;
+    void getSignal()
+    {
+        int vaule = 0;
+        if (File.Exists("C:/myMods/sig1.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig1.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position += (gameObject.transform.forward) * vaule;
+                    File.Delete("C:/myMods/sig1.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig4.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig4.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position -= (gameObject.transform.forward) * vaule;
+                    File.Delete("C:/myMods/sig4.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig2.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig2.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position -= (gameObject.transform.right) * vaule;
+                    File.Delete("C:/myMods/sig2.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig3.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig3.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position += (gameObject.transform.right) * vaule;
+                    File.Delete("C:/myMods/sig3.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig5.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig5.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position += (gameObject.transform.up) * vaule;
+                    File.Delete("C:/myMods/sig5.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig6.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig6.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position -= (gameObject.transform.up) * vaule;
+                    File.Delete("C:/myMods/sig6.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig7.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig7.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position = (gameObject.transform.position);
+                    File.Delete("C:/myMods/sig7.sig");
+                }
+            }
+
+        }
+        string vaule1 = "";
+        if (File.Exists("C:/myMods/spawn.sig"))
+        {
+            vaule1 = File.ReadAllText("C:/myMods/spawn.sig");
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                  genmodel g =  Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
+                    g.s = vaule1;
+                    g.gameObject.transform.position = hit.point;
+                    File.Delete("C:/myMods/spawn.sig");
+                    List<string> name = new List<string>();
+                    List<Vector3> v3 = new List<Vector3>();
+                    for (int i =0;i<GameObject.FindObjectsOfType<genmodel>().Length;i++)
+                    {
+                        name.Add(FindObjectsOfType<genmodel>()[i].s);
+                        v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
+                    }
+                    custommedelsave cms = new custommedelsave();
+                    cms.name = name.ToArray();
+                    cms.v3 = v3.ToArray();
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms));
+                
+                }
+            }
+
+        }
+        //используйте на здоровье
+        /*
+        if (File.Exists("C:/myMods/sig1.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig1.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position += (gameObject.transform.forward*vaule) - gameObject.transform.position;
+                    File.Delete("C:/myMods/sig1.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig4.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig4.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position -= (gameObject.transform.forward * vaule) - gameObject.transform.position;
+                    File.Delete("C:/myMods/sig4.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig2.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig2.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position -= (gameObject.transform.right * vaule) - gameObject.transform.position;
+                    File.Delete("C:/myMods/sig2.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig3.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig3.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position += (gameObject.transform.right * vaule) - gameObject.transform.position;
+                    File.Delete("C:/myMods/sig3.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig5.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig5.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position += (gameObject.transform.up * vaule) - gameObject.transform.position;
+                    File.Delete("C:/myMods/sig5.sig");
+                }
+            }
+
+        }
+        if (File.Exists("C:/myMods/sig6.sig"))
+        {
+            vaule = int.Parse(File.ReadAllText("C:/myMods/sig6.sig"));
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    hit.collider.transform.position -= (gameObject.transform.up * vaule) - gameObject.transform.position;
+                    File.Delete("C:/myMods/sig6.sig");
+                }
+            }
+
+        }
+        */
+
+    }
 
     public bool GETistp()
     {
@@ -221,7 +454,14 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
-
+        if (VarSave.EnterFloat("cms"+SceneManager.GetActiveScene().buildIndex)) {
+            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex));
+            for (int i = 0; i < cms.name.Length; i++)
+            {
+                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
+                g.s = cms.name[i];
+            }
+        }
         Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
         c.targetDisplay = 2;
         c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
@@ -650,7 +890,7 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
-        
+        getSignal();
         if (isplanet)
         {
             

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class inputButton
 {
@@ -308,7 +309,20 @@ public class ElementalInventory : MonoBehaviour {
 	}
 	private void Update()
     {
-        if (boxItem.getInventory("i3").inventory.nosell == true && boxItem.getInventory("i3").inventory != this)
+		int vaule = 0;
+		if (File.Exists("C:/myMods/give.sig"))
+		{
+			vaule = int.Parse(File.ReadAllText("C:/myMods/give.sig"));
+			
+				if (Input.GetKeyDown(KeyCode.Mouse0))
+				{
+					setItem(toname(itemtags[vaule]), 1, Color.red, select);
+					File.Delete("C:/myMods/give.sig");
+				}
+			
+
+		}
+		if (boxItem.getInventory("i3").inventory.nosell == true && boxItem.getInventory("i3").inventory != this)
         {
             nosell = false;
         }
