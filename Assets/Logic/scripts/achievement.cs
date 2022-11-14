@@ -82,6 +82,13 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "поздравляю вы сдохли от : подения";
             VarSave.SetBool("переломал кости и от правлен в больницу", false);
         }
+        //"прикоснулся к анти материи"
+        if (VarSave.GetBool("прикоснулся к анти материи"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "нравикс был анигилирован";
+            VarSave.SetBool("прикоснулся к анти материи", false);
+        }
     }
 
     // Update is called once per frame

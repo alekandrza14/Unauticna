@@ -59,7 +59,7 @@ public class ElementalInventory : MonoBehaviour {
 	}
 	public GameObject inv2(string name)
 	{
-		GameObject g1 = GameObject.FindObjectsOfType<GameObject>()[0];
+		GameObject g1 = Resources.Load<GameObject>("death_point");
 		for (int i = 0; i < nunames.Length; i++)
 		{
 			if (i < nunames.Length)
@@ -70,8 +70,8 @@ public class ElementalInventory : MonoBehaviour {
 				{
 
 
-					g1 = Resources.Load<GameObject>("items/" + name);
-					i = nunames.Length;
+					return Resources.Load<GameObject>("death_point");
+					
 				}
 			}
 			if (i < nunames.Length)
@@ -88,20 +88,115 @@ public class ElementalInventory : MonoBehaviour {
 			{
 				if (!Resources.GetBuiltinResource<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex + "/" + name))
 				{
+					
 
-
-					g1 = Resources.Load<GameObject>("items/" + name);
-					i = nunames.Length;
+						g1 = Resources.Load<GameObject>("items/" + name);
+						i = nunames.Length;
+					
 				}
 			}
 
 		}
-            if (nunames.Length == 0)
+        if (nunames.Length == 0)
         {
-			g1 = Resources.Load<GameObject>("items/" + name);
-		}
+			
+			for (int i = 0; i < itemnames.Length; i++)
+			{
+				if (i < itemnames.Length)
+				{
 
-       return g1;
+
+					if (itemnames[i] != name)
+					{
+
+
+					g1=  Resources.Load<GameObject>("death_point");
+						
+					}
+				}
+				if (i < itemnames.Length)
+				{
+					
+
+
+						g1 =  Resources.Load<GameObject>("items/" + name);
+						
+					
+				}
+
+			}
+		}
+		int t = 0;
+		for (int i = name.Length - 1; i > 0; i--)
+		{
+			if (name[i] == 'x')
+			{
+				t++;
+			}
+			if (name[i] != 'x' && t != 0)
+			{
+				string namet = name.Remove((name.Length) - t);
+				Debug.Log(namet);
+				if (true)
+				{
+
+
+					GameObject p = Resources.Load<GameObject>("items/" + namet);
+					if (p)
+					{
+						if (!p.GetComponent<breauty>())
+						{
+							p.AddComponent<breauty>().integer = 10 - t;
+						}
+						if (p.GetComponent<breauty>())
+						{
+							p.GetComponent<breauty>().integer = 10 - t;
+						}
+						if (true)
+						{
+
+
+							g1 = p;
+						}
+					}
+				}
+				i = 0;
+
+
+			}
+
+		}
+		if (true)
+		{
+
+
+			GameObject p = Resources.Load<GameObject>("items/" + name);
+			if (p)
+			{
+				if (!p.GetComponent<breauty>())
+				{
+					p.AddComponent<breauty>().integer = 10;
+				}
+				if (p.GetComponent<breauty>())
+				{
+					p.GetComponent<breauty>().integer = 10;
+				}
+				if (true)
+				{
+
+
+					g1 = p;
+				}
+			}
+		}
+				
+
+
+			
+
+		
+		t = 0;
+		return g1;
 	}
 	public string toname(string name)
 	{
@@ -146,6 +241,40 @@ public class ElementalInventory : MonoBehaviour {
 		return s2;
 
 	}
+	public string fullname(RaycastHit h)
+    {
+		string s = "";
+		string s1 = "";
+		int x = 0;
+		
+		//(clone)
+		if (h.collider.name[h.collider.name.Length-1] ==')')
+		{
+			s1 = h.collider.name.Remove(h.collider.name.Length - 7);
+		}
+		s += s1;
+		x = 10 - h.collider.GetComponent<breauty>().integer;
+		if (x >= 0)
+		{
+
+			Destroy(h.collider.gameObject);
+		}
+		if (x < 0)
+		{
+
+			h.collider.GetComponent<breauty>().integer -= 10;
+			h.collider.GetComponent<breauty>().resset();
+		}
+		if (x ==0)
+        {
+			Debug.Log("pipets");
+        }
+		for (int i =0;i<x;i++)
+        {
+			s += 'x';
+        }
+		return s;
+    }
 	public bool tag2(GameObject name)
 	{
 
@@ -210,21 +339,24 @@ public class ElementalInventory : MonoBehaviour {
 				Cells[i].elementName = name + "x";
 				Cells[i].elementCount = 1;
 				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
+				
+				return;
 			}
 			if (Cells[i].elementName == name + "x")
 			{
 				Cells[i].elementName = name + "xx";
 				Cells[i].elementCount = 1;
 				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
+				
+				return;
 			}
 			if (Cells[i].elementName == name + "xx")
 			{
 				Cells[i].elementName = name + "xxx";
 				Cells[i].elementCount = 1;
 				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
+				
+				return;
 			}
 
 			if (Cells[i].elementName == name + "xxx")
@@ -232,21 +364,24 @@ public class ElementalInventory : MonoBehaviour {
 				Cells[i].elementName = name + "xxxx";
 				Cells[i].elementCount = 1;
 				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
+				
+				return;
 			}
 			if (Cells[i].elementName == name + "xxxx")
 			{
 				Cells[i].elementName = name + "xxxxx";
 				Cells[i].elementCount = 1;
 				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
+				
+				return;
 			}
 			if (Cells[i].elementName == name + "xxxxx")
 			{
 				Cells[i].elementName = "";
 				Cells[i].elementCount = 0;
 				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
+				
+				return;
 			}
 		}
 	}
@@ -507,12 +642,12 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider != null)
                 {
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
                 }
 
@@ -579,8 +714,8 @@ public class ElementalInventory : MonoBehaviour {
 					{
 
 
-						setItem(toname(hit.collider.tag), 1, Color.red, select);
-						Destroy(hit.collider.gameObject);
+						setItem(fullname(hit), 1, Color.red, select);
+						Cells[select].UpdateCellInterface();
 						sh = true;
 					}
 
@@ -603,8 +738,8 @@ public class ElementalInventory : MonoBehaviour {
 					{
 
 
-						setItem(toname(hit.collider.tag), 1, Color.red, select);
-						Destroy(hit.collider.gameObject);
+						setItem(fullname(hit), 1, Color.red, select);
+						Cells[select].UpdateCellInterface();
 						sh = true;
 					}
 
