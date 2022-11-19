@@ -110,12 +110,7 @@ public class RandomItem : MonoBehaviour {
 
 
 
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			inventory.gameObject.SetActive (false);
-		}
-		if (Input.GetKeyDown (KeyCode.Tab)) {
-			inventory.gameObject.SetActive (true);
-		}
+		
 	}
 
 }

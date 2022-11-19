@@ -13,6 +13,7 @@ public class load1
     static public bool islight;
     static public bool isCamd;
     static public bool isplanet;
+    static public bool stad;
     public static PolarTransform pt;
     static public RawImage watermask;
     static public float gr; static public float pl;
@@ -86,6 +87,7 @@ public class mover : MonoBehaviour
     bool fly; bool Xray;
     public GameObject[] mybody;
     public Camd cd;
+    public bool stand_stay;
     public GameObject model;
     public bool inglobalspace;
     void getSignal()
@@ -454,6 +456,7 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
+        stand_stay = load1.stad;
         if (VarSave.EnterFloat("cms"+SceneManager.GetActiveScene().buildIndex)) {
             custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex));
             for (int i = 0; i < cms.name.Length; i++)
@@ -890,6 +893,11 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            stand_stay = !stand_stay;
+            load1.stad = stand_stay;
+        }
         getSignal();
         if (isplanet)
         {
@@ -1141,7 +1149,7 @@ public class mover : MonoBehaviour
         }
         
 
-            if (!issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+            if (!stand_stay&&!issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
         {
 
             RenderSettings.fogStartDistance = fog;
@@ -1273,7 +1281,7 @@ public class mover : MonoBehaviour
             }
         }
 
-        if (issweming && inglobalspace == true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
+        if (!stand_stay && issweming && inglobalspace == true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
         {
             if (!del.stopPlayer)
             {
@@ -1333,7 +1341,7 @@ public class mover : MonoBehaviour
                 }
             }
             }
-        if (!issweming&& inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
+        if (!stand_stay && !issweming&& inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
         {
             if (!del.stopPlayer)
             {
@@ -1395,7 +1403,7 @@ public class mover : MonoBehaviour
                 }
             }
             }
-        if (issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+        if (!stand_stay && issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
         {
 
 
@@ -1564,7 +1572,7 @@ public class mover : MonoBehaviour
                 igr = false;
             }
         }
-        if (inglobalspace == true && Input.GetKey(KeyCode.W))
+        if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.W))
         {
 
             anim.SetBool("swem", true);
@@ -1576,7 +1584,7 @@ public class mover : MonoBehaviour
 
 
         }
-        if (inglobalspace == true && Input.GetKey(KeyCode.S))
+        if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.S))
         {
 
             anim.SetBool("swem", true);
@@ -1588,7 +1596,7 @@ public class mover : MonoBehaviour
 
 
         }
-        if (inglobalspace == true && Input.GetKey(KeyCode.D))
+        if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.D))
         {
 
             anim.SetBool("swem", true);
@@ -1600,7 +1608,7 @@ public class mover : MonoBehaviour
 
 
         }
-        if (inglobalspace == true && Input.GetKey(KeyCode.A))
+        if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.A))
         {
 
             anim.SetBool("swem", true);
@@ -1612,7 +1620,7 @@ public class mover : MonoBehaviour
 
 
         }
-        if (inglobalspace == true && Input.GetKey(KeyCode.Space))
+        if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.Space))
         {
 
             anim.SetBool("swem", true);
@@ -1624,7 +1632,7 @@ public class mover : MonoBehaviour
 
 
         }
-        if (inglobalspace == true && Input.GetKey(KeyCode.LeftControl))
+        if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.LeftControl))
         {
 
             anim.SetBool("swem", true);
@@ -1636,7 +1644,7 @@ public class mover : MonoBehaviour
 
 
         }
-        if (Input.GetKey(KeyCode.Space) && !igr && !issweming && inglobalspace != true && s2 && !Input.GetKey(KeyCode.LeftShift))
+        if (!stand_stay && Input.GetKey(KeyCode.Space) && !igr && !issweming && inglobalspace != true && s2 && !Input.GetKey(KeyCode.LeftShift))
         {
             igr = true;
         }
@@ -1650,7 +1658,7 @@ public class mover : MonoBehaviour
             g1.velocity += -transform.up * -50;
         }
 
-        if (Input.GetKey(KeyCode.Space) && !igr && issweming && tjump < rjump / 2 && !Input.GetKey(KeyCode.LeftShift) && inglobalspace != true )
+        if (!stand_stay && Input.GetKey(KeyCode.Space) && !igr && issweming && tjump < rjump / 2 && !Input.GetKey(KeyCode.LeftShift) && inglobalspace != true )
         {
             igr = true;
         }
@@ -1663,11 +1671,11 @@ public class mover : MonoBehaviour
             
             gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (!stand_stay && Input.GetKeyDown(KeyCode.LeftShift))
         {
             anim.SetBool("sit",true);
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (!stand_stay && Input.GetKeyUp(KeyCode.LeftShift))
         {
             anim.SetBool("sit", false);
         }

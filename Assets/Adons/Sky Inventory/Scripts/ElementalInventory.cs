@@ -265,10 +265,7 @@ public class ElementalInventory : MonoBehaviour {
 			h.collider.GetComponent<breauty>().integer -= 10;
 			h.collider.GetComponent<breauty>().resset();
 		}
-		if (x ==0)
-        {
-			Debug.Log("pipets");
-        }
+		
 		for (int i =0;i<x;i++)
         {
 			s += 'x';
@@ -559,8 +556,23 @@ public class ElementalInventory : MonoBehaviour {
 					}
 				}
 			}
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
+		}
+		if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
+		{
+			Ray r = musave.pprey();
+			RaycastHit hit;
+			if (Physics.Raycast(r, out hit))
+			{
+				if (hit.collider != null)
+				{
+					GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
+					g.GetComponent<script>().sc = hit.collider.gameObject;
+					setItem("", 0, Color.red, select);
+					Cells[select].UpdateCellInterface();
+				}
+			}
+		}
+		if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
 		{
 
 			Ray r = musave.pprey();
