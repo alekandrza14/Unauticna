@@ -685,7 +685,7 @@ public class mover : MonoBehaviour
                 GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetFloat("mus");
             }
         }
-
+       
 
     }
     public void load()
