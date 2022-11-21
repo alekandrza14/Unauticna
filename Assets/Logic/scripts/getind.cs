@@ -16,11 +16,28 @@ public class getind : MonoBehaviour
     void Start()
     {
         g = new GameObject[FindObjectsOfType<ind>().Length];
-        for (int i = 0;i< FindObjectsOfType<ind>().Length;i++)
+        for (int i = 0; i < FindObjectsOfType<ind>().Length; i++)
         {
             g[i] = FindObjectsOfType<ind>()[i].gameObject;
         }
-        load();
+        if (VarSave.EnterFloat("processSettings"))
+        {
+            if (VarSave.GetInt("processSettings") > FindObjectsOfType<ind>().Length)
+            {
+
+
+                load();
+            }
+        }
+        if (!VarSave.EnterFloat("processSettings"))
+        {
+            if (stadart.data > FindObjectsOfType<ind>().Length)
+            {
+
+
+                load();
+            }
+        }
     }
     private void Update()
     {
@@ -48,18 +65,47 @@ public class getind : MonoBehaviour
     }
     public void save()
     {
-        vectorss vs = new vectorss();
-        if (FindObjectsOfType<ind>().Length != 0) {
-            vs.names = new string[FindObjectsOfType<ind>().Length];
-            vs.v3 = new Vector3[FindObjectsOfType<ind>().Length];
-            for (int i = 0; i < FindObjectsOfType<ind>().Length; i++)
+        if (VarSave.EnterFloat("processSettings"))
+        {
+            if (VarSave.GetInt("processSettings") > FindObjectsOfType<ind>().Length)
             {
-                if (FindObjectsOfType<ind>()[i].gameObject) {
-                    vs.names[i] += FindObjectsOfType<ind>()[i].name + FindObjectsOfType<ind>()[i].GetComponent<ind>().getind;
-                    vs.v3[i] = FindObjectsOfType<ind>()[i].transform.position;
+                vectorss vs = new vectorss();
+                if (FindObjectsOfType<ind>().Length != 0)
+                {
+                    vs.names = new string[FindObjectsOfType<ind>().Length];
+                    vs.v3 = new Vector3[FindObjectsOfType<ind>().Length];
+                    for (int i = 0; i < FindObjectsOfType<ind>().Length; i++)
+                    {
+                        if (FindObjectsOfType<ind>()[i].gameObject)
+                        {
+                            vs.names[i] += FindObjectsOfType<ind>()[i].name + FindObjectsOfType<ind>()[i].GetComponent<ind>().getind;
+                            vs.v3[i] = FindObjectsOfType<ind>()[i].transform.position;
+                        }
+                    }
+                    File.WriteAllText("unsave/var/log" + SceneManager.GetActiveScene().buildIndex + ".txt", JsonUtility.ToJson(vs));
                 }
             }
-            File.WriteAllText("unsave/var/log" + SceneManager.GetActiveScene().buildIndex + ".txt", JsonUtility.ToJson(vs));
+        }
+        if (!VarSave.EnterFloat("processSettings"))
+        {
+            if (stadart.data > FindObjectsOfType<ind>().Length)
+            {
+                vectorss vs = new vectorss();
+                if (FindObjectsOfType<ind>().Length != 0)
+                {
+                    vs.names = new string[FindObjectsOfType<ind>().Length];
+                    vs.v3 = new Vector3[FindObjectsOfType<ind>().Length];
+                    for (int i = 0; i < FindObjectsOfType<ind>().Length; i++)
+                    {
+                        if (FindObjectsOfType<ind>()[i].gameObject)
+                        {
+                            vs.names[i] += FindObjectsOfType<ind>()[i].name + FindObjectsOfType<ind>()[i].GetComponent<ind>().getind;
+                            vs.v3[i] = FindObjectsOfType<ind>()[i].transform.position;
+                        }
+                    }
+                    File.WriteAllText("unsave/var/log" + SceneManager.GetActiveScene().buildIndex + ".txt", JsonUtility.ToJson(vs));
+                }
+            }
         }
     }
 }

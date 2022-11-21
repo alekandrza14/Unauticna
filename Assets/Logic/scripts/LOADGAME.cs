@@ -5,6 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+public class stadart
+{
+    static public int data = 1000;
+}
 
 public class LOADGAME : MonoBehaviour
 {
@@ -13,6 +17,7 @@ public class LOADGAME : MonoBehaviour
     public ParticleSystem[] ps;
     public Material mat;
     public Animator camera;
+    public InputField data;
     public Toggle postrender;
     public Toggle isnotwindowed;
     public Color prc;
@@ -64,6 +69,14 @@ public class LOADGAME : MonoBehaviour
         if (File.Exists("unsave/s"))
         {
             ifd.text = File.ReadAllText("unsave/s");
+        }
+        if (VarSave.EnterFloat("processSettings"))
+        {
+            data.text = VarSave.GetInt("processSettings").ToString();
+        }
+        if (!VarSave.EnterFloat("processSettings"))
+        {
+            data.text = stadart.data.ToString();
         }
     }
     public void Tutorials()
@@ -228,6 +241,10 @@ public class LOADGAME : MonoBehaviour
             }
         }
     }
+    public void setprocessSetings()
+    {
+       VarSave.SetInt("processSettings",int.Parse( data.text));
+    }
     public void setcolorpr()
     {
 
@@ -235,6 +252,7 @@ public class LOADGAME : MonoBehaviour
     }
     public void voidupdate()
     {
+        
         if (fse.usewindowOpen)
         {
             for (int i = 0;i < buttons.Length;i++)

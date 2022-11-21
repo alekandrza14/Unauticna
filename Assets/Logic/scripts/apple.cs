@@ -42,7 +42,7 @@ public class apple : MonoBehaviour
         {
             if (VarSave.GetBool(var) == false && yt == type1.booly)
             {
-                varpp = 2;
+                varpp = 3;
             }
             if (VarSave.GetBool(var) == true && yt == type1.booly)
             {
@@ -113,6 +113,37 @@ public class apple : MonoBehaviour
 
 
                 objects2[i].SetActive(false);
+            }
+            for (int i = 0; i < objects3.Length; i++)
+            {
+
+
+
+                objects3[i].SetActive(true);
+            }
+        }
+        if (varpp == 3)
+        {
+            for (int i = 0; i < objects.Length; i++)
+            {
+
+
+                objects[i].SetActive(false);
+
+            }
+            for (int i = 0; i < objects2.Length; i++)
+            {
+
+
+
+                objects2[i].SetActive(false);
+            }
+            for (int i = 0; i < objects4.Length; i++)
+            {
+
+
+
+                objects4[i].SetActive(false);
             }
             for (int i = 0; i < objects3.Length; i++)
             {
