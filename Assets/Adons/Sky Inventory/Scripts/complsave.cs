@@ -202,11 +202,17 @@ public class complsave : MonoBehaviour
                     {
                         saveString1.x.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>().integer);
                     }
-                    else 
+                    else
                     {
                         saveString1.x.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].AddComponent<breauty>().integer = 10);
 
                     }
+                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>())
+                    {
+                        saveString1.PvectorA.Add(JsonUtility.ToJson(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>().p2));
+                        saveString1.y.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>().v1);
+                    }
+                    
 
 
                     saveString1.vector3A.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].transform.position);
@@ -231,8 +237,10 @@ public class complsave : MonoBehaviour
         File.WriteAllText(name2.ToString() + @"/scene_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
         saveString1.vector3A.Clear();
+        saveString1.PvectorA.Clear();
         saveString1.qA.Clear();
         saveString1.x.Clear();
+        saveString1.y.Clear();
         saveString1.id.Clear();
 
 
@@ -298,55 +306,99 @@ public class complsave : MonoBehaviour
 
 
         }
-        
 
 
 
-        for (int i3 = 0; i3 < saveString1.id.Count; i3++)
+        if (saveString1.PvectorA.Count == 0)
+        {
+
+
+            for (int i3 = 0; i3 < saveString1.id.Count; i3++)
             {
 
 
 
 
                 Debug.Log("1");
-              GameObject g =  Instantiate(t3[saveString1.id[i3]].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
-            if (!g.GetComponent<breauty>())
+                GameObject g = Instantiate(t3[saveString1.id[i3]].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                if (!g.GetComponent<breauty>())
+                {
+
+
+                    g.AddComponent<breauty>().integer = saveString1.x[i3];
+                }
+                else
+                {
+                    g.GetComponent<breauty>().integer = saveString1.x[i3];
+                }
+
+
+            }
+        }else
+        {
+            for (int i3 = 0; i3 < saveString1.id.Count; i3++)
             {
 
 
-                g.AddComponent<breauty>().integer = saveString1.x[i3];
-            }
-            else {
-                g.GetComponent<breauty>().integer = saveString1.x[i3];
-            }
+
+
+                Debug.Log("1");
+                GameObject g = Instantiate(t3[saveString1.id[i3]].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
+                if (!g.GetComponent<breauty>())
+                {
+
+
+                    g.AddComponent<breauty>().integer = saveString1.x[i3];
+                }
+                else
+                {
+                    g.GetComponent<breauty>().integer = saveString1.x[i3];
+                }
+                if (!g.GetComponent<Sphere>())
+                {
+
+
+                    g.AddComponent<Sphere>().p2 = JsonUtility.FromJson<PolarTransform>(saveString1.PvectorA[i3]);
+
+                    g.GetComponent<Sphere>().v1 = saveString1.y[i3];
+                }
+                else
+                {
+                    g.GetComponent<Sphere>().p2 = JsonUtility.FromJson<PolarTransform>(saveString1.PvectorA[i3]);
+
+                    g.GetComponent<Sphere>().v1 = saveString1.y[i3];
+                }
 
 
             }
+        }
 
 
 
 
 
-        
 
 
 
 
 
+
+
+
+        }
 
 
     }
-
-
-}
     [SerializeField]
 
 public class rsave
 {
     
     public List<Vector3> vector3A = new List<Vector3>();
+    public List<string> PvectorA = new List<string>();
     public List<Quaternion> qA = new List<Quaternion>();
     public List<int> x = new List<int>();
+    public List<float> y = new List<float>();
     public List<int> id = new List<int>();
     
     

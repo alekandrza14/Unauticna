@@ -7,7 +7,7 @@ public class Sphere : MonoBehaviour
 
     public PolarTransform p2 = new PolarTransform();
     public PolarTransform p3 = new PolarTransform();
-    public Vector3 ls;
+    public Vector3 ls = Vector3.one;
     public float v1 = 0;
     public float x;
     public bool px; public bool py; public bool mx; public bool my;

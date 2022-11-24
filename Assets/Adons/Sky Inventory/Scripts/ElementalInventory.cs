@@ -577,75 +577,105 @@ public class ElementalInventory : MonoBehaviour {
 
 			Ray r = musave.pprey();
 			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
+			if (FindObjectsOfType<Camd>().Length == 0)
 			{
-				if (hit.collider != null)
+				if (Physics.Raycast(r, out hit))
 				{
-					if (hit.collider.gameObject.layer != 6)
+					if (hit.collider != null)
 					{
-						Instantiate(inv2("пена").gameObject, hit.point + Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity);
+						if (hit.collider.gameObject.layer != 6)
+						{
+							Instantiate(inv2("пена").gameObject, hit.point + Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
+						}
 					}
-				}
 
+				}
+			
+				if (Physics.Raycast(r, out hit))
+				{
+					if (hit.collider != null)
+					{
+						if (hit.collider.gameObject.layer == 6)
+						{
+							if (hit.point.x > hit.collider.transform.position.x + 0.4f)
+							{
+								Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
+							}
+
+						}
+						if (hit.collider.gameObject.layer == 6)
+						{
+							if (hit.point.x < hit.collider.transform.position.x - 0.4f)
+							{
+								Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.right, Quaternion.identity);
+							}
+
+						}
+						if (hit.collider.gameObject.layer == 6)
+						{
+							if (hit.point.y > hit.collider.transform.position.y + 0.4f)
+							{
+								Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.up, Quaternion.identity);
+							}
+
+						}
+						if (hit.collider.gameObject.layer == 6)
+						{
+							if (hit.point.y < hit.collider.transform.position.y - 0.4f)
+							{
+								Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.up, Quaternion.identity);
+							}
+
+						}
+						if (hit.collider.gameObject.layer == 6)
+						{
+							if (hit.point.z > hit.collider.transform.position.z + 0.4f)
+							{
+								Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.forward, Quaternion.identity);
+							}
+
+						}
+						if (hit.collider.gameObject.layer == 6)
+						{
+							if (hit.point.z < hit.collider.transform.position.z - 0.4f)
+							{
+								Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.forward, Quaternion.identity);
+							}
+
+						}
+					}
+
+				}
 			}
-			if (Physics.Raycast(r, out hit))
+			else if(FindObjectsOfType<Camd>().Length > 0)
 			{
-				if (hit.collider != null)
+				if (Physics.Raycast(r, out hit))
 				{
-					if (hit.collider.gameObject.layer == 6)
+					if (hit.collider != null)
 					{
-						if (hit.point.x > hit.collider.transform.position.x + 0.4f)
-						{
-							Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
-						}
+						Vector3 v3;
+						v3 = hit.point - musave.isplayer().position;
+						v3 /= 20;
+						Camd c = Camd.Main();
 
-					}
-					if (hit.collider.gameObject.layer == 6)
-					{
-						if (hit.point.x < hit.collider.transform.position.x - 0.4f)
-						{
-							Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.right, Quaternion.identity);
-						}
 
+						Transform t = Instantiate(inv2("пена").gameObject, Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+						t.Translate(0, v3.y, 0);
+						t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
+						t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
+						t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
+						t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
+						t.gameObject.GetComponent<Sphere>().ls = inv2("пена").gameObject.transform.localScale;
+						//Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
+						
 					}
-					if (hit.collider.gameObject.layer == 6)
-					{
-						if (hit.point.y > hit.collider.transform.position.y + 0.4f)
-						{
-							Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.up, Quaternion.identity);
-						}
 
-					}
-					if (hit.collider.gameObject.layer == 6)
-					{
-						if (hit.point.y < hit.collider.transform.position.y - 0.4f)
-						{
-							Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.up, Quaternion.identity);
-						}
-
-					}
-					if (hit.collider.gameObject.layer == 6)
-					{
-						if (hit.point.z > hit.collider.transform.position.z + 0.4f)
-						{
-							Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.forward, Quaternion.identity);
-						}
-
-					}
-					if (hit.collider.gameObject.layer == 6)
-					{
-						if (hit.point.z < hit.collider.transform.position.z - 0.4f)
-						{
-							Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.forward, Quaternion.identity);
-						}
-
-					}
 				}
-
 			}
 		}
-		if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
+	
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
         {
 
             Ray r = musave.pprey();
