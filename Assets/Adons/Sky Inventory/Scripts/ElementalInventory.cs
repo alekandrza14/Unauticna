@@ -441,6 +441,11 @@ public class ElementalInventory : MonoBehaviour {
 	}
 	private void Update()
     {
+		if (boxItem.getInventory("i3").inventory == this)
+		{
+			Globalprefs.item = boxItem.getInventory("i3").inventory.Cells[select].elementName;
+
+		}
 		int vaule = 0;
 		if (File.Exists("C:/myMods/give.sig"))
 		{
@@ -457,6 +462,7 @@ public class ElementalInventory : MonoBehaviour {
 		if (boxItem.getInventory("i3").inventory.nosell == true && boxItem.getInventory("i3").inventory != this)
         {
             nosell = false;
+
         }
         if (boxItem.getInventory("i3").inventory.Getitem("position_planet_seloria") && planets)
         {

@@ -37,11 +37,19 @@ public class generator_terrain : MonoBehaviour
     float[,] slenghs;
     private void OnDestroy()
     {
-        ter.terrainData.size = new Vector3(leng1, leng, leng1);
-        ter.terrainData.heightmapResolution = ter.terrainData.heightmapResolution;
-        ter.terrainData.SetHeights(0, 0, slenghs);
-    }
-    public void generate()
+        if (slenghs != null)
+        {
+            if (slenghs.Length != 0)
+            {
+
+
+                ter.terrainData.size = new Vector3(leng1, leng, leng1);
+                ter.terrainData.heightmapResolution = ter.terrainData.heightmapResolution;
+                ter.terrainData.SetHeights(0, 0, slenghs);
+            }
+        }
+        }
+        public void generate()
     {
 
         width = ter.terrainData.heightmapResolution;

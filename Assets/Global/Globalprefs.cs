@@ -11,5 +11,6 @@ public static class Globalprefs
     public static Vector3[] postes;
     public static Quaternion[] q;
     public static bool isnew;
-    
+    public static string item;
+
 }

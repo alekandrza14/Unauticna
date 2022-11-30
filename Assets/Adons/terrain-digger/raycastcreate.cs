@@ -17,7 +17,7 @@ public class raycastcreate : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    if (hit.collider.GetComponent<Terrain>())
+                    if (hit.collider.GetComponent<Terrain>() && Globalprefs.item == "showel")
                     {
                         Instantiate(pref, hit.point, Quaternion.identity);
                         if (!hit.collider.GetComponent<generator_terrain>())
