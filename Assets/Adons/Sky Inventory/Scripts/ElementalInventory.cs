@@ -68,15 +68,16 @@ public class ElementalInventory : MonoBehaviour {
 
 				if (nunames[i] != name)
 				{
+					g1 = Resources.Load<GameObject>("items/" + name);
+					i = nunames.Length;
 
-
-					return Resources.Load<GameObject>("death_point");
+				
 					
 				}
 			}
 			if (i < nunames.Length)
 			{
-				if (nunames[i] == name && Resources.GetBuiltinResource<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex + "/" + name))
+				if (nunames[i] == name)
 				{
 
 
@@ -84,17 +85,7 @@ public class ElementalInventory : MonoBehaviour {
 					i = nunames.Length;
 				}
 			}
-			if (i < nunames.Length)
-			{
-				if (!Resources.GetBuiltinResource<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex + "/" + name))
-				{
-					
-
-						g1 = Resources.Load<GameObject>("items/" + name);
-						i = nunames.Length;
-					
-				}
-			}
+			
 
 		}
         if (nunames.Length == 0)
@@ -110,8 +101,8 @@ public class ElementalInventory : MonoBehaviour {
 					{
 
 
-					g1=  Resources.Load<GameObject>("death_point");
-						
+						g1 = Resources.Load<GameObject>("items/" + name);
+
 					}
 				}
 				if (i < itemnames.Length)
