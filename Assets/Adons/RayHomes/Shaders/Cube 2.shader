@@ -1,4 +1,4 @@
-﻿Shader "Ray Marching/Cube2"
+﻿Shader "Ray Marching/Cube-2"
 {
     Properties
     {

@@ -92,50 +92,60 @@ public class generator_terrain : MonoBehaviour
 
             }
         }
-
         for (int i2 = 0; i2 < v2is.Length; i2++)
         {
             for (int i = 0; i < width; i++)
             {
 
-                for (int j = 0; j < width; j++)
-                {
-
-                    //  FindObjectOfType<tearaformer>().value;
-                    Vector2 v2 = new Vector2(j, i);
-                    //   float f =  Vector2.Distance(v2,
-
-                    //    v2i);
-                    /*
-                    if (v2is[i2].x - pr.x < (v2.x*r) + f[i2] && v2is[i2].x - pr.x > f[i2] &&  v2is[i2].y - pr.z < (v2.y * r) + f[i2] &&v2is[i2].y - pr.z > (v2.y * r) - f[i2])
-                    {
-                        if (lenghs[i, j] > Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y)))
-                        {
-
-
-                            lenghs[i, j] = Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y));
-                        }
-                    }
-                    */
-                    if ((v2is[i2].x - pr.x)*r > (v2.x)-fn[i2]&& (v2is[i2].x - pr.x) * r < (v2.x) + fn[i2]
-                        && (v2is[i2].y - pr.z) * r > (v2.y) - fn[i2] && (v2is[i2].y - pr.z) * r < (v2.y) + fn[i2])
-                    {
-                        if (lenghs[i, j] > Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y)))
-                        {
-
-
-                            lenghs[i, j] = Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y));
-                        }
-                    }
-                    
-
-
-                }
             }
         }
+            
+            for (int i2 = 0; i2 < v2is.Length; i2++)
+            {
+                for (int i = 0; i < width; i++)
+                {
+
+                    for (int j = 0; j < width; j++)
+                    {
+
+                        //  FindObjectOfType<tearaformer>().value;
+                        Vector2 v2 = new Vector2(j, i);
+                        //   float f =  Vector2.Distance(v2,
+
+                        //    v2i);
+                        /*
+                        if (v2is[i2].x - pr.x < (v2.x*r) + f[i2] && v2is[i2].x - pr.x > f[i2] &&  v2is[i2].y - pr.z < (v2.y * r) + f[i2] &&v2is[i2].y - pr.z > (v2.y * r) - f[i2])
+                        {
+                            if (lenghs[i, j] > Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y)))
+                            {
 
 
-        ter.terrainData.size = new Vector3(leng1, leng, leng1);
+                                lenghs[i, j] = Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y));
+                            }
+                        }
+                        */
+                        if ((v2is[i2].x - pr.x)*r > (v2.x)-fn[i2]&& (v2is[i2].x - pr.x) * r < (v2.x) + fn[i2]
+                            && (v2is[i2].y - pr.z) * r > (v2.y) - fn[i2] && (v2is[i2].y - pr.z) * r < (v2.y) + fn[i2])
+                        {
+                            if (lenghs[i, j] > Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y)))
+                            {
+
+
+                                lenghs[i, j] = Random.Range(0f, 1f / (leng / conf)) + ((1f / leng) * ((f2[i2] - f[i2]) - pr.y));
+                            }
+                        }
+
+
+
+                    }
+
+                }
+
+
+        }
+         
+
+            ter.terrainData.size = new Vector3(leng1, leng, leng1);
         ter.terrainData.heightmapResolution = ter.terrainData.heightmapResolution;
         ter.terrainData.SetHeights(0, 0, lenghs);
     }

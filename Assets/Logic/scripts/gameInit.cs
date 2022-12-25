@@ -10,7 +10,8 @@ public class gameInit : MonoBehaviour
     }
     void Start()
     {
-        Screen.SetResolution(1600,1200,false);
+        if (VarSave.EnterFloat("res3")) Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
+      //  Screen.SetResolution(1600,1200,false);
         PlayerPrefs.DeleteAll();
     }
     private void Update()
@@ -19,11 +20,11 @@ public class gameInit : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        Screen.SetResolution(1, 1, false);
+        if (VarSave.EnterFloat("res3")) Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
     }
     private void OnDestroy()
     {
-        Screen.SetResolution(1, 1, false);
+        if (VarSave.EnterFloat("res3")) Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
     }
 
 }

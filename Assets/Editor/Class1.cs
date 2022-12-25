@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 public class ScriptBatch
 {
     static int mainversion = 0; static int neoversion = 1; static int version = 0;
-    [MenuItem("MyTools/Windows Build With Postprocess")]
+    [MenuItem("My Build Tools/Windows Build With Postprocess")]
     public static void BuildGame()
     {
         // Get filename.
@@ -28,13 +28,13 @@ public class ScriptBatch
             version = int.Parse( File.ReadAllText("vers"));
         }
         // Build player.
-        BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Dop.dll", BuildTarget.StandaloneWindows64, BuildOptions.None);
+        BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Unauticna.exe", BuildTarget.StandaloneWindows64, BuildOptions.None);
         //_" + mainversion + "." + neoversion + "." + version + "
         // Copy a file from the project folder to the build folder, alongside the built game.
         if (!File.Exists(path + "/Launcher Unauticna.exe")) {
             FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Launcher Unauticna.exe", path + "/Launcher Unauticna.exe");
-            FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex.exe", path + "/Application/Unauticna_sig.exe");
-            FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex2.exe", path + "/Application/Unauticna.exe");
+          //  FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex.exe", path + "/Application/Unauticna_sig.exe");
+          //  FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex2.exe", path + "/Application/Unauticna.exe");
         }
         FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Array", path + "/windows");
         FileUtil.CopyFileOrDirectory("res", path + "/res");

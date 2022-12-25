@@ -36,7 +36,7 @@ public class LOADGAME : MonoBehaviour
         {
 
 
-            Screen.SetResolution(1924, 867, true);
+            Screen.SetResolution(640, 480, true);
         }
         if (VarSave.EnterFloat("res3"))
         {

@@ -681,12 +681,12 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider != null)
                 {
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
                 }
 
