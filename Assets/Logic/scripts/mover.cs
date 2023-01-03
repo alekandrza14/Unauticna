@@ -468,6 +468,7 @@ public class mover : MonoBehaviour
         Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
         c.targetDisplay = 2;
         c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
+        c.gameObject.AddComponent<Logic_tag_3>();
         if (cd)
         {
             load1.pt = cd.polarTransform;
@@ -599,8 +600,11 @@ public class mover : MonoBehaviour
                     convertinPvector(save.pos3, cd);
                 }
 
-                Camera.main.fieldOfView = save.vive;
-
+                g2.GetComponent<Camera>().fieldOfView = save.vive;
+                if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                {
+                    FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                }
             }
             if (File.Exists("unsave/capterg/" + ifd.text))
             {
@@ -643,9 +647,12 @@ public class mover : MonoBehaviour
                     convertinPvector(save.pos3, cd);
                 }
 
-                Camera.main.fieldOfView = save.vive;
-
+                g2.GetComponent<Camera>().fieldOfView = save.vive;
+                if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                {
+                    FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                 }
+            }
                 if (File.Exists("unsavet/capterg/" + ifd.text))
                 {
                     gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + ifd.text));
@@ -713,7 +720,11 @@ public class mover : MonoBehaviour
                     cd.transform.rotation = tsave.q4;
                     convertinPvector(tsave.pos3, cd);
                 }
-                Camera.main.fieldOfView = tsave.vive;
+                g2.GetComponent<Camera>().fieldOfView = tsave.vive;
+                if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                {
+                    FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                }
                 File.Delete("unsave/capter-" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text + "-" + (di.GetFiles().Length - 1));
             }
             
@@ -738,7 +749,11 @@ public class mover : MonoBehaviour
                         cd.transform.rotation = save.q4;
                         convertinPvector(save.pos3, cd);
                     }
-                    Camera.main.fieldOfView = save.vive;
+                    g2.GetComponent<Camera>().fieldOfView = save.vive;
+                    if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                    {
+                        FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                    }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
                 }
@@ -771,7 +786,11 @@ public class mover : MonoBehaviour
                         convertinPvector(save.pos3, cd);
                     }
                     g2.transform.rotation = save.q2;
-                    Camera.main.fieldOfView = save.vive;
+                    g2.GetComponent<Camera>().fieldOfView = save.vive;
+                    if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                    {
+                        FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                    }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
                 }
@@ -891,8 +910,33 @@ public class mover : MonoBehaviour
             }
         }
     }
+    public void physicsStop()
+    {
+        igr = false;
+        if (tjump < -2)
+        {
+            Debug.Log(tjump);
+            hp += Mathf.FloorToInt(tjump) / 3;
+        }
+        tjump = rjump;
+        if (issweming)
+        {
+            igr = false;
+            tjump = 0;
+        }
+        c = new Collision();
+       
+
+       
+    }
+    public void physicsStart()
+    {
+        
+        c = null;
+    }
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             stand_stay = !stand_stay;
@@ -1233,11 +1277,11 @@ public class mover : MonoBehaviour
                 }
             }
         }
-        if (c == null)
+        if (c == null && igr)
         {
             anim.SetBool("fall", true);
         }
-        if (c != null)
+        if (c != null && !igr)
         {
             anim.SetBool("fall", false);
         }
@@ -1501,7 +1545,11 @@ public class mover : MonoBehaviour
 
         //"unsave/capter/"+ifd.text
         //Mouse ScrollWheel
-        Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") / vive;
+        if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+        {
+            FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = g2.GetComponent<Camera>().fieldOfView;
+        }
+        g2.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / vive;
         save.angularvelosyty = g1.angularVelocity;
         save.velosyty = g1.velocity;
         save.q1 = g.transform.rotation;
@@ -1509,7 +1557,9 @@ public class mover : MonoBehaviour
         save.pos = g.transform.position;
         save.pos2 = sr.transform.position;
         save.q3 = sr.transform.rotation;
-        save.vive = Camera.main.fieldOfView;
+
+       
+        save.vive = g2.GetComponent<Camera>().fieldOfView;
         if (cd != null)
         {
 

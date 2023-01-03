@@ -5,6 +5,7 @@ using static Unity.Mathematics.math;
 
 namespace Unity.Mathematics
 {
+    [AddComponentMenu("Physics 4D/RayMarching Collider")]
     public class DistanceFunctions : MonoBehaviour
     {
         // ****************** Distance Functions ****************** 

@@ -9,6 +9,7 @@ using static Unity.Mathematics.math;
 
 namespace Unity.Mathematics
 {
+    [AddComponentMenu("Physics 4D/RayMarching Physics")]
     public class PlayerRayMarchCollider : MonoBehaviour
     {
 
@@ -24,7 +25,7 @@ namespace Unity.Mathematics
         // Start is called before the first frame update
         void Start()
         {
-            camScript = Camera.main.GetComponent<RaymarchCam>();
+            camScript = FindObjectOfType<RaymarchCam>();
             Df = GetComponent<DistanceFunctions>();
         }
         
@@ -115,11 +116,11 @@ namespace Unity.Mathematics
             return globalDst;
 
         }
-
+        bool r = true;
         // the raymarcher checks the distance to all the given transforms, if one is less than zero, the player is moved in the opposite direction
         void RayMarch(Transform[] ro)
         {
-
+          //  MoveToGround();
             int nrHits = 0;
 
             for (int i = 0; i < ro.Length; i++)
@@ -131,11 +132,20 @@ namespace Unity.Mathematics
 
                 if (d < 0) //hit
                 {
-                    Debug.Log("hit" + i);
+                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
+                    // Debug.Log("hit" + i);
                     nrHits++;
                     //collision
-                    transform.Translate(ro[i].forward * d * 1.5f, Space.World);
+                  // if(!Input.GetKey(KeyCode.F))  transform.Translate((-ro[i].up) * d * 1.5f, Space.World);
+                    if (!Input.GetKey(KeyCode.F) && r) transform.Translate(ro[i].forward * d * 1.5f, Space.World);// transform.position += Vector3.up * 0.01f; 
 
+                   //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
+
+
+                }
+                else
+                {
+                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
                 }
 
 
@@ -145,13 +155,28 @@ namespace Unity.Mathematics
         //moves the player to the ground
         void MoveToGround()
         {
-            Vector3 p = transform.position;
-           //check hit
+            for (int i = 0;i<10;i++)
+            {
+                float a = i / 8;
 
-            float d = DistanceField(p);
-            d = Mathf.Min(d, maxDownMovement);
-            //Debug.Log(d);
-            transform.Translate(Vector3.down * d, Space.World);
+                Vector3 p = transform.position - (Vector3.up * (a));
+                //check hit
+
+                float d = DistanceField(p);
+                d = Mathf.Min(d, maxDownMovement);
+                if (d < 0.0f)
+                {
+                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
+                    r = true;
+                }
+                else
+                {
+                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
+                    r = false;
+                }
+                Debug.Log(d);
+                transform.Translate(Vector3.down * d, Space.World);
+            }
         }
 
     }

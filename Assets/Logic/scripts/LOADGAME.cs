@@ -221,20 +221,25 @@ public class LOADGAME : MonoBehaviour
 
             if (ddpr.value == 0)
             {
+                VarSave.SetInt("res1", 320);
+                VarSave.SetInt("res2", 240);
+            }
+            if (ddpr.value == 1)
+            {
                 VarSave.SetInt("res1", 640);
                 VarSave.SetInt("res2", 480);
             }
-            if (ddpr.value == 1)
+            if (ddpr.value == 2)
             {
                 VarSave.SetInt("res1", 1024);
                 VarSave.SetInt("res2", 768);
             }
-            if (ddpr.value == 2)
+            if (ddpr.value == 3)
             {
                 VarSave.SetInt("res1", 1600);
                 VarSave.SetInt("res2", 1200);
             }
-            if (ddpr.value == 3)
+            if (ddpr.value == 4)
             {
                 VarSave.SetInt("res1", 2560);
                 VarSave.SetInt("res2", 1600);

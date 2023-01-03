@@ -13,10 +13,18 @@ public class sity : MonoBehaviour
     
     void LateUpdate()
     {
-        campos = Camera.main.transform.position;
-
+        if (FindObjectsOfType<Logic_tag_3>().Length == 0) campos = Camera.main.transform.position;
+        if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+        {
+            campos = FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().transform.position;
+        }
         campos += ppos;
-        transform.position = Camera.main.transform.position;
+        if (FindObjectsOfType<Logic_tag_3>().Length == 0) transform.position = Camera.main.transform.position;
+        if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+        {
+            transform.position = FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().transform.position;
+        }
+        
         m.material.SetFloat("P1", -campos.x / transform.localScale.x);
         m.material.SetFloat("P2", -campos.y / transform.localScale.y);
         m.material.SetFloat("P3", -campos.z / transform.localScale.z);

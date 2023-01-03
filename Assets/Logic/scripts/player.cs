@@ -325,8 +325,8 @@ public class musave : MonoBehaviourPunCallbacks
         {
 
 
-            r = GameObject.FindObjectOfType<mover>().g2.transform.GetChild(1).GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            GameObject.FindObjectOfType<mover>().g2.transform.GetChild(1).GetComponent<Camera>().targetDisplay = 2;
+            r = GameObject.FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            GameObject.FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
         }
         if (GameObject.FindObjectsOfType<player>().Length != 0)
         {

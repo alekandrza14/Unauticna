@@ -7,7 +7,7 @@ using UnityEngine;
 
 // ****************** Raymarching script that connects to the Shader ****************** 
 
-
+[AddComponentMenu("Rendering/RayMarching Camera")]
 public class RaymarchCam : SceneViewFilter
 {
     [SerializeField]
@@ -35,9 +35,13 @@ public class RaymarchCam : SceneViewFilter
     {
         get
         {
-            if (!_cam)
+            if (!_cam && FindObjectsOfType<Logic_tag_3>().Length == 0)
             {
-                _cam = GetComponent < Camera >();
+                _cam = GetComponent<Camera>();
+            }
+            if (!_cam && FindObjectsOfType<Logic_tag_3>().Length != 0)
+            {
+                _cam = FindObjectOfType<Logic_tag_3>(). GetComponent<Camera>();
             }
             return _cam;
         }
