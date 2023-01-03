@@ -14,16 +14,17 @@ public class load : MonoBehaviour
 
 }
 
+[AddComponentMenu("Hyperbolic space/Hyperbolic Player Controler")]
 public class Camd : MonoBehaviour
 {
     public PolarTransform polarTransform = new PolarTransform(0, 0.01f, 0f);
-    public bool px; public bool py; public bool mx; public bool my;
-    public BoxCollider c;
-    public float startscale;
+    [HideInInspector] public bool px; public bool py; public bool mx; public bool my;
+    [HideInInspector] public BoxCollider c;
+    [HideInInspector] public float startscale;
     public Rigidbody rb;
     public Light light1;
     public float radiuscolider;
-    public float x;
+    [HideInInspector] public float x;
     public void move()
     {
         if (px)

@@ -2,17 +2,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sphere : MonoBehaviour
+[System.Serializable]
+public class points
 {
 
-    public PolarTransform p2 = new PolarTransform();
-    public PolarTransform p3 = new PolarTransform();
-    public Vector3 ls = Vector3.one;
-    public float v1 = 0;
-    public float x;
-    public bool px; public bool py; public bool mx; public bool my;
+    [SerializeField] public Sphere points1;
+    [SerializeField] public Sphere points2;
+}
+[ExecuteAlways]
+static public class Hyperbolicmovetool
+{
 
-    public void move()
+    public static Sphere mainEdit;
+}
+[AddComponentMenu("Hyperbolic space/Hyperbolic Point")]
+public class Sphere : MonoBehaviour
+{
+    Vector4 oldposition;
+    [HideInInspector] public Vector3 mposition;
+    [Header("=============")]
+    [Header("Hyperbolic")]
+    [SerializeField] Vector4 position;
+    [Header("=============")]
+    [Header("Tie")]
+    [SerializeField] public points points = new points();
+    [HideInInspector] public PolarTransform p2 = new PolarTransform();
+    [HideInInspector] public PolarTransform p3 = new PolarTransform();
+    [HideInInspector] public Vector3 ls = Vector3.one;
+    [HideInInspector] public float v1 = 0;
+    [HideInInspector] public float x;
+   [HideInInspector] public bool px;
+    [HideInInspector] public bool py;
+    [HideInInspector] public bool mx;
+    [HideInInspector] public bool my;
+    sc sc;
+    bool pass;
+    public void selfClear()
+    {
+        Destroy(this);
+    }
+    private void OnDrawGizmos()
+    {
+        if (Hyperbolicmovetool.mainEdit != null)
+        {
+
+            if (!GetComponent<tringle>())
+            {
+                if (Hyperbolicmovetool.mainEdit != this)
+                {
+
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawSphere(transform.position, 0.1f);
+                }
+                else
+                {
+                    Gizmos.color = Color.blue + new Color(0.6f, 0.6f, 0.4f);
+                    Gizmos.DrawSphere(transform.position, 0.3f);
+                }
+            }
+            else
+            {
+
+
+                if (Hyperbolicmovetool.mainEdit != this)
+                {
+
+
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawSphere(mposition, 0.1f);
+                }
+                else
+                {
+                    Gizmos.color = Color.green + new Color(0.4f, 0, 0.4f);
+                    Gizmos.DrawSphere(mposition, 0.3f);
+                }
+
+
+
+            }
+        }
+      if(  FindObjectsOfType<Sphere>()[FindObjectsOfType<Sphere>().Length-1] == this) Hyperbolicmovetool.mainEdit = null;
+        // Hyperbolicmovetool.mainEdit = null;
+    }
+        public void move()
     {
         if (px)
         {
@@ -90,16 +162,75 @@ public class Sphere : MonoBehaviour
         return v6;
     }
 
+    public void LateUpdate()
+    {
+        
+    }
     // Update is called once per frame
     public void Update()
     {
-        PMatrix3D copytr = new PMatrix3D();
-        copytr.set(p2.getMatrix());
+        if (gameObject.GetComponent<sc>())
+        {
+            sc = gameObject.GetComponent<sc>();
+        }
+        if (sc == null)
+        {
+            gameObject.AddComponent<sc>().sp1 = this;
+            sc = gameObject.GetComponent<sc>();
+        }
+        if (sc != null)
+        {
 
-        PVector prevPoint = new PVector();
-        //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-        float ds = MathHyper.Facteur2(gameObject, transform.position);
-        float inc = 0.1f;
+          if(points.points1 != null)  sc.sp2 = points.points1;
+            if (points.points2 != null) sc.sp3 = points.points2;
+        }
+        if (points.points1 != null && !pass && !GetComponent<tringle>())
+        {
+            if (points.points2 != null && !pass)
+            {
+                gameObject.AddComponent<MeshFilter>();
+                gameObject.AddComponent<MeshRenderer>();
+                gameObject.AddComponent<MeshCollider>();
+                sc.tr = gameObject.AddComponent<tringle>();
+                gameObject.GetComponent<tringle>().mc = GetComponent<MeshCollider>();
+                gameObject.GetComponent<tringle>().mf = GetComponent<MeshFilter>();
+                pass = true;
+            }
+        }
+        if (points.points1 != null && !pass && GetComponent<tringle>())
+        {
+            if (points.points2 != null && !pass)
+            {
+               // gameObject.AddComponent<MeshFilter>();
+              //  gameObject.AddComponent<MeshRenderer>();
+               // gameObject.AddComponent<MeshCollider>();
+                sc.tr = gameObject.GetComponent<tringle>();
+                gameObject.GetComponent<tringle>().mc = GetComponent<MeshCollider>();
+                gameObject.GetComponent<tringle>().mf = GetComponent<MeshFilter>();
+                pass = true;
+            }
+        }
+        if (points.points1 == null || points.points2 == null)
+        {
+            pass = false;
+        }
+
+            if (position != oldposition)
+        {
+
+
+            p2 = new PolarTransform(position.x, position.y, position.z);
+            v1 = position.w;
+        }
+        position = new Vector4(p2.n, p2.s, p2.m, v1);
+        
+            PMatrix3D copytr = new PMatrix3D();
+            copytr.set(p2.getMatrix());
+
+            PVector prevPoint = new PVector();
+            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+            float ds = MathHyper.Facteur2(gameObject, transform.position);
+            float inc = 0.1f;
         for (float i = 0; i < inc * 2; i += inc)
         {
             PVector nextPoint = MathHyper.polarVector(i, 1.255f);
@@ -111,23 +242,44 @@ public class Sphere : MonoBehaviour
             Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
-            
+
+            if (!GetComponent<tringle>())
+            {
                 if (i >= inc)
                 {
                     transform.position = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
-                
+
+                }
+
+
+                var look_dir = newrot() - transform.position;
+                look_dir.y = 0;
+
+
+                if (!GetComponent<tringle>()) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look_dir), 1000 * Time.deltaTime);
+
             }
-
-            var look_dir = newrot() - transform.position;
-            look_dir.y = 0;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look_dir), 1000 * Time.deltaTime);
-
+            else
+            {
+                mposition = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+            }
 
             prevPoint = nextPoint;
 
 
         }
-        
-        transform.localScale = ls * MathHyper.Facteur2(gameObject, transform.position);
+        if (GetComponent<tringle>())
+        {
+            transform.position = Vector3.zero;
+        }
+
+        if (!GetComponent<tringle>()) transform.localScale = ls * MathHyper.Facteur2(gameObject, transform.position); else
+        {
+            transform.localScale = Vector3.one;
+           
+                transform.rotation = Quaternion.identity;
+            
+        }
+        oldposition = position;
     }
 }

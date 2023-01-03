@@ -33,6 +33,8 @@ public class ED : Editor
 
 
         base.OnInspectorGUI();
+        EditorGUILayout.LabelField("");
+        EditorGUILayout.LabelField("=============");
     }
 
 

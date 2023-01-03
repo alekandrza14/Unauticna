@@ -3401,27 +3401,31 @@ public class MathHyper : MonoBehaviour
 public class tringle : MonoBehaviour
 {
     float speed1 = 1;
-    float constspeed = 1; 
+    float constspeed = 1;
     float constdist = 4;
     public static float speed = 10.0f; public static float speed2 = 10.0f;
     public static float rotationSpeed = 10.0f;
-    public float v1 = 0;
-    public float v2 = 0;
-    public float v3 = 0;
-    public bool w;
-    public PolarTransform p2 = new PolarTransform(); 
-    public PolarTransform p3 = new PolarTransform();
-    public PolarTransform p4 = new PolarTransform();
-    public MeshFilter mf;
-    public MeshCollider mc;
-    public bool v;
+    [HideInInspector] public float v1 = 0;
+    [HideInInspector] public float v2 = 0;
+    [HideInInspector] public float v3 = 0;
+    [HideInInspector] public bool w;
+    [HideInInspector] public PolarTransform p2 = new PolarTransform();
+    [HideInInspector] public PolarTransform p3 = new PolarTransform();
+    [HideInInspector] public PolarTransform p4 = new PolarTransform();
+    [Header("Polygon")]
+    [Header("==============")]
+    [Header("MeshFiller")] [SerializeField] public MeshFilter mf;
+    [Header("MeshCollider")] [SerializeField] public MeshCollider mc;
+    [Header("Flip Normals")] [SerializeField] public bool v;
+  //  [Header("==============")] [HideInInspector] [SerializeField] public bool byUnauticna;
+
     Vector3 v31; Vector3 v32; Vector3 v33;
-    public bool px; public bool py; public bool mx; public bool my;
-    public bool px1; public bool py1; public bool mx1; public bool my1;
-    public bool px2; public bool py2; public bool mx2; public bool my2;
+    [HideInInspector] public bool px;[HideInInspector] public bool py;[HideInInspector] public bool mx;[HideInInspector] public bool my;
+    [HideInInspector] public bool px1;[HideInInspector] public bool py1;[HideInInspector] public bool mx1;[HideInInspector] public bool my1;
+    [HideInInspector] public bool px2;[HideInInspector] public bool py2;[HideInInspector] public bool mx2;[HideInInspector] public bool my2;
    static public bool iseditor = false;
     float ods1 = 1;
-    public float x;
+    [HideInInspector] public float x;
     public void move()
     {
         if (px)
@@ -3940,12 +3944,20 @@ public class tringle : MonoBehaviour
     }
 
 
-        // transform.Translate(0, (nouveauFacteur - ancienFacteur) / 2,0);
+    // transform.Translate(0, (nouveauFacteur - ancienFacteur) / 2,0);
+
+    void FixedUpdate()
+    {
+        up();
+    }
 
 
+    void LateUpdate()
+    {
+        up();
+    }
 
-
-        private void Update()
+    void Update()
     {
 
         up();

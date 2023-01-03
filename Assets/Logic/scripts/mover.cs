@@ -808,6 +808,7 @@ public class mover : MonoBehaviour
     }
     public void stop()
     {
+      
         if (inglobalspace != true)
         {
 
@@ -1152,7 +1153,7 @@ public class mover : MonoBehaviour
         g1.velocity = Vector3.zero;
         if (cd != null)
         {
-            c = null;
+           
             transform.position = new Vector3(0, transform.position.y, 0);
 
             Ray r4 = new Ray(transform.position, new Vector3(0, -1f, 0));
@@ -1160,19 +1161,18 @@ public class mover : MonoBehaviour
             RaycastHit hit4;
             if (Physics.Raycast(r4, out hit4))
             {
-                if (hit4.distance <= 1.2f)
+                if (hit4.distance <= 1.2f * - tjump)
                 {
-                    c = new Collision();
+                  //  c = new Collision();
+                    physicsStop();
+                }
+                else
+                {
+                    physicsStart();
                 }
             }
         }
-        if (!Input.GetKey(KeyCode.W) || !Input.GetKey(KeyCode.S) || !Input.GetKey(KeyCode.A) || !Input.GetKey(KeyCode.D))
-        {
-            anim.SetBool("walke", false);
-            anim.SetBool("swem", false);
-            
-        }
-        
+       
         float ispeed = 10f;
         if (Input.GetKey(KeyCode.Mouse0) && Directory.Exists("debug"))
         {
@@ -1191,9 +1191,15 @@ public class mover : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
             }
         }
-        
+        bool yp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+        if (!yp)
+        {
+            anim.SetBool("walke", false);
+            anim.SetBool("swem", false);
 
-            if (!stand_stay&&!issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+        }
+
+        if (!stand_stay&&!issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
         {
 
             RenderSettings.fogStartDistance = fog;
