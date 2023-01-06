@@ -13,7 +13,8 @@ public class sc : MonoBehaviour
     {
 
     }
-    void selfClear()
+
+  void selfClear()
     {
         sp1.selfClear();
         sp2.selfClear();
@@ -37,9 +38,9 @@ public class sc : MonoBehaviour
                 tr.v2 = sp2.v1;
                 tr.p4 = sp3.p2;
                 tr.v3 = sp3.v1;
-#if !UNITY_EDITOR
- void selfClear();
-#endif
+
+  selfClear();
+
 
             }
         }

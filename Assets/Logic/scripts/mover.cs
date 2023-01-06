@@ -25,6 +25,7 @@ public class save
     public Vector3 pos, pos2;
     public Vector4 pos3;
 
+    public float wpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
@@ -34,6 +35,7 @@ public class tsave
     
     public Vector3 pos, pos2;
     public Vector4 pos3;
+    public float wpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
@@ -87,6 +89,7 @@ public class mover : MonoBehaviour
     bool fly; bool Xray;
     public GameObject[] mybody;
     public Camd cd;
+    public float w;
     public bool stand_stay;
     public GameObject model;
     public bool inglobalspace;
@@ -590,6 +593,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
+                w = save.wpos;
                 g.transform.rotation = save.q1;
                 sr.transform.rotation = save.q3;
                 g2.transform.rotation = save.q2;
@@ -636,8 +640,9 @@ public class mover : MonoBehaviour
                         g.transform.position = save.pos;
                         sr.transform.position = save.pos2;
                     }
-                    
-                    g.transform.rotation = save.q1;
+
+                w = save.wpos;
+                g.transform.rotation = save.q1;
                     sr.transform.rotation = save.q3;
                     g2.transform.rotation = save.q2;
                 if (cd != null)
@@ -711,7 +716,8 @@ public class mover : MonoBehaviour
                 g.transform.rotation = tsave.q1;
                 sr.transform.rotation = tsave.q2;
                 g2.transform.rotation = tsave.q3;
-                
+
+                w = tsave.wpos;
                 sr.transform.position = tsave.pos2;
                 g2.transform.position = sr.transform.position;
                 if (cd!=null)
@@ -743,6 +749,7 @@ public class mover : MonoBehaviour
                     g.transform.rotation = save.q1;
                     sr.transform.rotation = save.q3;
                     g2.transform.rotation = save.q2;
+                    w = save.wpos;
                     if (cd != null)
                     {
 
@@ -779,6 +786,7 @@ public class mover : MonoBehaviour
                     g.transform.position = save.pos; sr.transform.position = save.pos2;
                     g.transform.rotation = save.q1;
                     sr.transform.rotation = save.q3;
+                    w = save.wpos;
                     if (cd != null)
                     {
 
@@ -808,7 +816,24 @@ public class mover : MonoBehaviour
     }
     public void stop()
     {
-      
+        bool r = !Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.UpArrow);
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            w -= 1f * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            w += 1f * Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            w =0;
+        }
+        if (FindObjectsOfType<RaymarchCam>().Length != 0)
+        {
+            RaymarchCam ra = FindObjectOfType<RaymarchCam>();
+            ra._wPosition = w;
+        }
         if (inglobalspace != true)
         {
 
@@ -1563,8 +1588,9 @@ public class mover : MonoBehaviour
         save.pos = g.transform.position;
         save.pos2 = sr.transform.position;
         save.q3 = sr.transform.rotation;
+        save.wpos = w;
 
-       
+
         save.vive = g2.GetComponent<Camera>().fieldOfView;
         if (cd != null)
         {
@@ -1763,6 +1789,7 @@ public class mover : MonoBehaviour
             save.q1 = g.transform.rotation;
             save.q2 = g2.transform.rotation;
             save.pos = g.transform.position;
+            save.wpos = w;
             if (cd != null)
             {
 
@@ -1797,6 +1824,7 @@ public class mover : MonoBehaviour
             save.q2 = g2.transform.rotation;
             save.pos = g.transform.position;
             save.vive = Camera.main.fieldOfView;
+            save.wpos = w;
             if (cd!=null)
             {
                 save.q4 = cd.transform.rotation;
@@ -1809,6 +1837,7 @@ public class mover : MonoBehaviour
             tsave.q2 = g2.transform.rotation;
             tsave.pos = g.transform.position;
             tsave.vive = Camera.main.fieldOfView;
+            tsave.wpos = w;
             timesaveing();
             gsave.hp = hp;
             gsave.oxygen = oxygen;
@@ -1842,6 +1871,7 @@ public class mover : MonoBehaviour
             tsave.pos = g.transform.position;
             tsave.pos2 = sr.transform.position;
             tsave.vive = Camera.main.fieldOfView;
+            tsave.wpos = w;
             if (cd != null)
             {
                 tsave.q4 = cd.transform.rotation;

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class ScriptBatch
 {
-    static int mainversion = 0; static int neoversion = 1; static int version = 0;
+    static int mainversion = 0; static int neoversion = 2; static int version = 0;
     [MenuItem("My Build Tools/Windows Build With Postprocess")]
     public static void BuildGame()
     {

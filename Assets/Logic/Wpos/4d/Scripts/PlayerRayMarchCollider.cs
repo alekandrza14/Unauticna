@@ -117,6 +117,8 @@ namespace Unity.Mathematics
 
         }
         bool r = true;
+
+        float u = 0;
         // the raymarcher checks the distance to all the given transforms, if one is less than zero, the player is moved in the opposite direction
         void RayMarch(Transform[] ro)
         {
@@ -129,7 +131,6 @@ namespace Unity.Mathematics
                 //check hit
                 float d = DistanceField(p);
 
-
                 if (d < 0) //hit
                 {
                     if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
@@ -139,13 +140,14 @@ namespace Unity.Mathematics
                   // if(!Input.GetKey(KeyCode.F))  transform.Translate((-ro[i].up) * d * 1.5f, Space.World);
                     if (!Input.GetKey(KeyCode.F) && r) transform.Translate(ro[i].forward * d * 1.5f, Space.World);// transform.position += Vector3.up * 0.01f; 
 
-                   //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
+                    //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
 
-
+                    u = 1;
                 }
                 else
                 {
-                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
+                    
+                    if (!Input.GetKey(KeyCode.F) && GetComponent<mover>().igr) GetComponent<mover>().physicsStart(); 
                 }
 
 
@@ -171,7 +173,7 @@ namespace Unity.Mathematics
                 }
                 else
                 {
-                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
+                 //   if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
                     r = false;
                 }
                 Debug.Log(d);
