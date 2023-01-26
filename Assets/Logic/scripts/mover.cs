@@ -92,6 +92,7 @@ public class mover : MonoBehaviour
     public float w;
     public bool stand_stay;
     public GameObject model;
+    public GameObject[] forach;
     public bool inglobalspace;
     void getSignal()
     {
@@ -1045,11 +1046,19 @@ public class mover : MonoBehaviour
         if (!isthirdperson)
         {
             g2.transform.position = sr.transform.position;
-            model.SetActive(false);
+            model.layer = 8;
+            foreach (GameObject i in forach)
+            {
+                i.layer = 8;
+            }
         }
         if (isthirdperson)
         {
-            model.SetActive(true);
+            foreach (GameObject i in forach)
+            {
+                i.layer = 0;
+            }
+            model.layer = 0;
             Ray r = new Ray(sr.transform.position, -sr.transform.forward);
             RaycastHit hit1;
             if (Physics.Raycast(r, out hit1))

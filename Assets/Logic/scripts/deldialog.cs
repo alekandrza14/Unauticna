@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class deldialog : MonoBehaviour
 {
     public GameObject button;
+    public GameObject button2;
     public string del; public string delattack;
     public string[] s = new string[1];
     public string sm = "Очевидно...";
@@ -21,7 +22,9 @@ public class deldialog : MonoBehaviour
     public string rsme = "yeap...";
     public string[] rsu = new string[1];
     public string rsmu = "Очивитдн...";
+
     public TextMeshProUGUI text;
+    public question qu;
     public Animator anim;
     public bool enter; public bool act;
     public float tic; public int tir; public int tir2;
@@ -30,8 +33,9 @@ public class deldialog : MonoBehaviour
     public bool deleteing;
     public bool oneraz; public bool oneraz1;
     public bool startActivate;
-    public string[] animationsnames; 
+    public string[] animationsnames;
     public int cur;
+    public bool question;
     public string tr;
 
     void resset()
@@ -123,6 +127,14 @@ public class deldialog : MonoBehaviour
                     tir = 0;
 
 
+                }
+                else if (sm == "s2-question()")
+                {
+                    stopPlayer = false;
+                    tir2 = 0;
+                    tir = 0;
+                    button2.SetActive(true);
+                    VarSave.SetBool(delattack, true);
                 }
                 else if (sm == "s2-attack()")
                 {
