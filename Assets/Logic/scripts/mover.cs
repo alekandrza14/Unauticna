@@ -203,22 +203,22 @@ public class mover : MonoBehaviour
 
         }
         string vaule1 = "";
-        if (File.Exists("C:/myMods/spawn.sig"))
+
+        if (GlobalInputMenager.KeyCode_build != "")
         {
-            vaule1 = File.ReadAllText("C:/myMods/spawn.sig");
+            vaule1 = GlobalInputMenager.KeyCode_build;
             Ray r = musave.pprey();
             RaycastHit hit;
             if (Physics.Raycast(r, out hit))
             {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
                 {
-                  genmodel g =  Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
+                    genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
                     g.s = vaule1;
                     g.gameObject.transform.position = hit.point;
-                    File.Delete("C:/myMods/spawn.sig");
                     List<string> name = new List<string>();
                     List<Vector3> v3 = new List<Vector3>();
-                    for (int i =0;i<GameObject.FindObjectsOfType<genmodel>().Length;i++)
+                    for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
                     {
                         name.Add(FindObjectsOfType<genmodel>()[i].s);
                         v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
@@ -227,7 +227,40 @@ public class mover : MonoBehaviour
                     cms.name = name.ToArray();
                     cms.v3 = v3.ToArray();
                     VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms));
-                
+
+                }
+            }
+
+        }
+        if (true)
+        {
+            bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null && j)
+                {
+                    if (hit.collider.GetComponent<genmodel>())
+                    {
+                        hit.collider.gameObject.AddComponent<DELETE>();
+                        List<string> name = new List<string>();
+                        List<Vector3> v3 = new List<Vector3>();
+                        for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
+                        {
+                            name.Add(FindObjectsOfType<genmodel>()[i].s);
+                            v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
+                        }
+                        custommedelsave cms = new custommedelsave();
+                        cms.name = name.ToArray();
+                        cms.v3 = v3.ToArray();
+                        if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms)); } else
+                        {
+                            cms.name = new string[] { };
+                            cms.v3 = new Vector3[] { };
+                            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms));
+                        }
+                    }
                 }
             }
 
@@ -826,7 +859,7 @@ public class mover : MonoBehaviour
         {
             w += 1f * Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.F4))
         {
             w =0;
         }
@@ -859,11 +892,11 @@ public class mover : MonoBehaviour
     {
         if (Directory.Exists("debug"))
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.CapsLock))
             {
                 fly = !fly;
             }
-            if (Input.GetKeyDown(KeyCode.U))
+            if (Input.GetKeyDown(KeyCode.End))
             {
                 Xray = !Xray;
                 saveing();

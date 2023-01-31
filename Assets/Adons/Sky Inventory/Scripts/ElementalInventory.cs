@@ -504,7 +504,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            if (select <= Cells.Length - 1 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
+            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
             {
                 select += 1;
             }
@@ -521,7 +521,7 @@ public class ElementalInventory : MonoBehaviour {
 
             }
         }
-		if (Input.GetKeyDown(KeyCode.F4) && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
+		if (GlobalInputMenager.KeyCode_eat == 1 && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
 		{
 
 			Ray r = musave.pprey();
@@ -538,6 +538,7 @@ public class ElementalInventory : MonoBehaviour {
 
 			}
 			removeitem("box1");
+			GlobalInputMenager.KeyCode_eat = 0;
 		}
 		if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
 		{
@@ -718,7 +719,7 @@ public class ElementalInventory : MonoBehaviour {
 
         }
         //ionic_cube
-        if (Input.GetKeyDown(KeyCode.F4) && priaritet("file_рыбы") != 0 && boxItem.getInventory("i3").inventory == this)
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("file_рыбы") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
 
@@ -727,8 +728,9 @@ public class ElementalInventory : MonoBehaviour {
 
 
             lowitem("file_рыбы");
-        }
-        if (Input.GetKeyDown(KeyCode.F4) && priaritet("belock") != 0 && boxItem.getInventory("i3").inventory == this)
+			GlobalInputMenager.KeyCode_eat = 0;
+		}
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("belock") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
 
@@ -737,7 +739,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
             lowitem("belock");
-        }
+			GlobalInputMenager.KeyCode_eat = 0;
+		}
 		if (select != Cells.Length - 1)
 		{
 
