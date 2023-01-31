@@ -15,19 +15,21 @@ static public class Hyperbolicmovetool
 
     public static Sphere mainEdit;
 }
+[ExecuteAlways]
 [AddComponentMenu("Hyperbolic space/Hyperbolic Point")]
 public class Sphere : MonoBehaviour
 {
     Vector4 oldposition;
     [HideInInspector] public Vector3 mposition;
-    [Header("=============")]
-    [Header("Hyperbolic")]
-    [SerializeField] Vector4 position;
+    
+    [HideInInspector] public Vector4 position;
     [Header("=============")]
     [Header("Tie")]
     [SerializeField] public points points = new points();
-    [HideInInspector] public PolarTransform p2 = new PolarTransform();
-    [HideInInspector] public PolarTransform p3 = new PolarTransform();
+
+    [HideInInspector] public Quaternion rotation;
+    [HideInInspector] public Polar3 p2 = new Polar3();
+    [HideInInspector] public Polar3 p3 = new Polar3();
     [HideInInspector] public Vector3 ls = Vector3.one;
     [HideInInspector] public float v1 = 0;
     [HideInInspector] public float x;
@@ -166,6 +168,10 @@ public class Sphere : MonoBehaviour
     {
         
     }
+    public void edit()
+    {
+        transform.rotation = rotation;
+    }
     // Update is called once per frame
     public void Update()
     {
@@ -219,7 +225,7 @@ public class Sphere : MonoBehaviour
         {
 
 
-            p2 = new PolarTransform(position.x, position.y, position.z);
+            p2 = new Polar3(position.x, position.y, position.z);
             v1 = position.w;
         }
         position = new Vector4(p2.n, p2.s, p2.m, v1);
@@ -248,7 +254,7 @@ public class Sphere : MonoBehaviour
                 if (i >= inc)
                 {
                     transform.position = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
-
+                    mposition = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
                 }
 
 
@@ -256,7 +262,7 @@ public class Sphere : MonoBehaviour
                 look_dir.y = 0;
 
 
-                if (!GetComponent<tringle>()) transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look_dir), 1000 * Time.deltaTime);
+                if (!GetComponent<tringle>()) { transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look_dir), 1000 * Time.deltaTime); transform.rotation = Quaternion.LerpUnclamped(rotation, transform.rotation, 0.5f); }
 
             }
             else
@@ -272,13 +278,26 @@ public class Sphere : MonoBehaviour
         {
             transform.position = Vector3.zero;
         }
+        float a = MathHyper.Facteur3(gameObject,Vector3.zero);
+        if (!GetComponent<tringle>()) {
+            if (a > 0.1f)
+            {
 
-        if (!GetComponent<tringle>()) transform.localScale = ls * MathHyper.Facteur2(gameObject, transform.position); else
+
+                transform.localScale = ls * a;
+            }
+            else
+            {
+                transform.localScale = Vector3.one / 100;
+            }
+           
+            }
+            else
         {
             transform.localScale = Vector3.one;
-           
-                transform.rotation = Quaternion.identity;
-            
+
+            transform.rotation = Quaternion.identity;
+
         }
         oldposition = position;
     }

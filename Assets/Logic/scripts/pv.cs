@@ -10,7 +10,7 @@ public class pv : MonoBehaviourPunCallbacks
     {
         
 
-            GetComponent<Camdpoint>().p2 = new PolarTransform(v1, v2, v3);
+            GetComponent<Camdpoint>().p2 = new Polar3(v1, v2, v3);
             GetComponent<Camdpoint>().v1 = v4;
         
 

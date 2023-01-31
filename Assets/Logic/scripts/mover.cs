@@ -14,7 +14,7 @@ public class load1
     static public bool isCamd;
     static public bool isplanet;
     static public bool stad;
-    public static PolarTransform pt;
+    public static Polar3 pt;
     static public RawImage watermask;
     static public float gr; static public float pl;
     static public Color bg; static public CameraClearFlags bg2;
@@ -635,7 +635,7 @@ public class mover : MonoBehaviour
                 {
 
                     cd.transform.rotation = save.q4;
-                    convertinPvector(save.pos3, cd);
+                    cd.position = save.pos3;
                 }
 
                 g2.GetComponent<Camera>().fieldOfView = save.vive;
@@ -683,7 +683,7 @@ public class mover : MonoBehaviour
                 {
 
                     cd.transform.rotation = save.q4;
-                    convertinPvector(save.pos3, cd);
+                    cd.position = save.pos3;
                 }
 
                 g2.GetComponent<Camera>().fieldOfView = save.vive;
@@ -710,8 +710,17 @@ public class mover : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            GUI.DrawTexture(new Rect((Screen.width/2)-10, (Screen.height/2) - 10,  20,   20),Resources.Load<Texture>("cursor"));
+            GUI.DrawTexture(new Rect((Screen.width / 2) - 10, (Screen.height / 2) - 10, 20, 20), Resources.Load<Texture>("cursor"));
         }
+        if (Input.GetKey(KeyCode.F8))
+        {
+            GUI.Label(new Rect(0f,0,200f,100f),"Unauticna Alpha-version");
+            if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : "+ w.ToString());
+          if(cd)  GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString());
+
+            //+"x :" + transform.position.x.ToString()
+        }
+
     }
     void Start()
     {
@@ -758,7 +767,7 @@ public class mover : MonoBehaviour
                 {
 
                     cd.transform.rotation = tsave.q4;
-                    convertinPvector(tsave.pos3, cd);
+                    cd.position = save.pos3;
                 }
                 g2.GetComponent<Camera>().fieldOfView = tsave.vive;
                 if (FindObjectsOfType<Logic_tag_3>().Length != 0)
@@ -788,7 +797,7 @@ public class mover : MonoBehaviour
                     {
 
                         cd.transform.rotation = save.q4;
-                        convertinPvector(save.pos3, cd);
+                        cd.position = save.pos3;
                     }
                     g2.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsOfType<Logic_tag_3>().Length != 0)
@@ -824,8 +833,7 @@ public class mover : MonoBehaviour
                     if (cd != null)
                     {
 
-
-                        convertinPvector(save.pos3, cd);
+                        cd.position = save.pos3;
                     }
                     g2.transform.rotation = save.q2;
                     g2.GetComponent<Camera>().fieldOfView = save.vive;
@@ -1638,7 +1646,7 @@ public class mover : MonoBehaviour
         {
 
             save.q4 = cd.transform.rotation;
-            save.pos3 = convertPvectorinVector4(cd);
+            save.pos3 = cd.position;
         }
         gsave.hp = hp;
 

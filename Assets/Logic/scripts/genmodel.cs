@@ -19,6 +19,7 @@ public class genmodel : MonoBehaviour
     {
        mf.mesh = generate();
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
+        GetComponent<MeshRenderer>().material = Resources.Load<Material>("mats/ost");
     }
 
     private Mesh generate()

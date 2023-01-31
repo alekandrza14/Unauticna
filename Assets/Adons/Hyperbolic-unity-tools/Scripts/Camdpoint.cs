@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Camdpoint : MonoBehaviour
 {
-    public PolarTransform p2 = new PolarTransform();
+    [Header("=============")]
+    [Header("Hyperbolic")]
+    [SerializeField] Vector4 position;
 
-    public PolarTransform p3 = new PolarTransform();
+    [HideInInspector] public Polar3 p2 = new Polar3();
+
+    [HideInInspector] public Polar3 p3 = new Polar3();
     public Vector3 ls;
     public float v1 = 0;
     // Start is called before the first frame update

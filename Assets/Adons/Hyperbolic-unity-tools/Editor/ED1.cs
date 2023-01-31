@@ -19,14 +19,8 @@ public class ED1 : Editor
 
 
     Camd mp = (Camd)target;
-        if (File.Exists("Assets/player.json") &&!load)
-        {
-            editorsave es = new editorsave();
-            es = JsonUtility.FromJson<editorsave>(File.ReadAllText("Assets/player.json"));
-            mp.polarTransform = es.pos;
-            load = true;
-        }
-        mp.move();
+        
+       
 
         for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
         {
@@ -37,6 +31,10 @@ public class ED1 : Editor
             GameObject.FindObjectsOfType<Sphere>()[i].Update();
         }
         base.OnInspectorGUI();
+        if (EditorGUILayout.LinkButton("resset"))
+        {
+            Camd.Main().position = Vector4.zero;
+        }
     }
 
 

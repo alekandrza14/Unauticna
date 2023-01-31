@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoacalinputMeanager : MonoBehaviour
@@ -27,6 +28,17 @@ public class LoacalinputMeanager : MonoBehaviour
     public void Update()
     {
         StartCoroutine(inputb());
+    }
+    public void hilow()
+    {
+        VarSave.SetBool("postrender", !VarSave.GetBool("postrender"));
+       if(!VarSave.EnterFloat("res1"))
+        {
+            VarSave.SetInt("res1", 320);
+            VarSave.SetInt("res2", 240);
+        }
+        musave.saveandhill();
+        musave.chargescene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator inputb()

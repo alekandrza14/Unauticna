@@ -267,7 +267,7 @@ public class musave : MonoBehaviourPunCallbacks
         }
 
     }
-    static public void load5(PolarTransform pl,float i3)
+    static public void load5(Polar3 pl,float i3)
     {
         if (GameObject.FindObjectsOfType<mover>().Length != 0)
         {

@@ -44,7 +44,7 @@ public class button6 : MonoBehaviour
         }
         if (sp)
         {
-            PolarTransform pt = sp.p2.inverse();
+            Polar3 pt = sp.p2.inverse();
 
             if (portallNumer.p2 == true && iaw)
             {

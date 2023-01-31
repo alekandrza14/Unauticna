@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class editorsave
 {
-    public PolarTransform pos;
+    public Polar3 pos;
 
 }
 [ExecuteAlways]
@@ -13,17 +13,28 @@ public class load : MonoBehaviour
 {
 
 }
-
+[ExecuteAlways]
 [AddComponentMenu("Hyperbolic space/Hyperbolic Player Controler")]
 public class Camd : MonoBehaviour
 {
-    public PolarTransform polarTransform = new PolarTransform(0, 0.01f, 0f);
-    [HideInInspector] public bool px; public bool py; public bool mx; public bool my;
+    Vector4 oldposition;
+    
+    [HideInInspector] public Vector4 position;
+
+
+    [HideInInspector] public Polar3 polarTransform = new Polar3(0, 0.01f, 0f);
+    [HideInInspector] public bool px;[HideInInspector] public bool py;[HideInInspector] public bool mx;[HideInInspector] public bool my;
     [HideInInspector] public BoxCollider c;
     [HideInInspector] public float startscale;
+    [HideInInspector] public Quaternion rotation;
+    [Header("=============")]
+    [Header("Physics")]
     public Rigidbody rb;
-    public Light light1;
     public float radiuscolider;
+    [Header("=============")]
+    [Header("Lighting")]
+    public Light light1;
+
     [HideInInspector] public float x;
     public void move()
     {
@@ -50,8 +61,16 @@ public class Camd : MonoBehaviour
     }
     private void Start()
     {
-        tringle.iseditor = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        
+    }
+    private void OnDestroy()
+    {
+
+        oldposition = position;
+    }
+    private void OnApplicationQuit()
+    {
+        oldposition = position;
     }
 
     void OnCollisionEnter(Collision c)
@@ -73,6 +92,10 @@ public class Camd : MonoBehaviour
     }
     private void LateUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            
+        }
         if (Input.GetAxis("Vertical") > 0)
         {
             Ray r = new Ray(transform.position, new Vector3(0, 0.5f, 1));
@@ -129,16 +152,24 @@ public class Camd : MonoBehaviour
 
 
     }
+    public void edit()
+    {
+        transform.rotation = rotation;
+    }
+
 
         // Update is called once per frame
-    void Update()
+   public void Update()
     {
-        if (Directory.Exists("Assets") && Input.GetKeyDown(KeyCode.F1))
+        if (position != oldposition)
         {
-            editorsave es = new editorsave();
-            es.pos = polarTransform;
-            File.WriteAllText("Assets/player.json",JsonUtility.ToJson(es));
+
+
+            polarTransform = new Polar3(position.x, position.y, position.z);
+            transform.position = new Vector3(0,position.w,0);
         }
+        position = new Vector4(polarTransform.n, polarTransform.s, polarTransform.m, transform.position.y);
+       
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -158,7 +189,7 @@ public class Camd : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.F5))
         {
-            transform.rotation = Quaternion.identity;
+            transform.rotation = rotation;
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
@@ -171,6 +202,6 @@ public class Camd : MonoBehaviour
             
             
         }
-
+        oldposition = position;
     }
 }
