@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UnauticnaLauncher.Properties;
 
 namespace Зе_Unauticna
 {
@@ -30,7 +31,32 @@ namespace Зе_Unauticna
                 ControlStyles.FixedHeight |
                 ControlStyles.FixedWidth, true);
             UpdateStyles();
+          int s = new Random().Next(0, 6);
 
+            if (s == 0)
+            {
+                BackgroundImage = Resources.arua_and_gaster;
+            }
+            if (s == 1)
+            {
+                BackgroundImage = Resources.arua_neo;
+            }
+            if (s == 2)
+            {
+                BackgroundImage = Resources.Hyper_agel___Enero;
+            }
+            if (s == 3)
+            {
+                BackgroundImage = Resources.dowfgnload;
+            }
+            if (s == 4)
+            {
+                BackgroundImage = Resources.hollow_knight_ввиде_террата_из_mu_unauticna;
+            }
+            if (s == 5)
+            {
+                BackgroundImage = Resources.main_paras_;
+            }
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -68,7 +94,7 @@ namespace Зе_Unauticna
 
         private void button2_Click(object sender, EventArgs e)
         {
-            label1.Text = "не работает";
+            System.Diagnostics.Process.Start(Application.StartupPath + "/windows/Settings.exe");
             
         }
 
@@ -80,6 +106,46 @@ namespace Зе_Unauticna
             Application.Exit();
         }
 
-        
+        private void button3_MouseClick(object sender, MouseEventArgs e)
+        {
+            OnBackgroundImageChanged(new EventArgs());
+            int s = new Random().Next(0, 6);
+
+            if (s == 0)
+            {
+                BackgroundImage = Resources.arua_and_gaster;
+            }
+            if (s == 1)
+            {
+                BackgroundImage = Resources.arua_neo;
+            }
+            if (s == 2)
+            {
+                BackgroundImage = Resources.Hyper_agel___Enero;
+            }
+            if (s == 3)
+            {
+                BackgroundImage = Resources.dowfgnload;
+            }
+            if (s == 4)
+            {
+                BackgroundImage = Resources.hollow_knight_ввиде_террата_из_mu_unauticna;
+            }
+            if (s == 5)
+            {
+                BackgroundImage = Resources.main_paras_;
+            }
+            OnBackgroundImageChanged( new EventArgs());
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+           DialogResult g = folderBrowserDialog1.ShowDialog();
+            if (g == DialogResult.OK)
+            {
+                System.Diagnostics.Process.Start(folderBrowserDialog1.SelectedPath + "/Unauticna.exe");
+                Application.Exit();
+            }
+        }
     }
 }

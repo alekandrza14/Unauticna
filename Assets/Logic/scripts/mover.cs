@@ -900,6 +900,7 @@ public class mover : MonoBehaviour
     {
         if (Directory.Exists("debug"))
         {
+            
             if (Input.GetKeyDown(KeyCode.CapsLock))
             {
                 fly = !fly;

@@ -127,7 +127,11 @@ public class LOADGAME : MonoBehaviour
         {
             SceneManager.LoadScene(43);
         }
-        if (!File.Exists("unsave/capterg/" + ifd.text) && ifd.text != "022564")
+        if (ifd.text == "100024")
+        {
+            SceneManager.LoadScene(60);
+        }
+        if (!File.Exists("unsave/capterg/" + ifd.text))
         {
             string s = "";
             s = ifd.text;
@@ -135,7 +139,7 @@ public class LOADGAME : MonoBehaviour
             SceneManager.LoadScene(1);
 
         }
-        if (File.Exists("unsave/capterg/" + ifd.text) && ifd.text != "022564")
+        if (File.Exists("unsave/capterg/" + ifd.text))
         {
             gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
             string s = "";
@@ -143,7 +147,14 @@ public class LOADGAME : MonoBehaviour
             File.WriteAllText("unsave/s", s);
             SceneManager.LoadScene(gsave.sceneid);
         }
-       
+        if (ifd.text == "022564")
+        {
+            SceneManager.LoadScene(43);
+        }
+        if (ifd.text == "100024")
+        {
+            SceneManager.LoadScene(60);
+        }
     }
     public void engLENGUAGE()
     {

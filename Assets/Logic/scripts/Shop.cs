@@ -70,6 +70,10 @@ public class Shop : MonoBehaviour
                 }
                 tevroint -= produkt[product].price;
                 VarSave.SetInt("tevro", tevroint);
+                if (produkt[product].name == "script" && Globalprefs.signedgamejolt == true)
+                {
+                    GameJolt.API.Trophies.TryUnlock(177824);
+                }
             }
             if (produkt[product].Give_or_Minus == true)
             {
