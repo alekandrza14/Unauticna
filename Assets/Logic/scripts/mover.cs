@@ -717,14 +717,15 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f,0,200f,100f),"Unauticna Alpha-version");
             if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : "+ w.ToString());
           if(cd)  GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString());
-
+            
             //+"x :" + transform.position.x.ToString()
         }
 
     }
+    
     void Start()
     {
-
+       
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
         if (VarSave.GetBool("cry"))
@@ -869,8 +870,9 @@ public class mover : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            w =0;
+            w = 0;
         }
+        
         if (FindObjectsOfType<RaymarchCam>().Length != 0)
         {
             RaymarchCam ra = FindObjectOfType<RaymarchCam>();
@@ -898,6 +900,7 @@ public class mover : MonoBehaviour
     }
     public void Creaive()
     {
+        
         if (Directory.Exists("debug"))
         {
             
