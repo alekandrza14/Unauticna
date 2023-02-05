@@ -474,7 +474,7 @@ public class ElementalInventory : MonoBehaviour {
 				}
 			}
 		}
-        if (!Input.GetKey(KeyCode.LeftShift) && boxItem.getInventory("i3").inventory != this)
+        if (!Input.GetKey(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory != this)
         {
 
 
@@ -487,7 +487,7 @@ public class ElementalInventory : MonoBehaviour {
                 select -= 1;
             }
         }
-        if (Input.GetKey(KeyCode.LeftShift) && nosell && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKey(KeyCode.Mouse0) && nosell && boxItem.getInventory("i3").inventory == this)
         {
 
 

@@ -92,8 +92,20 @@ public class deldialog : MonoBehaviour
 
                 else
                 {
-                    text.text += sm[tir];
-                    Instantiate(Resources.Load<GameObject>("dial"));
+                    if (sm.Length > 1)
+                    {
+
+
+                        bool rt = sm[0] != 's' && sm[1] != '2';
+                        if (rt)
+                        {
+
+
+                            text.text += sm[tir];
+                            Instantiate(Resources.Load<GameObject>("dial"));
+                        }
+                    }
+
                 }
 
                 tir += 1; if (s.Length > tir2)
@@ -134,7 +146,7 @@ public class deldialog : MonoBehaviour
                     tir2 = 0;
                     tir = 0;
                     button2.SetActive(true);
-                    VarSave.SetBool(delattack, true);
+                    VarSave.SetInt(delattack, 0);
                 }
                 else if (sm == "s2-attack()")
                 {

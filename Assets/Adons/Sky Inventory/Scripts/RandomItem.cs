@@ -38,7 +38,7 @@ public class RandomItem : MonoBehaviour {
 		{
 				inventory.nosell = true;
 
-			if (Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift) && inventory.Cells[inventory.select].elementCount == 0)
+			if (Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.Mouse0) && inventory.Cells[inventory.select].elementCount == 0)
 			{
 
 				inventory.Cells[inventory.select].elementCount = inventory2.Cells[inventory2.select].elementCount;
@@ -50,7 +50,7 @@ public class RandomItem : MonoBehaviour {
 				inventory2.Cells[inventory2.select].elementColor = new Color(0,0,0,0);
 				inventory2.Cells[inventory2.select].UpdateCellInterface();
 			}
-			if (Input.GetKeyDown(KeyCode.Tab)&& Input.GetKey(KeyCode.LeftShift) && inventory2.Cells[inventory2.select].elementCount == 0)
+			if (Input.GetKeyDown(KeyCode.Tab)&& Input.GetKey(KeyCode.Mouse0) && inventory2.Cells[inventory2.select].elementCount == 0)
 			{
 
 				inventory2.Cells[inventory2.select].elementCount = inventory.Cells[inventory.select].elementCount;

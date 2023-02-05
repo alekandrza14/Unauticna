@@ -25,32 +25,46 @@ public class apple : MonoBehaviour
     {
         if (yt == type1.inty) 
         {
-            if (VarSave.GetInt(var) == 1 && yt == type1.inty)
+            if (VarSave.EnterFloat(var) == true)
             {
-                varpp = 1;
+                if (VarSave.GetString(var) == "1" && yt == type1.inty)
+                {
+                    varpp = 1;
+                }
+                if (VarSave.GetString(var) == "0" && yt == type1.inty)
+                {
+                    varpp = 0;
+                }
+                if (VarSave.GetString(var) == "1" && yt == type1.inty)
+                {
+                    varpp = 2;
+                }
             }
-            if (VarSave.GetInt(var) == 0 && yt == type1.inty)
+            else
             {
                 varpp = 0;
             }
-            if (VarSave.GetInt(var) == 2 && yt == type1.inty)
-            {
-                varpp = 2;
             }
-        }
-        if (yt == type1.booly)
+            if (yt == type1.booly)
         {
-            if (VarSave.GetBool(var) == false && yt == type1.booly)
+            if (VarSave.EnterFloat(var) == true)
+            {
+                if (VarSave.GetString(var) == "False" && yt == type1.booly)
+                {
+                    varpp = 3;
+                }
+                if (VarSave.GetString(var) == "True" && yt == type1.booly)
+                {
+                    varpp = 0;
+                }
+            }
+            else
             {
                 varpp = 3;
             }
-            if (VarSave.GetBool(var) == true && yt == type1.booly)
-            {
-                varpp = 0;
-            }
         }
 
-        if (varpp == 0)
+            if (varpp == 0)
         {
             for (int i = 0; i < objects.Length; i++)
             {
@@ -164,24 +178,29 @@ public class apple : MonoBehaviour
     {
         if (yt == type1.inty)
         {
-
-
-            if (collision.tag == "Player" && VarSave.GetInt(var) != 1 && VarSave.GetInt(var) != 2)
+            if (VarSave.EnterFloat(var) == true)
             {
-                musave.save();
-                VarSave.SetInt(var, 1);
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+
+                if (collision.tag == "Player" && VarSave.GetInt(var) != 1 && VarSave.GetInt(var) != 2)
+                {
+                    musave.save();
+                    VarSave.SetInt(var, 1);
+                    musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                }
             }
-        }
-        if (yt == type1.booly)
+            }
+            if (yt == type1.booly)
         {
-            if (collision.tag == "Player" && VarSave.GetBool(var) && !VarSave.GetBool(var+1))
+            if (VarSave.EnterFloat(var) == true)
             {
-                musave.save();
-                VarSave.SetBool(var, true);
-                VarSave.SetBool(var+1, true);
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                if (collision.tag == "Player" && VarSave.GetBool(var) && !VarSave.GetBool(var + 1))
+                {
+                    musave.save();
+                    VarSave.SetBool(var, true);
+                    VarSave.SetBool(var + 1, true);
+                    musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                }
+            }
             }
         }
-    }
 }
