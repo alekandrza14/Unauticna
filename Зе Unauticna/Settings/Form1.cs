@@ -37,5 +37,10 @@ namespace Settings
             if (Directory.Exists(Path.GetDirectoryName(Application.StartupPath) + "/unsavet")) Directory.Delete(Path.GetDirectoryName(Application.StartupPath) + "/unsavet", true);
             if (Directory.Exists(Path.GetDirectoryName(Application.StartupPath) + "/world")) Directory.Delete(Path.GetDirectoryName(Application.StartupPath) + "/world", true);
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }
