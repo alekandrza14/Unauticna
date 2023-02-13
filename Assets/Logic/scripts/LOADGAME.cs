@@ -16,7 +16,7 @@ public class LOADGAME : MonoBehaviour
     public InputField ifd;
     public ParticleSystem[] ps;
     public Material mat;
-    public Animator camera;
+    public Animator Animator_camera;
     public InputField data;
     public Toggle postrender;
     public Toggle isnotwindowed;
@@ -82,7 +82,7 @@ public class LOADGAME : MonoBehaviour
     }
     public void Tutorials()
     {
-        camera.SetTrigger(">");
+        Animator_camera.SetTrigger(">");
     }
     public void Tutorial1()
     {
@@ -101,15 +101,15 @@ public class LOADGAME : MonoBehaviour
     }
     public void mainmenu()
     {
-        camera.SetTrigger("<");
+        Animator_camera.SetTrigger("<");
     }
     public void mainmenu_settings()
     {
-        camera.Play("c1set_menu");
+        Animator_camera.Play("c1set_menu");
     }
     public void settings()
     {
-        camera.Play("c1menu_set");
+        Animator_camera.Play("c1menu_set");
     }
     public void Update()
     {

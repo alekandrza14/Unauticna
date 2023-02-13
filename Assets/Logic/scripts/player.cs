@@ -157,7 +157,6 @@ public class musave : MonoBehaviourPunCallbacks
     public static string saveid;
     public static void save()
     {
-        FindObjectOfType<getind>().save();
         if (GameObject.FindObjectsOfType<mover>().Length != 0)
         {
 
@@ -182,7 +181,6 @@ public class musave : MonoBehaviourPunCallbacks
     }
     public static void saveandhill()
     {
-        FindObjectOfType<getind>().save();
         if (GameObject.FindObjectsOfType<mover>().Length != 0)
         {
 
@@ -377,7 +375,6 @@ public class musave : MonoBehaviourPunCallbacks
     }
     static public void chargescene(int scene)
     {
-        FindObjectOfType<getind>().save();
         if (!Photon.Pun.PhotonNetwork.IsConnected)
         {
 

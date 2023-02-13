@@ -43,9 +43,6 @@ namespace Settings
 
         }
 
-        private void button2_MouseClick(object sender, MouseEventArgs e)
-        {
-            System.Diagnostics.Process.Start(Path.GetDirectoryName(Application.StartupPath) + "/windows/Cheat Engine 7.4.exe");
-        }
+        
     }
 }

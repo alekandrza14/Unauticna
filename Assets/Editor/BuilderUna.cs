@@ -23,10 +23,7 @@ public class ScriptBatch
             EditorBuildSettingsScene[] s = EditorBuildSettings.scenes;
             levels.Add(s[i].path);
         }
-       if(File.Exists("vers"))
-        {
-            version = int.Parse( File.ReadAllText("vers"));
-        }
+        Directory.CreateDirectory(path + "/Application");
         // Build player.
         BuildPipeline.BuildPlayer(levels.ToArray(), path + "/Application/Unauticna.exe", BuildTarget.StandaloneWindows64, BuildOptions.None);
         //_" + mainversion + "." + neoversion + "." + version + "
@@ -36,7 +33,9 @@ public class ScriptBatch
           //  FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex.exe", path + "/Application/Unauticna_sig.exe");
           //  FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/startup.ex2.exe", path + "/Application/Unauticna.exe");
         }
-        FileUtil.CopyFileOrDirectory("Assets/Editor/dop.app/Array", path + "/windows");
+
+        Directory.CreateDirectory(path + "/Application");
+        FileUtil.CopyFileOrDirectory("windows", path + "/windows");
         FileUtil.CopyFileOrDirectory("res", path + "/res");
 
         // Run the game (Process class from System.Diagnostics).
@@ -44,8 +43,6 @@ public class ScriptBatch
         Process proc = new Process();
         proc.StartInfo.FileName = path + "/Application/Unauticna.exe";
         proc.Start();*/
-        File.WriteAllText("vers", (version + 1).ToString());
-        File.WriteAllText(path + "/Application/version.txt", mainversion + "." + neoversion + "." + version);
-
+      
     }
 }
