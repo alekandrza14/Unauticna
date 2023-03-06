@@ -27,10 +27,7 @@ public class apple : MonoBehaviour
         {
             if (VarSave.EnterFloat(var) == true)
             {
-                if (VarSave.GetString(var) == "1" && yt == type1.inty)
-                {
-                    varpp = 1;
-                }
+                
                 if (VarSave.GetString(var) == "0" && yt == type1.inty)
                 {
                     varpp = 0;
@@ -42,7 +39,7 @@ public class apple : MonoBehaviour
             }
             else
             {
-                varpp = 0;
+                varpp = 1;
             }
             }
             if (yt == type1.booly)

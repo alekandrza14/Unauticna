@@ -196,6 +196,24 @@ public class GenTest : MonoBehaviour
 		}
 		*/
 	}
+	float Hash(Vector2 p)
+	{
+		float d = Vector2.Dot(-p, new Vector2(12.9898f, 78.233f));
+		return Frac(Mathf.Sin(d) * 43758.5453123f);
+	}
+	public decimal Fract(decimal value) { return value - decimal.Truncate(value); }
+
+	public float Frac(float value)
+	{
+		return (float)Fract((decimal)value);
+	}
+	public void load_planet()
+    {
+	 float seed = Hash(new Vector2( FindObjectOfType<mover>().planet_position, -FindObjectOfType<mover>().planet_position))*-2;
+		 seed += 2f;
+		boundsSize = 500 * seed;
+		GenerateAllChunks();
+	}
 
 
 

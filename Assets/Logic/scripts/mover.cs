@@ -24,7 +24,6 @@ public class save
     public string idsave;
     public Vector3 pos, pos2;
     public Vector4 pos3;
-
     public float wpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
@@ -46,6 +45,7 @@ public class gsave
     public int hp;
     public float oxygen;
     public bool tp;
+    public int Spos;
     public string idsave;
     public int sceneid;
     public List<string> inventory = new List<string>();
@@ -94,6 +94,7 @@ public class mover : MonoBehaviour
     [SerializeField] GameObject model;
     [SerializeField] GameObject[] forach;
     [SerializeField] bool inglobalspace;
+    string lepts = "";
     void getSignal()
     {
         int vaule = 0;
@@ -493,8 +494,19 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
+        if (File.Exists("unsave/s"))
+        {
+            ifd.text = File.ReadAllText("unsave/s");
+        }
+        if (File.Exists("unsave/capterg/" + ifd.text))
+        {
+            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+            planet_position = gsave.Spos;
+            lepts = "-"+ planet_position.ToString();
+        }
         stand_stay = load1.stad;
-        if (VarSave.EnterFloat("cms"+SceneManager.GetActiveScene().buildIndex)) {
+        if (VarSave.EnterFloat("cms" + SceneManager.GetActiveScene().buildIndex))
+        {
             custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex));
             for (int i = 0; i < cms.name.Length; i++)
             {
@@ -516,8 +528,8 @@ public class mover : MonoBehaviour
             gameObject.GetComponent<PlanetGravity>().gravity = tjump;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
-            playerdata.Loadeffect();
-        
+        playerdata.Loadeffect();
+
         ionenergy.energy = 0;
         vel = GetComponent<CapsuleCollider>().height;
         if (Photon.Pun.PhotonNetwork.IsConnected)
@@ -542,54 +554,10 @@ public class mover : MonoBehaviour
             Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
         }
-        if (File.Exists("unauticna.license"))
-        {
-            if (Resources.Load<license>("delux/license").code + Resources.Load<license>("delux/license").version == File.ReadAllText("unauticna.license"))
-            {
-                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag("license").Length; i3++)
-                {
-
-
-
-
-
-                    GameObject.FindGameObjectsWithTag("license")[i3].AddComponent<deleter1>();
-
-                }
-            }
-        }
-        if (File.Exists("unauticna.license"))
-        {
-            if (Resources.Load<license>("delux/license").code + Resources.Load<license>("delux/license").version != File.ReadAllText("unauticna.license"))
-            {
-                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag("delux").Length; i3++)
-                {
-
-
-
-
-
-                    GameObject.FindGameObjectsWithTag("delux")[i3].AddComponent<deleter1>();
-
-                }
-            }
-        }
-        if (!File.Exists("unauticna.license"))
-        {
-
-            for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag("delux").Length; i3++)
-            {
-
-
-
-
-
-                GameObject.FindGameObjectsWithTag("delux")[i3].AddComponent<deleter1>();
-
-            }
-
-        }
-        if (!Photon.Pun.PhotonNetwork.IsConnected && !tutorial && inglobalspace != true)
+        
+       
+       
+        if (!tutorial && inglobalspace != true)
         {
             Instantiate(Resources.Load<GameObject>("player inventory"));
             WorldSave.GetVector4("var");
@@ -597,24 +565,25 @@ public class mover : MonoBehaviour
             WorldSave.GetMusic(SceneManager.GetActiveScene().name);
             Directory.CreateDirectory("unsave");
             Directory.CreateDirectory("unsave/capterg");
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
             if (File.Exists("unsave/s"))
             {
                 ifd.text = File.ReadAllText("unsave/s");
             }
-            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text))
+            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text));
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
                 g1.angularVelocity = save.angularvelosyty;
                 g1.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4 && !portallNumer.p5 && !portallNumer.p6 && !portallNumer.p7 && !portallNumer.p8)
                 {
-                    if (true) {
+                    if (true)
+                    {
                         g.transform.position = save.pos;
 
-                      //  sr.transform.position = save.pos2;
+                        //  sr.transform.position = save.pos2;
                         g2.transform.position = sr.transform.position;
-                       
+
                     }
                     if (Globalprefs.isnew)
                     {
@@ -650,35 +619,36 @@ public class mover : MonoBehaviour
                 hp = gsave.hp;
                 oxygen = gsave.oxygen;
                 isthirdperson = gsave.tp;
+                planet_position = gsave.Spos;
             }
         }
-            if (!Photon.Pun.PhotonNetwork.IsConnected && tutorial)
+        if (tutorial)
+        {
+            Instantiate(Resources.Load<GameObject>("player inventory"));
+            WorldSave.GetVector4("var");
+            WorldSave.GetVector3("var1");
+            WorldSave.GetMusic(SceneManager.GetActiveScene().name);
+            Directory.CreateDirectory("unsavet");
+            Directory.CreateDirectory("unsavet/capterg");
+            Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
+
+            ifd.text = "tutorial";
+
+            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/"  + ifd.text))
             {
-                Instantiate(Resources.Load<GameObject>("player inventory"));
-                WorldSave.GetVector4("var");
-                WorldSave.GetVector3("var1");
-                WorldSave.GetMusic(SceneManager.GetActiveScene().name);
-                Directory.CreateDirectory("unsavet");
-                Directory.CreateDirectory("unsavet/capterg");
-                Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
-                
-                    ifd.text = "tutorial";
-                
-                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text))
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
+                g1.angularVelocity = save.angularvelosyty;
+                g1.velocity = save.velosyty;
+                if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4)
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text));
-                    g1.angularVelocity = save.angularvelosyty;
-                    g1.velocity = save.velosyty;
-                    if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4)
-                    {
-                        g.transform.position = save.pos;
-                      //  sr.transform.position = save.pos2;
-                    }
+                    g.transform.position = save.pos;
+                    //  sr.transform.position = save.pos2;
+                }
 
                 w = save.wpos;
                 g.transform.rotation = save.q1;
-                    sr.transform.rotation = save.q3;
-                    g2.transform.rotation = save.q2;
+                sr.transform.rotation = save.q3;
+                g2.transform.rotation = save.q2;
                 if (cd != null)
                 {
 
@@ -692,20 +662,23 @@ public class mover : MonoBehaviour
                     FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                 }
             }
-                if (File.Exists("unsavet/capterg/" + ifd.text))
-                {
-                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + ifd.text));
-                    hp = gsave.hp;
-                    oxygen = gsave.oxygen;
-                    isthirdperson = gsave.tp;
-                }
-
-
-
+            if (File.Exists("unsavet/capterg/" + ifd.text))
+            {
+                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + ifd.text));
+                hp = gsave.hp;
+                oxygen = gsave.oxygen;
+                isthirdperson = gsave.tp;
+                planet_position = gsave.Spos;
             }
-        
-   }
 
+
+           
+
+        }
+      if (FindObjectsOfType<GenTest>().Length !=0)  FindObjectOfType<GenTest>().load_planet();
+
+    }
+    public int planet_position;
     private void OnGUI()
     {
         if (Input.GetKey(KeyCode.Mouse1))
@@ -715,10 +688,16 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.F8))
         {
             GUI.Label(new Rect(0f,0,200f,100f),"Unauticna Alpha-version");
-            if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : "+ w.ToString());
-          if(cd)  GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString());
-            
-         
+            if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : "+ w.ToString());
+          if(cd)  GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
+            GUI.Label(new Rect(0f, 70, 200f, 100f), "Cotinuum Position : " + SceneManager.GetActiveScene().buildIndex);
+          if(FindObjectsOfType<GenTest>().Length !=0)  GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
+            GUI.Label(new Rect(0f, 100, 200f, 100f), "All objects : " + FindObjectsOfType<GameObject>().Length);
+
+            GUI.Label(new Rect(0f, 120, 200f, 100f), "Unity Version : " + Application.unityVersion); 
+            GUI.Label(new Rect(0f, 130, 200f, 100f), "Game Version : " + Application.version);
+
+
         }
 
     }
@@ -784,9 +763,9 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F2))
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text))
+                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text));
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
                     g1.angularVelocity = save.angularvelosyty;
                     g1.velocity = save.velosyty;
                     g.transform.position = save.pos;// sr.transform.position = save.pos2;
@@ -814,7 +793,10 @@ public class mover : MonoBehaviour
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     isthirdperson = gsave.tp;
+                    planet_position = gsave.Spos;
                 }
+
+                if (FindObjectOfType<GenTest>()) FindObjectOfType<GenTest>().load_planet();
             }
         }
         else
@@ -822,9 +804,9 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F2))
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text))
+                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text));
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
                     g1.angularVelocity = save.angularvelosyty;
                     g1.velocity = save.velosyty;
                     g.transform.position = save.pos; //sr.transform.position = save.pos2;
@@ -851,6 +833,7 @@ public class mover : MonoBehaviour
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     isthirdperson = gsave.tp;
+                    planet_position = gsave.Spos;
                 }
             }
 
@@ -859,18 +842,42 @@ public class mover : MonoBehaviour
     }
     public void stop()
     {
+        if (planet_position != 0)
+        {
+            lepts = "-" + planet_position;
+        }
         bool r = !Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.UpArrow);
-        if (Input.GetKey(KeyCode.DownArrow))
+        
+        if (Directory.Exists("debug")&& !stand_stay)
         {
-            w -= 1f * Time.deltaTime;
+
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                planet_position -= 1;
+
+            }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                planet_position += 1;
+            }
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (!stand_stay)
         {
-            w += 1f * Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            w = 0;
+
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                w -= 1f * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                w += 1f * Time.deltaTime;
+            }
+            if (Input.GetKeyDown(KeyCode.F4))
+            {
+                w = 0;
+            }
         }
         
         if (FindObjectsOfType<RaymarchCam>().Length != 0)
@@ -1117,11 +1124,16 @@ public class mover : MonoBehaviour
         {
             playerdata.Saveeffect();
             save.idsave = ifd.text;
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text, JsonUtility.ToJson(save));
+
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
             gsave.idsave = ifd.text;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.tp = isthirdperson;
+
+             gsave.Spos = planet_position;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
             string s = "";
@@ -1878,7 +1890,8 @@ public class mover : MonoBehaviour
             gsave.tp = isthirdperson;
 
             save.idsave = ifd.text;
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text, JsonUtility.ToJson(save));
             gsave.idsave = ifd.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
@@ -1919,7 +1932,8 @@ public class mover : MonoBehaviour
             gsave.oxygen = oxygen;
             gsave.tp = isthirdperson;
             save.idsave = ifd.text;
-            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
+            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text, JsonUtility.ToJson(save));
             gsave.idsave = ifd.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsavet/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
@@ -1969,7 +1983,7 @@ public class mover : MonoBehaviour
 
         if (!tutorial)
         {
-            File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text);
+            File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text);
             
         }
         else
