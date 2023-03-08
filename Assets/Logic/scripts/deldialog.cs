@@ -96,7 +96,7 @@ public class deldialog : MonoBehaviour
                     {
 
 
-                        bool rt = sm[0] != 's' && sm[1] != '2';
+                        bool rt = sm != "s2-resset()";
                         if (rt)
                         {
 

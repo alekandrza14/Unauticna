@@ -103,7 +103,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig1.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -118,7 +118,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig4.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -133,7 +133,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig2.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -148,7 +148,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig3.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -163,7 +163,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig5.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -178,7 +178,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig6.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -193,7 +193,7 @@ public class mover : MonoBehaviour
             vaule = int.Parse(File.ReadAllText("C:/myMods/sig7.sig"));
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
                 {
@@ -210,7 +210,7 @@ public class mover : MonoBehaviour
             vaule1 = GlobalInputMenager.KeyCode_build;
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
                 {
@@ -238,7 +238,7 @@ public class mover : MonoBehaviour
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
             Ray r = musave.pprey();
             RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if (UnityEngine.Physics.Raycast(r, out hit))
             {
                 if (hit.collider != null && j)
                 {
@@ -948,7 +948,7 @@ public class mover : MonoBehaviour
             if (fly)
             {
                 tjump = 0;
-                
+                c = new Collision();
                 if (Input.GetKey(KeyCode.W))
                 {
 
@@ -1039,7 +1039,7 @@ public class mover : MonoBehaviour
 
         Ray r1 = new Ray(g2.transform.position, g2.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(r1, out hit))
+        if (UnityEngine.Physics.Raycast(r1, out hit))
         {
             if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
             {
@@ -1087,9 +1087,9 @@ public class mover : MonoBehaviour
         HpUpdate();
 
         WorldSave.SetMusic(SceneManager.GetActiveScene().name);
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            SceneManager.LoadScene(0);
         }
         MoveUpdate();
 
@@ -1118,7 +1118,16 @@ public class mover : MonoBehaviour
             save.pos3 = cd.position;
         }
         gsave.hp = hp;
+        if (VarSave.EnterFloat("res3") && Input.GetKeyDown(KeyCode.F11))
+        {
+            VarSave.SetBool("windowed", !VarSave.GetBool("windowed"));
+            Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
 
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
 
         if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace)
         {
@@ -1133,7 +1142,7 @@ public class mover : MonoBehaviour
             gsave.oxygen = oxygen;
             gsave.tp = isthirdperson;
 
-             gsave.Spos = planet_position;
+            gsave.Spos = planet_position;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
             string s = "";
@@ -1146,7 +1155,21 @@ public class mover : MonoBehaviour
 
         load();
 
+        Physics();
+        if (!stand_stay && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            anim.SetBool("sit", true);
+        }
+        if (!stand_stay && Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            anim.SetBool("sit", false);
+        }
+        Creaive();
+        timesaveing();
+    }
 
+    private void Physics()
+    {
         if (c == null && !issweming && !Input.GetKey(KeyCode.F) && inglobalspace != true && !Input.GetKey(KeyCode.G))
         {
             tjump -= Time.deltaTime * gr;
@@ -1277,16 +1300,6 @@ public class mover : MonoBehaviour
 
             gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
-        if (!stand_stay && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            anim.SetBool("sit", true);
-        }
-        if (!stand_stay && Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            anim.SetBool("sit", false);
-        }
-        Creaive();
-        timesaveing();
     }
 
     private void MoveUpdate()
@@ -1300,7 +1313,7 @@ public class mover : MonoBehaviour
             Ray r4 = new Ray(transform.position, new Vector3(0, -1f, 0));
 
             RaycastHit hit4;
-            if (Physics.Raycast(r4, out hit4))
+            if (UnityEngine.Physics.Raycast(r4, out hit4))
             {
                 if (hit4.distance <= 1.2f * -tjump)
                 {
@@ -1777,7 +1790,7 @@ public class mover : MonoBehaviour
             model.layer = 0;
             Ray r = new Ray(sr.transform.position, -sr.transform.forward);
             RaycastHit hit1;
-            if (Physics.Raycast(r, out hit1))
+            if (UnityEngine.Physics.Raycast(r, out hit1))
             {
                 if (hit1.collider != null)
                 {

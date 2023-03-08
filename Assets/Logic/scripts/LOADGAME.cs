@@ -49,11 +49,11 @@ public class LOADGAME : MonoBehaviour
         postrender.isOn = VarSave.GetBool("postrender");
         Directory.CreateDirectory("unsave"); 
         Directory.CreateDirectory("unsavet");
-        Directory.CreateDirectory("munsave");
 
         if (!VarSave.EnterFloat("color"))
         {
-            VarSave.SetString("color", "white");
+            VarSave.SetString("color", "gray");
+            mat.color = Color.gray;
         }
         if (VarSave.GetString("color") == "white")
         {
@@ -178,11 +178,7 @@ public class LOADGAME : MonoBehaviour
     }
     public void RESSET()
     {
-        VarSave.DeleteAll();
-        if (Directory.Exists("unsave"))
-        {
-            Directory.Delete("unsave", true);
-        }
+        Application.Quit();
     }
     public void SETmat1()
     {
