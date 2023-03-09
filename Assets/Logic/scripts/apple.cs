@@ -48,11 +48,11 @@ public class apple : MonoBehaviour
             {
                 if (VarSave.GetString(var) == "False" && yt == type1.booly)
                 {
-                    varpp = 3;
+                    varpp = 0;
                 }
                 if (VarSave.GetString(var) == "True" && yt == type1.booly)
                 {
-                    varpp = 0;
+                    varpp = 1;
                 }
             }
             else
@@ -185,19 +185,18 @@ public class apple : MonoBehaviour
                     musave.chargescene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
-            }
-            if (yt == type1.booly)
-        {
-            if (VarSave.EnterFloat(var) == true)
-            {
-                if (collision.tag == "Player" && VarSave.GetBool(var) && !VarSave.GetBool(var + 1))
-                {
-                    musave.save();
-                    VarSave.SetBool(var, true);
-                    VarSave.SetBool(var + 1, true);
-                    musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-                }
-            }
-            }
         }
+        if (yt == type1.booly)
+        {
+
+            if (collision.tag == "Player" && !VarSave.GetBool(var + 1))
+            {
+                musave.save();
+                VarSave.SetBool(var, true);
+                VarSave.SetBool(var + 1, true);
+                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+            }
+
+        }
+    }
 }

@@ -66,7 +66,7 @@ public class mover : MonoBehaviour
     [SerializeField] float jump;
     [SerializeField] float rjump;
     [SerializeField] float gr;[SerializeField] float pl;
-    [HideInInspector] public bool igr;
+    public bool igr;
     [SerializeField] bool isplanet;
     [SerializeField] bool issweming;
     Collision c;
@@ -565,14 +565,14 @@ public class mover : MonoBehaviour
             WorldSave.GetMusic(SceneManager.GetActiveScene().name);
             Directory.CreateDirectory("unsave");
             Directory.CreateDirectory("unsave/capterg");
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
             if (File.Exists("unsave/s"))
             {
                 ifd.text = File.ReadAllText("unsave/s");
             }
-            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text))
+            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
                 g1.angularVelocity = save.angularvelosyty;
                 g1.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4 && !portallNumer.p5 && !portallNumer.p6 && !portallNumer.p7 && !portallNumer.p8)
@@ -634,9 +634,9 @@ public class mover : MonoBehaviour
 
             ifd.text = "tutorial";
 
-            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/"  + ifd.text))
+            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/"  + ifd.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
                 g1.angularVelocity = save.angularvelosyty;
                 g1.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4)
@@ -763,9 +763,9 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F2))
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text))
+                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
                     g1.angularVelocity = save.angularvelosyty;
                     g1.velocity = save.velosyty;
                     g.transform.position = save.pos;// sr.transform.position = save.pos2;
@@ -804,9 +804,9 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F2))
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text))
+                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text));
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
                     g1.angularVelocity = save.angularvelosyty;
                     g1.velocity = save.velosyty;
                     g.transform.position = save.pos; //sr.transform.position = save.pos2;
@@ -1133,10 +1133,10 @@ public class mover : MonoBehaviour
         {
             playerdata.Saveeffect();
             save.idsave = ifd.text;
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text, JsonUtility.ToJson(save));
 
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
             gsave.idsave = ifd.text;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
@@ -1903,8 +1903,8 @@ public class mover : MonoBehaviour
             gsave.tp = isthirdperson;
 
             save.idsave = ifd.text;
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text, JsonUtility.ToJson(save));
             gsave.idsave = ifd.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
@@ -1945,8 +1945,8 @@ public class mover : MonoBehaviour
             gsave.oxygen = oxygen;
             gsave.tp = isthirdperson;
             save.idsave = ifd.text;
-            Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts);
-            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex );
+            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text, JsonUtility.ToJson(save));
             gsave.idsave = ifd.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsavet/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
@@ -1996,7 +1996,7 @@ public class mover : MonoBehaviour
 
         if (!tutorial)
         {
-            File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + lepts + "/" + ifd.text);
+            File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text);
             
         }
         else
