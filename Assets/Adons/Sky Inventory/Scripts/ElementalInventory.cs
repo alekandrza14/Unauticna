@@ -694,6 +694,23 @@ public class ElementalInventory : MonoBehaviour {
             }
             lowitem("gold");
         }
+        //infinity_gun
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("infinity_gun")  && Cells[select].elementName == "infinity_gun" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                   
+                }
+
+            }
+        }
         if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
         {
 
