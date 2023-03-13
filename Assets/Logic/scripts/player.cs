@@ -294,27 +294,7 @@ public class musave : MonoBehaviourPunCallbacks
     }
     static public void GetUF()
     {
-        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A)
-            && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Space) && !Input.GetKey(KeyCode.Mouse1))
-        {
-            for (int i = 0; i < Resources.LoadAll<Material>("UF").Length; i++)
-            {
-                if (Resources.LoadAll<Material>("UF")[i].color.a <1)
-                {
-
-
-                    Resources.LoadAll<Material>("UF")[i].color = new Color(Resources.LoadAll<Material>("UF")[i].color.r, Resources.LoadAll<Material>("UF")[i].color.g, Resources.LoadAll<Material>("UF")[i].color.b, Resources.LoadAll<Material>("UF")[i].color.a);
-                    Resources.LoadAll<Material>("UF")[i].color += new Color(0, 0, 0, Time.deltaTime / 2);
-                }
-            }
-        }
-        else
-        {
-            for (int i = 0; i < Resources.LoadAll<Material>("UF").Length; i++)
-            {
-                Resources.LoadAll<Material>("UF")[i].color = new Color(Resources.LoadAll<Material>("UF")[i].color.r, Resources.LoadAll<Material>("UF")[i].color.g, Resources.LoadAll<Material>("UF")[i].color.b, 0);
-            }
-        }
+        
     }
     static public Ray pprey()
     {
