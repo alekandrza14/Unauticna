@@ -44,7 +44,7 @@ public class PhotoCapture : MonoBehaviour
 
 
         //texture1;
-        if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name != "Gread_space" && !load1.stad)
+        if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name != "Gread_space" && !load1.stad && !GameObject.FindWithTag("console"))
         {
             Globalprefs.isnew = true;
             int width = this.captureCamera.pixelWidth;

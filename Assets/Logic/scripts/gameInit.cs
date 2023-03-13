@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class gameInit : MonoBehaviour
 {
+   
     static public void Init(GameObject g)
     {
         g.AddComponent<gameInit>();
@@ -18,6 +19,7 @@ public class gameInit : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
     }
+    
     private void OnApplicationQuit()
     {
         if (VarSave.EnterFloat("res3")) Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));

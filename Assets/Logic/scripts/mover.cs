@@ -89,7 +89,7 @@ public class mover : MonoBehaviour
     bool fly; bool Xray;
     [SerializeField] GameObject[] mybody;
     [HideInInspector] public Camd cd;
-    [SerializeField] float w;
+    [SerializeField] public float w;
     [SerializeField] bool stand_stay;
     [SerializeField] GameObject model;
     [SerializeField] GameObject[] forach;
@@ -704,7 +704,7 @@ public class mover : MonoBehaviour
     
     void Start()
     {
-
+        gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
         if (VarSave.GetBool("cry"))
@@ -912,85 +912,94 @@ public class mover : MonoBehaviour
         
         if (Directory.Exists("debug"))
         {
-            
-            if (Input.GetKeyDown(KeyCode.CapsLock))
-            {
-                fly = !fly;
-            }
-            if (Input.GetKeyDown(KeyCode.End))
-            {
-                Xray = !Xray;
-                saveing();
-                if (!Xray)
-                {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                }
-            }
-            if (Xray)
-            {
-                for (int i = 0; i < GameObject.FindObjectsOfType<MeshRenderer>().Length; i++)
-                {
-                    GameObject.FindObjectsOfType<MeshRenderer>()[i].enabled = true;
-                    GameObject.FindObjectsOfType<MeshRenderer>()[i].material = Resources.Load<Material>("mats/xray");
-                    if (GameObject.FindObjectsOfType<MeshRenderer>()[i].gameObject.GetComponent<BoxCollider>())
-                    {
-                        if (GameObject.FindObjectsOfType<MeshRenderer>()[i].gameObject.GetComponent<BoxCollider>().isTrigger == true)
-                        {
-                            GameObject.FindObjectsOfType<MeshRenderer>()[i].material = Resources.Load<Material>("mats/xray3");
-                        }
-                    }
-                    }
-                for (int i = 0; i < GameObject.FindObjectsOfType<SkinnedMeshRenderer>().Length; i++)
-                {
-                    GameObject.FindObjectsOfType<SkinnedMeshRenderer>()[i].enabled = true;
-                    GameObject.FindObjectsOfType<SkinnedMeshRenderer>()[i].material = Resources.Load<Material>("mats/xray2");
-                }
-                
-            }
-            if (fly)
-            {
-                tjump = 0;
-                c = new Collision();
-                if (Input.GetKey(KeyCode.W))
-                {
-
-                    anim.SetBool("swem", true);
-                    g1.velocity += g.transform.forward * 30;
-                }
-                if (Input.GetKey(KeyCode.S))
-                {
-
-                    anim.SetBool("swem", true);
-                    g1.velocity += -g.transform.forward * 30;
-                }
-                if (Input.GetKey(KeyCode.D))
-                {
-
-                    anim.SetBool("swem", true);
-                    g1.velocity += g.transform.right * 30;
-                }
-                if (Input.GetKey(KeyCode.A))
-                {
-
-                    anim.SetBool("swem", true);
-                    g1.velocity += -g.transform.right * 30;
-                }
-                if (Input.GetKey(KeyCode.Space))
-                {
-
-                    anim.SetBool("swem", true);
-                    g1.velocity += g.transform.up * 30;
-                }
-                if (Input.GetKey(KeyCode.LeftControl))
-                {
-
-                    anim.SetBool("swem", true);
-                    g1.velocity -= g.transform.up * 30;
-                }
-
-            }
+            fly1();
         }
     }
+
+    private void fly1()
+    {
+        if (Input.GetKeyDown(KeyCode.CapsLock))
+        {
+            fly = !fly;
+        }
+
+        if (fly)
+        {
+            tjump = 0;
+            c = new Collision();
+            if (Input.GetKey(KeyCode.W))
+            {
+
+                anim.SetBool("swem", true);
+                g1.velocity += g.transform.forward * 30;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+
+                anim.SetBool("swem", true);
+                g1.velocity += -g.transform.forward * 30;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+
+                anim.SetBool("swem", true);
+                g1.velocity += g.transform.right * 30;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+
+                anim.SetBool("swem", true);
+                g1.velocity += -g.transform.right * 30;
+            }
+            if (Input.GetKey(KeyCode.Space))
+            {
+
+                anim.SetBool("swem", true);
+                g1.velocity += g.transform.up * 30;
+            }
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+
+                anim.SetBool("swem", true);
+                g1.velocity -= g.transform.up * 30;
+            }
+
+        }
+    }
+
+    public void xray()
+    {
+        
+            Xray = !Xray;
+            saveing();
+            if (!Xray)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        
+        if (Xray)
+        {
+            for (int i = 0; i < GameObject.FindObjectsOfType<MeshRenderer>().Length; i++)
+            {
+                GameObject.FindObjectsOfType<MeshRenderer>()[i].enabled = true;
+                GameObject.FindObjectsOfType<MeshRenderer>()[i].material = Resources.Load<Material>("mats/xray");
+                if (GameObject.FindObjectsOfType<MeshRenderer>()[i].gameObject.GetComponent<BoxCollider>())
+                {
+                    if (GameObject.FindObjectsOfType<MeshRenderer>()[i].gameObject.GetComponent<BoxCollider>().isTrigger == true)
+                    {
+                        GameObject.FindObjectsOfType<MeshRenderer>()[i].material = Resources.Load<Material>("mats/xray3");
+                    }
+                }
+            }
+            for (int i = 0; i < GameObject.FindObjectsOfType<SkinnedMeshRenderer>().Length; i++)
+            {
+                GameObject.FindObjectsOfType<SkinnedMeshRenderer>()[i].enabled = true;
+                GameObject.FindObjectsOfType<SkinnedMeshRenderer>()[i].material = Resources.Load<Material>("mats/xray2");
+            }
+
+        }
+    }
+
     public void physicsStop()
     {
         igr = false;
@@ -1337,15 +1346,7 @@ public class mover : MonoBehaviour
         if (Directory.Exists("debug"))
         {
 
-            if (Input.GetKeyDown(KeyCode.X) && SceneManager.GetActiveScene().buildIndex < SceneManager.sceneCountInBuildSettings - 1)
-            {
-
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            }
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-            }
+           
         }
         bool yp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
         if (!yp)

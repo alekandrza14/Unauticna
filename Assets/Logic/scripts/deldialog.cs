@@ -10,18 +10,15 @@ public class deldialog : MonoBehaviour
     public GameObject button;
     public GameObject button2;
     public string del; public string delattack;
+    [Multiline(3)]
     public string[] s = new string[1];
     public string sm = "Очевидно...";
+    [Multiline(3)]
     public string[] se = new string[1];
     public string sme = "yeap...";
+    [Multiline(3)]
     public string[] su = new string[1];
     public string smu = "Очивитдн...";
-    public string[] rs = new string[1];
-    public string rsm = "Очевидно...";
-    public string[] rse = new string[1];
-    public string rsme = "yeap...";
-    public string[] rsu = new string[1];
-    public string rsmu = "Очивитдн...";
 
     public TextMeshProUGUI text;
     public question qu;
@@ -40,17 +37,14 @@ public class deldialog : MonoBehaviour
 
     void resset()
     {
-        s = rs;
-        sm = rsm;
-        se = rse;
-        sme = rsme;
-        su = rsu;
-        smu = rsmu;
+        
     }
     void Start()
     {
        tir2 = VarSave.GetInt(del);
-        s[0] = text.text;
+        if (s[0].Length ==0) {
+            s[0] = text.text; 
+        }
         VarSave.SetInt("delbutton" + del, 0);
         button.SetActive(false);
         text.text = "";

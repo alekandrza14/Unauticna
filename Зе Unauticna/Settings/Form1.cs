@@ -43,6 +43,15 @@ namespace Settings
 
         }
 
-        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            System.Diagnostics.Process.Start(Application.StartupPath + "/windows/UnauticnaConsole.exe");
+        }
     }
 }
