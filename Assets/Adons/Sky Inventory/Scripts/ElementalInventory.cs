@@ -753,7 +753,11 @@ public class ElementalInventory : MonoBehaviour {
 
             musave.saveandhill();
 
-
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                Instantiate(Resources.Load("voices/belock"));
+            }
 
             lowitem("belock");
 			GlobalInputMenager.KeyCode_eat = 0;

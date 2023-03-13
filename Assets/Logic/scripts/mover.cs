@@ -704,7 +704,7 @@ public class mover : MonoBehaviour
     
     void Start()
     {
-       
+
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
         if (VarSave.GetBool("cry"))
@@ -713,11 +713,11 @@ public class mover : MonoBehaviour
 
             VarSave.SetBool("cry", false);
         }
-        if (VarSave.EnterFloat("mus"))
+        if (VarSave.EnterFloat2("mus"))
         {
             for (int i = 0; i < GameObject.FindGameObjectsWithTag("game musig").Length; i++)
             {
-                GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetFloat("mus");
+                GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetFloat2("mus");
             }
         }
        
@@ -840,12 +840,14 @@ public class mover : MonoBehaviour
         }
 
     }
+    public void Unload()
+    {
+        File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void stop()
     {
-        if (planet_position != 0)
-        {
-            lepts = "-" + planet_position;
-        }
+        
         bool r = !Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.UpArrow);
         
         if (Directory.Exists("debug")&& !stand_stay)
@@ -876,7 +878,7 @@ public class mover : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.F4))
             {
-                w = 0;
+                Unload();
             }
         }
         

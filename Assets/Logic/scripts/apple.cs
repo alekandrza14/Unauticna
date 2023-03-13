@@ -4,199 +4,48 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public enum type1
 {
-    inty,booly
+    triggered,awaked
+}
+[System.Serializable]
+public class eventun
+{
+    public string value;
+    public string var;
+    public bool isNo;
+    public GameObject[] gameObjects;
 }
 
 public class apple : MonoBehaviour
 {
-    [Header("до")]
-    public int varpp;
-    public bool varpp2;
-    public type1 yt = type1.inty;
-    public string var = "ap";
-    public GameObject[] objects;
-    [Header("после")]
-    public GameObject[] objects2;
-    public GameObject[] objects3;
-    public GameObject[] objects4;
-    public GameObject[] objects5;
-
-    void Start()
+    public GameObject[] gameObjects;
+    public eventun[] events;
+    private void Awake()
     {
-        if (yt == type1.inty) 
+        foreach (GameObject i in gameObjects)
         {
-            if (VarSave.EnterFloat(var) == true)
-            {
-                
-                if (VarSave.GetString(var) == "0" && yt == type1.inty)
-                {
-                    varpp = 0;
-                }
-                if (VarSave.GetString(var) == "1" && yt == type1.inty)
-                {
-                    varpp = 2;
-                }
-            }
-            else
-            {
-                varpp = 1;
-            }
-            }
-            if (yt == type1.booly)
-        {
-            if (VarSave.EnterFloat(var) == true)
-            {
-                if (VarSave.GetString(var) == "False" && yt == type1.booly)
-                {
-                    varpp = 0;
-                }
-                if (VarSave.GetString(var) == "True" && yt == type1.booly)
-                {
-                    varpp = 1;
-                }
-            }
-            else
-            {
-                varpp = 3;
-            }
+            i.SetActive(false);
         }
-
-            if (varpp == 0)
+    }
+    private void Start()
+    {
+        foreach (eventun i2 in events)
         {
-            for (int i = 0; i < objects.Length; i++)
+            for (int i =0; i < i2.gameObjects.Length;i++)
             {
+                if (i2.value == VarSave.GetString(i2.var) && true == VarSave.EnterFloat(i2.var))
+                {
 
 
-                objects[i].SetActive(true);
-
-            }
-            for (int i = 0; i < objects2.Length; i++)
-            {
-
+                    i2.gameObjects[i].SetActive(true);
+                }
+                else if (i2.isNo && false == VarSave.EnterFloat(i2.var))
+                {
 
 
-                objects2[i].SetActive(false);
-            }
-            for (int i = 0; i < objects4.Length; i++)
-            {
-
-
-
-                objects4[i].SetActive(false);
-            }
-        }
-        if (varpp == 1)
-        {
-            for (int i = 0; i < objects.Length; i++)
-            {
-
-
-                objects[i].SetActive(false);
-
-            }
-            for (int i = 0; i < objects2.Length; i++)
-            {
-
-
-
-                objects2[i].SetActive(true);
-            }
-            for (int i = 0; i < objects5.Length; i++)
-            {
-
-
-
-                objects5[i].SetActive(false);
-            }
-        }
-        if (varpp == 2)
-        {
-            for (int i = 0; i < objects.Length; i++)
-            {
-
-
-                objects[i].SetActive(false);
-
-            }
-            for (int i = 0; i < objects2.Length; i++)
-            {
-
-
-
-                objects2[i].SetActive(false);
-            }
-            for (int i = 0; i < objects3.Length; i++)
-            {
-
-
-
-                objects3[i].SetActive(true);
-            }
-        }
-        if (varpp == 3)
-        {
-            for (int i = 0; i < objects.Length; i++)
-            {
-
-
-                objects[i].SetActive(false);
-
-            }
-            for (int i = 0; i < objects2.Length; i++)
-            {
-
-
-
-                objects2[i].SetActive(false);
-            }
-            for (int i = 0; i < objects4.Length; i++)
-            {
-
-
-
-                objects4[i].SetActive(false);
-            }
-            for (int i = 0; i < objects3.Length; i++)
-            {
-
-
-
-                objects3[i].SetActive(true);
+                    i2.gameObjects[i].SetActive(true);
+                }
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    public void OnTriggerStay(Collider collision)
-    {
-        if (yt == type1.inty)
-        {
-            if (VarSave.EnterFloat(var) == true)
-            {
-
-                if (collision.tag == "Player" && VarSave.GetInt(var) != 1 && VarSave.GetInt(var) != 2)
-                {
-                    musave.save();
-                    VarSave.SetInt(var, 1);
-                    musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-                }
-            }
-        }
-        if (yt == type1.booly)
-        {
-
-            if (collision.tag == "Player" && !VarSave.GetBool(var + 1))
-            {
-                musave.save();
-                VarSave.SetBool(var, true);
-                VarSave.SetBool(var + 1, true);
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
-
-        }
-    }
 }

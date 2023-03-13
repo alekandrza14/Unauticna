@@ -176,7 +176,7 @@ namespace Unity.Mathematics
                  //   if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
                     r = false;
                 }
-                Debug.Log(d);
+               // Debug.Log(d);
                 transform.Translate(Vector3.down * d, Space.World);
             }
         }
