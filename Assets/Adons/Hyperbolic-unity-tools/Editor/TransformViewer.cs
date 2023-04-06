@@ -29,13 +29,7 @@ public class TransformViewer : Editor
         if (!Hyperblic && !Hyperbliccam)
         {
             EditorGUI.BeginChangeCheck();
-
-            v3 = EditorGUILayout.Vector3Field("Poisition", mp.position);
-
-            Vector3 rot = EditorGUILayout.Vector3Field("Rotatation", mp.rotation.eulerAngles);
-            q = Quaternion.Euler(rot.x, rot.y, rot.z);
-
-           ls = EditorGUILayout.Vector3Field("Scale", mp.localScale);
+            base.DrawDefaultInspector();
         }
         if (Hyperblic)
         {
@@ -82,12 +76,6 @@ public class TransformViewer : Editor
             {
 
 
-                mp.position = v3;
-
-                
-                mp.rotation = q;
-
-                mp.localScale = ls;
             }
             if (Hyperblic)
             {

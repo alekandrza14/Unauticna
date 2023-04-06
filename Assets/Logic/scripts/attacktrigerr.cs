@@ -149,12 +149,7 @@ public class attacktrigerr : MonoBehaviour
 
                 allobj[i].SetActive(true);
             }
-            if (allobj[i].GetComponent<player>())
-            {
-
-                
-                allobj[i].SetActive(true);
-            }
+           
         }
         player = p;
         

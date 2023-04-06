@@ -53,19 +53,19 @@ public class LOADGAME : MonoBehaviour
         if (!VarSave.EnterFloat("color"))
         {
             VarSave.SetString("color", "gray");
-            mat.color = Color.gray;
+            mat.SetColor("_Color", Color.gray);
         }
         if (VarSave.GetString("color") == "white")
         {
-            mat.color = Color.white;
+            mat.SetColor("_Color", Color.white);
         }
         if (VarSave.GetString("color") == "gray")
         {
-            mat.color = Color.gray;
+            mat.SetColor("_Color", Color.gray);
         }
         if (VarSave.GetString("color") == "black")
         {
-            mat.color = Color.black;
+            mat.SetColor("_Color", Color.black);
         }
         if (File.Exists("unsave/s"))
         {
@@ -182,17 +182,17 @@ public class LOADGAME : MonoBehaviour
     }
     public void SETmat1()
     {
-        mat.color = Color.white;
+        mat.SetColor("_Color", Color.white);
         VarSave.SetString("color", "white");
     }
     public void SETmat2()
     {
-        mat.color = Color.gray;
+        mat.SetColor("_Color", Color.gray);
         VarSave.SetString("color", "gray");
     }
     public void SETmat3()
     {
-        mat.color = Color.black;
+        mat.SetColor("_Color", Color.black);
         VarSave.SetString("color", "black");
     }
     public void setgraficsetings()

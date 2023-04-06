@@ -142,7 +142,7 @@ public class RaymarchCam : SceneViewFilter
         if (_useNormal)
         {
             _raymarchMaterial.SetInt("_useNormal", 1);
-            _raymarchMaterial.SetInt("_nrOfCascades", _nrOfCascades); 
+            _raymarchMaterial.SetInt("_nrOfCascades", _nrOfCascades);
         }
         else _raymarchMaterial.SetInt("_useNormal", 0);
 
@@ -160,8 +160,51 @@ public class RaymarchCam : SceneViewFilter
 
         _raymarchMaterial.SetMatrix("_CamFrustrum", CamFrustrum(_camera));
         _raymarchMaterial.SetMatrix("_CamToWorld", _camera.cameraToWorldMatrix);
-        _raymarchMaterial.SetFloat("_maxDistance", _camera.farClipPlane); 
-        
+        _raymarchMaterial.SetFloat("_maxDistance", _camera.farClipPlane);
+
+
+        _raymarchMaterial.SetFloat("_precision", _precision);
+        _raymarchMaterial.SetFloat("_max_iteration", _max_iteration);
+        _raymarchMaterial.SetFloat("_maxShadowDistance", _maxShadowDistance);
+        _raymarchMaterial.SetFloat("_lightIntensity", _lightIntensity);
+        _raymarchMaterial.SetFloat("_shadowIntensity", _shadowIntensity);
+        _raymarchMaterial.SetFloat("_aoIntensity", _aoIntensity);
+        _raymarchMaterial.SetVector("_lightDir", _directionalLight ? _directionalLight.forward : Vector3.down);
+        _raymarchMaterial.SetVector("_player", _player ? _player.position : Vector3.zero);
+        _raymarchMaterial.SetColor("_skyColor", _skyColor);
+
+
+        _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);
+        _raymarchMaterial.SetFloat("w", _wPosition);
+
+
+        _raymarchMaterial.SetInt("_renderNr", _renderNr);
+    }
+    public void SetParameters2()
+    {
+        if (_useNormal)
+        {
+            _raymarchMaterial.SetInt("_useNormal", 1);
+            _raymarchMaterial.SetInt("_nrOfCascades", _nrOfCascades);
+        }
+        else _raymarchMaterial.SetInt("_useNormal", 0);
+
+        if (_useShadow)
+        {
+            _raymarchMaterial.SetInt("_useShadow", 1);
+
+            if (_useSoftShadow)
+            {
+                _raymarchMaterial.SetInt("_useShadow", 2);
+                _raymarchMaterial.SetFloat("_shadowSoftness", _shadowSoftness);
+            }
+        }
+        else _raymarchMaterial.SetInt("_useShadow", 0);
+
+        _raymarchMaterial.SetMatrix("_CamFrustrum", CamFrustrum(_camera));
+        _raymarchMaterial.SetMatrix("_CamToWorld", _camera.cameraToWorldMatrix);
+        _raymarchMaterial.SetFloat("_maxDistance", _camera.farClipPlane);
+
 
         _raymarchMaterial.SetFloat("_precision", _precision);
         _raymarchMaterial.SetFloat("_max_iteration", _max_iteration);

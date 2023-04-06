@@ -87,7 +87,7 @@ public class GlobalGreadSpaseImage : MonoBehaviour
         }
         if (File.Exists("unsave/capterg/" + s))
         {
-            m.SETistp(JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + s)).tp);
+            m.SETistp(JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + s)).fv);
         }
         m.g.transform.rotation = save.q1;
         m.sr.transform.rotation = save.q3;

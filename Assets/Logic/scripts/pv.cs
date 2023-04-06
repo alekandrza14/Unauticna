@@ -15,13 +15,5 @@ public class pv : MonoBehaviourPunCallbacks
         
 
     }
-    [PunRPC]
-    private void setColor(float v1, float v2, float v3)
-    {
-       
-
-            GetComponent<player>().d = new Color(v1, v2, v3);
-        
-
-    }
+   
 }

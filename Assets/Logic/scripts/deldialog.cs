@@ -383,12 +383,7 @@ public class deldialog : MonoBehaviour
 
                     s.GetComponent<mover>().del = this;
                 }
-                if (s.GetComponent<player>())
-                {
-
-
-
-                }
+               
                 enter = true;
                 Debug.Log(1);
                 VarSave.SetInt("delbutton" + del, 1);

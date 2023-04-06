@@ -30,7 +30,7 @@ public class HyperTransform : EditorTool
         Transform trgettransform = ((Sphere)target).transform;
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
-        Vector3 v3 = (Handles.PositionHandle(SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position , Quaternion.identity)-(SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position));
+        Vector3 v3 = (Handles.PositionHandle(SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position, Quaternion.identity) - (SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position));
         Polar3 newpos = new Polar3(trgetpolartransform.n + (v3.x) / (10), trgetpolartransform.s + (v3.y) / 10, trgetpolartransform.m + (v3.z) / 10);
         //  ((Sphere)target).p2 = newpos;
         Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, ((Sphere)target).v1, trgettransform.position.z), Quaternion.identity);
@@ -67,3 +67,4 @@ public class HyperTransform : EditorTool
     }
 
 }
+
