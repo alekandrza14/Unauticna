@@ -47,9 +47,17 @@ Camera:
   m_projectionMatrixMode: 2
   m_GateFitMode: 1
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 0.11894531
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 0.1, y: 0.1}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 0.11894531
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -148,7 +156,7 @@ GameObject:
   - component: {fileID: 942365034131559751}
   - component: {fileID: 942365034131559748}
   - component: {fileID: 942365034131559749}
-  - component: {fileID: 6170411521921502725}
+  - component: {fileID: 5329493943686441197}
   m_Layer: 0
   m_Name: zerkalo 1
   m_TagString: Untagged
@@ -200,7 +208,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 01b6cb64a881b7545971ec6922d500ee, type: 2}
+  - {fileID: 2100000, guid: 39aea549c5e729246bb60b13d52450a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -230,13 +238,21 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942365034131559770}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6170411521921502725
+--- !u!114 &5329493943686441197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,9 +261,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 942365034131559770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ada9f7991fc15d74ba13a66e2b6f591d, type: 3}
+  m_Script: {fileID: 11500000, guid: db0d9745f2b858b4f94fcce8b698f24a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 942365034033326339}
-  camv3: {x: 0, y: 0, z: 0}
-  s1: 0
+  m_DisablePixelLights: 1
+  m_TextureSize: 1024
+  m_ClipPlaneOffset: 0.07
+  m_ReflectLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295

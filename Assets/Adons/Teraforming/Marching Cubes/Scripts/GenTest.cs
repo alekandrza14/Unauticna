@@ -185,7 +185,6 @@ public class GenTest : MonoBehaviour
 
 		// TODO: move somewhere more sensible
 		material.SetTexture("DensityTex", originalMap);
-		material.SetFloat("oceanRadius", FindObjectOfType<Water>().radius);
 		material.SetFloat("planetBoundsSize", boundsSize);
 
 		/*
@@ -209,9 +208,10 @@ public class GenTest : MonoBehaviour
 	}
 	public void load_planet()
     {
-	 float seed = Hash(new Vector2( FindObjectOfType<mover>().planet_position, -FindObjectOfType<mover>().planet_position))*-2;
+	 float seed = Hash(new Vector2(
+                        VarSave.GetInt("planet"), -VarSave.GetInt("planet")))*-2;
 		 seed += 2f;
-		boundsSize = 500 * seed;
+		boundsSize = 300 * seed;
 		GenerateAllChunks();
 	}
 

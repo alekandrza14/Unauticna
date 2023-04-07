@@ -18,16 +18,14 @@ public class Terraformer : MonoBehaviour
 	GenTest genTest;
 	bool hasHit;
 	Vector3 hitPoint;
-	FirstPersonController firstPersonController;
 
 	bool isTerraforming;
 	Vector3 lastTerraformPointLocal;
-	/*
+	
 	void Start()
 	{
 		genTest = FindObjectOfType<GenTest>();
 		cam = Camera.main.transform;
-		firstPersonController = FindObjectOfType<FirstPersonController>();
 	}
 	
 	void Update()
@@ -78,14 +76,9 @@ public class Terraformer : MonoBehaviour
 		float weight = Mathf.Lerp(terraformSpeedNear, terraformSpeedFar, weight01);
 
 		// Add terrain
-		if (Input.GetMouseButton(0))
-		{
-			isTerraforming = true;
-			genTest.Terraform(terraformPoint, -weight, terraformRadius);
-			firstPersonController.NotifyTerrainChanged(terraformPoint, terraformRadius);
-		}
+		
 		// Subtract terrain
-		else if (Input.GetMouseButton(1))
+		if (Input.GetMouseButton(1))
 		{
 			isTerraforming = true;
 			genTest.Terraform(terraformPoint, weight, terraformRadius);
@@ -105,5 +98,5 @@ public class Terraformer : MonoBehaviour
 			Gizmos.DrawSphere(hitPoint, 0.25f);
 		}
 	}
-	*/
+	
 }

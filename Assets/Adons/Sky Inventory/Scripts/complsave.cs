@@ -20,7 +20,7 @@ public class complsave : MonoBehaviour
     public GameObject[] t3;
 
 
-
+    public string lif;
 
     public string[] nunames;
 
@@ -33,12 +33,12 @@ public class complsave : MonoBehaviour
 
         for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
         {
-            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + i) == true)
+            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + lif + i) == true)
             {
 
 
                 
-                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + i, false);
+                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + lif + i, false);
 
             }
             
@@ -66,12 +66,12 @@ public class complsave : MonoBehaviour
 
 
         }
-        File.Delete(name2.ToString() + @"/scene_" + SceneManager.GetActiveScene().name);
+        File.Delete(name2.ToString() + @"/scene_" + lif + SceneManager.GetActiveScene().name);
         
     }
     public void getallitemsroom()
     {
-        GameObject[] g = Resources.LoadAll<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex);
+        GameObject[] g = Resources.LoadAll<GameObject>("itms/room" + lif + SceneManager.GetActiveScene().buildIndex);
         nunames = new string[g.Length];
         for (int i = 0; i < nunames.Length; i++)
         {
@@ -118,16 +118,17 @@ public class complsave : MonoBehaviour
 
     public void Start()
     {
+        if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
         getallitems();
         load();
         for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
         {
-            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + i) != true)
+            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + lif + i) != true)
             {
 
 
                 GameObject.FindObjectsOfType<itemspawn>()[i].sp();
-                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + i, true);
+                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + lif + i, true);
 
             }
             if (GameObject.FindObjectsOfType<itemspawn>().Length - 1 == i)
@@ -234,7 +235,7 @@ public class complsave : MonoBehaviour
 
 
         Directory.CreateDirectory(name2.ToString());
-        File.WriteAllText(name2.ToString() + @"/scene_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+        File.WriteAllText(name2.ToString() + @"/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
         saveString1.vector3A.Clear();
         saveString1.PvectorA.Clear();
@@ -253,7 +254,7 @@ public class complsave : MonoBehaviour
         saveString1.vector3A.Clear();
         saveString1.id.Clear();
 
-        saveString221 = Path.Combine("", name2 + @"/scene_" + SceneManager.GetActiveScene().name);
+        saveString221 = Path.Combine("", name2 + @"/scene_" + lif + SceneManager.GetActiveScene().name);
 
 
 
@@ -267,7 +268,7 @@ public class complsave : MonoBehaviour
         {
             Debug.Log("IU2");
 
-            File.WriteAllText(name2 + @"/scene_" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+            File.WriteAllText(name2 + @"/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
             saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
 
         }
