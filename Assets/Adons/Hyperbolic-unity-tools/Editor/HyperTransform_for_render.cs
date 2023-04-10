@@ -30,9 +30,9 @@ public class HyperTransform_for_render : EditorTool
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Vector3 v3 = Handles.PositionHandle(new Vector3(0, 0, 0), Quaternion.identity);
-        Polar3 newpos = new Polar3(trgetpolartransform.n+ (v3.x)/(1000), trgetpolartransform.s + (v3.y) / 1000, trgetpolartransform.m + (v3.z) / 1000);
+        Polar3 newpos = new Polar3(trgetpolartransform.n+ (v3.x)/(40), trgetpolartransform.s + (v3.y) / 40, trgetpolartransform.m + (v3.z) / 40);
       //  ((Sphere)target).p2 = newpos;
-        Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, trgettransform.position.y, trgettransform.position.z), Quaternion.identity);
+      //  Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, trgettransform.position.y, trgettransform.position.z), Quaternion.identity);
         //  ((Sphere)target).v1 = v32.y;
        
         if (EditorGUI.EndChangeCheck())
@@ -44,7 +44,7 @@ public class HyperTransform_for_render : EditorTool
 
             Undo.RecordObject(target, "Hyperbolic move tool");
             ((Camd)target).polarTransform = newpos;
-                ((Camd)target).transform.position = Vector3.up * v32.y;
+            //    ((Camd)target).transform.position = Vector3.up * v32.y;
            
 
            
