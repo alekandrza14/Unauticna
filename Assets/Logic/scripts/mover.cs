@@ -99,6 +99,7 @@ public class mover : MonoBehaviour
     [SerializeField] GameObject[] forach;
     [SerializeField] bool inglobalspace;
     [SerializeField] faceView faceViewi;
+    bool move4D;
     string lepts = "";
     void getSignal()
     {
@@ -559,12 +560,12 @@ public class mover : MonoBehaviour
             Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
         }
-        
-       
-       
+
+        Instantiate(Resources.Load<GameObject>("player inventory"));
+        Instantiate(Resources.Load<GameObject>("player inventory element 2"));
         if (!tutorial && inglobalspace != true)
         {
-            Instantiate(Resources.Load<GameObject>("player inventory"));
+            
             WorldSave.GetVector4("var");
             WorldSave.GetVector3("var1");
             WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -629,7 +630,6 @@ public class mover : MonoBehaviour
         }
         if (tutorial)
         {
-            Instantiate(Resources.Load<GameObject>("player inventory"));
             WorldSave.GetVector4("var");
             WorldSave.GetVector3("var1");
             WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -704,9 +704,14 @@ public class mover : MonoBehaviour
 
 
         }
-
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+move4D.ToString());
+            if (!cd) GUI.Label(new Rect(0f, 00, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + w.ToString());
+            if (cd) GUI.Label(new Rect(0f, 00, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
+        }
     }
-    
+
     void Start()
     {
         gameObject.AddComponent<Conseole_trigger>();
@@ -871,15 +876,33 @@ public class mover : MonoBehaviour
         }
         if (!stand_stay)
         {
-
-
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (!move4D)
             {
-                w -= 1f * Time.deltaTime;
+
+
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    w -= 1f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    w += 1f * Time.deltaTime;
+                }
             }
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (move4D)
             {
-                w += 1f * Time.deltaTime;
+
+
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    w -= 10f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    w += 10f * Time.deltaTime;
+                }
             }
             if (Input.GetKeyDown(KeyCode.F4))
             {
@@ -1036,6 +1059,10 @@ public class mover : MonoBehaviour
         {
             stand_stay = !stand_stay;
             load1.stad = stand_stay;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            move4D = !move4D;
         }
         getSignal();
         if (isplanet)
@@ -1916,7 +1943,10 @@ public class mover : MonoBehaviour
         playerdata.checkeffect();
         musave.GetUF();
     }
-
+    public static mover main()
+    {
+      return  FindFirstObjectByType<mover>();
+    }
     public void saveing()
     {
         if (playerdata.Geteffect("LevelUp") != null)

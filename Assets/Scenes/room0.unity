@@ -6468,14 +6468,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4972998650662337203, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
         type: 3}
+      propertyPath: model
+      value: 
+      objectReference: {fileID: 1862220014}
+    - target: {fileID: 4972998650662337203, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
+        type: 3}
       propertyPath: forach.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4972998650662337203, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
         type: 3}
       propertyPath: 'forach.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1862220014}
     - target: {fileID: 4972998650662337203, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
         type: 3}
       propertyPath: 'forach.Array.data[1]'
@@ -6835,6 +6840,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getind: 52
+--- !u!1 &1862220014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4693040154836522348, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
+    type: 3}
+  m_PrefabInstance: {fileID: 1847210911}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1932082822
 GameObject:
   m_ObjectHideFlags: 0
@@ -6873,7 +6884,7 @@ TerrainCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: fc7ce709445c285409e80a467213039c, type: 2}
-  m_EnableTreeColliders: 1
+  m_EnableTreeColliders: 0
 --- !u!218 &1932082825
 Terrain:
   m_ObjectHideFlags: 0
@@ -6895,7 +6906,7 @@ Terrain:
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
-  m_DrawInstanced: 1
+  m_DrawInstanced: 0
   m_DrawTreesAndFoliage: 1
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
@@ -6909,7 +6920,7 @@ Terrain:
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
   m_RenderingLayerMask: 1
-  m_AllowAutoConnect: 1
+  m_AllowAutoConnect: 0
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
 --- !u!4 &1932082826

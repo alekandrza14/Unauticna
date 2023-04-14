@@ -16,6 +16,7 @@ public class Cell : MonoBehaviour {
 		UpdateCellInterface();
 
 	}
+   
     public void UpdateCellInterface () {
 		if (elementPrefab == null) {
 			elementPrefab = (FindObjectOfType (typeof(ElementalInventory)) as ElementalInventory).elementPrefab;

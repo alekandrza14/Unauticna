@@ -10,6 +10,7 @@ public static class Globalprefs
     public static Vector3 pos;
     public static Vector3[] postes;
     public static Quaternion[] q;
+    public static string selectitem;
     public static bool isnew;
     public static string item;
     public static bool signedgamejolt;

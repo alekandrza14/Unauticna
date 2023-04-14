@@ -14,14 +14,17 @@ public class MovingEvent : MonoBehaviour {
 		}
 	}
 
-	public void moveItem () {
-		if (inventory == null) {
-			inventory = FindObjectOfType (typeof(ElementalInventory)) as ElementalInventory;
-		}
-		inventory.moveItemLinkFirst (transform);
-	}
+    public void moveItem()
+    {
+        if (inventory == null)
+        {
+            inventory = FindObjectOfType(typeof(ElementalInventory)) as ElementalInventory;
+        }
+        inventory.moveItemLinkFirst(transform);
+    }
 
-	public void moveHere () {
+    
+    public void moveHere () {
 		if (inventory == null) {
 			inventory = FindObjectOfType (typeof(ElementalInventory)) as ElementalInventory;
 		}

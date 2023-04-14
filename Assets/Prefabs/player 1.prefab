@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3891769881919649814}
   - component: {fileID: 4151854970096338354}
   - component: {fileID: 5032444998171475846}
+  - component: {fileID: 2318682279846088998}
+  - component: {fileID: 1821329339565359712}
   m_Layer: 2
   m_Name: Main Camera
   m_TagString: Untagged
@@ -140,6 +142,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737de530584c0864286580bd992251b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2318682279846088998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891769881919649809}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509c7dabc11d1426a919fbec441cefb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: 8f4de6e9330b641579626ad7feb3b23e, type: 3}
+  _directionalLight: {fileID: 0}
+  _player: {fileID: 3891769881919649812}
+  _precision: 0.001
+  _max_iteration: 200
+  _wRotation: {x: 0, y: 0, z: 0}
+  _wPosition: 0
+  _useNormal: 1
+  _nrOfCascades: 10
+  _lightIntensity: 0.716
+  _useShadow: 1
+  _useSoftShadow: 1
+  _shadowSoftness: 0
+  _maxShadowDistance: 0
+  _shadowIntensity: 1
+  _aoIntensity: 0.537
+  _skyColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  _renderNr: 0
+  orderedShapes: []
+--- !u!114 &1821329339565359712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3891769881919649809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126455c9269fbaa4ca7e6b2c255e633c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rc: {fileID: 2318682279846088998}
 --- !u!1 &3891769882188314243
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,6 +468,7 @@ MonoBehaviour:
   forach:
   - {fileID: 7262350769320014492}
   inglobalspace: 0
+  faceViewi: 0
   planet_position: 0
 --- !u!54 &3891769882615153386
 Rigidbody:

@@ -432,7 +432,10 @@ public class ElementalInventory : MonoBehaviour {
 	}
 	private void Update()
     {
-		if (boxItem.getInventory("i3").inventory == this)
+
+       DeselectLayItem(); SelectLayItem();
+
+        if (boxItem.getInventory("i3").inventory == this)
 		{
 			Globalprefs.item = boxItem.getInventory("i3").inventory.Cells[select].elementName;
 
@@ -504,7 +507,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
+            if (select <= Cells.Length - 1 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
             {
                 select += 1;
             }
@@ -768,8 +771,8 @@ public class ElementalInventory : MonoBehaviour {
 
 			if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
 			{
-
-				Ray r = musave.pprey();
+                Globalprefs.selectitem = "";
+                Ray r = musave.pprey();
 				RaycastHit hit;
 				if (Physics.Raycast(r, out hit))
 				{
@@ -792,8 +795,8 @@ public class ElementalInventory : MonoBehaviour {
 		{
 			if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
 			{
-
-				Ray r = musave.pprey();
+                Globalprefs.selectitem = "";
+                Ray r = musave.pprey();
 				RaycastHit hit;
 				if (Physics.Raycast(r, out hit))
 				{
@@ -827,6 +830,7 @@ public class ElementalInventory : MonoBehaviour {
 		}
 		if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this)
         {
+            Globalprefs.selectitem = "";
             inputButton.button = 0;
         }
         sh = false;
@@ -838,8 +842,8 @@ public class ElementalInventory : MonoBehaviour {
 	{
 		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
-
-			Ray r = musave.pprey();
+            Globalprefs.selectitem = "";
+            Ray r = musave.pprey();
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
@@ -861,8 +865,8 @@ public class ElementalInventory : MonoBehaviour {
 	{
 		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
-
-			Ray r = musave.pprey();
+            Globalprefs.selectitem = "";
+            Ray r = musave.pprey();
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
@@ -894,7 +898,70 @@ public class ElementalInventory : MonoBehaviour {
 		}
 		
 	}
+	public itemName it;
+	public void SelectLayItem()
+	{
+		if (it == null)
+		{
 
+
+			Ray r = musave.pprey();
+			RaycastHit hit;
+			if (Physics.Raycast(r, out hit))
+			{
+				if (hit.collider.GetComponent<itemName>())
+				{
+
+
+					for (int i = 0; i < hit.collider.gameObject.name.Length - 7; i++)
+					{
+
+
+						if (hit.collider.gameObject.name[i] != '_')
+						{
+
+
+							Globalprefs.selectitem += hit.collider.gameObject.name[i];
+
+						}
+						if (hit.collider.gameObject.name[i] == '_')
+						{
+
+
+							Globalprefs.selectitem += " ";
+
+						}
+
+
+					}
+
+					it = hit.collider.GetComponent<itemName>();
+				}
+			}
+		}
+	}
+	public void DeselectLayItem()
+	{
+		if (it != null)
+		{
+			Ray r = musave.pprey();
+			RaycastHit hit;
+			if (Physics.Raycast(r, out hit))
+			{
+				if (!hit.collider.GetComponent<itemName>())
+				{
+
+					Globalprefs.selectitem = "";
+					it = null;
+				}
+			}
+		}
+	
+		
+
+
+
+	}
 	public bool contains (string name, int count, Color color)
 	{
 		int inventoryCount = 0;
