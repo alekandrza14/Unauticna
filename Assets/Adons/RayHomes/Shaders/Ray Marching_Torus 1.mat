@@ -7,15 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Blob 1
-  m_Shader: {fileID: 4800000, guid: ff2dbe5f1734b694380a84cb5a6b2047, type: 3}
+  m_Name: Ray Marching_Torus 1
+  m_Shader: {fileID: 4800000, guid: 6a7c0ac5285a90a44a002acaa175f923, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALAPPROXMODE_TETRAHEDRON
   - _NORMALFILTERING_ON
-  - _SHADOWMODE_NONE
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_SOFT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -30,21 +31,22 @@ Material:
     m_Ints: []
     m_Floats:
     - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _MaxDistance: 200
-    - _MaxSteps: 400
+    - _AmbientOcclusionMultiplier: 513.73
+    - _AmbientOcclusionSamples: 63.24
+    - _AmbientOcclusionStep: 0.5
+    - _Heigth: 0.3
+    - _Length: 0.05
+    - _MaxDistance: 1000
+    - _MaxSteps: 100
     - _Metallic: 0
-    - _NormalApproxMode: 1
+    - _NormalApproxMode: 3
     - _NormalApproxStep: 0.001
     - _NormalFiltering: 1
-    - _RelativeTolerance: 0
-    - _ShadowMode: 0
+    - _RelativeTolerance: 1
+    - _ShadowMode: 2
     - _Smoothness: 0.5
     - _SoftShadowFactor: 1
-    - _Speed: 1
-    - _Tolerance: 0.01
+    - _Tolerance: 0.001
     m_Colors:
-    - _Tint: {r: 0.07035947, g: 1, b: 0, a: 1}
+    - _Tint: {r: 0.034784317, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []

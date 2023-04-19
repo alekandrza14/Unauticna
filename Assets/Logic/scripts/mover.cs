@@ -1080,16 +1080,34 @@ public class mover : MonoBehaviour
             SceneManager.LoadScene(gsave.sceneid);
         }
 
-        Ray r1 = new Ray(g2.transform.position, g2.transform.forward);
+        Ray r1 = musave.pprey();
         RaycastHit hit;
         if (UnityEngine.Physics.Raycast(r1, out hit))
         {
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
             {
                 if (hit.collider.GetComponent<transport4>())
                 {
+                    if (hit.collider.GetComponent<transport4>().sitplayer)
+                    {
+                        Globalprefs.sit_player = null;
+                    }
                     hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
                     hit.collider.GetComponent<transport4>().player = transform;
+                    
+                }
+
+            }
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (hit.collider.GetComponent<GravityBoard>())
+                {
+                    if (hit.collider.GetComponent<GravityBoard>().sitplayer)
+                    {
+                        Globalprefs.sit_player = null;
+                    }
+                    hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;
+                    hit.collider.GetComponent<GravityBoard>().player = transform;
                 }
 
             }
@@ -1352,30 +1370,39 @@ public class mover : MonoBehaviour
 
     private void MoveUpdate()
     {
-        if (faceViewi != faceView.fourd)
+        g1.velocity = Vector3.zero;
+        if (cd != null)
         {
-            g1.velocity = Vector3.zero;
-            if (cd != null)
+
+            transform.position = new Vector3(0, transform.position.y, 0);
+
+            Ray r4 = new Ray(transform.position, new Vector3(0, -1f, 0));
+
+            RaycastHit hit4;
+            if (UnityEngine.Physics.Raycast(r4, out hit4))
             {
-
-                transform.position = new Vector3(0, transform.position.y, 0);
-
-                Ray r4 = new Ray(transform.position, new Vector3(0, -1f, 0));
-
-                RaycastHit hit4;
-                if (UnityEngine.Physics.Raycast(r4, out hit4))
+                if (hit4.distance <= 1.2f * -tjump)
                 {
-                    if (hit4.distance <= 1.2f * -tjump)
-                    {
-                        //  c = new Collision();
-                        physicsStop();
-                    }
-                    else
-                    {
-                        physicsStart();
-                    }
+                    //  c = new Collision();
+                    physicsStop();
+                }
+                else
+                {
+                    physicsStart();
                 }
             }
+        }
+        bool yp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
+        if (!yp)
+        {
+            anim.SetBool("walke", false);
+            anim.SetBool("swem", false);
+            
+
+        }
+       if (Globalprefs.sit_player == null) if (faceViewi != faceView.fourd )
+        {
+           
 
             float ispeed = 10f;
             if (Input.GetKey(KeyCode.Mouse0) && Directory.Exists("debug"))
@@ -1387,13 +1414,7 @@ public class mover : MonoBehaviour
 
 
             }
-            bool yp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
-            if (!yp)
-            {
-                anim.SetBool("walke", false);
-                anim.SetBool("swem", false);
-
-            }
+            
 
             if (!stand_stay && !issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
             {
@@ -1483,7 +1504,7 @@ public class mover : MonoBehaviour
             {
                 anim.SetBool("fall", true);
             }
-            if (c != null && !igr)
+            if (c == null && !igr)
             {
                 anim.SetBool("fall", false);
             }

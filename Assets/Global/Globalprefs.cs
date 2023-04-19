@@ -14,5 +14,6 @@ public static class Globalprefs
     public static bool isnew;
     public static string item;
     public static bool signedgamejolt;
+    public static GameObject sit_player;
 
 }
