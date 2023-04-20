@@ -35,15 +35,16 @@ public class genmodel : MonoBehaviour
         {
             vertices[i] = new Vector3((float)newobj.VertexList[i].X, (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z);
 
-            uv.Add(new Vector2((float)newobj.TextureList[i].X, (float)newobj.TextureList[i].Y));
+           
 
 
         }
+        
 
-        for (int f = 0; f < newobj.FaceList.Count; f ++)
+        for (int f = 0; f < newobj.FaceList.Count; f++)
         {
-           
-            for (int i = 0; i < newobj.FaceList[f].VertexIndexList.Length; i ++)
+
+            for (int i = 0; i < newobj.FaceList[f].VertexIndexList.Length; i++)
             {
 
 
@@ -55,13 +56,24 @@ public class genmodel : MonoBehaviour
 
             }
         }
+        for (int f = 0; f < newobj.VertexList.Count; f++)
+        {
 
-        
-       tria = triangles.ToArray();
+
+                    uv.Add(new Vector2((float)newobj.TextureList[f].X, (float)newobj.TextureList[f].Y));
+                    
+               
+
+
+        }
+
+
+        tria = triangles.ToArray();
             verti = vertices;
         mesh.SetVertices(vertices);
-        mesh.triangles = triangles.ToArray();
+
         mesh.uv = uv.ToArray();
+        mesh.triangles = triangles.ToArray();
         mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
         return mesh;
     }

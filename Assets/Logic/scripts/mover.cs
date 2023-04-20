@@ -101,8 +101,10 @@ public class mover : MonoBehaviour
     [SerializeField] faceView faceViewi;
     bool move4D;
     string lepts = "";
+    public string lif;
     void getSignal()
     {
+        if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
         int vaule = 0;
         if (File.Exists("C:/myMods/sig1.sig"))
         {
@@ -233,7 +235,7 @@ public class mover : MonoBehaviour
                     custommedelsave cms = new custommedelsave();
                     cms.name = name.ToArray();
                     cms.v3 = v3.ToArray();
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms));
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex +lif, JsonUtility.ToJson(cms));
 
                 }
             }
@@ -241,6 +243,26 @@ public class mover : MonoBehaviour
         }
         if (true)
         {
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                List<string> name = new List<string>();
+                List<Vector3> v3 = new List<Vector3>();
+                for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
+                {
+                    name.Add(FindObjectsOfType<genmodel>()[i].s);
+                    v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
+                }
+                custommedelsave cms = new custommedelsave();
+                cms.name = name.ToArray();
+                cms.v3 = v3.ToArray();
+                if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms)); }
+                else
+                {
+                    cms.name = new string[] { };
+                    cms.v3 = new Vector3[] { };
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms));
+                }
+            }
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
             Ray r = musave.pprey();
             RaycastHit hit;
@@ -261,11 +283,11 @@ public class mover : MonoBehaviour
                         custommedelsave cms = new custommedelsave();
                         cms.name = name.ToArray();
                         cms.v3 = v3.ToArray();
-                        if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms)); } else
+                        if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms)); } else
                         {
                             cms.name = new string[] { };
                             cms.v3 = new Vector3[] { };
-                            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(cms));
+                            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms));
                         }
                     }
                 }
@@ -500,6 +522,7 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
+        if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
         if (File.Exists("unsave/s"))
         {
             ifd.text = File.ReadAllText("unsave/s");
@@ -511,9 +534,10 @@ public class mover : MonoBehaviour
             lepts = "-"+ planet_position.ToString();
         }
         stand_stay = load1.stad;
-        if (VarSave.EnterFloat("cms" + SceneManager.GetActiveScene().buildIndex))
+        if (VarSave.EnterFloat("cms" + SceneManager.GetActiveScene().buildIndex + lif))
         {
-            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex));
+            if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
+            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif));
             for (int i = 0; i < cms.name.Length; i++)
             {
                 genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();

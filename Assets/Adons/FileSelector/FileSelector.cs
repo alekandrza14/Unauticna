@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.UI;
 
 #endregion
 
@@ -27,11 +28,11 @@ public class FileSelector : MonoBehaviour
 		Failed, //Used if the Close() method is called while the window is open
 		Destroyed, //Used if the instance is destroyed while the window is open
 	}
-	
+
 	#endregion
-	
+
 	#region PublicFields
-	
+	[SerializeField] InputField txt;
 	/// <summary>
 	/// 	- What file type we are searching for.
 	/// </summary>
@@ -172,6 +173,7 @@ public class FileSelector : MonoBehaviour
 			if(center) windowDimensions.center = new Vector2(Screen.width*0.5f, Screen.height*0.5f);
 			GUI.Window(0, windowDimensions, DrawFileSelector, "Select a "+extension+" File");
 		}
+		
 	}
 	
 	private void OnDestroy()
@@ -388,8 +390,12 @@ public class FileSelector : MonoBehaviour
 			{
 				if(Callback != null) Callback(Status.Successful, path+@"\"+file);
 				open = false;
-				
-				if(destroyOnClose) Destroy(this);
+                if (txt)
+                {
+                    txt.text = (file.Remove(file.Length-4, 4));
+
+                }
+                if (destroyOnClose) Destroy(this);
 			}
 		}
 		
