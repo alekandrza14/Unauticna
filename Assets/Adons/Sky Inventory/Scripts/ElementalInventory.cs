@@ -481,7 +481,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            if (select <= Cells.Length - 1 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
+            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
             {
                 select += 1;
             }
@@ -494,7 +494,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            if (select <= Cells.Length - 1 && Input.GetKeyDown(KeyCode.E) && selectobject && nosell)
+            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && nosell)
             {
                 select += 1;
             }
@@ -507,7 +507,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            if (select <= Cells.Length - 1 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
+            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
             {
                 select += 1;
             }
@@ -837,8 +837,28 @@ public class ElementalInventory : MonoBehaviour {
 
 
     }
+    public IEnumerator seteuclideanitem(RaycastHit hit)
+    {
 
-	private void euclideanray()
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (hit.collider && Cells[select].elementCount != 0)
+        {
+            
+                Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+                setItem("", 0, Color.red, select);
+                Cells[select].UpdateCellInterface();
+           
+        }
+
+
+
+
+
+
+    }
+    private void euclideanray()
 	{
 		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
@@ -847,57 +867,65 @@ public class ElementalInventory : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
-				if (hit.collider && Cells[select].elementCount != 0)
-				{
-					Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
-					setItem("", 0, Color.red, select);
-					Cells[select].UpdateCellInterface();
-				}
 
-			}
+                StartCoroutine(seteuclideanitem(hit));
+
+            }
 
 
 
 		}
 		
 	}
-	private void hyperbolicray()
+    public IEnumerator sethyperbolicitem(RaycastHit hit)
+    {
+
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (hit.collider && Cells[select].elementCount != 0)
+            {
+                Vector3 v3;
+                v3 = hit.point - musave.isplayer().position;
+                v3 /= 20;
+                Camd c = Camd.Main();
+
+
+                Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+                t.Translate(0, v3.y, 0);
+                t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
+                t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
+                t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
+                t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
+                t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
+
+                Destroy(t.gameObject.GetComponent<Rigidbody>());
+                setItem("", 0, Color.red, select);
+                Cells[0].UpdateCellInterface();
+            }
+
+        
+
+        
+       
+
+    }
+    private void hyperbolicray()
 	{
 		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
             Globalprefs.selectitem = "";
             Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
+			RaycastHit hit; if (Physics.Raycast(r, out hit))
 			{
-				if (hit.collider && Cells[select].elementCount != 0)
-				{
-					Vector3 v3;
-					v3 = hit.point - musave.isplayer().position;
-					v3 /= 20;
-					Camd c = Camd.Main();
-					
-					
-					Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-					t.Translate(0,v3.y,0);
-					t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-					t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-					t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-					t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-					t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
-
-					Destroy(t.gameObject.GetComponent<Rigidbody>());
-					setItem("", 0, Color.red, select);
-					Cells[0].UpdateCellInterface();
-				}
-
+				StartCoroutine(sethyperbolicitem( hit));
 			}
 
 
 
+			}
+
 		}
-		
-	}
 	public itemName it;
 	public void SelectLayItem()
 	{
@@ -909,7 +937,7 @@ public class ElementalInventory : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
-				if (hit.collider.GetComponent<itemName>())
+				if (hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
 				{
 
 
@@ -948,7 +976,7 @@ public class ElementalInventory : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast(r, out hit))
 			{
-				if (!hit.collider.GetComponent<itemName>())
+				if (!hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
 				{
 
 					Globalprefs.selectitem = "";

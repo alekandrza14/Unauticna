@@ -1,16 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class transport4 : MonoBehaviour
 {
     public Transform cell;
     public Transform player;
+    public float speed = 1f;
     public bool sitplayer;
+    public Slider slider;
+    public Canvas canvas;
 
     void Update()
     {
-        
+        if (canvas)
+        {
+
+
+            canvas.enabled = sitplayer;
+            speed = (slider.value * 40) + 1;
+
+        }
         if (sitplayer)
         {
             Globalprefs.sit_player = player.gameObject;
@@ -21,37 +32,37 @@ public class transport4 : MonoBehaviour
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.forward * 20;
+                GetComponent<Rigidbody>().velocity += transform.forward * 20f * speed;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.forward * 20;
+                GetComponent<Rigidbody>().velocity += -transform.forward * 20f * speed;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.up * 20;
+                GetComponent<Rigidbody>().velocity += transform.up * 20f * speed;
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.up * 20;
+                GetComponent<Rigidbody>().velocity += -transform.up * 20f * speed;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.right * 20;
+                GetComponent<Rigidbody>().velocity += transform.right * 20f * speed;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
                 
-                GetComponent<Rigidbody>().velocity += -transform.right * 20;
+                GetComponent<Rigidbody>().velocity += -transform.right * 20f * speed;
             }
             if (Input.GetKey(KeyCode.Mouse1))
             {

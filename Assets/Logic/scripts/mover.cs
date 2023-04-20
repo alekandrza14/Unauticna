@@ -1504,11 +1504,19 @@ public class mover : MonoBehaviour
             {
                 anim.SetBool("fall", true);
             }
-            if (c == null && !igr)
-            {
-                anim.SetBool("fall", false);
-            }
-            if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.G))
+                if (c == null && !igr)
+                {
+                    anim.SetBool("fall", false);
+                }
+                if (c != null && !igr)
+                {
+                    anim.SetBool("fall", false);
+                }
+                if (c != null && igr)
+                {
+                    anim.SetBool("fall", false);
+                }
+                if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.G))
             {
                 g1.useGravity = false;
             }
@@ -1516,7 +1524,6 @@ public class mover : MonoBehaviour
             if (!Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && inglobalspace != true)
             {
                 tics += Time.deltaTime;
-                g1.useGravity = true;
             }
             if (Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.Tab) && Getstats.GetPlayerLevel() >= 1)
             {

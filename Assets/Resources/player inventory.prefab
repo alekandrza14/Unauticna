@@ -185,7 +185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -89.028145, y: -167.80942}
+  m_AnchoredPosition: {x: -60, y: -167.80942}
   m_SizeDelta: {x: 53.1437, y: 51.3062}
   m_Pivot: {x: 0.50000006, y: 0.49999997}
 --- !u!222 &5333766151759709052
@@ -807,12 +807,11 @@ MonoBehaviour:
   - {fileID: 5149189478466725499}
   - {fileID: 7312047755207073720}
   - {fileID: 8494073684565213012}
-  - {fileID: 2533449064896776742}
   maxStack: 2
   elementPrefab: {fileID: 1000013806000354, guid: 0d9bb8af4867e044ba8325519dc15cc2,
     type: 3}
   selectobject: {fileID: 1650147101165328506}
-  select: 3
+  select: 2
   itemtags:
   - item0
   - item1
@@ -841,9 +840,10 @@ MonoBehaviour:
   - box1
   nunames: []
   planets: 0
-  deletecell: 1
+  deletecell: 0
   nosell: 0
   nomainiventory: 0
+  it: {fileID: 0}
 --- !u!114 &8202368444936030064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1344,6 +1344,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cell 1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3690523055185265894, guid: c66839e6fcdd84644b605c2bf5208b48,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3690523055400498396, guid: c66839e6fcdd84644b605c2bf5208b48,
         type: 3}
       propertyPath: m_Color.a
@@ -1440,18 +1445,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1161860165478305477}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2533449064896776742 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3690523055185265891, guid: c66839e6fcdd84644b605c2bf5208b48,
-    type: 3}
-  m_PrefabInstance: {fileID: 1161860165478305477}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cae75bf0c48bfc940b951749af91e5c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3520500200443412764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1734,7 +1727,7 @@ PrefabInstance:
     - target: {fileID: 3690523055185265889, guid: c66839e6fcdd84644b605c2bf5208b48,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.999985
+      value: 47.4
       objectReference: {fileID: 0}
     - target: {fileID: 3690523055185265889, guid: c66839e6fcdd84644b605c2bf5208b48,
         type: 3}
@@ -2018,7 +2011,7 @@ PrefabInstance:
     - target: {fileID: 3690523055185265889, guid: c66839e6fcdd84644b605c2bf5208b48,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.000015
+      value: -6.5999985
       objectReference: {fileID: 0}
     - target: {fileID: 3690523055185265889, guid: c66839e6fcdd84644b605c2bf5208b48,
         type: 3}
@@ -2192,7 +2185,7 @@ PrefabInstance:
     - target: {fileID: 1241686279336088518, guid: 3fefe25a989c2c54c93b8b3a6b288afb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -89
+      value: -60.599983
       objectReference: {fileID: 0}
     - target: {fileID: 1241686279336088518, guid: 3fefe25a989c2c54c93b8b3a6b288afb,
         type: 3}
