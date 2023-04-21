@@ -17,6 +17,8 @@ public class gameInit : MonoBehaviour
     }
     private void Update()
     {
+        if (VarSave.EnterFloat("res3")) Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
+
         PlayerPrefs.DeleteAll();
     }
     
