@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class endstart2 : MonoBehaviour
 {
-    
+
     void Start()
     {
-        
+
         if (!VarSave.EnterFloat("ì.ê"))
         {
             VarSave.SetInt("ì.ê", 1);
@@ -16,5 +16,5 @@ public class endstart2 : MonoBehaviour
         }
     }
 
-    
+
 }

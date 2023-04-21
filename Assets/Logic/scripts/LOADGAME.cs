@@ -128,33 +128,34 @@ public class LOADGAME : MonoBehaviour
         {
             SceneManager.LoadScene(43);
         }
-        if (ifd.text == "100024")
+        else if (ifd.text == "100024")
         {
             SceneManager.LoadScene(60);
         }
-        if (!File.Exists("unsave/capterg/" + ifd.text))
+        else if (ifd.text == "-1")
         {
-            string s = "";
-            s = ifd.text;
-            File.WriteAllText("unsave/s", s);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(85);
+        }
+        else
+        {
 
-        }
-        if (File.Exists("unsave/capterg/" + ifd.text))
-        {
-            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
-            string s = "";
-            s = ifd.text;
-            File.WriteAllText("unsave/s", s);
-            SceneManager.LoadScene(gsave.sceneid);
-        }
-        if (ifd.text == "022564")
-        {
-            SceneManager.LoadScene(43);
-        }
-        if (ifd.text == "100024")
-        {
-            SceneManager.LoadScene(60);
+
+            if (!File.Exists("unsave/capterg/" + ifd.text))
+            {
+                string s = "";
+                s = ifd.text;
+                File.WriteAllText("unsave/s", s);
+                SceneManager.LoadScene(1);
+
+            }
+            if (File.Exists("unsave/capterg/" + ifd.text))
+            {
+                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+                string s = "";
+                s = ifd.text;
+                File.WriteAllText("unsave/s", s);
+                SceneManager.LoadScene(gsave.sceneid);
+            }
         }
     }
     public void engLENGUAGE()

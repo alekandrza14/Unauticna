@@ -74,6 +74,7 @@ public class Shop : MonoBehaviour
                 {
                     GameJolt.API.Trophies.TryUnlock(177824);
                 }
+              
             }
             if (produkt[product].Give_or_Minus == true)
             {

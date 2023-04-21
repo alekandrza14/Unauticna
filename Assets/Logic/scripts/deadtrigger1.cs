@@ -37,7 +37,7 @@ public class deadtrigger1 : MonoBehaviour
         if (collision.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
         {
             VarSave.SetBool("cry", true);
-            VarSave.SetBool("подездный маг победил", true);
+            VarSave.SetBool("подъездный маг победил", true);
 
             if (musave.player(collision.collider.gameObject))
             {

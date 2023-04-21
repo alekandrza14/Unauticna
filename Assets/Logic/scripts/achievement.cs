@@ -16,6 +16,12 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "вы сдохли от гота сатаниста фанатона";
             VarSave.SetBool("убит фанатиком", false);
         }
+        if (VarSave.GetBool("страшный паук победил"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "поук вас поучил";
+            VarSave.SetBool("страшный паук победил", false);
+        }
         if (VarSave.GetBool("oxygen"))
         {
             hello.windowmesenge.Dialog_die();
@@ -64,7 +70,7 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "поздравл€ю вы сдохли от : призедента";
             VarSave.SetBool("призедент победил", false);
         }
-        if (VarSave.GetBool("подездный маг победил"))
+        if (VarSave.GetBool("подъездный маг победил"))
         {
             hello.windowmesenge.Dialog_die();
             GetComponent<Text>().text = "поздравл€ю вы сдохли от : подездного мага";
@@ -73,7 +79,7 @@ public class achievement : MonoBehaviour
         if (VarSave.GetBool("отравлен и от правлен в больницу"))
         {
             hello.windowmesenge.Dialog_die();
-            GetComponent<Text>().text = "поздравл€ю вы сдохли от : дыма";
+            GetComponent<Text>().text = "поздравл€ю вы сдохли наход€сь в космосе";
             VarSave.SetBool("отравлен и от правлен в больницу", false);
         }
         if (VarSave.GetBool("переломал кости и от правлен в больницу"))

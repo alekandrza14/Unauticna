@@ -47,6 +47,11 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetString("scp", JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("dark2");
                     }
+                    else if (o == 186 && Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        VarSave.SetString("scp", JsonUtility.ToJson(scp));
+                        SceneManager.LoadScene("dark3");
+                    }
                     else if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp", JsonUtility.ToJson(scp));
