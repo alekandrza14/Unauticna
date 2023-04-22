@@ -164,6 +164,15 @@ public class musave : MonoBehaviourPunCallbacks
             GameObject.FindObjectOfType<mover>().saveing();
         }
     }
+    public static void Dest()
+    {
+        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        {
+
+
+            GameObject.FindObjectOfType<mover>().deleteing();
+        }
+    }
     public static void saveandhill()
     {
         if (GameObject.FindObjectsOfType<mover>().Length != 0)

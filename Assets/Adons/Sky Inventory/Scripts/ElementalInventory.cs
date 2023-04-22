@@ -593,7 +593,7 @@ public class ElementalInventory : MonoBehaviour {
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0)&&boxItem.getInventory("i3").inventory == this)
         {
             Ray r = musave.pprey();
             RaycastHit hit;
@@ -601,19 +601,25 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider != null)
                 {
-                    if (hit.collider.gameObject.tag == "el")
-                    {
-                        Instantiate(elementrandom().gameObject, hit.point + Vector3.up * elementrandom().gameObject.transform.localScale.y / 2, Quaternion.identity);
+					for (int i =0;i<2; i++)
+					{
 
-                        Destroy(hit.collider.gameObject);
-                    }
-                    else if (hit.collider.gameObject.GetComponent<Element>())
-                    {
 
-                        Destroy(hit.collider.gameObject);
-                    }
-                }
-            }
+						if (hit.collider.gameObject.tag == "el" && i==0)
+						{
+							Instantiate(elementrandom().gameObject, hit.point + Vector3.up * elementrandom().gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+							Destroy(hit.collider.gameObject);
+							return;
+						}
+					    if (hit.collider.gameObject.GetComponent<Element>() && i==1)
+						{
+
+							Destroy(hit.collider.gameObject); return;
+                        }
+					}
+					}
+				}
         }
        
         if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
@@ -823,9 +829,7 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("belock");
 			GlobalInputMenager.KeyCode_eat = 0;
 		}
-		if (select != Cells.Length - 1)
-		{
-
+		
 
             if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
             {
@@ -858,31 +862,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
             }
-        }
-        else
-		{
-			if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
-			{
-                Globalprefs.selectitem = "";
-                Ray r = musave.pprey();
-				RaycastHit hit;
-				if (Physics.Raycast(r, out hit))
-				{
-					if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject) && !hit.collider.GetComponent<Logic_tag_1>())
-					{
-
-
-						setItem(fullname(hit), 1, Color.red, select);
-						Cells[select].UpdateCellInterface();
-						sh = true;
-					}
-
-				}
-
-
-
-			}
-		}
+      
 		
 		if (FindObjectsOfType<Camd>().Length == 0)
 		{

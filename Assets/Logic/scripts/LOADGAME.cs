@@ -99,6 +99,11 @@ public class LOADGAME : MonoBehaviour
 
         SceneManager.LoadScene("tutorial2");
     }
+    public void Tutorial4()
+    {
+
+        SceneManager.LoadScene("tutorial4");
+    }
     public void mainmenu()
     {
         Animator_camera.SetTrigger("<");

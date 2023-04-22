@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class breauty : MonoBehaviour
 {
-    public int integer;
+    public int integer = 10;
     Vector3 v3;
     public void OnCollisionEnter(Collision other)
     {
