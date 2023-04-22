@@ -5,11 +5,29 @@ using UnityEngine;
 public class gold : MonoBehaviour
 {
 
-   
-    private void OnMouseDown()
+    int u = 4;
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Mouse0) )
+        {
+            u--;
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject == gameObject && u<0)
+                    {
+                        Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                        Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                        Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") + 3);
+                        Destroy(gameObject);
+                    }
+                }
 
-        VarSave.SetInt("tevro", VarSave.GetInt("tevro") + 3);
-        Destroy(gameObject);
+            }
+        }
     }
 }

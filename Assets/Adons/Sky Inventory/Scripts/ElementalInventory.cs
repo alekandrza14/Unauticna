@@ -189,6 +189,41 @@ public class ElementalInventory : MonoBehaviour {
 		t = 0;
 		return g1;
 	}
+	GameObject elementrandom()
+	{
+        GameObject g = Resources.Load<GameObject>("items/Ti");
+		int i = Random.Range(0, 7);
+        if (i == 0)
+        {
+            g = Resources.Load<GameObject>("items/Ti");
+        }
+        else if (i == 1)
+        {
+            g = Resources.Load<GameObject>("items/He");
+        }
+        else if (i == 2)
+        {
+            g = Resources.Load<GameObject>("items/Fr");
+        }
+        else if (i == 3)
+        {
+            g = Resources.Load<GameObject>("items/C");
+        }
+        else if (i == 4)
+        {
+            g = Resources.Load<GameObject>("items/Cr");
+        }
+        else if (i == 5)
+        {
+            g = Resources.Load<GameObject>("items/Au");
+        }
+        else if (i == 6)
+        {
+            g = Resources.Load<GameObject>("items/U");
+        }
+        return	g;
+
+    }
 	public string toname(string name)
 	{
 
@@ -543,22 +578,45 @@ public class ElementalInventory : MonoBehaviour {
 			removeitem("box1");
 			GlobalInputMenager.KeyCode_eat = 0;
 		}
-		if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
-		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
-				if (hit.collider != null)
-				{
-					if (hit.collider.gameObject.layer == 6)
-					{
-						Destroy(hit.collider.gameObject);
-					}
-				}
-			}
-		}
-		if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
+        {
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        Destroy(hit.collider.gameObject);
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject.tag == "el")
+                    {
+                        Instantiate(elementrandom().gameObject, hit.point + Vector3.up * elementrandom().gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                        Destroy(hit.collider.gameObject);
+                    }
+                    else if (hit.collider.gameObject.GetComponent<Element>())
+                    {
+
+                        Destroy(hit.collider.gameObject);
+                    }
+                }
+            }
+        }
+       
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
 		{
 			Ray r = musave.pprey();
 			RaycastHit hit;
@@ -769,27 +827,37 @@ public class ElementalInventory : MonoBehaviour {
 		{
 
 
-			if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
-			{
+            if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
+            {
                 Globalprefs.selectitem = "";
                 Ray r = musave.pprey();
-				RaycastHit hit;
-				if (Physics.Raycast(r, out hit))
-				{
-					if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
-					{
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+                    {
 
 
-						setItem(fullname(hit), 1, Color.red, select);
-						Cells[select].UpdateCellInterface();
-						sh = true;
-					}
+                        setItem(fullname(hit), 1, Color.red, select);
+                        Cells[select].UpdateCellInterface();
+                        sh = true;
+                    }
 
-				}
+                }
 
 
 
-			}
+            }
+            if (Input.GetKeyDown(KeyCode.Delete) && boxItem.getInventory("i3").inventory == this && !nosell)
+            {
+               
+
+                        setItem("", 0, Color.red, select);
+                        Cells[select].UpdateCellInterface();
+                
+
+
+            }
         }
         else
 		{
