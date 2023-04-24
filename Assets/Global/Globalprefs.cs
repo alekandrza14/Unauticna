@@ -9,6 +9,7 @@ public static class Globalprefs
     public static Vector3 newv3;
     public static Vector3 pos;
     public static Vector3[] postes;
+    public static Vector3[] postes2;
     public static Quaternion[] q;
     public static string selectitem;
     public static bool isnew;

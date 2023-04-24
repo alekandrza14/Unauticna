@@ -58,9 +58,14 @@ public class PhotoCapture : MonoBehaviour
             this.captureCamera.targetTexture = targetTexture;
             this.captureCamera.Render();
             Globalprefs.postes = new Vector3[GameObject.FindObjectsOfType<tesseraktenemy4>().Length];
-            for (int i = 0;i<FindObjectsOfType<tesseraktenemy4>().Length;i++)
+            Globalprefs.postes2 = new Vector3[GameObject.FindGameObjectsWithTag("tesseract").Length];
+            for (int i = 0; i < FindObjectsOfType<tesseraktenemy4>().Length; i++)
             {
                 Globalprefs.postes[i] = FindObjectsOfType<tesseraktenemy4>()[i].transform.position;
+            }
+            for (int i = 0; i < GameObject.FindGameObjectsWithTag("tesseract").Length; i++)
+            {
+                Globalprefs.postes2[i] = GameObject.FindGameObjectsWithTag("tesseract")[i].transform.position;
             }
 
             RenderTexture.active = targetTexture;

@@ -102,6 +102,51 @@ public class mover : MonoBehaviour
     bool move4D;
     string lepts = "";
     public string lif;
+
+    void swapWXRayMarch(Transform x, Shape4D w)
+    {
+        float save = x.position.x;
+        x.position = new Vector3(w.positionW, x.position.y, x.position.z);
+        w.positionW = save;
+    }
+    void swapWX1(Transform x, show4D w)
+    {
+        float save = x.position.x;
+        x.position = new Vector3(w.w_pos, x.position.y, x.position.z);
+        w.w_pos = save;
+    }
+    void swapWX2(Transform x, MultyObject w)
+    {
+        float save = x.position.x;
+        x.position = new Vector3(w.W_Position, x.position.y, x.position.z);
+        w.W_Position = save;
+    }
+    void swapWX3(Transform x, mover w)
+    {
+        float save = x.position.x;
+        x.position = new Vector3(w.w, x.position.y, x.position.z);
+        w.w = save;
+    }
+    public static void swapWXALL()
+    {
+        mover m = GameObject.FindObjectOfType<mover>();
+
+
+        foreach (Shape4D g in GameObject.FindObjectsOfType<Shape4D>())
+        {
+            m.swapWXRayMarch(g.transform, g);
+        }
+        foreach (show4D g in GameObject.FindObjectsOfType<show4D>())
+        {
+            m.swapWX1(g.transform, g);
+        }
+        foreach (MultyObject g in GameObject.FindObjectsOfType<MultyObject>())
+        {
+            m.swapWX2(g.transform, g);
+        }
+        m.swapWX3(m.transform,m);
+    }
+
     void getSignal()
     {
         if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
@@ -1087,6 +1132,10 @@ public class mover : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             move4D = !move4D;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            mover.swapWXALL();
         }
         getSignal();
         if (isplanet)

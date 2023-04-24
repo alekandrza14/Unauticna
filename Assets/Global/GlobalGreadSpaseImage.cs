@@ -27,6 +27,7 @@ public class GlobalGreadSpaseImage : MonoBehaviour
     public bool end;
     public Animator anim;
     public GameObject pref;
+    public GameObject pref2;
     IEnumerator GetText()
     {
         Debug.Log(Path.GetDirectoryName(Application.dataPath) + @"\unsave\var\Screenshot.png");
@@ -103,6 +104,10 @@ public class GlobalGreadSpaseImage : MonoBehaviour
                 for (int i = 0; i < Globalprefs.postes.Length; i++)
                 {
                     Instantiate(pref.gameObject, Globalprefs.postes[i] - save.pos, Quaternion.identity);
+                }
+                for (int i = 0; i < Globalprefs.postes2.Length; i++)
+                {
+                    Instantiate(pref2.gameObject, Globalprefs.postes2[i] - save.pos, Quaternion.identity);
                 }
             }
         }
