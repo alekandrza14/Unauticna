@@ -885,7 +885,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
     }
-    public IEnumerator seteuclideanitem(RaycastHit hit)
+    public IEnumerator seteuclideanitem(RaycastHit hit,Ray r)
     {
 
 
@@ -898,6 +898,11 @@ public class ElementalInventory : MonoBehaviour {
                 setItem("", 0, Color.red, select);
                 Cells[select].UpdateCellInterface();
            
+        }else if(Cells[select].elementCount != 0)
+		{
+            Instantiate(inv2(Cells[select].elementName).gameObject, (r.origin+(r.direction*3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
         }
 
 
@@ -916,46 +921,68 @@ public class ElementalInventory : MonoBehaviour {
 			if (Physics.Raycast(r, out hit))
 			{
 
-                StartCoroutine(seteuclideanitem(hit));
+                StartCoroutine(seteuclideanitem(hit,r));
 
             }
+            else
+                StartCoroutine(seteuclideanitem(hit, r));
 
 
 
-		}
-		
-	}
-    public IEnumerator sethyperbolicitem(RaycastHit hit)
+        }
+
+    }
+    public IEnumerator sethyperbolicitem(RaycastHit hit, Ray r)
     {
 
 
         yield return new WaitForSeconds(0.5f);
 
         if (hit.collider && Cells[select].elementCount != 0)
-            {
-                Vector3 v3;
-                v3 = hit.point - musave.isplayer().position;
-                v3 /= 20;
-                Camd c = Camd.Main();
+        {
+            Vector3 v3;
+            v3 = hit.point - musave.isplayer().position;
+            v3 /= 20;
+            Camd c = Camd.Main();
 
 
-                Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-                t.Translate(0, v3.y, 0);
-                t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-                t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-                t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-                t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-                t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+            t.Translate(0, v3.y, 0);
+            t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
+            t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
+            t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
+            t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
+            t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
 
-                Destroy(t.gameObject.GetComponent<Rigidbody>());
-                setItem("", 0, Color.red, select);
-                Cells[0].UpdateCellInterface();
-            }
+            Destroy(t.gameObject.GetComponent<Rigidbody>());
+            setItem("", 0, Color.red, select);
+            Cells[0].UpdateCellInterface();
+        }
+       else if (Cells[select].elementCount != 0)
+        {
+            Vector3 v3;
+            v3 = (r.origin + (r.direction * 3f)) - musave.isplayer().position;
+            v3 /= 20;
+            Camd c = Camd.Main();
 
-        
 
-        
-       
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+            t.Translate(0, v3.y, 0);
+            t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
+            t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
+            t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
+            t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
+            t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
+
+            Destroy(t.gameObject.GetComponent<Rigidbody>());
+            setItem("", 0, Color.red, select);
+            Cells[0].UpdateCellInterface();
+        }
+
+
+
+
+
 
     }
     private void hyperbolicray()
@@ -966,9 +993,14 @@ public class ElementalInventory : MonoBehaviour {
             Ray r = musave.pprey();
 			RaycastHit hit; if (Physics.Raycast(r, out hit))
 			{
-				StartCoroutine(sethyperbolicitem( hit));
+				StartCoroutine(sethyperbolicitem(hit, r));
 			}
+			else
+			{
 
+
+				StartCoroutine(sethyperbolicitem(hit, r));
+			}
 
 
 			}

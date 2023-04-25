@@ -11,6 +11,7 @@ public enum Shape
 [RequireComponent(typeof(MeshCollider))]
 public class MultyObject : MonoBehaviour
 {
+   
 
     [Header("Transform W")]
     [SerializeField] public float W_Position;
@@ -46,8 +47,17 @@ public class MultyObject : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        
-            if (shape == Shape.plane3D)
+        float w5 =0;
+        if (FindFirstObjectByType<MultyTransform>()) { Vector3 r = FindFirstObjectByType<MultyTransform>().W_Rotation;
+            Quaternion quaternion = Quaternion.Euler(r.x, r.y, r.z);
+
+            w5 = W_Position;
+            w5 += transform.position.x * quaternion.x;
+            w5 += transform.position.y * quaternion.y;
+            w5 += transform.position.z * quaternion.z; 
+        }
+
+        if (shape == Shape.plane3D)
         {
             transform.localScale = new Vector3(100000, scale3D.y, 100000);
         }
@@ -65,7 +75,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
@@ -80,7 +90,7 @@ public class MultyObject : MonoBehaviour
                 }
             }
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale > W_Position && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale < W_Position &&
+            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
                 FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
             {
                 if (GetComponent<MeshRenderer>())
@@ -114,7 +124,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
@@ -129,7 +139,7 @@ public class MultyObject : MonoBehaviour
                 }
             }
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            w = (int)(((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapes3D.Length) / (W_Scale / 2));
+            w = (int)(((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
 
 
 
@@ -147,7 +157,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-            if (FindFirstObjectByType<MultyTransform>().W_Position > W_Position && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale < W_Position &&
+            if (FindFirstObjectByType<MultyTransform>().W_Position >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
                 FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
             {
                 if (GetComponent<MeshRenderer>())
@@ -181,7 +191,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
@@ -196,7 +206,7 @@ public class MultyObject : MonoBehaviour
                 }
             }
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            w = (int)(((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapes3D.Length) / (W_Scale / 2));
+            w = (int)(((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
 
 
 
@@ -214,7 +224,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-            if (FindFirstObjectByType<MultyTransform>().W_Position > W_Position && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale < W_Position)
+            if (FindFirstObjectByType<MultyTransform>().W_Position >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5)
             {
                 if (GetComponent<MeshRenderer>())
                 {
@@ -247,7 +257,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
@@ -264,10 +274,10 @@ public class MultyObject : MonoBehaviour
             float h = H_Scale - Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position);
             Vector3 v3 = scale3D;
            
-            float w = W_Scale - Mathf.Abs(W_Position - FindFirstObjectByType<MultyTransform>().W_Position);
+            float w = W_Scale - Mathf.Abs(w5 - FindFirstObjectByType<MultyTransform>().W_Position);
             float s = ((w / W_Scale) + (h / H_Scale)) / 2;
             transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale > W_Position && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale < W_Position &&
+            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
                 FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
             {
                 if (GetComponent<MeshRenderer>())
@@ -300,7 +310,7 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - W_Position) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
@@ -317,10 +327,10 @@ public class MultyObject : MonoBehaviour
             float h = H_Scale + Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position) * Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position);
             Vector3 v3 = scale3D;
           
-            float w = W_Scale + Mathf.Abs(W_Position - FindFirstObjectByType<MultyTransform>().W_Position) * Mathf.Abs(W_Position - FindFirstObjectByType<MultyTransform>().W_Position);
+            float w = W_Scale + Mathf.Abs(w5 - FindFirstObjectByType<MultyTransform>().W_Position) * Mathf.Abs(W_Position - FindFirstObjectByType<MultyTransform>().W_Position);
             float s = ((w / W_Scale) + (h / H_Scale)) / 2;
             transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale > W_Position && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale < W_Position &&
+            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
                 FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
             {
                 if (GetComponent<MeshRenderer>())
@@ -349,12 +359,12 @@ public class MultyObject : MonoBehaviour
             float h = (H_Scale- Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position))/ H_Scale;
             Vector3 v3 = scale3D;
            
-            float w = (W_Scale - Mathf.Abs(W_Position - FindFirstObjectByType<MultyTransform>().W_Position))/ W_Scale;
+            float w = (W_Scale - Mathf.Abs(w5 - FindFirstObjectByType<MultyTransform>().W_Position))/ W_Scale;
             transform.localScale = new Vector3(
                  scale3D.x * shapeSettings.WX_scale.Evaluate(w) * shapeSettings.HX_scale.Evaluate(h),
                  scale3D.y * shapeSettings.WY_scale.Evaluate(w) * shapeSettings.HY_scale.Evaluate(h),
                  scale3D.z * shapeSettings.WZ_scale.Evaluate(w) * shapeSettings.HZ_scale.Evaluate(h));
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale > W_Position && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale < W_Position &&
+            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
                 FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
             {
                 if (GetComponent<MeshRenderer>())

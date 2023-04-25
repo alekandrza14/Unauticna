@@ -171,9 +171,9 @@ namespace Unity.Mathematics
                     if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
                     r = true;
                 }
-                else
+                else if(r)
                 {
-                 //   if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
+                   if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
                     r = false;
                 }
                // Debug.Log(d);

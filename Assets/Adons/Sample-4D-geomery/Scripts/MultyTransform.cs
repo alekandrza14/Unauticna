@@ -5,10 +5,12 @@ using UnityEngine;
 public class MultyTransform : MonoBehaviour
 {
     public float W_Position,H_Position;
+    public Vector3 W_Rotation;
     private void Update()
     {
       if( Application.isPlaying)  W_Position = mover.main().w;
         MultyObject[] g = FindObjectsByType<MultyObject>(FindObjectsSortMode.InstanceID);
+        if (Application.isPlaying) W_Rotation = mover.Get4DCam()._wRotation;
         foreach (MultyObject obj in g)
         {
             obj.Update();

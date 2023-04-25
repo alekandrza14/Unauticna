@@ -22,7 +22,7 @@ public class load1
 public class save
 {
     public string idsave;
-    public Vector3 pos, pos2;
+    public Vector3 pos, pos2, rotW;
     public Vector4 pos3;
     public float wpos;
     public Quaternion q1, q2, q3, q4;
@@ -32,7 +32,7 @@ public class save
 public class tsave
 {
     
-    public Vector3 pos, pos2;
+    public Vector3 pos, pos2, rotW;
     public Vector4 pos3;
     public float wpos;
     public Quaternion q1, q2, q3, q4;
@@ -103,48 +103,27 @@ public class mover : MonoBehaviour
     string lepts = "";
     public string lif;
 
-    void swapWXRayMarch(Transform x, Shape4D w)
-    {
-        float save = x.position.x;
-        x.position = new Vector3(w.positionW, x.position.y, x.position.z);
-        w.positionW = save;
-    }
-    void swapWX1(Transform x, show4D w)
-    {
-        float save = x.position.x;
-        x.position = new Vector3(w.w_pos, x.position.y, x.position.z);
-        w.w_pos = save;
-    }
-    void swapWX2(Transform x, MultyObject w)
-    {
-        float save = x.position.x;
-        x.position = new Vector3(w.W_Position, x.position.y, x.position.z);
-        w.W_Position = save;
-    }
     void swapWX3(Transform x, mover w)
     {
-        float save = x.position.x;
-        x.position = new Vector3(w.w, x.position.y, x.position.z);
-        w.w = save;
+        RaymarchCam m = GameObject.FindObjectOfType<RaymarchCam>();
+        float save = x.localPosition.x;
+        if (m._wRotation.x == 0) x.localPosition = new Vector3(w.w, x.localPosition.y, x.localPosition.z);
+        if (m._wRotation.x == -90) x.localPosition = new Vector3(-w.w, x.localPosition.y, x.localPosition.z);
+        if (m._wRotation.x == 0) w.w = -save;
+        if (m._wRotation.x == -90) w.w = save;
     }
+
     public static void swapWXALL()
     {
-        mover m = GameObject.FindObjectOfType<mover>();
+        RaymarchCam m = GameObject.FindObjectOfType<RaymarchCam>();
+        mover w = GameObject.FindObjectOfType<mover>();
+        w.swapWX3(w.transform, w);
+        if (m._wRotation.x == 0)  m._wRotation.x = -90; else m._wRotation.x = 0;
 
-
-        foreach (Shape4D g in GameObject.FindObjectsOfType<Shape4D>())
-        {
-            m.swapWXRayMarch(g.transform, g);
-        }
-        foreach (show4D g in GameObject.FindObjectsOfType<show4D>())
-        {
-            m.swapWX1(g.transform, g);
-        }
-        foreach (MultyObject g in GameObject.FindObjectsOfType<MultyObject>())
-        {
-            m.swapWX2(g.transform, g);
-        }
-        m.swapWX3(m.transform,m);
+    }
+    public static RaymarchCam Get4DCam()
+    {
+        return GameObject.FindObjectOfType<RaymarchCam>();
     }
 
     void getSignal()
@@ -681,7 +660,7 @@ public class mover : MonoBehaviour
                     cd.transform.rotation = save.q4;
                     cd.position = save.pos3;
                 }
-
+                if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 g2.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsOfType<Logic_tag_3>().Length != 0)
                 {
@@ -729,7 +708,7 @@ public class mover : MonoBehaviour
                     cd.transform.rotation = save.q4;
                     cd.position = save.pos3;
                 }
-
+                if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 g2.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsOfType<Logic_tag_3>().Length != 0)
                 {
@@ -819,6 +798,7 @@ public class mover : MonoBehaviour
                 sr.transform.rotation = tsave.q2;
                 g2.transform.rotation = tsave.q3;
 
+                if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW ;
                 w = tsave.wpos;
               //  sr.transform.position = tsave.pos2;
                 g2.transform.position = sr.transform.position;
@@ -851,6 +831,7 @@ public class mover : MonoBehaviour
                     g.transform.rotation = save.q1;
                     sr.transform.rotation = save.q3;
                     g2.transform.rotation = save.q2;
+                    if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     w = save.wpos;
                     if (cd != null)
                     {
@@ -891,6 +872,8 @@ public class mover : MonoBehaviour
                     g.transform.position = save.pos; //sr.transform.position = save.pos2;
                     g.transform.rotation = save.q1;
                     sr.transform.rotation = save.q3;
+
+                    if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     w = save.wpos;
                     if (cd != null)
                     {
@@ -1135,8 +1118,9 @@ public class mover : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            mover.swapWXALL();
+            swapWXALL();
         }
+        //
         getSignal();
         if (isplanet)
         {
@@ -1244,7 +1228,7 @@ public class mover : MonoBehaviour
         save.pos2 = sr.transform.position;
         save.q3 = sr.transform.rotation;
         save.wpos = w;
-
+        if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
         save.vive = g2.GetComponent<Camera>().fieldOfView;
         if (cd != null)
@@ -2074,6 +2058,7 @@ public class mover : MonoBehaviour
             save.q2 = g2.transform.rotation;
             save.pos = g.transform.position;
             save.wpos = w;
+            if(Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (cd != null)
             {
 
@@ -2110,6 +2095,7 @@ public class mover : MonoBehaviour
             save.pos = g.transform.position;
             save.vive = Camera.main.fieldOfView;
             save.wpos = w;
+            if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (cd!=null)
             {
                 save.q4 = cd.transform.rotation;
@@ -2158,6 +2144,7 @@ public class mover : MonoBehaviour
             tsave.pos2 = sr.transform.position;
             tsave.vive = Camera.main.fieldOfView;
             tsave.wpos = w;
+            if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
             if (cd != null)
             {
                 tsave.q4 = cd.transform.rotation;
