@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class FileSelectorExample : MonoBehaviour {
 	
 	private GUIStyle style;

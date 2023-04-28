@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("Physics S3D/Planet Physics")]
 public class PlanetGravity1 : MonoBehaviour
 {
     public float gravity;
     public Transform body;
+    private void Start()
+    {
+        body = GetComponent<Transform>();
+    }
     private void Update()
     {
-        Arract();
+        if (GameObject.FindAnyObjectByType<PlanetGravity>())
+        {
+            Arract();
+            body.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
     }
     // Start is called before the first frame update
     public void Arract()

@@ -3,6 +3,7 @@
     Properties
     {
         [Header(Main Maps)] [Space]
+        _MainTexture ("Texture",2D) = "white" {}
         _Tint("Albedo", Color) = (1.0, 1.0, 1.0)
         [Gamma] _Metallic("Metallic", Range(0, 1)) = 0.0
         _Smoothness("Smoothness", Range(0, 1)) = 0.5

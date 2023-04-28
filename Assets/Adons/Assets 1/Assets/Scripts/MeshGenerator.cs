@@ -168,7 +168,11 @@ numPointsPerAxis = 100;
                     if (sqrDst <= sqrViewDistance) {
 
                         Bounds bounds = new Bounds (CentreFromCoord (coord), Vector3.one * boundsSize);
-                        if (IsVisibleFrom (bounds, Camera.main)) {
+                        Camera c;
+                       
+                            c = Globalprefs.camera;
+                       
+                        if (IsVisibleFrom (bounds, c)) {
                             if (recycleableChunks.Count > 0) {
                                 Chunk chunk = recycleableChunks.Dequeue ();
                                 chunk.coord = coord;

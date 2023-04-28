@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlanetGravity : MonoBehaviour
 {
-    public float gravity;
+    public float gravity = 9;
     public Transform body;
     private void Update()
     {

@@ -227,7 +227,7 @@ Shader "Raymarch/RaymarchCam"
             }
 
             // the actual raymarcher
-            fixed4 raymarching(float3 ro, float3 rd, float depth)
+            fixed4 raymarching(float3 ro, float3 rd, float depth, float3 col)
             {
 
                 fixed4 result = fixed4(0,0,0,0.5); // default
@@ -264,7 +264,10 @@ Shader "Raymarch/RaymarchCam"
                         //shading
 
                         float3 color = d.yzw;
-
+                         if(color.x+color.y+color.z <= 0.01)
+               {
+                   color = col;
+               }
                         if(_useNormal == 1){
                             float3 n = getNormal(p);
                             light = dot(-_lightDir, n); //lambertian shading
@@ -313,7 +316,8 @@ Shader "Raymarch/RaymarchCam"
 
                float3 rayDirection = normalize(i.ray.xyz);
                float3 rayOrigin = _WorldSpaceCameraPos;
-               fixed4 result = raymarching(rayOrigin, rayDirection, depth);
+               fixed4 result = raymarching(rayOrigin, rayDirection, depth,col);
+              
                return fixed4(col * (1.0 - result.w) + result.xyz * result.w ,1.0);
 
             }

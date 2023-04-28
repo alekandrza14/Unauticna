@@ -28,7 +28,7 @@ public class spamton : MonoBehaviour
     public bool iznendial;
 
     public bool fisttalk;
-
+    public bool rayMarch;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,8 +64,8 @@ public class spamton : MonoBehaviour
             right = false;
             left = false;
         }
-        Ray r = new Ray(transform.position + (Vector3.right * 2), (Vector3.right * 2) + Vector3.down);
-        Debug.DrawRay(transform.position + (Vector3.right * 2), (Vector3.right * 2) + (Vector3.down * 80));
+        Ray r = new Ray(transform.position + (transform.right * 2), (transform.right * 2) - transform.up);
+        Debug.DrawRay(transform.position + (transform.right * 2), (transform.right * 2) + (-transform.up * 80));
         RaycastHit hit;
         if (Physics.Raycast(r, out hit))
         {
@@ -74,7 +74,7 @@ public class spamton : MonoBehaviour
                 right = true;
             }
         }
-        Ray r2 = new Ray(transform.position + (Vector3.left * 2), (Vector3.left * 2) + Vector3.down);
+        Ray r2 = new Ray(transform.position + (-transform.right * 2), (-transform.right * 2)  -transform.up);
         RaycastHit hit2;
         if (Physics.Raycast(r2, out hit2))
         {
@@ -83,7 +83,7 @@ public class spamton : MonoBehaviour
                 left = true;
             }
         }
-        Ray r3 = new Ray(transform.position + (Vector3.forward * 2), (Vector3.forward * 2) + Vector3.down);
+        Ray r3 = new Ray(transform.position + (transform.forward * 2), (transform.forward * 2)  -transform.up);
         RaycastHit hit3;
         if (Physics.Raycast(r3, out hit3))
         {
@@ -92,7 +92,7 @@ public class spamton : MonoBehaviour
                up = true;
             }
         }
-        Ray r4 = new Ray(transform.position + (Vector3.back * 2), (Vector3.back * 2) + Vector3.down);
+        Ray r4 = new Ray(transform.position + (-transform.forward * 2), (-transform.forward * 2) - transform.up);
         RaycastHit hit4;
         if (Physics.Raycast(r4, out hit4))
         {
@@ -101,26 +101,32 @@ public class spamton : MonoBehaviour
                 down = true;
             }
         }
-        if (!up)
+        if (!rayMarch)
         {
-            povedenie = 1;
-            transform.position -= Vector3.forward * 5 * Time.deltaTime;
+
+
+            if (!up)
+            {
+                povedenie = 1;
+                transform.position -= Vector3.forward * 5 * Time.deltaTime;
+            }
+            if (!down)
+            {
+                povedenie = 1;
+                transform.position -= Vector3.back * 5 * Time.deltaTime;
+            }
+            if (!right)
+            {
+                povedenie = 1;
+                transform.position -= Vector3.right * 5 * Time.deltaTime;
+            }
+            if (!left)
+            {
+                povedenie = 1;
+                transform.position -= Vector3.left * 5 * Time.deltaTime;
+            }
         }
-        if (!down)
-        {
-            povedenie = 1;
-            transform.position -= Vector3.back * 5 * Time.deltaTime;
-        }
-        if (!right)
-        {
-            povedenie = 1;
-            transform.position -= Vector3.right * 5 * Time.deltaTime;
-        }
-        if (!left)
-        {
-            povedenie = 1;
-            transform.position -= Vector3.left * 5 * Time.deltaTime;
-        }
+       
         if (tho)
         {
 

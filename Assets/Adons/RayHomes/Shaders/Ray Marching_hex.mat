@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Ray Marching_hex
   m_Shader: {fileID: 4800000, guid: 81f805f66c6d1a349a588af17ac6b486, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _AMBIENTOCCLUSION_ON
   - _NORMALAPPROXMODE_FORWARD
@@ -22,9 +24,14 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 36dd0b22da8874ed38075789055ca664, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _AmbientOcclusion: 1
@@ -35,15 +42,15 @@ Material:
     - _Length: 0.3
     - _MaxDistance: 1000
     - _MaxSteps: 100
-    - _Metallic: 1
+    - _Metallic: 0.58
     - _NormalApproxMode: 1
     - _NormalApproxStep: 0.001
     - _NormalFiltering: 1
     - _RelativeTolerance: 1
     - _ShadowMode: 0
-    - _Smoothness: 1
+    - _Smoothness: 0.793
     - _SoftShadowFactor: 1
     - _Tolerance: 0.001
     m_Colors:
-    - _Tint: {r: 0, g: 0, b: 0.5754717, a: 1}
+    - _Tint: {r: 0.2688679, g: 0.33934036, b: 1, a: 1}
   m_BuildTextureStacks: []

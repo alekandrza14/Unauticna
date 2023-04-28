@@ -16,5 +16,6 @@ public static class Globalprefs
     public static string item;
     public static bool signedgamejolt;
     public static GameObject sit_player;
+    public static Camera camera;
 
 }

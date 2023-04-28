@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
+using TMPro;
 
 #endregion
 
@@ -14,6 +15,13 @@ using UnityEngine.UI;
 /// 	- Use static 'GetFile' method to open self-drawing FileSelector window.
 /// 	- Instances created this way will destroy on close by default. This behaviour can be changed using the 'destroyOneClose' variable.
 /// </summary>
+
+
+public enum selecttype
+{
+	model,color,creature
+}
+
 public class FileSelector : MonoBehaviour 
 {	
 	#region PublicEnumerations
@@ -33,6 +41,8 @@ public class FileSelector : MonoBehaviour
 
 	#region PublicFields
 	[SerializeField] InputField txt;
+    [SerializeField] TMP_Dropdown dd;
+    public selecttype ss;
 	/// <summary>
 	/// 	- What file type we are searching for.
 	/// </summary>
@@ -175,8 +185,27 @@ public class FileSelector : MonoBehaviour
 		}
 		
 	}
-	
-	private void OnDestroy()
+
+	private void Update()
+	{
+		if (dd)
+        {
+            if (dd.value == 0)
+            {
+				ss = selecttype.model;
+				path = "res"; extension = ".obj";
+            }
+            if (dd.value == 1)
+            {
+
+                ss = selecttype.creature;
+                path = "C:/Unauticna Multiverse/Creatures";
+				extension = ".creature";
+            }
+        }
+	}
+
+		private void OnDestroy()
 	{
 		if(open && Callback != null) Callback(Status.Destroyed, "");
 	}
@@ -387,17 +416,13 @@ public class FileSelector : MonoBehaviour
 		if(File.Exists(path+@"\"+file) && Path.GetExtension(path+@"\"+file) == extension)
 		{
 			if(GUILayout.Button("Select"))
-			{
-				if(Callback != null) Callback(Status.Successful, path+@"\"+file);
-				open = false;
-                if (txt)
-                {
-                    txt.text = (file.Remove(file.Length-4, 4));
-
-                }
+            {
+                if (Callback != null) Callback(Status.Successful, path + @"\" + file);
+                open = false;
+                run();
                 if (destroyOnClose) Destroy(this);
-			}
-		}
+            }
+        }
 		
 		if(GUILayout.Button("Cancel"))
 		{
@@ -409,12 +434,36 @@ public class FileSelector : MonoBehaviour
 		
 		GUILayout.EndScrollView();
 	}
-	
-	#endregion
-	
-	#region PrivateStaticFunctions
-	
-	private static string[] GetParentDirectories(string filePath, bool includePaths = false)
+
+    private void run()
+    {
+        if (ss == selecttype.model)
+        {
+
+
+            if (txt)
+            {
+                txt.text = (file.Remove(file.Length - 4, 4));
+
+            }
+        }
+        if (ss == selecttype.creature)
+        {
+
+
+            if (txt)
+            {
+                txt.text = (file.Remove(file.Length - 9, 9));
+
+            }
+        }
+    }
+
+    #endregion
+
+    #region PrivateStaticFunctions
+
+    private static string[] GetParentDirectories(string filePath, bool includePaths = false)
 	{
 		List<string> parents = new List<string>();
 		FileInfo fileInfo;

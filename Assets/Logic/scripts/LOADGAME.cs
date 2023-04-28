@@ -116,6 +116,11 @@ public class LOADGAME : MonoBehaviour
     {
         Animator_camera.Play("c1menu_set");
     }
+    public void GetEditorCeratures()
+    {
+
+        SceneManager.LoadScene("EditorCeratures");
+    }
     public void Update()
     {
         

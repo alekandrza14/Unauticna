@@ -14,7 +14,7 @@ namespace Unity.Mathematics
     {
 
         public float colliderOffset = 1.2f;
-        public float maxDownMovement = 1f;
+        public float maxDownMovement = 0f;
         [Tooltip ("The transforms from which the raymarcher will test the distances and apply the collision")]
         public Transform[] rayMarchTransforms;
 
@@ -130,26 +130,49 @@ namespace Unity.Mathematics
                 Vector3 p = ro[i].position;
                 //check hit
                 float d = DistanceField(p);
-
-                if (d < 0) //hit
+                if (GetComponent<mover>())
                 {
-                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
-                    // Debug.Log("hit" + i);
-                    nrHits++;
-                    //collision
-                  // if(!Input.GetKey(KeyCode.F))  transform.Translate((-ro[i].up) * d * 1.5f, Space.World);
-                    if (!Input.GetKey(KeyCode.F) && r) transform.Translate(ro[i].forward * d * 1.5f, Space.World);// transform.position += Vector3.up * 0.01f; 
 
-                    //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
 
-                    u = 1;
+                    if (d < 0) //hit
+                    {
+                        if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
+                        // Debug.Log("hit" + i);
+                        nrHits++;
+                        //collision
+                        // if(!Input.GetKey(KeyCode.F))  transform.Translate((-ro[i].up) * d * 1.5f, Space.World);
+                        if (!Input.GetKey(KeyCode.F) && r) transform.Translate(ro[i].forward * d * 1.5f, Space.World);// transform.position += Vector3.up * 0.01f; 
+
+                        //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
+
+                        u = 1;
+                    }
+                    else
+                    {
+
+                        if (!Input.GetKey(KeyCode.F) && GetComponent<mover>().igr) GetComponent<mover>().physicsStart();
+                    }
                 }
                 else
                 {
-                    
-                    if (!Input.GetKey(KeyCode.F) && GetComponent<mover>().igr) GetComponent<mover>().physicsStart(); 
-                }
+                    if (d < 0) //hit
+                    {
+                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
+                        // Debug.Log("hit" + i); Vector3.zero;
+                        nrHits++;
+                        //collision
+                        // if(!Input.GetKey(KeyCode.F))  transform.Translate((-ro[i].up) * d * 1.5f, Space.World);
+                         transform.Translate(ro[i].forward * d * 1.5f, Space.World);// transform.position += Vector3.up * 0.01f; 
+
+                        //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
+
+                        u = 1;
+                    }
+                    
+
+                }
 
             }
         }
@@ -165,18 +188,29 @@ namespace Unity.Mathematics
                 //check hit
 
                 float d = DistanceField(p);
-                d = Mathf.Min(d, maxDownMovement);
+                d = Mathf.Min(d, maxDownMovement); if (GetComponent<mover>())
+                {
+                    if (d < 0.0f)
+                    {
+                        if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
+                        r = true;
+                    }
+                    else if (r)
+                    {
+                        if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
+                        r = false;
+                    }
+                }
                 if (d < 0.0f)
                 {
-                    if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStop();
+                    if (GetComponent<spamton>()) GetComponent<spamton>().rayMarch = true;
                     r = true;
                 }
-                else if(r)
+                else if (r )
                 {
-                   if (!Input.GetKey(KeyCode.F)) GetComponent<mover>().physicsStart();
                     r = false;
                 }
-               // Debug.Log(d);
+                // Debug.Log(d);
                 transform.Translate(Vector3.down * d, Space.World);
             }
         }

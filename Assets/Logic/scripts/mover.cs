@@ -236,6 +236,7 @@ public class mover : MonoBehaviour
 
         }
         string vaule1 = "";
+        string vaule2 = "";
 
         if (GlobalInputMenager.KeyCode_build != "")
         {
@@ -259,7 +260,28 @@ public class mover : MonoBehaviour
                     custommedelsave cms = new custommedelsave();
                     cms.name = name.ToArray();
                     cms.v3 = v3.ToArray();
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex +lif, JsonUtility.ToJson(cms));
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms));
+                    GlobalInputMenager.build.text = "";
+
+                }
+               
+            }
+
+        }
+        if (GlobalInputMenager.KeyCode_Spawn != "")
+        {
+            vaule2 = GlobalInputMenager.KeyCode_Spawn;
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (UnityEngine.Physics.Raycast(r, out hit))
+            {
+                
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
+                {
+                    telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
+                    g.nameCreature = vaule2;
+                    g.gameObject.transform.position = hit.point;
+                    GlobalInputMenager.build.text = "";
 
                 }
             }
@@ -571,6 +593,8 @@ public class mover : MonoBehaviour
         Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
         c.targetDisplay = 2;
         c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
+        c.renderingPath = RenderingPath.DeferredShading;
+        Globalprefs.camera = c;
         c.gameObject.AddComponent<Logic_tag_3>();
         if (cd)
         {

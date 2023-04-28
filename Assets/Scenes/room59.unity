@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.06692068, g: 0.1252679, b: 0.27291536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -94,8 +94,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: ed5b07563443b3940a8e0e26d12c7c34,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 8bcdbac796713a4479bc8f8bad097b0e,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -120,6 +122,58 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &89862382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89862384}
+  - component: {fileID: 89862383}
+  m_Layer: 0
+  m_Name: Sphere 4D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &89862383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89862382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaabdc5639ec645649fb52ac9ef2d1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapeType: 6
+  operation: 0
+  positionW: 0
+  rotationW: {x: 0, y: 0, z: 0}
+  scaleW: 1
+  colour: {r: 0, g: 0, b: 0, a: 0}
+  smoothRadius: 0
+  numChildren: 0
+--- !u!4 &89862384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89862382}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 376.24762, y: 2.3, z: 471.0294}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &194650775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -723,7 +777,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1368429270
 PrefabInstance:
@@ -897,7 +951,7 @@ PrefabInstance:
     - target: {fileID: 5250186734966871144, guid: 5fd30981e1c85c344a2318d553aa2e0d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5250186734966871144, guid: 5fd30981e1c85c344a2318d553aa2e0d,
         type: 3}
@@ -994,6 +1048,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
+      propertyPath: _skyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
+        type: 3}
+      propertyPath: _skyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
+        type: 3}
+      propertyPath: _skyColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
+        type: 3}
       propertyPath: _aoIntensity
       value: 0.656
       objectReference: {fileID: 0}
@@ -1045,37 +1114,42 @@ PrefabInstance:
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: orderedShapes.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: 'orderedShapes.Array.data[0]'
       value: 
-      objectReference: {fileID: 1800962719}
+      objectReference: {fileID: 89862383}
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: 'orderedShapes.Array.data[1]'
       value: 
-      objectReference: {fileID: 579474127}
+      objectReference: {fileID: 1800962719}
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: 'orderedShapes.Array.data[2]'
       value: 
-      objectReference: {fileID: 904576833}
+      objectReference: {fileID: 579474127}
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: 'orderedShapes.Array.data[3]'
       value: 
-      objectReference: {fileID: 194650777}
+      objectReference: {fileID: 904576833}
     - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: 'orderedShapes.Array.data[4]'
+      value: 
+      objectReference: {fileID: 194650777}
+    - target: {fileID: 7715648597781110508, guid: f54a3e859bb70fd4abe47d100b286545,
+        type: 3}
+      propertyPath: 'orderedShapes.Array.data[5]'
       value: 
       objectReference: {fileID: 1368429272}
     - target: {fileID: 8541250950486462517, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8541250950486462517, guid: f54a3e859bb70fd4abe47d100b286545,
         type: 3}
@@ -1153,7 +1227,7 @@ PrefabInstance:
     - target: {fileID: 7220340402648136972, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7220340402648136972, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}

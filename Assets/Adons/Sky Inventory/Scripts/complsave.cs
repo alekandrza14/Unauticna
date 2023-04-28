@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.Burst.CompilerServices;
 
 
 public class complsave : MonoBehaviour
@@ -224,17 +225,20 @@ public class complsave : MonoBehaviour
 
         }
 
-        
+        for (int i = 0; i < FindObjectsOfType<telo>().Length; i++)
+        {
+            saveString1.vector3B.Add(FindObjectsOfType<telo>()[i].transform.position);
+            saveString1.NamesCreatures.Add(FindObjectsOfType<telo>()[i].nameCreature);
+
+
+        }
 
 
 
 
 
 
-
-
-
-        Directory.CreateDirectory(name2.ToString());
+            Directory.CreateDirectory(name2.ToString());
         File.WriteAllText(name2.ToString() + @"/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
         saveString1.vector3A.Clear();
@@ -243,6 +247,8 @@ public class complsave : MonoBehaviour
         saveString1.x.Clear();
         saveString1.y.Clear();
         saveString1.id.Clear();
+        saveString1.vector3B.Clear();
+        saveString1.NamesCreatures.Clear();
 
 
     }
@@ -308,7 +314,23 @@ public class complsave : MonoBehaviour
 
         }
 
+        for (int i = 0; i < FindObjectsOfType<telo>().Length; i++)
+        {
 
+
+            GameObject.FindObjectsOfType<telo>()[i].gameObject.AddComponent<deleter1>();
+        }
+
+        if (saveString1.vector3B.Count != 0)
+        {
+            for (int i = 0; i < saveString1.vector3B.Count; i++)
+            {
+
+                telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), saveString1.vector3B[i], Quaternion.identity).GetComponent<telo>();
+                g.nameCreature = saveString1.NamesCreatures[i];
+                g.gameObject.transform.position = saveString1.vector3B[i];
+            }
+        }
 
         if (saveString1.PvectorA.Count == 0)
         {
@@ -401,8 +423,11 @@ public class rsave
     public List<int> x = new List<int>();
     public List<float> y = new List<float>();
     public List<int> id = new List<int>();
-    
-    
+
+    public List<Vector3> vector3B = new List<Vector3>();
+
+
+    public List<string> NamesCreatures = new List<string>();
 
 
 
