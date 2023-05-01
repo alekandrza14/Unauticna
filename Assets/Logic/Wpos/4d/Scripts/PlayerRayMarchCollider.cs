@@ -210,6 +210,15 @@ namespace Unity.Mathematics
                 {
                     r = false;
                 }
+                if (d < 0.0f)
+                {
+                    if (!GetComponent<mover>())
+                    {
+                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                    }
+                }
+
                 // Debug.Log(d);
                 transform.Translate(Vector3.down * d, Space.World);
             }

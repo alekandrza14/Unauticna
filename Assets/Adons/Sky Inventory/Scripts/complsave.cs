@@ -38,11 +38,11 @@ public class complsave : MonoBehaviour
             {
 
 
-                
+
                 VarSave.SetBool("item" + SceneManager.GetActiveScene().name + lif + i, false);
 
             }
-            
+
         }
         for (int i = 0; i < info3.Length; i++)
         {
@@ -67,8 +67,8 @@ public class complsave : MonoBehaviour
 
 
         }
-        File.Delete(name2.ToString() + @"/scene_" + lif + SceneManager.GetActiveScene().name);
-        
+        File.Delete(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
+
     }
     public void getallitemsroom()
     {
@@ -91,16 +91,16 @@ public class complsave : MonoBehaviour
                 {
                     t3[i] = g[i2];
                     i2 = nunames.Length;
-                        i = t3.Length;
+                    i = t3.Length;
                 }
 
             }
         }
-        }
+    }
 
-        public void getallitems()
+    public void getallitems()
     {
-        
+
         GameObject[] g = Resources.LoadAll<GameObject>("items");
         t3 = new GameObject[g.Length];
         info3 = new string[g.Length];
@@ -119,17 +119,20 @@ public class complsave : MonoBehaviour
 
     public void Start()
     {
+
+        Directory.CreateDirectory(VarSave.path + @"/objects");
         if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
         getallitems();
         load();
         for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
         {
-            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + lif + i) != true)
+            if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i) != true)
             {
 
 
                 GameObject.FindObjectsOfType<itemspawn>()[i].sp();
-                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + lif + i, true);
+                VarSave.SetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, true);
+
 
             }
             if (GameObject.FindObjectsOfType<itemspawn>().Length - 1 == i)
@@ -150,19 +153,19 @@ public class complsave : MonoBehaviour
                 for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
                 {
 
-                    
+
                     if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>())
                     {
                         GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>();
                     }
-                    else 
-                    { 
+                    else
+                    {
                         GameObject.FindGameObjectsWithTag(info3[i])[i3].AddComponent<breauty>().integer = 10;
 
                     }
 
 
-                   
+
 
                 }
             }
@@ -189,6 +192,7 @@ public class complsave : MonoBehaviour
         saveString1.id.Clear();
 
 
+        Directory.CreateDirectory(VarSave.path + name2 + @"/objects");
 
         for (int i = 0; i < info3.Length; i++)
         {
@@ -199,7 +203,7 @@ public class complsave : MonoBehaviour
                 for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
                 {
 
-                    saveString1.id.Add(i);
+                    saveString1.id.Add(info3[i]);
                     if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>())
                     {
                         saveString1.x.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>().integer);
@@ -214,7 +218,7 @@ public class complsave : MonoBehaviour
                         saveString1.PvectorA.Add(JsonUtility.ToJson(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>().p2));
                         saveString1.y.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>().v1);
                     }
-                    
+
 
 
                     saveString1.vector3A.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].transform.position);
@@ -238,8 +242,8 @@ public class complsave : MonoBehaviour
 
 
 
-            Directory.CreateDirectory(name2.ToString());
-        File.WriteAllText(name2.ToString() + @"/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+        Directory.CreateDirectory(name2.ToString());
+        File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
         saveString1.vector3A.Clear();
         saveString1.PvectorA.Clear();
@@ -255,12 +259,12 @@ public class complsave : MonoBehaviour
     public void load()
     {
 
-
+        Directory.CreateDirectory( name2 + @"/objects");
 
         saveString1.vector3A.Clear();
         saveString1.id.Clear();
 
-        saveString221 = Path.Combine("", name2 + @"/scene_" + lif + SceneManager.GetActiveScene().name);
+        saveString221 = Path.Combine("",   name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
 
 
@@ -274,7 +278,7 @@ public class complsave : MonoBehaviour
         {
             Debug.Log("IU2");
 
-            File.WriteAllText(name2 + @"/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+            File.WriteAllText( name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
             saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
 
         }
@@ -342,8 +346,8 @@ public class complsave : MonoBehaviour
 
 
 
-                Debug.Log("1");
-                GameObject g = Instantiate(t3[saveString1.id[i3]].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                Debug.Log(saveString1.id[i3]);
+                GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
                 if (!g.GetComponent<breauty>())
                 {
 
@@ -357,7 +361,8 @@ public class complsave : MonoBehaviour
 
 
             }
-        }else
+        }
+        else
         {
             for (int i3 = 0; i3 < saveString1.id.Count; i3++)
             {
@@ -366,7 +371,7 @@ public class complsave : MonoBehaviour
 
 
                 Debug.Log("1");
-                GameObject g = Instantiate(t3[saveString1.id[i3]].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
+                GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
                 if (!g.GetComponent<breauty>())
                 {
 
@@ -408,12 +413,30 @@ public class complsave : MonoBehaviour
 
 
 
-        }
-
-
     }
-    [SerializeField]
 
+    public int toTagToID(string tag)
+    {
+        int u = 0;
+
+        getallitems();
+        for (int i = 0; i < info3.Length; i++)
+        {
+            if (tag == info3[i])
+            {
+                u = i;
+            }
+        }
+        return u;
+       
+    }
+}
+
+
+
+
+
+[SerializeField]
 public class rsave
 {
     
@@ -422,7 +445,7 @@ public class rsave
     public List<Quaternion> qA = new List<Quaternion>();
     public List<int> x = new List<int>();
     public List<float> y = new List<float>();
-    public List<int> id = new List<int>();
+    public List<string> id = new List<string>();
 
     public List<Vector3> vector3B = new List<Vector3>();
 
