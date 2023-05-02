@@ -103,28 +103,27 @@ public class spamton : MonoBehaviour
         }
         if (!rayMarch)
         {
-
-
             if (!up)
             {
                 povedenie = 1;
-                transform.position -= Vector3.forward * 5 * Time.deltaTime;
+                transform.position -= transform.forward * 5 * Time.deltaTime;
             }
             if (!down)
             {
                 povedenie = 1;
-                transform.position -= Vector3.back * 5 * Time.deltaTime;
+                transform.position -= -transform.forward * 5 * Time.deltaTime;
             }
             if (!right)
             {
                 povedenie = 1;
-                transform.position -= Vector3.right * 5 * Time.deltaTime;
+                transform.position -= transform.right * 5 * Time.deltaTime;
             }
             if (!left)
             {
                 povedenie = 1;
-                transform.position -= Vector3.left * 5 * Time.deltaTime;
+                transform.position -= -transform.right * 5 * Time.deltaTime;
             }
+
         }
        
         if (tho)

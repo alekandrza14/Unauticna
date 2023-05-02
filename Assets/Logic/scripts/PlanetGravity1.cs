@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 [AddComponentMenu("Physics S3D/Planet Physics")]
@@ -17,6 +18,10 @@ public class PlanetGravity1 : MonoBehaviour
         {
             Arract();
             body.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
+        else
+        {
+            transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
         }
     }
     // Start is called before the first frame update
