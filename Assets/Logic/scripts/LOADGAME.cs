@@ -121,6 +121,12 @@ public class LOADGAME : MonoBehaviour
 
         SceneManager.LoadScene("EditorCeratures");
     }
+    public void GetGameLab()
+    {
+
+        SceneManager.LoadScene("Lab");
+    }
+
     public void Update()
     {
         

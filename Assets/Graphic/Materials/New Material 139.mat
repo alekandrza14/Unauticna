@@ -7,11 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lava3D
-  m_Shader: {fileID: 4800000, guid: 0b65beeff2abd8f49a7633b323425f2c, type: 3}
+  m_Name: New Material 139
+  m_Shader: {fileID: 4800000, guid: 16a3517f173b93d459ea4df5ff5f404b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_TETRAHEDRON
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_HARD
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -43,16 +48,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _FlowMap:
-        m_Texture: {fileID: 2800000, guid: 39a00f3a4d887cc448b5d165b19938eb, type: 3}
+    - _MainTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _HeightMap:
-        m_Texture: {fileID: 2800000, guid: 39a00f3a4d887cc448b5d165b19938eb, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 41072bcfb4818b34b9caf170a942ac4a, type: 3}
+    - _MainTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -69,29 +70,42 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 5
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
     - _BumpScale: 1
-    - _Cull: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EscapeRadius: 2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Iterations: 9.71
+    - _MaxDistance: 1000
+    - _MaxSteps: 100
     - _Metallic: 0
     - _Mode: 0
+    - _NormalApproxMode: 3
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Shadows: 0
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.4
+    - _ShadowMode: 1
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
+    - _SoftShadowFactor: 11.2
     - _SpecularHighlights: 1
-    - _Speed: -1
     - _SrcBlend: 1
+    - _Tolerance: 0.001
     - _UVSec: 0
     - _ZWrite: 1
-    - _isToggled: 0
     m_Colors:
-    - _Color: {r: 0, g: 6.5663877, b: 8.47419, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FlowDirection: {r: 1, g: 1, b: 1, a: 1}
+    - _Tint: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
