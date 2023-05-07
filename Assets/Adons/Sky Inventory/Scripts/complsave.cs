@@ -19,6 +19,8 @@ public class complsave : MonoBehaviour
 
 
     public GameObject[] t3;
+    public GameObject[] t4;
+    public string[] info4;
 
 
     public string lif;
@@ -110,6 +112,15 @@ public class complsave : MonoBehaviour
             info3[i] = g[i].tag;
 
         }
+        GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
+        t4 = new GameObject[g2.Length];
+        info4 = new string[g2.Length];
+        for (int i = 0; i < g2.Length; i++)
+        {
+            t4[i] = g2[i];
+            info4[i] = g2[i].GetComponent<StandartObject>().init;
+
+        }
         getallitemsroom();
     }
 
@@ -188,9 +199,17 @@ public class complsave : MonoBehaviour
     public void save()
     {
 
-        saveString1.vector3A.Clear();
-        saveString1.id.Clear();
 
+        saveString1.vector3A.Clear();
+        saveString1.vector3A2.Clear();
+        saveString1.PvectorA.Clear();
+        saveString1.qA.Clear();
+        saveString1.x.Clear();
+        saveString1.y.Clear();
+        saveString1.id.Clear();
+        saveString1.id2.Clear();
+        saveString1.vector3B.Clear();
+        saveString1.NamesCreatures.Clear();
 
         Directory.CreateDirectory(VarSave.path + name2 + @"/objects");
 
@@ -236,6 +255,13 @@ public class complsave : MonoBehaviour
 
 
         }
+        for (int i = 0; i < FindObjectsOfType<StandartObject>().Length; i++)
+        {
+            saveString1.vector3A2.Add(FindObjectsOfType<StandartObject>()[i].transform.position);
+            saveString1.id2.Add(FindObjectsOfType<StandartObject>()[i].init);
+
+
+        }
 
 
 
@@ -246,11 +272,13 @@ public class complsave : MonoBehaviour
         File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
         saveString1.vector3A.Clear();
+        saveString1.vector3A2.Clear();
         saveString1.PvectorA.Clear();
         saveString1.qA.Clear();
         saveString1.x.Clear();
         saveString1.y.Clear();
         saveString1.id.Clear();
+        saveString1.id2.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
 
@@ -261,9 +289,17 @@ public class complsave : MonoBehaviour
 
         Directory.CreateDirectory( name2 + @"/objects");
 
-        saveString1.vector3A.Clear();
-        saveString1.id.Clear();
 
+        saveString1.vector3A.Clear();
+        saveString1.vector3A2.Clear();
+        saveString1.PvectorA.Clear();
+        saveString1.qA.Clear();
+        saveString1.x.Clear();
+        saveString1.y.Clear();
+        saveString1.id.Clear();
+        saveString1.id2.Clear();
+        saveString1.vector3B.Clear();
+        saveString1.NamesCreatures.Clear();
         saveString221 = Path.Combine("",   name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
 
@@ -324,6 +360,12 @@ public class complsave : MonoBehaviour
 
             GameObject.FindObjectsOfType<telo>()[i].gameObject.AddComponent<deleter1>();
         }
+        for (int i = 0; i < FindObjectsOfType<StandartObject>().Length; i++)
+        {
+
+
+            GameObject.FindObjectsOfType<StandartObject>()[i].gameObject.AddComponent<deleter1>();
+        }
 
         if (saveString1.vector3B.Count != 0)
         {
@@ -335,7 +377,12 @@ public class complsave : MonoBehaviour
                 g.gameObject.transform.position = saveString1.vector3B[i];
             }
         }
+        for (int i = 0; i < saveString1.id2.Count; i++)
+        {
 
+            Instantiate(t4[toTagToIDObject(saveString1.id2[i])], saveString1.vector3A2[i], Quaternion.identity);
+            
+        }
         if (saveString1.PvectorA.Count == 0)
         {
 
@@ -428,7 +475,22 @@ public class complsave : MonoBehaviour
             }
         }
         return u;
-       
+
+    }
+    public int toTagToIDObject(string init)
+    {
+        int u = 0;
+
+        getallitems();
+        for (int i = 0; i < info4.Length; i++)
+        {
+            if (init == info4[i])
+            {
+                u = i;
+            }
+        }
+        return u;
+
     }
 }
 
@@ -439,13 +501,15 @@ public class complsave : MonoBehaviour
 [SerializeField]
 public class rsave
 {
-    
+
     public List<Vector3> vector3A = new List<Vector3>();
+    public List<Vector3> vector3A2 = new List<Vector3>();
     public List<string> PvectorA = new List<string>();
     public List<Quaternion> qA = new List<Quaternion>();
     public List<int> x = new List<int>();
     public List<float> y = new List<float>();
     public List<string> id = new List<string>();
+    public List<string> id2 = new List<string>();
 
     public List<Vector3> vector3B = new List<Vector3>();
 

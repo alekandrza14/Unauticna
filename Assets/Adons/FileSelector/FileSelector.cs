@@ -19,7 +19,7 @@ using TMPro;
 
 public enum selecttype
 {
-	model,color,creature
+	model,color,creature,Object
 }
 
 public class FileSelector : MonoBehaviour 
@@ -185,8 +185,25 @@ public class FileSelector : MonoBehaviour
 		}
 		
 	}
+	StandartObject[] g2;
+    private void Start()
+    {
 
-	private void Update()
+       g2 = Resources.LoadAll<StandartObject>("Primetives");
+        Directory.CreateDirectory("C:/Data/Objects");
+
+        for (int i = 0; i < g2.Length; i++)
+        {
+
+			Directory.CreateDirectory("C:/Data/Objects/" + "E" + g2[i].floderinit);
+
+
+            File.WriteAllText("C:/Data/Objects" + "/" + "E" + g2[i].floderinit + "/" + g2[i].name, "null");
+			
+		}
+
+		}
+    private void Update()
 	{
 		if (dd)
         {
@@ -200,7 +217,25 @@ public class FileSelector : MonoBehaviour
 
                 ss = selecttype.creature;
                 path = "C:/Unauticna Multiverse/Creatures";
-				extension = ".creature";
+                extension = ".creature";
+            }
+            if (dd.value == 2 && ss != selecttype.Object)
+            {
+
+
+
+
+
+				
+
+
+
+					
+					path = "C:/Data/Objects";
+
+					extension = "";
+				
+					ss = selecttype.Object;
             }
         }
 	}
@@ -457,6 +492,24 @@ public class FileSelector : MonoBehaviour
 
             }
         }
+        if (ss == selecttype.Object)
+        {
+
+
+            
+                GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
+			for (int i = 0; i < g2.Length; i++)
+			{ 
+			if(file == g2[i].GetComponent<StandartObject>().name)
+				{
+
+                    Instantiate(g2[i], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+                }
+			}
+                // file;
+
+            }
     }
 
     #endregion

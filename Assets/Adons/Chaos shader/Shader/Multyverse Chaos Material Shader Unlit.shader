@@ -1,4 +1,4 @@
-Shader "Unauticna Multiverse Customs/Low UnLit Shaders/Multyverse Chaos Material Shader"
+Shader "Unauticna Multiverse Customs/Low UnLit Shaders/Multyverse Chaos Material Shader/Standart"
 {
     Properties
     {

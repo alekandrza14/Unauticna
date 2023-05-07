@@ -49,6 +49,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "1";
             }
+            if (s[0] == "Obj")
+            {
+                a = "6";
+            }
             if (s[0] == "movex")
             {
                 a = "2";
@@ -87,10 +91,16 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "2")
             {
-                mover.FindFirstObjectByType<mover>().w +=  int.Parse(s[1]);
+                mover.FindFirstObjectByType<mover>().w += int.Parse(s[1]);
 
             }
-            
+            if (i == 1 && a == "6")
+            {
+                GameObject[] g = Resources.LoadAll<GameObject>("Primetives");
+                Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position,Quaternion.identity);
+
+            }
+
         }
     }
     // Update is called once per frame

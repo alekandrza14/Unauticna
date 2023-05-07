@@ -36,14 +36,14 @@ public class fristPersonControler : MonoBehaviour
             {
 
 
-                g[0].transform.Rotate(0, Input.GetAxisRaw("Mouse X") * (150f * Time.deltaTime), 0);
-                g[1].transform.Rotate(-Input.GetAxisRaw("Mouse Y") * (150f * Time.deltaTime), 0, 0);
+                g[0].transform.Rotate(0, Input.GetAxisRaw("Mouse X") * (150f * Time.fixedDeltaTime), 0);
+                g[1].transform.Rotate(-Input.GetAxisRaw("Mouse Y") * (150f * Time.fixedDeltaTime), 0, 0);
             }
             else
             {
 
-                g[0].transform.Rotate(0, -Input.GetAxisRaw("Mouse X") * (150f * Time.deltaTime), 0);
-                g[1].transform.Rotate(Input.GetAxisRaw("Mouse Y") * (150f * Time.deltaTime), 0, 0);
+                g[0].transform.Rotate(0, -Input.GetAxisRaw("Mouse X") * (150f * Time.fixedDeltaTime), 0);
+                g[1].transform.Rotate(Input.GetAxisRaw("Mouse Y") * (150f * Time.fixedDeltaTime), 0, 0);
             }
             Cursor.lockState = CursorLockMode.Locked;
         }

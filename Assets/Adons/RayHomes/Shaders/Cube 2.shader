@@ -78,115 +78,11 @@
         float SDF(float3 pos)
         {
             float f = 0;
-            if (P5 == 0) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
+          
 
                    
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-
-
-                }
-            }if (P5 == 1) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-
-                    
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-
-                    
-                    
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-
-                }
-            }if (P5 == 2) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-                    
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-
-
-                }
-            }if (P5 == 3) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-
-
-                }
-            }
-            
-            if (pos.x - P1 > 40) {
-                f = 1;
-            }if (pos.x - P1 < -40) {
-                f = 1;
-            }if (pos.z - P3 > 40) {
-                f = 1;
-            }if (pos.z - P3 < -40) {
-                f = 1;
-            }
+                    f = (pos.y - P2) - fbn1(float2((-pos.x) * P5, (-pos.z)  * P5)) * P4;
+                
             /*
             if (pos.x - P1 < 0) {
                 f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, 0)) * P4;
@@ -198,7 +94,7 @@
             }
             */
 
-            return f;
+            return max(max(f,length(pos)-0.5),-pos.y-0.1);
         }
         
         ENDCG
