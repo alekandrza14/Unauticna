@@ -6,6 +6,7 @@ Shader "Unauticna Multiverse Customs/Low UnLit Shaders/Multyverse Chaos Raymarch
         _MainColor("Color", Color) = (1,1,1,1)
         _WVector("Wpos", int) = 0
         _Radius("Wscale", Range(0,.49)) = .49
+        _Depth1 ("Depth", int) = 0
         MAX_STEPS ("MAX_STEPS", int) = 100
         MAX_DIST ("MAX_DIST", int) = 100
         SURF_DIST  ("SURF_DIST", float) = 0.001
@@ -28,6 +29,7 @@ ZWrite off
             float SURF_DIST ;
             #include "UnityCG.cginc"
             
+        int _Depth1;
 uniform float4 _MainTex_TexelSize;
 uniform float4x4 _CameraInvViewMatrix;
             struct appdata
@@ -98,8 +100,12 @@ uniform float4x4 _CameraInvViewMatrix;
 
                     );
                 return normalize(n);
-            }
-            fixed4 frag(v2f i) : SV_Target
+            }float Depth(float3 pos)
+{
+    float4 clipPos = UnityObjectToClipPos(pos);
+    return clipPos.z / clipPos.w;
+}
+            fixed4 frag(v2f i,out float outDepth : SV_Depth) : SV_Target
             {
                 float2 uv = i.uv ;
                 float3 ro = i.ro;
@@ -134,6 +140,9 @@ uniform float4x4 _CameraInvViewMatrix;
                     col = lerp(col+fixed4(0,0,0,0), tex, 0.6);
                 }
                 else discard;
+                  if(_Depth1 == 0) {  outDepth = Depth(p);}else{
+                       outDepth = Depth(float3(0,0,0));
+                      }
                 return col*_MainColor;
             }
             ENDCG
