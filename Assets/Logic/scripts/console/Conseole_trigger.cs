@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,7 +27,8 @@ public class Conseole_trigger : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
-        
+        VarSave.SetString("console",console);
+
 
         List<string> s = new List<string>();
         string pre ="" ;
@@ -48,6 +50,10 @@ public class Conseole_trigger : MonoBehaviour
             if (s[0] == "scene")
             {
                 a = "1";
+            }
+            if (s[0] == "Gamemode")
+            {
+                a = "7";
             }
             if (s[0] == "Obj")
             {
@@ -97,7 +103,21 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "6")
             {
                 GameObject[] g = Resources.LoadAll<GameObject>("Primetives");
-                Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position,Quaternion.identity);
+                Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+            }
+            if (i == 1 && a == "7")
+            {
+                if (s[1] == "0" || s[1] == "Adventure")
+                {
+                    Directory.Delete("debug");
+                
+                }
+                if (s[1] == "1" || s[1] == "Debug")
+                {
+                    Directory.CreateDirectory("debug");
+                }
+                
 
             }
 
@@ -116,6 +136,12 @@ public class Conseole_trigger : MonoBehaviour
         {
             run(FindObjectOfType<Console_pointer>().text.text);
             Destroy(GameObject.FindWithTag("console"));
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            FindObjectOfType<Console_pointer>().text.text = VarSave.GetString("console");
 
 
         }

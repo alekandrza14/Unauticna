@@ -78,7 +78,7 @@ public class Terraformer : MonoBehaviour
 		// Add terrain
 		
 		// Subtract terrain
-		if (Input.GetMouseButton(1))
+		if (Input.GetMouseButton(0))
 		{
 			isTerraforming = true;
 			genTest.Terraform(terraformPoint, weight, terraformRadius);

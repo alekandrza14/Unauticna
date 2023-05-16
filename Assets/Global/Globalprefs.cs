@@ -17,5 +17,23 @@ public static class Globalprefs
     public static bool signedgamejolt;
     public static GameObject sit_player;
     public static Camera camera;
+    static public float Hash(Vector2 p)
+    {
+        float d = Vector2.Dot(-p, new Vector2(12.9898f, 78.233f));
+        return Frac(Mathf.Sin(d) * 43758.5453123f);
+    }
+    static public decimal Fract(decimal value) { return value - decimal.Truncate(value); }
+
+    static public float Frac(float value)
+    {
+        return (float)Fract((decimal)value);
+    }
+   
+    public static int GetIdPlanet()
+    {
+        int seed = VarSave.GetInt("planet") + (VarSave.GetInt("planetS") * 1000) + (VarSave.GetInt("planetG") * 100000);
+        
+        return seed;
+    }
 
 }

@@ -152,7 +152,7 @@ public class LOADGAME : MonoBehaviour
         {
             SceneManager.LoadScene(85);
         }
-        else
+        else if (!VarSave.EnterFloat("scppos"))
         {
 
 
@@ -172,6 +172,15 @@ public class LOADGAME : MonoBehaviour
                 File.WriteAllText("unsave/s", s);
                 SceneManager.LoadScene(gsave.sceneid);
             }
+        }
+        else if (VarSave.EnterFloat("scppos"))
+        {
+
+
+           
+                SceneManager.LoadScene(VarSave.GetString("scppos"));
+
+          
         }
     }
     public void engLENGUAGE()

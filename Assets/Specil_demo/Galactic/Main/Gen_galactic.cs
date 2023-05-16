@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gen_galactic : MonoBehaviour
 {
     [SerializeField] GameObject star;
-    void Start()
+   public void Run()
     {
         for (int i =0 ; i < 2000 ; i++)
         {

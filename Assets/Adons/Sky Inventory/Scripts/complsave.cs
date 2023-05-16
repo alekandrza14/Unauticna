@@ -132,7 +132,7 @@ public class complsave : MonoBehaviour
     {
 
         Directory.CreateDirectory(VarSave.path + @"/objects");
-        if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
+        if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         getallitems();
         load();
         for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
@@ -211,7 +211,7 @@ public class complsave : MonoBehaviour
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
 
-        Directory.CreateDirectory(VarSave.path + name2 + @"/objects");
+        Directory.CreateDirectory(name2 + @"/objects");
 
         for (int i = 0; i < info3.Length; i++)
         {

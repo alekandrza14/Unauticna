@@ -46,12 +46,14 @@ public class GenTest : MonoBehaviour
 
 	void Start()
 	{
-		InitTextures();
+     
+        InitTextures();
 		CreateBuffers();
 
 		CreateChunks();
 
-		var sw = System.Diagnostics.Stopwatch.StartNew();
+        Debug.Log("Planet Id " + Globalprefs.GetIdPlanet());
+        var sw = System.Diagnostics.Stopwatch.StartNew();
 		GenerateAllChunks();
 		Debug.Log("Generation Time: " + sw.ElapsedMilliseconds + " ms");
 
@@ -208,12 +210,15 @@ public class GenTest : MonoBehaviour
 	}
 	public void load_planet()
     {
-	 float seed = Hash(new Vector2(
-                        VarSave.GetInt("planet"), -VarSave.GetInt("planet")))*-2;
+
+        Debug.Log("PlanetId " + Globalprefs.GetIdPlanet());
+        float seed = Hash(new Vector2(
+                         Globalprefs.GetIdPlanet(), -Globalprefs.GetIdPlanet()))*-2;
 		 seed += 2f;
 		boundsSize = 300 * seed;
-		GenerateAllChunks();
-	}
+        GenerateAllChunks();
+
+    }
 
 
 

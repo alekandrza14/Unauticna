@@ -128,7 +128,7 @@ public class mover : MonoBehaviour
 
     void getSignal()
     {
-        if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
+        if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         int vaule = 0;
         if (File.Exists("C:/myMods/sig1.sig"))
         {
@@ -568,7 +568,7 @@ public class mover : MonoBehaviour
     }
     private void Awake()
     {
-        if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
+        if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         if (File.Exists("unsave/s"))
         {
             ifd.text = File.ReadAllText("unsave/s");
@@ -582,7 +582,7 @@ public class mover : MonoBehaviour
         stand_stay = load1.stad;
         if (VarSave.EnterFloat("cms" + SceneManager.GetActiveScene().buildIndex + lif))
         {
-            if (FindFirstObjectByType<GenTest>()) { lif = VarSave.GetInt("planet").ToString(); }
+            if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
             custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif));
             for (int i = 0; i < cms.name.Length; i++)
             {
