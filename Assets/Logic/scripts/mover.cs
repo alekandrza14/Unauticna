@@ -461,7 +461,7 @@ public class mover : MonoBehaviour
         c1.transform.position = new Vector3(0,v4.w,0);
 
     }
-
+    //физика
     void OnCollisionStay(Collision collision)
     {
         igr = false;
@@ -566,8 +566,13 @@ public class mover : MonoBehaviour
 
         c = null;
     }
+    //физика
+    //Пробуждение кода
     private void Awake()
     {
+        Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
+        Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
+        Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         if (File.Exists("unsave/s"))
         {
@@ -755,7 +760,9 @@ public class mover : MonoBehaviour
       if (FindObjectsOfType<GenTest>().Length !=0)  FindObjectOfType<GenTest>().load_planet();
 
     }
+    //Пробуждение кода
     public int planet_position;
+    //Приметивный интерфейс
     private void OnGUI()
     {
         if (Input.GetKey(KeyCode.Mouse1))
@@ -764,15 +771,25 @@ public class mover : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.F8))
         {
-            GUI.Label(new Rect(0f,0,200f,100f),"Unauticna Alpha-version");
-            if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : "+ w.ToString());
-          if(cd)  GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
+            GUI.Label(new Rect(0f, 0, 200f, 100f), "Unauticna Alpha-version");
+            if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + w.ToString());
+            if (cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
             GUI.Label(new Rect(0f, 70, 200f, 100f), "Cotinuum Position : " + SceneManager.GetActiveScene().buildIndex);
-          if(FindObjectsOfType<GenTest>().Length !=0)  GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
+            if (FindObjectsOfType<GenTest>().Length != 0) GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
             GUI.Label(new Rect(0f, 100, 200f, 100f), "All objects : " + FindObjectsOfType<GameObject>().Length);
 
-            GUI.Label(new Rect(0f, 120, 200f, 100f), "Unity Version : " + Application.unityVersion); 
+            GUI.Label(new Rect(0f, 120, 200f, 100f), "Unity Version : " + Application.unityVersion);
             GUI.Label(new Rect(0f, 130, 200f, 100f), "Game Version : " + Application.version);
+
+
+        }
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            GUI.Label(new Rect(0f, 0, 200f, 100f), "Game Varibles :");
+            GUI.Label(new Rect(0f, 20, 200f, 100f), "Teuvro ($) : " + VarSave.GetInt("tevro").ToString());
+            GUI.Label(new Rect(0f, 40, 200f, 100f), "Flow Teuvro ($^) : " + Globalprefs.flowteuvro);
+            GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
+            GUI.Label(new Rect(0f, 80, 200f, 100f), "Over Flow Teuvro ($^^) : " + Globalprefs.OverFlowteuvro);
 
 
         }
@@ -783,7 +800,7 @@ public class mover : MonoBehaviour
             if (cd) GUI.Label(new Rect(0f, 00, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
         }
     }
-
+    //Приметивный интерфейс
     void Start()
     {
         gameObject.AddComponent<Conseole_trigger>();
@@ -1103,7 +1120,7 @@ public class mover : MonoBehaviour
 
         }
     }
-
+    float timer;
     public void physicsStop()
     {
         igr = false;
@@ -1130,6 +1147,19 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
+        timer += Time.deltaTime;
+        if (timer > 1f)
+        {
+            
+            VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.flowteuvro);
+            if (VarSave.GetInt("tevro") < -2000000000)
+            {
+                Globalprefs.OverFlowteuvro += 1;
+                VarSave.SetInt("tevro", VarSave.GetInt("tevro") + 1000000000);
+                VarSave.SetInt("uptevro", Globalprefs.OverFlowteuvro);
+            }
+            timer = 0; 
+        }
         Inputnravix();
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

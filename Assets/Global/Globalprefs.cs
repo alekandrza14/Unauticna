@@ -8,6 +8,10 @@ public static class Globalprefs
     public static int idscene;
     public static Vector3 newv3;
     public static Vector3 pos;
+    public static int flowteuvro;
+    public static int OverFlowteuvro;
+    public static bool bunkrot;
+
     public static Vector3[] postes;
     public static Vector3[] postes2;
     public static Quaternion[] q;
