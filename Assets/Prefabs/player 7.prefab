@@ -1020,6 +1020,7 @@ GameObject:
   - component: {fileID: 1713605610559514129}
   - component: {fileID: 4295058687876597391}
   - component: {fileID: 4295058687876597385}
+  - component: {fileID: 1041134146827908403}
   m_Layer: 2
   m_Name: player 7
   m_TagString: Player
@@ -1060,43 +1061,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55df6f49fd9233744ae5f73bdb35f9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g: {fileID: 8541250950486462523}
-  g2: {fileID: 8541250950306982604}
-  g1: {fileID: 8541250950486462519}
-  sm: 1.5
-  ifd: {fileID: 8541250949985825862}
-  tjump: 0
-  jump: 2
-  rjump: 20
-  gr: 17
-  pl: 0
-  igr: 0
+  PlayerBody: {fileID: 8541250950486462523}
+  PlayerCamera: {fileID: 8541250950306982604}
   isplanet: 0
-  issweming: 0
-  anim: {fileID: 4945730235329824884}
-  vive: 0.04
-  watermask: {fileID: 0}
-  fog: 0
-  fog2: 0
-  fogonwater: {r: 0, g: 0, b: 0, a: 0}
-  fogonair: {r: 0, g: 0, b: 0, a: 0}
-  hp: 200
-  sr: {fileID: 7064745002962192588}
-  del: {fileID: 0}
-  islight: 0
   tutorial: 0
-  mybody:
-  - {fileID: 1838232960695858021}
-  cd: {fileID: 0}
-  w: 0
-  stand_stay: 0
-  model: {fileID: 5791383866338109538}
-  forach:
-  - {fileID: 1838232960695858021}
+  islight: 0
   inglobalspace: 0
-  faceViewi: 0
-  lif: 
+  jumpforse: 9
+  jumpPower: 4
+  gravity: 4.5
+  ForseSwaem: 0
+  rigidbody: {fileID: 8541250950486462519}
+  Speed: 1.2
+  animator: {fileID: 4945730235329824884}
+  W_position: 0
   planet_position: 0
+  SaveFileInputField: {fileID: 8541250949985825862}
+  IsGraund: 0
+  watermask: {fileID: 0}
+  hp: 200
+  CameraSetup: {fileID: 7064745002962192588}
+  PlayersModelObjObjects:
+  - {fileID: 1838232960695858021}
+  hyperbolicCamera: {fileID: 0}
+  PlayerModelObject: {fileID: 1838232960695858021}
+  PlayerModelObjects:
+  - {fileID: 1838232960695858021}
+  lif: 
 --- !u!54 &8541250950486462519
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1203,6 +1194,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987e7c6be3abb46e2b072d597998d8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1041134146827908403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541250950486462523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1bab85c829c8a43b14ac98fa2925a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -9
+  body: {fileID: 8541250950486462517}
 --- !u!1001 &4295058688280209632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1588,12 +1593,6 @@ GameObject:
 --- !u!95 &4945730235329824884 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 3724780497012397758, guid: 2c225e8e7eb735c41a5d504640c4939f,
-    type: 3}
-  m_PrefabInstance: {fileID: 8580438464691199690}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5791383866338109538 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2831910548080604840, guid: 2c225e8e7eb735c41a5d504640c4939f,
     type: 3}
   m_PrefabInstance: {fileID: 8580438464691199690}
   m_PrefabAsset: {fileID: 0}

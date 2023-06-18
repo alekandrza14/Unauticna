@@ -59,182 +59,78 @@ public enum faceView
 
 public class mover : MonoBehaviour
 {
-    public GameObject g;
-    public GameObject g2;
-    [SerializeField] Rigidbody g1;
-    [SerializeField] float sm;
-    [SerializeField] save save = new save();
-    [SerializeField] tsave tsave = new tsave();
-    [SerializeField] gsave gsave = new gsave();
-    public InputField ifd;
-    public float tjump;
-    [SerializeField] float jump;
-    [SerializeField] float rjump;
-    [SerializeField] float gr;[SerializeField] float pl;
-    public bool igr;
+    public GameObject PlayerBody;
+    public GameObject PlayerCamera;
     [SerializeField] bool isplanet;
-    [SerializeField] bool issweming;
+    [SerializeField] bool tutorial;
+    [SerializeField] bool islight = false;
+    [SerializeField] bool inglobalspace;
+    [SerializeField] float jumpforse;
+    [SerializeField] float jumpPower;
+    [SerializeField] float gravity; 
+    [SerializeField] float ForseSwaem;
+    [SerializeField] Rigidbody rigidbody;
+    [SerializeField] float Speed;
+    [SerializeField] Animator animator;
+    save save = new save();
+    tsave tsave = new tsave();
+    gsave gsave = new gsave();
+
+    [SerializeField] public float W_position;
+    public int planet_position;
+    public InputField SaveFileInputField;
+    float JumpTimer;
+    [HideInInspector] public bool IsGraund;
+    bool InWater;
     Collision c;
-    [SerializeField] Animator anim;
-    [SerializeField] float vive = int.MaxValue;
+    float ZoomConficent = 0.04f;
     [SerializeField] RawImage watermask;
-    [SerializeField] float fog;[SerializeField] float fog2;
-    [SerializeField] Color fogonwater;
-    [SerializeField] Color fogonair = new Color(0, 0, 0, 0);
-   [HideInInspector] public int hp = 200; float oxygen = 20;
+    float fog = 1000;  float fog2 = 1000;
+    Color fogonwater;
+    Color fogonair = new Color(1, 1, 1, 1);
+    [HideInInspector] public int hp = 200; float oxygen = 20;
     float tic, time = 4; float tic2, time2 = 4;
     bool s2 = true;
-    public GameObject sr;
-    [HideInInspector] public deldialog del;
-    [SerializeField] bool islight = false;
+    public GameObject CameraSetup;
     float vel;
-    [SerializeField] bool tutorial;
     float tics;
     bool fly; bool Xray;
-    [SerializeField] GameObject[] mybody;
-    [HideInInspector] public Camd cd;
-    [SerializeField] public float w;
-    [SerializeField] bool stand_stay;
-    [SerializeField] GameObject model;
-    [SerializeField] GameObject[] forach;
-    [SerializeField] bool inglobalspace;
-    [SerializeField] faceView faceViewi;
+    [SerializeField] GameObject[] PlayersModelObjObjects;
+    [HideInInspector] public HyperbolicCamera hyperbolicCamera;
+    bool stand_stay;
+    [SerializeField] GameObject PlayerModelObject;
+    [SerializeField] GameObject[] PlayerModelObjects;
+    faceView faceViewi;
     bool move4D;
     string lepts = "";
-    public string lif;
+    [HideInInspector] public string lif;
 
     void swapWX3(Transform x, mover w)
     {
-        RaymarchCam m = GameObject.FindObjectOfType<RaymarchCam>();
+        RaymarchCam m = Get4DCam();
         float save = x.localPosition.x;
-        if (m._wRotation.x == 0) x.localPosition = new Vector3(w.w, x.localPosition.y, x.localPosition.z);
-        if (m._wRotation.x == -90) x.localPosition = new Vector3(-w.w, x.localPosition.y, x.localPosition.z);
-        if (m._wRotation.x == 0) w.w = -save;
-        if (m._wRotation.x == -90) w.w = save;
+        if (m._wRotation.x == 0) x.localPosition = new Vector3(w.W_position, x.localPosition.y, x.localPosition.z);
+        if (m._wRotation.x == -90) x.localPosition = new Vector3(-w.W_position, x.localPosition.y, x.localPosition.z);
+        if (m._wRotation.x == 0) w.W_position = -save;
+        if (m._wRotation.x == -90) w.W_position = save;
     }
 
     public static void swapWXALL()
     {
-        RaymarchCam m = GameObject.FindObjectOfType<RaymarchCam>();
-        mover w = GameObject.FindObjectOfType<mover>();
+        RaymarchCam m = Get4DCam();
+        mover w = mover.main();
         w.swapWX3(w.transform, w);
-        if (m._wRotation.x == 0)  m._wRotation.x = -90; else m._wRotation.x = 0;
+        if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
 
     }
     public static RaymarchCam Get4DCam()
     {
-        return GameObject.FindObjectOfType<RaymarchCam>();
+        return (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
     }
 
-    void getSignal()
+    void Building()
     {
-        if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
-        int vaule = 0;
-        if (File.Exists("C:/myMods/sig1.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig1.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position += (gameObject.transform.forward) * vaule;
-                    File.Delete("C:/myMods/sig1.sig");
-                }
-            }
 
-        }
-        if (File.Exists("C:/myMods/sig4.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig4.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position -= (gameObject.transform.forward) * vaule;
-                    File.Delete("C:/myMods/sig4.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig2.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig2.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position -= (gameObject.transform.right) * vaule;
-                    File.Delete("C:/myMods/sig2.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig3.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig3.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position += (gameObject.transform.right) * vaule;
-                    File.Delete("C:/myMods/sig3.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig5.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig5.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position += (gameObject.transform.up) * vaule;
-                    File.Delete("C:/myMods/sig5.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig6.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig6.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position -= (gameObject.transform.up) * vaule;
-                    File.Delete("C:/myMods/sig6.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig7.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig7.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position = (gameObject.transform.position);
-                    File.Delete("C:/myMods/sig7.sig");
-                }
-            }
-
-        }
         string vaule1 = "";
         string vaule2 = "";
 
@@ -264,31 +160,12 @@ public class mover : MonoBehaviour
                     GlobalInputMenager.build.text = "";
 
                 }
-               
+
             }
 
-        }
-        if (GlobalInputMenager.KeyCode_Spawn != "")
-        {
-            vaule2 = GlobalInputMenager.KeyCode_Spawn;
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
-                
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
-                {
-                    telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
-                    g.nameCreature = vaule2;
-                    g.gameObject.transform.position = hit.point;
-                    GlobalInputMenager.build.text = "";
 
-                }
-            }
 
-        }
-        if (true)
-        {
+
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 List<string> name = new List<string>();
@@ -310,15 +187,15 @@ public class mover : MonoBehaviour
                 }
             }
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
+            Ray r2 = musave.pprey();
+            RaycastHit hit2;
+            if (UnityEngine.Physics.Raycast(r2, out hit2))
             {
-                if (hit.collider != null && j)
+                if (hit2.collider != null && j)
                 {
-                    if (hit.collider.GetComponent<genmodel>())
+                    if (hit2.collider.GetComponent<genmodel>())
                     {
-                        hit.collider.gameObject.AddComponent<DELETE>();
+                        hit2.collider.gameObject.AddComponent<DELETE>();
                         List<string> name = new List<string>();
                         List<Vector3> v3 = new List<Vector3>();
                         for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
@@ -329,7 +206,8 @@ public class mover : MonoBehaviour
                         custommedelsave cms = new custommedelsave();
                         cms.name = name.ToArray();
                         cms.v3 = v3.ToArray();
-                        if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms)); } else
+                        if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms)); }
+                        else
                         {
                             cms.name = new string[] { };
                             cms.v3 = new Vector3[] { };
@@ -339,112 +217,26 @@ public class mover : MonoBehaviour
                 }
             }
 
-        }
-        //используйте на здоровье
-        /*
-        if (File.Exists("C:/myMods/sig1.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig1.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position += (gameObject.transform.forward*vaule) - gameObject.transform.position;
-                    File.Delete("C:/myMods/sig1.sig");
-                }
-            }
+
 
         }
-        if (File.Exists("C:/myMods/sig4.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig4.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position -= (gameObject.transform.forward * vaule) - gameObject.transform.position;
-                    File.Delete("C:/myMods/sig4.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig2.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig2.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position -= (gameObject.transform.right * vaule) - gameObject.transform.position;
-                    File.Delete("C:/myMods/sig2.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig3.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig3.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position += (gameObject.transform.right * vaule) - gameObject.transform.position;
-                    File.Delete("C:/myMods/sig3.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig5.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig5.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position += (gameObject.transform.up * vaule) - gameObject.transform.position;
-                    File.Delete("C:/myMods/sig5.sig");
-                }
-            }
-
-        }
-        if (File.Exists("C:/myMods/sig6.sig"))
-        {
-            vaule = int.Parse(File.ReadAllText("C:/myMods/sig6.sig"));
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    hit.collider.transform.position -= (gameObject.transform.up * vaule) - gameObject.transform.position;
-                    File.Delete("C:/myMods/sig6.sig");
-                }
-            }
-
-        }
-        */
-
     }
 
-    public faceView GETistp()
+        
+    
+       
+
+    
+
+    public faceView GetViewFace()
     {
         return faceViewi;
     }
-    public void SETistp(faceView a)
+    public void SetViewFace(faceView a)
     {
        faceViewi =a;
     }
-    public Vector4 convertPvectorinVector4(Camd c1)
+    public Vector4 GetHyperbolicVector(HyperbolicCamera c1)
     {
         Vector4 v4 = new Vector4();
         v4.x = c1.polarTransform.n;
@@ -453,7 +245,7 @@ public class mover : MonoBehaviour
         v4.w = c1.transform.position.y;
         return v4;
     }
-    public void convertinPvector(Vector4 v4,Camd c1)
+    public void LoadHyperbolicVector(Vector4 v4,HyperbolicCamera c1)
     {
         c1.polarTransform.n = v4.x;
         c1.polarTransform.s = v4.y;
@@ -464,47 +256,47 @@ public class mover : MonoBehaviour
     //физика
     void OnCollisionStay(Collision collision)
     {
-        igr = false;
-        if (tjump < -2)
+        IsGraund = false;
+        if (JumpTimer < -2)
         {
-            Debug.Log(tjump);
-            hp += Mathf.FloorToInt(tjump) / 3;
+            Debug.Log(JumpTimer);
+            hp += Mathf.FloorToInt(JumpTimer) / 3;
         }
-        tjump = rjump;
-        if (issweming)
+        JumpTimer = jumpPower;
+        if (InWater)
         {
-            igr = false;
-            tjump = 0;
+            IsGraund = false;
+            JumpTimer = 0;
         }
         c = collision;
         if (collision.collider.tag == "sc")
         {
-            tjump = -rjump / 2;
+            JumpTimer = -jumpPower / 2;
 
         }
 
         if (collision.collider.tag == "sc2")
         {
-            if (g1.velocity.y >= 2)
+            if (rigidbody.velocity.y >= 2)
             {
                 tic2 += Time.deltaTime;
             }
-            if (g1.velocity.y <= 2 && tic2 >= 0)
+            if (rigidbody.velocity.y <= 2 && tic2 >= 0)
             {
                 tic2 -= Time.deltaTime;
             }
             if (tic2 >= time2)
             {
-                tjump = -rjump / 2;
+                JumpTimer = -jumpPower / 2;
                 s2 = false;
-                igr = true;
+                IsGraund = true;
 
             }
             if (!s2)
             {
-                tjump = -rjump / 2;
+                JumpTimer = -jumpPower / 2;
                 s2 = false;
-                igr = true;
+                IsGraund = true;
                 tic2 -= Time.deltaTime * 2;
                 if (tic2 <= 0)
                 {
@@ -528,12 +320,12 @@ public class mover : MonoBehaviour
         }
         if (other.tag == "airhole")
         {
-            igr = true;
+            IsGraund = true;
 
         }
         if (other.GetComponent<notswiming>())
         {
-            issweming = true;
+            InWater = true;
 
         }
     }
@@ -541,7 +333,7 @@ public class mover : MonoBehaviour
     {
         if (other.tag == "lagi")
         {
-            g2.GetComponent<Camera>().enabled = 1 == Random.Range(0, 3);
+            PlayerCamera.GetComponent<Camera>().enabled = 1 == Random.Range(0, 3);
 
         }
 
@@ -552,12 +344,12 @@ public class mover : MonoBehaviour
 
         if (other.GetComponent<notswiming>())
         {
-            issweming = false;
+            InWater = false;
 
         }
         if (other.tag == "lagi")
         {
-            g2.GetComponent<Camera>().enabled = true;
+            PlayerCamera.GetComponent<Camera>().enabled = true;
 
         }
     }
@@ -576,11 +368,11 @@ public class mover : MonoBehaviour
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         if (File.Exists("unsave/s"))
         {
-            ifd.text = File.ReadAllText("unsave/s");
+            SaveFileInputField.text = File.ReadAllText("unsave/s");
         }
-        if (File.Exists("unsave/capterg/" + ifd.text))
+        if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
         {
-            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             planet_position = gsave.Spos;
             lepts = "-"+ planet_position.ToString();
         }
@@ -595,20 +387,20 @@ public class mover : MonoBehaviour
                 g.s = cms.name[i];
             }
         }
-        Camera c = Instantiate(Resources.Load<GameObject>("point"), g2.transform).AddComponent<Camera>();
+        Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
         c.targetDisplay = 2;
         c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
         c.renderingPath = RenderingPath.DeferredShading;
         Globalprefs.camera = c;
         c.gameObject.AddComponent<Logic_tag_3>();
-        if (cd)
+        if (hyperbolicCamera)
         {
-            load1.pt = cd.polarTransform;
+            load1.pt = hyperbolicCamera.polarTransform;
         }
         if (isplanet)
         {
             gameObject.AddComponent<PlanetGravity>().body = transform;
-            gameObject.GetComponent<PlanetGravity>().gravity = tjump;
+            gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
             gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
         playerdata.Loadeffect();
@@ -618,16 +410,16 @@ public class mover : MonoBehaviour
         if (Photon.Pun.PhotonNetwork.IsConnected)
         {
             load1.isplanet = isplanet;
-            load1.gr = gr;
-            load1.jump = jump;
-            load1.rjump = rjump;
-            load1.tjump = tjump;
+            load1.gr = gravity;
+            load1.jump = jumpforse;
+            load1.rjump = jumpPower;
+            load1.tjump = JumpTimer;
             load1.islight = islight;
-            load1.pl = pl;
+            load1.pl = ForseSwaem;
             load1.watermask = watermask;
-            load1.isCamd = cd != null;
-            load1.bg = g2.GetComponent<Camera>().backgroundColor;
-            load1.bg2 = g2.GetComponent<Camera>().clearFlags;
+            load1.isCamd = hyperbolicCamera != null;
+            load1.bg = PlayerCamera.GetComponent<Camera>().backgroundColor;
+            load1.bg2 = PlayerCamera.GetComponent<Camera>().clearFlags;
             Photon.Pun.PhotonNetwork.Instantiate("nr", transform.position, Quaternion.identity);
             Destroy(gameObject);
 
@@ -651,54 +443,54 @@ public class mover : MonoBehaviour
             Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
             if (File.Exists("unsave/s"))
             {
-                ifd.text = File.ReadAllText("unsave/s");
+                SaveFileInputField.text = File.ReadAllText("unsave/s");
             }
-            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text))
+            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
-                g1.angularVelocity = save.angularvelosyty;
-                g1.velocity = save.velosyty;
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                rigidbody.angularVelocity = save.angularvelosyty;
+                rigidbody.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4 && !portallNumer.p5 && !portallNumer.p6 && !portallNumer.p7 && !portallNumer.p8)
                 {
                     if (true)
                     {
-                        g.transform.position = save.pos;
+                        PlayerBody.transform.position = save.pos;
 
                         //  sr.transform.position = save.pos2;
-                        g2.transform.position = sr.transform.position;
+                        PlayerCamera.transform.position = CameraSetup.transform.position;
 
                     }
                     if (Globalprefs.isnew)
                     {
 
 
-                        g.transform.position += Globalprefs.newv3;
-                        g.transform.rotation = Globalprefs.q[0];
-                        sr.transform.rotation = Globalprefs.q[2];
-                        g2.transform.rotation = Globalprefs.q[1];
+                        PlayerBody.transform.position += Globalprefs.newv3;
+                        PlayerBody.transform.rotation = Globalprefs.q[0];
+                        CameraSetup.transform.rotation = Globalprefs.q[2];
+                        PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
                 }
-                w = save.wpos;
-                g.transform.rotation = save.q1;
-                sr.transform.rotation = save.q3;
-                g2.transform.rotation = save.q2;
-                if (cd != null)
+                W_position = save.wpos;
+                PlayerBody.transform.rotation = save.q1;
+                CameraSetup.transform.rotation = save.q3;
+                PlayerCamera.transform.rotation = save.q2;
+                if (hyperbolicCamera != null)
                 {
 
-                    cd.transform.rotation = save.q4;
-                    cd.position = save.pos3;
+                    hyperbolicCamera.transform.rotation = save.q4;
+                    hyperbolicCamera.position = save.pos3;
                 }
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
-                g2.GetComponent<Camera>().fieldOfView = save.vive;
+                PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsOfType<Logic_tag_3>().Length != 0)
                 {
                     FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                 }
             }
-            if (File.Exists("unsave/capterg/" + ifd.text))
+            if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
             {
-                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
                 hp = gsave.hp;
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
@@ -714,39 +506,39 @@ public class mover : MonoBehaviour
             Directory.CreateDirectory("unsavet/capterg");
             Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
 
-            ifd.text = "tutorial";
+            SaveFileInputField.text = "tutorial";
 
-            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/"  + ifd.text))
+            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/"  + SaveFileInputField.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
-                g1.angularVelocity = save.angularvelosyty;
-                g1.velocity = save.velosyty;
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                rigidbody.angularVelocity = save.angularvelosyty;
+                rigidbody.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4)
                 {
-                    g.transform.position = save.pos;
+                    PlayerBody.transform.position = save.pos;
                     //  sr.transform.position = save.pos2;
                 }
 
-                w = save.wpos;
-                g.transform.rotation = save.q1;
-                sr.transform.rotation = save.q3;
-                g2.transform.rotation = save.q2;
-                if (cd != null)
+                W_position = save.wpos;
+                PlayerBody.transform.rotation = save.q1;
+                CameraSetup.transform.rotation = save.q3;
+                PlayerCamera.transform.rotation = save.q2;
+                if (hyperbolicCamera != null)
                 {
 
-                    cd.transform.rotation = save.q4;
-                    cd.position = save.pos3;
+                    hyperbolicCamera.transform.rotation = save.q4;
+                    hyperbolicCamera.position = save.pos3;
                 }
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
-                g2.GetComponent<Camera>().fieldOfView = save.vive;
+                PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsOfType<Logic_tag_3>().Length != 0)
                 {
                     FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                 }
             }
-            if (File.Exists("unsavet/capterg/" + ifd.text))
+            if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
             {
-                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + ifd.text));
+                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
                 hp = gsave.hp;
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
@@ -761,7 +553,6 @@ public class mover : MonoBehaviour
 
     }
     //Пробуждение кода
-    public int planet_position;
     //Приметивный интерфейс
     private void OnGUI()
     {
@@ -772,8 +563,8 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.F8))
         {
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Unauticna Alpha-version");
-            if (!cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + w.ToString());
-            if (cd) GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
+            if (!hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString());
+            if (hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
             GUI.Label(new Rect(0f, 70, 200f, 100f), "Cotinuum Position : " + SceneManager.GetActiveScene().buildIndex);
             if (FindObjectsOfType<GenTest>().Length != 0) GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
             GUI.Label(new Rect(0f, 100, 200f, 100f), "All objects : " + FindObjectsOfType<GameObject>().Length);
@@ -796,8 +587,8 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1))
         {
             GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+move4D.ToString());
-            if (!cd) GUI.Label(new Rect(0f, 00, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + w.ToString());
-            if (cd) GUI.Label(new Rect(0f, 00, 200f, 100f), "Hyperbolic World Position x : " + cd.polarTransform.n.ToString() + " y : " + cd.polarTransform.s.ToString() + " z : " + cd.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + w.ToString());
+            if (!hyperbolicCamera) GUI.Label(new Rect(0f, 00, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString());
+            if (hyperbolicCamera) GUI.Label(new Rect(0f, 00, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
         }
     }
     //Приметивный интерфейс
@@ -826,61 +617,30 @@ public class mover : MonoBehaviour
     {
 
 
-        if (Input.GetKey(KeyCode.G))
-        {
-            DirectoryInfo di = new DirectoryInfo("unsave/capter-" + SceneManager.GetActiveScene().buildIndex);
-            if (File.Exists("unsave/capter-" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text + "-" + (di.GetFiles().Length -1)))
-            {
-                tsave = JsonUtility.FromJson<tsave>(File.ReadAllText("unsave/capter-" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text + "-" + (di.GetFiles().Length - 1)));
-                g1.angularVelocity = tsave.angularvelosyty;
-                g1.velocity = tsave.velosyty;
-                g.transform.position = tsave.pos;
-                g.transform.rotation = tsave.q1;
-                sr.transform.rotation = tsave.q2;
-                g2.transform.rotation = tsave.q3;
-
-                if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW ;
-                w = tsave.wpos;
-              //  sr.transform.position = tsave.pos2;
-                g2.transform.position = sr.transform.position;
-                if (cd!=null)
-                {
-
-                    cd.transform.rotation = tsave.q4;
-                    cd.position = save.pos3;
-                }
-                g2.GetComponent<Camera>().fieldOfView = tsave.vive;
-                if (FindObjectsOfType<Logic_tag_3>().Length != 0)
-                {
-                    FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
-                }
-                File.Delete("unsave/capter-" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text + "-" + (di.GetFiles().Length - 1));
-            }
-            
-        }
+      
         if (!tutorial)
         {
             if (Input.GetKey(KeyCode.F2))
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text))
+                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
-                    g1.angularVelocity = save.angularvelosyty;
-                    g1.velocity = save.velosyty;
-                    g.transform.position = save.pos;// sr.transform.position = save.pos2;
-                    g.transform.rotation = save.q1;
-                    sr.transform.rotation = save.q3;
-                    g2.transform.rotation = save.q2;
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                    rigidbody.angularVelocity = save.angularvelosyty;
+                    rigidbody.velocity = save.velosyty;
+                    PlayerBody.transform.position = save.pos;// sr.transform.position = save.pos2;
+                    PlayerBody.transform.rotation = save.q1;
+                    CameraSetup.transform.rotation = save.q3;
+                    PlayerCamera.transform.rotation = save.q2;
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
-                    w = save.wpos;
-                    if (cd != null)
+                    W_position = save.wpos;
+                    if (hyperbolicCamera != null)
                     {
 
-                        cd.transform.rotation = save.q4;
-                        cd.position = save.pos3;
+                        hyperbolicCamera.transform.rotation = save.q4;
+                        hyperbolicCamera.position = save.pos3;
                     }
-                    g2.GetComponent<Camera>().fieldOfView = save.vive;
+                    PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsOfType<Logic_tag_3>().Length != 0)
                     {
                         FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
@@ -888,9 +648,9 @@ public class mover : MonoBehaviour
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
                 }
-                if (File.Exists("unsave/capterg/" + ifd.text))
+                if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
                 {
-                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     faceViewi = gsave.fv;
@@ -905,24 +665,24 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F2))
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text))
+                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text));
-                    g1.angularVelocity = save.angularvelosyty;
-                    g1.velocity = save.velosyty;
-                    g.transform.position = save.pos; //sr.transform.position = save.pos2;
-                    g.transform.rotation = save.q1;
-                    sr.transform.rotation = save.q3;
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                    rigidbody.angularVelocity = save.angularvelosyty;
+                    rigidbody.velocity = save.velosyty;
+                    PlayerBody.transform.position = save.pos; //sr.transform.position = save.pos2;
+                    PlayerBody.transform.rotation = save.q1;
+                    CameraSetup.transform.rotation = save.q3;
 
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
-                    w = save.wpos;
-                    if (cd != null)
+                    W_position = save.wpos;
+                    if (hyperbolicCamera != null)
                     {
 
-                        cd.position = save.pos3;
+                        hyperbolicCamera.position = save.pos3;
                     }
-                    g2.transform.rotation = save.q2;
-                    g2.GetComponent<Camera>().fieldOfView = save.vive;
+                    PlayerCamera.transform.rotation = save.q2;
+                    PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsOfType<Logic_tag_3>().Length != 0)
                     {
                         FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
@@ -930,9 +690,9 @@ public class mover : MonoBehaviour
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
                 }
-                if (File.Exists("unsavet/capterg/" + ifd.text))
+                if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
                 {
-                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + ifd.text));
+                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     faceViewi = gsave.fv;
@@ -945,7 +705,7 @@ public class mover : MonoBehaviour
     }
     public void Unload()
     {
-        File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text);
+        File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void stop()
@@ -976,11 +736,11 @@ public class mover : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    w -= 1f * Time.deltaTime;
+                    W_position -= 1f * Time.deltaTime;
                 }
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    w += 1f * Time.deltaTime;
+                    W_position += 1f * Time.deltaTime;
                 }
             }
             if (move4D)
@@ -990,11 +750,11 @@ public class mover : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    w -= 10f * Time.deltaTime;
+                    W_position -= 10f * Time.deltaTime;
                 }
                 if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    w += 10f * Time.deltaTime;
+                    W_position += 10f * Time.deltaTime;
                 }
             }
             if (Input.GetKeyDown(KeyCode.F4))
@@ -1006,24 +766,24 @@ public class mover : MonoBehaviour
         if (FindObjectsOfType<RaymarchCam>().Length != 0)
         {
             RaymarchCam ra = FindObjectOfType<RaymarchCam>();
-            ra._wPosition = w;
+            ra._wPosition = W_position;
         }
         if (inglobalspace != true)
         {
 
 
             GetComponent<CapsuleCollider>().height = vel;
-            if (tjump < -vel * 2)
+            if (JumpTimer < -vel * 2)
             {
 
 
-                GetComponent<CapsuleCollider>().height += -tjump * 0.5f;
+                GetComponent<CapsuleCollider>().height += -JumpTimer * 0.5f;
             }
             if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
             {
 
 
-                g1.velocity = Vector3.zero;
+                rigidbody.velocity = Vector3.zero;
             }
         }
 
@@ -1046,43 +806,43 @@ public class mover : MonoBehaviour
 
         if (fly)
         {
-            tjump = 0;
+            JumpTimer = 0;
             c = new Collision();
             if (Input.GetKey(KeyCode.W))
             {
 
-                anim.SetBool("swem", true);
-                g1.velocity += g.transform.forward * 30;
+                animator.SetBool("swem", true);
+                rigidbody.velocity += PlayerBody.transform.forward * 30;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
-                anim.SetBool("swem", true);
-                g1.velocity += -g.transform.forward * 30;
+                animator.SetBool("swem", true);
+                rigidbody.velocity += -PlayerBody.transform.forward * 30;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
-                anim.SetBool("swem", true);
-                g1.velocity += g.transform.right * 30;
+                animator.SetBool("swem", true);
+                rigidbody.velocity += PlayerBody.transform.right * 30;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
-                anim.SetBool("swem", true);
-                g1.velocity += -g.transform.right * 30;
+                animator.SetBool("swem", true);
+                rigidbody.velocity += -PlayerBody.transform.right * 30;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
-                anim.SetBool("swem", true);
-                g1.velocity += g.transform.up * 30;
+                animator.SetBool("swem", true);
+                rigidbody.velocity += PlayerBody.transform.up * 30;
             }
             if (Input.GetKey(KeyCode.LeftControl))
             {
 
-                anim.SetBool("swem", true);
-                g1.velocity -= g.transform.up * 30;
+                animator.SetBool("swem", true);
+                rigidbody.velocity -= PlayerBody.transform.up * 30;
             }
 
         }
@@ -1123,17 +883,17 @@ public class mover : MonoBehaviour
     float timer;
     public void physicsStop()
     {
-        igr = false;
-        if (tjump < -2)
+        IsGraund = false;
+        if (JumpTimer < -2)
         {
-            Debug.Log(tjump);
-            hp += Mathf.FloorToInt(tjump) / 3;
+            Debug.Log(JumpTimer);
+            hp += Mathf.FloorToInt(JumpTimer) / 3;
         }
-        tjump = rjump;
-        if (issweming)
+        JumpTimer = jumpPower;
+        if (InWater)
         {
-            igr = false;
-            tjump = 0;
+            IsGraund = false;
+            JumpTimer = 0;
         }
         c = new Collision();
        
@@ -1175,18 +935,18 @@ public class mover : MonoBehaviour
             swapWXALL();
         }
         //
-        getSignal();
+        Building();
         if (isplanet)
         {
 
-            gameObject.GetComponent<PlanetGravity>().gravity = tjump;
+            gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
         }
         EffectUpdate();
-        if (File.Exists("unsave/capterg/" + ifd.text) && Input.GetKeyDown(KeyCode.F3))
+        if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3))
         {
-            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             string s = "";
-            s = ifd.text;
+            s = SaveFileInputField.text;
             File.WriteAllText("unsave/s", s);
             SceneManager.LoadScene(gsave.sceneid);
         }
@@ -1230,7 +990,7 @@ public class mover : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("oxy").GetComponent<Image>().fillAmount = oxygen / 20;
         }
-        if (issweming == true)
+        if (InWater == true)
         {
             if (!GameObject.FindGameObjectWithTag("oxy"))
             {
@@ -1238,12 +998,12 @@ public class mover : MonoBehaviour
             }
             oxygen -= Time.deltaTime;
         }
-        if (issweming == false && oxygen <= 5)
+        if (InWater == false && oxygen <= 5)
         {
 
             oxygen += Time.deltaTime;
         }
-        if (issweming == false && oxygen >= 5 && oxygen <= 20)
+        if (InWater == false && oxygen >= 5 && oxygen <= 20)
         {
             if (GameObject.FindGameObjectWithTag("oxy"))
             {
@@ -1271,25 +1031,25 @@ public class mover : MonoBehaviour
             //Mouse ScrollWheel
             if (FindObjectsOfType<Logic_tag_3>().Length != 0)
         {
-            FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = g2.GetComponent<Camera>().fieldOfView;
+            FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
-        g2.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / vive;
-        save.angularvelosyty = g1.angularVelocity;
-        save.velosyty = g1.velocity;
-        save.q1 = g.transform.rotation;
-        save.q2 = g2.transform.rotation;
-        save.pos = g.transform.position;
-        save.pos2 = sr.transform.position;
-        save.q3 = sr.transform.rotation;
-        save.wpos = w;
+        PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
+        save.angularvelosyty = rigidbody.angularVelocity;
+        save.velosyty = rigidbody.velocity;
+        save.q1 = PlayerBody.transform.rotation;
+        save.q2 = PlayerCamera.transform.rotation;
+        save.pos = PlayerBody.transform.position;
+        save.pos2 = CameraSetup.transform.position;
+        save.q3 = CameraSetup.transform.rotation;
+        save.wpos = W_position;
         if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
-        save.vive = g2.GetComponent<Camera>().fieldOfView;
-        if (cd != null)
+        save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
+        if (hyperbolicCamera != null)
         {
 
-            save.q4 = cd.transform.rotation;
-            save.pos3 = cd.position;
+            save.q4 = hyperbolicCamera.transform.rotation;
+            save.pos3 = hyperbolicCamera.position;
         }
         gsave.hp = hp;
         if (VarSave.EnterFloat("res3") && Input.GetKeyDown(KeyCode.F11))
@@ -1306,21 +1066,21 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace)
         {
             playerdata.Saveeffect();
-            save.idsave = ifd.text;
+            save.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text, JsonUtility.ToJson(save));
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
 
             Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
-            gsave.idsave = ifd.text;
+            gsave.idsave = SaveFileInputField.text;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
 
             gsave.Spos = planet_position;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
+            File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
             string s = "";
-            s = ifd.text;
+            s = SaveFileInputField.text;
             File.WriteAllText("unsave/s", s);
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
@@ -1332,59 +1092,58 @@ public class mover : MonoBehaviour
         Physics();
         if (!stand_stay && Input.GetKeyDown(KeyCode.LeftShift))
         {
-            anim.SetBool("sit", true);
+            animator.SetBool("sit", true);
         }
         if (!stand_stay && Input.GetKeyUp(KeyCode.LeftShift))
         {
-            anim.SetBool("sit", false);
+            animator.SetBool("sit", false);
         }
         Creaive();
-        timesaveing();
     }
 
     private void Physics()
     {
         if (faceViewi != faceView.fourd)
         {
-            if (c == null && !issweming && !Input.GetKey(KeyCode.F) && inglobalspace != true && !Input.GetKey(KeyCode.G))
+            if (c == null && !InWater && !Input.GetKey(KeyCode.F) && inglobalspace != true && !Input.GetKey(KeyCode.G))
             {
-                tjump -= Time.deltaTime * gr;
+                JumpTimer -= Time.deltaTime * gravity;
 
-                g1.velocity += -transform.up * 10;
+                rigidbody.velocity += -transform.up * 10;
             }
 
-            if (issweming && inglobalspace != true)
+            if (InWater && inglobalspace != true)
             {
-                if (tjump > 0)
+                if (JumpTimer > 0)
                 {
 
-                    anim.SetBool("swem", true);
-                    tjump -= 1 * Time.deltaTime * pl;
+                    animator.SetBool("swem", true);
+                    JumpTimer -= 1 * Time.deltaTime * ForseSwaem;
                 }
-                if (tjump <= 0)
+                if (JumpTimer <= 0)
                 {
 
 
-                    tjump = 0;
+                    JumpTimer = 0;
                 }
 
-                g1.velocity += g2.transform.forward * tjump;
-                g1.useGravity = false;
+                rigidbody.velocity += PlayerCamera.transform.forward * JumpTimer;
+                rigidbody.useGravity = false;
 
 
-                if (tjump >= rjump / 2)
+                if (JumpTimer >= jumpPower / 2)
                 {
-                    igr = false;
+                    IsGraund = false;
                 }
             }
             if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.W))
             {
 
-                anim.SetBool("swem", true);
+                animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                g1.velocity += g2.transform.forward * pl;
-                g1.useGravity = false;
+                rigidbody.velocity += PlayerCamera.transform.forward * ForseSwaem;
+                rigidbody.useGravity = false;
 
 
 
@@ -1392,11 +1151,11 @@ public class mover : MonoBehaviour
             if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.S))
             {
 
-                anim.SetBool("swem", true);
+                animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                g1.velocity -= g2.transform.forward * pl;
-                g1.useGravity = false;
+                rigidbody.velocity -= PlayerCamera.transform.forward * ForseSwaem;
+                rigidbody.useGravity = false;
 
 
 
@@ -1404,11 +1163,11 @@ public class mover : MonoBehaviour
             if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.D))
             {
 
-                anim.SetBool("swem", true);
+                animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                g1.velocity += g2.transform.right * pl;
-                g1.useGravity = false;
+                rigidbody.velocity += PlayerCamera.transform.right * ForseSwaem;
+                rigidbody.useGravity = false;
 
 
 
@@ -1416,11 +1175,11 @@ public class mover : MonoBehaviour
             if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.A))
             {
 
-                anim.SetBool("swem", true);
+                animator.SetBool("swem", true);
 
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
-                g1.velocity -= g2.transform.right * pl;
-                g1.useGravity = false;
+                rigidbody.velocity -= PlayerCamera.transform.right * ForseSwaem;
+                rigidbody.useGravity = false;
 
 
 
@@ -1428,11 +1187,11 @@ public class mover : MonoBehaviour
             if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.Space))
             {
 
-                anim.SetBool("swem", true);
+                animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                g1.velocity += g2.transform.up * pl;
-                g1.useGravity = false;
+                rigidbody.velocity += PlayerCamera.transform.up * ForseSwaem;
+                rigidbody.useGravity = false;
 
 
 
@@ -1440,36 +1199,36 @@ public class mover : MonoBehaviour
             if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.LeftControl))
             {
 
-                anim.SetBool("swem", true);
+                animator.SetBool("swem", true);
 
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
-                g1.velocity -= g2.transform.up * pl;
-                g1.useGravity = false;
+                rigidbody.velocity -= PlayerCamera.transform.up * ForseSwaem;
+                rigidbody.useGravity = false;
 
 
 
             }
-            if (!stand_stay && Input.GetKey(KeyCode.Space) && !igr && !issweming && inglobalspace != true && s2 && !Input.GetKey(KeyCode.LeftShift))
+            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && !InWater && inglobalspace != true && s2 && !Input.GetKey(KeyCode.LeftShift))
             {
-                igr = true;
+                IsGraund = true;
             }
-            if (igr && !issweming && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && s2 && inglobalspace != true)
+            if (IsGraund && !InWater && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && s2 && inglobalspace != true)
             {
-                g1.velocity += transform.up * jump * tjump;
+                rigidbody.velocity += transform.up * jumpforse * JumpTimer;
             }
-            if (igr && !issweming && !s2 && inglobalspace != true)
+            if (IsGraund && !InWater && !s2 && inglobalspace != true)
             {
-                g1.velocity -= transform.up * tjump;
-                g1.velocity += -transform.up * -50;
+                rigidbody.velocity -= transform.up * JumpTimer;
+                rigidbody.velocity += -transform.up * -50;
             }
 
-            if (!stand_stay && Input.GetKey(KeyCode.Space) && !igr && issweming && tjump < rjump / 2 && !Input.GetKey(KeyCode.LeftShift) && inglobalspace != true)
+            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && InWater && JumpTimer < jumpPower / 2 && !Input.GetKey(KeyCode.LeftShift) && inglobalspace != true)
             {
-                igr = true;
+                IsGraund = true;
             }
-            if (igr && issweming && inglobalspace != true)
+            if (IsGraund && InWater && inglobalspace != true)
             {
-                tjump = rjump;
+                JumpTimer = jumpPower;
             }
             if (isplanet)
             {
@@ -1481,8 +1240,8 @@ public class mover : MonoBehaviour
 
     private void MoveUpdate()
     {
-        g1.velocity = Vector3.zero;
-        if (cd != null)
+        rigidbody.velocity = Vector3.zero;
+        if (hyperbolicCamera != null)
         {
 
             transform.position = new Vector3(0, transform.position.y, 0);
@@ -1492,7 +1251,7 @@ public class mover : MonoBehaviour
             RaycastHit hit4;
             if (UnityEngine.Physics.Raycast(r4, out hit4))
             {
-                if (hit4.distance <= 1.2f * -tjump)
+                if (hit4.distance <= 1.2f * -JumpTimer)
                 {
                     //  c = new Collision();
                     physicsStop();
@@ -1506,8 +1265,8 @@ public class mover : MonoBehaviour
         bool yp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
         if (!yp)
         {
-            anim.SetBool("walke", false);
-            anim.SetBool("swem", false);
+            animator.SetBool("walke", false);
+            animator.SetBool("swem", false);
             
 
         }
@@ -1527,7 +1286,7 @@ public class mover : MonoBehaviour
             }
             
 
-            if (!stand_stay && !issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+            if (!stand_stay && !InWater && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
             {
 
                 RenderSettings.fogStartDistance = fog;
@@ -1535,7 +1294,7 @@ public class mover : MonoBehaviour
                 {
                     RenderSettings.fogColor = fogonair;
                 }
-                if (cd != null)
+                if (hyperbolicCamera != null)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
@@ -1544,9 +1303,9 @@ public class mover : MonoBehaviour
                         {
 
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
-                        g1.velocity += g.transform.forward * ispeed;
+                        rigidbody.velocity += PlayerBody.transform.forward * ispeed;
                     }
                     if (Input.GetKey(KeyCode.S))
                     {
@@ -1555,9 +1314,9 @@ public class mover : MonoBehaviour
                         {
 
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
-                        g1.velocity += -g.transform.forward * ispeed;
+                        rigidbody.velocity += -PlayerBody.transform.forward * ispeed;
                     }
 
                     if (Input.GetKey(KeyCode.D))
@@ -1567,9 +1326,9 @@ public class mover : MonoBehaviour
                         {
 
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
-                        g1.velocity += g.transform.right * ispeed;
+                        rigidbody.velocity += PlayerBody.transform.right * ispeed;
                     }
                     if (Input.GetKey(KeyCode.A))
                     {
@@ -1578,58 +1337,58 @@ public class mover : MonoBehaviour
                         {
 
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
-                        g1.velocity += -g.transform.right * ispeed;
+                        rigidbody.velocity += -PlayerBody.transform.right * ispeed;
                     }
                 }
-                if (cd == null)
+                if (hyperbolicCamera == null)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
 
-                        anim.SetBool("walke", true);
-                        g1.velocity += g.transform.forward * ispeed;
+                        animator.SetBool("walke", true);
+                        rigidbody.velocity += PlayerBody.transform.forward * ispeed;
                     }
                     if (Input.GetKey(KeyCode.S))
                     {
 
-                        anim.SetBool("walke", true);
-                        g1.velocity += -g.transform.forward * ispeed;
+                        animator.SetBool("walke", true);
+                        rigidbody.velocity += -PlayerBody.transform.forward * ispeed;
                     }
                     if (Input.GetKey(KeyCode.D))
                     {
 
-                        anim.SetBool("walke", true);
-                        g1.velocity += g.transform.right * ispeed;
+                        animator.SetBool("walke", true);
+                        rigidbody.velocity += PlayerBody.transform.right * ispeed;
                     }
                     if (Input.GetKey(KeyCode.A))
                     {
 
-                        anim.SetBool("walke", true);
-                        g1.velocity += -g.transform.right * ispeed;
+                        animator.SetBool("walke", true);
+                        rigidbody.velocity += -PlayerBody.transform.right * ispeed;
                     }
                 }
             }
-            if (c == null && igr)
+            if (c == null && IsGraund)
             {
-                anim.SetBool("fall", true);
+                animator.SetBool("fall", true);
             }
-                if (c == null && !igr)
+                if (c == null && !IsGraund)
                 {
-                    anim.SetBool("fall", false);
+                    animator.SetBool("fall", false);
                 }
-                if (c != null && !igr)
+                if (c != null && !IsGraund)
                 {
-                    anim.SetBool("fall", false);
+                    animator.SetBool("fall", false);
                 }
-                if (c != null && igr)
+                if (c != null && IsGraund)
                 {
-                    anim.SetBool("fall", false);
+                    animator.SetBool("fall", false);
                 }
                 if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.G))
             {
-                g1.useGravity = false;
+                rigidbody.useGravity = false;
             }
 
             if (!Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && inglobalspace != true)
@@ -1639,12 +1398,12 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.Tab) && Getstats.GetPlayerLevel() >= 1)
             {
 
-                if (cd)
+                if (hyperbolicCamera)
                 {
                     if (tics >= 2)
                     {
 
-                        cd.polarTransform.preApplyTranslationZ(-1.0f / 5);
+                        hyperbolicCamera.polarTransform.preApplyTranslationZ(-1.0f / 5);
                         tics = 0;
                     }
                 }
@@ -1660,184 +1419,182 @@ public class mover : MonoBehaviour
                 }
             }
 
-            if (!stand_stay && issweming && inglobalspace == true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
+            if (!stand_stay && InWater && inglobalspace == true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
             {
-                if (!del.stopPlayer)
-                {
+               
 
 
                     RenderSettings.fogStartDistance = fog / 2;
                     RenderSettings.fogEndDistance = fog2 / 2;
-                    RenderSettings.fogColor = fogonwater; if (cd == null)
+                    RenderSettings.fogColor = fogonwater; if (hyperbolicCamera == null)
                     {
                         if (Input.GetKey(KeyCode.W))
                         {
 
-                            anim.SetBool("swem", true);
-                            g1.velocity += g.transform.forward * ispeed / 4;
+                            animator.SetBool("swem", true);
+                            rigidbody.velocity += PlayerBody.transform.forward * ispeed / 4;
                         }
                         if (Input.GetKey(KeyCode.S))
                         {
 
-                            anim.SetBool("swem", true);
-                            g1.velocity += -g.transform.forward * ispeed / 4;
+                            animator.SetBool("swem", true);
+                            rigidbody.velocity += -PlayerBody.transform.forward * ispeed / 4;
                         }
                         if (Input.GetKey(KeyCode.D))
                         {
 
-                            anim.SetBool("swem", true);
-                            g1.velocity += g.transform.right * ispeed / 4;
+                            animator.SetBool("swem", true);
+                            rigidbody.velocity += PlayerBody.transform.right * ispeed / 4;
                         }
                         if (Input.GetKey(KeyCode.A))
                         {
 
-                            anim.SetBool("swem", true);
-                            g1.velocity += -g.transform.right * ispeed / 4;
+                            animator.SetBool("swem", true);
+                            rigidbody.velocity += -PlayerBody.transform.right * ispeed / 4;
                         }
                     }
-                    if (cd != null)
+                    if (hyperbolicCamera != null)
                     {
                         if (Input.GetKey(KeyCode.W))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                         if (Input.GetKey(KeyCode.S))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                         if (Input.GetKey(KeyCode.D))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                         if (Input.GetKey(KeyCode.A))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                     }
                 }
-            }
-            if (!stand_stay && !issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del != null && !Input.GetKey(KeyCode.LeftShift))
+            
+            if (!stand_stay && !InWater && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
             {
-                if (!del.stopPlayer)
-                {
+                
 
                     RenderSettings.fogStartDistance = fog;
                     RenderSettings.fogEndDistance = fog2; if (fogonair.a != 0)
                     {
                         RenderSettings.fogColor = fogonair;
                     }
-                    if (cd == null)
+                    if (hyperbolicCamera == null)
                     {
                         if (Input.GetKey(KeyCode.W))
                         {
 
-                            anim.SetBool("walke", true);
-                            g1.velocity += g.transform.forward * ispeed;
+                            animator.SetBool("walke", true);
+                            rigidbody.velocity += PlayerBody.transform.forward * ispeed;
                         }
                         if (Input.GetKey(KeyCode.S))
                         {
 
-                            anim.SetBool("walke", true);
-                            g1.velocity += -g.transform.forward * ispeed;
+                            animator.SetBool("walke", true);
+                            rigidbody.velocity += -PlayerBody.transform.forward * ispeed;
                         }
                         if (Input.GetKey(KeyCode.D))
                         {
 
-                            anim.SetBool("walke", true);
-                            g1.velocity += g.transform.right * ispeed;
+                            animator.SetBool("walke", true);
+                            rigidbody.velocity += PlayerBody.transform.right * ispeed;
                         }
                         if (Input.GetKey(KeyCode.A))
                         {
 
-                            anim.SetBool("walke", true);
-                            g1.velocity += -g.transform.right * ispeed;
+                            animator.SetBool("walke", true);
+                            rigidbody.velocity += -PlayerBody.transform.right * ispeed;
                         }
                     }
-                    if (cd != null)
+                    if (hyperbolicCamera != null)
                     {
                         if (Input.GetKey(KeyCode.W))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                         if (Input.GetKey(KeyCode.S))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                         if (Input.GetKey(KeyCode.D))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                         if (Input.GetKey(KeyCode.A))
                         {
 
-                            anim.SetBool("walke", true);
+                            animator.SetBool("walke", true);
                         }
                     }
                 }
-            }
-            if (!stand_stay && issweming && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && del == null && !Input.GetKey(KeyCode.LeftShift))
+            
+            if (!stand_stay && InWater && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
             {
 
 
 
                 RenderSettings.fogStartDistance = fog / 2;
                 RenderSettings.fogEndDistance = fog2 / 2;
-                RenderSettings.fogColor = fogonwater; if (cd == null)
+                RenderSettings.fogColor = fogonwater; if (hyperbolicCamera == null)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
 
-                        anim.SetBool("swem", true);
-                        g1.velocity += g.transform.forward * ispeed / 4;
+                        animator.SetBool("swem", true);
+                        rigidbody.velocity += PlayerBody.transform.forward * ispeed / 4;
                     }
                     if (Input.GetKey(KeyCode.S))
                     {
 
-                        anim.SetBool("swem", true);
-                        g1.velocity += -g.transform.forward * ispeed / 4;
+                        animator.SetBool("swem", true);
+                        rigidbody.velocity += -PlayerBody.transform.forward * ispeed / 4;
                     }
                     if (Input.GetKey(KeyCode.D))
                     {
 
-                        anim.SetBool("swem", true);
-                        g1.velocity += g.transform.right * ispeed / 4;
+                        animator.SetBool("swem", true);
+                        rigidbody.velocity += PlayerBody.transform.right * ispeed / 4;
                     }
                     if (Input.GetKey(KeyCode.A))
                     {
 
-                        anim.SetBool("swem", true);
-                        g1.velocity += -g.transform.right * ispeed / 4;
+                        animator.SetBool("swem", true);
+                        rigidbody.velocity += -PlayerBody.transform.right * ispeed / 4;
                     }
 
                 }
-                if (cd != null)
+                if (hyperbolicCamera != null)
                 {
                     if (Input.GetKey(KeyCode.W))
                     {
 
-                        anim.SetBool("swem", true);
+                        animator.SetBool("swem", true);
                     }
                     if (Input.GetKey(KeyCode.S))
                     {
 
-                        anim.SetBool("swem", true);
+                        animator.SetBool("swem", true);
                     }
                     if (Input.GetKey(KeyCode.D))
                     {
 
-                        anim.SetBool("swem", true);
+                        animator.SetBool("swem", true);
                     }
                     if (Input.GetKey(KeyCode.A))
                     {
 
-                        anim.SetBool("swem", true);
+                        animator.SetBool("swem", true);
                     }
 
                 }
@@ -1847,7 +1604,7 @@ public class mover : MonoBehaviour
         {
 
 
-            watermask.enabled = issweming;
+            watermask.enabled = InWater;
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
@@ -1856,20 +1613,20 @@ public class mover : MonoBehaviour
             {
 
 
-                g2.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * sm, 0, 0));
+                PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * Speed, 0, 0));
             }
             if (faceViewi == faceView.trid)
             {
 
 
-                sr.transform.Rotate(-Input.GetAxis("Mouse Y") * sm, 0, 0);
+                CameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * Speed, 0, 0);
             }
-            if (cd == null)
+            if (hyperbolicCamera == null)
             {
                 if (!Input.GetKey(KeyCode.LeftShift) && faceViewi != faceView.fourd)
                 {
 
-                    g.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * sm, 0));
+                    PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * Speed, 0));
                 }
             }
 
@@ -1890,11 +1647,11 @@ public class mover : MonoBehaviour
             gsave.hp = 20;
 
 
-            gsave.idsave = ifd.text;
+            gsave.idsave = SaveFileInputField.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
+            File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
             string s = "";
-            s = ifd.text;
+            s = SaveFileInputField.text;
             File.WriteAllText("unsave/s", s);
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
@@ -1910,11 +1667,11 @@ public class mover : MonoBehaviour
             gsave.oxygen = 20;
 
 
-            gsave.idsave = ifd.text;
+            gsave.idsave = SaveFileInputField.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
+            File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
             string s = "";
-            s = ifd.text;
+            s = SaveFileInputField.text;
             File.WriteAllText("unsave/s", s);
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
@@ -1950,8 +1707,8 @@ public class mover : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F5))
         {
-            g.transform.rotation = Quaternion.identity;
-            g2.transform.rotation = sr.transform.rotation;
+            PlayerBody.transform.rotation = Quaternion.identity;
+            PlayerCamera.transform.rotation = CameraSetup.transform.rotation;
 
 
             if (faceViewi == faceView.first)
@@ -1980,9 +1737,9 @@ public class mover : MonoBehaviour
     {
         if (faceViewi == faceView.first)
         {
-            g2.transform.position = sr.transform.position;
-            model.layer = 8;
-            foreach (GameObject i in forach)
+            PlayerCamera.transform.position = CameraSetup.transform.position;
+            PlayerModelObject.layer = 8;
+            foreach (GameObject i in PlayerModelObjects)
             {
                 i.layer = 8;
             }
@@ -1991,12 +1748,12 @@ public class mover : MonoBehaviour
         {
             
            GameObject t = PhotoCapture.FindObjectOfType<PhotoCapture>().gameObject;
-            foreach (GameObject i in forach)
+            foreach (GameObject i in PlayerModelObjects)
             {
                 i.layer = 0;
             }
-            model.layer = 0;
-            Ray r = new Ray(sr.transform.position, -sr.transform.forward);
+            PlayerModelObject.layer = 0;
+            Ray r = new Ray(CameraSetup.transform.position, -CameraSetup.transform.forward);
             RaycastHit hit1;
             if (UnityEngine.Physics.Raycast(r, out hit1))
             {
@@ -2005,23 +1762,23 @@ public class mover : MonoBehaviour
                     if (hit1.distance < 6)
                     {
 
-                        g2.transform.position = hit1.point;
+                        PlayerCamera.transform.position = hit1.point;
                     }
                     if (hit1.distance > 6)
                     {
 
-                        g2.transform.position = sr.transform.position - sr.transform.forward * 6;
+                        PlayerCamera.transform.position = CameraSetup.transform.position - CameraSetup.transform.forward * 6;
                     }
                 }
                 else
                 {
-                    g2.transform.position = sr.transform.position - sr.transform.forward * 6;
+                    PlayerCamera.transform.position = CameraSetup.transform.position - CameraSetup.transform.forward * 6;
                 }
 
             }
             else
             {
-                g2.transform.position = sr.transform.position - sr.transform.forward * 6;
+                PlayerCamera.transform.position = CameraSetup.transform.position - CameraSetup.transform.forward * 6;
             }
         }
         if (faceViewi == faceView.fourd)
@@ -2052,14 +1809,14 @@ public class mover : MonoBehaviour
         {
 
 
-            for (int i = 0; i < mybody.Length; i++)
+            for (int i = 0; i < PlayersModelObjObjects.Length; i++)
             {
                
-                if (mybody[i].GetComponent<SkinnedMeshRenderer>())
+                if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
                 {
 
 
-                    mybody[i].GetComponent<SkinnedMeshRenderer>().materials[1] = Resources.Load<Material>("pm/playermatinvisible");
+                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials[1] = Resources.Load<Material>("pm/playermatinvisible");
                 }
             }
 
@@ -2067,14 +1824,14 @@ public class mover : MonoBehaviour
         }
         if (playerdata.Geteffect("invisible") == null)
         {
-            for (int i = 0; i < mybody.Length; i++)
+            for (int i = 0; i < PlayersModelObjObjects.Length; i++)
             {
                
-                if (mybody[i].GetComponent<SkinnedMeshRenderer>())
+                if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
                 {
 
 
-                    mybody[i].GetComponent<SkinnedMeshRenderer>().materials[1] = Resources.Load<Material>("pm/playermat");
+                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials[1] = Resources.Load<Material>("pm/playermat");
                 }
             }
             //playermat
@@ -2106,32 +1863,32 @@ public class mover : MonoBehaviour
             {
                 GameObject.Find("w2").GetComponent<pos4>().save();
             }
-            save.angularvelosyty = g1.angularVelocity;
-            save.velosyty = g1.velocity;
-            save.q1 = g.transform.rotation;
-            save.q2 = g2.transform.rotation;
-            save.pos = g.transform.position;
-            save.wpos = w;
+            save.angularvelosyty = rigidbody.angularVelocity;
+            save.velosyty = rigidbody.velocity;
+            save.q1 = PlayerBody.transform.rotation;
+            save.q2 = PlayerCamera.transform.rotation;
+            save.pos = PlayerBody.transform.position;
+            save.wpos = W_position;
             if(Get4DCam()) save.rotW = Get4DCam()._wRotation;
-            if (cd != null)
+            if (hyperbolicCamera != null)
             {
 
-                save.q4 = cd.transform.rotation;
-                save.pos3 = convertPvectorinVector4(cd);
+                save.q4 = hyperbolicCamera.transform.rotation;
+                save.pos3 = GetHyperbolicVector(hyperbolicCamera);
             }
             save.vive = Camera.main.fieldOfView;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
 
-            save.idsave = ifd.text;
+            save.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text, JsonUtility.ToJson(save));
-            gsave.idsave = ifd.text;
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
+            gsave.idsave = SaveFileInputField.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsave/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
+            File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
             string s = "";
-            s = ifd.text;
+            s = SaveFileInputField.text;
             File.WriteAllText("unsave/s", s);
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
@@ -2142,90 +1899,56 @@ public class mover : MonoBehaviour
             {
                 GameObject.Find("w2").GetComponent<pos4>().save();
             }
-            save.angularvelosyty = g1.angularVelocity;
-            save.velosyty = g1.velocity;
-            save.q1 = g.transform.rotation;
-            save.q2 = g2.transform.rotation;
-            save.pos = g.transform.position;
+            save.angularvelosyty = rigidbody.angularVelocity;
+            save.velosyty = rigidbody.velocity;
+            save.q1 = PlayerBody.transform.rotation;
+            save.q2 = PlayerCamera.transform.rotation;
+            save.pos = PlayerBody.transform.position;
             save.vive = Camera.main.fieldOfView;
-            save.wpos = w;
+            save.wpos = W_position;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
-            if (cd!=null)
+            if (hyperbolicCamera!=null)
             {
-                save.q4 = cd.transform.rotation;
+                save.q4 = hyperbolicCamera.transform.rotation;
 
-                save.pos3 = convertPvectorinVector4(cd);
+                save.pos3 = GetHyperbolicVector(hyperbolicCamera);
             }
-            tsave.angularvelosyty = g1.angularVelocity;
-            tsave.velosyty = g1.velocity;
-            tsave.q1 = g.transform.rotation;
-            tsave.q2 = g2.transform.rotation;
-            tsave.pos = g.transform.position;
+            tsave.angularvelosyty = rigidbody.angularVelocity;
+            tsave.velosyty = rigidbody.velocity;
+            tsave.q1 = PlayerBody.transform.rotation;
+            tsave.q2 = PlayerCamera.transform.rotation;
+            tsave.pos = PlayerBody.transform.position;
             tsave.vive = Camera.main.fieldOfView;
-            tsave.wpos = w;
-            timesaveing();
+            tsave.wpos = W_position;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
-            save.idsave = ifd.text;
+            save.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex );
-            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text, JsonUtility.ToJson(save));
-            gsave.idsave = ifd.text;
+            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
+            gsave.idsave = SaveFileInputField.text;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsavet/capterg/" + ifd.text, JsonUtility.ToJson(gsave));
+            File.WriteAllText("unsavet/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
             string s = "";
-            s = ifd.text;
+            s = SaveFileInputField.text;
             File.WriteAllText("unsavet/s", s);
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
         }
     }
-    public void timesaveing()
-    {
-
-
-
-        if (!tutorial && !Input.GetKey(KeyCode.G) && Random.Range(0,8) ==2)
-        {
-
-
-            Directory.CreateDirectory("unsave/capter-" + SceneManager.GetActiveScene().buildIndex);
-            tsave.angularvelosyty = g1.angularVelocity;
-            tsave.velosyty = g1.velocity;
-            tsave.q1 = g.transform.rotation;
-            tsave.q2 = g2.transform.rotation;
-            tsave.pos = g.transform.position;
-            tsave.pos2 = sr.transform.position;
-            tsave.vive = Camera.main.fieldOfView;
-            tsave.wpos = w;
-            if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
-            if (cd != null)
-            {
-                tsave.q4 = cd.transform.rotation;
-
-                tsave.pos3 = convertPvectorinVector4(cd);
-            }
-            save.idsave = ifd.text;
-            DirectoryInfo di = new DirectoryInfo("unsave/capter-" + SceneManager.GetActiveScene().buildIndex);
-            File.WriteAllText("unsave/capter-" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text + "-" + di.GetFiles().Length, JsonUtility.ToJson(tsave));
-
-
-
-        }
-
-    }
+  
     
     public void deleteing()
     {
 
         if (!tutorial)
         {
-            File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + ifd.text);
+            File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text);
             
         }
         else
         {
-            File.Delete("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + ifd.text);
+            File.Delete("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text);
             WorldSave.RemoveVector3();
         }
 

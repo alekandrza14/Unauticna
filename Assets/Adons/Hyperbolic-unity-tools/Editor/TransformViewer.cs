@@ -23,7 +23,7 @@ public class TransformViewer : Editor
         
 
         bool Hyperblic = mp.gameObject.GetComponent<Sphere>();
-        bool Hyperbliccam = mp.gameObject.GetComponent<Camd>();
+        bool Hyperbliccam = mp.gameObject.GetComponent<HyperbolicCamera>();
 
 
         if (!Hyperblic && !Hyperbliccam)
@@ -51,9 +51,9 @@ public class TransformViewer : Editor
         if (Hyperbliccam)
         {
             EditorGUI.BeginChangeCheck();
-            Camd hyperbolicTransform = mp.gameObject.GetComponent<Camd>();
+            HyperbolicCamera hyperbolicTransform = mp.gameObject.GetComponent<HyperbolicCamera>();
 
-            Camd ht = hyperbolicTransform;
+            HyperbolicCamera ht = hyperbolicTransform;
 
             v4 = EditorGUILayout.Vector4Field("Hyperblic Poisition", ht.position);
 
@@ -95,9 +95,9 @@ public class TransformViewer : Editor
 
             if (Hyperbliccam)
             {
-                Camd hyperbolicTransform = mp.gameObject.GetComponent<Camd>();
+                HyperbolicCamera hyperbolicTransform = mp.gameObject.GetComponent<HyperbolicCamera>();
 
-                Camd ht = hyperbolicTransform;
+                HyperbolicCamera ht = hyperbolicTransform;
 
                 ht.position = v4;
 

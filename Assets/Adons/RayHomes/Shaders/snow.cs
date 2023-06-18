@@ -194,12 +194,7 @@ public class snow : MonoBehaviour
         }
         */
        f4 = v3.y;
-        if (v3.y * f > t.position.y + f2 && p == param.o)
-        {
-            m5.tjump = 0;
-            m5.igr = false;
-            t.position = v3;
-        }
+        
         if (p == param.j)
         {
             m.material.color = new Color(v3.x, v3.y, v3.z, 1);

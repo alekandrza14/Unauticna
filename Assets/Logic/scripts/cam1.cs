@@ -25,7 +25,7 @@ public class cam1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray r1 = new Ray(GameObject.FindObjectOfType<mover>().g2.transform.position, GameObject.FindObjectOfType<mover>().g2.transform.forward);
+        Ray r1 = new Ray(GameObject.FindObjectOfType<mover>().PlayerCamera.transform.position, GameObject.FindObjectOfType<mover>().PlayerCamera.transform.forward);
         RaycastHit hit;
         if (Physics.Raycast(r1, out hit))
         {

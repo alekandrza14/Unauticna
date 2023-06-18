@@ -88,11 +88,11 @@ public class GlobalGreadSpaseImage : MonoBehaviour
         }
         if (File.Exists("unsave/capterg/" + s))
         {
-            m.SETistp(JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + s)).fv);
+            m.SetViewFace(JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + s)).fv);
         }
-        m.g.transform.rotation = save.q1;
-        m.sr.transform.rotation = save.q3;
-        m.g2.transform.rotation = save.q2;
+        m.PlayerBody.transform.rotation = save.q1;
+        m.CameraSetup.transform.rotation = save.q3;
+        m.PlayerCamera.transform.rotation = save.q2;
         g.transform.position = Globalprefs.pos - save.pos;
 
         if (Globalprefs.postes != null)
@@ -111,11 +111,11 @@ public class GlobalGreadSpaseImage : MonoBehaviour
                 }
             }
         }
-        if (m.cd != null)
+        if (m.hyperbolicCamera != null)
         {
 
-            m.cd.transform.rotation = save.q4;
-            m.convertinPvector(save.pos3, m.cd);
+            m.hyperbolicCamera.transform.rotation = save.q4;
+            m.LoadHyperbolicVector(save.pos3, m.hyperbolicCamera);
         }
         Globalprefs.isnew = true;
         Camera.main.fieldOfView = save.vive;
@@ -196,9 +196,9 @@ public class GlobalGreadSpaseImage : MonoBehaviour
             Globalprefs.newv3 = m.transform.position;
             Globalprefs.q = new Quaternion[]
             {
-                m.g.transform.rotation,
-                m.g2.transform.rotation,
-                m.sr.transform.rotation
+                m.PlayerBody.transform.rotation,
+                m.PlayerCamera.transform.rotation,
+                m.CameraSetup.transform.rotation
             };
 
 

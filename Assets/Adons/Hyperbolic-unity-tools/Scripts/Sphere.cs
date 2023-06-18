@@ -144,7 +144,7 @@ public class Sphere : MonoBehaviour
 
 
             copytr.mult(nextPoint, nextPoint);
-            Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+            HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 
@@ -245,7 +245,7 @@ public class Sphere : MonoBehaviour
 
 
             copytr.mult(nextPoint, nextPoint);
-            Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+            HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 

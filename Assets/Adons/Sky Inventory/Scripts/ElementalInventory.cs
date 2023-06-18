@@ -642,7 +642,7 @@ public class ElementalInventory : MonoBehaviour {
 
 			Ray r = musave.pprey();
 			RaycastHit hit;
-			if (FindObjectsOfType<Camd>().Length == 0)
+			if (FindObjectsOfType<HyperbolicCamera>().Length == 0)
 			{
 				if (Physics.Raycast(r, out hit))
 				{
@@ -713,7 +713,7 @@ public class ElementalInventory : MonoBehaviour {
 
 				}
 			}
-			else if(FindObjectsOfType<Camd>().Length > 0)
+			else if(FindObjectsOfType<HyperbolicCamera>().Length > 0)
 			{
 				if (Physics.Raycast(r, out hit))
 				{
@@ -722,7 +722,7 @@ public class ElementalInventory : MonoBehaviour {
 						Vector3 v3;
 						v3 = hit.point - musave.isplayer().position;
 						v3 /= 20;
-						Camd c = Camd.Main();
+						HyperbolicCamera c = HyperbolicCamera.Main();
 
 
 						Transform t = Instantiate(inv2("пена").gameObject, Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
@@ -864,13 +864,13 @@ public class ElementalInventory : MonoBehaviour {
             }
       
 		
-		if (FindObjectsOfType<Camd>().Length == 0)
+		if (FindObjectsOfType<HyperbolicCamera>().Length == 0)
 		{
 
 
 			euclideanray();
 		}
-		if (FindObjectsOfType<Camd>().Length > 0)
+		if (FindObjectsOfType<HyperbolicCamera>().Length > 0)
 		{
 
 
@@ -943,7 +943,7 @@ public class ElementalInventory : MonoBehaviour {
             Vector3 v3;
             v3 = hit.point - musave.isplayer().position;
             v3 /= 20;
-            Camd c = Camd.Main();
+            HyperbolicCamera c = HyperbolicCamera.Main();
 
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
@@ -963,7 +963,7 @@ public class ElementalInventory : MonoBehaviour {
             Vector3 v3;
             v3 = (r.origin + (r.direction * 3f)) - musave.isplayer().position;
             v3 /= 20;
-            Camd c = Camd.Main();
+            HyperbolicCamera c = HyperbolicCamera.Main();
 
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;

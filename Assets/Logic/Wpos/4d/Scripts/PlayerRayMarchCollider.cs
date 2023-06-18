@@ -150,7 +150,7 @@ namespace Unity.Mathematics
                     else
                     {
 
-                        if (!Input.GetKey(KeyCode.F) && GetComponent<mover>().igr) GetComponent<mover>().physicsStart();
+                        if (!Input.GetKey(KeyCode.F) && GetComponent<mover>().IsGraund) GetComponent<mover>().physicsStart();
                     }
                 }
                 else

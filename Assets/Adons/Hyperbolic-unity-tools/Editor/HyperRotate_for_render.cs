@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.EditorTools;
 
-[EditorTool("Hyperbolic rotate tool", typeof(Camd))]
+[EditorTool("Hyperbolic rotate tool", typeof(HyperbolicCamera))]
 public class HyperRotate_for_render : EditorTool
 {
     public Texture2D toolIcon;
@@ -24,7 +24,7 @@ public class HyperRotate_for_render : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Camd trgetpolartransform = ((Camd)target);
+        HyperbolicCamera trgetpolartransform = ((HyperbolicCamera)target);
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Quaternion q = Handles.RotationHandle(trgetpolartransform.rotation, trgetpolartransform.position);
@@ -38,11 +38,11 @@ public class HyperRotate_for_render : EditorTool
             Undo.RecordObject(target, "Hyperbolic rotate tool");
 
 
-            ((Camd)target).rotation = q;
+            ((HyperbolicCamera)target).rotation = q;
 
 
 
-            ((Camd)target).Update();
+            ((HyperbolicCamera)target).Update();
 
 
 

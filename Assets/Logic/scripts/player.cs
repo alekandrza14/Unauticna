@@ -6,6 +6,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+public class sortmode 
+{ 
+    static public FindObjectsSortMode main = FindObjectsSortMode.None;
+}
 public class useeffect
 {
     public string effect = "";
@@ -157,41 +161,41 @@ public class musave : MonoBehaviourPunCallbacks
     public static string saveid;
     public static void save()
     {
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-            GameObject.FindObjectOfType<mover>().saveing();
+            FindFirstObjectByType<mover>().saveing();
         }
     }
     public static void Dest()
     {
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-            GameObject.FindObjectOfType<mover>().deleteing();
+            FindFirstObjectByType<mover>().deleteing();
         }
     }
     public static void saveandhill()
     {
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
-            GameObject.FindObjectOfType<mover>().hp = 200;
-            GameObject.FindObjectOfType<mover>().saveing();
+            FindFirstObjectByType<mover>().hp = 200;
+            FindFirstObjectByType<mover>().saveing();
         }
       
         
     }
     public static Transform GetPlayer()
     {
-        Transform t = GameObject.FindObjectOfType<GameObject>().transform;
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        Transform t = FindFirstObjectByType<GameObject>().transform;
+        if (GameObject.FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-           t = GameObject.FindObjectOfType<mover>().transform;
+           t = FindFirstObjectByType<mover>().transform;
             
         }
       
@@ -199,7 +203,7 @@ public class musave : MonoBehaviourPunCallbacks
     }
     static public void load(Transform transform)
     {
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
@@ -210,12 +214,12 @@ public class musave : MonoBehaviourPunCallbacks
     }
     static public void load5(Polar3 pl,float i3)
     {
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-            GameObject.FindObjectsOfType<mover>()[0].cd.polarTransform = pl;
-            GameObject.FindObjectsOfType<mover>()[0].transform.position = new Vector3(0,i3*2,0);
+            FindObjectsByType<mover>(sortmode.main)[0].hyperbolicCamera.polarTransform = pl;
+            FindObjectsByType<mover>(sortmode.main)[0].transform.position = new Vector3(0,i3*2,0);
         }
    
 
@@ -227,12 +231,12 @@ public class musave : MonoBehaviourPunCallbacks
     static public Ray pprey()
     {
         Ray r = new Ray();
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-            r = GameObject.FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            GameObject.FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
+            r = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
         }
       
         return r;
@@ -241,17 +245,7 @@ public class musave : MonoBehaviourPunCallbacks
     static public void fall(GameObject other)
     {
 
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
-        {
-
-
-            if (other.tag == "Player" && other.gameObject.GetComponent<mover>().tjump <= -2)
-            {
-
-                other.gameObject.GetComponent<mover>().tjump = -2;
-            }
-        }
-      
+       
 
 
     }
@@ -320,11 +314,11 @@ public class musave : MonoBehaviourPunCallbacks
     static public Transform isplayer()
     {
         Transform t = GameObject.FindObjectsOfType<GameObject>()[0].transform;
-        if (GameObject.FindObjectsOfType<mover>().Length != 0)
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-            t = GameObject.FindObjectsOfType<mover>()[Random.Range(0, GameObject.FindObjectsOfType<mover>().Length)].transform;
+            t = FindObjectsByType<mover>(sortmode.main)[Random.Range(0, FindObjectsByType<mover>(sortmode.main).Length)].transform;
         }
        
             return t;

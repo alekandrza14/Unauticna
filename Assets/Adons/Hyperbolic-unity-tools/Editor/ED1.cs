@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CustomEditor(typeof(Camd))]
+[CustomEditor(typeof(HyperbolicCamera))]
 public class ED1 : Editor
 {
     const string resourceFilename = "custom-editor-uie";
@@ -18,13 +18,13 @@ public class ED1 : Editor
             
 
 
-    Camd mp = (Camd)target;
+    HyperbolicCamera mp = (HyperbolicCamera)target;
         
        
 
         for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
         {
-            GameObject.FindObjectsOfType<tringle>()[i].up2(Camd.Main().polarTransform);
+            GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
         }
         for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
         {
@@ -33,7 +33,7 @@ public class ED1 : Editor
         base.OnInspectorGUI();
         if (EditorGUILayout.LinkButton("resset"))
         {
-            Camd.Main().position = Vector4.zero;
+            HyperbolicCamera.Main().position = Vector4.zero;
         }
     }
 

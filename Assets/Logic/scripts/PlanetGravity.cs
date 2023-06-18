@@ -18,7 +18,7 @@ public class PlanetGravity : MonoBehaviour
         if (body.gameObject.GetComponent<mover>())
         {
 
-            if (body.gameObject.GetComponent<mover>().igr == true)
+            if (body.gameObject.GetComponent<mover>().IsGraund == true)
             {
                 body.gameObject.GetComponent<Rigidbody>().AddForce(gravityUp * gravity);
             }

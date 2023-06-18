@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Chunks : MonoBehaviour
 {
-    Chunk[] chunks = GameObject.FindObjectsOfType<Chunk>();
+    Chunk[] chunks;
     public Chunks getThis()
     {
         return this;
@@ -12,7 +12,7 @@ public class Chunks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        chunks = GameObject.FindObjectsOfType<Chunk>();
+        chunks = FindObjectsByType<Chunk>(FindObjectsSortMode.None);
 
     }
     void OnCollisionEnter(Collision col)

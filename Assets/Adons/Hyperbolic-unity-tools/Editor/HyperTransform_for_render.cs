@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.EditorTools;
-[EditorTool("Hyperbolic move tool",typeof(Camd))]
+[EditorTool("Hyperbolic move tool",typeof(HyperbolicCamera))]
 public class HyperTransform_for_render : EditorTool
 {
     public Texture2D toolIcon;
@@ -23,10 +23,10 @@ public class HyperTransform_for_render : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Polar3 trgetpolartransform = ((Camd)target).polarTransform;
+        Polar3 trgetpolartransform = ((HyperbolicCamera)target).polarTransform;
         
-        Polar3 oldpos = ((Camd)target).polarTransform;
-        Transform trgettransform = ((Camd)target).transform;
+        Polar3 oldpos = ((HyperbolicCamera)target).polarTransform;
+        Transform trgettransform = ((HyperbolicCamera)target).transform;
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Vector3 v3 = Handles.PositionHandle(new Vector3(0, 0, 0), Quaternion.identity);
@@ -43,7 +43,7 @@ public class HyperTransform_for_render : EditorTool
 
 
             Undo.RecordObject(target, "Hyperbolic move tool");
-            ((Camd)target).polarTransform = newpos;
+            ((HyperbolicCamera)target).polarTransform = newpos;
             //    ((Camd)target).transform.position = Vector3.up * v32.y;
            
 

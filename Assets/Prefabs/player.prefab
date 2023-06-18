@@ -739,43 +739,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55df6f49fd9233744ae5f73bdb35f9b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  g: {fileID: 4972998650662337202}
-  g2: {fileID: 4972998649946357829}
-  g1: {fileID: 4972998650662337214}
-  sm: 1.5
-  ifd: {fileID: 4972998650160504527}
-  tjump: 0
-  jump: 0
-  rjump: 0
-  gr: 0
-  pl: 0
-  igr: 0
+  PlayerBody: {fileID: 4972998650662337202}
+  PlayerCamera: {fileID: 4972998649946357829}
   isplanet: 0
-  issweming: 0
-  anim: {fileID: 2018021061276364413}
-  vive: 2.1474836e+9
-  watermask: {fileID: 0}
-  fog: 0
-  fog2: 0
-  fogonwater: {r: 0, g: 0, b: 0, a: 0}
-  fogonair: {r: 0, g: 0, b: 0, a: 0}
-  hp: 200
-  sr: {fileID: 5872757370526376517}
-  del: {fileID: 0}
-  islight: 0
   tutorial: 0
-  mybody:
-  - {fileID: 4693040154836522348}
-  cd: {fileID: 0}
-  w: 0
-  stand_stay: 0
-  model: {fileID: 647551831095823979}
-  forach:
-  - {fileID: 4693040154836522348}
+  islight: 0
   inglobalspace: 0
-  faceViewi: 0
-  lif: 
+  jumpforse: 9
+  jumpPower: 4
+  gravity: 4.5
+  ForseSwaem: 0.1
+  rigidbody: {fileID: 4972998650662337214}
+  Speed: 1.2
+  animator: {fileID: 2018021061276364413}
+  W_position: 0
   planet_position: 0
+  SaveFileInputField: {fileID: 4972998650160504527}
+  IsGraund: 0
+  watermask: {fileID: 0}
+  hp: 200
+  CameraSetup: {fileID: 5872757370526376517}
+  PlayersModelObjObjects:
+  - {fileID: 4693040154836522348}
+  hyperbolicCamera: {fileID: 0}
+  PlayerModelObject: {fileID: 4693040154836522348}
+  PlayerModelObjects:
+  - {fileID: 4693040154836522348}
+  lif: 
 --- !u!54 &4972998650662337214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1193,12 +1183,6 @@ PrefabInstance:
 --- !u!4 &267753454799066321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3172547408768199698, guid: 2c225e8e7eb735c41a5d504640c4939f,
-    type: 3}
-  m_PrefabInstance: {fileID: 3436360134951467203}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &647551831095823979 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2831910548080604840, guid: 2c225e8e7eb735c41a5d504640c4939f,
     type: 3}
   m_PrefabInstance: {fileID: 3436360134951467203}
   m_PrefabAsset: {fileID: 0}

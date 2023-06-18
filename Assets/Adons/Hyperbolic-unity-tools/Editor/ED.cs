@@ -23,7 +23,7 @@ public class ED : Editor
          
         for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
         {
-            GameObject.FindObjectsOfType<tringle>()[i].up2(Camd.Main().polarTransform);
+            GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
             GameObject.FindObjectsOfType<tringle>()[i].move();
         }
         for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)

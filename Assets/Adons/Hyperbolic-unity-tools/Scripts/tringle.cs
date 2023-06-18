@@ -252,7 +252,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
@@ -291,7 +291,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
@@ -330,7 +330,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
@@ -369,7 +369,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
@@ -408,7 +408,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
@@ -447,7 +447,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr.mult(nextPoint, nextPoint);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
                 nextPoint = MathHyper.projectOntoScreen(nextPoint);
                 if (i >= inc)
@@ -485,7 +485,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr1.mult(nextPoint2, nextPoint2);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint2, nextPoint2);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint2, nextPoint2);
 
                 nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
                 if (i >= inc1)
@@ -525,7 +525,7 @@ public class tringle : MonoBehaviour
 
 
                 copytr2.mult(nextPoint3, nextPoint3);
-                Camd.Main().polarTransform.getMatrix().mult(nextPoint3, nextPoint3);
+                HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint3, nextPoint3);
 
                 nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
                 if (i >= inc2)

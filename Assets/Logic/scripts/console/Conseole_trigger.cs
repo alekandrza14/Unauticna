@@ -97,7 +97,7 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "2")
             {
-                mover.FindFirstObjectByType<mover>().w += int.Parse(s[1]);
+                mover.FindFirstObjectByType<mover>().W_position += int.Parse(s[1]);
 
             }
             if (i == 1 && a == "6")

@@ -381,7 +381,6 @@ public class deldialog : MonoBehaviour
                 {
 
 
-                    s.GetComponent<mover>().del = this;
                 }
                
                 enter = true;
