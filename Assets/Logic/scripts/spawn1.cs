@@ -31,7 +31,7 @@ public class spawn1 : MonoBehaviour
         if (VarSave.GetBool("djevil_attack") == true)
         {
             tic += Time.deltaTime * 20;
-            if (VarSave.EnterFloat("mus"))
+            if (VarSave.ExistenceVar("mus"))
             {
                 for (int i = 0; i < GameObject.FindGameObjectsWithTag("game musig").Length; i++)
                 {

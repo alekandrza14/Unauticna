@@ -55,7 +55,7 @@ public class pos4 : MonoBehaviour
             if (gameObject.name == "w2")
             {
 
-                VarSave.SetBool(SceneManager.GetActiveScene().name, w);
+                VarSave.SetBool(SceneManager.GetActiveScene().name, w,SaveType.world);
             }
 
         }
@@ -65,7 +65,7 @@ public class pos4 : MonoBehaviour
 
             GetComponent<Animator>().SetBool("inits", true);
 
-            w = VarSave.GetBool(SceneManager.GetActiveScene().name);
+            w = VarSave.GetBool(SceneManager.GetActiveScene().name, SaveType.world);
 
 
             GetComponent<Animator>().SetBool("transf", w);
@@ -78,7 +78,7 @@ public class pos4 : MonoBehaviour
         if (gameObject.name == "w2")
             {
 
-                VarSave.SetBool(SceneManager.GetActiveScene().name, w);
+                VarSave.SetBool(SceneManager.GetActiveScene().name, w, SaveType.world);
             }
     }
 }

@@ -20,7 +20,7 @@ public class redialog : MonoBehaviour
     void Start()
     {
        
-        if (VarSave.EnterFloat(bol) && !iznendial)
+        if (VarSave.ExistenceVar(bol) && !iznendial)
         {
             dialog.s = s;
             dialog.sm = sm;
@@ -35,7 +35,7 @@ public class redialog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (VarSave.EnterFloat(bol) && iznendial)
+        if (VarSave.ExistenceVar(bol) && iznendial)
         {
             dialog.s = s;
             dialog.sm = sm;

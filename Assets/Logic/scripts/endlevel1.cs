@@ -35,7 +35,7 @@ public class endlevel1 : MonoBehaviour
             }
 
         }
-        if (!VarSave.EnterFloat("dies-zellotton"))
+        if (!VarSave.ExistenceVar("dies-zellotton"))
         {
             Destroy(gameObject);
         }

@@ -34,14 +34,14 @@ public class complsave : MonoBehaviour
     public void ResetItem()
     {
 
-        for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
         {
-            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + lif + i) == true)
+            if (VarSave.GetBool("item" + SceneManager.GetActiveScene().name + lif + i, SaveType.world) == true)
             {
 
 
 
-                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + lif + i, false);
+                VarSave.SetBool("item" + SceneManager.GetActiveScene().name + lif + i, false, SaveType.world);
 
             }
 
@@ -131,18 +131,18 @@ public class complsave : MonoBehaviour
     public void Start()
     {
 
-        Directory.CreateDirectory(VarSave.path + @"/objects");
+        Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         getallitems();
         load();
         for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
         {
-            if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i) != true)
+            if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i,SaveType.world) != true)
             {
 
 
                 GameObject.FindObjectsOfType<itemspawn>()[i].sp();
-                VarSave.SetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, true);
+                VarSave.SetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, true, SaveType.world);
 
 
             }
@@ -354,17 +354,17 @@ public class complsave : MonoBehaviour
 
         }
 
-        for (int i = 0; i < FindObjectsOfType<telo>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
         {
 
 
-            GameObject.FindObjectsOfType<telo>()[i].gameObject.AddComponent<deleter1>();
+            GameObject.FindObjectsByType<telo>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
         }
-        for (int i = 0; i < FindObjectsOfType<StandartObject>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<StandartObject>(sortmode.main).Length; i++)
         {
 
 
-            GameObject.FindObjectsOfType<StandartObject>()[i].gameObject.AddComponent<deleter1>();
+            GameObject.FindObjectsByType<StandartObject>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
         }
 
         if (saveString1.vector3B.Count != 0)

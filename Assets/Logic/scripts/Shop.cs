@@ -31,7 +31,7 @@ public class Shop : MonoBehaviour
             {
                 number[i].color = Color.white;
             }
-            if (!VarSave.EnterFloat(produkt[i].us) && produkt[i].us != "")
+            if (!VarSave.ExistenceVar(produkt[i].us) && produkt[i].us != "")
             {
                 number[i].color = Color.gray;
             }
@@ -47,7 +47,7 @@ public class Shop : MonoBehaviour
             {
                 number[i].color = Color.white;
             }
-            if (!VarSave.EnterFloat(produkt[i].us) && produkt[i].us != "")
+            if (!VarSave.ExistenceVar(produkt[i].us) && produkt[i].us != "")
             {
                 number[i].color = Color.gray;
             }
@@ -60,7 +60,7 @@ public class Shop : MonoBehaviour
     }
     public void sell(int product)
     {
-        if (VarSave.EnterFloat(produkt[product].us) || produkt[product].us == "")
+        if (VarSave.ExistenceVar(produkt[product].us) || produkt[product].us == "")
         {
             if (produkt[product].Give_or_Minus == false && tevroint >= produkt[product].price)
             {

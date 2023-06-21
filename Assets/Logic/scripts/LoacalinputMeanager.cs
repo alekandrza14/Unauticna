@@ -32,7 +32,7 @@ public class LoacalinputMeanager : MonoBehaviour
     public void hilow()
     {
         VarSave.SetBool("postrender", !VarSave.GetBool("postrender"));
-       if(!VarSave.EnterFloat("res1"))
+       if(!VarSave.ExistenceVar("res1"))
         {
             VarSave.SetInt("res1", 320);
             VarSave.SetInt("res2", 240);

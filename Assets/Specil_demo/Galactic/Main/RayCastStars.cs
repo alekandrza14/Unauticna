@@ -11,7 +11,7 @@ public class SpaceSheepPosition
 }
 public enum size
 {
-    Stars,Galaxy,Universe,Multiverse,Anyverse
+    Stars,Galaxy,Universe,Multyverse,Anyverse
 }
 
 public class RayCastStars : MonoBehaviour
@@ -26,7 +26,7 @@ public class RayCastStars : MonoBehaviour
         VarSave.SetString("Universe_Position", SceneManager.GetActiveScene().name);
        if(s == size.Galaxy) VarSave.SetString("Universe_galaxy_Position", SceneManager.GetActiveScene().name);
 
-        if (VarSave.EnterFloat("scp"+SceneManager.GetActiveScene().name))
+        if (VarSave.ExistenceVar("scp"+SceneManager.GetActiveScene().name))
         {
             scp = JsonUtility.FromJson<SpaceSheepPosition>(VarSave.GetString("scp" + SceneManager.GetActiveScene().name));
             transform.position = scp.pos;
@@ -183,7 +183,7 @@ public class RayCastStars : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            if (VarSave.EnterFloat("scp" + SceneManager.GetActiveScene().name))
+            if (VarSave.ExistenceVar("scp" + SceneManager.GetActiveScene().name))
             {
                 scp = JsonUtility.FromJson<SpaceSheepPosition>(VarSave.GetString("scp" + SceneManager.GetActiveScene().name));
                 transform.position = scp.pos;

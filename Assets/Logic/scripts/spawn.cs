@@ -15,7 +15,7 @@ public class spawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!VarSave.EnterFloat(varible))
+        if (!VarSave.ExistenceVar(varible))
         {
             Destroy(ob);
         }

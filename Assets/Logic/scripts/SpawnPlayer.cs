@@ -20,8 +20,8 @@ public class SpawnPlayer : MonoBehaviour
     }
     private void Update()
     {
-        if (!VarSave.EnterFloat("planetA" + Globalprefs.GetIdPlanet())){
-            if (FindObjectsOfType<Chaos_cube>().Length == 0)
+        if (!VarSave.ExistenceVar("planetA" + Globalprefs.GetIdPlanet(), SaveType.world)){
+            if (FindObjectsByType<Chaos_cube>(sortmode.main).Length == 0)
             {
                 for (int i = 0; i < 9; i++) Instantiate(Resources.Load<GameObject>("items/Chaos_cube").gameObject, new Vector3(
                      Random.Range(-300, 300),
@@ -29,10 +29,10 @@ public class SpawnPlayer : MonoBehaviour
                      Random.Range(-300, 300)), Quaternion.identity);
 
             }
-            if (FindObjectsOfType<Chaos_cube>().Length > 0)
+            if (FindObjectsByType<Chaos_cube>(sortmode.main).Length > 0)
             {
                 musave.saveandhill();
-                VarSave.SetFloat("planetA" + Globalprefs.GetIdPlanet(), 0);
+                VarSave.SetFloat("planetA" + Globalprefs.GetIdPlanet(), 0,SaveType.world);
 
                 Debug.Log("Spawn Done");
 

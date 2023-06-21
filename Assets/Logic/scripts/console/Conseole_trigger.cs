@@ -139,9 +139,9 @@ public class Conseole_trigger : MonoBehaviour
 
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && FindFirstObjectByType<Console_pointer>() != null)
         {
-            FindObjectOfType<Console_pointer>().text.text = VarSave.GetString("console");
+            FindFirstObjectByType<Console_pointer>().text.text = VarSave.GetString("console");
 
 
         }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5772821482431248355}
   - component: {fileID: 1918487596115523032}
   - component: {fileID: 7000072792428708661}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 1087815660182662837}
   - component: {fileID: 2321919502622694129}
   - component: {fileID: 298941453509719388}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 3488016710833730545}
   - component: {fileID: 1412246289802902242}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: HeadCameraSetup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 8541250949616778588}
   - component: {fileID: 8541250949616778589}
   - component: {fileID: 6559882576291025544}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 8541250949985825856}
   - component: {fileID: 8541250949985825862}
   - component: {fileID: 861863474427904357}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 8541250950039184769}
   - component: {fileID: 8541250950039184774}
   - component: {fileID: 3487510828025120150}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 8541250950286262777}
   - component: {fileID: 8541250950286262776}
   - component: {fileID: 2357326273697431584}
-  m_Layer: 2
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1071,8 +1071,8 @@ MonoBehaviour:
   jumpPower: 4
   gravity: 4.5
   ForseSwaem: 0
-  rigidbody: {fileID: 8541250950486462519}
-  Speed: 1.2
+  rigidbody3d: {fileID: 8541250950486462519}
+  Speed: 10
   animator: {fileID: 4945730235329824884}
   W_position: 0
   planet_position: 0
@@ -1080,7 +1080,7 @@ MonoBehaviour:
   IsGraund: 0
   watermask: {fileID: 0}
   hp: 200
-  CameraSetup: {fileID: 7064745002962192588}
+  HeadCameraSetup: {fileID: 7064745002962192588}
   PlayersModelObjObjects:
   - {fileID: 1838232960695858021}
   hyperbolicCamera: {fileID: 0}

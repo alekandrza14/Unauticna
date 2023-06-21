@@ -8,11 +8,11 @@ public class mining : MonoBehaviour
     {
         VarSave.SetFloat("timeminingdays", System.DateTime.Now.Date.DayOfYear);
         VarSave.SetFloat("timeminingyear", System.DateTime.Now.Date.Year);
-        if (!VarSave.EnterFloat("timeminingyear1"))
+        if (!VarSave.ExistenceVar("timeminingyear1"))
         {
             VarSave.SetFloat("timeminingyear1", System.DateTime.Now.Date.Year);
         }
-        if (!VarSave.EnterFloat("timeminingdays1"))
+        if (!VarSave.ExistenceVar("timeminingdays1"))
         {
             VarSave.SetFloat("timeminingdays1", System.DateTime.Now.Date.DayOfYear);
         }

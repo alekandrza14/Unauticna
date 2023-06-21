@@ -91,7 +91,7 @@ public class GlobalGreadSpaseImage : MonoBehaviour
             m.SetViewFace(JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + s)).fv);
         }
         m.PlayerBody.transform.rotation = save.q1;
-        m.CameraSetup.transform.rotation = save.q3;
+        m.HeadCameraSetup.transform.rotation = save.q3;
         m.PlayerCamera.transform.rotation = save.q2;
         g.transform.position = Globalprefs.pos - save.pos;
 
@@ -198,7 +198,7 @@ public class GlobalGreadSpaseImage : MonoBehaviour
             {
                 m.PlayerBody.transform.rotation,
                 m.PlayerCamera.transform.rotation,
-                m.CameraSetup.transform.rotation
+                m.HeadCameraSetup.transform.rotation
             };
 
 

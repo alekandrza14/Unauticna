@@ -11,7 +11,7 @@ public class FlowBye : MonoBehaviour
     [SerializeField] string realestatename;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.EnterFloat("re/" + realestatename))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
         {
             Directory.CreateDirectory("unsave/var/re");
             Ray r = musave.pprey();

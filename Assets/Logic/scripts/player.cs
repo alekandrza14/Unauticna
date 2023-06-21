@@ -66,7 +66,7 @@ public class playerdata
             useeffect[] us1 = new useeffect[1] {
                new useeffect()
            };
-            if (VarSave.EnterFloat("effect_" + i))
+            if (VarSave.ExistenceVar("effect_" + i))
             {
                 us1[0] = JsonUtility.FromJson<useeffect>(VarSave.GetString("effect_" + i));
 
@@ -77,7 +77,7 @@ public class playerdata
         useeffect[] us = new useeffect[1] {
                new useeffect()
            };
-        if (VarSave.EnterFloat("effect_" + "panic"))
+        if (VarSave.ExistenceVar("effect_" + "panic"))
         {
 
 

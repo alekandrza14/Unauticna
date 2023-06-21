@@ -7,7 +7,7 @@ public class ENDTUTORIAL3 : MonoBehaviour
     
     void Start()
     {
-        if (!VarSave.EnterFloat("t3end"))
+        if (!VarSave.ExistenceVar("t3end"))
         {
             Destroy(gameObject);
         }

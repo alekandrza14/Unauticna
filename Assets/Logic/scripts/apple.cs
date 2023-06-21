@@ -32,13 +32,13 @@ public class apple : MonoBehaviour
         {
             for (int i =0; i < i2.gameObjects.Length;i++)
             {
-                if (i2.value == VarSave.GetString(i2.var) && true == VarSave.EnterFloat(i2.var))
+                if (i2.value == VarSave.GetString(i2.var,SaveType.local) && true == VarSave.ExistenceVar(i2.var,SaveType.local))
                 {
 
 
                     i2.gameObjects[i].SetActive(true);
                 }
-                else if (i2.isNo && false == VarSave.EnterFloat(i2.var))
+                else if (i2.isNo && false == VarSave.ExistenceVar(i2.var, SaveType.local))
                 {
 
 

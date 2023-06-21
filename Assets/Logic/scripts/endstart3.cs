@@ -10,7 +10,7 @@ public class endstart3 : MonoBehaviour
     void Start()
     {
 
-        if (!VarSave.EnterFloat("ñ.í.î.ê"))
+        if (!VarSave.ExistenceVar("ñ.í.î.ê"))
         {
             if (Globalprefs.signedgamejolt == true)
             {

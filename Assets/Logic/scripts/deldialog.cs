@@ -157,7 +157,7 @@ public class deldialog : MonoBehaviour
                     tir = 0;
                     if (deleteing == true)
                     {
-                        GameObject.FindObjectOfType<mover>().deleteing();
+                        GameObject.FindFirstObjectByType<mover>().deleteing();
                         SceneManager.LoadScene(chargescene);
                     }
                     if (deleteing == false)
@@ -175,7 +175,7 @@ public class deldialog : MonoBehaviour
                     tir = 0;
                     if (deleteing == true)
                     {
-                        GameObject.FindObjectOfType<mover>().deleteing();
+                        GameObject.FindFirstObjectByType<mover>().deleteing();
                         SceneManager.LoadScene(chargescene);
                     }
                     if (deleteing == false)
@@ -193,7 +193,7 @@ public class deldialog : MonoBehaviour
                     tir = 0;
                     if (deleteing == true)
                     {
-                        GameObject.FindObjectOfType<mover>().deleteing();
+                        GameObject.FindFirstObjectByType<mover>().deleteing();
                         VarSave.SetInt(tr, VarSave.GetInt(tr) + 1);
                         SceneManager.LoadScene(45);
                     }
@@ -221,7 +221,7 @@ public class deldialog : MonoBehaviour
                     tir = 0;
                     if (deleteing == true)
                     {
-                        GameObject.FindObjectOfType<mover>().deleteing();
+                        GameObject.FindFirstObjectByType<mover>().deleteing();
                         VarSave.SetInt(tr, VarSave.GetInt(tr) + 1);
                         SceneManager.LoadScene(45);
                         
@@ -273,7 +273,7 @@ public class deldialog : MonoBehaviour
 
                     if (deleteing == true)
                     {
-                        GameObject.FindObjectOfType<mover>().deleteing();
+                        GameObject.FindFirstObjectByType<mover>().deleteing();
                         SceneManager.LoadScene(chargescene);
                     }
                     if (deleteing == false)

@@ -33,13 +33,13 @@ public class LOADGAME : MonoBehaviour
         gameInit.Init(g);
         DontDestroyOnLoad(g);
         Cursor.lockState = CursorLockMode.None;
-        if (!VarSave.EnterFloat("res3"))
+        if (!VarSave.ExistenceVar("res3"))
         {
 
 
             Screen.SetResolution(640, 480, true);
         }
-        if (VarSave.EnterFloat("res3"))
+        if (VarSave.ExistenceVar("res3"))
         {
 
 
@@ -50,7 +50,7 @@ public class LOADGAME : MonoBehaviour
         Directory.CreateDirectory("unsave"); 
         Directory.CreateDirectory("unsavet");
 
-        if (!VarSave.EnterFloat("color"))
+        if (!VarSave.ExistenceVar("color"))
         {
             VarSave.SetString("color", "gray");
             mat.SetColor("_Color", Color.gray);
@@ -71,11 +71,11 @@ public class LOADGAME : MonoBehaviour
         {
             ifd.text = File.ReadAllText("unsave/s");
         }
-        if (VarSave.EnterFloat("processSettings"))
+        if (VarSave.ExistenceVar("processSettings"))
         {
             data.text = VarSave.GetInt("processSettings").ToString();
         }
-        if (!VarSave.EnterFloat("processSettings"))
+        if (!VarSave.ExistenceVar("processSettings"))
         {
             data.text = stadart.data.ToString();
         }
@@ -152,7 +152,7 @@ public class LOADGAME : MonoBehaviour
         {
             SceneManager.LoadScene(85);
         }
-        else if (!VarSave.EnterFloat("scppos"))
+        else if (!VarSave.ExistenceVar("scppos"))
         {
 
 
@@ -173,7 +173,7 @@ public class LOADGAME : MonoBehaviour
                 SceneManager.LoadScene(gsave.sceneid);
             }
         }
-        else if (VarSave.EnterFloat("scppos"))
+        else if (VarSave.ExistenceVar("scppos"))
         {
 
 

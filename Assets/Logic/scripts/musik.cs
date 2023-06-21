@@ -9,11 +9,11 @@ public class musik : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (VarSave.EnterFloat2("mus"))
+        if (VarSave.ExistenceGlobalVar("mus"))
         {
 
 
-            s.value = VarSave.GetFloat2("mus");
+            s.value = VarSave.GetGlobalFloat("mus");
 
         }
     }
@@ -21,10 +21,10 @@ public class musik : MonoBehaviour
         // Update is called once per frame
         void Update()
     {
-        VarSave.SetFloat2("mus",s.value);
+        VarSave.SetGlobalFloat("mus",s.value);
         for (int i=0;i<GameObject.FindGameObjectsWithTag("game musig").Length;i++)
         {
-            GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetFloat2("mus");
+            GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
         }
     }
 }

@@ -49,7 +49,7 @@ public class unScript : MonoBehaviour
                 pre4 = "á";
 
             }
-            if (pre[i] == '%' && VarSave.EnterFloat("el"))
+            if (pre[i] == '%' && VarSave.ExistenceVar("el"))
             {
                 pre4 = "3";
 

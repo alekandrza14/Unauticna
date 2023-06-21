@@ -69,7 +69,7 @@ public class mover : MonoBehaviour
     [SerializeField] float jumpPower;
     [SerializeField] float gravity; 
     [SerializeField] float ForseSwaem;
-    [SerializeField] Rigidbody rigidbody;
+    [SerializeField] Rigidbody rigidbody3d;
     [SerializeField] float Speed;
     [SerializeField] Animator animator;
     save save = new save();
@@ -91,7 +91,7 @@ public class mover : MonoBehaviour
     [HideInInspector] public int hp = 200; float oxygen = 20;
     float tic, time = 4; float tic2, time2 = 4;
     bool s2 = true;
-    public GameObject CameraSetup;
+    public GameObject HeadCameraSetup;
     float vel;
     float tics;
     bool fly; bool Xray;
@@ -101,28 +101,11 @@ public class mover : MonoBehaviour
     [SerializeField] GameObject PlayerModelObject;
     [SerializeField] GameObject[] PlayerModelObjects;
     faceView faceViewi;
-    bool move4D;
+    bool Sprint;
     string lepts = "";
     [HideInInspector] public string lif;
 
-    void swapWX3(Transform x, mover w)
-    {
-        RaymarchCam m = Get4DCam();
-        float save = x.localPosition.x;
-        if (m._wRotation.x == 0) x.localPosition = new Vector3(w.W_position, x.localPosition.y, x.localPosition.z);
-        if (m._wRotation.x == -90) x.localPosition = new Vector3(-w.W_position, x.localPosition.y, x.localPosition.z);
-        if (m._wRotation.x == 0) w.W_position = -save;
-        if (m._wRotation.x == -90) w.W_position = save;
-    }
-
-    public static void swapWXALL()
-    {
-        RaymarchCam m = Get4DCam();
-        mover w = mover.main();
-        w.swapWX3(w.transform, w);
-        if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
-
-    }
+    
     public static RaymarchCam Get4DCam()
     {
         return (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
@@ -148,15 +131,15 @@ public class mover : MonoBehaviour
                     g.gameObject.transform.position = hit.point;
                     List<string> name = new List<string>();
                     List<Vector3> v3 = new List<Vector3>();
-                    for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
+                    for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
                     {
-                        name.Add(FindObjectsOfType<genmodel>()[i].s);
-                        v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
+                        name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
+                        v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
                     }
                     custommedelsave cms = new custommedelsave();
                     cms.name = name.ToArray();
                     cms.v3 = v3.ToArray();
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms));
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms),SaveType.world);
                     GlobalInputMenager.build.text = "";
 
                 }
@@ -170,20 +153,20 @@ public class mover : MonoBehaviour
             {
                 List<string> name = new List<string>();
                 List<Vector3> v3 = new List<Vector3>();
-                for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
+                for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
                 {
-                    name.Add(FindObjectsOfType<genmodel>()[i].s);
-                    v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
+                    name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
+                    v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
                 }
                 custommedelsave cms = new custommedelsave();
                 cms.name = name.ToArray();
                 cms.v3 = v3.ToArray();
-                if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms)); }
+                if (GameObject.FindObjectsByType<genmodel>(sortmode.main).Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world); }
                 else
                 {
                     cms.name = new string[] { };
                     cms.v3 = new Vector3[] { };
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms));
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
                 }
             }
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
@@ -198,20 +181,20 @@ public class mover : MonoBehaviour
                         hit2.collider.gameObject.AddComponent<DELETE>();
                         List<string> name = new List<string>();
                         List<Vector3> v3 = new List<Vector3>();
-                        for (int i = 0; i < GameObject.FindObjectsOfType<genmodel>().Length; i++)
+                        for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
                         {
-                            name.Add(FindObjectsOfType<genmodel>()[i].s);
-                            v3.Add(FindObjectsOfType<genmodel>()[i].transform.position);
+                            name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
+                            v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
                         }
                         custommedelsave cms = new custommedelsave();
                         cms.name = name.ToArray();
                         cms.v3 = v3.ToArray();
-                        if (GameObject.FindObjectsOfType<genmodel>().Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms)); }
+                        if (GameObject.FindObjectsByType<genmodel>(sortmode.main).Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world); }
                         else
                         {
                             cms.name = new string[] { };
                             cms.v3 = new Vector3[] { };
-                            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms));
+                            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
                         }
                     }
                 }
@@ -277,11 +260,11 @@ public class mover : MonoBehaviour
 
         if (collision.collider.tag == "sc2")
         {
-            if (rigidbody.velocity.y >= 2)
+            if (rigidbody3d.velocity.y >= 2)
             {
                 tic2 += Time.deltaTime;
             }
-            if (rigidbody.velocity.y <= 2 && tic2 >= 0)
+            if (rigidbody3d.velocity.y <= 2 && tic2 >= 0)
             {
                 tic2 -= Time.deltaTime;
             }
@@ -377,7 +360,7 @@ public class mover : MonoBehaviour
             lepts = "-"+ planet_position.ToString();
         }
         stand_stay = load1.stad;
-        if (VarSave.EnterFloat("cms" + SceneManager.GetActiveScene().buildIndex + lif))
+        if (VarSave.ExistenceVar("cms" + SceneManager.GetActiveScene().buildIndex + lif))
         {
             if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
             custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif));
@@ -448,8 +431,8 @@ public class mover : MonoBehaviour
             if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
             {
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
-                rigidbody.angularVelocity = save.angularvelosyty;
-                rigidbody.velocity = save.velosyty;
+                rigidbody3d.angularVelocity = save.angularvelosyty;
+                rigidbody3d.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4 && !portallNumer.p5 && !portallNumer.p6 && !portallNumer.p7 && !portallNumer.p8)
                 {
                     if (true)
@@ -457,7 +440,7 @@ public class mover : MonoBehaviour
                         PlayerBody.transform.position = save.pos;
 
                         //  sr.transform.position = save.pos2;
-                        PlayerCamera.transform.position = CameraSetup.transform.position;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
                     if (Globalprefs.isnew)
@@ -466,14 +449,14 @@ public class mover : MonoBehaviour
 
                         PlayerBody.transform.position += Globalprefs.newv3;
                         PlayerBody.transform.rotation = Globalprefs.q[0];
-                        CameraSetup.transform.rotation = Globalprefs.q[2];
+                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
                         PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
                 }
                 W_position = save.wpos;
                 PlayerBody.transform.rotation = save.q1;
-                CameraSetup.transform.rotation = save.q3;
+                HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
                 if (hyperbolicCamera != null)
                 {
@@ -483,9 +466,9 @@ public class mover : MonoBehaviour
                 }
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                 {
-                    FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                 }
             }
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
@@ -511,8 +494,8 @@ public class mover : MonoBehaviour
             if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/"  + SaveFileInputField.text))
             {
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
-                rigidbody.angularVelocity = save.angularvelosyty;
-                rigidbody.velocity = save.velosyty;
+                rigidbody3d.angularVelocity = save.angularvelosyty;
+                rigidbody3d.velocity = save.velosyty;
                 if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4)
                 {
                     PlayerBody.transform.position = save.pos;
@@ -521,7 +504,7 @@ public class mover : MonoBehaviour
 
                 W_position = save.wpos;
                 PlayerBody.transform.rotation = save.q1;
-                CameraSetup.transform.rotation = save.q3;
+                HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
                 if (hyperbolicCamera != null)
                 {
@@ -531,9 +514,9 @@ public class mover : MonoBehaviour
                 }
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                 {
-                    FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                 }
             }
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
@@ -549,7 +532,7 @@ public class mover : MonoBehaviour
            
 
         }
-      if (FindObjectsOfType<GenTest>().Length !=0)  FindObjectOfType<GenTest>().load_planet();
+      if (FindObjectsByType<GenTest>(sortmode.main).Length !=0)  FindFirstObjectByType<GenTest>().load_planet();
 
     }
     //Пробуждение кода
@@ -566,8 +549,8 @@ public class mover : MonoBehaviour
             if (!hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString());
             if (hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
             GUI.Label(new Rect(0f, 70, 200f, 100f), "Cotinuum Position : " + SceneManager.GetActiveScene().buildIndex);
-            if (FindObjectsOfType<GenTest>().Length != 0) GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
-            GUI.Label(new Rect(0f, 100, 200f, 100f), "All objects : " + FindObjectsOfType<GameObject>().Length);
+            if (FindObjectsByType<GenTest>(sortmode.main).Length != 0) GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
+            GUI.Label(new Rect(0f, 100, 200f, 100f), "All objects : " + FindObjectsByType<GameObject>(sortmode.main).Length);
 
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Unity Version : " + Application.unityVersion);
             GUI.Label(new Rect(0f, 130, 200f, 100f), "Game Version : " + Application.version);
@@ -580,13 +563,12 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 20, 200f, 100f), "Teuvro ($) : " + VarSave.GetInt("tevro").ToString());
             GUI.Label(new Rect(0f, 40, 200f, 100f), "Flow Teuvro ($^) : " + Globalprefs.flowteuvro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
-            GUI.Label(new Rect(0f, 80, 200f, 100f), "Over Flow Teuvro ($^^) : " + Globalprefs.OverFlowteuvro);
-
+           
 
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+move4D.ToString());
+            GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+Sprint.ToString());
             if (!hyperbolicCamera) GUI.Label(new Rect(0f, 00, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString());
             if (hyperbolicCamera) GUI.Label(new Rect(0f, 00, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
         }
@@ -603,11 +585,11 @@ public class mover : MonoBehaviour
 
             VarSave.SetBool("cry", false);
         }
-        if (VarSave.EnterFloat2("mus"))
+        if (VarSave.ExistenceGlobalVar("mus"))
         {
             for (int i = 0; i < GameObject.FindGameObjectsWithTag("game musig").Length; i++)
             {
-                GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetFloat2("mus");
+                GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
             }
         }
        
@@ -626,11 +608,11 @@ public class mover : MonoBehaviour
                 if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
                 {
                     save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
-                    rigidbody.angularVelocity = save.angularvelosyty;
-                    rigidbody.velocity = save.velosyty;
+                    rigidbody3d.angularVelocity = save.angularvelosyty;
+                    rigidbody3d.velocity = save.velosyty;
                     PlayerBody.transform.position = save.pos;// sr.transform.position = save.pos2;
                     PlayerBody.transform.rotation = save.q1;
-                    CameraSetup.transform.rotation = save.q3;
+                    HeadCameraSetup.transform.rotation = save.q3;
                     PlayerCamera.transform.rotation = save.q2;
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     W_position = save.wpos;
@@ -641,9 +623,9 @@ public class mover : MonoBehaviour
                         hyperbolicCamera.position = save.pos3;
                     }
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                    if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                    if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                     {
-                        FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                     }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -657,7 +639,7 @@ public class mover : MonoBehaviour
                     planet_position = gsave.Spos;
                 }
 
-                if (FindObjectOfType<GenTest>()) FindObjectOfType<GenTest>().load_planet();
+                if (FindFirstObjectByType<GenTest>()) FindFirstObjectByType<GenTest>().load_planet();
             }
         }
         else
@@ -668,11 +650,11 @@ public class mover : MonoBehaviour
                 if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
                 {
                     save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
-                    rigidbody.angularVelocity = save.angularvelosyty;
-                    rigidbody.velocity = save.velosyty;
+                    rigidbody3d.angularVelocity = save.angularvelosyty;
+                    rigidbody3d.velocity = save.velosyty;
                     PlayerBody.transform.position = save.pos; //sr.transform.position = save.pos2;
                     PlayerBody.transform.rotation = save.q1;
-                    CameraSetup.transform.rotation = save.q3;
+                    HeadCameraSetup.transform.rotation = save.q3;
 
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     W_position = save.wpos;
@@ -683,9 +665,9 @@ public class mover : MonoBehaviour
                     }
                     PlayerCamera.transform.rotation = save.q2;
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                    if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+                    if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                     {
-                        FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
                     }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -729,7 +711,7 @@ public class mover : MonoBehaviour
         }
         if (!stand_stay)
         {
-            if (!move4D)
+            if (!Sprint)
             {
 
 
@@ -743,7 +725,7 @@ public class mover : MonoBehaviour
                     W_position += 1f * Time.deltaTime;
                 }
             }
-            if (move4D)
+            if (Sprint)
             {
 
 
@@ -763,9 +745,9 @@ public class mover : MonoBehaviour
             }
         }
         
-        if (FindObjectsOfType<RaymarchCam>().Length != 0)
+        if (FindObjectsByType<RaymarchCam>(sortmode.main).Length != 0)
         {
-            RaymarchCam ra = FindObjectOfType<RaymarchCam>();
+            RaymarchCam ra = FindFirstObjectByType<RaymarchCam>();
             ra._wPosition = W_position;
         }
         if (inglobalspace != true)
@@ -783,7 +765,7 @@ public class mover : MonoBehaviour
             {
 
 
-                rigidbody.velocity = Vector3.zero;
+                rigidbody3d.velocity = Vector3.zero;
             }
         }
 
@@ -812,37 +794,37 @@ public class mover : MonoBehaviour
             {
 
                 animator.SetBool("swem", true);
-                rigidbody.velocity += PlayerBody.transform.forward * 30;
+                rigidbody3d.velocity += PlayerBody.transform.forward * 30;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody.velocity += -PlayerBody.transform.forward * 30;
+                rigidbody3d.velocity += -PlayerBody.transform.forward * 30;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody.velocity += PlayerBody.transform.right * 30;
+                rigidbody3d.velocity += PlayerBody.transform.right * 30;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody.velocity += -PlayerBody.transform.right * 30;
+                rigidbody3d.velocity += -PlayerBody.transform.right * 30;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody.velocity += PlayerBody.transform.up * 30;
+                rigidbody3d.velocity += PlayerBody.transform.up * 30;
             }
             if (Input.GetKey(KeyCode.LeftControl))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody.velocity -= PlayerBody.transform.up * 30;
+                rigidbody3d.velocity -= PlayerBody.transform.up * 30;
             }
 
         }
@@ -860,27 +842,28 @@ public class mover : MonoBehaviour
         
         if (Xray)
         {
-            for (int i = 0; i < GameObject.FindObjectsOfType<MeshRenderer>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<MeshRenderer>(sortmode.main).Length; i++)
             {
-                GameObject.FindObjectsOfType<MeshRenderer>()[i].enabled = true;
-                GameObject.FindObjectsOfType<MeshRenderer>()[i].material = Resources.Load<Material>("mats/xray");
-                if (GameObject.FindObjectsOfType<MeshRenderer>()[i].gameObject.GetComponent<BoxCollider>())
+                GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].enabled = true;
+                GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].material = Resources.Load<Material>("mats/xray");
+                if (GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].gameObject.GetComponent<BoxCollider>())
                 {
-                    if (GameObject.FindObjectsOfType<MeshRenderer>()[i].gameObject.GetComponent<BoxCollider>().isTrigger == true)
+                    if (GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].gameObject.GetComponent<BoxCollider>().isTrigger == true)
                     {
-                        GameObject.FindObjectsOfType<MeshRenderer>()[i].material = Resources.Load<Material>("mats/xray3");
+                        GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].material = Resources.Load<Material>("mats/xray3");
                     }
                 }
             }
-            for (int i = 0; i < GameObject.FindObjectsOfType<SkinnedMeshRenderer>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<SkinnedMeshRenderer>(sortmode.main).Length; i++)
             {
-                GameObject.FindObjectsOfType<SkinnedMeshRenderer>()[i].enabled = true;
-                GameObject.FindObjectsOfType<SkinnedMeshRenderer>()[i].material = Resources.Load<Material>("mats/xray2");
+                GameObject.FindObjectsByType<SkinnedMeshRenderer>(sortmode.main)[i].enabled = true;
+                GameObject.FindObjectsByType<SkinnedMeshRenderer>(sortmode.main)[i].material = Resources.Load<Material>("mats/xray2");
             }
 
         }
     }
     float timer;
+
     public void physicsStop()
     {
         IsGraund = false;
@@ -912,28 +895,15 @@ public class mover : MonoBehaviour
         {
             
             VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.flowteuvro);
-            if (VarSave.GetInt("tevro") < -2000000000)
-            {
-                Globalprefs.OverFlowteuvro += 1;
-                VarSave.SetInt("tevro", VarSave.GetInt("tevro") + 1000000000);
-                VarSave.SetInt("uptevro", Globalprefs.OverFlowteuvro);
-            }
+            
             timer = 0; 
         }
         Inputnravix();
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            stand_stay = !stand_stay;
-            load1.stad = stand_stay;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            move4D = !move4D;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            swapWXALL();
-        }
+        
+        
+            
+        
+        
         //
         Building();
         if (isplanet)
@@ -1011,9 +981,9 @@ public class mover : MonoBehaviour
             }
             oxygen += Time.deltaTime * 2;
         }
-        if (VarSave.GetBool("partic") && 0 <= GameObject.FindObjectsOfType<ParticleSystem>().Length - 1)
+        if (VarSave.GetBool("partic") && 0 <= GameObject.FindObjectsByType<ParticleSystem>(sortmode.main).Length - 1)
         {
-            DestroyImmediate(GameObject.FindObjectsOfType<ParticleSystem>()[0].gameObject);
+            DestroyImmediate(GameObject.FindObjectsByType<ParticleSystem>(sortmode.main)[0].gameObject);
         }
         tic += Time.deltaTime;
         HpUpdate();
@@ -1029,18 +999,18 @@ public class mover : MonoBehaviour
 
             //"unsave/capter/"+ifd.text
             //Mouse ScrollWheel
-            if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+            if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
         {
-            FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
+            FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
         PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
-        save.angularvelosyty = rigidbody.angularVelocity;
-        save.velosyty = rigidbody.velocity;
+        save.angularvelosyty = rigidbody3d.angularVelocity;
+        save.velosyty = rigidbody3d.velocity;
         save.q1 = PlayerBody.transform.rotation;
         save.q2 = PlayerCamera.transform.rotation;
         save.pos = PlayerBody.transform.position;
-        save.pos2 = CameraSetup.transform.position;
-        save.q3 = CameraSetup.transform.rotation;
+        save.pos2 = HeadCameraSetup.transform.position;
+        save.q3 = HeadCameraSetup.transform.rotation;
         save.wpos = W_position;
         if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
@@ -1052,7 +1022,7 @@ public class mover : MonoBehaviour
             save.pos3 = hyperbolicCamera.position;
         }
         gsave.hp = hp;
-        if (VarSave.EnterFloat("res3") && Input.GetKeyDown(KeyCode.F11))
+        if (VarSave.ExistenceVar("res3") && Input.GetKeyDown(KeyCode.F11))
         {
             VarSave.SetBool("windowed", !VarSave.GetBool("windowed"));
             Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
@@ -1090,14 +1060,7 @@ public class mover : MonoBehaviour
         load();
 
         Physics();
-        if (!stand_stay && Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            animator.SetBool("sit", true);
-        }
-        if (!stand_stay && Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            animator.SetBool("sit", false);
-        }
+        
         Creaive();
     }
 
@@ -1109,7 +1072,7 @@ public class mover : MonoBehaviour
             {
                 JumpTimer -= Time.deltaTime * gravity;
 
-                rigidbody.velocity += -transform.up * 10;
+                rigidbody3d.velocity += -transform.up * 10;
             }
 
             if (InWater && inglobalspace != true)
@@ -1127,8 +1090,8 @@ public class mover : MonoBehaviour
                     JumpTimer = 0;
                 }
 
-                rigidbody.velocity += PlayerCamera.transform.forward * JumpTimer;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity += PlayerCamera.transform.forward * JumpTimer;
+                rigidbody3d.useGravity = false;
 
 
                 if (JumpTimer >= jumpPower / 2)
@@ -1142,8 +1105,8 @@ public class mover : MonoBehaviour
                 animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                rigidbody.velocity += PlayerCamera.transform.forward * ForseSwaem;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity += PlayerCamera.transform.forward * ForseSwaem;
+                rigidbody3d.useGravity = false;
 
 
 
@@ -1154,8 +1117,8 @@ public class mover : MonoBehaviour
                 animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                rigidbody.velocity -= PlayerCamera.transform.forward * ForseSwaem;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity -= PlayerCamera.transform.forward * ForseSwaem;
+                rigidbody3d.useGravity = false;
 
 
 
@@ -1166,8 +1129,8 @@ public class mover : MonoBehaviour
                 animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                rigidbody.velocity += PlayerCamera.transform.right * ForseSwaem;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity += PlayerCamera.transform.right * ForseSwaem;
+                rigidbody3d.useGravity = false;
 
 
 
@@ -1178,8 +1141,8 @@ public class mover : MonoBehaviour
                 animator.SetBool("swem", true);
 
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody.velocity -= PlayerCamera.transform.right * ForseSwaem;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity -= PlayerCamera.transform.right * ForseSwaem;
+                rigidbody3d.useGravity = false;
 
 
 
@@ -1190,8 +1153,8 @@ public class mover : MonoBehaviour
                 animator.SetBool("swem", true);
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
 
-                rigidbody.velocity += PlayerCamera.transform.up * ForseSwaem;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity += PlayerCamera.transform.up * ForseSwaem;
+                rigidbody3d.useGravity = false;
 
 
 
@@ -1202,27 +1165,27 @@ public class mover : MonoBehaviour
                 animator.SetBool("swem", true);
 
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody.velocity -= PlayerCamera.transform.up * ForseSwaem;
-                rigidbody.useGravity = false;
+                rigidbody3d.velocity -= PlayerCamera.transform.up * ForseSwaem;
+                rigidbody3d.useGravity = false;
 
 
 
             }
-            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && !InWater && inglobalspace != true && s2 && !Input.GetKey(KeyCode.LeftShift))
+            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && !InWater && inglobalspace != true && s2)
             {
                 IsGraund = true;
             }
             if (IsGraund && !InWater && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && s2 && inglobalspace != true)
             {
-                rigidbody.velocity += transform.up * jumpforse * JumpTimer;
+                rigidbody3d.velocity += transform.up * jumpforse * JumpTimer;
             }
             if (IsGraund && !InWater && !s2 && inglobalspace != true)
             {
-                rigidbody.velocity -= transform.up * JumpTimer;
-                rigidbody.velocity += -transform.up * -50;
+                rigidbody3d.velocity -= transform.up * JumpTimer;
+                rigidbody3d.velocity += -transform.up * -50;
             }
 
-            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && InWater && JumpTimer < jumpPower / 2 && !Input.GetKey(KeyCode.LeftShift) && inglobalspace != true)
+            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && InWater && JumpTimer < jumpPower / 2  && inglobalspace != true)
             {
                 IsGraund = true;
             }
@@ -1240,404 +1203,92 @@ public class mover : MonoBehaviour
 
     private void MoveUpdate()
     {
-        rigidbody.velocity = Vector3.zero;
-        if (hyperbolicCamera != null)
+        Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        rigidbody3d.velocity = Vector3.zero;
+
+        
+
+        if (faceViewi != faceView.fourd)
         {
 
-            transform.position = new Vector3(0, transform.position.y, 0);
 
-            Ray r4 = new Ray(transform.position, new Vector3(0, -1f, 0));
-
-            RaycastHit hit4;
-            if (UnityEngine.Physics.Raycast(r4, out hit4))
+            float deltaX = Input.GetAxis("Horizontal") * Speed;
+            float deltaZ = Input.GetAxis("Vertical") * Speed;
+            float deltaW = Input.GetAxis("HyperHorizontal") *0.1f;
+            float deltaY = 0.0f;
+          if(InWater)  deltaY = (Input.GetAxis("Jump") * Speed)-0.1f;
+            float sprintCnficent = 1f;
+            if (Sprint)
             {
-                if (hit4.distance <= 1.2f * -JumpTimer)
-                {
-                    //  c = new Collision();
-                    physicsStop();
-                }
-                else
-                {
-                    physicsStart();
-                }
+
+
+                W_position += deltaW *5;
+                sprintCnficent = 2;
             }
-        }
-        bool yp = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D);
-        if (!yp)
-        {
-            animator.SetBool("walke", false);
-            animator.SetBool("swem", false);
+            else
+            {
+
+                W_position += deltaW;
+            }
+            float deltaSumXZ = deltaX + deltaZ;
+
+            animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
+            animator.SetBool("InWater", InWater);
+
+            Vector3 movement = new Vector3(deltaX, deltaY, deltaZ);
+            movement = Vector3.ClampMagnitude(movement, Speed);
             
+            movement = transform.TransformDirection(movement);
 
-        }
-       if (Globalprefs.sit_player == null) if (faceViewi != faceView.fourd )
-        {
-           
+            rigidbody3d.AddForce(movement* sprintCnficent,ForceMode.VelocityChange);
 
-            float ispeed = 10f;
-            if (Input.GetKey(KeyCode.Mouse0) && Directory.Exists("debug"))
+
+            RenderSettings.fogStartDistance = fog;
+            RenderSettings.fogEndDistance = fog2; if (fogonair.a != 0)
             {
-                ispeed *= 2.5f;
+                RenderSettings.fogColor = fogonair;
             }
-            if (Directory.Exists("debug"))
+
+
+            if (tics >= 2)
             {
-
-
+                transform.Translate(0, 0, 5);
+                tics = 0;
             }
-            
 
-            if (!stand_stay && !InWater && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.Mouse1))
             {
-
-                RenderSettings.fogStartDistance = fog;
-                RenderSettings.fogEndDistance = fog2; if (fogonair.a != 0)
+                Cursor.lockState = CursorLockMode.Locked;
+                if (faceViewi == faceView.first)
                 {
-                    RenderSettings.fogColor = fogonair;
+
+
+                    PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
                 }
-                if (hyperbolicCamera != null)
+                if (faceViewi == faceView.trid)
                 {
-                    if (Input.GetKey(KeyCode.W))
-                    {
-
-                        if (c != null)
-                        {
 
 
-                            animator.SetBool("walke", true);
-                        }
-                        rigidbody.velocity += PlayerBody.transform.forward * ispeed;
-                    }
-                    if (Input.GetKey(KeyCode.S))
-                    {
-
-                        if (c != null)
-                        {
-
-
-                            animator.SetBool("walke", true);
-                        }
-                        rigidbody.velocity += -PlayerBody.transform.forward * ispeed;
-                    }
-
-                    if (Input.GetKey(KeyCode.D))
-                    {
-
-                        if (c != null)
-                        {
-
-
-                            animator.SetBool("walke", true);
-                        }
-                        rigidbody.velocity += PlayerBody.transform.right * ispeed;
-                    }
-                    if (Input.GetKey(KeyCode.A))
-                    {
-
-                        if (c != null)
-                        {
-
-
-                            animator.SetBool("walke", true);
-                        }
-                        rigidbody.velocity += -PlayerBody.transform.right * ispeed;
-                    }
+                    HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
                 }
                 if (hyperbolicCamera == null)
                 {
-                    if (Input.GetKey(KeyCode.W))
+                    if (faceViewi != faceView.fourd)
                     {
 
-                        animator.SetBool("walke", true);
-                        rigidbody.velocity += PlayerBody.transform.forward * ispeed;
-                    }
-                    if (Input.GetKey(KeyCode.S))
-                    {
-
-                        animator.SetBool("walke", true);
-                        rigidbody.velocity += -PlayerBody.transform.forward * ispeed;
-                    }
-                    if (Input.GetKey(KeyCode.D))
-                    {
-
-                        animator.SetBool("walke", true);
-                        rigidbody.velocity += PlayerBody.transform.right * ispeed;
-                    }
-                    if (Input.GetKey(KeyCode.A))
-                    {
-
-                        animator.SetBool("walke", true);
-                        rigidbody.velocity += -PlayerBody.transform.right * ispeed;
+                        PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
                     }
                 }
+
             }
-            if (c == null && IsGraund)
+            else
             {
-                animator.SetBool("fall", true);
+                Cursor.lockState = CursorLockMode.None;
             }
-                if (c == null && !IsGraund)
-                {
-                    animator.SetBool("fall", false);
-                }
-                if (c != null && !IsGraund)
-                {
-                    animator.SetBool("fall", false);
-                }
-                if (c != null && IsGraund)
-                {
-                    animator.SetBool("fall", false);
-                }
-                if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.G))
-            {
-                rigidbody.useGravity = false;
-            }
-
-            if (!Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && inglobalspace != true)
-            {
-                tics += Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.F) && Input.GetKeyDown(KeyCode.Tab) && Getstats.GetPlayerLevel() >= 1)
-            {
-
-                if (hyperbolicCamera)
-                {
-                    if (tics >= 2)
-                    {
-
-                        hyperbolicCamera.polarTransform.preApplyTranslationZ(-1.0f / 5);
-                        tics = 0;
-                    }
-                }
-                else
-                {
-
-
-                    if (tics >= 2)
-                    {
-                        transform.Translate(0, 0, 5);
-                        tics = 0;
-                    }
-                }
-            }
-
-            if (!stand_stay && InWater && inglobalspace == true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
-            {
-               
-
-
-                    RenderSettings.fogStartDistance = fog / 2;
-                    RenderSettings.fogEndDistance = fog2 / 2;
-                    RenderSettings.fogColor = fogonwater; if (hyperbolicCamera == null)
-                    {
-                        if (Input.GetKey(KeyCode.W))
-                        {
-
-                            animator.SetBool("swem", true);
-                            rigidbody.velocity += PlayerBody.transform.forward * ispeed / 4;
-                        }
-                        if (Input.GetKey(KeyCode.S))
-                        {
-
-                            animator.SetBool("swem", true);
-                            rigidbody.velocity += -PlayerBody.transform.forward * ispeed / 4;
-                        }
-                        if (Input.GetKey(KeyCode.D))
-                        {
-
-                            animator.SetBool("swem", true);
-                            rigidbody.velocity += PlayerBody.transform.right * ispeed / 4;
-                        }
-                        if (Input.GetKey(KeyCode.A))
-                        {
-
-                            animator.SetBool("swem", true);
-                            rigidbody.velocity += -PlayerBody.transform.right * ispeed / 4;
-                        }
-                    }
-                    if (hyperbolicCamera != null)
-                    {
-                        if (Input.GetKey(KeyCode.W))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                        if (Input.GetKey(KeyCode.S))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                        if (Input.GetKey(KeyCode.D))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                        if (Input.GetKey(KeyCode.A))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                    }
-                }
-            
-            if (!stand_stay && !InWater && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
-            {
-                
-
-                    RenderSettings.fogStartDistance = fog;
-                    RenderSettings.fogEndDistance = fog2; if (fogonair.a != 0)
-                    {
-                        RenderSettings.fogColor = fogonair;
-                    }
-                    if (hyperbolicCamera == null)
-                    {
-                        if (Input.GetKey(KeyCode.W))
-                        {
-
-                            animator.SetBool("walke", true);
-                            rigidbody.velocity += PlayerBody.transform.forward * ispeed;
-                        }
-                        if (Input.GetKey(KeyCode.S))
-                        {
-
-                            animator.SetBool("walke", true);
-                            rigidbody.velocity += -PlayerBody.transform.forward * ispeed;
-                        }
-                        if (Input.GetKey(KeyCode.D))
-                        {
-
-                            animator.SetBool("walke", true);
-                            rigidbody.velocity += PlayerBody.transform.right * ispeed;
-                        }
-                        if (Input.GetKey(KeyCode.A))
-                        {
-
-                            animator.SetBool("walke", true);
-                            rigidbody.velocity += -PlayerBody.transform.right * ispeed;
-                        }
-                    }
-                    if (hyperbolicCamera != null)
-                    {
-                        if (Input.GetKey(KeyCode.W))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                        if (Input.GetKey(KeyCode.S))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                        if (Input.GetKey(KeyCode.D))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                        if (Input.GetKey(KeyCode.A))
-                        {
-
-                            animator.SetBool("walke", true);
-                        }
-                    }
-                }
-            
-            if (!stand_stay && InWater && inglobalspace != true && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G)  && !Input.GetKey(KeyCode.LeftShift))
-            {
-
-
-
-                RenderSettings.fogStartDistance = fog / 2;
-                RenderSettings.fogEndDistance = fog2 / 2;
-                RenderSettings.fogColor = fogonwater; if (hyperbolicCamera == null)
-                {
-                    if (Input.GetKey(KeyCode.W))
-                    {
-
-                        animator.SetBool("swem", true);
-                        rigidbody.velocity += PlayerBody.transform.forward * ispeed / 4;
-                    }
-                    if (Input.GetKey(KeyCode.S))
-                    {
-
-                        animator.SetBool("swem", true);
-                        rigidbody.velocity += -PlayerBody.transform.forward * ispeed / 4;
-                    }
-                    if (Input.GetKey(KeyCode.D))
-                    {
-
-                        animator.SetBool("swem", true);
-                        rigidbody.velocity += PlayerBody.transform.right * ispeed / 4;
-                    }
-                    if (Input.GetKey(KeyCode.A))
-                    {
-
-                        animator.SetBool("swem", true);
-                        rigidbody.velocity += -PlayerBody.transform.right * ispeed / 4;
-                    }
-
-                }
-                if (hyperbolicCamera != null)
-                {
-                    if (Input.GetKey(KeyCode.W))
-                    {
-
-                        animator.SetBool("swem", true);
-                    }
-                    if (Input.GetKey(KeyCode.S))
-                    {
-
-                        animator.SetBool("swem", true);
-                    }
-                    if (Input.GetKey(KeyCode.D))
-                    {
-
-                        animator.SetBool("swem", true);
-                    }
-                    if (Input.GetKey(KeyCode.A))
-                    {
-
-                        animator.SetBool("swem", true);
-                    }
-
-                }
-            }
-        }
-        stop(); if (watermask)
-        {
-
-
-            watermask.enabled = InWater;
-        }
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            if (faceViewi == faceView.first)
-            {
-
-
-                PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * Speed, 0, 0));
-            }
-            if (faceViewi == faceView.trid)
-            {
-
-
-                CameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * Speed, 0, 0);
-            }
-            if (hyperbolicCamera == null)
-            {
-                if (!Input.GetKey(KeyCode.LeftShift) && faceViewi != faceView.fourd)
-                {
-
-                    PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * Speed, 0));
-                }
-            }
-
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 
-    private void HpUpdate()
+        private void HpUpdate()
     {
         if (hp <= 0)
         {
@@ -1708,7 +1359,7 @@ public class mover : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F5))
         {
             PlayerBody.transform.rotation = Quaternion.identity;
-            PlayerCamera.transform.rotation = CameraSetup.transform.rotation;
+            PlayerCamera.transform.rotation = HeadCameraSetup.transform.rotation;
 
 
             if (faceViewi == faceView.first)
@@ -1737,7 +1388,7 @@ public class mover : MonoBehaviour
     {
         if (faceViewi == faceView.first)
         {
-            PlayerCamera.transform.position = CameraSetup.transform.position;
+            PlayerCamera.transform.position = HeadCameraSetup.transform.position;
             PlayerModelObject.layer = 8;
             foreach (GameObject i in PlayerModelObjects)
             {
@@ -1753,7 +1404,7 @@ public class mover : MonoBehaviour
                 i.layer = 0;
             }
             PlayerModelObject.layer = 0;
-            Ray r = new Ray(CameraSetup.transform.position, -CameraSetup.transform.forward);
+            Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
             if (UnityEngine.Physics.Raycast(r, out hit1))
             {
@@ -1767,18 +1418,18 @@ public class mover : MonoBehaviour
                     if (hit1.distance > 6)
                     {
 
-                        PlayerCamera.transform.position = CameraSetup.transform.position - CameraSetup.transform.forward * 6;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
                     }
                 }
                 else
                 {
-                    PlayerCamera.transform.position = CameraSetup.transform.position - CameraSetup.transform.forward * 6;
+                    PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
                 }
 
             }
             else
             {
-                PlayerCamera.transform.position = CameraSetup.transform.position - CameraSetup.transform.forward * 6;
+                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
             }
         }
         if (faceViewi == faceView.fourd)
@@ -1863,8 +1514,8 @@ public class mover : MonoBehaviour
             {
                 GameObject.Find("w2").GetComponent<pos4>().save();
             }
-            save.angularvelosyty = rigidbody.angularVelocity;
-            save.velosyty = rigidbody.velocity;
+            save.angularvelosyty = rigidbody3d.angularVelocity;
+            save.velosyty = rigidbody3d.velocity;
             save.q1 = PlayerBody.transform.rotation;
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
@@ -1899,8 +1550,8 @@ public class mover : MonoBehaviour
             {
                 GameObject.Find("w2").GetComponent<pos4>().save();
             }
-            save.angularvelosyty = rigidbody.angularVelocity;
-            save.velosyty = rigidbody.velocity;
+            save.angularvelosyty = rigidbody3d.angularVelocity;
+            save.velosyty = rigidbody3d.velocity;
             save.q1 = PlayerBody.transform.rotation;
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
@@ -1913,8 +1564,8 @@ public class mover : MonoBehaviour
 
                 save.pos3 = GetHyperbolicVector(hyperbolicCamera);
             }
-            tsave.angularvelosyty = rigidbody.angularVelocity;
-            tsave.velosyty = rigidbody.velocity;
+            tsave.angularvelosyty = rigidbody3d.angularVelocity;
+            tsave.velosyty = rigidbody3d.velocity;
             tsave.q1 = PlayerBody.transform.rotation;
             tsave.q2 = PlayerCamera.transform.rotation;
             tsave.pos = PlayerBody.transform.position;

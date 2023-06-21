@@ -21,7 +21,7 @@ public class savetrigger : MonoBehaviour
     }
     public void OnTriggerEnter(Collider collision)
     {
-        if (type1 == type1.triggered && !VarSave.EnterFloat(bol) && collision.tag == "Player")
+        if (type1 == type1.triggered && !VarSave.ExistenceVar(bol) && collision.tag == "Player")
         {
             VarSave.SetString(bol, ibool);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
