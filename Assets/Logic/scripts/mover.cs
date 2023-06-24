@@ -382,23 +382,7 @@ public class mover : MonoBehaviour
 
         ionenergy.energy = 0;
         vel = GetComponent<CapsuleCollider>().height;
-        if (Photon.Pun.PhotonNetwork.IsConnected)
-        {
-            load1.isplanet = isplanet;
-            load1.gr = gravity;
-            load1.jump = jumpforse;
-            load1.rjump = jumpPower;
-            load1.tjump = JumpTimer;
-            load1.islight = islight;
-            load1.pl = ForseSwaem;
-            load1.watermask = watermask;
-            load1.isCamd = hyperbolicCamera != null;
-            load1.bg = PlayerCamera.GetComponent<Camera>().backgroundColor;
-            load1.bg2 = PlayerCamera.GetComponent<Camera>().clearFlags;
-            Photon.Pun.PhotonNetwork.Instantiate("nr", transform.position, Quaternion.identity);
-            Destroy(gameObject);
-
-        }
+       
         if (VarSave.GetBool("postrender") == true)
         {
             Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
@@ -425,7 +409,7 @@ public class mover : MonoBehaviour
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.velocity = save.velosyty;
-                if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4 && !portallNumer.p5 && !portallNumer.p6 && !portallNumer.p7 && !portallNumer.p8)
+                if (portallNumer.Portal == "")
                 {
                     if (true)
                     {
@@ -488,7 +472,7 @@ public class mover : MonoBehaviour
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.velocity = save.velosyty;
-                if (!portallNumer.p2 && !portallNumer.p1 && !portallNumer.p3 && !portallNumer.p4)
+                if (portallNumer.Portal == "")
                 {
                     PlayerBody.transform.position = save.pos;
                     //  sr.transform.position = save.pos2;
@@ -882,20 +866,14 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > 1f)
-        {
-            
-            VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.flowteuvro);
-            
-            timer = 0; 
-        }
+        WPositionUpdate();
+        TevroUpdate();
         Inputnravix();
-        
-        
-            
-        
-        
+
+
+
+
+
         //
         Building();
         if (isplanet)
@@ -927,7 +905,7 @@ public class mover : MonoBehaviour
                     }
                     hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
                     hit.collider.GetComponent<transport4>().player = transform;
-                    
+
                 }
 
             }
@@ -985,13 +963,13 @@ public class mover : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
-       
-            MoveUpdate();
-        
 
-            //"unsave/capter/"+ifd.text
-            //Mouse ScrollWheel
-            if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+        MoveUpdate();
+
+
+        //"unsave/capter/"+ifd.text
+        //Mouse ScrollWheel
+        if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
         {
             FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
@@ -1029,10 +1007,10 @@ public class mover : MonoBehaviour
         {
             playerdata.Saveeffect();
             save.idsave = SaveFileInputField.text;
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
+            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
 
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
             gsave.idsave = SaveFileInputField.text;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
@@ -1052,10 +1030,26 @@ public class mover : MonoBehaviour
         load();
 
         Physics();
-        
+
         Creaive();
     }
 
+    private void TevroUpdate()
+    {
+        timer += Time.deltaTime;
+        if (timer > 1f)
+        {
+
+            VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.flowteuvro);
+
+            timer = 0;
+        }
+    }
+
+    void WPositionUpdate()
+    {
+        Get4DCam()._wPosition = W_position;
+    }
     private void Physics()
     {
         if (faceViewi != faceView.fourd)

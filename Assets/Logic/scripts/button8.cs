@@ -8,14 +8,7 @@ using UnityEngine.UI;
 using System.IO;
 public class portallNumer
 {
-    public static bool p1 = false;
-    public static bool p2 = false;
-    public static bool p3 = false;
-    public static bool p4 = false;
-    public static bool p5 = false; 
-    public static bool p6 = false; 
-    public static bool p7 = false; 
-    public static bool p8 = false;
+    public static string Portal;
 }
 
 public class button8 : MonoBehaviour
@@ -24,10 +17,7 @@ public class button8 : MonoBehaviour
     public int id;
     public bool enter;
     public bool notsave;
-    public bool iaw;
-    public bool p3;
-    public bool p4;
-    public bool p5;
+    public string Portal;
     public Collider other;
     public InputField ifd;
     public string pasword;
@@ -36,25 +26,10 @@ public class button8 : MonoBehaviour
     private void Start()
     {
         c.gameObject.SetActive(false);
-        if (portallNumer.p5 == true && p5)
+        if (portallNumer.Portal == pasword)
         {
             musave.load(transform);
-            portallNumer.p5 = false;
-        }
-        if (portallNumer.p2 == true && iaw)
-        {
-            musave.load(transform);
-            portallNumer.p2 = false;
-        }
-        if (portallNumer.p3 == true && p3)
-        {
-            musave.load(transform);
-            portallNumer.p3 = false;
-        }
-        if (portallNumer.p4 == true && p4)
-        {
-            musave.load(transform);
-            portallNumer.p4 = false;
+            portallNumer.Portal = "";
         }
 
     }
@@ -80,45 +55,18 @@ public class button8 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && ifd.text == pasword)
         {
-            if (enter && p5)
+           
+            if (enter)
             {
                 if (!notsave)
                 {
                     musave.save();
                 }
-                musave.chargescene(id);
-                portallNumer.p5 = true;
-            }
-            if (enter && iaw)
-            {
-                if (!notsave)
-                {
-                    musave.save();
-                }
-                portallNumer.p2 = true;
+                portallNumer.Portal = pasword;
                 musave.chargescene(id);
 
             }
-            if (enter && p3)
-            {
-                if (!notsave)
-                {
-                    musave.save();
-                }
-                portallNumer.p3 = true;
-                musave.chargescene(id);
-
-            }
-            if (enter && p4)
-            {
-                if (!notsave)
-                {
-                    musave.save();
-                }
-                portallNumer.p4 = true;
-                musave.chargescene(id);
-
-            }
+          
         }
     }
     private void OnTriggerExit(Collider s)

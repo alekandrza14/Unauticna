@@ -4,20 +4,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.ProBuilder;
 
 public class button7 : MonoBehaviour
 {
 
     public int id;
     public bool enter;
+    string Portal = "p2";
     public bool notsave; public Collider other;
 
     private void Start()
     {
-        if (portallNumer.p1 == true)
+        if (portallNumer.Portal == Portal)
         {
             musave.load(transform);
-            portallNumer.p1 = false;
+            portallNumer.Portal = "";
         }
 
     }
@@ -49,8 +51,9 @@ public class button7 : MonoBehaviour
                 {
                     musave.save();
                 }
+                portallNumer.Portal = Portal;
                 musave.chargescene(id);
-                portallNumer.p1 = true;
+
             }
         }
     }

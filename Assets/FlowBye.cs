@@ -26,7 +26,26 @@ public class FlowBye : MonoBehaviour
                         Globalprefs.flowteuvro -= loan;
                         VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
                         VarSave.SetInt("tevro", VarSave.GetInt("tevro") - Contribution);
-                        VarSave.SetInt("re/"+realestatename, 0);
+                        VarSave.SetInt("re/" + realestatename, 0);
+                    }
+                }
+
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename == "")
+        {
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject == gameObject)
+                    {
+                        Globalprefs.flowteuvro += flow;
+                        Globalprefs.flowteuvro -= loan;
+                        VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
+                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") - Contribution);
                     }
                 }
 

@@ -452,6 +452,11 @@ PrefabInstance:
       propertyPath: p3
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5255029638734985814, guid: d6f9a79544deebf4d9f0e9bd3a2c5c76,
+        type: 3}
+      propertyPath: Portal
+      value: 44
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1204,7 +1209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getind: 91
---- !u!21 &1002290388
+--- !u!21 &1004959738
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1214,7 +1219,7 @@ Material:
   m_Name: Ray Marching_Cube 1 (Instance) (Instance) (Instance) (Instance) (Instance)
     (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
     (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance)
   m_Shader: {fileID: 4800000, guid: 23d2a10c823fec54895e5318ca6fb61c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -2526,69 +2531,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b53cd52ba58a0be4ea1d62dc51ed0d06, type: 3}
---- !u!21 &1512748879
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Cube 2 (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: 23d2a10c823fec54895e5318ca6fb61c, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FAST
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: 12.7225275
-    - P2: -6.5930004
-    - P3: 0.20971186
-    - P4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2.09
-    - _Iterations: 10
-    - _MaxDistance: 100
-    - _MaxSteps: 200
-    - _Metallic: 1
-    - _NormalApproxMode: 0
-    - _NormalApproxStep: 0.0002
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 0.5
-    - _ShadowMode: 0
-    - _Smoothness: 0
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.00001
-    m_Colors:
-    - _Tint: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
 --- !u!114 &1550312219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2909,6 +2851,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getind: 5
+--- !u!21 &2015119868
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Cube 2 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 23d2a10c823fec54895e5318ca6fb61c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FAST
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: 12.7225275
+    - P2: -6.5930004
+    - P3: 0.20971186
+    - P4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2.09
+    - _Iterations: 10
+    - _MaxDistance: 100
+    - _MaxSteps: 200
+    - _Metallic: 1
+    - _NormalApproxMode: 0
+    - _NormalApproxStep: 0.0002
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.5
+    - _ShadowMode: 0
+    - _Smoothness: 0
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.00001
+    m_Colors:
+    - _Tint: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &2019793789
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,7 +3174,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1002290388}
+      objectReference: {fileID: 1004959738}
     - target: {fileID: 6867474419004173695, guid: 893499e750af79d4f94080161d23f637,
         type: 3}
       propertyPath: m_Enabled
@@ -3194,7 +3199,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1512748879}
+      objectReference: {fileID: 2015119868}
     - target: {fileID: 6867474419566868476, guid: 893499e750af79d4f94080161d23f637,
         type: 3}
       propertyPath: ppos.z
