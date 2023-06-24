@@ -87,7 +87,6 @@ public class mover : MonoBehaviour
     [SerializeField] RawImage watermask;
     float fog = 1000;  float fog2 = 1000;
     Color fogonwater;
-    Color fogonair = new Color(1, 1, 1, 1);
     [HideInInspector] public int hp = 200; float oxygen = 20;
     float tic, time = 4; float tic2, time2 = 4;
     bool s2 = true;
@@ -204,13 +203,6 @@ public class mover : MonoBehaviour
 
         }
     }
-
-        
-    
-       
-
-    
-
     public faceView GetViewFace()
     {
         return faceViewi;
@@ -1200,7 +1192,7 @@ public class mover : MonoBehaviour
             }
         }
     }
-
+    float ftho;
     private void MoveUpdate()
     {
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
@@ -1210,13 +1202,23 @@ public class mover : MonoBehaviour
 
         if (faceViewi != faceView.fourd)
         {
-
+           if(ftho > 0) ftho -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
+            {
+                ftho += 1;
+                if (ftho > 1)
+                {
+                    transform.Translate(Vector3.forward * 4); ftho = 0;
+                }
+            }
+            bool flyinng = InWater || inglobalspace;
 
             float deltaX = Input.GetAxis("Horizontal") * Speed;
             float deltaZ = Input.GetAxis("Vertical") * Speed;
             float deltaW = Input.GetAxis("HyperHorizontal") *0.1f;
             float deltaY = 0.0f;
-          if(InWater)  deltaY = (Input.GetAxis("Jump") * Speed)-0.1f;
+          if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed)-0.1f;
+          if (Sprint) deltaY -= 1*(Time.deltaTime*100f);
             float sprintCnficent = 1f;
             if (Sprint)
             {
@@ -1243,12 +1245,7 @@ public class mover : MonoBehaviour
             rigidbody3d.AddForce(movement* sprintCnficent,ForceMode.VelocityChange);
 
 
-            RenderSettings.fogStartDistance = fog;
-            RenderSettings.fogEndDistance = fog2; if (fogonair.a != 0)
-            {
-                RenderSettings.fogColor = fogonair;
-            }
-
+           
 
             if (tics >= 2)
             {
