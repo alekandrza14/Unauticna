@@ -539,7 +539,8 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 20, 200f, 100f), "Teuvro ($) : " + VarSave.GetInt("tevro").ToString());
             GUI.Label(new Rect(0f, 40, 200f, 100f), "Flow Teuvro ($^) : " + Globalprefs.flowteuvro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
-           
+            GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
+
 
         }
         if (Input.GetKey(KeyCode.Mouse1))
@@ -867,7 +868,7 @@ public class mover : MonoBehaviour
     void Update()
     {
         WPositionUpdate();
-        TevroUpdate();
+        EconomicUpdate();
         Inputnravix();
 
 
@@ -1034,7 +1035,7 @@ public class mover : MonoBehaviour
         Creaive();
     }
 
-    private void TevroUpdate()
+    private void EconomicUpdate()
     {
         timer += Time.deltaTime;
         if (timer > 1f)
@@ -1043,6 +1044,12 @@ public class mover : MonoBehaviour
             VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.flowteuvro);
 
             timer = 0;
+        }
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.ItemPrise);
+            Destroy(Globalprefs.selectitemobj.gameObject);
+            Globalprefs.selectitem = "";
         }
     }
 
@@ -1347,6 +1354,10 @@ public class mover : MonoBehaviour
 
     private void Inputnravix()
     {
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            Unload();
+        }
         if (Input.GetKeyDown(KeyCode.F5))
         {
             PlayerBody.transform.rotation = Quaternion.identity;

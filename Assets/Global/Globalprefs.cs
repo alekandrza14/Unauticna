@@ -10,12 +10,14 @@ public static class Globalprefs
     public static Vector3 pos;
     public static int flowteuvro;
     public static int OverFlowteuvro;
+    public static int ItemPrise;
     public static bool bunkrot;
 
     public static Vector3[] postes;
     public static Vector3[] postes2;
     public static Quaternion[] q;
     public static string selectitem;
+    public static itemName selectitemobj;
     public static bool isnew;
     public static string item;
     public static bool signedgamejolt;
