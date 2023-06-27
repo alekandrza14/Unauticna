@@ -8,9 +8,9 @@ public static class Globalprefs
     public static int idscene;
     public static Vector3 newv3;
     public static Vector3 pos;
-    public static int flowteuvro;
-    public static int OverFlowteuvro;
-    public static int ItemPrise;
+    public static decimal flowteuvro;
+    public static decimal OverFlowteuvro;
+    public static decimal ItemPrise;
     public static bool bunkrot;
 
     public static Vector3[] postes;

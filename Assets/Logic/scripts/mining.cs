@@ -36,10 +36,10 @@ public class mining : MonoBehaviour
     {
         int i = Mathf.FloorToInt(VarSave.GetFloat("timeminingdays") - VarSave.GetFloat("timeminingdays1")) *20;
         int i2 = i;
-        VarSave.SetInt("tevro", VarSave.GetInt("tevro") + i2);
+        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + i2);
     }
     void Pluss1()
     {
-        VarSave.SetInt("tevro", VarSave.GetInt("tevro") + 7300);
+        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + 7300);
     }
 }

@@ -9,7 +9,7 @@ public class NullingLoan : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetInt("tevro") > -15000)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetMoney("tevro") > -15000)
         {
 
             Ray r = musave.pprey();
@@ -21,14 +21,14 @@ public class NullingLoan : MonoBehaviour
                     if (hit.collider.gameObject == gameObject)
                     {
                         Globalprefs.flowteuvro += 1;
-                        VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") - 1000);
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 1000);
                     }
                 }
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetInt("tevro") < -15000)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetMoney("tevro") < -15000)
         {
 
             Ray r = musave.pprey();
@@ -40,8 +40,8 @@ public class NullingLoan : MonoBehaviour
                     if (hit.collider.gameObject == gameObject)
                     {
                         Globalprefs.flowteuvro = 0;
-                        VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetInt("tevro", 0);
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                        VarSave.SetMoney("tevro", 0);
                         Globalprefs.bunkrot = true;
 
                         VarSave.SetBool("Bunkrot", Globalprefs.bunkrot);

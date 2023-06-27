@@ -6,10 +6,10 @@ public class FlowMltyplybye : MonoBehaviour
 {
 
     [SerializeField] int Contribution;
-    [SerializeField] float flowMltyply;
+    [SerializeField] decimal flowMltyply;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= Contribution && Globalprefs.flowteuvro > 0 && !Globalprefs.bunkrot)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && Globalprefs.flowteuvro > 0 && !Globalprefs.bunkrot)
         {
 
             Ray r = musave.pprey();
@@ -20,11 +20,11 @@ public class FlowMltyplybye : MonoBehaviour
                 {
                     if (hit.collider.gameObject == gameObject)
                     {
-                        float coppy = Globalprefs.flowteuvro;
+                        decimal coppy = Globalprefs.flowteuvro;
                           coppy  *= flowMltyply;
                         Globalprefs.flowteuvro = (int)coppy;
-                        VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") - Contribution);
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
 
                     }
                 }

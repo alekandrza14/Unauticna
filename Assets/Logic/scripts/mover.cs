@@ -334,9 +334,19 @@ public class mover : MonoBehaviour
         c = null;
     }
     //физика
+
+    public IEnumerator coroutine()
+    {
+        yield return new WaitForSeconds(1);
+        portallNumer.Portal = "";
+        yield return new WaitForSeconds(1);
+        Debug.Log("log");
+    }
+
     //Пробуждение кода
     private void Awake()
     {
+        StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
@@ -536,7 +546,7 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Game Varibles :");
-            GUI.Label(new Rect(0f, 20, 200f, 100f), "Teuvro ($) : " + VarSave.GetInt("tevro").ToString());
+            GUI.Label(new Rect(0f, 20, 200f, 100f), "Teuvro ($) : " + VarSave.GetMoney("tevro").ToString());
             GUI.Label(new Rect(0f, 40, 200f, 100f), "Flow Teuvro ($^) : " + Globalprefs.flowteuvro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
@@ -1041,15 +1051,16 @@ public class mover : MonoBehaviour
         if (timer > 1f)
         {
 
-            VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.flowteuvro);
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.flowteuvro);
 
             timer = 0;
         }
         if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            VarSave.SetInt("tevro", VarSave.GetInt("tevro") + Globalprefs.ItemPrise);
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise);
             Destroy(Globalprefs.selectitemobj.gameObject);
             Globalprefs.selectitem = "";
+            Globalprefs.ItemPrise = 0;
         }
     }
 

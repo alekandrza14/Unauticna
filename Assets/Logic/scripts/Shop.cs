@@ -10,11 +10,11 @@ public class Shop : MonoBehaviour
     public string inv;
     public Text[] number;
     public Text tevro; 
-    public int tevroint;
+    public decimal tevroint;
     public produktid[] produkt;
     public void Start()
     {
-        tevroint = VarSave.GetInt("tevro");
+        tevroint = VarSave.GetMoney("tevro");
     }
     private void Update()
     {
@@ -69,7 +69,7 @@ public class Shop : MonoBehaviour
                     Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), musave.GetPlayer().transform.position, Quaternion.identity);
                 }
                 tevroint -= produkt[product].price;
-                VarSave.SetInt("tevro", tevroint);
+                VarSave.SetMoney("tevro", tevroint);
                 if (produkt[product].name == "script" && Globalprefs.signedgamejolt == true)
                 {
                     GameJolt.API.Trophies.TryUnlock(177824);
@@ -83,7 +83,7 @@ public class Shop : MonoBehaviour
                 {
 
                     tevroint += produkt[product].price;
-                    VarSave.SetInt("tevro", tevroint);
+                    VarSave.SetMoney("tevro", tevroint);
                     GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().removeitem(produkt[product].name);
 
                 }

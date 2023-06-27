@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -164,6 +165,34 @@ public class VarSave
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
             varout = float.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+        }
+        return varout;
+    }
+    public static void SetMoney(string key, decimal var)
+    {
+        Directory.CreateDirectory(path);
+        File.WriteAllText(path + "/" + key, var.ToString());
+    }
+    public static void SetMoney(string key, decimal var, SaveType saveType)
+    {
+        Directory.CreateDirectory(GetPath(saveType));
+        File.WriteAllText(GetPath(saveType) + "/" + key, var.ToString());
+    }
+    public static decimal GetMoney(string key)
+    {
+        decimal varout = 0.0m;
+        if (File.Exists(path + "/" + key))
+        {
+            varout = decimal.Parse(File.ReadAllText(path + "/" + key));
+        }
+        return varout;
+    }
+    public static decimal GetMoney(string key, SaveType saveType)
+    {
+        decimal varout = 0.0m;
+        if (File.Exists(GetPath(saveType) + "/" + key))
+        {
+            varout = decimal.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }

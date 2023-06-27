@@ -11,7 +11,7 @@ public class FlowBye : MonoBehaviour
     [SerializeField] string realestatename;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
         {
             Directory.CreateDirectory("unsave/var/re");
             Ray r = musave.pprey();
@@ -24,15 +24,15 @@ public class FlowBye : MonoBehaviour
                     {
                         Globalprefs.flowteuvro += flow;
                         Globalprefs.flowteuvro -= loan;
-                        VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") - Contribution);
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
                         VarSave.SetInt("re/" + realestatename, 0);
                     }
                 }
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename == "")
+        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename == "")
         {
             Ray r = musave.pprey();
             RaycastHit hit;
@@ -44,8 +44,8 @@ public class FlowBye : MonoBehaviour
                     {
                         Globalprefs.flowteuvro += flow;
                         Globalprefs.flowteuvro -= loan;
-                        VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") - Contribution);
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
                     }
                 }
 

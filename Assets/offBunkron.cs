@@ -11,7 +11,7 @@ public class offBunkron : MonoBehaviour
     {
         if (!oft)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetInt("tevro") >= 1000 && Globalprefs.bunkrot)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= 1000 && Globalprefs.bunkrot)
             {
 
                 Ray r = musave.pprey();
@@ -24,7 +24,7 @@ public class offBunkron : MonoBehaviour
                         {
 
                             Globalprefs.flowteuvro -= 1;
-                            VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
+                            VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
 
                             Globalprefs.bunkrot = false;
 
@@ -51,9 +51,9 @@ public class offBunkron : MonoBehaviour
 
                             Globalprefs.OverFlowteuvro -= 1;
                             Globalprefs.flowteuvro += 2121467510;
-                            VarSave.SetInt("CashFlow", Globalprefs.flowteuvro);
+                            VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
 
-                            VarSave.SetInt("uptevro", Globalprefs.OverFlowteuvro);
+                            VarSave.SetMoney("uptevro", Globalprefs.OverFlowteuvro);
                             Globalprefs.bunkrot = false;
 
                             VarSave.SetBool("Bunkrot", Globalprefs.bunkrot);

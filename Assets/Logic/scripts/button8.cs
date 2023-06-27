@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using System.IO;
 public class portallNumer
 {
-    public static string Portal;
+    public static string Portal = "";
 }
 
 public class button8 : MonoBehaviour
