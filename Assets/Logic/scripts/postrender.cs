@@ -42,15 +42,50 @@ public class postrender : MonoBehaviour
         _camera.targetTexture = grafic_2;
         image.texture = grafic_2;
         image.color = color;
-        _camera.gameObject.tag = new_camera.gameObject.tag;
+        _camera.gameObject.tag = "camera";
         new_camera.gameObject.tag = "MainCamera";
 
+    }
+    private void OnDestroy()
+    {
+        _camera.targetTexture = null;
+        _camera.gameObject.tag = "MainCamera";
+    }
+    public void Disable()
+    {
+        _camera.targetTexture = null;
+        _camera.gameObject.tag = "MainCamera";
+        _camera.targetDisplay = 0;
+        new_camera.targetDisplay = 1;
+        image.enabled = false;
+        new_camera.gameObject.tag = "camera";
+       // Debug.Log("Disable");
+        Camera.SetupCurrent(_camera);
+    }
+    public void Enable()
+    {
+
+        image.enabled = true;
+        _camera.targetTexture = grafic_2;
+        image.texture = grafic_2;
+        _camera.targetDisplay = 1;
+        new_camera.targetDisplay = 0;
+        image.color = color;
+        _camera.gameObject.tag = "camera";
+        new_camera.gameObject.tag = "MainCamera";
+       // Debug.Log("Enable");
+
+        Camera.SetupCurrent(new_camera);
+    }
+    public static postrender main()
+    {
+       return FindFirstObjectByType<postrender>();
     }
     void Update()
     {
         //1
-        image.color = color;
-        _camera.targetTexture = grafic_2;
-        image.texture = grafic_2;
+      //  image.color = color;
+       // _camera.targetTexture = grafic_2;
+      //  image.texture = grafic_2;
     }
 }

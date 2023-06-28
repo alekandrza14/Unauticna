@@ -176,7 +176,19 @@ namespace Unity.Mathematics
 
             }
         }
+        public float GetCameraDist()
+        {
 
+            Vector3 p = Globalprefs.camera.transform.position;
+            //check hit
+
+            float d = DistanceField(p);
+
+
+            // Debug.Log(d);
+            return d;
+
+        }
         //moves the player to the ground
         void MoveToGround()
         {

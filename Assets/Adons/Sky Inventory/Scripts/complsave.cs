@@ -133,20 +133,21 @@ public class complsave : MonoBehaviour
 
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
+        lif += "_" + Globalprefs.GetTimeline();
         getallitems();
         load();
-        for (int i = 0; i < GameObject.FindObjectsOfType<itemspawn>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
         {
             if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i,SaveType.world) != true)
             {
 
 
-                GameObject.FindObjectsOfType<itemspawn>()[i].sp();
+                GameObject.FindObjectsByType<itemspawn>(sortmode.main)[i].sp();
                 VarSave.SetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, true, SaveType.world);
 
 
             }
-            if (GameObject.FindObjectsOfType<itemspawn>().Length - 1 == i)
+            if (GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length - 1 == i)
             {
                 save();
             }
@@ -248,17 +249,17 @@ public class complsave : MonoBehaviour
 
         }
 
-        for (int i = 0; i < FindObjectsOfType<telo>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
         {
-            saveString1.vector3B.Add(FindObjectsOfType<telo>()[i].transform.position);
-            saveString1.NamesCreatures.Add(FindObjectsOfType<telo>()[i].nameCreature);
+            saveString1.vector3B.Add(FindObjectsByType<telo>(sortmode.main)[i].transform.position);
+            saveString1.NamesCreatures.Add(FindObjectsByType<telo>(sortmode.main)[i].nameCreature);
 
 
         }
-        for (int i = 0; i < FindObjectsOfType<StandartObject>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<StandartObject>(sortmode.main).Length; i++)
         {
-            saveString1.vector3A2.Add(FindObjectsOfType<StandartObject>()[i].transform.position);
-            saveString1.id2.Add(FindObjectsOfType<StandartObject>()[i].init);
+            saveString1.vector3A2.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].transform.position);
+            saveString1.id2.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].init);
 
 
         }

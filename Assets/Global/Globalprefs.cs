@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public static class Globalprefs
@@ -34,12 +35,22 @@ public static class Globalprefs
     {
         return (float)Fract((decimal)value);
     }
-   
+
     public static int GetIdPlanet()
     {
         int seed = VarSave.GetInt("planet") + (VarSave.GetInt("planetS") * 1000) + (VarSave.GetInt("planetG") * 100000);
-        
+
         return seed;
     }
 
+    public static string GetTimeline()
+    {
+        string timeline = "1";
+        if (File.Exists("unsave/s"))
+        {
+          timeline = File.ReadAllText("unsave/s");
+        }
+        return timeline;
+
+    }
 }

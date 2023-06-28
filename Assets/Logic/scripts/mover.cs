@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEngine.SceneManagement;
+using Unity.Mathematics;
 
 public class load1
 {
@@ -308,7 +309,7 @@ public class mover : MonoBehaviour
     {
         if (other.tag == "lagi")
         {
-            PlayerCamera.GetComponent<Camera>().enabled = 1 == Random.Range(0, 3);
+            PlayerCamera.GetComponent<Camera>().enabled = 1 ==UnityEngine.Random.Range(0, 3);
 
         }
 
@@ -351,10 +352,10 @@ public class mover : MonoBehaviour
         Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
-        if (File.Exists("unsave/s"))
-        {
-            SaveFileInputField.text = File.ReadAllText("unsave/s");
-        }
+        lif += "_" + Globalprefs.GetTimeline();
+        
+            SaveFileInputField.text = Globalprefs.GetTimeline();
+        
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
         {
             gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
@@ -393,11 +394,10 @@ public class mover : MonoBehaviour
         ionenergy.energy = 0;
         vel = GetComponent<CapsuleCollider>().height;
        
-        if (VarSave.GetBool("postrender") == true)
-        {
+        
             Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
-        }
+        
 
         Instantiate(Resources.Load<GameObject>("player inventory"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
@@ -877,6 +877,25 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
+
+        //авто-Пост-Ренбер
+        PlayerRayMarchCollider ry = FindFirstObjectByType<PlayerRayMarchCollider>();
+        if (ry != null) 
+        {
+            if(ry.GetCameraDist() > 26.5f)
+            {
+                postrender.main().Disable();
+            }
+            else
+            {
+
+                postrender.main().Enable();
+            }
+
+        }
+
+        //авто-Пост-Ренбер
+
         WPositionUpdate();
         EconomicUpdate();
         Inputnravix();
