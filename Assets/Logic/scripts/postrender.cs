@@ -34,6 +34,8 @@ public class postrender : MonoBehaviour
     }
     void Start()
     {
+        grafic_1.x = VarSave.GetInt("res1");
+        grafic_1.y = VarSave.GetInt("res2");
         _camera = getmain();
 
         grafic_2 = RenderTexture.GetTemporary(grafic_1.x, grafic_1.y);
@@ -50,12 +52,12 @@ public class postrender : MonoBehaviour
     }
     private void OnDestroy()
     {
-        _camera.targetTexture = null;
-        _camera.gameObject.tag = "MainCamera";
+       // _camera.targetTexture = null;
+     //   _camera.gameObject.tag = "MainCamera";
     }
     public void Disable()
     {
-      if(FindObjectsByType<RaymarchingManager>(sortmode.main).Length != 0) 
+      if(FindObjectsByType<RaymarchingManager>(sortmode.main).Length > 0) 
             FindFirstObjectByType<RaymarchingManager>().enabled = true;
         _camera.targetTexture = null;
         _camera.gameObject.tag = "MainCamera";
@@ -69,7 +71,7 @@ public class postrender : MonoBehaviour
     public void Enable()
     {
 
-        if (FindObjectsByType<RaymarchingManager>(sortmode.main).Length != 0)
+        if (FindObjectsByType<RaymarchingManager>(sortmode.main).Length > 0)
             FindFirstObjectByType<RaymarchingManager>().enabled = false;
         image.enabled = true;
         _camera.targetTexture = grafic_2;

@@ -249,8 +249,7 @@ public class LOADGAME : MonoBehaviour
             VarSave.SetInt("res3", 2560);
             VarSave.SetInt("res4", 1600);
         }
-        if (postrender.isOn)
-        {
+        
             
 
             if (ddpr.value == 0)
@@ -278,7 +277,7 @@ public class LOADGAME : MonoBehaviour
                 VarSave.SetInt("res1", 2560);
                 VarSave.SetInt("res2", 1600);
             }
-        }
+        
     }
     public void setprocessSetings()
     {
