@@ -157,8 +157,8 @@ namespace Unity.Mathematics
                 {
                     if (d < 0) //hit
                     {
-                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().velocity = Vector3.zero;
-                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+                      //  if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().velocity = Vector3.zero;
+                      //  if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
                         // Debug.Log("hit" + i); Vector3.zero;
                         nrHits++;
@@ -180,6 +180,19 @@ namespace Unity.Mathematics
         {
 
             Vector3 p = Globalprefs.camera.transform.position;
+            //check hit
+
+            float d = DistanceField(p);
+
+
+            // Debug.Log(d);
+            return d;
+
+        }
+        public float GetCenterDist()
+        {
+
+            Vector3 p = transform.position;
             //check hit
 
             float d = DistanceField(p);

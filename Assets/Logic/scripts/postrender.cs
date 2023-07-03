@@ -55,7 +55,8 @@ public class postrender : MonoBehaviour
     }
     public void Disable()
     {
-        FindFirstObjectByType<RaymarchingManager>().enabled = true;
+      if(FindObjectsByType<RaymarchingManager>(sortmode.main).Length != 0) 
+            FindFirstObjectByType<RaymarchingManager>().enabled = true;
         _camera.targetTexture = null;
         _camera.gameObject.tag = "MainCamera";
         _camera.targetDisplay = 0;
@@ -68,7 +69,8 @@ public class postrender : MonoBehaviour
     public void Enable()
     {
 
-        FindFirstObjectByType<RaymarchingManager>().enabled = false;
+        if (FindObjectsByType<RaymarchingManager>(sortmode.main).Length != 0)
+            FindFirstObjectByType<RaymarchingManager>().enabled = false;
         image.enabled = true;
         _camera.targetTexture = grafic_2;
         image.texture = grafic_2;

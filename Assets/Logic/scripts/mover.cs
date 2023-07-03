@@ -232,6 +232,7 @@ public class mover : MonoBehaviour
     //физика
     void OnCollisionStay(Collision collision)
     {
+        
         IsGraund = false;
         if (JumpTimer < -2)
         {
@@ -253,34 +254,14 @@ public class mover : MonoBehaviour
 
         if (collision.collider.tag == "sc2")
         {
-            if (rigidbody3d.velocity.y >= 2)
-            {
-                tic2 += Time.deltaTime;
-            }
-            if (rigidbody3d.velocity.y <= 2 && tic2 >= 0)
-            {
-                tic2 -= Time.deltaTime;
-            }
-            if (tic2 >= time2)
-            {
+            
+            
                 JumpTimer = -jumpPower / 2;
                 s2 = false;
-                IsGraund = true;
+             if(GravityConstant() > -0)   IsGraund = true;
 
-            }
-            if (!s2)
-            {
-                JumpTimer = -jumpPower / 2;
-                s2 = false;
-                IsGraund = true;
-                tic2 -= Time.deltaTime * 2;
-                if (tic2 <= 0)
-                {
-
-                    s2 = true;
-
-                }
-            }
+            
+           
 
         }
     }
@@ -696,8 +677,7 @@ public class mover : MonoBehaviour
                 planet_position += 1;
             }
         }
-        if (!stand_stay)
-        {
+        
             if (!Sprint)
             {
 
@@ -730,7 +710,7 @@ public class mover : MonoBehaviour
             {
                 Unload();
             }
-        }
+        
         
         if (FindObjectsByType<RaymarchCam>(sortmode.main).Length != 0)
         {
@@ -853,33 +833,20 @@ public class mover : MonoBehaviour
 
     public void physicsStop()
     {
-        IsGraund = false;
-        if (JumpTimer < -2)
-        {
-            Debug.Log(JumpTimer);
-            hp += Mathf.FloorToInt(JumpTimer) / 3;
-        }
-        JumpTimer = jumpPower;
-        if (InWater)
-        {
-            IsGraund = false;
-            JumpTimer = 0;
-        }
-        c = new Collision();
+      //  IsGraund = false;
        
 
        
     }
     public void physicsStart()
     {
-        
-        c = null;
+       // IsGraund = true;
     }
     void Update()
     {
 
         //авто-Пост-Ренбер
-        PlayerRayMarchCollider ry = FindFirstObjectByType<PlayerRayMarchCollider>();
+        PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null) 
         {
             if(ry.GetCameraDist() > 26.5f)
@@ -921,40 +888,7 @@ public class mover : MonoBehaviour
             SceneManager.LoadScene(gsave.sceneid);
         }
 
-        Ray r1 = musave.pprey();
-        RaycastHit hit;
-        if (UnityEngine.Physics.Raycast(r1, out hit))
-        {
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                if (hit.collider.GetComponent<transport4>())
-                {
-                    if (hit.collider.GetComponent<transport4>().sitplayer)
-                    {
-                        Globalprefs.sit_player = null;
-                    }
-                    hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
-                    hit.collider.GetComponent<transport4>().player = transform;
-
-                }
-
-            }
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                if (hit.collider.GetComponent<GravityBoard>())
-                {
-                    if (hit.collider.GetComponent<GravityBoard>().sitplayer)
-                    {
-                        Globalprefs.sit_player = null;
-                    }
-                    hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;
-                    hit.collider.GetComponent<GravityBoard>().player = transform;
-                }
-
-            }
-
-        }
-
+      
         TridFace();
         if (GameObject.FindGameObjectsWithTag("oxy").Length != 0)
         {
@@ -1092,7 +1026,7 @@ public class mover : MonoBehaviour
     public float GravityConstant()
     {
         float gravity1 = jumpforse * JumpTimer;
-        gravity1 = Mathf.Clamp(gravity1,4,18);
+        gravity1 = Mathf.Clamp(gravity1,-4,18);
         return gravity1;
     }
 
@@ -1100,131 +1034,9 @@ public class mover : MonoBehaviour
     {
         if (faceViewi != faceView.fourd)
         {
-            if (c == null && !InWater && !Input.GetKey(KeyCode.F) && inglobalspace != true)
-            {
-                JumpTimer -= Time.deltaTime * gravity;
+            
 
-                rigidbody3d.velocity += -transform.up * 10;
-            }
-
-            if (InWater && inglobalspace != true)
-            {
-                if (JumpTimer > 0)
-                {
-
-                    animator.SetBool("swem", true);
-                    JumpTimer -= 1 * Time.deltaTime * ForseSwaem;
-                }
-                if (JumpTimer <= 0)
-                {
-
-
-                    JumpTimer = 0;
-                }
-
-                rigidbody3d.velocity += PlayerCamera.transform.forward * JumpTimer;
-                rigidbody3d.useGravity = false;
-
-
-                if (JumpTimer >= jumpPower / 2)
-                {
-                    IsGraund = false;
-                }
-            }
-            if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.W))
-            {
-
-                animator.SetBool("swem", true);
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-
-                rigidbody3d.velocity += PlayerCamera.transform.forward * ForseSwaem;
-                rigidbody3d.useGravity = false;
-
-
-
-            }
-            if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.S))
-            {
-
-                animator.SetBool("swem", true);
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-
-                rigidbody3d.velocity -= PlayerCamera.transform.forward * ForseSwaem;
-                rigidbody3d.useGravity = false;
-
-
-
-            }
-            if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.D))
-            {
-
-                animator.SetBool("swem", true);
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-
-                rigidbody3d.velocity += PlayerCamera.transform.right * ForseSwaem;
-                rigidbody3d.useGravity = false;
-
-
-
-            }
-            if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.A))
-            {
-
-                animator.SetBool("swem", true);
-
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody3d.velocity -= PlayerCamera.transform.right * ForseSwaem;
-                rigidbody3d.useGravity = false;
-
-
-
-            }
-            if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.Space))
-            {
-
-                animator.SetBool("swem", true);
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-
-                rigidbody3d.velocity += PlayerCamera.transform.up * ForseSwaem;
-                rigidbody3d.useGravity = false;
-
-
-
-            }
-            if (!stand_stay && inglobalspace == true && Input.GetKey(KeyCode.LeftControl))
-            {
-
-                animator.SetBool("swem", true);
-
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody3d.velocity -= PlayerCamera.transform.up * ForseSwaem;
-                rigidbody3d.useGravity = false;
-
-
-
-            }
-            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && !InWater && inglobalspace != true && s2)
-            {
-                IsGraund = true;
-            }
-            if (IsGraund && !InWater && !Input.GetKey(KeyCode.F) && s2 && inglobalspace != true)
-            {
-                rigidbody3d.velocity += transform.up * GravityConstant();
-            }
-            if (IsGraund && !InWater && !s2 && inglobalspace != true)
-            {
-              //  rigidbody3d.velocity -= transform.up * JumpTimer;
-               // rigidbody3d.velocity += -transform.up * -50;
-            }
-
-            if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && InWater && JumpTimer < jumpPower / 2  && inglobalspace != true)
-            {
-                IsGraund = true;
-            }
-            if (IsGraund && InWater && inglobalspace != true)
-            {
-                JumpTimer = jumpPower;
-            }
+           
             
 
             
@@ -1234,17 +1046,46 @@ public class mover : MonoBehaviour
         }
     }
     float ftho;
+    bool isKinematic;
     private void MoveUpdate()
     {
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-        rigidbody3d.velocity = Vector3.zero;
 
+        IsGraund = Physics.Raycast(transform.position, -transform.up, 1.2f);
+        PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
+        if (ry != null)
+        {
+            if (ry.GetCenterDist() < 1.2f)
+            {
+                IsGraund = true;
+            }
+            else
+            {
+
+            }
+
+        }
+
+        isKinematic = Input.GetKey(KeyCode.F);
+       
         
+        if (IsGraund)
+        {
+            JumpTimer = jumpPower;
+            rigidbody3d.drag = 5;
+            jumpforse = Mathf.Clamp(jumpforse,0,1000);
+        }
+        else
+        {
+            jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
 
+            rigidbody3d.drag = 3;
+        }
+       if(!isKinematic) JumpTimer -= Time.deltaTime*gravity;
         if (faceViewi != faceView.fourd)
         {
            if(ftho > 0) ftho -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
+            if (!isKinematic) if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
             {
                 ftho += 1;
                 if (ftho > 1)
@@ -1259,31 +1100,38 @@ public class mover : MonoBehaviour
             float deltaW = Input.GetAxis("HyperHorizontal") *0.1f;
             float deltaY = 0.0f;
           if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed)-0.1f;
-          if (Sprint) deltaY -= 1*(Time.deltaTime*100f);
+            if (!isKinematic) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
+                    {
+                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
+                    }
+            if (!isKinematic) deltaY += jumpforse * Time.deltaTime * 600;
+            if (Sprint) deltaY -= 1*(Time.deltaTime*100f);
             float sprintCnficent = 1f;
             if (Sprint)
             {
 
 
-                W_position += deltaW *5;
+                if (!isKinematic) W_position += deltaW *5;
                 sprintCnficent = 2;
             }
             else
             {
 
-                W_position += deltaW;
+                if (!isKinematic) W_position += deltaW;
             }
             float deltaSumXZ = deltaX + deltaZ;
 
-            animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
-            animator.SetBool("InWater", InWater);
-
-            Vector3 movement = new Vector3(deltaX, deltaY, deltaZ);
+            //  if(deltaSumXZ == 0) rigidbody3d.velocity = Vector3.zero;
+            if (!isKinematic) animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
+            if (!isKinematic) animator.SetBool("InWater", InWater);
+            if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
+            if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
+            Vector3 movement = new Vector3(deltaX, 0, deltaZ);
             movement = Vector3.ClampMagnitude(movement, Speed);
             
             movement = transform.TransformDirection(movement);
 
-            rigidbody3d.AddForce(movement* sprintCnficent,ForceMode.VelocityChange);
+            if (!isKinematic) rigidbody3d.AddForce((movement* sprintCnficent)+ transform.up * deltaY,ForceMode.Force);
 
 
            
