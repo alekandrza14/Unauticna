@@ -58,7 +58,7 @@ public class RaymarchingManager : MonoBehaviour
     
     ProcessLights();
 
-    m_shapes = new List<RayMarchingShape>( FindObjectsOfType<RayMarchingShape>() );
+    m_shapes = new List<RayMarchingShape>( FindObjectsByType<RayMarchingShape>(sortmode.main) );
     if (m_shapes.Count > 0)
     {
       // Convert shapes into structs and then to a compute buffer
@@ -71,8 +71,8 @@ public class RaymarchingManager : MonoBehaviour
 
       // Launch kernel
       // Get the proper grid size
-      int gridSizeX = Mathf.CeilToInt(m_camera.pixelWidth / 8.0f);
-      int gridSizeY = Mathf.CeilToInt(m_camera.pixelHeight / 8.0f);
+      int gridSizeX = Mathf.CeilToInt(Screen.width);
+      int gridSizeY = Mathf.CeilToInt(Screen.height);
       // "Run" the compute shader
       m_raymarchingShader.Dispatch(/*Entry kernel:*/0, gridSizeX, gridSizeY, /*Num Blocks:*/1);
 
@@ -91,7 +91,7 @@ public class RaymarchingManager : MonoBehaviour
   // Gets all the lights in the scene and pass them to the buffer
   void ProcessLights()
   {
-    Light[] lights = FindObjectsOfType<Light>();
+    Light[] lights = FindObjectsByType<Light>(sortmode.main);
     m_lights = new LightStruct[lights.Length];
     for (int i=0; i<lights.Length; i++)
     {

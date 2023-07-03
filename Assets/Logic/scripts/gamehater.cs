@@ -14,11 +14,11 @@ public class gamehater : MonoBehaviour
         if (VarSave.GetInt("el") == 1)
         {
             anim.SetTrigger("end");
-            for (int i = 0; i < GameObject.FindObjectsOfType<unScript>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<unScript>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<unScript>()[i].ins == n)
+                if (GameObject.FindObjectsByType<unScript>(sortmode.main)[i].ins == n)
                 {
-                    GameObject.FindObjectsOfType<unScript>()[i].gameObject.AddComponent<deleter1>();
+                    GameObject.FindObjectsByType<unScript>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
                 }
             }
         }
@@ -28,11 +28,11 @@ public class gamehater : MonoBehaviour
         if (other.tag == "Player" && !end && VarSave.GetInt("el") != 1)
         {
             anim.SetTrigger("lord hater");
-            for (int i = 0; i < GameObject.FindObjectsOfType<unScript>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<unScript>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<unScript>()[i].ins == n)
+                if (GameObject.FindObjectsByType<unScript>(sortmode.main)[i].ins == n)
                 {
-                    GameObject.FindObjectsOfType<unScript>()[i].gameObject.AddComponent<deleter1>();
+                    GameObject.FindObjectsByType<unScript>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
                 }
             }
             end = true;
@@ -55,11 +55,11 @@ public class gamehater : MonoBehaviour
         if (end1 == true && end2 == false)
         {
             musave.GetPlayer().transform.position = lordhaterarm.transform.position;
-            for (int i = 0; i < GameObject.FindObjectsOfType<unScript>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<unScript>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<unScript>()[i].ins == n)
+                if (GameObject.FindObjectsByType<unScript>(sortmode.main)[i].ins == n)
                 {
-                    GameObject.FindObjectsOfType<unScript>()[i].gameObject.AddComponent<deleter1>();
+                    GameObject.FindObjectsByType<unScript>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
                 }
             }
 

@@ -24,10 +24,11 @@ public class pos4 : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetAxis("HyperHorizontal") != 0)
         {
             GetComponent<Animator>().SetBool("inits", false);
-            w = !w;
+
+            w = 0 >= mover.main().W_position;
             if (w && gameObject.name == "w1")
             {
                 GetComponent<Animator>().SetTrigger("exit");

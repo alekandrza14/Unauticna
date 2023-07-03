@@ -20,7 +20,8 @@ public class postrender : MonoBehaviour
     private void Awake()
     {
         grafic_1.x = VarSave.GetInt("res1");
-        grafic_1.y = VarSave.GetInt("res2"); if (VarSave.GetString("postrender_color") != "")
+        grafic_1.y = VarSave.GetInt("res2"); 
+        if (VarSave.GetString("postrender_color") != "")
         {
 
 
@@ -36,6 +37,7 @@ public class postrender : MonoBehaviour
         _camera = getmain();
 
         grafic_2 = RenderTexture.GetTemporary(grafic_1.x, grafic_1.y);
+
         grafic_2.filterMode = FilterMode.Point;
 
         grafic_2.graphicsFormat = format;
@@ -53,6 +55,7 @@ public class postrender : MonoBehaviour
     }
     public void Disable()
     {
+        FindFirstObjectByType<RaymarchingManager>().enabled = true;
         _camera.targetTexture = null;
         _camera.gameObject.tag = "MainCamera";
         _camera.targetDisplay = 0;
@@ -65,6 +68,7 @@ public class postrender : MonoBehaviour
     public void Enable()
     {
 
+        FindFirstObjectByType<RaymarchingManager>().enabled = false;
         image.enabled = true;
         _camera.targetTexture = grafic_2;
         image.texture = grafic_2;

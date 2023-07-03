@@ -536,7 +536,7 @@ public class mover : MonoBehaviour
             if (hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
             GUI.Label(new Rect(0f, 70, 200f, 100f), "Cotinuum Position : " + SceneManager.GetActiveScene().buildIndex);
             if (FindObjectsByType<GenTest>(sortmode.main).Length != 0) GUI.Label(new Rect(0f, 90, 200f, 100f), "Space Position : " + planet_position);
-            GUI.Label(new Rect(0f, 100, 200f, 100f), "All objects : " + FindObjectsByType<GameObject>(sortmode.main).Length);
+            GUI.Label(new Rect(0f, 90, 200f, 100f), "Cotinuum name : " + SceneManager.GetActiveScene().name);
 
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Unity Version : " + Application.unityVersion);
             GUI.Label(new Rect(0f, 130, 200f, 100f), "Game Version : " + Application.version);
@@ -1059,7 +1059,7 @@ public class mover : MonoBehaviour
 
         load();
 
-        Physics();
+        PhysicsUpdate();
 
         Creaive();
     }
@@ -1087,11 +1087,20 @@ public class mover : MonoBehaviour
     {
         Get4DCam()._wPosition = W_position;
     }
-    private void Physics()
+
+
+    public float GravityConstant()
+    {
+        float gravity1 = jumpforse * JumpTimer;
+        gravity1 = Mathf.Clamp(gravity1,4,18);
+        return gravity1;
+    }
+
+    private void PhysicsUpdate()
     {
         if (faceViewi != faceView.fourd)
         {
-            if (c == null && !InWater && !Input.GetKey(KeyCode.F) && inglobalspace != true && !Input.GetKey(KeyCode.G))
+            if (c == null && !InWater && !Input.GetKey(KeyCode.F) && inglobalspace != true)
             {
                 JumpTimer -= Time.deltaTime * gravity;
 
@@ -1198,14 +1207,14 @@ public class mover : MonoBehaviour
             {
                 IsGraund = true;
             }
-            if (IsGraund && !InWater && !Input.GetKey(KeyCode.F) && !Input.GetKey(KeyCode.G) && s2 && inglobalspace != true)
+            if (IsGraund && !InWater && !Input.GetKey(KeyCode.F) && s2 && inglobalspace != true)
             {
-                rigidbody3d.velocity += transform.up * jumpforse * JumpTimer;
+                rigidbody3d.velocity += transform.up * GravityConstant();
             }
             if (IsGraund && !InWater && !s2 && inglobalspace != true)
             {
-                rigidbody3d.velocity -= transform.up * JumpTimer;
-                rigidbody3d.velocity += -transform.up * -50;
+              //  rigidbody3d.velocity -= transform.up * JumpTimer;
+               // rigidbody3d.velocity += -transform.up * -50;
             }
 
             if (!stand_stay && Input.GetKey(KeyCode.Space) && !IsGraund && InWater && JumpTimer < jumpPower / 2  && inglobalspace != true)
@@ -1216,11 +1225,12 @@ public class mover : MonoBehaviour
             {
                 JumpTimer = jumpPower;
             }
-            if (isplanet)
-            {
+            
 
+            
+           
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
-            }
+            
         }
     }
     float ftho;
