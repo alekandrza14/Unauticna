@@ -868,8 +868,25 @@ public class mover : MonoBehaviour
         Inputnravix();
 
 
-
-
+        Ray r = musave.pprey();
+        RaycastHit hit;
+        if (Physics.Raycast(r,out hit))
+        {
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (hit.collider.GetComponent<transport4>())
+                    hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
+                if (hit.collider.GetComponent<transport4>())
+                    hit.collider.GetComponent<transport4>().player = transform;
+            }
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                if (hit.collider.GetComponent<GravityBoard>())
+                    hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;
+                if (hit.collider.GetComponent<GravityBoard>())
+                    hit.collider.GetComponent<GravityBoard>().player = transform;
+            }
+        }
 
         //
         Building();

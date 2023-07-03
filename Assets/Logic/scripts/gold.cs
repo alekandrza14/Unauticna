@@ -26,7 +26,7 @@ public class gold : MonoBehaviour
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                        VarSave.SetInt("tevro", VarSave.GetInt("tevro") + 3);
+                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + 3);
                         Destroy(gameObject);
                     }
                 }
