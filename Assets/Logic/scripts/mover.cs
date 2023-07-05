@@ -1098,7 +1098,9 @@ public class mover : MonoBehaviour
 
             rigidbody3d.drag = 3;
         }
-       if(!isKinematic) JumpTimer -= Time.deltaTime*gravity;
+
+        bool flyinng = InWater || inglobalspace || isKinematic;
+        if (!flyinng) JumpTimer -= Time.deltaTime*gravity;
         if (faceViewi != faceView.fourd)
         {
            if(ftho > 0) ftho -= Time.deltaTime;
@@ -1110,18 +1112,18 @@ public class mover : MonoBehaviour
                     transform.Translate(Vector3.forward * 4); ftho = 0;
                 }
             }
-            bool flyinng = InWater || inglobalspace;
 
             float deltaX = Input.GetAxis("Horizontal") * Speed;
             float deltaZ = Input.GetAxis("Vertical") * Speed;
             float deltaW = Input.GetAxis("HyperHorizontal") *0.1f;
             float deltaY = 0.0f;
           if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed)-0.1f;
-            if (!isKinematic) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
+            if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
                     {
                         jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
                     }
-            if (!isKinematic) deltaY += jumpforse * Time.deltaTime * 600;
+            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600;
+            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Time.deltaTime * 600;
             if (Sprint) deltaY -= 1*(Time.deltaTime*100f);
             float sprintCnficent = 1f;
             if (Sprint)
@@ -1139,8 +1141,8 @@ public class mover : MonoBehaviour
             float deltaSumXZ = deltaX + deltaZ;
 
             //  if(deltaSumXZ == 0) rigidbody3d.velocity = Vector3.zero;
-            if (!isKinematic) animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
-            if (!isKinematic) animator.SetBool("InWater", InWater);
+            if (!flyinng) animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
+            if (!flyinng) animator.SetBool("InWater", InWater);
             if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
             Vector3 movement = new Vector3(deltaX, 0, deltaZ);

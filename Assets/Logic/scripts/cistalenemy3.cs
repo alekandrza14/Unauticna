@@ -139,11 +139,13 @@ public class cistalenemy3 : MonoBehaviour
     {
         if (c.collider.tag == "item1" && hp <= 0)
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
             zaseranie();
         }
         if (c.collider.tag == "bomb" && ionenergy.energy == 0)
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             zaseranie();
             Destroy(c.collider.gameObject);
             Destroy(gameObject);
@@ -151,12 +153,14 @@ public class cistalenemy3 : MonoBehaviour
         }
         if (c.collider.tag == "bomb" && ionenergy.energy == 1)
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(c.collider.gameObject);
             Destroy(gameObject);
 
         }
         if (c.collider.tag == "errorybox")
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(c.collider.gameObject);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

@@ -16,7 +16,7 @@ public class Unit : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Transform igrok = FindObjectOfType<taktikpoint>().transform;
+        Transform igrok = FindFirstObjectByType<taktikpoint>().transform;
         if (gameunitselect._this == gameObject) metka.SetActive(true); else { metka.SetActive(false); }
         if (Input.GetKeyDown(KeyCode.Return))
         {

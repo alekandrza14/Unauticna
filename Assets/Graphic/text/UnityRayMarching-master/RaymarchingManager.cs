@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 [ExecuteInEditMode, ImageEffectAllowedInSceneView, RequireComponent(typeof(ComputeShader))]
@@ -50,8 +51,14 @@ public class RaymarchingManager : MonoBehaviour
   private LightStruct[]          m_lights;
   private ShapeDataStruct[]      m_shapesData;
   private List<RayMarchingShape> m_shapes;
-
-  void OnRenderImage(RenderTexture srcRenderTex, RenderTexture outRenderTex)
+    float x, y;
+    private void Awake()
+    {
+        m_camera = Camera.current;
+        x = m_camera.pixelWidth / 8.0f;
+        y = m_camera.pixelHeight / 8.0f;
+    }
+    void OnRenderImage(RenderTexture srcRenderTex, RenderTexture outRenderTex)
   {
     m_camera = Camera.current;
     CleanOrCreateRenderTexture();
@@ -71,8 +78,8 @@ public class RaymarchingManager : MonoBehaviour
 
       // Launch kernel
       // Get the proper grid size
-      int gridSizeX = Mathf.CeilToInt(Screen.width);
-      int gridSizeY = Mathf.CeilToInt(Screen.height);
+      int gridSizeX = Mathf.CeilToInt(m_camera.pixelWidth / 8.0f);
+      int gridSizeY = Mathf.CeilToInt(m_camera.pixelHeight / 8.0f);
       // "Run" the compute shader
       m_raymarchingShader.Dispatch(/*Entry kernel:*/0, gridSizeX, gridSizeY, /*Num Blocks:*/1);
 

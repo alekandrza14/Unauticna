@@ -14,6 +14,7 @@ public class EffectBooble : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             playerdata.Addeffect(effect, time);
             Destroy(gameObject);
         }

@@ -38,6 +38,7 @@ public class spamton : MonoBehaviour
     {
         if (c.collider.tag == "item1")
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
 
         }

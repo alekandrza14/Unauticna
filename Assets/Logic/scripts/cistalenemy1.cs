@@ -29,10 +29,12 @@ public class cistalenemy1 : MonoBehaviour
         {
             Destroy(c.collider.gameObject);
 
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
         }
         if (c.collider.tag == "bomb" && ionenergy.energy == 0)
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(c.collider.gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -43,6 +45,7 @@ public class cistalenemy1 : MonoBehaviour
         }
         if (c.collider.tag == "item1")
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -50,6 +53,7 @@ public class cistalenemy1 : MonoBehaviour
         }
         if (c.collider.tag == "box1")
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

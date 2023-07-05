@@ -123,12 +123,15 @@ public class terracat : MonoBehaviour
 
         if (c.collider.tag == "bomb" && ionenergy.energy == 0)
         {
+
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(c.collider.gameObject);
             Destroy(gameObject);
             zaseranie();
         }
         if (c.collider.tag == "bomb" && ionenergy.energy == 1)
         {
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(c.collider.gameObject);
             Destroy(gameObject);
 

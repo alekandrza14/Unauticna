@@ -7,12 +7,14 @@ public class raymarchActivator : MonoBehaviour
     public RaymarchCam rc;
     void Update()
     {
-        if (GameObject.FindObjectsOfType<Shape4D>().Length != 0)
+        if (GameObject.FindObjectsByType<Shape4D>(sortmode.main).Length != 0)
         {
+            GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
             rc.enabled = true;
         }
-        if (GameObject.FindObjectsOfType<Shape4D>().Length == 0)
+        if (GameObject.FindObjectsByType<Shape4D>(sortmode.main).Length == 0)
         {
+            GetComponent<Camera>().renderingPath = RenderingPath.Forward;
             rc.enabled = false;
         }
     }
