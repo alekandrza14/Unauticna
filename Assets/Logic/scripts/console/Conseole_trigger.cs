@@ -27,7 +27,10 @@ public class Conseole_trigger : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
-        VarSave.SetString("console",console);
+        if (console == "ClearObject")
+        {
+            FindFirstObjectByType<complsave>().clear();
+        }
 
 
         List<string> s = new List<string>();
@@ -129,17 +132,20 @@ public class Conseole_trigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
         {
             Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
-
+            Global.PauseManager.Pause();
 
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            run(FindObjectOfType<Console_pointer>().text.text);
+            run(FindFirstObjectByType<Console_pointer>().text.text);
+            VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
             Destroy(GameObject.FindWithTag("console"));
+
+            Global.PauseManager.Play();
 
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && FindFirstObjectByType<Console_pointer>() != null)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && FindFirstObjectByType<Console_pointer>() != null)
         {
             FindFirstObjectByType<Console_pointer>().text.text = VarSave.GetString("console");
 

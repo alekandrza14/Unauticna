@@ -24,6 +24,7 @@ public static class Globalprefs
     public static bool signedgamejolt;
     public static GameObject sit_player;
     public static Camera camera;
+    public static bool Pause;
     static public float Hash(Vector2 p)
     {
         float d = Vector2.Dot(-p, new Vector2(12.9898f, 78.233f));

@@ -196,6 +196,71 @@ public class complsave : MonoBehaviour
 
     }
 
+    public void clear()
+    {
+        for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
+        {
+            
+
+
+                GameObject.FindObjectsByType<itemspawn>(sortmode.main)[i].sp();
+                VarSave.DeleteKey("/objects/item" + SceneManager.GetActiveScene().name + lif + i, SaveType.world);
+
+
+           
+            
+        }
+        Directory.CreateDirectory(name2.ToString());
+        File.Delete(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
+
+        saveString1.vector3A.Clear();
+        saveString1.vector3A2.Clear();
+        saveString1.PvectorA.Clear();
+        saveString1.qA.Clear();
+        saveString1.x.Clear();
+        saveString1.y.Clear();
+        saveString1.id.Clear();
+        saveString1.id2.Clear();
+        saveString1.vector3B.Clear();
+        saveString1.NamesCreatures.Clear();
+        for (int i = 0; i < info3.Length; i++)
+        {
+
+            if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+            {
+
+
+
+                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                {
+
+                    GameObject.FindGameObjectsWithTag(info3[i])[i3].gameObject.AddComponent<deleter1>();
+
+
+                }
+
+
+
+            }
+
+
+
+        }
+
+        for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
+        {
+
+
+            GameObject.FindObjectsByType<telo>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
+        }
+        for (int i = 0; i < FindObjectsByType<StandartObject>(sortmode.main).Length; i++)
+        {
+
+
+            GameObject.FindObjectsByType<StandartObject>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
+        }
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
 
     public void save()
     {
@@ -282,7 +347,7 @@ public class complsave : MonoBehaviour
         saveString1.id2.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
-
+       
 
     }
     public void load()

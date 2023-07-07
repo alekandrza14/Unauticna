@@ -634,7 +634,9 @@ public class ElementalInventory : MonoBehaviour {
 					g.GetComponent<script>().sc = hit.collider.gameObject;
 					setItem("", 0, Color.red, select);
 					Cells[select].UpdateCellInterface();
-				}
+
+                    Global.PauseManager.Pause();
+                }
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)

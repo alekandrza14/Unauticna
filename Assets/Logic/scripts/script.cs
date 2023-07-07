@@ -96,6 +96,8 @@ public class script : MonoBehaviour
             }
             if (true)
             {
+
+                Global.PauseManager.Play();
                 Destroy(gameObject);
                 words.Clear();
             }

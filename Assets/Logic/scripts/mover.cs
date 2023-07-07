@@ -570,7 +570,7 @@ public class mover : MonoBehaviour
       
         if (!tutorial)
         {
-            if (Input.GetKey(KeyCode.F2))
+            if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
             {
                 playerdata.Loadeffect();
                 if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
@@ -612,7 +612,7 @@ public class mover : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(KeyCode.F2))
+            if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
             {
                 playerdata.Loadeffect();
                 if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
@@ -663,7 +663,7 @@ public class mover : MonoBehaviour
         
         bool r = !Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.UpArrow);
         
-        if (Directory.Exists("debug")&& !stand_stay)
+        if (Directory.Exists("debug") && !Globalprefs.Pause)
         {
 
 
@@ -678,7 +678,7 @@ public class mover : MonoBehaviour
             }
         }
         
-            if (!Sprint)
+            if (!Sprint && !Globalprefs.Pause)
             {
 
 
@@ -692,7 +692,7 @@ public class mover : MonoBehaviour
                     W_position += 1f * Time.deltaTime;
                 }
             }
-            if (Sprint)
+            if (Sprint && !Globalprefs.Pause)
             {
 
 
@@ -706,7 +706,7 @@ public class mover : MonoBehaviour
                     W_position += 10f * Time.deltaTime;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F4))
+            if (Input.GetKeyDown(KeyCode.F4) && !Globalprefs.Pause)
             {
                 Unload();
             }
@@ -728,7 +728,7 @@ public class mover : MonoBehaviour
 
                 GetComponent<CapsuleCollider>().height += -JumpTimer * 0.5f;
             }
-            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) && !Globalprefs.Pause)
             {
 
 
@@ -748,12 +748,12 @@ public class mover : MonoBehaviour
 
     private void fly1()
     {
-        if (Input.GetKeyDown(KeyCode.CapsLock))
+        if (Input.GetKeyDown(KeyCode.CapsLock) && !Globalprefs.Pause)
         {
             fly = !fly;
         }
 
-        if (fly)
+        if (fly && !Globalprefs.Pause)
         {
             JumpTimer = 0;
             c = new Collision();
@@ -863,23 +863,23 @@ public class mover : MonoBehaviour
 
         //авто-Пост-Ренбер
 
-        WPositionUpdate();
-        EconomicUpdate();
-        Inputnravix();
+        if (!Globalprefs.Pause) WPositionUpdate();
+        if (!Globalprefs.Pause) EconomicUpdate();
+        if (!Globalprefs.Pause) Inputnravix();
 
 
         Ray r = musave.pprey();
         RaycastHit hit;
         if (Physics.Raycast(r,out hit))
         {
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
             {
                 if (hit.collider.GetComponent<transport4>())
                     hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
                 if (hit.collider.GetComponent<transport4>())
                     hit.collider.GetComponent<transport4>().player = transform;
             }
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0))
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
             {
                 if (hit.collider.GetComponent<GravityBoard>())
                     hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;
@@ -889,14 +889,14 @@ public class mover : MonoBehaviour
         }
 
         //
-        Building();
+        if (!Globalprefs.Pause) Building();
         if (isplanet)
         {
 
             gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
         }
-        EffectUpdate();
-        if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3))
+        if (!Globalprefs.Pause) EffectUpdate();
+        if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause)
         {
             gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             string s = "";
@@ -905,8 +905,8 @@ public class mover : MonoBehaviour
             SceneManager.LoadScene(gsave.sceneid);
         }
 
-      
-        TridFace();
+
+        if (!Globalprefs.Pause) TridFace();
         if (GameObject.FindGameObjectsWithTag("oxy").Length != 0)
         {
             GameObject.FindGameObjectWithTag("oxy").GetComponent<Image>().fillAmount = oxygen / 20;
@@ -937,15 +937,12 @@ public class mover : MonoBehaviour
             DestroyImmediate(GameObject.FindObjectsByType<ParticleSystem>(sortmode.main)[0].gameObject);
         }
         tic += Time.deltaTime;
-        HpUpdate();
+        if (!Globalprefs.Pause) HpUpdate();
 
         WorldSave.SetMusic(SceneManager.GetActiveScene().name);
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
+        
 
-        MoveUpdate();
+        if (!Globalprefs.Pause) MoveUpdate();
 
 
         //"unsave/capter/"+ifd.text
@@ -973,7 +970,7 @@ public class mover : MonoBehaviour
             save.pos3 = hyperbolicCamera.position;
         }
         gsave.hp = hp;
-        if (VarSave.ExistenceVar("res3") && Input.GetKeyDown(KeyCode.F11))
+        if (VarSave.ExistenceVar("res3") && Input.GetKeyDown(KeyCode.F11) && !Globalprefs.Pause)
         {
             VarSave.SetBool("windowed", !VarSave.GetBool("windowed"));
             Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
@@ -984,7 +981,7 @@ public class mover : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
-        if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace)
+        if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
         {
             playerdata.Saveeffect();
             save.idsave = SaveFileInputField.text;
@@ -1008,11 +1005,11 @@ public class mover : MonoBehaviour
 
         }
 
-        load();
+        if (!Globalprefs.Pause) load();
 
-        PhysicsUpdate();
+        if (!Globalprefs.Pause) PhysicsUpdate();
 
-        Creaive();
+        if (!Globalprefs.Pause) Creaive();
     }
 
     private void EconomicUpdate()
@@ -1025,7 +1022,7 @@ public class mover : MonoBehaviour
 
             timer = 0;
         }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && !Globalprefs.Pause)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise);
             Destroy(Globalprefs.selectitemobj.gameObject);
@@ -1101,7 +1098,7 @@ public class mover : MonoBehaviour
 
         bool flyinng = InWater || inglobalspace || isKinematic;
         if (!flyinng) JumpTimer -= Time.deltaTime*gravity;
-        if (faceViewi != faceView.fourd)
+        if (faceViewi != faceView.fourd )
         {
            if(ftho > 0) ftho -= Time.deltaTime;
             if (!isKinematic) if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
