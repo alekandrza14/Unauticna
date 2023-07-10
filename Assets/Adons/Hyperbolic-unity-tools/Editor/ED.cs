@@ -21,15 +21,15 @@ public class ED : Editor
         
         mp1 = (tringle)target;
          
-        for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
-        {
-            GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
-            GameObject.FindObjectsOfType<tringle>()[i].move();
-        }
-        for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
-        {
-            GameObject.FindObjectsOfType<Sphere>()[i].Update();
-        }
+      //  for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
+     //   {
+     //       GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
+     //       GameObject.FindObjectsOfType<tringle>()[i].move();
+     //   }
+       for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
+       {
+           GameObject.FindObjectsOfType<Sphere>()[i].Update();
+       }
 
 
         base.OnInspectorGUI();

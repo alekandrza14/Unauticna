@@ -45,70 +45,32 @@ public class Sphere : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        if (Hyperbolicmovetool.mainEdit != null)
+
+
+        if (!GetComponent<tringle>())
         {
 
-            if (!GetComponent<tringle>())
-            {
-                if (Hyperbolicmovetool.mainEdit != this)
-                {
 
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawSphere(transform.position, 0.1f);
-                }
-                else
-                {
-                    Gizmos.color = Color.blue + new Color(0.6f, 0.6f, 0.4f);
-                    Gizmos.DrawSphere(transform.position, 0.3f);
-                }
-            }
-            else
-            {
+            Gizmos.color = Color.blue + new Color(0.6f, 0.6f, 0.4f);
+            Gizmos.DrawSphere(transform.position, 0.3f);
 
-
-                if (Hyperbolicmovetool.mainEdit != this)
-                {
-
-
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawSphere(mposition, 0.1f);
-                }
-                else
-                {
-                    Gizmos.color = Color.green + new Color(0.4f, 0, 0.4f);
-                    Gizmos.DrawSphere(mposition, 0.3f);
-                }
-
-
-
-            }
         }
-      if(  FindObjectsOfType<Sphere>()[FindObjectsOfType<Sphere>().Length-1] == this) Hyperbolicmovetool.mainEdit = null;
+        else
+        {
+
+
+            Gizmos.color = Color.green + new Color(0.4f, 0, 0.4f);
+            Gizmos.DrawSphere(mposition, 0.3f);
+
+
+
+
+        }
+       
+      if(  FindObjectsByType<Sphere>(sortmode.main)[FindObjectsByType<Sphere>(sortmode.main).Length-1] == this) Hyperbolicmovetool.mainEdit = null;
         // Hyperbolicmovetool.mainEdit = null;
     }
-        public void move()
-    {
-        if (px)
-        {
-            p2.preApplyTranslationY(-1*x * 0.02f);
-            px = !px;
-        }
-        if (mx)
-        {
-            p2.preApplyTranslationY(1 * x * 0.02f);
-            mx = !mx;
-        }
-        if (py)
-        {
-            p2.preApplyTranslationZ(-1 * x * 0.02f);
-            py = !py;
-        }
-        if (my)
-        {
-            p2.preApplyTranslationZ(1 * x*0.02f);
-            my = !my;
-        }
-    }
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -125,44 +87,9 @@ public class Sphere : MonoBehaviour
     }
     static public Sphere[] ALLSpheres()
     {
-        return GameObject.FindObjectsOfType<Sphere>();
+        return GameObject.FindObjectsByType<Sphere>(sortmode.main);
     }
-    public Vector3 newrot()
-    {
-        Vector3 v6 = new Vector3();
-        
-        PMatrix3D copytr = new PMatrix3D();
-        copytr.set(p3.getMatrix());
-
-        PVector prevPoint = new PVector();
-        float ds = MathHyper.Facteur2(gameObject, transform.position);
-        float inc = 0.1f;
-        for (float i = 0; i < inc * 2; i += inc)
-        {
-            PVector nextPoint = MathHyper.polarVector(i, 1.255f);
-
-
-
-            copytr.mult(nextPoint, nextPoint);
-            HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
-
-            nextPoint = MathHyper.projectOntoScreen(nextPoint);
-
-            if (i >= inc)
-            {
-               v6 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
-
-            }
-
-
-
-
-            prevPoint = nextPoint;
-
-
-        }
-        return v6;
-    }
+   
 
     public void LateUpdate()
     {
@@ -235,11 +162,8 @@ public class Sphere : MonoBehaviour
 
             PVector prevPoint = new PVector();
             //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-            float ds = MathHyper.Facteur2(gameObject, transform.position);
-            float inc = 0.1f;
-        for (float i = 0; i < inc * 2; i += inc)
-        {
-            PVector nextPoint = MathHyper.polarVector(i, 1.255f);
+       
+            PVector nextPoint = MathHyper.polarVector(0.1f, 1.255f);
             //Apply currentTransform on nextPoint and save the result in nextPoint 
 
 
@@ -251,54 +175,30 @@ public class Sphere : MonoBehaviour
 
             if (!GetComponent<tringle>())
             {
-                if (i >= inc)
-                {
-                    transform.position = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
-                    mposition = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
-                }
+                
+                    transform.position = new Vector3(prevPoint.x, v1, prevPoint.y);
+                    mposition = new Vector3(prevPoint.x, v1, prevPoint.y);
+               
 
 
-                var look_dir = newrot() - transform.position;
-                look_dir.y = 0;
 
-
-                if (!GetComponent<tringle>()) { transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look_dir), 1000 * Time.deltaTime); transform.rotation = Quaternion.LerpUnclamped(rotation, transform.rotation, 0.5f); }
+              
 
             }
             else
             {
-                mposition = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                mposition = new Vector3(prevPoint.x, v1, prevPoint.y);
             }
 
             prevPoint = nextPoint;
 
 
-        }
+      
         if (GetComponent<tringle>())
         {
             transform.position = Vector3.zero;
         }
-        float a = MathHyper.Facteur3(gameObject,Vector3.zero);
-        if (!GetComponent<tringle>()) {
-            if (a > 0.1f)
-            {
-
-
-                transform.localScale = ls * a;
-            }
-            else
-            {
-                transform.localScale = Vector3.one / 100;
-            }
-           
-            }
-            else
-        {
-            transform.localScale = Vector3.one;
-
-            transform.rotation = Quaternion.identity;
-
-        }
+       
         oldposition = position;
     }
 }

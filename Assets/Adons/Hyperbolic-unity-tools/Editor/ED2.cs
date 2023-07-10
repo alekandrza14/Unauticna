@@ -14,14 +14,13 @@ public class ED2 : Editor
         /*"generate new point"*/
         
         Sphere mp = (Sphere)target;
-        for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
+       // for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
+       // {
+       //     GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
+       // }
+        for (int i = 0; i < GameObject.FindObjectsByType<Sphere>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
-        }
-        for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
-        {
-            GameObject.FindObjectsOfType<Sphere>()[i].Update(); 
-            GameObject.FindObjectsOfType<Sphere>()[i].move();
+            GameObject.FindObjectsByType<Sphere>(sortmode.main)[i].Update(); 
         }
        
 
@@ -31,7 +30,7 @@ public class ED2 : Editor
         EditorGUILayout.LabelField("=============");
         if (EditorGUILayout.LinkButton("generate new point"))
         {
-            GameObject g = new GameObject("point" + GameObject.FindObjectsOfType<Sphere>().Length.ToString());
+            GameObject g = new GameObject("point" + GameObject.FindObjectsByType<Sphere>(sortmode.main).Length.ToString());
             g.AddComponent<Sphere>().p2 = ((Sphere)target).p2;
             g.GetComponent<Sphere>().v1 = ((Sphere)target).v1;
             //  (Sphere)target;

@@ -6,8 +6,8 @@ using UnityEngine;
 [ExecuteAlways]
 public class sc : MonoBehaviour
 {
-    [HideInInspector] public tringle tr;
-    [HideInInspector] public Sphere sp1, sp2, sp3;
+    public tringle tr;
+    public Sphere sp1, sp2, sp3;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +26,7 @@ public class sc : MonoBehaviour
         if (tr != null)
         {
 
-
+            tr.up();
             if (sp1 && sp2 && sp3)
             {
 

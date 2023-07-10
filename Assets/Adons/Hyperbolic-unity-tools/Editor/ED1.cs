@@ -22,10 +22,10 @@ public class ED1 : Editor
         
        
 
-        for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
-        {
-            GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
-        }
+      //  for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
+      //  {
+      //      GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
+      //  }
         for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
         {
             GameObject.FindObjectsOfType<Sphere>()[i].Update();

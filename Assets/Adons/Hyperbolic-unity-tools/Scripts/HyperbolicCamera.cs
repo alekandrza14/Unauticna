@@ -36,29 +36,7 @@ public class HyperbolicCamera : MonoBehaviour
     public Light light1;
 
     [HideInInspector] public float x;
-    public void move()
-    {
-        if (px)
-        {
-            polarTransform.preApplyTranslationY(-1 * x * 0.02f);
-            px = !px;
-        }
-        if (mx)
-        {
-            polarTransform.preApplyTranslationY(1 * x * 0.02f);
-            mx = !mx;
-        }
-        if (py)
-        {
-            polarTransform.preApplyTranslationZ(-1 * x * 0.02f);
-            py = !py;
-        }
-        if (my)
-        {
-            polarTransform.preApplyTranslationZ(1 * x * 0.02f);
-            my = !my;
-        }
-    }
+   
     private void Start()
     {
         
@@ -88,7 +66,7 @@ public class HyperbolicCamera : MonoBehaviour
     
     public static HyperbolicCamera Main()
     {
-        return FindObjectsOfType<HyperbolicCamera>()[0];
+        return FindObjectsByType<HyperbolicCamera>(sortmode.main)[0];
     }
     private void LateUpdate()
     {
@@ -96,7 +74,7 @@ public class HyperbolicCamera : MonoBehaviour
         {
             
         }
-        if (Input.GetAxis("Vertical") > 0)
+       /* if (Input.GetAxis("Vertical") > 0)
         {
             Ray r = new Ray(transform.position, new Vector3(0, 0.5f, 1));
 
@@ -149,7 +127,7 @@ public class HyperbolicCamera : MonoBehaviour
                 polarTransform.preApplyTranslationY(-Time.deltaTime);
             }
         }
-
+       */
 
     }
     public void edit()
@@ -175,9 +153,9 @@ public class HyperbolicCamera : MonoBehaviour
             Application.Quit();
         }
         
-        for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<Sphere>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<Sphere>()[i].Update();
+            GameObject.FindObjectsByType<Sphere>(sortmode.main)[i].Update();
         }
        
         //Vertical
