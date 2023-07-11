@@ -23,14 +23,14 @@ public class HyperTransform_for_render : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Polar3 trgetpolartransform = ((HyperbolicCamera)target).polarTransform;
+        Hyperbolic2D trgetpolartransform = ((HyperbolicCamera)target).polarTransform;
         
-        Polar3 oldpos = ((HyperbolicCamera)target).polarTransform;
+        Hyperbolic2D oldpos = ((HyperbolicCamera)target).polarTransform;
         Transform trgettransform = ((HyperbolicCamera)target).transform;
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Vector3 v3 = Handles.PositionHandle(new Vector3(0, 0, 0), Quaternion.identity);
-        Polar3 newpos = new Polar3(trgetpolartransform.n+ (v3.x)/(40), trgetpolartransform.s + (v3.y) / 40, trgetpolartransform.m + (v3.z) / 40);
+        Hyperbolic2D newpos = new Hyperbolic2D(trgetpolartransform.n+ (v3.x)/(40), trgetpolartransform.s + (v3.y) / 40, trgetpolartransform.m + (v3.z) / 40);
       //  ((Sphere)target).p2 = newpos;
       //  Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, trgettransform.position.y, trgettransform.position.z), Quaternion.identity);
         //  ((Sphere)target).v1 = v32.y;

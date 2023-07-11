@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Polar3
+public class Hyperbolic2D
 {
     //A parametrisation SU2 that preserves hyperbolic space.
     //Starts with rotation of n rad, translation in z of s, and a rotation of m;
@@ -21,10 +21,10 @@ public class Polar3
     {// formula for hyperbolic sine
         return (Mathf.Exp(x) - Mathf.Exp(-x)) / 2f;
     }
-    public  Polar3()
+    public  Hyperbolic2D()
     {
     }
-    public Polar3(float dN, float dS, float dM)
+    public Hyperbolic2D(float dN, float dS, float dM)
     {
         n = dN; s = dS; m = dM;
     }
@@ -57,7 +57,7 @@ public class Polar3
     {
          m = m + a;
     }
-    public  void applyPolarTransform(Polar3 pt)
+    public  void applyPolarTransform(Hyperbolic2D pt)
     {
         applyRotation(pt.n);
         applyTranslationZ(pt.s);
@@ -86,7 +86,7 @@ public class Polar3
     {
         n += a;
     }
-    public  void preApplyPolarTransform(Polar3 pt)
+    public  void preApplyPolarTransform(Hyperbolic2D pt)
     {
         preApplyRotation(pt.m);
         preApplyTranslationY(pt.s);
@@ -112,19 +112,19 @@ public class Polar3
     {
         return (float)Mathf.Cos(angle);
     }
-    public Polar3 inverse()
+    public Hyperbolic2D inverse()
     {
-        return new Polar3(-m, -s, -n);
+        return new Hyperbolic2D(-m, -s, -n);
     }
-    public  float distanceTo(Polar3 p)
+    public  float distanceTo(Hyperbolic2D p)
     {
-        Polar3 c = copy();
+        Hyperbolic2D c = copy();
         c.applyPolarTransform(p.inverse());
         return c.s;
     }
-    public Polar3 copy()
+    public Hyperbolic2D copy()
     {
-        return new Polar3(n, s, m);
+        return new Hyperbolic2D(n, s, m);
     }
     public string toString()
     {

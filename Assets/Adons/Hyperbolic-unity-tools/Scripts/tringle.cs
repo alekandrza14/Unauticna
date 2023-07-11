@@ -20,17 +20,17 @@ public class tringle : MonoBehaviour
     [HideInInspector] public float v2 = 0;
     [HideInInspector] public float v3 = 0;
     [HideInInspector] public bool w;
-     public Polar3 p2 = new Polar3();
-     public Polar3 p3 = new Polar3();
-     public Polar3 p4 = new Polar3();
+    [HideInInspector] public Hyperbolic2D p2 = new Hyperbolic2D();
+    [HideInInspector] public Hyperbolic2D p3 = new Hyperbolic2D();
+    [HideInInspector] public Hyperbolic2D p4 = new Hyperbolic2D();
     [Header("Polygon")]
     [Header("==============")]
     [Header("MeshFiller")] [SerializeField] public MeshFilter mf;
     [Header("MeshCollider")] [SerializeField] public MeshCollider mc;
     [Header("Flip Normals")] [SerializeField] public bool v;
-  //  [Header("==============")] [HideInInspector] [SerializeField] public bool byUnauticna;
+    //  [Header("==============")] [HideInInspector] [SerializeField] public bool byUnauticna;
 
-    Vector3 v31; Vector3 v32; Vector3 v33;
+    [HideInInspector] public Vector3 v31; [HideInInspector] public Vector3 v32; [HideInInspector] public Vector3 v33;
     [HideInInspector] public float x;
     private void Awake()
     {
@@ -134,51 +134,99 @@ public class tringle : MonoBehaviour
             copytr1.set(p2.getMatrix());
             PMatrix3D copytr2 = new PMatrix3D();
             copytr2.set(p3.getMatrix());
-            PMatrix3D copytr4 = new PMatrix3D();
-            copytr4.set(p4.getMatrix());
+            PMatrix3D copytr3 = new PMatrix3D();
+            copytr3.set(p4.getMatrix());
 
         PVector prevPoint = new PVector();
+        //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+        PVector nextPoint;
+        for (int j = 0; j < 2; j++)
+        {
+
+            nextPoint = MathHyper.polarVector(0.1f, 1.255f);
+
+            //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+            {
+
+                copytr1.mult(nextPoint, nextPoint);
+
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+
+                nextPoint = MathHyper.projectOntoScreen(nextPoint);
+
+
+
+                v31 = new Vector3(prevPoint.x, 0, prevPoint.y);
+            }
+
+
+            prevPoint = nextPoint;
+
+
+
+        }
         PVector prevPoint2 = new PVector();
+        //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+        PVector nextPoint2;
+        for (int j = 0; j < 2; j++)
+        {
+
+            nextPoint2 = MathHyper.polarVector(0.1f, 1.255f);
+
+            //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+            {
+
+                copytr2.mult(nextPoint2, nextPoint2);
+
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint2, nextPoint2);
+
+                nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
+
+
+
+                v32 = new Vector3(prevPoint2.x, 0, prevPoint2.y);
+            }
+
+
+            prevPoint2 = nextPoint2;
+
+
+
+        }
         PVector prevPoint3 = new PVector();
         //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
 
+        PVector nextPoint3;
+        for (int j = 0; j < 2; j++)
+        {
+
+            nextPoint3 = MathHyper.polarVector(0.1f, 1.255f);
+
+            //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+            {
+
+                copytr3.mult(nextPoint3, nextPoint3);
+
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint3, nextPoint3);
+
+                nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
 
 
 
-
-        PVector nextPoint = MathHyper.polarVector(0.1f, 1.255f); 
-        PVector nextPoint2 = MathHyper.polarVector(0.1f, 1.255f);
-        PVector nextPoint3 = MathHyper.polarVector(0.1f, 1.255f);
-        //Apply currentTransform on nextPoint and save the result in nextPoint 
+                v33 = new Vector3(prevPoint3.x, 0, prevPoint3.y);
+            }
 
 
-         copytr1.mult(nextPoint, nextPoint);
-         copytr2.mult(nextPoint2, nextPoint2);
-         copytr4.mult(nextPoint3, nextPoint3);
-        HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
-
-        nextPoint = MathHyper.projectOntoScreen(nextPoint);
-        HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint2, nextPoint2);
-
-        nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
-        HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint3, nextPoint3);
-
-        nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
-
-
-        v31 = new Vector3(prevPoint.x, 0, prevPoint.y);
-         v32 = new Vector3(prevPoint2.x, 0, prevPoint2.y);
-         v33 = new Vector3(prevPoint3.x, 0, prevPoint3.y);
+            prevPoint3 = nextPoint3;
 
 
 
-        prevPoint = nextPoint;
-        prevPoint2 = nextPoint2;
-        prevPoint3 = nextPoint3;
-
-
-
-
+        }
 
 
         //Apply currentTransform on nextPoint and save the result in nextPoint 

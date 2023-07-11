@@ -24,14 +24,14 @@ public class HyperTransform : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Polar3 trgetpolartransform = ((Sphere)target).p2;
+        Hyperbolic2D trgetpolartransform = ((Sphere)target).p2;
         Hyperbolicmovetool.mainEdit = ((Sphere)target);
-        Polar3 oldpos = ((Sphere)target).p2;
+        Hyperbolic2D oldpos = ((Sphere)target).p2;
         Transform trgettransform = ((Sphere)target).transform;
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Vector3 v3 = (Handles.PositionHandle(SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position, Quaternion.identity) - (SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position));
-        Polar3 newpos = new Polar3(trgetpolartransform.n + (v3.x) / (10), trgetpolartransform.s + (v3.y) / 10, trgetpolartransform.m + (v3.z) / 10);
+        Hyperbolic2D newpos = new Hyperbolic2D(trgetpolartransform.n + (v3.x) / (10), trgetpolartransform.s + (v3.y) / 10, trgetpolartransform.m + (v3.z) / 10);
         //  ((Sphere)target).p2 = newpos;
         Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, ((Sphere)target).v1, trgettransform.position.z), Quaternion.identity);
         //  ((Sphere)target).v1 = v32.y;

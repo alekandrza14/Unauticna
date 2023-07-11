@@ -15,7 +15,7 @@ public class load1
     static public bool isCamd;
     static public bool isplanet;
     static public bool stad;
-    public static Polar3 pt;
+    public static Hyperbolic2D pt;
     static public RawImage watermask;
     static public float gr; static public float pl;
     static public Color bg; static public CameraClearFlags bg2;
@@ -25,6 +25,7 @@ public class save
     public string idsave;
     public Vector3 pos, pos2, rotW;
     public Vector4 pos3;
+    public string hpos_Polar3;
     public float wpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
@@ -328,6 +329,7 @@ public class mover : MonoBehaviour
     //Пробуждение кода
     private void Awake()
     {
+        hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
@@ -360,9 +362,9 @@ public class mover : MonoBehaviour
         c.renderingPath = RenderingPath.DeferredShading;
         Globalprefs.camera = c;
         c.gameObject.AddComponent<Logic_tag_3>();
-        if (hyperbolicCamera)
+        if (HyperbolicCamera.Main() != null)
         {
-            load1.pt = hyperbolicCamera.polarTransform;
+            HyperbolicCamera.Main().polarTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
         }
         if (isplanet)
         {
@@ -425,17 +427,16 @@ public class mover : MonoBehaviour
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
-                if (hyperbolicCamera != null)
+                if (HyperbolicCamera.Main() != null)
                 {
 
-                    hyperbolicCamera.transform.rotation = save.q4;
-                    hyperbolicCamera.position = save.pos3;
+                    HyperbolicCamera.Main().polarTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                 }
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                 {
-                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
                 }
             }
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
@@ -473,17 +474,17 @@ public class mover : MonoBehaviour
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
-                if (hyperbolicCamera != null)
+                if (HyperbolicCamera.Main() != null)
                 {
 
-                    hyperbolicCamera.transform.rotation = save.q4;
-                    hyperbolicCamera.position = save.pos3;
+
+                    HyperbolicCamera.Main().polarTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                 }
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                 {
-                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
                 }
             }
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
@@ -501,6 +502,7 @@ public class mover : MonoBehaviour
         }
       if (FindObjectsByType<GenTest>(sortmode.main).Length !=0)  FindFirstObjectByType<GenTest>().load_planet();
 
+        hyperbolicCamera = HyperbolicCamera.Main();
     }
     //Пробуждение кода
     //Приметивный интерфейс
@@ -587,13 +589,13 @@ public class mover : MonoBehaviour
                     if (hyperbolicCamera != null)
                     {
 
-                        hyperbolicCamera.transform.rotation = save.q4;
-                        hyperbolicCamera.position = save.pos3;
+
+                        hyperbolicCamera.polarTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                     {
-                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
                     }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -629,13 +631,14 @@ public class mover : MonoBehaviour
                     if (hyperbolicCamera != null)
                     {
 
-                        hyperbolicCamera.position = save.pos3;
+
+                        hyperbolicCamera.polarTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.transform.rotation = save.q2;
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
                     {
-                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive; ;
+                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
                     }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -965,9 +968,7 @@ public class mover : MonoBehaviour
         save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
         if (hyperbolicCamera != null)
         {
-
-            save.q4 = hyperbolicCamera.transform.rotation;
-            save.pos3 = hyperbolicCamera.position;
+            save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().polarTransform);
         }
         gsave.hp = hp;
         if (VarSave.ExistenceVar("res3") && Input.GetKeyDown(KeyCode.F11) && !Globalprefs.Pause)
@@ -1426,12 +1427,12 @@ public class mover : MonoBehaviour
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
             save.wpos = W_position;
-            if(Get4DCam()) save.rotW = Get4DCam()._wRotation;
+            if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera != null)
             {
 
-                save.q4 = hyperbolicCamera.transform.rotation;
-                save.pos3 = GetHyperbolicVector(hyperbolicCamera);
+
+                save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().polarTransform);
             }
             save.vive = Camera.main.fieldOfView;
             gsave.hp = hp;
@@ -1466,9 +1467,8 @@ public class mover : MonoBehaviour
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera!=null)
             {
-                save.q4 = hyperbolicCamera.transform.rotation;
 
-                save.pos3 = GetHyperbolicVector(hyperbolicCamera);
+                save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().polarTransform);
             }
             tsave.angularvelosyty = rigidbody3d.angularVelocity;
             tsave.velosyty = rigidbody3d.velocity;

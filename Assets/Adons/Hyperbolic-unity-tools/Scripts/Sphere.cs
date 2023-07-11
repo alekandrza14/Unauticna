@@ -28,8 +28,8 @@ public class Sphere : MonoBehaviour
     [SerializeField] public points points = new points();
 
     [HideInInspector] public Quaternion rotation;
-    [HideInInspector] public Polar3 p2 = new Polar3();
-    [HideInInspector] public Polar3 p3 = new Polar3();
+    public Hyperbolic2D p2 = new Hyperbolic2D();
+    [HideInInspector] public Hyperbolic2D p3 = new Hyperbolic2D();
     [HideInInspector] public Vector3 ls = Vector3.one;
     [HideInInspector] public float v1 = 0;
     [HideInInspector] public float x;
@@ -70,7 +70,7 @@ public class Sphere : MonoBehaviour
       if(  FindObjectsByType<Sphere>(sortmode.main)[FindObjectsByType<Sphere>(sortmode.main).Length-1] == this) Hyperbolicmovetool.mainEdit = null;
         // Hyperbolicmovetool.mainEdit = null;
     }
-  
+
     // Start is called before the first frame update
     void Start()
     {
@@ -152,7 +152,7 @@ public class Sphere : MonoBehaviour
         {
 
 
-            p2 = new Polar3(position.x, position.y, position.z);
+            p2 = new Hyperbolic2D(position.x, position.y, position.z);
             v1 = position.w;
         }
         position = new Vector4(p2.n, p2.s, p2.m, v1);
@@ -161,39 +161,44 @@ public class Sphere : MonoBehaviour
             copytr.set(p2.getMatrix());
 
             PVector prevPoint = new PVector();
-            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-       
+        //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+        for (int j = 0; j < 2; j++)
+        {
+
             PVector nextPoint = MathHyper.polarVector(0.1f, 1.255f);
             //Apply currentTransform on nextPoint and save the result in nextPoint 
 
 
 
             copytr.mult(nextPoint, nextPoint);
-            HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+           if(FindObjectsByType<HyperbolicCamera>(sortmode.main).Length!=0) HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 
             if (!GetComponent<tringle>())
             {
-                
-                    transform.position = new Vector3(prevPoint.x, v1, prevPoint.y);
-                    mposition = new Vector3(prevPoint.x, v1, prevPoint.y);
-               
 
-
+                transform.position = new Vector3(prevPoint.x, transform.position.y, prevPoint.y);
+                mposition = new Vector3(prevPoint.x, transform.position.y, prevPoint.y);
 
               
+
+
+
 
             }
             else
             {
-                mposition = new Vector3(prevPoint.x, v1, prevPoint.y);
+                mposition = new Vector3(prevPoint.x, transform.position.y, prevPoint.y);
             }
 
             prevPoint = nextPoint;
 
-
-      
+        }
+        if (!GetComponent<tringle>())
+            transform.localScale = ls * (1-( new PVector().dist(prevPoint)*0.03f));
+        if (GetComponent<tringle>())
+            transform.localScale = Vector3.one;
         if (GetComponent<tringle>())
         {
             transform.position = Vector3.zero;

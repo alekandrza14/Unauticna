@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class editorsave
 {
-    public Polar3 pos;
+    public Hyperbolic2D pos;
 
 }
 [ExecuteAlways]
@@ -17,12 +17,10 @@ public class load : MonoBehaviour
 [AddComponentMenu("Hyperbolic space/Hyperbolic Player Controler")]
 public class HyperbolicCamera : MonoBehaviour
 {
-    Vector4 oldposition;
-    
-    [HideInInspector] public Vector4 position;
+   [HideInInspector] public Vector3 position;
 
-
-    [HideInInspector] public Polar3 polarTransform = new Polar3(0, 0.01f, 0f);
+    [HideInInspector] public Hyperbolic2D polarTransform = new Hyperbolic2D(0, 0.01f, 0f);
+    public Hyperbolic2D HyperbolicTransform = new Hyperbolic2D(0, 0.01f, 0f);
     [HideInInspector] public bool px;[HideInInspector] public bool py;[HideInInspector] public bool mx;[HideInInspector] public bool my;
     [HideInInspector] public BoxCollider c;
     [HideInInspector] public float startscale;
@@ -36,19 +34,18 @@ public class HyperbolicCamera : MonoBehaviour
     public Light light1;
 
     [HideInInspector] public float x;
-   
+
     private void Start()
     {
-        
+       if(!Application.isPlaying) polarTransform = HyperbolicTransform.copy();
     }
     private void OnDestroy()
     {
 
-        oldposition = position;
     }
     private void OnApplicationQuit()
     {
-        oldposition = position;
+
     }
 
     void OnCollisionEnter(Collision c)
@@ -66,15 +63,18 @@ public class HyperbolicCamera : MonoBehaviour
     
     public static HyperbolicCamera Main()
     {
-        return FindObjectsByType<HyperbolicCamera>(sortmode.main)[0];
+        
+        
+        return FindFirstObjectByType<HyperbolicCamera>();
     }
     private void LateUpdate()
     {
+        if (!Application.isPlaying) polarTransform = HyperbolicTransform.copy();
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             
         }
-       /* if (Input.GetAxis("Vertical") > 0)
+       if (Input.GetAxis("Vertical") > 0)
         {
             Ray r = new Ray(transform.position, new Vector3(0, 0.5f, 1));
 
@@ -127,27 +127,21 @@ public class HyperbolicCamera : MonoBehaviour
                 polarTransform.preApplyTranslationY(-Time.deltaTime);
             }
         }
-       */
+       
 
     }
     public void edit()
     {
-        transform.rotation = rotation;
+        transform.rotation = Quaternion.identity; transform.Rotate(0, 0, 0);
+        transform.position = Vector3.zero + Vector3.up * transform.position.y;
     }
 
 
         // Update is called once per frame
    public void Update()
     {
-        if (position != oldposition)
-        {
-
-
-            polarTransform = new Polar3(position.x, position.y, position.z);
-            transform.position = new Vector3(0,position.w,0);
-        }
-        position = new Vector4(polarTransform.n, polarTransform.s, polarTransform.m, transform.position.y);
-       
+        edit();
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -157,29 +151,27 @@ public class HyperbolicCamera : MonoBehaviour
         {
             GameObject.FindObjectsByType<Sphere>(sortmode.main)[i].Update();
         }
-       
+
         //Vertical
-
-      Vector3 v =  Vector3.MoveTowards(Vector3.zero,new Vector3(-Input.GetAxis("Vertical") * Time.deltaTime, -Input.GetAxis("Horizontal") * Time.deltaTime),2);
-        
-        polarTransform.preApplyTranslationZ(v.x);
-        polarTransform.preApplyTranslationY(v.y);
-        
-        if (Input.GetKeyDown(KeyCode.F5))
+        if (mover.main().GetViewFace() != faceView.fourd)
         {
-            transform.rotation = rotation;
+            Vector3 v = Vector3.MoveTowards(Vector3.zero, new Vector3(-Input.GetAxis("Vertical") * Time.deltaTime, -Input.GetAxis("Horizontal") * Time.deltaTime), 2);
+
+            polarTransform.preApplyTranslationZ(v.x);
+            polarTransform.preApplyTranslationY(v.y);
+
+
+            if (Input.GetKey(KeyCode.Mouse1))
+            {
+
+
+
+                float r1 = Input.GetAxis("Mouse X") * Time.deltaTime * 1.5f;
+                polarTransform.preApplyRotation(r1);
+
+
+
+            }
         }
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-
-
-
-            float r1 = Input.GetAxis("Mouse X") * Time.deltaTime *1.5f;
-            polarTransform.preApplyRotation(r1);
-
-            
-            
-        }
-        oldposition = position;
     }
 }

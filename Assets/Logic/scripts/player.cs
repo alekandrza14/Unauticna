@@ -212,7 +212,7 @@ public class musave : MonoBehaviourPunCallbacks
       
 
     }
-    static public void load5(Polar3 pl,float i3)
+    static public void load5(Hyperbolic2D pl,float i3)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {

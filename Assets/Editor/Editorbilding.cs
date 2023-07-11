@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Web.UI;
-
+/*
 [CustomEditor(typeof(Transform))]
 public class generator : Editor
 {
@@ -41,4 +41,4 @@ public class generator : Editor
         
 
     }
-}
+}*/

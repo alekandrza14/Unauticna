@@ -499,13 +499,13 @@ public class complsave : MonoBehaviour
                 {
 
 
-                    g.AddComponent<Sphere>().p2 = JsonUtility.FromJson<Polar3>(saveString1.PvectorA[i3]);
+                    g.AddComponent<Sphere>().p2 = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
 
                     g.GetComponent<Sphere>().v1 = saveString1.y[i3];
                 }
                 else
                 {
-                    g.GetComponent<Sphere>().p2 = JsonUtility.FromJson<Polar3>(saveString1.PvectorA[i3]);
+                    g.GetComponent<Sphere>().p2 = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
 
                     g.GetComponent<Sphere>().v1 = saveString1.y[i3];
                 }

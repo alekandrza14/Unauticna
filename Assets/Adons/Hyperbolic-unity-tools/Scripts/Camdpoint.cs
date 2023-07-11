@@ -8,9 +8,9 @@ public class Camdpoint : MonoBehaviour
     [Header("Hyperbolic")]
     [SerializeField] Vector4 position;
 
-    [HideInInspector] public Polar3 p2 = new Polar3();
+    [HideInInspector] public Hyperbolic2D p2 = new Hyperbolic2D();
 
-    [HideInInspector] public Polar3 p3 = new Polar3();
+    [HideInInspector] public Hyperbolic2D p3 = new Hyperbolic2D();
     public Vector3 ls;
     public float v1 = 0;
     // Start is called before the first frame update

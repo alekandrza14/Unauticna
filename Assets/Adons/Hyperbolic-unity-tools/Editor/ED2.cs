@@ -31,7 +31,7 @@ public class ED2 : Editor
         if (EditorGUILayout.LinkButton("generate new point"))
         {
             GameObject g = new GameObject("point" + GameObject.FindObjectsByType<Sphere>(sortmode.main).Length.ToString());
-            g.AddComponent<Sphere>().p2 = ((Sphere)target).p2;
+            g.AddComponent<Sphere>().p2 = ((Sphere)target).p2.copy();
             g.GetComponent<Sphere>().v1 = ((Sphere)target).v1;
             //  (Sphere)target;
         }

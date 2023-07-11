@@ -31,10 +31,7 @@ public class ED1 : Editor
             GameObject.FindObjectsOfType<Sphere>()[i].Update();
         }
         base.OnInspectorGUI();
-        if (EditorGUILayout.LinkButton("resset"))
-        {
-            HyperbolicCamera.Main().position = Vector4.zero;
-        }
+        
     }
 
 
