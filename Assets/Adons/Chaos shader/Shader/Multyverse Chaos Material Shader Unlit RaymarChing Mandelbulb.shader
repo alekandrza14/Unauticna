@@ -68,7 +68,8 @@ uniform float4x4 _CameraInvViewMatrix;
                 o.hitPos =  v.vertex;
                 
                 return o;
-            }float Sphere(float3 p, float3 c, float r)
+            }
+            float Sphere(float3 p, float3 c, float r)
 {
     return length(p - c) - r;
 }

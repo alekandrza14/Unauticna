@@ -59,6 +59,52 @@ namespace Unity.Mathematics
         {
             return (max(max(max(abs(p.x + p.y + (p.w / a.w)) - p.z, abs(p.x - p.y + (p.w / a.w)) + p.z), abs(p.x - p.y - (p.w / a.w)) + p.z), abs(p.x + p.y - (p.w / a.w)) - p.z) - a.x) / sqrt(3.0f);
         }
+        public float sdNull(float4 p)
+        {
+            return 1000;
+        }
+        float Sphere(float4 p, float4 c, float r)
+        {
+            return length(p - c) - r;
+        }
+       public float sdMandelbulb(float4 pos)
+        {
+
+          if (length(pos) > 982.3f)
+          {
+              return Sphere(pos, float4.zero, 982.3f);
+          }
+
+            pos /= 422.3f;
+            float4 z = pos;
+            float dr = 1.0f;
+            float r = 0.0f;
+
+            for (int i = 0; i < 9.14f; ++i)
+            {
+                // Convert to polar coordinates
+                r = length(z);
+                if (r > 2)
+                    break;
+
+                float theta = acos(z.y / r);
+                float phi = atan2(z.z, z.x);
+                dr = pow(r, 8 - 0.5f) * 8 * dr + 0.5f;
+
+                // Scale and rotate the point
+                float zr = pow(r, 8);
+                theta *= 8;
+                phi *= 8;
+
+                // Convert back to cartesian coordinates
+                z = zr * float4(sin(theta) * cos(phi), cos(theta), sin(phi) * sin(theta), sin(phi) * sin(theta));
+
+                z += pos;
+            }
+
+            float d = 422.3f * 0.5f * log(r) * r / dr;
+            return d;
+        }
         // plane
         public float sdPlane(float4 p, float4 s)
         {

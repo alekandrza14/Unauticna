@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlanetGravity : MonoBehaviour
@@ -15,7 +16,7 @@ public class PlanetGravity : MonoBehaviour
     {
         Vector3 gravityUp = (body.position - Vector3.zero).normalized;
         Vector3 bodyup = body.up;
-        if (body.gameObject.GetComponent<mover>())
+        if (body.gameObject.GetComponent<mover>() && FindFirstObjectByType<PlayerRayMarchCollider>().GetCenterDist() < 0)
         {
 
             if (body.gameObject.GetComponent<mover>().IsGraund == true)
@@ -23,7 +24,15 @@ public class PlanetGravity : MonoBehaviour
                 body.gameObject.GetComponent<Rigidbody>().AddForce(gravityUp * gravity);
             }
         }
-            Quaternion targetrotation = Quaternion.FromToRotation(bodyup,gravityUp)*body.rotation;
+        if (body.gameObject.GetComponent<mover>() && FindFirstObjectByType<PlayerRayMarchCollider>().GetCenterDist() > 0)
+        {
+
+            if (body.gameObject.GetComponent<mover>().IsGraund == true)
+            {
+                body.gameObject.GetComponent<Rigidbody>().drag = 20;
+            }
+        }
+        Quaternion targetrotation = Quaternion.FromToRotation(bodyup,gravityUp)*body.rotation;
         body.rotation = Quaternion.Slerp(body.rotation, targetrotation,50 * Time.deltaTime);
     }
 }

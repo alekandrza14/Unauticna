@@ -12,6 +12,52 @@ float sdBox(float3 p, float3 b)
 	float3 d = abs(p) - b;
 	return min(max(d.x, max(d.y, d.z)), 0.0) + length(max(d, 0.0));
 }
+float sdVoid()
+{
+	
+	return 8000;
+}
+  float Sphere(float4 p, float3 c, float r)
+{
+    return length(p - c) - r;
+}
+          
+float GetDist(float4 pos) 
+{
+    if (length(pos) > 982.3) 
+    {
+        return Sphere(pos, 0, 982.3);
+    }
+    pos = pos/ 471.2;
+    float4 z = pos;
+    float dr = 2.0;
+    float r = 0.0;
+    for (int i = 0; i < 9; ++i) 
+    {
+        // Convert to polar coordinates
+        r = length(z);
+        if (r > 2)
+            break;
+        float theta = acos(z.y/r);
+        float phi = atan2(z.z,z.x);
+        dr =  pow(r, 8 - 0.5) * 8 * dr + 0.5;
+        
+        // Scale and rotate the point
+        float zr = pow(r, 8);
+        theta = theta * 8;
+        phi = phi * 8;
+        
+        // Convert back to cartesian coordinates
+        z = zr * float4(sin(theta)*cos(phi), cos(theta), sin(phi)*sin(theta), sin(phi)*sin(theta));
+        
+        z += pos;
+    }
+        
+    float d = 471.2 * 0.5 * log(r) * r / dr;
+    return d;
+}
+    
+
 
 // 4D HyperCube
 float sdHypercube (float4 p, float4 b)
