@@ -274,7 +274,7 @@ Transform:
   - {fileID: 4483286374575961416}
   - {fileID: 1207816334271524609}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5033929338719671043
 MonoBehaviour:
@@ -455,11 +455,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d82ca4f79c79848449d8e646b0fbde04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: {x: 1.44, y: 1.86, z: 0.78, w: 0.917}
+  position: {x: 1.44, y: 1.86, z: 0.78}
   polarTransform:
-    n: 1.44
-    s: 1.86
-    m: 0.78
+    n: 0
+    s: 0.01
+    m: 0
+  HyperbolicTransform:
+    n: 0
+    s: 0.01
+    m: 0
   px: 0
   py: 0
   mx: 0
@@ -618,7 +622,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 1151
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

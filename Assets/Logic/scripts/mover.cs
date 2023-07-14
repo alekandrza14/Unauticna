@@ -380,9 +380,10 @@ public class mover : MonoBehaviour
         
             Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
-        
 
+        //four-Dimentional-Axis
         Instantiate(Resources.Load<GameObject>("player inventory"));
+        Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
         if (!tutorial && inglobalspace != true)
         {
