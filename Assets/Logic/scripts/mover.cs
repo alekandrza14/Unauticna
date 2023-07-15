@@ -106,7 +106,24 @@ public class mover : MonoBehaviour
     string lepts = "";
     [HideInInspector] public string lif;
 
-    
+    void swapWX3(Transform x, mover w)
+    {
+        RaymarchCam m = Get4DCam();
+        float save = x.localPosition.x;
+        if (m._wRotation.x == 0) x.localPosition = new Vector3(w.W_position, x.localPosition.y, x.localPosition.z);
+        if (m._wRotation.x == -90) x.localPosition = new Vector3(-w.W_position, x.localPosition.y, x.localPosition.z);
+        if (m._wRotation.x == 0) w.W_position = -save;
+        if (m._wRotation.x == -90) w.W_position = save;
+    }
+
+    public static void swapWXALL()
+    {
+        RaymarchCam m = Get4DCam();
+        mover w = mover.main();
+        w.swapWX3(w.transform, w);
+        if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
+
+    }
     public static RaymarchCam Get4DCam()
     {
         return (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
@@ -202,6 +219,25 @@ public class mover : MonoBehaviour
             }
 
 
+
+        }
+        if (GlobalInputMenager.KeyCode_Spawn != "")
+        {
+            vaule2 = GlobalInputMenager.KeyCode_Spawn;
+            Ray r = musave.pprey();
+            RaycastHit hit;
+            if (UnityEngine.Physics.Raycast(r, out hit))
+            {
+
+                if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
+                {
+                    telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
+                    g.nameCreature = vaule2;
+                    g.gameObject.transform.position = hit.point;
+                    GlobalInputMenager.KeyCode_Spawn = "";
+
+                }
+            }
 
         }
     }
@@ -540,8 +576,8 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1))
         {
             GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+Sprint.ToString());
-            if (!hyperbolicCamera) GUI.Label(new Rect(0f, 00, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString());
-            if (hyperbolicCamera) GUI.Label(new Rect(0f, 00, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
+            if (!hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString();
+            if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.polarTransform.n.ToString() + " y : " + hyperbolicCamera.polarTransform.s.ToString() + " z : " + hyperbolicCamera.polarTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString();
         }
     }
     //Приметивный интерфейс

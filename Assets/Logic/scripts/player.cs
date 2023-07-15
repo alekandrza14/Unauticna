@@ -231,13 +231,12 @@ public class musave : MonoBehaviourPunCallbacks
     static public Ray pprey()
     {
         Ray r = new Ray();
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
+        
 
 
-            r = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-            FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
-        }
+            r = Globalprefs.camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            //FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
+       
       
         return r;
 

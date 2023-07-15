@@ -97,7 +97,7 @@ namespace Unity.Mathematics
                 phi *= 8;
 
                 // Convert back to cartesian coordinates
-                z = zr * float4(sin(theta) * cos(phi), cos(theta), sin(phi) * sin(theta), sin(phi) * sin(theta));
+                z = zr * float4(sin(theta) * cos(phi), cos(theta), sin(phi) * sin(theta), 0);
 
                 z += pos;
             }

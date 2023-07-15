@@ -325,6 +325,15 @@ public class complsave : MonoBehaviour
         {
             saveString1.vector3A2.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].transform.position);
             saveString1.id2.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].init);
+            if (FindObjectsByType<StandartObject>(sortmode.main)[i].
+                GetComponent<MultyObject>())
+                saveString1.posW.Add(
+                    FindObjectsByType<StandartObject>(sortmode.main)[i].
+                    GetComponent<MultyObject>().W_Position);
+            else
+            {
+                saveString1.posW.Add(0);
+            }
 
 
         }
@@ -347,7 +356,8 @@ public class complsave : MonoBehaviour
         saveString1.id2.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
-       
+        saveString1.posW.Clear();
+
 
     }
     public void load()
@@ -446,8 +456,10 @@ public class complsave : MonoBehaviour
         for (int i = 0; i < saveString1.id2.Count; i++)
         {
 
-            Instantiate(t4[toTagToIDObject(saveString1.id2[i])], saveString1.vector3A2[i], Quaternion.identity);
-            
+           GameObject g = Instantiate(t4[toTagToIDObject(saveString1.id2[i])], saveString1.vector3A2[i], Quaternion.identity);
+           if( g.GetComponent<MultyObject>())   g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
+
+
         }
         if (saveString1.PvectorA.Count == 0)
         {
@@ -576,6 +588,7 @@ public class rsave
     public List<float> y = new List<float>();
     public List<string> id = new List<string>();
     public List<string> id2 = new List<string>();
+    public List<float> posW = new List<float>();
 
     public List<Vector3> vector3B = new List<Vector3>();
 

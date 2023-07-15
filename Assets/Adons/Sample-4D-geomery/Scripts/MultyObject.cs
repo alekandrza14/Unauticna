@@ -30,7 +30,19 @@ public class MultyObject : MonoBehaviour
     int w;
     void Start()
     {
-       if(scale3D == Vector3.zero) scale3D = transform.localScale;
+        if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
+        {
+
+
+            GameObject g = new GameObject("4D Controler")
+            {
+
+            };
+
+
+            g.AddComponent<MultyTransform>();
+        }
+            if (scale3D == Vector3.zero) scale3D = transform.localScale;
         shapes3Dcol = new Mesh[shapes3D.Length];
         for (int i = 0; i < shapes3D.Length; i++)
         {

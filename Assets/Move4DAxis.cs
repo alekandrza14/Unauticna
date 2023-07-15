@@ -14,7 +14,8 @@ public class Move4DAxis : MonoBehaviour
     {
         if (select != null)
         {
-            transform.position = select.transform.position;
+            if (select.GetComponent<MultyObject>()) transform.position = select.transform.position + (new Vector3(1, 0, -1) * (select.GetComponent<MultyObject>().W_Position - mover.main().W_position));
+            else transform.position = select.transform.position;
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -56,6 +57,10 @@ public class Move4DAxis : MonoBehaviour
                         {
                             curaxis = 2;
                         }
+                        if (axis[3] == hit.collider.gameObject)
+                        {
+                            curaxis = 4;
+                        }
                     }
                 }
 
@@ -76,6 +81,11 @@ public class Move4DAxis : MonoBehaviour
         if (curaxis == 2)
         {
             select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X"));
+        }
+        if (curaxis == 4)
+        {
+            if (select.GetComponent<MultyObject>())
+                select.GetComponent<MultyObject>().W_Position += Input.GetAxis("Mouse X");
         }
     }
 }

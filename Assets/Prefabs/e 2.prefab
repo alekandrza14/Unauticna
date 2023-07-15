@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2117963473939163278}
   - component: {fileID: 6890096846462913136}
   - component: {fileID: 3609738321525113601}
+  - component: {fileID: 5858376617058003036}
   m_Layer: 0
   m_Name: e 2
   m_TagString: Untagged
@@ -68,10 +69,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7996639877378019155}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 20
   m_Drag: 1
   m_AngularDrag: 1
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -85,8 +97,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7996639877378019155}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.97
   m_Height: 5.75
   m_Direction: 1
@@ -216,6 +237,20 @@ MonoBehaviour:
   outsv: []
   outsv3: []
   outsg: []
+--- !u!114 &5858376617058003036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7996639877378019155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb51732d12f3a8b4cb785204c3b155c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharactorName: Prisident
+  CharactorHpInterface: 'Hitpoint : ~/~'
 --- !u!1 &8666721449300989033
 GameObject:
   m_ObjectHideFlags: 0

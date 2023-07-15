@@ -16,6 +16,8 @@ public class cistalenemy3 : MonoBehaviour
     public float rot;
     public float hp = 5;
     public Transform player;
+
+    public CharacterName cn;
     public float move_speed = 10;
     public float rotation_speed = 100;
     public Transform enemy;
@@ -306,6 +308,8 @@ public class cistalenemy3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        cn.CharactorHpInterface = "Hitpoint : " + "40" + "/" + hp;
         tic += Time.deltaTime * Random.Range(1, 3);
         tic2 += Time.deltaTime * Random.Range(1, 3); 
         tic3 += Time.deltaTime * Random.Range(1, 3);

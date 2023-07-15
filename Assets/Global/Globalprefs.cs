@@ -7,6 +7,7 @@ public static class Globalprefs
 {
     public static Texture txt;
     public static int idscene;
+    public static string PlayerPositionInfo;
     public static Vector3 newv3;
     public static Vector3 pos;
     public static decimal flowteuvro;
@@ -18,6 +19,7 @@ public static class Globalprefs
     public static Vector3[] postes2;
     public static Quaternion[] q;
     public static string selectitem;
+    public static string selectcharacter;
     public static itemName selectitemobj;
     public static bool isnew;
     public static string item;

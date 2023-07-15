@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2419626748028352915}
   - component: {fileID: 8480233378221180539}
   - component: {fileID: -4946334589949706390}
+  - component: {fileID: 5447623873733923521}
   m_Layer: 3
   m_Name: terratist
   m_TagString: enemy
@@ -144,6 +145,7 @@ MonoBehaviour:
   rot: 0
   hp: 40
   player: {fileID: 0}
+  cn: {fileID: 5447623873733923521}
   move_speed: 30
   rotation_speed: 100
   enemy: {fileID: 2402101117336333321}
@@ -219,6 +221,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 737de530584c0864286580bd992251b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5447623873733923521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3034910004908324531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb51732d12f3a8b4cb785204c3b155c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharactorName: TerratSpaceCraftSheap
+  CharactorHpInterface: 'Hitpoint : ~/~'
 --- !u!1 &6776000744744848370
 GameObject:
   m_ObjectHideFlags: 0
