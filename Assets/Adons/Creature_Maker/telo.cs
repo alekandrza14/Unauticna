@@ -112,6 +112,21 @@ public class telo : MonoBehaviour
             }
         }
     }
+    public void RotateCreature()
+    {
+        transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
+    }
+    public void InverseCreature()
+    {
+        foreach(GameObject obj in objs)
+        {
+            if (obj != null)
+            {
+                obj.transform.position = new Vector3(obj.transform.position.x,
+                    obj.transform.position.y, -obj.transform.position.z);
+            }
+        }
+    }
     private void LateUpdate()
     {
         if (nameCreature != "")
