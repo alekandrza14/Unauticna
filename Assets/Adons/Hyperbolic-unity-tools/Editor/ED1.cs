@@ -26,10 +26,7 @@ public class ED1 : Editor
       //  {
       //      GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
       //  }
-        for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
-        {
-            GameObject.FindObjectsOfType<Sphere>()[i].Update();
-        }
+      
         base.OnInspectorGUI();
         
     }

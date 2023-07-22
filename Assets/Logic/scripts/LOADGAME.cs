@@ -102,6 +102,11 @@ public class LOADGAME : MonoBehaviour
     public void Tutorial4()
     {
 
+        SceneManager.LoadScene("tutorial3");
+    }
+    public void Tutorial5()
+    {
+
         SceneManager.LoadScene("tutorial4");
     }
     public void mainmenu()

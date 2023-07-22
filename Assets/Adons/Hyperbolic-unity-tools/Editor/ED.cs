@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-[CustomEditor(typeof(tringle))]
+[CustomEditor(typeof(HyperbolicTriangeRenederer))]
 public class ED : Editor
 {
     const string resourceFilename = "custom-editor-uie";
-    public static tringle mp1; public static tringle mp2;
+    public static HyperbolicTriangeRenederer mp1; public static HyperbolicTriangeRenederer mp2;
     
     
     public override void OnInspectorGUI()
@@ -17,19 +17,16 @@ public class ED : Editor
         
          
         
-        tringle mp = (tringle)target;
+        HyperbolicTriangeRenederer mp = (HyperbolicTriangeRenederer)target;
         
-        mp1 = (tringle)target;
+        mp1 = (HyperbolicTriangeRenederer)target;
          
       //  for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
      //   {
      //       GameObject.FindObjectsOfType<tringle>()[i].up2(HyperbolicCamera.Main().polarTransform);
      //       GameObject.FindObjectsOfType<tringle>()[i].move();
      //   }
-       for (int i = 0; i < GameObject.FindObjectsOfType<Sphere>().Length; i++)
-       {
-           GameObject.FindObjectsOfType<Sphere>()[i].Update();
-       }
+      
 
 
         base.OnInspectorGUI();

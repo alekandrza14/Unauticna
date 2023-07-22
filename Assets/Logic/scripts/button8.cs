@@ -23,12 +23,14 @@ public class button8 : MonoBehaviour
     public string pasword;
     public Canvas c;
 
+    public HyperbolicPoint sp;
+
     private void Start()
     {
         c.gameObject.SetActive(false);
         if (portallNumer.Portal == pasword)
         {
-            musave.load(transform);
+            musave.load(transform,sp);
             portallNumer.Portal = "";
         }
 

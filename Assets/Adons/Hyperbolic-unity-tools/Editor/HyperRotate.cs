@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditor.EditorTools;
 
 
-[EditorTool("Hyperbolic rotate tool", typeof(Sphere))]
+[EditorTool("Hyperbolic rotate tool", typeof(HyperbolicPoint))]
 public class HyperRotate : EditorTool
 {
     public Texture2D toolIcon;
@@ -25,7 +25,7 @@ public class HyperRotate : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Sphere trgetpolartransform = ((Sphere)target);
+        HyperbolicPoint trgetpolartransform = ((HyperbolicPoint)target);
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Quaternion q = Handles.RotationHandle(trgetpolartransform.rotation, trgetpolartransform.mposition);
@@ -39,22 +39,21 @@ public class HyperRotate : EditorTool
             Undo.RecordObject(target, "Hyperbolic rotate tool");
 
 
-            ((Sphere)target).rotation = q;
+            ((HyperbolicPoint)target).rotation = q;
 
 
           
-            ((Sphere)target).Update();
 
 
 
         }
         /*
-        if (((Sphere)target).GetComponent<tringle>())
+        if (((HyperbolicPoint)target).GetComponent<tringle>())
         {
 
 
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(((Sphere)target).mposition, 0.3f);
+            Gizmos.DrawSphere(((HyperbolicPoint)target).mposition, 0.3f);
         }
         */
 

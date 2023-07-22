@@ -14,11 +14,13 @@ public class button7 : MonoBehaviour
     string Portal = "p2";
     public bool notsave; public Collider other;
 
+    public HyperbolicPoint sp;
+
     private void Start()
     {
         if (portallNumer.Portal == Portal)
         {
-            musave.load(transform);
+            musave.load(transform,sp);
             portallNumer.Portal = "";
         }
 

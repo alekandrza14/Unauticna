@@ -18,7 +18,7 @@ public class PresetMenager
         g.transform.position = SceneView.lastActiveSceneView.camera.transform.position + (SceneView.lastActiveSceneView.camera.transform.forward * 10);
 
     }
-    [MenuItem("GameObject/ND Object/Sphere", false, -2)]
+    [MenuItem("GameObject/ND Object/HyperbolicPoint", false, -2)]
     public static void Create_ND_Sphere()
     {
         GameObject g = new GameObject("ND_sphere")
@@ -26,7 +26,7 @@ public class PresetMenager
 
         };
         g.AddComponent<MultyObject>();
-        g.GetComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("Sphere");
+        g.GetComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("HyperbolicPoint");
         g.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
         g.transform.position = SceneView.lastActiveSceneView.camera.transform.position + (SceneView.lastActiveSceneView.camera.transform.forward * 10);
 

@@ -729,11 +729,11 @@ public class ElementalInventory : MonoBehaviour {
 
 						Transform t = Instantiate(inv2("пена").gameObject, Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
 						t.Translate(0, v3.y, 0);
-						t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-						t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-						t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-						t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-						t.gameObject.GetComponent<Sphere>().ls = inv2("пена").gameObject.transform.localScale;
+						t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+						t.gameObject.GetComponent<HyperbolicPoint>().v1 = c.transform.position.y;
+						t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
+						t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
+						t.gameObject.GetComponent<HyperbolicPoint>().ls = inv2("пена").gameObject.transform.localScale;
 						//Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
 						
 					}
@@ -950,11 +950,11 @@ public class ElementalInventory : MonoBehaviour {
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
             t.Translate(0, v3.y, 0);
-            t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-            t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-            t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-            t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-            t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
+            t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+            t.gameObject.GetComponent<HyperbolicPoint>().v1 = c.transform.position.y;
+            t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
+            t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
+            t.gameObject.GetComponent<HyperbolicPoint>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
 
             Destroy(t.gameObject.GetComponent<Rigidbody>());
             setItem("", 0, Color.red, select);
@@ -970,11 +970,11 @@ public class ElementalInventory : MonoBehaviour {
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
             t.Translate(0, v3.y, 0);
-            t.gameObject.AddComponent<Sphere>().p2 = c.polarTransform.inverse();
-            t.gameObject.GetComponent<Sphere>().v1 = c.transform.position.y;
-            t.gameObject.GetComponent<Sphere>().p2.applyTranslationY(-v3.z);
-            t.gameObject.GetComponent<Sphere>().p2.applyTranslationZ(-v3.x);
-            t.gameObject.GetComponent<Sphere>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
+            t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+            t.gameObject.GetComponent<HyperbolicPoint>().v1 = c.transform.position.y;
+            t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
+            t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
+            t.gameObject.GetComponent<HyperbolicPoint>().ls = inv2(Cells[select].elementName).gameObject.transform.localScale;
 
             Destroy(t.gameObject.GetComponent<Rigidbody>());
             setItem("", 0, Color.red, select);

@@ -298,10 +298,10 @@ public class complsave : MonoBehaviour
                         saveString1.x.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].AddComponent<breauty>().integer = 10);
 
                     }
-                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>())
+                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>())
                     {
-                        saveString1.PvectorA.Add(JsonUtility.ToJson(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>().p2));
-                        saveString1.y.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<Sphere>().v1);
+                        saveString1.PvectorA.Add(JsonUtility.ToJson(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
+                        saveString1.y.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>().v1);
                     }
 
 
@@ -507,19 +507,19 @@ public class complsave : MonoBehaviour
                 {
                     g.GetComponent<breauty>().integer = saveString1.x[i3];
                 }
-                if (!g.GetComponent<Sphere>())
+                if (!g.GetComponent<HyperbolicPoint>())
                 {
 
 
-                    g.AddComponent<Sphere>().p2 = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
+                    g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
 
-                    g.GetComponent<Sphere>().v1 = saveString1.y[i3];
+                    g.GetComponent<HyperbolicPoint>().v1 = saveString1.y[i3];
                 }
                 else
                 {
-                    g.GetComponent<Sphere>().p2 = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
+                    g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
 
-                    g.GetComponent<Sphere>().v1 = saveString1.y[i3];
+                    g.GetComponent<HyperbolicPoint>().v1 = saveString1.y[i3];
                 }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.EditorTools;
 
-[EditorTool("Hyperbolic move tool", typeof(Sphere))]
+[EditorTool("Hyperbolic move tool", typeof(HyperbolicPoint))]
 public class HyperTransform : EditorTool
 {
     public Texture2D toolIcon;
@@ -24,17 +24,20 @@ public class HyperTransform : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Hyperbolic2D trgetpolartransform = ((Sphere)target).p2;
-        Hyperbolicmovetool.mainEdit = ((Sphere)target);
-        Hyperbolic2D oldpos = ((Sphere)target).p2;
-        Transform trgettransform = ((Sphere)target).transform;
+        Hyperbolic2D trgetpolartransform = ((HyperbolicPoint)target).HyperboilcPoistion;
+        Hyperbolicmovetool.mainEdit = ((HyperbolicPoint)target);
+        Hyperbolic2D oldpos = ((HyperbolicPoint)target).HyperboilcPoistion;
+        Transform trgettransform = ((HyperbolicPoint)target).transform;
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
         Vector3 v3 = (Handles.PositionHandle(SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position, Quaternion.identity) - (SceneView.currentDrawingSceneView.camera.transform.forward + SceneView.currentDrawingSceneView.camera.transform.position));
-        Hyperbolic2D newpos = new Hyperbolic2D(trgetpolartransform.n + (v3.x) / (10), trgetpolartransform.s + (v3.y) / 10, trgetpolartransform.m + (v3.z) / 10);
-        //  ((Sphere)target).p2 = newpos;
-        Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, ((Sphere)target).v1, trgettransform.position.z), Quaternion.identity);
-        //  ((Sphere)target).v1 = v32.y;
+
+      //  trgetpolartransform.applyTranslationY(v3.x / 200);
+       // trgetpolartransform.applyTranslationZ(v3.z / 200);
+      //  trgetpolartransform.applyRotation(v3.y / 200);
+        //  ((HyperbolicPoint)target).p2 = newpos;
+        Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, ((HyperbolicPoint)target).v1, trgettransform.position.z), Quaternion.identity);
+        //  ((HyperbolicPoint)target).v1 = v32.y;
 
         if (EditorGUI.EndChangeCheck())
         {
@@ -42,23 +45,22 @@ public class HyperTransform : EditorTool
 
 
             Undo.RecordObject(target, "Hyperbolic move tool");
-            ((Sphere)target).p2 = newpos;
-            ((Sphere)target).v1 = v32.y;
+            ((HyperbolicPoint)target).v1 = v32.y;
 
+            ((HyperbolicPoint)target).HyperboilcPoistion = trgetpolartransform;
 
-            ((Sphere)target).LateUpdate();
-            ((Sphere)target).Update();
+            ((HyperbolicPoint)target).LateUpdate();
 
 
 
         }
         /*
-        if (((Sphere)target).GetComponent<tringle>())
+        if (((HyperbolicPoint)target).GetComponent<tringle>())
         {
 
 
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(((Sphere)target).mposition, 0.3f);
+            Gizmos.DrawSphere(((HyperbolicPoint)target).mposition, 0.3f);
         }
         */
 

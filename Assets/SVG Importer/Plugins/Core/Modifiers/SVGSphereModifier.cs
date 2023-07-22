@@ -8,7 +8,7 @@ namespace SVGImporter
 {
     [ExecuteInEditMode]
     [RequireComponent(typeof(ISVGRenderer))]
-    [AddComponentMenu("Rendering/SVG Modifiers/Sphere Modifier", 22)]
+    [AddComponentMenu("Rendering/SVG Modifiers/HyperbolicPoint Modifier", 22)]
     public class SVGSphereModifier : SVGModifier {
 
         public Transform center;

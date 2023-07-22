@@ -35,13 +35,9 @@ public class RaymarchCam : SceneViewFilter
     {
         get
         {
-            if (!_cam && FindObjectsOfType<Logic_tag_3>().Length == 0)
+            if (!_cam)
             {
                 _cam = GetComponent<Camera>();
-            }
-            if (!_cam && FindObjectsOfType<Logic_tag_3>().Length != 0)
-            {
-                _cam = FindObjectOfType<Logic_tag_3>(). GetComponent<Camera>();
             }
             return _cam;
         }

@@ -35,7 +35,7 @@ public class Camdpoint : MonoBehaviour
 
 
             copytr.mult(nextPoint, nextPoint);
-            HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+            HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 
@@ -73,7 +73,7 @@ public class Camdpoint : MonoBehaviour
 
 
             copytr.mult(nextPoint, nextPoint);
-            HyperbolicCamera.Main().polarTransform.getMatrix().mult(nextPoint, nextPoint);
+            HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 

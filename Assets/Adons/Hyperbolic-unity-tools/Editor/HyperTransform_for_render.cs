@@ -7,7 +7,7 @@ using UnityEditor.EditorTools;
 public class HyperTransform_for_render : EditorTool
 {
     public Texture2D toolIcon;
-    public static Sphere mainEdit;
+    public static HyperbolicPoint mainEdit;
 
     public override GUIContent toolbarIcon {
         get
@@ -23,18 +23,23 @@ public class HyperTransform_for_render : EditorTool
 
     public override void OnToolGUI(EditorWindow window)
     {
-        Hyperbolic2D trgetpolartransform = ((HyperbolicCamera)target).polarTransform;
+        Hyperbolic2D trgetpolartransform = ((HyperbolicCamera)target).HyperbolicTransform;
         
-        Hyperbolic2D oldpos = ((HyperbolicCamera)target).polarTransform;
+        Hyperbolic2D oldpos = ((HyperbolicCamera)target).HyperbolicTransform;
         Transform trgettransform = ((HyperbolicCamera)target).transform;
         EditorGUI.BeginChangeCheck();
         // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
+
         Vector3 v3 = Handles.PositionHandle(new Vector3(0, 0, 0), Quaternion.identity);
-        Hyperbolic2D newpos = new Hyperbolic2D(trgetpolartransform.n+ (v3.x)/(40), trgetpolartransform.s + (v3.y) / 40, trgetpolartransform.m + (v3.z) / 40);
-      //  ((Sphere)target).p2 = newpos;
-      //  Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, trgettransform.position.y, trgettransform.position.z), Quaternion.identity);
-        //  ((Sphere)target).v1 = v32.y;
-       
+
+      //  trgetpolartransform.applyTranslationY(v3.x / 200);
+       // trgetpolartransform.applyTranslationZ(v3.z / 200);
+       // trgetpolartransform.applyRotation(v3.y / 200);
+        //  ((HyperbolicPoint)target).p2 = newpos;
+        //  ((HyperbolicPoint)target).p2 = newpos;
+        //  Vector3 v32 = Handles.PositionHandle(new Vector3(trgettransform.position.x, trgettransform.position.y, trgettransform.position.z), Quaternion.identity);
+        //  ((HyperbolicPoint)target).v1 = v32.y;
+
         if (EditorGUI.EndChangeCheck())
         {
 
@@ -43,7 +48,7 @@ public class HyperTransform_for_render : EditorTool
 
 
             Undo.RecordObject(target, "Hyperbolic move tool");
-            ((HyperbolicCamera)target).polarTransform = newpos;
+            ((HyperbolicCamera)target).HyperbolicTransform = trgetpolartransform;
             //    ((Camd)target).transform.position = Vector3.up * v32.y;
            
 

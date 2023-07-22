@@ -201,13 +201,15 @@ public class musave : MonoBehaviourPunCallbacks
       
                 return t;
     }
-    static public void load(Transform transform)
+    static public void load(Transform transform,HyperbolicPoint hyperbolicPoint)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 
 
-            GameObject.FindWithTag("Player").transform.position = transform.position;
+            if (hyperbolicPoint == null) mover.main().transform.position = transform.position;
+            else { HyperbolicCamera.Main().RealtimeTransform = hyperbolicPoint.HyperboilcPoistion.copy().inverse(); }
+           
         }
       
 
@@ -218,7 +220,7 @@ public class musave : MonoBehaviourPunCallbacks
         {
 
 
-            FindObjectsByType<mover>(sortmode.main)[0].hyperbolicCamera.polarTransform = pl;
+            FindObjectsByType<mover>(sortmode.main)[0].hyperbolicCamera.RealtimeTransform = pl;
             FindObjectsByType<mover>(sortmode.main)[0].transform.position = new Vector3(0,i3*2,0);
         }
    

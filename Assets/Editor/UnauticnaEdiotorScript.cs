@@ -8,7 +8,7 @@ public class UnauticnaEdiotorScript {
     public static void Create()
     {
         //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
-        GameObject g = new GameObject("Sphere 4D")
+        GameObject g = new GameObject("HyperbolicPoint 4D")
         {
 
         };

@@ -10,7 +10,7 @@ namespace Unity.Mathematics
     {
         // ****************** Distance Functions ****************** 
 
-        // Sphere
+        // HyperbolicPoint
         // s: radius
         public float sdSphere(float3 p, float s)
         {

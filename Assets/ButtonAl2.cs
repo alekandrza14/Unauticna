@@ -9,11 +9,13 @@ public class ButtonAl2 : MonoBehaviour
     [SerializeField] GameObject GetObjectInterface;
     [SerializeField] Text NameObjectText;
     [SerializeField] Text PositionText;
+    [SerializeField] Text FreedomPositionText;
     void Update()
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
             PositionText.text = Globalprefs.PlayerPositionInfo;
+            FreedomPositionText.text = Globalprefs.AnyversePlayerPositionInfo;
             if (!string.IsNullOrEmpty(Globalprefs.selectitem))
             {
                 NameObjectText.text = "Last Object Item : (" + Globalprefs.selectitem + ")";

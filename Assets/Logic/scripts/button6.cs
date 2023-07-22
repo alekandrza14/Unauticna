@@ -18,7 +18,7 @@ public class button6 : MonoBehaviour
     public bool p4;
     public bool p5;
     public Collider other;
-    public Sphere sp;
+    public HyperbolicPoint sp;
     private void Start()
     {
         Init();
@@ -30,7 +30,8 @@ public class button6 : MonoBehaviour
     {
         if (portallNumer.Portal == Portal)
         {
-            musave.load(transform);
+            Debug.Log("portaltelep "+ Portal);
+            musave.load(transform,sp);
             portallNumer.Portal = "";
         }
     }

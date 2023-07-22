@@ -14,7 +14,7 @@ public class Create_4D
         {
 
         };
-        g.AddComponent<Sphere>();
+        g.AddComponent<HyperbolicPoint>();
     }
     [MenuItem("GameObject/4D Object/Hyperbolic geometry/Cube", false, -1000)]
     public static void CreateCube()
@@ -24,23 +24,23 @@ public class Create_4D
         {
 
         };
-        if (Hyperbolicmovetool.mainEdit != null) { g.AddComponent<Sphere>().p2 = Hyperbolicmovetool.mainEdit.p2; g.GetComponent<Sphere>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<Sphere>();
+        if (Hyperbolicmovetool.mainEdit != null) { g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<HyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<HyperbolicPoint>();
 
         g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("Cube");
         g.AddComponent<BoxCollider>();
        g.AddComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
     }
-    [MenuItem("GameObject/4D Object/Hyperbolic geometry/Sphere", false, -1000)]
+    [MenuItem("GameObject/4D Object/Hyperbolic geometry/HyperbolicPoint", false, -1000)]
     public static void CreateSphere()
     {
         //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
-        GameObject g = new GameObject("Sphere")
+        GameObject g = new GameObject("HyperbolicPoint")
         {
 
         };
-        if (Hyperbolicmovetool.mainEdit != null) {g.AddComponent<Sphere>().p2 = Hyperbolicmovetool.mainEdit.p2; g.GetComponent<Sphere>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<Sphere>();
+        if (Hyperbolicmovetool.mainEdit != null) {g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<HyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<HyperbolicPoint>();
         g.AddComponent<SphereCollider>();
-        g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("Sphere");
+        g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("HyperbolicPoint");
         g.AddComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
     }
 }

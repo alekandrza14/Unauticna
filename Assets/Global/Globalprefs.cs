@@ -8,6 +8,7 @@ public static class Globalprefs
     public static Texture txt;
     public static int idscene;
     public static string PlayerPositionInfo;
+    public static string AnyversePlayerPositionInfo;
     public static Vector3 newv3;
     public static Vector3 pos;
     public static decimal flowteuvro;
@@ -41,7 +42,7 @@ public static class Globalprefs
 
     public static int GetIdPlanet()
     {
-        int seed = VarSave.GetInt("planet") + (VarSave.GetInt("planetS") * 1000) + (VarSave.GetInt("planetG") * 100000);
+        int seed = VarSave.GetInt("planet") + (VarSave.GetInt("planetS") * 1000) + (VarSave.GetInt("planetG") * 100000) + (VarSave.GetInt("planetU")*100000);
 
         return seed;
     }
