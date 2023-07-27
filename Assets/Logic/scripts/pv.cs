@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class pv : MonoBehaviourPunCallbacks
+public class pv : MonoBehaviour
 {
-    [PunRPC]
     private void setPVector(float v1, float v2, float v3, float v4)
     {
         

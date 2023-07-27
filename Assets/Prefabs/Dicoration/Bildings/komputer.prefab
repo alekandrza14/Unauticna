@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5861771439043462747}
   - component: {fileID: 7044542721947718081}
   - component: {fileID: 1822078259214952919}
+  - component: {fileID: 5954511512568213970}
   m_Layer: 0
   m_Name: "\u041A\u0443\u0431"
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5272791649126395968}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7011145773695945412}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5861771439043462747
 MeshFilter:
@@ -92,12 +93,33 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5272791649126395968}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1710425572717105975, guid: 873fa2b3d5f345b40a08f981ace6b343, type: 3}
+--- !u!114 &5954511512568213970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272791649126395968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be23213a32b902468e7adb2430ff5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SiObject: "\u043A\u043E\u043C\u043F"
 --- !u!1 &7640153648748597374
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7640153648748597374}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.8089597, y: -0.00000047683716, z: -18.177586}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -129,7 +152,6 @@ Transform:
   - {fileID: 6142119880588906913}
   - {fileID: 3820059841499024300}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7875191690839957323
 GameObject:
@@ -143,6 +165,7 @@ GameObject:
   - component: {fileID: 3224683906485757759}
   - component: {fileID: 6468977789387996128}
   - component: {fileID: 4205067426653383389}
+  - component: {fileID: 5968364329361010113}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -157,13 +180,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7875191690839957323}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 175.11264, y: 175.11264, z: 175.11264}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7011145773695945412}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3224683906485757759
 MeshFilter:
@@ -223,9 +246,30 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7875191690839957323}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 873fa2b3d5f345b40a08f981ace6b343, type: 3}
+--- !u!114 &5968364329361010113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875191690839957323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be23213a32b902468e7adb2430ff5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SiObject: "\u0441\u0442\u043E\u043B"

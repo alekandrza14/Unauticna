@@ -21,12 +21,10 @@ public class breauty : MonoBehaviour
 
 
 
-                if (musave.player(other.gameObject))
-                {
-
+                
 
                     musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-                }
+               
             }
         }
     }

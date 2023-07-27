@@ -39,12 +39,10 @@ public class deadtrigger1 : MonoBehaviour
             VarSave.SetBool("cry", true);
             VarSave.SetBool("подъездный маг победил", true);
 
-            if (musave.player(collision.collider.gameObject))
-            {
 
 
                 musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
+          
         }
     }
 }

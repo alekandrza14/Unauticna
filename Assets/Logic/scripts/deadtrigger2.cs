@@ -43,12 +43,11 @@ public class deadtrigger2 : MonoBehaviour
                 VarSave.SetBool("убит фанатиком", true);
             }
 
-            if (musave.player(other.gameObject))
-            {
+          
 
 
                 musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
+          
         }
     }
 }

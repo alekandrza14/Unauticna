@@ -31,12 +31,10 @@ public class enemyspider : MonoBehaviour
             VarSave.SetBool("cry", true);
             VarSave.SetBool("страшный паук победил", true);
 
-            if (musave.player(collision.collider.gameObject))
-            {
-
+          
 
                 musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
+           
         }
     }
     // Update is called once per frame

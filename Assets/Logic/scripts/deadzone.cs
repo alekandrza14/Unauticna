@@ -24,12 +24,11 @@ public class deadzone : MonoBehaviour
             VarSave.SetBool("отравлен и от правлен в больницу", true); 
             VarSave.SetBool("cry", true);
             Uxill_Engine.kill();
-            if (musave.player(other.gameObject))
-            {
+         
 
                 
                 musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
+           
         }
     }
 }

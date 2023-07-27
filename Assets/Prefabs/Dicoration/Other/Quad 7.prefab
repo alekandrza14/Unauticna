@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4942321301984482473}
   - component: {fileID: 6769733576452040893}
   - component: {fileID: 6564694782047376246}
+  - component: {fileID: 1538323083509127009}
   m_Layer: 0
   m_Name: Quad 7
   m_TagString: Untagged
@@ -26,6 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483371937994226432}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.49999997, y: -0.49999997, z: -0.49999997, w: 0.49999997}
   m_LocalPosition: {x: 170.07, y: -149.34373, z: -22.09}
   m_LocalScale: {x: 9.7328, y: 9.7328, z: 9.7328}
@@ -33,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 5309162645627086475}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4942321301984482473
 MeshFilter:
@@ -107,6 +108,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1538323083509127009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483371937994226432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be23213a32b902468e7adb2430ff5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SiObject: LiminalSpace
 --- !u!1 &3673393126356061452
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,13 +147,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3673393126356061452}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -0.0010268891}
   m_LocalScale: {x: 1.1414, y: 1.1414, z: 1.1414}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2421505312079411360}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5103221788270139199
 MeshFilter:

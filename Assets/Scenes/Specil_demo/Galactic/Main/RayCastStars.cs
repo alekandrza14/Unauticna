@@ -109,7 +109,7 @@ public class RayCastStars : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
-                        SceneManager.LoadScene("Universe");
+                        SceneManager.LoadScene("Universe loader");
                         VarSave.DeleteKey("scppos");
                     }
                 }

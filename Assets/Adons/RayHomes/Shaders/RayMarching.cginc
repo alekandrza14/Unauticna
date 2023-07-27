@@ -46,6 +46,7 @@ sampler2D _MainTexture;
 float3 _Tint;
 float _Metallic;
 float _Smoothness;
+float _Brigtness;
 
 float _Tolerance;
 float _RelativeTolerance;
@@ -272,7 +273,7 @@ fixed4 fragBase(VertexOutput i, out float outDepth : SV_Depth) : SV_Target
     float shadow = Shadow(backoffPos);
 
     half3 albedo = _Tint;
-
+    albedo += _Tint * _Brigtness;
     half3 specularTint;
     half oneMinusReflectivity;
     albedo = DiffuseAndSpecularFromMetallic(albedo, _Metallic, specularTint, oneMinusReflectivity);

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6479427361756216785}
   - component: {fileID: 3237385754035396878}
   - component: {fileID: 848471588474394802}
+  - component: {fileID: 3020432016937961612}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756862526663148965}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1470279977978859562}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6479427361756216785
 MeshFilter:
@@ -106,6 +107,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 7c8b0454b8760484fa62873e4be568bb, type: 3}
+--- !u!114 &3020432016937961612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756862526663148965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be23213a32b902468e7adb2430ff5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SiObject: Cristal
 --- !u!1 &2246358833242622608
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,6 +143,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2246358833242622608}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 295.27832, y: 54.308197, z: -227.28168}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -137,7 +152,6 @@ Transform:
   - {fileID: 2312278775312780111}
   - {fileID: 8355867644564344800}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4062860370948399046
 GameObject:
@@ -163,13 +177,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4062860370948399046}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.66425735, y: 0.021227032, z: 0.018876696, w: 0.7469641}
   m_LocalPosition: {x: 0.09, y: 6.89, z: 0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1470279977978859562}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 82.547, y: 25.964, z: 25.773}
 --- !u!108 &5860565067372709667
 Light:

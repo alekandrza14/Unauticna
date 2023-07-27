@@ -41,12 +41,11 @@ public class deadtrigger : MonoBehaviour
                 VarSave.SetBool("терратскичикий корабль победил", true);
             }
 
-            if (musave.player(other.gameObject))
-            {
+          
 
 
                 musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
+            
         }
     }
 }

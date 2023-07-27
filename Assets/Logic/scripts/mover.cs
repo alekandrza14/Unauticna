@@ -366,21 +366,27 @@ public class mover : MonoBehaviour
     //Пробуждение кода
     private void Awake()
     {
+        Init();
+    }
+
+    private void Init()
+    {
         hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
+       // Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         lif += "_" + Globalprefs.GetTimeline();
-        
-            SaveFileInputField.text = Globalprefs.GetTimeline();
-        
+
+        SaveFileInputField.text = Globalprefs.GetTimeline();
+
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
         {
             gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             planet_position = gsave.Spos;
-            lepts = "-"+ planet_position.ToString();
+            lepts = "-" + planet_position.ToString();
         }
         stand_stay = load1.stad;
         if (VarSave.ExistenceVar("cms" + SceneManager.GetActiveScene().buildIndex + lif))
@@ -399,7 +405,7 @@ public class mover : MonoBehaviour
         c.renderingPath = RenderingPath.DeferredShading;
         Globalprefs.camera = c;
         c.gameObject.AddComponent<Logic_tag_3>();
-       
+
         if (isplanet)
         {
             gameObject.AddComponent<PlanetGravity>().body = transform;
@@ -410,9 +416,9 @@ public class mover : MonoBehaviour
 
         ionenergy.energy = 0;
         vel = GetComponent<CapsuleCollider>().height;
-       
-        
-            Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
+
+
+        Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
 
         //four-Dimentional-Axis
@@ -421,20 +427,20 @@ public class mover : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
         if (!tutorial && inglobalspace != true)
         {
-            
+
             WorldSave.GetVector4("var");
             WorldSave.GetVector3("var1");
             WorldSave.GetMusic(SceneManager.GetActiveScene().name);
             Directory.CreateDirectory("unsave");
             Directory.CreateDirectory("unsave/capterg");
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
+            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
             if (File.Exists("unsave/s"))
             {
                 SaveFileInputField.text = File.ReadAllText("unsave/s");
             }
-            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
+            if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.velocity = save.velosyty;
                 if (portallNumer.Portal == "")
@@ -465,7 +471,7 @@ public class mover : MonoBehaviour
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
-                
+
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
@@ -493,9 +499,9 @@ public class mover : MonoBehaviour
 
             SaveFileInputField.text = "tutorial";
 
-            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/"  + SaveFileInputField.text))
+            if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.velocity = save.velosyty;
                 if (portallNumer.Portal == "")
@@ -512,7 +518,7 @@ public class mover : MonoBehaviour
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
-               
+
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
@@ -530,13 +536,14 @@ public class mover : MonoBehaviour
             }
 
 
-           
+
 
         }
-      if (FindObjectsByType<GenTest>(sortmode.main).Length !=0)  FindFirstObjectByType<GenTest>().load_planet();
+        if (FindObjectsByType<GenTest>(sortmode.main).Length != 0) FindFirstObjectByType<GenTest>().load_planet();
 
         hyperbolicCamera = HyperbolicCamera.Main();
     }
+
     //Пробуждение кода
     //Приметивный интерфейс
     private void OnGUI()
@@ -566,6 +573,9 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 40, 200f, 100f), "Flow Teuvro ($^) : " + Globalprefs.flowteuvro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
+            GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
+            GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + Globalprefs.knowlages);
+            GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
 
 
         }
@@ -1079,7 +1089,7 @@ public class mover : MonoBehaviour
 
             timer = 0;
         }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && !Globalprefs.Pause)
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise);
             Destroy(Globalprefs.selectitemobj.gameObject);

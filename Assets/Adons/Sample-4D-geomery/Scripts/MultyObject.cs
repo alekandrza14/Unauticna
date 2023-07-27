@@ -26,10 +26,20 @@ public class MultyObject : MonoBehaviour
     [SerializeField] public shapeSettings shapeSettings;
     [Header("Save prametrs")]
     [SerializeField] public Vector3 scale3D;
+    GameObject[] childs;
     
     int w;
     void Start()
     {
+
+
+        List<GameObject> countcild = new List<GameObject>();
+          float c = transform.childCount;
+        for (int i = 0; i < c; i++)
+        {
+            countcild.Add( transform.GetChild(i).gameObject);
+        }
+        childs = countcild.ToArray();
         if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
         {
 
@@ -113,9 +123,17 @@ public class MultyObject : MonoBehaviour
                 {
                     GetComponent<MeshCollider> ().enabled = true;
                 }
+                foreach (GameObject child in childs)
+                {
+                    child.gameObject.SetActive(true);
+                }
             }
             else
             {
+                foreach (GameObject child in childs)
+                {
+                    child.gameObject.SetActive(false);
+                }
                 if (GetComponent<MeshRenderer>())
                 {
                     GetComponent<MeshRenderer>().enabled = false;

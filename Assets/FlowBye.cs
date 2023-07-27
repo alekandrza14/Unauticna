@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FlowBye : MonoBehaviour
 {
@@ -9,8 +10,19 @@ public class FlowBye : MonoBehaviour
     [SerializeField] int loan;
     [SerializeField] int flow;
     [SerializeField] string realestatename;
+
+    private void Start()
+    {
+        if (realestatename != "") realestatename = ((int)transform.position.x).ToString() +
+            ((int)transform.position.y).ToString() +
+            ((int)transform.position.z).ToString() +
+            SceneManager.GetActiveScene().name +
+            Globalprefs.GetIdPlanet().ToString();
+    }
+
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
         {
             Directory.CreateDirectory("unsave/var/re");

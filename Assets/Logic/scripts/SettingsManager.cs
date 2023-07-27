@@ -86,8 +86,10 @@ public class SettingsManager : MonoBehaviour {
         x -= size / 2;
         int y = monitorHeight / 2;
         y -= size / 2;
-#endif
+
         return new Vector2(x,y);
+#endif
+        return new Vector2(0, 0);
     }
 
     public void Update()

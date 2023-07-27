@@ -12,6 +12,9 @@ public static class Globalprefs
     public static Vector3 newv3;
     public static Vector3 pos;
     public static decimal flowteuvro;
+    public static decimal knowlages;
+    public static decimal technologies;
+    public static decimal research;
     public static decimal OverFlowteuvro;
     public static decimal ItemPrise;
     public static bool bunkrot;

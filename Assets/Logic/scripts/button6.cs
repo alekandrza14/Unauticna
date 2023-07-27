@@ -76,6 +76,7 @@ public class button6 : MonoBehaviour
    
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (enter)

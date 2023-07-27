@@ -4,8 +4,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
-using Photon.Realtime;
 public class sortmode 
 { 
     static public FindObjectsSortMode main = FindObjectsSortMode.None;
@@ -156,7 +154,7 @@ public class currentAtackk
 {
 
 }
-public class musave : MonoBehaviourPunCallbacks
+public class musave : MonoBehaviour
 {
     public static string saveid;
     public static void save()
@@ -252,62 +250,18 @@ public class musave : MonoBehaviourPunCallbacks
     }
     static public void chargescene(int scene)
     {
-        if (!Photon.Pun.PhotonNetwork.IsConnected)
-        {
+        
 
             SceneManager.LoadScene(scene);
             
-        }
-        if (Photon.Pun.PhotonNetwork.IsConnected)
-        {
-            
-
-                
-                musave.scene = scene;
-
-            Photon.Pun.PhotonView[] players = new Photon.Pun.PhotonView[0];
-            players = GameObject.FindObjectsOfType<Photon.Pun.PhotonView>();
-
-          
-
-
-
-
-            }
+      
 
 
     }
     static public int scene = 0;
-    public override void OnPlayerLeftRoom(Player other)
-    {
-        Debug.Log("OnPlayerLeftRoom() " + other.NickName); // seen when other disconnects
-        if (PhotonNetwork.IsMasterClient)
-        {
-            
-        }
-    }
+  
 
-    public override void OnLeftRoom()
-    {
-
-
-
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            
-        }
-
-
-
-
-
-
-
-
-
-    }
-
+  
     //Photon.Realtime.RoomOptions roomOptions = new Photon.Realtime.RoomOptions();
   //  roomOptions.MaxPlayers = 3;
      //   PhotonNetwork.JoinOrCreateRoom(musave.saveid + musave.scene, roomOptions, TypedLobby.Default);
@@ -325,16 +279,5 @@ public class musave : MonoBehaviourPunCallbacks
             return t;
 
     }
-    static public bool player(GameObject a)
-    {
-        bool t = false;
-     
-        if (!Photon.Pun.PhotonNetwork.IsConnected)
-        {
-            t = true;
-        }
-
-        return t;
-
-    }
+  
 }

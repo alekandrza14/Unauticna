@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
-using Photon.Chat;
-using Photon.Realtime;
 
 public class tesseraktenemy4 : MonoBehaviour
 {

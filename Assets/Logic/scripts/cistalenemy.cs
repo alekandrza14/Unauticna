@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
-using Photon.Chat;
-using Photon.Realtime;
 
 public class cistalenemy : MonoBehaviour
 {
@@ -85,12 +82,10 @@ public class cistalenemy : MonoBehaviour
             if (c.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
         {
             VarSave.SetBool("cry", true);
-            VarSave.SetBool("призедент победил", true); if (musave.player(c.collider.gameObject))
-            {
-
+            VarSave.SetBool("призедент победил", true); 
 
                 musave.chargescene(SceneManager.GetActiveScene().buildIndex);
-            }
+           
         }
     }
 
