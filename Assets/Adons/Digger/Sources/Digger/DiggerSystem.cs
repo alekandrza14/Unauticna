@@ -114,18 +114,20 @@ namespace Digger
             }
         }
 
-        private string ComputeBasePathData()
+        [SerializeField]
+        public string ComputeBasePathData()
         {
             if (!master) master = FindObjectOfType<DiggerMaster>();
             return Path.Combine(master.SceneDataPath, BaseFolder);
         }
 
-        private string InternalPathData => Path.Combine(BasePathData, ".internal");
+        [SerializeField] public string InternalPathData => Path.Combine(BasePathData, ".internal");
 
-        private string StreamingAssetsPathData =>
+        [SerializeField] public string StreamingAssetsPathData =>
             Path.Combine(Application.streamingAssetsPath, "DiggerData", BaseFolder);
 
-        private string PersistentRuntimePathData {
+        [SerializeField]
+        public string PersistentRuntimePathData {
             get {
                 if (persistenceSubPath != "") {
                     return Path.Combine(Application.persistentDataPath, "DiggerData", persistenceSubPath, BaseFolder);

@@ -513,13 +513,20 @@ public class complsave : MonoBehaviour
 
                     g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
 
-                    g.GetComponent<HyperbolicPoint>().v1 = saveString1.y[i3];
+                    g.transform.position = new Vector3(
+                    g.transform.position.x,
+                    saveString1.vector3A[i3].y,
+                    g.transform.position.z
+                                     );
                 }
                 else
                 {
                     g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
-
-                    g.GetComponent<HyperbolicPoint>().v1 = saveString1.y[i3];
+                    g.transform.position = new Vector3(
+                    g.transform.position.x,
+                    saveString1.vector3A[i3].y,
+                    g.transform.position.z
+                                     );
                 }
 
 

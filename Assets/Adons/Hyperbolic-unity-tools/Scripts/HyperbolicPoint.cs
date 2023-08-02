@@ -30,7 +30,7 @@ public class HyperbolicPoint : MonoBehaviour
     [HideInInspector] public Quaternion rotation;
     public Hyperbolic2D HyperboilcPoistion = new Hyperbolic2D();
     public Hyperbolic2D HyperboilcOringe = new Hyperbolic2D();
-    [HideInInspector] public Vector3 ls = Vector3.one;
+    public Vector3 ScriptSacle = Vector3.one;
     [HideInInspector] public float v1 = 0;
     [HideInInspector] public float x;
    [HideInInspector] public bool px;
@@ -223,11 +223,12 @@ public class HyperbolicPoint : MonoBehaviour
                 mposition = new Vector3(nextPoint.x, transform.position.y, nextPoint.y);
             }
 
+        float dist = (25f -MathHyper.sinh((new PVector().dist(nextPoint) * 0.2f)))/25;
 
-        if (!GetComponent<HyperbolicTriangeRenederer>() && (4f - MathHyper.cosh(1 - (new PVector().dist(nextPoint) * 0.2f))) >= 0)
+        if (!GetComponent<HyperbolicTriangeRenederer>() && dist >= 0)
         {
-            transform.localScale = ls * (4f - MathHyper.cosh(1 - (new PVector().dist(nextPoint) * 0.2f)));
-        }else if (!GetComponent<HyperbolicTriangeRenederer>() && (4f - MathHyper.cosh(1 - (new PVector().dist(nextPoint) * 0.2f))) < 0)
+            transform.localScale = ScriptSacle * dist;
+        }else if (!GetComponent<HyperbolicTriangeRenederer>() && dist < 0)
         {
             transform.localScale = new Vector3(0.0001f, 0.0001f, 0.0001f);
         }

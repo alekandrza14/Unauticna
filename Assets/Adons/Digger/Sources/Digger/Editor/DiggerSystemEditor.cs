@@ -34,37 +34,7 @@ namespace Digger
             Init(diggerSystem, false);
         }
 
-        public override void OnInspectorGUI()
-        {
-            EditorGUILayout.HelpBox($"Digger data for this terrain can be found in {diggerSystem.BasePathData}",
-                                    MessageType.Info);
-            EditorGUILayout.HelpBox($"Raw voxel data can be found in {diggerSystem.BasePathData}/.internal",
-                                    MessageType.Info);
-            EditorGUILayout.HelpBox("DO NOT CHANGE / RENAME / MOVE this folder.", MessageType.Warning);
-            EditorGUILayout.HelpBox("Don\'t forget to backup this folder as well when you backup your project.",
-                                    MessageType.Warning);
-
-            EditorGUILayout.LabelField("Use Digger Master to start digging.");
-
-            var showDebug = EditorGUILayout.Toggle("Show debug data", diggerSystem.ShowDebug);
-            if (showDebug != diggerSystem.ShowDebug) {
-                diggerSystem.ShowDebug = showDebug;
-                foreach (Transform child in diggerSystem.transform) {
-                    child.gameObject.hideFlags =
-                        showDebug ? HideFlags.None : HideFlags.HideInHierarchy | HideFlags.HideInInspector;
-                }
-
-                EditorApplication.DirtyHierarchyWindowSorting();
-                EditorApplication.RepaintHierarchyWindow();
-            }
-
-            if (showDebug) {
-                EditorGUILayout.LabelField($"GUID: {diggerSystem.Guid}");
-                EditorGUILayout.LabelField($"Undo/redo stack version: {diggerSystem.Version}");
-
-                DrawDefaultInspector();
-            }
-        }
+       
 
         public static void Init(DiggerSystem diggerSystem, bool forceRefresh)
         {

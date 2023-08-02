@@ -374,7 +374,7 @@ public class mover : MonoBehaviour
         hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
-       // Globalprefs.research = VarSave.GetMoney("research");
+        Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
