@@ -14,7 +14,7 @@ public class raymarchActivator : MonoBehaviour
         }
         if (GameObject.FindObjectsByType<Shape4D>(sortmode.main).Length == 0)
         {
-            GetComponent<Camera>().renderingPath = RenderingPath.Forward;
+            GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
             rc.enabled = false;
         }
     }
