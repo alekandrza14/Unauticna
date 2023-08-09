@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
+using System;
 
 public class load1
 {
@@ -375,7 +376,7 @@ public class mover : MonoBehaviour
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.research = VarSave.GetMoney("research");
-        Globalprefs.flowteuvro = VarSave.GetInt("CashFlow");
+        Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
         lif += "_" + Globalprefs.GetTimeline();
@@ -569,8 +570,9 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Game Varibles :");
-            GUI.Label(new Rect(0f, 20, 200f, 100f), "Teuvro ($) : " + VarSave.GetMoney("tevro").ToString());
-            GUI.Label(new Rect(0f, 40, 200f, 100f), "Flow Teuvro ($^) : " + Globalprefs.flowteuvro);
+            
+            GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"),2));
+            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro ($^) : " + Math.Round(Globalprefs.flowteuvro,2));
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
@@ -1015,10 +1017,10 @@ public class mover : MonoBehaviour
             save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
         }
         gsave.hp = hp;
-        if (VarSave.ExistenceVar("res3") && Input.GetKeyDown(KeyCode.F11) && !Globalprefs.Pause)
+        if (VarSave.ExistenceVar("res3", SaveType.global) && Input.GetKeyDown(KeyCode.F11) && !Globalprefs.Pause)
         {
-            VarSave.SetBool("windowed", !VarSave.GetBool("windowed"));
-            Screen.SetResolution(VarSave.GetInt("res3"), VarSave.GetInt("res4"), !VarSave.GetBool("windowed"));
+            VarSave.SetBool("windowed", !VarSave.GetBool("windowed", SaveType.global), SaveType.global);
+            Screen.SetResolution(VarSave.GetInt("res3", SaveType.global), VarSave.GetInt("res4", SaveType.global), !VarSave.GetBool("windowed", SaveType.global));
 
         }
         if (Input.GetKeyDown(KeyCode.Escape))

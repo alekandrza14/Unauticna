@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+[AddComponentMenu("Physics S3D/Planet Physics Setup")]
 public class PlanetGravity : MonoBehaviour
 {
     public float gravity = -9;

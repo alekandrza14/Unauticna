@@ -19,8 +19,8 @@ public class postrender : MonoBehaviour
     }
     private void Awake()
     {
-        grafic_1.x = VarSave.GetInt("res1");
-        grafic_1.y = VarSave.GetInt("res2"); 
+        grafic_1.x = VarSave.GetInt("res1", SaveType.global);
+        grafic_1.y = VarSave.GetInt("res2", SaveType.global); 
         if (VarSave.GetString("postrender_color") != "")
         {
 
@@ -34,8 +34,8 @@ public class postrender : MonoBehaviour
     }
     void Start()
     {
-        grafic_1.x = VarSave.GetInt("res1");
-        grafic_1.y = VarSave.GetInt("res2");
+        grafic_1.x = VarSave.GetInt("res1", SaveType.global);
+        grafic_1.y = VarSave.GetInt("res2", SaveType.global);
         _camera = getmain();
 
         grafic_2 = RenderTexture.GetTemporary(grafic_1.x, grafic_1.y);

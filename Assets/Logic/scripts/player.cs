@@ -4,10 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class sortmode 
-{ 
-    static public FindObjectsSortMode main = FindObjectsSortMode.None;
-}
+
 public class useeffect
 {
     public string effect = "";
@@ -206,7 +203,7 @@ public class musave : MonoBehaviour
 
 
             if (hyperbolicPoint == null) mover.main().transform.position = transform.position;
-            else { HyperbolicCamera.Main().RealtimeTransform = hyperbolicPoint.HyperboilcPoistion.copy().inverse(); }
+            else { HyperbolicCamera.Main().RealtimeTransform = hyperbolicPoint.HyperboilcPoistion.copy().inverse(); mover.main().transform.position = transform.position; }
            
         }
       

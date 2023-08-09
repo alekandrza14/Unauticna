@@ -22,7 +22,7 @@ public class NullingLoan : MonoBehaviour
                     {
                         Globalprefs.flowteuvro += 1;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 1000);
+                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 10000);
                     }
                 }
 
