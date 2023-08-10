@@ -20,7 +20,9 @@ public class CustomWindowSize : MonoBehaviour
     public void Setup()
     {
 
-        VarSave.SetInt("res3", Screen.width,SaveType.global);
+        VarSave.SetInt("res1", Screen.width/4, SaveType.global);
+        VarSave.SetInt("res2", Screen.height/4, SaveType.global);
+        VarSave.SetInt("res3", Screen.width, SaveType.global);
         VarSave.SetInt("res4", Screen.height, SaveType.global);
         SceneManager.LoadScene(0);
     }

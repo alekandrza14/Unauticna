@@ -49,36 +49,36 @@ public class button9 : MonoBehaviour
     public GameObject notme()
     {
         GameObject r = gameObject;
-        for (int i=0;i<GameObject.FindObjectsOfType<button9>().Length;i++)
+        for (int i=0;i<GameObject.FindObjectsByType<button9>(sortmode.main).Length;i++)
         {
-            if (GameObject.FindObjectsOfType<button9>()[i].gameObject != gameObject)
+            if (GameObject.FindObjectsByType<button9>(sortmode.main)[i].gameObject != gameObject)
             {
-                if (GameObject.FindObjectsOfType<button9>()[i].iaw == iaw)
+                if (GameObject.FindObjectsByType<button9>(sortmode.main)[i].iaw == iaw)
                 {
                     if (iaw == true)
                     {
-                        r = GameObject.FindObjectsOfType<button9>()[i].gameObject;
+                        r = GameObject.FindObjectsByType<button9>(sortmode.main)[i].gameObject;
                     }
                 }
-                if (GameObject.FindObjectsOfType<button9>()[i].p3 == p3)
+                if (GameObject.FindObjectsByType<button9>(sortmode.main)[i].p3 == p3)
                 {
                     if (p3 == true)
                     {
-                        r = GameObject.FindObjectsOfType<button9>()[i].gameObject;
+                        r = GameObject.FindObjectsByType<button9>(sortmode.main)[i].gameObject;
                     }
                 }
-                if (GameObject.FindObjectsOfType<button9>()[i].p4 == p4)
+                if (GameObject.FindObjectsByType<button9>(sortmode.main)[i].p4 == p4)
                 {
                     if (p4 == true)
                     {
-                        r = GameObject.FindObjectsOfType<button9>()[i].gameObject;
+                        r = GameObject.FindObjectsByType<button9>(sortmode.main)[i].gameObject;
                     }
                 }
-                if (GameObject.FindObjectsOfType<button9>()[i].p5 == p5)
+                if (GameObject.FindObjectsByType<button9>(sortmode.main)[i].p5 == p5)
                 {
                     if (p5 == true)
                     {
-                        r = GameObject.FindObjectsOfType<button9>()[i].gameObject;
+                        r = GameObject.FindObjectsByType<button9>(sortmode.main)[i].gameObject;
                     }
                 }
                 

@@ -71,6 +71,8 @@ namespace Unity.Mathematics
                     return Df.sd16Cell(p4D, shape.Scale().x);
                 case Shape4D.ShapeType.Mandelbrot:
                     return Df.sdMandelbulb(p4D);
+                case Shape4D.ShapeType.ObjectN1:
+                    return Df.GetDist2(p4D);
 
             }
 
@@ -110,6 +112,8 @@ namespace Unity.Mathematics
                     return Df.sd16Cell(p4D, shape.Scale().x);
                 case Shape4D.ShapeType.Mandelbrot:
                     return Df.sdNull(p4D);
+                case Shape4D.ShapeType.ObjectN1:
+                    return Df.GetDist2(p4D);
 
             }
 

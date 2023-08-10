@@ -33,10 +33,13 @@ public class LOADGAME : MonoBehaviour
         gameInit.Init(g);
         DontDestroyOnLoad(g);
         Cursor.lockState = CursorLockMode.None;
-        if (!VarSave.ExistenceVar("res3", SaveType.global))
+        if (VarSave.CreateEvent("Resolution", SaveType.global))
         {
 
-
+            VarSave.SetInt("res1", 320, SaveType.global);
+            VarSave.SetInt("res2", 240, SaveType.global);
+            VarSave.SetInt("res3", 1024, SaveType.global);
+            VarSave.SetInt("res4", 768, SaveType.global);
             Screen.SetResolution(640, 480, true);
         }
         if (VarSave.ExistenceVar("res3", SaveType.global))
@@ -236,58 +239,7 @@ public class LOADGAME : MonoBehaviour
     {
         VarSave.SetBool("postrender", postrender.isOn, SaveType.global);
         VarSave.SetBool("windowed",!isnotwindowed.isOn, SaveType.global);
-        if (dd.value == 0)
-        {
-            Screen.SetResolution(640, 480, isnotwindowed.isOn);
-            VarSave.SetInt("res3", 640, SaveType.global);
-            VarSave.SetInt("res4", 480, SaveType.global);
-        }
-        if (dd.value == 1)
-        {
-            Screen.SetResolution(1024, 768, isnotwindowed.isOn);
-            VarSave.SetInt("res3", 1024, SaveType.global);
-            VarSave.SetInt("res4", 768, SaveType.global);
-        }
-        if (dd.value == 2)
-        {
-            Screen.SetResolution(1600, 1200, isnotwindowed.isOn);
-            VarSave.SetInt("res3", 1600, SaveType.global);
-            VarSave.SetInt("res4", 1200, SaveType.global);
-        }
-        if (dd.value == 3)
-        {
-            Screen.SetResolution(2560, 1600, isnotwindowed.isOn);
-            VarSave.SetInt("res3", 2560, SaveType.global);
-            VarSave.SetInt("res4", 1600, SaveType.global);
-        }
-        
-            
-
-            if (ddpr.value == 0)
-            {
-                VarSave.SetInt("res1", 320, SaveType.global);
-                VarSave.SetInt("res2", 240, SaveType.global);
-            }
-            if (ddpr.value == 1)
-            {
-                VarSave.SetInt("res1", 640, SaveType.global);
-                VarSave.SetInt("res2", 480, SaveType.global);
-            }
-            if (ddpr.value == 2)
-            {
-                VarSave.SetInt("res1", 1024, SaveType.global);
-                VarSave.SetInt("res2", 768, SaveType.global);
-            }
-            if (ddpr.value == 3)
-            {
-                VarSave.SetInt("res1", 1600, SaveType.global);
-                VarSave.SetInt("res2", 1200, SaveType.global);
-            }
-            if (ddpr.value == 4)
-            {
-                VarSave.SetInt("res1", 2560, SaveType.global);
-                VarSave.SetInt("res2", 1600, SaveType.global);
-            }
+     
         
     }
     public void setprocessSetings()
