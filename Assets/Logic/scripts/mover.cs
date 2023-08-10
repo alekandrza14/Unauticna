@@ -916,27 +916,6 @@ public class mover : MonoBehaviour
         if (!Globalprefs.Pause) EconomicUpdate();
         if (!Globalprefs.Pause) Inputnravix();
 
-
-        Ray r = musave.pprey();
-        RaycastHit hit;
-        if (Physics.Raycast(r,out hit))
-        {
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
-            {
-                if (hit.collider.GetComponent<transport4>())
-                    hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
-                if (hit.collider.GetComponent<transport4>())
-                    hit.collider.GetComponent<transport4>().player = transform;
-            }
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
-            {
-                if (hit.collider.GetComponent<GravityBoard>())
-                    hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;
-                if (hit.collider.GetComponent<GravityBoard>())
-                    hit.collider.GetComponent<GravityBoard>().player = transform;
-            }
-        }
-
         //
         if (!Globalprefs.Pause) Building();
         if (isplanet)
@@ -1259,7 +1238,7 @@ public class mover : MonoBehaviour
         }
     }
 
-        private void HpUpdate()
+    private void HpUpdate()
     {
         if (hp <= 0)
         {
@@ -1327,6 +1306,38 @@ public class mover : MonoBehaviour
 
     private void Inputnravix()
     {
+
+        if (Input.GetKeyDown("1"))
+        {
+            Instantiate(Resources.Load<GameObject>("Primetives/E2/PowerMetka").gameObject, transform.position, Quaternion.identity);
+        }
+        if (Input.GetKey("1") && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("PaintPoint"))
+            {
+                g.AddComponent<deleter1>();
+            }
+        }
+        Ray r = musave.pprey();
+        RaycastHit hit;
+        if (Physics.Raycast(r, out hit))
+        {
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
+            {
+                if (hit.collider.GetComponent<transport4>())
+                    hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
+                if (hit.collider.GetComponent<transport4>())
+                    hit.collider.GetComponent<transport4>().player = transform;
+            }
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
+            {
+                if (hit.collider.GetComponent<GravityBoard>())
+                    hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;
+                if (hit.collider.GetComponent<GravityBoard>())
+                    hit.collider.GetComponent<GravityBoard>().player = transform;
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.F4))
         {
             Unload();
@@ -1373,7 +1384,7 @@ public class mover : MonoBehaviour
         if (faceViewi == faceView.trid)
         {
             
-           GameObject t = PhotoCapture.FindObjectOfType<PhotoCapture>().gameObject;
+           GameObject t = FindFirstObjectByType<PhotoCapture>().gameObject;
             foreach (GameObject i in PlayerModelObjects)
             {
                 i.layer = 0;
@@ -1409,7 +1420,7 @@ public class mover : MonoBehaviour
         }
         if (faceViewi == faceView.fourd)
         {
-            GameObject t = PhotoCapture.FindObjectOfType<PhotoCapture>().gameObject;
+            GameObject t = PhotoCapture.FindFirstObjectByType<PhotoCapture>().gameObject;
             if (t.GetComponent<FreeCam>())
             {
 
@@ -1421,7 +1432,7 @@ public class mover : MonoBehaviour
         }
         else
         {
-            GameObject t = PhotoCapture.FindObjectOfType<PhotoCapture>().gameObject;
+            GameObject t = PhotoCapture.FindFirstObjectByType<PhotoCapture>().gameObject;
             if (t.GetComponent<FreeCam>())
             {
                 Destroy(t.GetComponent<FreeCam>());

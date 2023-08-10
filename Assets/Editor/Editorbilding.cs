@@ -6,39 +6,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Web.UI;
-/*
-[CustomEditor(typeof(Transform))]
+
+[CustomEditor(typeof(EditorTag1))]
 public class generator : Editor
 {
-    private Transform gm;
-    public Texture2D s2;
-    public Texture2D s3;
-    public int list;
+    private EditorTag1 gm;
 
     public void OnEnable()
     {
-        gm = (Transform)target;
+        gm = (EditorTag1)target;
 
     }
     public override void OnInspectorGUI()
     {
         
-        if (list == 0)
-        {
 
 
-            if (GUILayout.Button("create item"))
+            if (GUILayout.Button("Set Tag"))
             {
 
-                
-                PrefabUtility.SaveAsPrefabAsset( gm.gameObject,"Assets/Resources/items/" + gm.gameObject.name + ".prefab");
+
+            gm.tag = gm.newTag;
             }
-            
+
+        base.OnInspectorGUI();
 
 
 
-        }
-        
+
 
     }
-}*/
+}

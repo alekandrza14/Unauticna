@@ -30,17 +30,17 @@ public class Create_4D
         g.AddComponent<BoxCollider>();
        g.AddComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
     }
-    [MenuItem("GameObject/4D Object/Hyperbolic geometry/HyperbolicPoint", false, -1000)]
+    [MenuItem("GameObject/4D Object/Hyperbolic geometry/sphere", false, -1000)]
     public static void CreateSphere()
     {
         //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
-        GameObject g = new GameObject("HyperbolicPoint")
+        GameObject g = new GameObject("sphere")
         {
 
         };
         if (Hyperbolicmovetool.mainEdit != null) {g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<HyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<HyperbolicPoint>();
         g.AddComponent<SphereCollider>();
-        g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("HyperbolicPoint");
+        g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("sphere");
         g.AddComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
     }
 }

@@ -4,15 +4,26 @@ using UnityEditor;
 using UnityEngine;
 
 public class UnauticnaEdiotorScript {
-    [MenuItem("GameObject/4D Object/Eucidian geometry/Raymarch Sphare", false, -1000)]
+    [MenuItem("GameObject/4D Object/Eucidian geometry/Raymarch Sphare Sphere", false, -1000)]
     public static void Create()
     {
         //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
-        GameObject g = new GameObject("HyperbolicPoint 4D")
+        GameObject g = new GameObject("Sphere 4D")
         {
 
         };
         g.AddComponent<Shape4D>();
+        g.transform.position = SceneView.lastActiveSceneView.camera.transform.position;
+    }
+    [MenuItem("GameObject/4D Object/Eucidian geometry/Raymarch Sphare Cube", false, -1000)]
+    public static void Create4()
+    {
+        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        GameObject g = new GameObject("Sphere 4D")
+        {
+
+        };
+        g.AddComponent<Shape4D>().shapeType = Shape4D.ShapeType.HyperCube;
         g.transform.position = SceneView.lastActiveSceneView.camera.transform.position;
     }
     [MenuItem("GameObject/4D Object/Eucidian geometry/Poilgon Sphare(multyTransform need)", false, -1000)]
