@@ -80,6 +80,9 @@ public class postrender : MonoBehaviour
         new_camera.targetDisplay = 0;
         image.color = color;
         _camera.gameObject.tag = "camera";
+        new_camera.transform.position = _camera.transform.position;
+        new_camera.transform.rotation = _camera.transform.rotation;
+        new_camera.fieldOfView = _camera.fieldOfView;
         new_camera.gameObject.tag = "MainCamera";
        // Debug.Log("Enable");
 
