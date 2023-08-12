@@ -136,7 +136,8 @@ public class mover : MonoBehaviour
 
         string vaule1 = "";
         string vaule2 = "";
-
+        lif = Globalprefs.GetIdPlanet().ToString();
+        lif += "_" + Globalprefs.GetTimeline();
         if (GlobalInputMenager.KeyCode_build != "")
         {
             vaule1 = GlobalInputMenager.KeyCode_build;
@@ -159,7 +160,7 @@ public class mover : MonoBehaviour
                     custommedelsave cms = new custommedelsave();
                     cms.name = name.ToArray();
                     cms.v3 = v3.ToArray();
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms),SaveType.world);
+                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
                     GlobalInputMenager.build.text = "";
 
                 }
@@ -167,7 +168,7 @@ public class mover : MonoBehaviour
             }
 
 
-
+        }
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
@@ -181,12 +182,21 @@ public class mover : MonoBehaviour
                 custommedelsave cms = new custommedelsave();
                 cms.name = name.ToArray();
                 cms.v3 = v3.ToArray();
-                if (GameObject.FindObjectsByType<genmodel>(sortmode.main).Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world); }
-                else
+                 VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
+              
+            }
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+            for (int i = 0; i < FindObjectsByType<genmodel>(sortmode.main).Length; i++)
+            {
+                FindObjectsByType<genmodel>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
+            }
+                custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
+                for (int i =0;i<cms.v3.Length;i++)
                 {
-                    cms.name = new string[] { };
-                    cms.v3 = new Vector3[] { };
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
+                    genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
+                    g.s = cms.name[i];
+
                 }
             }
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
@@ -222,7 +232,7 @@ public class mover : MonoBehaviour
 
 
 
-        }
+        
         if (GlobalInputMenager.KeyCode_Spawn != "")
         {
             vaule2 = GlobalInputMenager.KeyCode_Spawn;
@@ -372,15 +382,25 @@ public class mover : MonoBehaviour
 
     private void Init()
     {
+       
         hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
-        if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
+        lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
+        if (VarSave.ExistenceVar("cms" + SceneManager.GetActiveScene().buildIndex + lif,SaveType.world))
+        {
+            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
+            for (int i = 0; i < cms.v3.Length; i++)
+            {
+                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
+                g.s = cms.name[i];
 
+            }
+        }
         SaveFileInputField.text = Globalprefs.GetTimeline();
 
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
@@ -390,16 +410,7 @@ public class mover : MonoBehaviour
             lepts = "-" + planet_position.ToString();
         }
         stand_stay = load1.stad;
-        if (VarSave.ExistenceVar("cms" + SceneManager.GetActiveScene().buildIndex + lif))
-        {
-            if (FindFirstObjectByType<GenTest>()) { lif = Globalprefs.GetIdPlanet().ToString(); }
-            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif));
-            for (int i = 0; i < cms.name.Length; i++)
-            {
-                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
-                g.s = cms.name[i];
-            }
-        }
+       
         Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
         c.targetDisplay = 2;
         c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
@@ -540,8 +551,8 @@ public class mover : MonoBehaviour
 
 
         }
-        if (FindObjectsByType<GenTest>(sortmode.main).Length != 0) FindFirstObjectByType<GenTest>().load_planet();
-
+        lif = Globalprefs.GetIdPlanet().ToString();
+        lif += "_" + Globalprefs.GetTimeline();
         hyperbolicCamera = HyperbolicCamera.Main();
     }
 

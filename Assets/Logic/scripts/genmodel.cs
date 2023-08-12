@@ -14,10 +14,20 @@ public class genmodel : MonoBehaviour
     public Vector3[] verti;
     public int[] tria;
     public string s;
+
     // Start is called before the first frame update
     void Start()
     {
-       mf.mesh = generate();
+        if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
+        {
+            Transform body;
+            body = transform;
+            Vector3 gravityUp = (body.position - Vector3.zero).normalized;
+            Vector3 bodyup = body.up;
+            Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
+            body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
+        }
+            mf.mesh = generate();
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshRenderer>().material = Resources.Load<Material>("mats/ost");
     }

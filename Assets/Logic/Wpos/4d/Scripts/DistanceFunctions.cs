@@ -96,7 +96,7 @@ namespace Unity.Mathematics
               return Sphere(pos, float4.zero, 982.3f);
           }
 
-            pos /= 422.3f;
+            pos /= (982.3f*0.43f);
             float4 z = pos;
             float dr = 1.0f;
             float r = 0.0f;
@@ -123,7 +123,7 @@ namespace Unity.Mathematics
                 z += pos;
             }
 
-            float d = 422.3f * 0.5f * log(r) * r / dr;
+            float d = (982.3f * 0.43f) * 0.5f * log(r) * r / dr;
             return d;
         }
         // plane
