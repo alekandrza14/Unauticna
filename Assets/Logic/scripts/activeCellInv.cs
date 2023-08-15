@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class activeCellInv : MonoBehaviour
 {
-    public int cell;
-    public void inputset()
-    {
-        inputButton.button = cell;
-    }
+  //  public ElementalInventory inventory;
+  //  public MovingEvent cell;
+  //  public void inputset()
+  //  {
+  //     
+  //      if (inventory == null)
+  //      {
+  //          inventory = FindObjectOfType(typeof(ElementalInventory)) as ElementalInventory;
+  //      }
+  //      inventory.activeItem = GetComponent<Cell>();
+  //  }
     //
 }

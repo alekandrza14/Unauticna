@@ -70,22 +70,23 @@ public class Move4DAxis : MonoBehaviour
         {
             curaxis = 3;
         }
-        if (curaxis == 0)
-        {
-            select.transform.position += (Vector3.right * Input.GetAxis("Mouse X"));
-        }
-        if (curaxis == 1)
-        {
-            select.transform.position += (Vector3.up * Input.GetAxis("Mouse X"));
-        }
-        if (curaxis == 2)
-        {
-            select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X"));
-        }
-        if (curaxis == 4)
-        {
-            if (select.GetComponent<MultyObject>())
-                select.GetComponent<MultyObject>().W_Position += Input.GetAxis("Mouse X");
+        if (select) { if (curaxis == 0)
+            {
+                select.transform.position += (Vector3.right * Input.GetAxis("Mouse X"));
+            }
+            if (curaxis == 1)
+            {
+                select.transform.position += (Vector3.up * Input.GetAxis("Mouse X"));
+            }
+            if (curaxis == 2)
+            {
+                select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X"));
+            }
+            if (curaxis == 4)
+            {
+                if (select.GetComponent<MultyObject>())
+                    select.GetComponent<MultyObject>().W_Position += Input.GetAxis("Mouse X");
+            }
         }
     }
 }

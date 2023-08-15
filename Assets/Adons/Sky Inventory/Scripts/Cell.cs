@@ -37,7 +37,9 @@ public class Cell : MonoBehaviour {
 				elementTransform = newElement;
 			}
 			//init UI elements
-			Image bgImage = SimpleMethods.getChildByTag (elementTransform, "backgroundImage").GetComponent<Image> ();
+			MovingEvent event1 = elementTransform.GetComponent<MovingEvent>();
+			event1.cell = this;
+            Image bgImage = SimpleMethods.getChildByTag (elementTransform, "backgroundImage").GetComponent<Image> ();
 			Text elementText = SimpleMethods.getChildByTag (elementTransform, "elementText").GetComponent<Text> ();
 			Text amountText = SimpleMethods.getChildByTag (elementTransform, "amountText").GetComponent<Text> ();
 			//change UI options

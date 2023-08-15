@@ -18,11 +18,12 @@ public class ElementalInventory : MonoBehaviour {
 	public int maxStack;
 	public GameObject elementPrefab;
 	public GameObject selectobject;
-	public int select = 3;
+	public int select = 0;
 	public string[] itemtags;
 	public string[] itemnames;
 	public string[] nunames;
 	private Transform choosenItem;
+    public Cell activeItem;
 	public bool planets;
 	public bool deletecell;
 	public bool nosell;
@@ -516,40 +517,20 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
-            {
-                select += 1;
-            }
-            if (select > 0 && Input.GetKeyDown(KeyCode.Q) && selectobject && !nosell)
-            {
-                select -= 1;
-            }
+			select = LayItem();
         }
         if (Input.GetKey(KeyCode.Mouse0) && nosell && boxItem.getInventory("i3").inventory == this)
         {
 
 
-            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && nosell)
-            {
-                select += 1;
-            }
-            if (select > 0 && Input.GetKeyDown(KeyCode.Q) && selectobject && nosell)
-            {
-                select -= 1;
-            }
+            select = LayItem();
         }
         if (!nosell && boxItem.getInventory("i3").inventory == this)
         {
 
 
-            if (select <= Cells.Length - 2 && Input.GetKeyDown(KeyCode.E) && selectobject && !nosell)
-            {
-                select += 1;
-            }
-            if (select > 0 && Input.GetKeyDown(KeyCode.Q) && selectobject && !nosell)
-            {
-                select -= 1;
-            }
+
+            select = LayItem();
         }
         for (int i = 0; i < Cells.Length && selectobject; i++)
         {
@@ -593,7 +574,7 @@ public class ElementalInventory : MonoBehaviour {
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0)&&boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
         {
             Ray r = musave.pprey();
             RaycastHit hit;
@@ -612,11 +593,7 @@ public class ElementalInventory : MonoBehaviour {
 							Destroy(hit.collider.gameObject);
 							return;
 						}
-					    if (hit.collider.gameObject.GetComponent<Element>() && i==1)
-						{
-
-							Destroy(hit.collider.gameObject); return;
-                        }
+					    
 					}
 					}
 				}
@@ -825,35 +802,56 @@ public class ElementalInventory : MonoBehaviour {
             int i = Random.Range(0, 3);
             if (i == 0)
             {
-                Instantiate(Resources.Load("voices/belock"));
+              //  Instantiate(Resources.Load("voices/belock"));
             }
 
             lowitem("belock");
 			GlobalInputMenager.KeyCode_eat = 0;
 		}
-		
 
-            if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
+        if (mouseDoubele2 > 0)
+        {
+            mouseDoubele2 -= Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this && !nosell)
             {
-                Globalprefs.selectitem = "";
-                Ray r = musave.pprey();
-                RaycastHit hit;
-                if (Physics.Raycast(r, out hit))
-                {
-                    if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+           
+			
+
+				Globalprefs.selectitem = "";
+				Ray r = musave.pprey();
+				RaycastHit hit;
+				if (Physics.Raycast(r, out hit))
+				{
+					if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+					{
+                   
+                    if (Input.GetKeyDown(KeyCode.Mouse0) && mouseDoubele2 < 3)
                     {
+                        mouseDoubele2++;
+
+                    }
+                    if (mouseDoubele2 >= 2 && tag1(hit.collider.tag))
+					{
 
 
                         setItem(fullname(hit), 1, Color.red, select);
-                        Cells[select].UpdateCellInterface();
-                        sh = true;
+						Cells[select].UpdateCellInterface();
+						sh = true;
+
+                        mouseDoubele = 0;
+                        mouseDoubele2 = 0;
                     }
+                    else if(tag1(hit.collider.tag))
+                    {
+						mouseDoubele = 0;
+                    }
+					}
 
-                }
+				
+			}
 
-
-
-            }
+        }
             if (Input.GetKeyDown(KeyCode.Delete) && boxItem.getInventory("i3").inventory == this && !nosell)
             {
                
@@ -878,7 +876,8 @@ public class ElementalInventory : MonoBehaviour {
 
 			hyperbolicray();
 		}
-		if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this)
+      
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
         {
             Globalprefs.selectitem = "";
             inputButton.button = 0;
@@ -913,9 +912,20 @@ public class ElementalInventory : MonoBehaviour {
 
 
     }
+    float mouseDoubele;
+    float mouseDoubele2;
     private void euclideanray()
 	{
-		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
+		if (mouseDoubele > 0)
+		{
+			mouseDoubele -= Time.deltaTime;
+		}
+        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseDoubele < 3)
+        {
+            mouseDoubele++;
+
+        }
+        if (mouseDoubele >= 1.5f && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
             Globalprefs.selectitem = "";
             Ray r = musave.pprey();
@@ -994,7 +1004,16 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void hyperbolicray()
 	{
-		if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
+        if (mouseDoubele > 0)
+        {
+            mouseDoubele -= Time.deltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseDoubele < 3)
+		{
+			mouseDoubele++;
+
+        }
+		if (mouseDoubele >= 1.5f&& !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
             Globalprefs.selectitem = "";
             Ray r = musave.pprey();
@@ -1107,16 +1126,47 @@ public class ElementalInventory : MonoBehaviour {
 		thisCell.elementColor = color;
 	}
 
-	//Moves item
-	public void moveItem (int moveFrom, int moveTo) {
-		setItem (Cells[moveFrom].elementName, Cells[moveFrom].elementCount, Cells[moveFrom].elementColor, moveTo);
-		setItem ("", 0, new Color(), moveFrom);
-		
-	}
+    //Moves item
+    public void moveItem(int moveFrom, int moveTo)
+    {
 
-	//Moves item with link
-	//First - element, second - cell
-	public void moveItemLink (Transform moveFrom, Transform moveTo) {
+        setItem(Cells[moveFrom].elementName, Cells[moveFrom].elementCount, Cells[moveFrom].elementColor, moveTo);
+        setItem("", 0, new Color(), moveFrom);
+
+    }
+    public int LayItem()
+    {
+        int i = 0;
+		int i2 = 1;
+		Debug.Log(i);
+		if (activeItem)
+		{
+			foreach (Cell cell in Cells)
+			{
+                if (cell.name == activeItem.name)
+                {
+                    i2 = i;
+                }
+				if (activeItem)
+				{
+					if (cell.name != activeItem.name)
+					{
+						i++;
+					}
+				}
+            }
+		}
+		if (!activeItem)
+		{
+				i2 = 1;
+
+        }
+		return i2;
+    }
+
+    //Moves item with link
+    //First - element, second - cell
+    public void moveItemLink (Transform moveFrom, Transform moveTo) {
 		if (moveFrom != null && moveTo != null) {
 			Cell moveFromCell = moveFrom.parent.GetComponent<Cell> ();
 			moveTo.GetComponent<Cell> ().elementTransform = moveFromCell.elementTransform;
@@ -1129,6 +1179,7 @@ public class ElementalInventory : MonoBehaviour {
 	}
 
 	public void moveItemLinkFirst (Transform t) {
+
 		choosenItem = t;
 	}
 

@@ -4,13 +4,16 @@ using System.Collections;
 
 public class MovingEvent : MonoBehaviour {
 
-	private ElementalInventory inventory;
+	public ElementalInventory inventory;
+    public Cell cell;
 
 	void Start () {
 		if (transform.tag == "Cell") {
-			GetComponent<Button> ().onClick.AddListener (delegate{moveHere();});
+           
+            GetComponent<Button> ().onClick.AddListener (delegate{moveHere();});
 		} else {
-			GetComponent<Button> ().onClick.AddListener (delegate{moveItem();});
+            
+            GetComponent<Button> ().onClick.AddListener (delegate{moveItem();});
 		}
 	}
 
@@ -20,6 +23,8 @@ public class MovingEvent : MonoBehaviour {
         {
             inventory = FindObjectOfType(typeof(ElementalInventory)) as ElementalInventory;
         }
+
+        inventory.activeItem = cell;
         inventory.moveItemLinkFirst(transform);
     }
 
@@ -27,8 +32,9 @@ public class MovingEvent : MonoBehaviour {
     public void moveHere () {
 		if (inventory == null) {
 			inventory = FindObjectOfType (typeof(ElementalInventory)) as ElementalInventory;
-		}
-		inventory.moveItemLinkSecond (transform);
+        }
+        inventory.activeItem = GetComponent<Cell>();
+        inventory.moveItemLinkSecond (transform);
 	}
 
 }

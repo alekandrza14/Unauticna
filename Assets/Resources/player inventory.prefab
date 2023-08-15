@@ -1886,7 +1886,7 @@ MonoBehaviour:
   elementPrefab: {fileID: 1000013806000354, guid: 0d9bb8af4867e044ba8325519dc15cc2,
     type: 3}
   selectobject: {fileID: 1650147101165328506}
-  select: 2
+  select: 0
   itemtags:
   - item0
   - item1
@@ -1914,6 +1914,7 @@ MonoBehaviour:
   - booble
   - box1
   nunames: []
+  activeItem: {fileID: 0}
   planets: 0
   deletecell: 0
   nosell: 0
@@ -3106,6 +3107,11 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8648938435955074183, guid: ddd8e2c5d39cdfc43b6b738269d783cd,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754762469005488002, guid: ddd8e2c5d39cdfc43b6b738269d783cd,
         type: 3}
       propertyPath: m_Name
@@ -3329,7 +3335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b10f18ed245dd040b29102edfd6ff9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: 3
 --- !u!114 &8494073684565213012 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3690523055185265891, guid: c66839e6fcdd84644b605c2bf5208b48,
@@ -3794,7 +3799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b10f18ed245dd040b29102edfd6ff9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: 2
 --- !u!1001 &6219123206796473791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4124,7 +4128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b10f18ed245dd040b29102edfd6ff9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: 1
 --- !u!224 &5149189479283423316 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1241686280683654635, guid: 3fefe25a989c2c54c93b8b3a6b288afb,
