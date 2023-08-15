@@ -88,7 +88,28 @@ namespace Unity.Mathematics
         {
             return length(p - c) - r;
         }
-       public float sdMandelbulb(float4 pos)
+        public float sdPipis(float4 pos, float4 b)
+        {
+            float4 p = pos;
+            p = p / b;
+            p.x += 100000;
+            p.y -= 100000;
+            p.z -= 100000;
+            p.w -= 100000;
+            float c = 14.5f / (b.x * b.y * b.z * b.w );
+
+            p.x = fmod(p.x + 0.5f * c, c) - 0.5f * c;
+            p.y = -fmod(p.y + 0.5f * c, c) - 0.5f * c;
+
+
+            p.z = -fmod(p.z + 0.5f * c, c) - 0.5f * c;
+            p.w = -fmod(p.w + 0.5f * c, c) - 0.5f * c;
+
+
+            return length(p) - 1.0f;
+
+        }
+        public float sdMandelbulb(float4 pos)
         {
 
           if (length(pos) > 982.3f)

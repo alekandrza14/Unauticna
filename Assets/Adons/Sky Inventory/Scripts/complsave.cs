@@ -132,7 +132,8 @@ public class complsave : MonoBehaviour
     {
 
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
-         lif = Globalprefs.GetIdPlanet().ToString(); 
+        lif = "";
+        if(!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString(); 
         lif += "_" + Globalprefs.GetTimeline();
         getallitems();
         load();
