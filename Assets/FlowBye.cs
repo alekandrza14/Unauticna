@@ -26,10 +26,10 @@ public class FlowBye : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
         {
             Directory.CreateDirectory("unsave/var/re");
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+
+            RaycastHit hit = MainRay.MainHit;
+
+
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -42,14 +42,12 @@ public class FlowBye : MonoBehaviour
                     }
                 }
 
-            }
+           
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename == "")
         {
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+           
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -61,7 +59,6 @@ public class FlowBye : MonoBehaviour
                     }
                 }
 
-            }
         }
     }
 }

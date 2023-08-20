@@ -11,6 +11,7 @@ public static class Globalprefs
     public static string AnyversePlayerPositionInfo;
     public static Vector3 newv3;
     public static Vector3 pos;
+    public static Vector3 WMovepos;
     public static decimal flowteuvro;
     public static decimal knowlages;
     public static decimal technologies;

@@ -204,7 +204,7 @@ Shader "Raymarch/RaymarchCam"
 
             float hardShadowCalc( in float3 ro, in float3 rd, float mint, float maxt)
             {
-                float res = 1.0;
+                float res = 0.5;
                 for( float t=mint; t<maxt; )
                 {
                     float h = min(distanceField(ro + rd*t).x, sdVerticalCapsule(ro + rd*t - _player, 1, 0.5));

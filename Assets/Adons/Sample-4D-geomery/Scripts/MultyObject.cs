@@ -121,7 +121,15 @@ public class MultyObject : MonoBehaviour
                 }
                 if (GetComponent<MeshCollider>())
                 {
-                    GetComponent<MeshCollider> ().enabled = true;
+                    GetComponent<MeshCollider>().enabled = true;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = true;
                 }
                 foreach (GameObject child in childs)
                 {
@@ -141,6 +149,14 @@ public class MultyObject : MonoBehaviour
                 if (GetComponent<MeshCollider>())
                 {
                     GetComponent<MeshCollider>().enabled = false;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = false;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = false;
                 }
             }
 
@@ -198,6 +214,14 @@ public class MultyObject : MonoBehaviour
                 {
                     GetComponent<MeshCollider>().enabled = true;
                 }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = true;
+                }
             }
             else
             {
@@ -208,6 +232,14 @@ public class MultyObject : MonoBehaviour
                 if (GetComponent<MeshCollider>())
                 {
                     GetComponent<MeshCollider>().enabled = false;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = false;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = false;
                 }
             }
 
@@ -264,6 +296,14 @@ public class MultyObject : MonoBehaviour
                 {
                     GetComponent<MeshCollider>().enabled = true;
                 }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = true;
+                }
             }
             else
             {
@@ -274,6 +314,14 @@ public class MultyObject : MonoBehaviour
                 if (GetComponent<MeshCollider>())
                 {
                     GetComponent<MeshCollider>().enabled = false;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = false;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = false;
                 }
             }
 
@@ -318,6 +366,14 @@ public class MultyObject : MonoBehaviour
                 {
                     GetComponent<MeshCollider>().enabled = true;
                 }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = true;
+                }
             }
             else
             {
@@ -328,6 +384,14 @@ public class MultyObject : MonoBehaviour
                 if (GetComponent<MeshCollider>())
                 {
                     GetComponent<MeshCollider>().enabled = false;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = false;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = false;
                 }
             }
         }
@@ -371,6 +435,14 @@ public class MultyObject : MonoBehaviour
                 {
                     GetComponent<MeshCollider>().enabled = true;
                 }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = true;
+                }
             }
             else
             {
@@ -381,6 +453,14 @@ public class MultyObject : MonoBehaviour
                 if (GetComponent<MeshCollider>())
                 {
                     GetComponent<MeshCollider>().enabled = false;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = false;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = false;
                 }
             }
         }
@@ -405,6 +485,14 @@ public class MultyObject : MonoBehaviour
                 {
                     GetComponent<MeshCollider>().enabled = true;
                 }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = true;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = true;
+                }
             }
             else
             {
@@ -415,6 +503,14 @@ public class MultyObject : MonoBehaviour
                 if (GetComponent<MeshCollider>())
                 {
                     GetComponent<MeshCollider>().enabled = false;
+                }
+                if (GetComponent<BoxCollider>())
+                {
+                    GetComponent<BoxCollider>().enabled = false;
+                }
+                if (GetComponent<SphereCollider>())
+                {
+                    GetComponent<SphereCollider>().enabled = false;
                 }
             }
         }

@@ -12,12 +12,17 @@ public class SpaceSheepPosition
 }
 public enum size
 {
-    Stars,Galaxy,Universe,Multyverse,Anyverse
+    Stars, Galaxy, Universe, Multyverse, Anyverse
+}
+public enum UniverseSkyType
+{
+    Default,Bright,Arua,Darck
 }
 
 public class RayCastStars : MonoBehaviour
 {
     [SerializeField] Text text;
+    [SerializeField] UniverseSkyType skyType;
     SpaceSheepPosition scp = new SpaceSheepPosition();
     public HyperbolicCamera HyperbolicCamera;
     public string[] scenename;
@@ -26,6 +31,7 @@ public class RayCastStars : MonoBehaviour
     {
         VarSave.SetString("scppos", SceneManager.GetActiveScene().name);
         VarSave.SetString("Universe_Position", SceneManager.GetActiveScene().name);
+        VarSave.SetInt("UST",((int)skyType));
         if (s == size.Galaxy) VarSave.SetString("Universe_galaxy_Position", SceneManager.GetActiveScene().name);
         if (s == size.Universe) VarSave.SetString("Multyverse_Universe_Position", SceneManager.GetActiveScene().name);
         if (s == size.Multyverse) VarSave.SetString("Multyverse_Position", SceneManager.GetActiveScene().name);
@@ -53,6 +59,7 @@ public class RayCastStars : MonoBehaviour
     {
         scp.pos = transform.position;
         scp.rot = transform.rotation;
+
         if (HyperbolicCamera) scp.hyperbolic = HyperbolicCamera.RealtimeTransform;
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -68,6 +75,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("dark1");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                         VarSave.SetInt("planet", 0);
                     }
@@ -75,6 +83,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("dark2");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                         VarSave.SetInt("planet", 0);
                     }
@@ -82,6 +91,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("dark3");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                         VarSave.SetInt("planet", 0);
                     }
@@ -90,6 +100,7 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         VarSave.SetInt("planet", o);
                         SceneManager.LoadScene("dark4");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -100,6 +111,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("Galaxy full loader");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -110,6 +122,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("Universe loader");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -120,6 +133,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("Multyverse");
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -135,6 +149,7 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("Galactic demo");
                         VarSave.SetInt("planetS", 0);
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                     else if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -145,6 +160,7 @@ public class RayCastStars : MonoBehaviour
 
                         VarSave.SetInt("planetS", o2);
                         SceneManager.LoadScene(scenename[o]);
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -160,6 +176,7 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("Galactic full");
                         VarSave.SetInt("planetG", 0);
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                     else if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -170,6 +187,7 @@ public class RayCastStars : MonoBehaviour
 
                         VarSave.SetInt("planetG", o2);
                         SceneManager.LoadScene(scenename[o]);
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -189,6 +207,7 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         SceneManager.LoadScene("Universe");
                         VarSave.SetInt("planetU", 0);
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                     else if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -199,6 +218,8 @@ public class RayCastStars : MonoBehaviour
 
                         VarSave.SetInt("planetU", o2);
                         SceneManager.LoadScene(scenename[o]);
+
+                        VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
                 }
@@ -223,7 +244,8 @@ public class RayCastStars : MonoBehaviour
             VarSave.SetString("scppos", SceneManager.GetActiveScene().name);
             VarSave.SetString("Universe_Position", SceneManager.GetActiveScene().name);
             VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
-            SceneManager.LoadScene("menu");
+            VarSave.SetBool("NoStop",true);
+            SceneManager.LoadScene("dark4");
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {

@@ -141,10 +141,8 @@ public class mover : MonoBehaviour
         if (GlobalInputMenager.KeyCode_build != "")
         {
             vaule1 = GlobalInputMenager.KeyCode_build;
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+           
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
                 {
                     genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
@@ -165,7 +163,6 @@ public class mover : MonoBehaviour
 
                 }
 
-            }
 
 
         }
@@ -200,10 +197,8 @@ public class mover : MonoBehaviour
                 }
             }
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
-            Ray r2 = musave.pprey();
-            RaycastHit hit2;
-            if (UnityEngine.Physics.Raycast(r2, out hit2))
-            {
+            RaycastHit hit2 = MainRay.MainHit;
+            
                 if (hit2.collider != null && j)
                 {
                     if (hit2.collider.GetComponent<genmodel>())
@@ -228,18 +223,15 @@ public class mover : MonoBehaviour
                         }
                     }
                 }
-            }
-
+          
 
 
         
         if (GlobalInputMenager.KeyCode_Spawn != "")
         {
             vaule2 = GlobalInputMenager.KeyCode_Spawn;
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (UnityEngine.Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+          
 
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
                 {
@@ -249,7 +241,7 @@ public class mover : MonoBehaviour
                     GlobalInputMenager.KeyCode_Spawn = "";
 
                 }
-            }
+            
 
         }
     }
@@ -459,6 +451,8 @@ public class mover : MonoBehaviour
                 {
                     if (true)
                     {
+
+                        W_position = save.wpos;
                         PlayerBody.transform.position = save.pos;
                         if (HyperbolicCamera.Main() != null)
                         {
@@ -479,7 +473,56 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-                W_position = save.wpos;
+                if (portallNumer.Portal == "WMove+")
+                {
+                    if (true)
+                    {
+                        PlayerBody.transform.position = Globalprefs.WMovepos;
+                        W_position = -499;
+                        if (HyperbolicCamera.Main() != null)
+                        {
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        }
+                        //  sr.transform.position = save.pos2;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position;
+
+                    }
+                    if (Globalprefs.isnew)
+                    {
+
+
+                        PlayerBody.transform.position += Globalprefs.newv3;
+                        PlayerBody.transform.rotation = Globalprefs.q[0];
+                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                        PlayerCamera.transform.rotation = Globalprefs.q[1];
+                        Globalprefs.isnew = false;
+                    }
+                }
+                if (portallNumer.Portal == "WMove-")
+                {
+                    if (true)
+                    {
+                        PlayerBody.transform.position = Globalprefs.WMovepos;
+                        W_position = 499;
+                        if (HyperbolicCamera.Main() != null)
+                        {
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        }
+                        //  sr.transform.position = save.pos2;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position;
+
+                    }
+                    if (Globalprefs.isnew)
+                    {
+
+
+                        PlayerBody.transform.position += Globalprefs.newv3;
+                        PlayerBody.transform.rotation = Globalprefs.q[0];
+                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                        PlayerCamera.transform.rotation = Globalprefs.q[1];
+                        Globalprefs.isnew = false;
+                    }
+                }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
@@ -518,6 +561,8 @@ public class mover : MonoBehaviour
                 rigidbody3d.velocity = save.velosyty;
                 if (portallNumer.Portal == "")
                 {
+
+                    W_position = save.wpos;
                     PlayerBody.transform.position = save.pos;
                     //  sr.transform.position = save.pos2;
                     if (HyperbolicCamera.Main() != null)
@@ -525,8 +570,56 @@ public class mover : MonoBehaviour
                         HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                 }
+                if (portallNumer.Portal == "WMove+")
+                {
+                    if (true)
+                    {
+                        PlayerBody.transform.position = Globalprefs.WMovepos;
+                        W_position = -499;
+                        if (HyperbolicCamera.Main() != null)
+                        {
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        }
+                        //  sr.transform.position = save.pos2;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
-                W_position = save.wpos;
+                    }
+                    if (Globalprefs.isnew)
+                    {
+
+
+                        PlayerBody.transform.position += Globalprefs.newv3;
+                        PlayerBody.transform.rotation = Globalprefs.q[0];
+                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                        PlayerCamera.transform.rotation = Globalprefs.q[1];
+                        Globalprefs.isnew = false;
+                    }
+                }
+                if (portallNumer.Portal == "WMove-")
+                {
+                    if (true)
+                    {
+                        PlayerBody.transform.position = Globalprefs.WMovepos;
+                        W_position = 499;
+                        if (HyperbolicCamera.Main() != null)
+                        {
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        }
+                        //  sr.transform.position = save.pos2;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position;
+
+                    }
+                    if (Globalprefs.isnew)
+                    {
+
+
+                        PlayerBody.transform.position += Globalprefs.newv3;
+                        PlayerBody.transform.rotation = Globalprefs.q[0];
+                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                        PlayerCamera.transform.rotation = Globalprefs.q[1];
+                        Globalprefs.isnew = false;
+                    }
+                }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
@@ -1093,6 +1186,19 @@ public class mover : MonoBehaviour
     void WPositionUpdate()
     {
         Get4DCam()._wPosition = W_position;
+        if (((int)W_position) >= 500 && ((int)W_position) <= 550)
+        {
+            Globalprefs.WMovepos = transform.position;
+            portallNumer.Portal = "WMove+";
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        if (((int)W_position) <= -500 && ((int)W_position) >= -550)
+        {
+
+            Globalprefs.WMovepos = transform.position;
+            portallNumer.Portal = "WMove-";
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
     }
 
 
@@ -1160,7 +1266,7 @@ public class mover : MonoBehaviour
         if (faceViewi != faceView.fourd )
         {
            if(ftho > 0) ftho -= Time.deltaTime;
-            if (!isKinematic) if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
+            if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
             {
                 ftho += 1;
                 if (ftho > 1)
@@ -1186,13 +1292,13 @@ public class mover : MonoBehaviour
             {
 
 
-                if (!isKinematic) W_position += deltaW *5;
+                if (!isKinematic) W_position += (deltaW *5)*Time.deltaTime*60;
                 sprintCnficent = 2;
             }
             else
             {
 
-                if (!isKinematic) W_position += deltaW;
+                if (!isKinematic) W_position += (deltaW) * Time.deltaTime * 60;
             }
             float deltaSumXZ = deltaX + deltaZ;
 
@@ -1329,10 +1435,8 @@ public class mover : MonoBehaviour
                 g.AddComponent<deleter1>();
             }
         }
-        Ray r = musave.pprey();
-        RaycastHit hit;
-        if (Physics.Raycast(r, out hit))
-        {
+        RaycastHit hit = MainRay.MainHit;
+       
             if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
             {
                 if (hit.collider.GetComponent<transport4>())
@@ -1347,7 +1451,7 @@ public class mover : MonoBehaviour
                 if (hit.collider.GetComponent<GravityBoard>())
                     hit.collider.GetComponent<GravityBoard>().player = transform;
             }
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.F4))
         {
@@ -1422,12 +1526,9 @@ public class mover : MonoBehaviour
                 {
                     PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
                 }
-
             }
-            else
-            {
-                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
-            }
+           
+           
         }
         if (faceViewi == faceView.fourd)
         {

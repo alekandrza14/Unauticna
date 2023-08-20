@@ -245,7 +245,7 @@ public class RaymarchCam : SceneViewFilter
 
     void CreateScene()
     {
-        List<Shape4D> allShapes = new List<Shape4D>(FindObjectsOfType<Shape4D>());
+        List<Shape4D> allShapes = new List<Shape4D>(FindObjectsByType<Shape4D>(sortmode.main));
         allShapes.Sort((a, b) => a.operation.CompareTo(b.operation));
 
         orderedShapes = new List<Shape4D>();

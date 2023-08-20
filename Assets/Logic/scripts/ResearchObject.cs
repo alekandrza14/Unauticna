@@ -20,10 +20,8 @@ public class ResearchObject : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && !VarSave.ExistenceVar("researchs/" + SiObject))
         {
             Directory.CreateDirectory("unsave/var/researchs");
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+          
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -34,7 +32,7 @@ public class ResearchObject : MonoBehaviour
                         VarSave.SetInt("researchs/" + SiObject, 0);
                     }
                 }
-            }
+           
         }
     }
 } 

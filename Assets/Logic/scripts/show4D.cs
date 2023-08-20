@@ -20,7 +20,7 @@ public class show4D : MonoBehaviour
     void Start()
     {
         
-        r = FindObjectOfType<RaymarchCam>();
+        r = FindFirstObjectByType<RaymarchCam>();
     }
 
     void swap()
@@ -43,7 +43,7 @@ public class show4D : MonoBehaviour
     void Update()
     {
         swap();
-        r = FindObjectOfType<RaymarchCam>();
+        r = FindFirstObjectByType<RaymarchCam>();
         if (w-w_scale < r._wPosition && w + w_scale > r._wPosition)
         {
          float poectscale = w_scale - ( w  - r._wPosition);

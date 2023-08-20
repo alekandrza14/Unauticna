@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 6484838791724545460}
   - component: {fileID: 3384919600771902153}
   - component: {fileID: 3528798405244447532}
+  - component: {fileID: 364450158924572433}
   m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -660,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: fa3e1590ac1acb546a2efc0ad4215b7e, type: 2}
+  sharedProfile: {fileID: 11400000, guid: e8f96945eba04a2489470287f7e49e23, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -767,12 +768,12 @@ MonoBehaviour:
   _shader: {fileID: 4800000, guid: 8f4de6e9330b641579626ad7feb3b23e, type: 3}
   _directionalLight: {fileID: 0}
   _player: {fileID: 5178805348616725976}
-  _precision: 0.001
-  _max_iteration: 200
+  _precision: 0.01
+  _max_iteration: 180
   _wRotation: {x: 0, y: 0, z: 0}
   _wPosition: 0
   _useNormal: 1
-  _nrOfCascades: 10
+  _nrOfCascades: 0
   _lightIntensity: 0.716
   _useShadow: 1
   _useSoftShadow: 1
@@ -806,6 +807,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d0b65e5bc6642242a4ec4753b37b291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &364450158924572433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400230849660333984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d75a117c81f9d714cb898e13d06cfc97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8483994031292608373

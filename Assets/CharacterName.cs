@@ -11,29 +11,27 @@ public class CharacterName : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1))
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null)
-                {
-                    if (hit.collider.gameObject == gameObject)
-                    {
-                        Globalprefs.selectcharacter = CharactorName;
-                    }
-                    else if(!hit.collider.gameObject.GetComponent<CharacterName>())
-                    {
+            RaycastHit hit = MainRay.MainHit;
 
-                        Globalprefs.selectcharacter = null;
-                    }
-                }
-                if (hit.collider == null)
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject == gameObject)
                 {
+                    Globalprefs.selectcharacter = CharactorName;
+                }
+                else if (!hit.collider.gameObject.GetComponent<CharacterName>())
+                {
+
                     Globalprefs.selectcharacter = null;
                 }
-
             }
+            if (hit.collider == null)
+            {
+                Globalprefs.selectcharacter = null;
+            }
+
         }
+        
     }
     private void OnDestroy()
     {

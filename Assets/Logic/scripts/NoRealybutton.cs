@@ -8,26 +8,24 @@ public class NoRealybutton : MonoBehaviour
     [SerializeField] GameObject monitor2;
     public void MONITOR2()
     {
-        monitor2.SetActive(!monitor2.active);
+        monitor2.SetActive(!monitor2.activeSelf);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
            
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+           
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
                     {
-                        monitor.SetActive(!monitor.active);
+                        monitor.SetActive(!monitor.activeSelf);
                     }
                 }
 
-            }
+            
         }
     }
 }

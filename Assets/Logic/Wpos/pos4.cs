@@ -9,14 +9,33 @@ public class pos4 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Animator>().SetBool("inits", true);
 
-        w = VarSave.GetBool(SceneManager.GetActiveScene().name);
 
+        GetComponent<Animator>().SetBool("inits", false);
+
+        w = 0 >= mover.main().W_position;
+        
+            if (w && gameObject.name == "w1")
+            {
+                GetComponent<Animator>().SetTrigger("exit");
+            }
+            if (!w && gameObject.name == "w1")
+            {
+                GetComponent<Animator>().SetTrigger("enter");
+            }
+            if (!w && gameObject.name == "w2")
+            {
+                GetComponent<Animator>().SetTrigger("exit");
+            }
+            if (w && gameObject.name == "w2")
+            {
+                GetComponent<Animator>().SetTrigger("enter");
+            }
+        
 
         GetComponent<Animator>().SetBool("transf", w);
     }
-
+    bool side;
     // Update is called once per frame
     void Update()
     {
@@ -29,23 +48,26 @@ public class pos4 : MonoBehaviour
             GetComponent<Animator>().SetBool("inits", false);
 
             w = 0 >= mover.main().W_position;
-            if (w && gameObject.name == "w1")
+            if (w && gameObject.name == "w1" && side)
             {
                 GetComponent<Animator>().SetTrigger("exit");
+                side = false;
             }
-            if (!w && gameObject.name == "w1")
+            if (!w && gameObject.name == "w1" && !side)
             {
                 GetComponent<Animator>().SetTrigger("enter");
+                side = true;
             }
-            if (!w && gameObject.name == "w2")
+            if (!w && gameObject.name == "w2" && !side)
             {
                 GetComponent<Animator>().SetTrigger("exit");
+                side = true;
 
             }
-            if (w && gameObject.name == "w2")
+            if (w && gameObject.name == "w2" && side)
             {
                 GetComponent<Animator>().SetTrigger("enter");
-
+                side = false;
             }
 
         }

@@ -12,10 +12,7 @@ public class NullingLoan : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetMoney("tevro") > -15000)
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -26,15 +23,12 @@ public class NullingLoan : MonoBehaviour
                     }
                 }
 
-            }
+            
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetMoney("tevro") < -15000)
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -48,7 +42,7 @@ public class NullingLoan : MonoBehaviour
                     }
                 }
 
-            }
+            
         }
     }
 }

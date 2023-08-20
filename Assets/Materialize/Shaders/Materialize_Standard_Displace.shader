@@ -9,8 +9,9 @@
 		_AOTex("Ambient Occlusion", 2D) = "white" {}	
 		
 		_Glossiness ("Smoothness", Range(0,5)) = 1.0
+		_Brigthtness ("Brigthtness", Range(0,60)) = 1.0
 		_Metallic ("Metallic", Range(0,5)) = 1.0		
-		_AOPower ("AO Power", Range(0,5) ) = 1.0
+		_AOPower ("AO Power", Range(-5,5) ) = 1.0
 		_EdgePower ("Edge Power", Range(0,5) ) = 1.0
 		
 		[Toggle(FLIP_NORMAL)] _FlipNormal("Flip Normal Y", Float) = 0

@@ -20,51 +20,44 @@ public class Move4DAxis : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null)
+            
+                if (MainRay.MainHit.collider != null)
                 {
-                    if (hit.collider.gameObject.layer != LayerMask.NameToLayer("Interface"))
+                    if (MainRay.MainHit.collider.gameObject.layer != LayerMask.NameToLayer("Interface"))
                     {
-                        select = hit.collider.gameObject;
+                        select = MainRay.MainHit.collider.gameObject;
                     }
                 }
 
-            }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider != null)
+            
+                if (MainRay.MainHit.collider != null)
                 {
-                    if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Interface"))
+                    if (MainRay.MainHit.collider.gameObject.layer == LayerMask.NameToLayer("Interface"))
                     {
-                        if (axis[0] == hit.collider.gameObject)
+                        if (axis[0] == MainRay.MainHit.collider.gameObject)
                         {
                             curaxis = 0;
                         }
-                        if (axis[1] == hit.collider.gameObject)
+                        if (axis[1] == MainRay.MainHit.collider.gameObject)
                         {
                             curaxis = 1;
                         }
-                        if (axis[2] == hit.collider.gameObject)
+                        if (axis[2] == MainRay.MainHit.collider.gameObject)
                         {
                             curaxis = 2;
                         }
-                        if (axis[3] == hit.collider.gameObject)
+                        if (axis[3] == MainRay.MainHit.collider.gameObject)
                         {
                             curaxis = 4;
                         }
                     }
                 }
 
-            }
+            
         }
         else if(Input.GetKeyUp(KeyCode.Mouse0))
         {

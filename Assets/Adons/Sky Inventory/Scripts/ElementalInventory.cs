@@ -543,10 +543,8 @@ public class ElementalInventory : MonoBehaviour {
 		if (GlobalInputMenager.KeyCode_eat == 1 && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
 		{
 
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
+			RaycastHit hit = MainRay.MainHit;
+			
 				if (hit.collider != null)
 				{
 					Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
@@ -555,16 +553,13 @@ public class ElementalInventory : MonoBehaviour {
 
 				}
 
-			}
 			removeitem("box1");
 			GlobalInputMenager.KeyCode_eat = 0;
 		}
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
         {
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+            
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject.layer == 6)
@@ -572,14 +567,12 @@ public class ElementalInventory : MonoBehaviour {
                         Destroy(hit.collider.gameObject);
                     }
                 }
-            }
+           
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
         {
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+          
                 if (hit.collider != null)
                 {
 					for (int i =0;i<2; i++)
@@ -596,15 +589,13 @@ public class ElementalInventory : MonoBehaviour {
 					    
 					}
 					}
-				}
+			
         }
        
         if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
 		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
+			RaycastHit hit = MainRay.MainHit;
+			
 				if (hit.collider != null)
 				{
 					GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
@@ -614,17 +605,15 @@ public class ElementalInventory : MonoBehaviour {
 
                     Global.PauseManager.Pause();
                 }
-			}
+			
 		}
 		if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
 		{
 
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (FindObjectsOfType<HyperbolicCamera>().Length == 0)
+			RaycastHit hit = MainRay.MainHit;
+			if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0)
 			{
-				if (Physics.Raycast(r, out hit))
-				{
+				
 					if (hit.collider != null)
 					{
 						if (hit.collider.gameObject.layer != 6)
@@ -634,10 +623,9 @@ public class ElementalInventory : MonoBehaviour {
 						}
 					}
 
-				}
+				
 			
-				if (Physics.Raycast(r, out hit))
-				{
+				
 					if (hit.collider != null)
 					{
 						if (hit.collider.gameObject.layer == 6)
@@ -690,12 +678,10 @@ public class ElementalInventory : MonoBehaviour {
 						}
 					}
 
-				}
 			}
-			else if(FindObjectsOfType<HyperbolicCamera>().Length > 0)
+			else if(FindObjectsByType<HyperbolicCamera>(sortmode.main).Length > 0)
 			{
-				if (Physics.Raycast(r, out hit))
-				{
+				
 					if (hit.collider != null)
 					{
 						Vector3 v3;
@@ -715,17 +701,14 @@ public class ElementalInventory : MonoBehaviour {
 						
 					}
 
-				}
 			}
 		}
 	
         if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+          
                 if (hit.collider != null)
                 {
                     Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
@@ -737,17 +720,14 @@ public class ElementalInventory : MonoBehaviour {
 
                 }
 
-            }
             lowitem("gold");
         }
         //infinity_gun
         if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("infinity_gun")  && Cells[select].elementName == "infinity_gun" && boxItem.getInventory("i3").inventory == this)
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+          
                 if (hit.collider != null)
                 {
                     Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
@@ -755,15 +735,13 @@ public class ElementalInventory : MonoBehaviour {
                    
                 }
 
-            }
+            
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
         {
 
-            Ray r = musave.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+            RaycastHit hit = MainRay.MainHit;
+           
                 if (hit.collider != null)
                 {
                     for (int i = 0; i < 200; i++)
@@ -776,7 +754,7 @@ public class ElementalInventory : MonoBehaviour {
 
                 }
 
-            }
+           
             ionenergy.energy = 1;
             lowioncube("ionic_cube");
 
@@ -819,10 +797,8 @@ public class ElementalInventory : MonoBehaviour {
 			
 
 				Globalprefs.selectitem = "";
-				Ray r = musave.pprey();
-				RaycastHit hit;
-				if (Physics.Raycast(r, out hit))
-				{
+				RaycastHit hit = MainRay.MainHit;
+				
 					if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
 					{
                    
@@ -848,8 +824,7 @@ public class ElementalInventory : MonoBehaviour {
                     }
 					}
 
-				
-			}
+			
 
         }
             if (Input.GetKeyDown(KeyCode.Delete) && boxItem.getInventory("i3").inventory == this && !nosell)
@@ -864,13 +839,13 @@ public class ElementalInventory : MonoBehaviour {
             }
       
 		
-		if (FindObjectsOfType<HyperbolicCamera>().Length == 0)
+		if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0)
 		{
 
 
 			euclideanray();
 		}
-		if (FindObjectsOfType<HyperbolicCamera>().Length > 0)
+		if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length > 0)
 		{
 
 
@@ -886,7 +861,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
     }
-    public IEnumerator seteuclideanitem(RaycastHit hit,Ray r)
+    public IEnumerator seteuclideanitem(RaycastHit hit)
     {
 
 
@@ -901,7 +876,7 @@ public class ElementalInventory : MonoBehaviour {
            
         }else if(Cells[select].elementCount != 0)
 		{
-            Instantiate(inv2(Cells[select].elementName).gameObject, (r.origin+(r.direction*3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.Ray.origin+(MainRay.Ray.direction*3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -928,23 +903,18 @@ public class ElementalInventory : MonoBehaviour {
         if (mouseDoubele >= 1.5f && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
             Globalprefs.selectitem = "";
-            Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
+			RaycastHit hit = MainRay.MainHit;
+		
 
-                StartCoroutine(seteuclideanitem(hit,r));
+                StartCoroutine(seteuclideanitem(hit));
 
-            }
-            else
-                StartCoroutine(seteuclideanitem(hit, r));
 
 
 
         }
 
     }
-    public IEnumerator sethyperbolicitem(RaycastHit hit, Ray r)
+    public IEnumerator sethyperbolicitem(RaycastHit hit)
     {
 
 
@@ -976,7 +946,7 @@ public class ElementalInventory : MonoBehaviour {
        else if (Cells[select].elementCount != 0)
         {
             Vector3 v3;
-            v3 = (r.origin + (r.direction * 3f)) - musave.isplayer().position;
+            v3 = (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) - musave.isplayer().position;
             v3 /= 20;
             HyperbolicCamera c = HyperbolicCamera.Main();
 
@@ -1016,17 +986,9 @@ public class ElementalInventory : MonoBehaviour {
 		if (mouseDoubele >= 1.5f&& !sh && boxItem.getInventory("i3").inventory == this && !nosell)
 		{
             Globalprefs.selectitem = "";
-            Ray r = musave.pprey();
-			RaycastHit hit; if (Physics.Raycast(r, out hit))
-			{
-				StartCoroutine(sethyperbolicitem(hit, r));
-			}
-			else
-			{
-
-
-				StartCoroutine(sethyperbolicitem(hit, r));
-			}
+			RaycastHit hit = MainRay.MainHit;
+				StartCoroutine(sethyperbolicitem(hit));
+			
 
 
 			}
@@ -1039,9 +1001,8 @@ public class ElementalInventory : MonoBehaviour {
 		{
 
 
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
+			RaycastHit hit = MainRay.MainHit;
+			if (hit.collider!= null)
 			{
 				if (hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
 				{
@@ -1053,20 +1014,20 @@ public class ElementalInventory : MonoBehaviour {
 
 						if (hit.collider.gameObject.name[i] != '_')
 						{
-                            Globalprefs.ItemPrise = hit.collider.GetComponent<itemName>().ItemPrise;
+							Globalprefs.ItemPrise = hit.collider.GetComponent<itemName>().ItemPrise;
 							Globalprefs.selectitemobj = hit.collider.GetComponent<itemName>();
 
 
-                            Globalprefs.selectitem += hit.collider.gameObject.name[i];
+							Globalprefs.selectitem += hit.collider.gameObject.name[i];
 
 						}
 						if (hit.collider.gameObject.name[i] == '_')
 						{
 
-                            Globalprefs.ItemPrise = 0;
+							Globalprefs.ItemPrise = 0;
 
-                            Globalprefs.selectitemobj = null;
-                            Globalprefs.selectitem += " ";
+							Globalprefs.selectitemobj = null;
+							Globalprefs.selectitem += " ";
 
 						}
 
@@ -1082,10 +1043,7 @@ public class ElementalInventory : MonoBehaviour {
 	{
 		if (it != null)
 		{
-			Ray r = musave.pprey();
-			RaycastHit hit;
-			if (Physics.Raycast(r, out hit))
-			{
+			RaycastHit hit = MainRay.MainHit;
 				if (!hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
 				{
 
@@ -1095,7 +1053,7 @@ public class ElementalInventory : MonoBehaviour {
                     Globalprefs.selectitem = "";
 					it = null;
 				}
-			}
+			
 		}
 	
 		
