@@ -14,7 +14,7 @@ public class Chaos_cube : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) )
         {
             
-            Ray r = musave.pprey();
+            Ray r = GameManager.pprey();
             RaycastHit hit;
             if (Physics.Raycast(r, out hit))
             {
@@ -57,6 +57,6 @@ public class Chaos_cube : MonoBehaviour
         {
             Instantiate(Obj[Random.Range(0, Obj.Length)], gameObject.transform.position, Quaternion.identity);
         }
-        musave.saveandhill();
+        GameManager.saveandhill();
     }
 }

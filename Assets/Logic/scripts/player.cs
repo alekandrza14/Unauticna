@@ -151,7 +151,7 @@ public class currentAtackk
 {
 
 }
-public class musave : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public static string saveid;
     public static void save()

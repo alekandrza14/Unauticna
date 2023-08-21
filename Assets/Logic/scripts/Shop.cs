@@ -18,7 +18,7 @@ public class Shop : MonoBehaviour
     }
     private void Update()
     {
-        musave.save();
+        GameManager.save();
         tevro.text = tevroint.ToString();
         for (int i = 0; i < produkt.Length && !adecvat; i++)
         {
@@ -66,7 +66,7 @@ public class Shop : MonoBehaviour
             {
                 for (int i = 0; i < produkt[product].count; i++)
                 {
-                    Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), musave.GetPlayer().transform.position, Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), GameManager.GetPlayer().transform.position, Quaternion.identity);
                 }
                 tevroint -= produkt[product].price;
                 VarSave.SetMoney("tevro", tevroint);

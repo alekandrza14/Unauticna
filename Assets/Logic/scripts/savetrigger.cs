@@ -5,26 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class savetrigger : MonoBehaviour
 {
-    public string bol;
-    public string ibool ="";
-    public type1 type1 = type1.awaked;
+    public string _Name;
+    public string Variable ="";
+    public StoryPoint _StoryPoint = StoryPoint.eventer;
     private void Start()
     {
 
 
 
-        if (type1==type1.awaked)
+        if (_StoryPoint == StoryPoint.awaker)
         {
-            VarSave.SetString(bol, ibool);
+            VarSave.SetString(_Name, Variable);
         }
 
     }
     public void OnTriggerEnter(Collider collision)
     {
-        if (type1 == type1.triggered && !VarSave.ExistenceVar(bol) && collision.tag == "Player")
+
+        Debug.Log(collision.tag);
+        if (_StoryPoint == StoryPoint.eventer && !VarSave.ExistenceVar(_Name) && collision.tag == "Player")
         {
-            VarSave.SetString(bol, ibool);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameManager.save();
+            VarSave.SetString(_Name, Variable);
+
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (_StoryPoint == StoryPoint.trigger && collision.tag == "Player")
+        {
+            GameManager.save();
+            VarSave.SetString(_Name, Variable);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (_StoryPoint == StoryPoint.booler && VarSave.GetString(_Name) != Variable && collision.tag == "Player")
+        {
+            GameManager.save();
+            VarSave.SetString(_Name, Variable);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

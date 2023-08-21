@@ -164,7 +164,7 @@ public class deldialog : MonoBehaviour
                     {
 
 
-                        musave.chargescene(chargescene);
+                        GameManager.chargescene(chargescene);
                     }
 
                 }
@@ -182,7 +182,7 @@ public class deldialog : MonoBehaviour
                     {
 
 
-                        musave.chargescene(chargescene);
+                        GameManager.chargescene(chargescene);
                     }
 
                 }
@@ -280,7 +280,7 @@ public class deldialog : MonoBehaviour
                     {
 
 
-                        musave.chargescene(chargescene);
+                        GameManager.chargescene(chargescene);
                     }
                     tir2 = 0;
                     tir = 0;

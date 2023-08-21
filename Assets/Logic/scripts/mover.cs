@@ -76,6 +76,7 @@ public class mover : MonoBehaviour
     [SerializeField] Rigidbody rigidbody3d;
     [SerializeField] float Speed;
     [SerializeField] Animator animator;
+    [SerializeField] Animator[] SkinedAnimators;
     save save = new save();
     tsave tsave = new tsave();
     gsave gsave = new gsave();
@@ -86,6 +87,7 @@ public class mover : MonoBehaviour
     float JumpTimer;
     [HideInInspector] public bool IsGraund;
     bool InWater;
+    bool LateInWater;
     Collision c;
     float ZoomConficent = 0.04f;
     [SerializeField] RawImage watermask;
@@ -334,6 +336,7 @@ public class mover : MonoBehaviour
             PlayerCamera.GetComponent<Camera>().enabled = 1 ==UnityEngine.Random.Range(0, 3);
 
         }
+       
 
     }
 
@@ -1304,8 +1307,15 @@ public class mover : MonoBehaviour
             float deltaSumXZ = deltaX + deltaZ;
 
             //  if(deltaSumXZ == 0) rigidbody3d.velocity = Vector3.zero;
-            if (!flyinng) animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
-            if (!flyinng) animator.SetBool("InWater", InWater);
+            
+                animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
+            
+            if (LateInWater != InWater)
+            {
+
+                animator.SetBool("InWater", InWater);
+                LateInWater = InWater;
+            }
             if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
             Vector3 movement = new Vector3(deltaX, 0, deltaZ);
@@ -1491,20 +1501,14 @@ public class mover : MonoBehaviour
         if (faceViewi == faceView.first)
         {
             PlayerCamera.transform.position = HeadCameraSetup.transform.position;
-            PlayerModelObject.layer = 8;
-            foreach (GameObject i in PlayerModelObjects)
-            {
-                i.layer = 8;
-            }
+            SkinOff();
         }
         if (faceViewi == faceView.trid)
         {
             
            GameObject t = FindFirstObjectByType<PhotoCapture>().gameObject;
-            foreach (GameObject i in PlayerModelObjects)
-            {
-                i.layer = 0;
-            }
+
+            SkinManager();
             PlayerModelObject.layer = 0;
             Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
@@ -1536,6 +1540,7 @@ public class mover : MonoBehaviour
         }
         if (faceViewi == faceView.fourd)
         {
+            SkinManager();
             GameObject t = PhotoCapture.FindFirstObjectByType<PhotoCapture>().gameObject;
             if (t.GetComponent<FreeCam>())
             {
@@ -1552,6 +1557,53 @@ public class mover : MonoBehaviour
             if (t.GetComponent<FreeCam>())
             {
                 Destroy(t.GetComponent<FreeCam>());
+            }
+        }
+    }
+
+    private void SkinOff()
+    {
+        foreach (GameObject i in PlayerModelObjects)
+        {
+            i.SetActive(false);
+        }
+    }
+
+    private void SkinManager()
+    {
+        for (int i =0;i< PlayerModelObjects.Length;i++)
+        {
+
+            if (VarSave.ExistenceVar("Controler")) {
+                if (i == int.Parse(VarSave.GetString("Controler")))
+                {
+
+                    PlayerModelObjects[i].SetActive(true);
+                    SkinedAnimators[i].enabled = true;
+                    animator = SkinedAnimators[i];
+                }
+                else
+                {
+
+                    PlayerModelObjects[i].SetActive(false);
+                    SkinedAnimators[i].enabled = false;
+                }
+            }
+            else
+            {
+                if (i == 0)
+                {
+
+                    PlayerModelObjects[i].SetActive(true);
+                    SkinedAnimators[i].enabled = true;
+                    animator = SkinedAnimators[i];
+                }
+                else
+                {
+
+                    PlayerModelObjects[i].SetActive(false);
+                    SkinedAnimators[i].enabled = false;
+                }
             }
         }
     }
@@ -1590,7 +1642,7 @@ public class mover : MonoBehaviour
             //playermat
         }
         playerdata.checkeffect();
-        musave.GetUF();
+        GameManager.GetUF();
     }
     public static mover main()
     {
@@ -1602,7 +1654,7 @@ public class mover : MonoBehaviour
         {
             VarSave.SetInt("progress",gsave.progressofthepassage+1);
             gsave.progressofthepassage += 1;
-            musave.chargescene(0);
+            GameManager.chargescene(0);
 
             playerdata.Cleareffect();
         }

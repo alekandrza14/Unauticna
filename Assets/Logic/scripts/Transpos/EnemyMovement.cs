@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
 
-            Ray r = musave.pprey();
+            Ray r = GameManager.pprey();
             RaycastHit hit;
             if (Physics.Raycast(r, out hit))
             {
@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
                 {
                     if (hit.collider.gameObject == gameObject)
                     {
-                        gameObject.transform.position = musave.GetPlayer().position;
+                        gameObject.transform.position = GameManager.GetPlayer().position;
                     }
                 }
             }

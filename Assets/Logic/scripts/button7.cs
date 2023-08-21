@@ -20,7 +20,7 @@ public class button7 : MonoBehaviour
     {
         if (portallNumer.Portal == Portal)
         {
-            musave.load(transform,sp);
+            GameManager.load(transform,sp);
             portallNumer.Portal = "";
         }
 
@@ -51,10 +51,10 @@ public class button7 : MonoBehaviour
             {
                 if (!notsave)
                 {
-                    musave.save();
+                    GameManager.save();
                 }
                 portallNumer.Portal = Portal;
-                musave.chargescene(id);
+                GameManager.chargescene(id);
 
             }
         }

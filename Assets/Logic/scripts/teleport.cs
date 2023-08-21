@@ -13,17 +13,17 @@ public class teleport : MonoBehaviour
         {
 
 
-            musave.chargescene(sceneid);
+            GameManager.chargescene(sceneid);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
 
 
-            musave.chargescene(sceneid1);
+            GameManager.chargescene(sceneid1);
         }
         if (boxItem.getInventory("i3").inventory.Getitem("position_planet_seloria") && Input.GetKeyDown(KeyCode.Alpha3))
         {
-            musave.chargescene(sceneid2);
+            GameManager.chargescene(sceneid2);
         }
     }
 }

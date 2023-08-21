@@ -33,7 +33,7 @@ public class enemyspider : MonoBehaviour
 
           
 
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
            
         }
     }
@@ -65,8 +65,8 @@ public class enemyspider : MonoBehaviour
 
             if (Random.Range(1, 4) == 1)
             {
-                c = musave.GetPlayer().gameObject.GetComponent<Collider>();
-                target = musave.GetPlayer().transform.position;
+                c = GameManager.GetPlayer().gameObject.GetComponent<Collider>();
+                target = GameManager.GetPlayer().transform.position;
 
             }
             else

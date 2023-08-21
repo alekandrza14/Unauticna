@@ -84,7 +84,7 @@ public class cistalenemy : MonoBehaviour
             VarSave.SetBool("cry", true);
             VarSave.SetBool("призедент победил", true); 
 
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
            
         }
     }
@@ -114,7 +114,7 @@ public class cistalenemy : MonoBehaviour
         }
         if (povedenie == 2)
         {
-            player = musave.isplayer();
+            player = GameManager.isplayer();
             
             povedenie = 4;
         }

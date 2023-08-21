@@ -46,7 +46,7 @@ public class deadtrigger2 : MonoBehaviour
           
 
 
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
           
         }
     }

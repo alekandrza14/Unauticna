@@ -11,7 +11,7 @@ public class gold : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) )
         {
             
-            Ray r = musave.pprey();
+            Ray r = GameManager.pprey();
             RaycastHit hit;
             if (Physics.Raycast(r, out hit))
             {

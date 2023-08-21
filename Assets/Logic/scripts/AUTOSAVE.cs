@@ -12,7 +12,7 @@ public class AUTOSAVE : MonoBehaviour
         if (collision.collider.tag == "Player" && !isdone)
         {
             Instantiate(i, transform.position, transform.rotation);
-            musave.saveandhill();
+            GameManager.saveandhill();
 if(onetimes){
             isdone = true;
 }

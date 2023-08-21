@@ -31,7 +31,7 @@ public class button6 : MonoBehaviour
         if (portallNumer.Portal == Portal)
         {
             Debug.Log("portaltelep "+ Portal);
-            musave.load(transform,sp);
+            GameManager.load(transform,sp);
             portallNumer.Portal = "";
         }
     }
@@ -82,10 +82,10 @@ public class button6 : MonoBehaviour
             if (enter)
             {
                 
-                    musave.save();
+                    GameManager.save();
                 
                 portallNumer.Portal = Portal;
-                musave.chargescene(id);
+                GameManager.chargescene(id);
 
             }
         }

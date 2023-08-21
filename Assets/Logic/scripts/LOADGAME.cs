@@ -200,7 +200,12 @@ public class LOADGAME : MonoBehaviour
     public void engLENGUAGE()
     {
         VarSave.SetBool("lenguage_english", true);
-        
+
+    }
+    public void SkinLobby()
+    {
+        SceneManager.LoadScene("CharactorLobby");
+
     }
     public void rusLENGUAGE()
     {

@@ -19,6 +19,6 @@ public class antifallzone1 : MonoBehaviour
     }
     public void OnTriggerStay(Collider other)
     {
-        musave.fall(other.gameObject);
+        GameManager.fall(other.gameObject);
     }
 }

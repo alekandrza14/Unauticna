@@ -27,7 +27,7 @@ public class deadzone : MonoBehaviour
          
 
                 
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
            
         }
     }

@@ -47,7 +47,7 @@ public class tesseraktenemy4 : MonoBehaviour
             rotx = Random.Range(-2.0f, 3f);
             roty = Random.Range(-2.0f, 3f);
             rotz = Random.Range(-2.0f, 3f);
-            player = musave.isplayer();
+            player = GameManager.isplayer();
             transform.rotation = new Quaternion(rotx, roty, rotz, rot);
             povedenie = 3;
             
@@ -55,7 +55,7 @@ public class tesseraktenemy4 : MonoBehaviour
         }
         if (povedenie == 2)
         {
-            player = musave.isplayer();
+            player = GameManager.isplayer();
             
             povedenie = 4;
         }

@@ -65,7 +65,7 @@ public class cistalenemy1 : MonoBehaviour
          
 
 
-                musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
          
         }   
     }
@@ -96,7 +96,7 @@ public class cistalenemy1 : MonoBehaviour
         }
         if (povedenie == 2)
         {
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
             anim.SetInteger("run", povedenie);
         }
         if (povedenie == 3)

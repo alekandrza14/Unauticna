@@ -83,7 +83,7 @@ public class cistalenemy4 : MonoBehaviour
 
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             }
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
             hp--;
             tic3 = 0;
         }
@@ -96,7 +96,7 @@ public class cistalenemy4 : MonoBehaviour
 
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             }
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
             hp -= 10;
             tic3 = 0;
         }
@@ -104,7 +104,7 @@ public class cistalenemy4 : MonoBehaviour
         {
 
             
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
             hp -= 100;
             tic3 = 0;
         }
@@ -142,7 +142,7 @@ public class cistalenemy4 : MonoBehaviour
         }
         if (povedenie == 2)
         {
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
         }
         if (povedenie == 3)
         {
@@ -180,7 +180,7 @@ public class cistalenemy4 : MonoBehaviour
 
             Instantiate(Resources.Load<GameObject>("attaks/zt"), GameObject.FindGameObjectsWithTag("Player")[Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)].transform.position, Quaternion.identity); 
             Instantiate(Resources.Load<GameObject>("attaks/zt1"), GameObject.FindGameObjectsWithTag("Player")[Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)].transform.position, Quaternion.identity);
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
 
 
         }

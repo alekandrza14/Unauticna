@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public enum type1
+public enum StoryPoint
 {
-    triggered,awaked
+    eventer,awaker,trigger,booler
 }
 [System.Serializable]
 public class eventun

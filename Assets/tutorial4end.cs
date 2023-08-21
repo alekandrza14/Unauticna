@@ -18,8 +18,8 @@ public class tutorial4end : MonoBehaviour
 
         Instantiate(item, point.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(9f);
-        musave.Dest();
-        musave.chargescene(0);
+        GameManager.Dest();
+        GameManager.chargescene(0);
 
     }
 }

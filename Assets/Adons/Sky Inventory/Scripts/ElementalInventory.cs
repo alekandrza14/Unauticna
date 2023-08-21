@@ -685,7 +685,7 @@ public class ElementalInventory : MonoBehaviour {
 					if (hit.collider != null)
 					{
 						Vector3 v3;
-						v3 = hit.point - musave.isplayer().position;
+						v3 = hit.point - GameManager.isplayer().position;
 						v3 /= 20;
 						HyperbolicCamera c = HyperbolicCamera.Main();
 
@@ -764,7 +764,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            musave.saveandhill();
+            GameManager.saveandhill();
 
 
 
@@ -775,7 +775,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            musave.saveandhill();
+            GameManager.saveandhill();
 
             int i = Random.Range(0, 3);
             if (i == 0)
@@ -967,7 +967,7 @@ public class ElementalInventory : MonoBehaviour {
         if (hit.collider && Cells[select].elementCount != 0)
         {
             Vector3 v3;
-            v3 = hit.point - musave.isplayer().position;
+            v3 = hit.point - GameManager.isplayer().position;
             v3 /= 20;
             HyperbolicCamera c = HyperbolicCamera.Main();
 
@@ -990,7 +990,7 @@ public class ElementalInventory : MonoBehaviour {
        else if (Cells[select].elementCount != 0)
         {
             Vector3 v3;
-            v3 = (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) - musave.isplayer().position;
+            v3 = (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) - GameManager.isplayer().position;
             v3 /= 20;
             HyperbolicCamera c = HyperbolicCamera.Main();
 
@@ -1140,7 +1140,6 @@ public class ElementalInventory : MonoBehaviour {
     {
         int i = 0;
 		int i2 = 1;
-		Debug.Log(i);
 		if (activeItem)
 		{
 			foreach (Cell cell in Cells)

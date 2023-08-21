@@ -31,7 +31,7 @@ public class SpawnPlayer : MonoBehaviour
             }
             if (FindObjectsByType<Chaos_cube>(sortmode.main).Length > 0)
             {
-                musave.saveandhill();
+                GameManager.saveandhill();
                 VarSave.SetFloat("planetA" + Globalprefs.GetIdPlanet(), 0,SaveType.world);
 
                 Debug.Log("Spawn Done");

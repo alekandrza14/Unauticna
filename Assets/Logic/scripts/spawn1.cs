@@ -15,7 +15,7 @@ public class spawn1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 v3 = musave.GetPlayer().position;
+        Vector3 v3 = GameManager.GetPlayer().position;
 
         if (tic > time)
         {

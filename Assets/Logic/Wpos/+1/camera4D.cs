@@ -94,7 +94,7 @@ loadpref1.gameObject};
             }
             if (Input.GetKey(KeyCode.Space))
             {
-            target.posistion.y = musave.isplayer().position.y;
+            target.posistion.y = GameManager.isplayer().position.y;
             }
             if (Input.GetKey(KeyCode.LeftControl))
             {

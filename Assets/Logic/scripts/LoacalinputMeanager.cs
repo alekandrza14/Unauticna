@@ -37,8 +37,8 @@ public class LoacalinputMeanager : MonoBehaviour
             VarSave.SetInt("res1", 320);
             VarSave.SetInt("res2", 240);
         }
-        musave.saveandhill();
-        musave.chargescene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.saveandhill();
+        GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator inputb()

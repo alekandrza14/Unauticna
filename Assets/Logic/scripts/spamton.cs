@@ -152,18 +152,18 @@ public class spamton : MonoBehaviour
                 del.sme = smu;
                 del.text.text = text;
             }
-            if (Vector3.Distance(transform.position, musave.GetPlayer().position) < 30)
+            if (Vector3.Distance(transform.position, GameManager.GetPlayer().position) < 30)
             {
-                Vector3 v3 = musave.GetPlayer().position;
+                Vector3 v3 = GameManager.GetPlayer().position;
                 float dist = Vector3.Distance(transform.position, new Vector3(v3.x, transform.position.y, v3.z));
                 Vector3 dir = (new Vector3(v3.x, transform.position.y, v3.z) - transform.position) / dist;
                 transform.rotation = Quaternion.LookRotation(dir);
                 
             }
-            if (Vector3.Distance(transform.position,musave.GetPlayer().position) >5 && Vector3.Distance(transform.position, musave.GetPlayer().position) < 30)
+            if (Vector3.Distance(transform.position,GameManager.GetPlayer().position) >5 && Vector3.Distance(transform.position, GameManager.GetPlayer().position) < 30)
             {
-                float dist = Vector3.Distance(transform.position, musave.GetPlayer().position);
-                Vector3 dir = (musave.GetPlayer().position - transform.position) / dist;
+                float dist = Vector3.Distance(transform.position, GameManager.GetPlayer().position);
+                Vector3 dir = (GameManager.GetPlayer().position - transform.position) / dist;
                 anim.Play("spamton_walke");
                 transform.position += dir * speed * Time.deltaTime;
                 
@@ -174,15 +174,15 @@ public class spamton : MonoBehaviour
                     }
                 
             }
-            if (Vector3.Distance(transform.position, musave.GetPlayer().position) < 5)
+            if (Vector3.Distance(transform.position, GameManager.GetPlayer().position) < 5)
             {
                 
                 anim.Play("spamton_stay");
             }
         }
-        if (Vector3.Distance(transform.position, musave.GetPlayer().position) < 5 && VarSave.GetBool("spamton_contact") == true)
+        if (Vector3.Distance(transform.position, GameManager.GetPlayer().position) < 5 && VarSave.GetBool("spamton_contact") == true)
         {
-            Vector3 v3 = musave.GetPlayer().position;
+            Vector3 v3 = GameManager.GetPlayer().position;
             float dist = Vector3.Distance(transform.position, new Vector3(v3.x, transform.position.y, v3.z));
             Vector3 dir = (new Vector3(v3.x, transform.position.y, v3.z) - transform.position) / dist;
             transform.rotation = Quaternion.LookRotation(dir);

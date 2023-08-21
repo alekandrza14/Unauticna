@@ -96,18 +96,18 @@ public class button9 : MonoBehaviour
             {
                 if (!notsave)
                 {
-                    musave.save();
-                }
-               musave.GetPlayer().position =  notme().gameObject.transform.position;
+                    GameManager.save();
+                }   
+               GameManager.GetPlayer().position =  notme().gameObject.transform.position;
                
             }
             if (enter && iaw)
             {
                 if (!notsave)
                 {
-                    musave.save();
+                    GameManager.save();
                 }
-                musave.GetPlayer().position = notme().gameObject.transform.position;
+                GameManager.GetPlayer().position = notme().gameObject.transform.position;
                 
                 
 
@@ -116,9 +116,9 @@ public class button9 : MonoBehaviour
             {
                 if (!notsave)
                 {
-                    musave.save();
+                    GameManager.save();
                 }
-                musave.GetPlayer().position = notme().gameObject.transform.position;
+                GameManager.GetPlayer().position = notme().gameObject.transform.position;
                 
                 
 
@@ -127,9 +127,9 @@ public class button9 : MonoBehaviour
             {
                 if (!notsave)
                 {
-                    musave.save();
+                    GameManager.save();
                 }
-                musave.GetPlayer().position = notme().gameObject.transform.position;
+                GameManager.GetPlayer().position = notme().gameObject.transform.position;
                 
                 
 

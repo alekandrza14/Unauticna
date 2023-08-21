@@ -83,7 +83,7 @@ public class Uxill_Engine
     }
     static public void Load(transform4d transform, GameObject[] gs,bool isstart)
     {
-        pref4d38.Add(musave.GetPlayer().gameObject);
+        pref4d38.Add(GameManager.GetPlayer().gameObject);
         if (Input.GetKeyDown(KeyCode.F2) && File.Exists(WorldData.path + SceneManager.GetActiveScene().buildIndex +"/worlddata.wd") && !isstart)
         {
 

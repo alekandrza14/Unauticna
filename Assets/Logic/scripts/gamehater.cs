@@ -42,7 +42,7 @@ public class gamehater : MonoBehaviour
     {
         if (end1 == false && end == true && i.endactorone)
         {
-            musave.GetPlayer().transform.position = lordhaterarm.transform.position;
+            GameManager.GetPlayer().transform.position = lordhaterarm.transform.position;
             anim.SetTrigger("lord hater1");
             end1 = true;
         }
@@ -54,7 +54,7 @@ public class gamehater : MonoBehaviour
         }
         if (end1 == true && end2 == false)
         {
-            musave.GetPlayer().transform.position = lordhaterarm.transform.position;
+            GameManager.GetPlayer().transform.position = lordhaterarm.transform.position;
             for (int i = 0; i < GameObject.FindObjectsByType<unScript>(sortmode.main).Length; i++)
             {
                 if (GameObject.FindObjectsByType<unScript>(sortmode.main)[i].ins == n)

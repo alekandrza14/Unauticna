@@ -79,7 +79,7 @@ public class PhotoCapture : MonoBehaviour
             Globalprefs.idscene = SceneManager.GetActiveScene().buildIndex;
             Directory.CreateDirectory("unsave/global_var");
             File.WriteAllText("unsave/global_var/id",Globalprefs.idscene.ToString());
-            musave.save();
+            GameManager.save();
             SceneManager.LoadScene("Gread_space");
 
             Ray r = new Ray(Camera.main.transform.position, Camera.main.transform.forward);

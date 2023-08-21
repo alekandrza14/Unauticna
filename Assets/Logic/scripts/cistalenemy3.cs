@@ -281,7 +281,7 @@ public class cistalenemy3 : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
             hp--;
             tic3 = 0;
         }
@@ -328,7 +328,7 @@ public class cistalenemy3 : MonoBehaviour
         }
         if (povedenie == 2)
         {
-            player = musave.isplayer(); povedenie = 4;
+            player = GameManager.isplayer(); povedenie = 4;
         }
         if (povedenie == 3)
         {

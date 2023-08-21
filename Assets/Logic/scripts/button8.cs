@@ -30,7 +30,7 @@ public class button8 : MonoBehaviour
         c.gameObject.SetActive(false);
         if (portallNumer.Portal == pasword)
         {
-            musave.load(transform,sp);
+            GameManager.load(transform,sp);
             portallNumer.Portal = "";
         }
 
@@ -62,10 +62,10 @@ public class button8 : MonoBehaviour
             {
                 if (!notsave)
                 {
-                    musave.save();
+                    GameManager.save();
                 }
                 portallNumer.Portal = pasword;
-                musave.chargescene(id);
+                GameManager.chargescene(id);
 
             }
           

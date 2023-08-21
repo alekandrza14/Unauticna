@@ -8,7 +8,7 @@ public class EffectBooble : MonoBehaviour
     public float time;
     public void Update()
     {
-        transform.rotation = musave.GetPlayer().transform.rotation;
+        transform.rotation = GameManager.GetPlayer().transform.rotation;
     }
     private void OnTriggerEnter(Collider other)
     {
