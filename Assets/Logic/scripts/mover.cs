@@ -682,6 +682,7 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + Globalprefs.knowlages);
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
+            GUI.Label(new Rect(0f, 160, 200f, 100f), "UniverseType (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
 
 
         }
@@ -1527,8 +1528,11 @@ public class mover : MonoBehaviour
                     PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
                 }
             }
-           
-           
+            else
+            {
+                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
+            }
+
         }
         if (faceViewi == faceView.fourd)
         {

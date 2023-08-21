@@ -787,42 +787,25 @@ public class ElementalInventory : MonoBehaviour {
 			GlobalInputMenager.KeyCode_eat = 0;
 		}
 
-        if (mouseDoubele2 > 0)
+    
+        if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
         {
-            mouseDoubele2 -= Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this && !nosell)
-            {
            
 			
 
 				Globalprefs.selectitem = "";
 				RaycastHit hit = MainRay.MainHit;
-				
-					if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
-					{
-                   
-                    if (Input.GetKeyDown(KeyCode.Mouse0) && mouseDoubele2 < 3)
-                    {
-                        mouseDoubele2++;
 
-                    }
-                    if (mouseDoubele2 >= 2 && tag1(hit.collider.tag))
-					{
+			if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+			{
 
 
-                        setItem(fullname(hit), 1, Color.red, select);
-						Cells[select].UpdateCellInterface();
-						sh = true;
 
-                        mouseDoubele = 0;
-                        mouseDoubele2 = 0;
-                    }
-                    else if(tag1(hit.collider.tag))
-                    {
-						mouseDoubele = 0;
-                    }
-					}
+					setItem(fullname(hit), 1, Color.red, select);
+					Cells[select].UpdateCellInterface();
+					sh = true;
+
+			}
 
 			
 
@@ -839,25 +822,76 @@ public class ElementalInventory : MonoBehaviour {
             }
       
 		
-		if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0)
-		{
+		
 
 
-			euclideanray();
-		}
-		if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length > 0)
-		{
+		
+        if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length > 0)
+        {
 
 
-			hyperbolicray();
-		}
-      
-        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
+            hyperbolicray();
+        }
+        else if (FindObjectsByType<PlanetGravity>(sortmode.main).Length > 0)
+        {
+
+
+            Sphericalray();
+        }
+        else 
+        {
+
+
+            euclideanray();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this)
         {
             Globalprefs.selectitem = "";
             inputButton.button = 0;
         }
         sh = false;
+
+
+    }
+    public IEnumerator setSphericalitem(RaycastHit hit)
+    {
+
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (hit.collider && Cells[select].elementCount != 0)
+        {
+
+            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + hit.normal * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+            if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
+            {
+                Vector3 gravityUp = (body.position - Vector3.zero).normalized;
+                Vector3 bodyup = body.up;
+                Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
+                body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
+            }
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
+
+        }
+        else if (Cells[select].elementCount != 0)
+        {
+            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+            if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
+            {
+                Vector3 gravityUp = (body.position - Vector3.zero).normalized;
+                Vector3 bodyup = body.up;
+                Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
+                body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
+            }
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
+        }
+
+
+
+
 
 
     }
@@ -869,14 +903,15 @@ public class ElementalInventory : MonoBehaviour {
 
         if (hit.collider && Cells[select].elementCount != 0)
         {
-            
-                Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
-                setItem("", 0, Color.red, select);
-                Cells[select].UpdateCellInterface();
-           
-        }else if(Cells[select].elementCount != 0)
-		{
-            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.Ray.origin+(MainRay.Ray.direction*3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+            Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
+
+        }
+        else if (Cells[select].elementCount != 0)
+        {
+            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -890,23 +925,32 @@ public class ElementalInventory : MonoBehaviour {
     float mouseDoubele;
     float mouseDoubele2;
     private void euclideanray()
-	{
-		if (mouseDoubele > 0)
-		{
-			mouseDoubele -= Time.deltaTime;
-		}
-        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseDoubele < 3)
+    {
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
         {
-            mouseDoubele++;
+            Globalprefs.selectitem = "";
+            RaycastHit hit = MainRay.MainHit;
+
+
+            StartCoroutine(seteuclideanitem(hit));
+
+
+
 
         }
-        if (mouseDoubele >= 1.5f && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
-		{
-            Globalprefs.selectitem = "";
-			RaycastHit hit = MainRay.MainHit;
-		
 
-                StartCoroutine(seteuclideanitem(hit));
+    }
+    private void Sphericalray()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
+        {
+            Globalprefs.selectitem = "";
+            RaycastHit hit = MainRay.MainHit;
+
+
+            StartCoroutine(setSphericalitem(hit));
 
 
 

@@ -81,5 +81,9 @@ public class Move4DAxis : MonoBehaviour
                     select.GetComponent<MultyObject>().W_Position += Input.GetAxis("Mouse X");
             }
         }
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Destroy(select);
+        }
     }
 }
