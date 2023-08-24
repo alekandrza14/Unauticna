@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Unity.Burst.CompilerServices;
 
 public class inputButton
 {
@@ -469,7 +470,17 @@ public class ElementalInventory : MonoBehaviour {
 	private void Update()
     {
 
-       DeselectLayItem(); SelectLayItem();
+		for (int i =0;i<2;i++)
+		{
+            if (i == 0)
+            {
+                SelectLayItem();
+            }
+            if (i == 1)
+            {
+				DeselectLayItem();
+            }
+        }
 
         if (boxItem.getInventory("i3").inventory == this)
 		{
@@ -901,13 +912,25 @@ public class ElementalInventory : MonoBehaviour {
 
         yield return new WaitForSeconds(0.5f);
 
-        if (hit.collider && Cells[select].elementCount != 0)
+        if (hit.distance < MainRay.RayMarhHit.distance && hit.collider && Cells[select].elementCount != 0)
         {
 
             Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
 
+        }
+        else if (hit.distance >= MainRay.RayMarhHit.distance && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
+        {
+            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
+        }
+        else if (hit.collider == null && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
+        {
+            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
         }
         else if (Cells[select].elementCount != 0)
         {
@@ -1088,23 +1111,36 @@ public class ElementalInventory : MonoBehaviour {
 		if (it != null)
 		{
 			RaycastHit hit = MainRay.MainHit;
-				if (!hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
-				{
+			if (!hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
+			{
 
 
-                    Globalprefs.selectitemobj = null;
-                    Globalprefs.ItemPrise = 0;
-                    Globalprefs.selectitem = "";
-					it = null;
-				}
-			
-		}
-	
-		
+				Globalprefs.selectitemobj = null;
+				Globalprefs.ItemPrise = 0;
+				Globalprefs.selectitem = "";
+				it = null;
+            }
+            if (it.gameObject != hit.collider.gameObject && boxItem.getInventory("i3").inventory == this)
+            {
+                Globalprefs.selectitemobj = null;
+                Globalprefs.ItemPrise = 0;
+                Globalprefs.selectitem = "";
+                it = null;
+            }
+            if (MainRay.HitError && boxItem.getInventory("i3").inventory == this)
+            {
+                Globalprefs.selectitemobj = null;
+                Globalprefs.ItemPrise = 0;
+                Globalprefs.selectitem = "";
+                it = null;
+            }
+
+        }
+
+        
 
 
-
-	}
+    }
 	public bool contains (string name, int count, Color color)
 	{
 		int inventoryCount = 0;

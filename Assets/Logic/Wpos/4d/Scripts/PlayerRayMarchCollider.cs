@@ -291,6 +291,74 @@ namespace Unity.Mathematics
             return d;
 
         }
+        public bool CenterMarchCast(Vector3 origin, Vector3 direction)
+        {
+            Vector3 p = origin;
+            float d = 0;
+            bool castObeject = false;
+            bool done = false;
+            bool error = false;
+            for (int t = 0; t < 40 && (!error || !done); t++)
+            {
+
+                p += (direction * d);
+                d = DistanceField(p);
+
+                float od = DistanceField(origin);
+                //check hit
+                if (d < 27.0f + (od / 80) && !done)
+                {
+                    castObeject = true;
+                    //  Debug.Log(DistanceField(origin));
+                    done = true;
+                }
+                if (Vector3.Distance(origin, p) > 500)
+                {
+                    error = true;
+
+                }
+
+            }
+          
+
+            //   Debug.Log(d);
+            return castObeject;
+
+        }
+        public RaycastHit GetMarchCast(Vector3 origin, Vector3 direction)
+        {
+            RaycastHit hit = new RaycastHit();
+            Vector3 p = origin;
+            float d = 0;
+            
+            bool error = false;
+            for (int t = 0; t < 40 && !error; t++)
+            {
+
+                p += (direction * d);
+                d = DistanceField(p);
+
+                
+                if (Vector3.Distance(origin, p) > 500)
+                {
+                    error = true;
+
+                }
+
+            }
+            if (Vector3.Distance(origin, p) < 500)
+            {
+                
+                
+                hit.point = p;
+                hit.distance = Vector3.Distance(origin, p);
+            }
+
+            Globalprefs.RaymarchHitError = error;
+            //   Debug.Log(d);
+            return hit;
+
+        }
         //moves the player to the ground
         void MoveToGround()
         {

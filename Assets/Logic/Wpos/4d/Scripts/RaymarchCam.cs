@@ -14,6 +14,7 @@ public class RaymarchCam : SceneViewFilter
     [Header("Global Settings")]
     private Shader _shader;
     List<ComputeBuffer> buffersToDispose;
+    public bool mat;
 
     public Material _raymarchMaterial
     {
@@ -87,51 +88,54 @@ public class RaymarchCam : SceneViewFilter
     // the main function that sends the data to the shader
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        buffersToDispose = new List<ComputeBuffer>();
-        CreateScene();
-        SetParameters();
-
-
-
-        if (!_raymarchMaterial)
-        {
-            Graphics.Blit(source, destination);
-            return;
-        }
-        
         
 
-        RenderTexture.active = destination;
-        _raymarchMaterial.SetTexture("_MainTex", source);
+            buffersToDispose = new List<ComputeBuffer>();
+            CreateScene();
+            SetParameters();
 
-        GL.PushMatrix();
-        GL.LoadOrtho();
-        _raymarchMaterial.SetPass(0);
-        GL.Begin(GL.QUADS);
+        
 
-        //BL
-        GL.MultiTexCoord2(0, 0.0f, 0.0f);
-        GL.Vertex3(0.0f, 0.0f, 3.0f);
+            if (!_raymarchMaterial)
+            {
+                Graphics.Blit(source, destination);
+                return;
+            }
 
-        //BR
-        GL.MultiTexCoord2(0, 1.0f, 0.0f);
-        GL.Vertex3(1.0f, 0.0f, 2.0f);
 
-        //TR
-        GL.MultiTexCoord2(0, 1.0f, 1.0f);
-        GL.Vertex3(1.0f, 1.0f, 1.0f);
 
-        //TL
-        GL.MultiTexCoord2(0, 0.0f, 1.0f);
-        GL.Vertex3(0.0f, 1.0f, 0.0f);
+            RenderTexture.active = destination;
+            _raymarchMaterial.SetTexture("_MainTex", source);
 
-        GL.End();
-        GL.PopMatrix();
+            GL.PushMatrix();
+            GL.LoadOrtho();
+            _raymarchMaterial.SetPass(0);
+            GL.Begin(GL.QUADS);
 
-        foreach (var buffer in buffersToDispose)
-        {
-            buffer.Dispose();
-        }
+            //BL
+            GL.MultiTexCoord2(0, 0.0f, 0.0f);
+            GL.Vertex3(0.0f, 0.0f, 3.0f);
+
+            //BR
+            GL.MultiTexCoord2(0, 1.0f, 0.0f);
+            GL.Vertex3(1.0f, 0.0f, 2.0f);
+
+            //TR
+            GL.MultiTexCoord2(0, 1.0f, 1.0f);
+            GL.Vertex3(1.0f, 1.0f, 1.0f);
+
+            //TL
+            GL.MultiTexCoord2(0, 0.0f, 1.0f);
+            GL.Vertex3(0.0f, 1.0f, 0.0f);
+
+            GL.End();
+            GL.PopMatrix();
+
+            foreach (var buffer in buffersToDispose)
+            {
+                buffer.Dispose();
+            }
+        
     }
     private void SetParameters()
     {
@@ -247,7 +251,10 @@ public class RaymarchCam : SceneViewFilter
     {
         List<Shape4D> allShapes = new List<Shape4D>(FindObjectsByType<Shape4D>(sortmode.main));
         allShapes.Sort((a, b) => a.operation.CompareTo(b.operation));
-
+        if (mat)
+        {
+            allShapes = null;
+        }
         orderedShapes = new List<Shape4D>();
 
         for (int i = 0; i < allShapes.Count; i++)

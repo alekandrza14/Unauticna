@@ -7,7 +7,7 @@ public class spamton_meetigg : MonoBehaviour
     
     void Update()
     {
-        if (VarSave.GetBool("spamton_contact") ==false)
+        if (VarSave.ExistenceVar("spamton_contact") ==false)
         {
 
 

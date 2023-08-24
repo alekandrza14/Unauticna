@@ -62,6 +62,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "6";
             }
+            if (s[0] == "moremoney")
+            {
+                a = "8";
+            }
             if (s[0] == "movex")
             {
                 a = "2";
@@ -108,6 +112,11 @@ public class Conseole_trigger : MonoBehaviour
                 GameObject[] g = Resources.LoadAll<GameObject>("Primetives");
                 Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
 
+            }
+            if (i == 1 && a == "8")
+            {
+
+              VarSave.SetMoney("tevro", VarSave.GetMoney("tevro")+  int.Parse(s[1]));
             }
             if (i == 1 && a == "7")
             {

@@ -19,20 +19,20 @@ namespace Unity.Mathematics
         public float GetDist2(float4 p)
         {
             p.y += 0.5f;
-            p.x += 100000;
-            p.y -= 100000;
-            p.z -= 100000;
-            p.w -= 100000;
+
             float c = 14.5f;
 
 
-            p.x = fmod(p.x + 0.5f * c, c) - 0.5f * c;
-            p.y = -fmod(p.y + 0.5f * c, c) - 0.5f * c;
+            
 
-            p.z += 0.5f;
 
-            p.z = -fmod(p.z + 0.5f * c, c) - 0.5f * c;
-            p.w = -fmod(p.w + 0.5f * c, c) - 0.5f * c;
+
+            p.x = fmod2(p.x + 0.5f * c, c) - 0.5f * c;
+            p.y = fmod2(p.y + 0.5f * c, c) - 0.5f * c;
+
+
+            p.z = fmod2(p.z + 0.5f * c, c) - 0.5f * c;
+            p.w = fmod2(p.w + 0.5f * c, c) - 0.5f * c;
 
 
             return max(-(length(p) - 12), -10000);
@@ -88,22 +88,25 @@ namespace Unity.Mathematics
         {
             return length(p - c) - r;
         }
+        float fmod2(float a, float b)
+        {
+            float c = frac(abs(a / b)) * abs(b);
+           
+            return c;
+        }
         public float sdPipis(float4 pos, float4 b)
         {
             float4 p = pos;
             p = p / b;
-            p.x += 100000;
-            p.y -= 100000;
-            p.z -= 100000;
-            p.w -= 100000;
+
+           
             float c = 14.5f / (b.x * b.y * b.z * b.w );
+            p.x = fmod2(p.x + 0.5f * c, c) - 0.5f * c;
+            p.y = fmod2(p.y + 0.5f * c, c) - 0.5f * c;
 
-            p.x = fmod(p.x + 0.5f * c, c) - 0.5f * c;
-            p.y = -fmod(p.y + 0.5f * c, c) - 0.5f * c;
 
-
-            p.z = -fmod(p.z + 0.5f * c, c) - 0.5f * c;
-            p.w = -fmod(p.w + 0.5f * c, c) - 0.5f * c;
+            p.z = fmod2(p.z + 0.5f * c, c) - 0.5f * c;
+            p.w = fmod2(p.w + 0.5f * c, c) - 0.5f * c;
 
 
             return length(p) - 1.0f;

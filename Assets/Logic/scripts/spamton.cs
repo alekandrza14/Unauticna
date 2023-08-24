@@ -142,7 +142,7 @@ public class spamton : MonoBehaviour
         }
         if (higamer)
         {
-            if (VarSave.GetBool(bol) == !iznendial)
+            if (VarSave.GetBool(bol) == false)
             {
                 del.s = s;
                 del.sm = sm;

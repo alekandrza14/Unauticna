@@ -105,6 +105,7 @@ public class mover : MonoBehaviour
     bool stand_stay;
     [SerializeField] GameObject PlayerModelObject;
     [SerializeField] GameObject[] PlayerModelObjects;
+    [SerializeField] GameObject[] PlayerModelTags;
     faceView faceViewi;
     bool Sprint;
     string lepts = "";
@@ -656,6 +657,17 @@ public class mover : MonoBehaviour
     //Приметивный интерфейс
     private void OnGUI()
     {
+        //
+        for (int i = 0; i < GameObject.FindObjectsByType<Metka>(sortmode.main).Length; i++)
+        {
+
+            Vector3 t = Globalprefs.camera.WorldToViewportPoint(GameObject.FindObjectsByType<Metka>(sortmode.main)[i].transform.position);
+            if (t.z > 0)
+            {
+                Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
+                GUI.DrawTexture(new Rect(u.x-10, (Screen.height - u.y)-10, 20, 20), Resources.Load<Texture>("Point"));
+            }
+        }
         if (Input.GetKey(KeyCode.Mouse1))
         {
             GUI.DrawTexture(new Rect((Screen.width / 2) - 10, (Screen.height / 2) - 10, 20, 20), Resources.Load<Texture>("cursor"));
@@ -1006,7 +1018,8 @@ public class mover : MonoBehaviour
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null) 
         {
-            if(ry.GetCameraDist() > 26.5f)
+            if(!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
+                Globalprefs.camera.GetComponent<Camera>().transform.forward))
             {
                 postrender.main().Disable();
             }
@@ -1017,7 +1030,6 @@ public class mover : MonoBehaviour
             }
 
         }
-
         //авто-Пост-Ренбер
 
         if (!Globalprefs.Pause) WPositionUpdate();
@@ -1563,14 +1575,54 @@ public class mover : MonoBehaviour
 
     private void SkinOff()
     {
-        foreach (GameObject i in PlayerModelObjects)
+        foreach (Logic_tag_Skin i in FindObjectsByType<Logic_tag_Skin>(sortmode.main))
         {
-            i.SetActive(false);
+            i.gameObject.layer = 8;
+        }
+        for (int i = 0; i < PlayerModelObjects.Length; i++)
+        {
+
+            if (VarSave.ExistenceVar("Controler"))
+            {
+                if (i == int.Parse(VarSave.GetString("Controler")))
+                {
+
+                    PlayerModelObjects[i].SetActive(true);
+                    SkinedAnimators[i].enabled = true;
+                    animator = SkinedAnimators[i];
+                }
+                else
+                {
+
+                    PlayerModelObjects[i].SetActive(false);
+                    SkinedAnimators[i].enabled = false;
+                }
+            }
+            else
+            {
+                if (i == 0)
+                {
+
+                    PlayerModelObjects[i].SetActive(true);
+                    SkinedAnimators[i].enabled = true;
+                    animator = SkinedAnimators[i];
+                }
+                else
+                {
+
+                    PlayerModelObjects[i].SetActive(false);
+                    SkinedAnimators[i].enabled = false;
+                }
+            }
         }
     }
 
     private void SkinManager()
     {
+        foreach (Logic_tag_Skin i in FindObjectsByType<Logic_tag_Skin>(sortmode.main))
+        {
+            i.gameObject.layer = 0;
+        }
         for (int i =0;i< PlayerModelObjects.Length;i++)
         {
 

@@ -15,6 +15,8 @@ Shader "Raymarch/RaymarchCam"
         Pass
         {
             CGPROGRAM
+// Upgrade NOTE: excluded shader from DX11; has structs without semantics (struct v2f members ray)
+//#pragma exclude_renderers d3d11
             #pragma vertex vert
             #pragma fragment frag
 
@@ -264,6 +266,7 @@ Shader "Raymarch/RaymarchCam"
                     //return distance to fractal
                     float4 d = (distanceField(p));
 
+                    
 
                     if ((d.x) < _precision) //hit
                     {
@@ -288,14 +291,14 @@ Shader "Raymarch/RaymarchCam"
                         }
                         else  light = 1;
 
-                        if(_useShadow == 1){
-                             shadow = (hardShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
+                       // if(_useShadow == 1){
+                      //       shadow = (hardShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
 
-                        }
-                        else if(_useShadow == 2){
-                            shadow = (softShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance, _shadowSoftness) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
-                        }
-                        else  shadow = 1;
+                    //    }
+                     //   else if(_useShadow == 2){
+                    //        shadow = (softShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance, _shadowSoftness) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
+                      //  }
+                     shadow = 1;
 
                         float ao = (1 - 2 * i/float(_max_iteration)) * (1 - _aoIntensity) + _aoIntensity; // ambient occlusion
 
@@ -319,13 +322,21 @@ Shader "Raymarch/RaymarchCam"
             // the fragment shader
             fixed4 frag (v2f i) : SV_Target
             {
+               float2 magicuv = float2((int)(i.uv.x*200),(int)(i.uv.y*200))/200;
+               float3 magicRay = float3((int)(i.ray.x*64),(int)(i.ray.y*64),(int)(i.ray.z*64))/64;
+               
                float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv).r);
                depth *= length(i.ray * _distance);
+
                fixed3 col = tex2D(_MainTex, i.uv);
 
                float3 rayDirection = normalize(i.ray.xyz);
                float3 rayOrigin = _WorldSpaceCameraPos;
-               fixed4 result = raymarching(rayOrigin, rayDirection, depth,col);
+               fixed4 result;
+              
+                result = raymarching(rayOrigin, rayDirection, depth,col);
+                 
+                  
               
                return fixed4(col * (1.0 - result.w) + result.xyz * result.w ,1.0);
 

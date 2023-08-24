@@ -36,10 +36,10 @@ public class LOADGAME : MonoBehaviour
         if (VarSave.CreateEvent("Resolution", SaveType.global))
         {
 
-            VarSave.SetInt("res1", 320, SaveType.global);
-            VarSave.SetInt("res2", 240, SaveType.global);
-            VarSave.SetInt("res3", 1024, SaveType.global);
-            VarSave.SetInt("res4", 768, SaveType.global);
+            VarSave.SetInt("res1", Screen.width / 4, SaveType.global);
+            VarSave.SetInt("res2", Screen.height / 4, SaveType.global);
+            VarSave.SetInt("res3", Screen.width, SaveType.global);
+            VarSave.SetInt("res4", Screen.height, SaveType.global);
             Screen.SetResolution(640, 480, true);
         }
         if (VarSave.ExistenceVar("res3", SaveType.global))
