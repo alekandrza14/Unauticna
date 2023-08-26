@@ -213,7 +213,7 @@ public class GenTest : MonoBehaviour
 
         Debug.Log("PlanetId " + Globalprefs.GetIdPlanet());
         float seed = Hash(new Vector2(
-                         Globalprefs.GetIdPlanet(), -Globalprefs.GetIdPlanet()))*-2;
+                         (float)Globalprefs.GetIdPlanet(), -(float)Globalprefs.GetIdPlanet()))*-2;
 		 seed += 2f;
 		boundsSize = 300 * seed;
         GenerateAllChunks();

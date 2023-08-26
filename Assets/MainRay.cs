@@ -18,20 +18,21 @@ public class MainRay : MonoBehaviour
 
     void Update()
     {
+        PlayerRayMarchCollider ry = FindFirstObjectByType<PlayerRayMarchCollider>();
         Ray r = GameManager.pprey();
         Ray = r;
         RaycastHit hit;
-        HitError = false;
         if (Physics.Raycast(r, out hit))
         {
             MainHit = hit;
+
+            HitError = false;
         }
         else
         {
+            RayMarhHit = ry.GetMarchCast(r.origin, r.direction);
             HitError = true;
         }
         
-        PlayerRayMarchCollider ry = FindFirstObjectByType<PlayerRayMarchCollider>();
-        RayMarhHit = ry.GetMarchCast(r.origin, r.direction);
     }
 }

@@ -871,7 +871,9 @@ public class ElementalInventory : MonoBehaviour {
 
         yield return new WaitForSeconds(0.5f);
 
-        if (hit.collider && Cells[select].elementCount != 0)
+        
+
+        if (hit.distance < MainRay.RayMarhHit.distance && hit.collider && Cells[select].elementCount != 0)
         {
 
             Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + hit.normal * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
@@ -886,9 +888,9 @@ public class ElementalInventory : MonoBehaviour {
             Cells[select].UpdateCellInterface();
 
         }
-        else if (Cells[select].elementCount != 0)
+        else if (hit.distance >= MainRay.RayMarhHit.distance && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
-            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point), Quaternion.identity).transform;
             if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
             {
                 Vector3 gravityUp = (body.position - Vector3.zero).normalized;
@@ -899,8 +901,32 @@ public class ElementalInventory : MonoBehaviour {
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
-
-
+        else if (hit.collider == null && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
+        {
+            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point), Quaternion.identity).transform;
+            if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
+            {
+                Vector3 gravityUp = (body.position - Vector3.zero).normalized;
+                Vector3 bodyup = body.up;
+                Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
+                body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
+            }
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
+        }
+        else if (Cells[select].elementCount != 0)
+        {
+            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point), Quaternion.identity).transform;
+            if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
+            {
+                Vector3 gravityUp = (body.position - Vector3.zero).normalized;
+                Vector3 bodyup = body.up;
+                Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
+                body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
+            }
+            setItem("", 0, Color.red, select);
+            Cells[select].UpdateCellInterface();
+        }
 
 
 

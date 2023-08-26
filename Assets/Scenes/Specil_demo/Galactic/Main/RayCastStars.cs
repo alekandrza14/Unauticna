@@ -137,6 +137,57 @@ public class RayCastStars : MonoBehaviour
                         VarSave.DeleteKey("scppos");
                     }
                 }
+                else if (hit.collider.tag == "Cell" && s == size.Multyverse)
+                {
+                    text.text = "Мультивселенская дыра";
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Xp)
+                        {
+
+                            VarSave.SetMoney("MultyverseX", VarSave.GetMoney("MultyverseX") + 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Xm)
+                        {
+
+                            VarSave.SetMoney("MultyverseX", VarSave.GetMoney("MultyverseX") - 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Yp)
+                        {
+
+                            VarSave.SetMoney("MultyverseY", VarSave.GetMoney("MultyverseY") + 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Ym)
+                        {
+
+                            VarSave.SetMoney("MultyverseY", VarSave.GetMoney("MultyverseY") - 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Zp)
+                        {
+
+                            VarSave.SetMoney("MultyverseZ", VarSave.GetMoney("MultyverseZ") + 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Zm)
+                        {
+
+                            VarSave.SetMoney("MultyverseZ", VarSave.GetMoney("MultyverseZ") - 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Wp)
+                        {
+
+                            VarSave.SetMoney("MultyverseW", VarSave.GetMoney("MultyverseW") + 1);
+                        }
+                        if (hit.collider.GetComponent<MultyverseHole>().m_type == MultyverseHoleType.Wm)
+                        {
+
+                            VarSave.SetMoney("MultyverseW", VarSave.GetMoney("MultyverseW") - 1);
+                        }
+                        SceneManager.LoadSceneAsync("Multyverse");
+                        VarSave.SetBool("NoStop", false);
+                        VarSave.DeleteKey("scppos");
+                    }
+                }
                 else if (hit.collider.tag == "Star" && s == size.Galaxy)
                 {
                     int o = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
@@ -193,10 +244,10 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Star" && s == size.Multyverse)
                 {
-                    int o = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) -
+                    int o = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
                        (hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y)*200;
-                    int o2 = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) -
+                    int o2 = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
                        ( hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);

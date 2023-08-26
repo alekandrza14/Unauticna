@@ -71,7 +71,7 @@ float GetDist3(float4 pos,float4 b)
      p.w = fmod2(p.w+0.5f*c,c)-0.5f*c;
 
     
-    return length(p)- 1.0f;
+    return (length(p)- 1.0f)*b;
        
 }       
 float GetDist(float4 pos) 

@@ -99,8 +99,8 @@ namespace Unity.Mathematics
             float4 p = pos;
             p = p / b;
 
-           
-            float c = 14.5f / (b.x * b.y * b.z * b.w );
+
+            float c = 14.5f / Vector4.Distance(float4.zero, b/2 );
             p.x = fmod2(p.x + 0.5f * c, c) - 0.5f * c;
             p.y = fmod2(p.y + 0.5f * c, c) - 0.5f * c;
 
@@ -109,7 +109,7 @@ namespace Unity.Mathematics
             p.w = fmod2(p.w + 0.5f * c, c) - 0.5f * c;
 
 
-            return length(p) - 1.0f;
+            return (length(p) - 1.0f) * Vector4.Distance(float4.zero, b / 2);
 
         }
         public float sdMandelbulb(float4 pos)

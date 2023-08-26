@@ -11,7 +11,7 @@ public class planet_and_retranslator : MonoBehaviour
     [SerializeField] bool _interface;
     void Start()
     {
-        Vector2 posPlanet = new Vector2 (-Globalprefs.GetIdPlanet(), Globalprefs.GetIdPlanet()*9);
+        Vector2 posPlanet = new Vector2 (-(float)Globalprefs.GetIdPlanet(), (float)Globalprefs.GetIdPlanet()*9);
         float Hash = Globalprefs.Hash(posPlanet);
         Hash = ( Hash + 1)/2;
         Hash *= 30;
