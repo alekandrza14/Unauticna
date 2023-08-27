@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Shape4D : MonoBehaviour
 {
-    public enum ShapeType { HyperSphere, HyperCube, DuoCylinder, plane, Cone,FiveCell, SixteenCell, Mandelbrot ,ObjectN1,Pipis};
+    public enum ShapeType { HyperSphere, HyperCube, DuoCylinder, plane, Cone,FiveCell, SixteenCell, Mandelbrot ,ObjectN1, Pipis, PipisN2};
     public enum Operation { Union, Blend, Substract, Intersect };
     
     [Header("Shape Settings")]

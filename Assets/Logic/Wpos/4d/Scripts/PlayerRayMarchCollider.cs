@@ -75,6 +75,8 @@ namespace Unity.Mathematics
                     return Df.GetDist2(p4D);
                 case Shape4D.ShapeType.Pipis:
                     return Df.sdPipis(p4D, shape.Scale());
+                case Shape4D.ShapeType.PipisN2:
+                    return Df.sdPipis2(p4D, shape.Scale());
 
             }
 
@@ -117,7 +119,9 @@ namespace Unity.Mathematics
                 case Shape4D.ShapeType.ObjectN1:
                     return Df.GetDist2(p4D);
                 case Shape4D.ShapeType.Pipis:
-                    return Df.sdPipis(p4D,shape.Scale());
+                    return Df.sdPipis(p4D, shape.Scale());
+                case Shape4D.ShapeType.PipisN2:
+                    return Df.sdPipis2(p4D, shape.Scale());
 
             }
 
