@@ -18,6 +18,7 @@
         P2("2", float) = 0
         P3("3", float) = 0
         P4("4", float) = 0
+        P5("5", float) = 0
 
         [Header(Ray Marching Options)][Space]
         _Tolerance("Tolerance", Float) = 0.001

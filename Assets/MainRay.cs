@@ -30,9 +30,10 @@ public class MainRay : MonoBehaviour
         }
         else
         {
-            RayMarhHit = ry.GetMarchCast(r.origin, r.direction);
             HitError = true;
         }
-        
+
+        RayMarhHit = ry.GetMarchCast(r.origin, r.direction);
+
     }
 }

@@ -146,6 +146,8 @@ Shader "Raymarch/RaymarchCam"
                 }else if (shape.shapeType == 10) {
                     return GetDist4(p4D,shape.scale);
 
+                }else if (shape.shapeType == 11) {
+                    return sdVoid();
                 }
 
                 return _maxDistance;

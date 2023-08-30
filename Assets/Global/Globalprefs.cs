@@ -48,13 +48,13 @@ public static class Globalprefs
     public static decimal GetIdPlanet()
     {
         decimal seed = VarSave.GetInt("planet") +
-            (VarSave.GetInt("planetS") * 1000) +
-            (VarSave.GetInt("planetG") * 100000) +
-            (VarSave.GetInt("planetU")*100000) +
+            (VarSave.GetInt("planetS") * 100) +
+            (VarSave.GetInt("planetG") * 100) +
+            (VarSave.GetInt("planetU") * 100) +
             ((VarSave.GetMoney("MultyverseX") +
             VarSave.GetMoney("MultyverseY") +
             VarSave.GetMoney("MultyverseZ") +
-            VarSave.GetMoney("MultyverseW")) * 100000);
+            VarSave.GetMoney("MultyverseW")) * 100);
 
         return seed;
     }

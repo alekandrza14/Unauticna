@@ -77,6 +77,8 @@ namespace Unity.Mathematics
                     return Df.sdPipis(p4D, shape.Scale());
                 case Shape4D.ShapeType.PipisN2:
                     return Df.sdPipis2(p4D, shape.Scale());
+                case Shape4D.ShapeType.AbstractPlane:
+                    return Df.sdAbstractPlane(p4D);
 
             }
 
@@ -115,13 +117,15 @@ namespace Unity.Mathematics
                 case Shape4D.ShapeType.SixteenCell:
                     return Df.sd16Cell(p4D, shape.Scale().x);
                 case Shape4D.ShapeType.Mandelbrot:
-                    return Df.sdNull(p4D);
+                    return Df.sdMandelbulb(p4D);
                 case Shape4D.ShapeType.ObjectN1:
                     return Df.GetDist2(p4D);
                 case Shape4D.ShapeType.Pipis:
                     return Df.sdPipis(p4D, shape.Scale());
                 case Shape4D.ShapeType.PipisN2:
                     return Df.sdPipis2(p4D, shape.Scale());
+                case Shape4D.ShapeType.AbstractPlane:
+                    return Df.sdAbstractPlane(p4D);
 
             }
 

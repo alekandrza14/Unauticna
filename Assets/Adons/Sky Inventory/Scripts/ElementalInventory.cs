@@ -914,9 +914,9 @@ public class ElementalInventory : MonoBehaviour {
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
-        else if (Cells[select].elementCount != 0)
+        else if (Cells[select].elementCount != 0 && Globalprefs.RaymarchHitError)
         {
-            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point), Quaternion.identity).transform;
+            Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + hit.normal * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
             if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
             {
                 Vector3 gravityUp = (body.position - Vector3.zero).normalized;
@@ -958,9 +958,9 @@ public class ElementalInventory : MonoBehaviour {
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
-        else if (Cells[select].elementCount != 0)
+        else if (Cells[select].elementCount != 0 && Globalprefs.RaymarchHitError)
         {
-            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.Ray.origin + (MainRay.Ray.direction * 3f)) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }

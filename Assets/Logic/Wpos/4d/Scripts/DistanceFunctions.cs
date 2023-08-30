@@ -84,6 +84,10 @@ namespace Unity.Mathematics
         {
             return 1000;
         }
+        public float sdAbstractPlane(float4 p)
+        {
+            return p.y;
+        }
         float Sphere(float4 p, float4 c, float r)
         {
             return length(p - c) - r;
