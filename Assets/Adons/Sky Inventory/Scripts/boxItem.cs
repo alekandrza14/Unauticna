@@ -1,16 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class boxItem : MonoBehaviour
+public class boxItem : InventoryEvent
 {
     bool enter;
     public GameObject interfase1;
     public ElementalInventory inventory;
-    // Start is called before the first frame update
-    void Start()
+    public RandomItem invent;
+    string seed;
+   [SerializeField] Text textSeed;
+
+   public IEnumerator AutoLoad()
     {
-        
+        yield return new WaitForSeconds(1f);
+        Load1();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(AutoLoad());
+    }
+    // Start is called before the first frame update
+    public void Load1()
+    {
+        if (GetComponent<itemName>()) 
+        {
+
+            seed = GetComponent<itemName>().ItemData;
+
+            if (seed == "")
+            {
+                seed = Random.Range(0, 999999).ToString();
+                GetComponent<itemName>().ItemData = seed;
+            }
+            
+
+                invent.inventoryname = seed;
+                invent.Load(); 
+            
+          if(textSeed) textSeed.text = "Seed : " + seed;
+        }
     }
 
     // Update is called once per frame
@@ -81,6 +112,7 @@ public class boxItem : MonoBehaviour
             
             interfase1.SetActive(false);
             getInventory("i3").moweitem(null);
+            GameManager.save();
 
         }
     }

@@ -807,18 +807,28 @@ public class ElementalInventory : MonoBehaviour {
 				Globalprefs.selectitem = "";
 				RaycastHit hit = MainRay.MainHit;
 
-			if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
-			{
+            if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject)&&hit.collider.GetComponent<itemName>())
+            {
 
 
 
-					setItem(fullname(hit), 1, Color.red, select);
-					Cells[select].UpdateCellInterface();
-					sh = true;
+                setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, select);
+                Cells[select].UpdateCellInterface();
+                sh = true;
 
-			}
+            }
+            else if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+            {
 
-			
+
+
+                setItem(fullname(hit), 1, Color.red, select);
+                Cells[select].UpdateCellInterface();
+                sh = true;
+
+            }
+
+
 
         }
             if (Input.GetKeyDown(KeyCode.Delete) && boxItem.getInventory("i3").inventory == this && !nosell)
@@ -884,6 +894,7 @@ public class ElementalInventory : MonoBehaviour {
                 Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
                 body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
             }
+            if (body.GetComponent<itemName>()) body.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
 
@@ -898,6 +909,7 @@ public class ElementalInventory : MonoBehaviour {
                 Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
                 body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
             }
+            if (body.GetComponent<itemName>()) body.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -911,6 +923,7 @@ public class ElementalInventory : MonoBehaviour {
                 Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
                 body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
             }
+            if (body.GetComponent<itemName>()) body.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -924,6 +937,7 @@ public class ElementalInventory : MonoBehaviour {
                 Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
                 body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
             }
+            if (body.GetComponent<itemName>()) body.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -941,26 +955,26 @@ public class ElementalInventory : MonoBehaviour {
         if (hit.distance < MainRay.RayMarhHit.distance && hit.collider && Cells[select].elementCount != 0)
         {
 
-            Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
 
         }
         else if (hit.distance >= MainRay.RayMarhHit.distance && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
-            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
         else if (hit.collider == null && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
-            Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
         else if (Cells[select].elementCount != 0 && Globalprefs.RaymarchHitError)
         {
-            Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity);
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -1030,7 +1044,7 @@ public class ElementalInventory : MonoBehaviour {
                 t.transform.position.z
                 );
             t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
-
+           if(t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
 
             Destroy(t.gameObject.GetComponent<Rigidbody>());
             setItem("", 0, Color.red, select);
@@ -1053,7 +1067,7 @@ public class ElementalInventory : MonoBehaviour {
                 t.transform.position.z
                 );
             t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
-
+            if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
             Destroy(t.gameObject.GetComponent<Rigidbody>());
             setItem("", 0, Color.red, select);
             Cells[0].UpdateCellInterface();
@@ -1252,19 +1266,26 @@ public class ElementalInventory : MonoBehaviour {
 		
 	}
 
-	//Sets item
-	public void setItem (string name, int count, Color color, int cellId) {
-		Cells [cellId].ChangeElement (name, count, color);
-		Cells [cellId].UpdateCellInterface ();
-		
-	}
+    //Sets item
+    public void setItem(string name, int count, Color color, int cellId)
+    {
+        Cells[cellId].ChangeElement(name, count, color);
+        Cells[cellId].UpdateCellInterface();
 
-	//Loads inventory from string
-	public void loadFromString (string s_Inventory) {
+    }
+    public void setItem(string name, int count, Color color,string data, int cellId)
+    {
+        Cells[cellId].ChangeElement(name, count, color,data);
+        Cells[cellId].UpdateCellInterface();
+
+    }
+
+    //Loads inventory from string
+    public void loadFromString (string s_Inventory) {
 		string[] splitedInventory = s_Inventory.Split ("\n"[0]);
 		for (int i = 0; i < Cells.Length; i++) {
 			string[] splitedLine = splitedInventory [i].Split(" "[0]);
-			setItem (splitedLine [0], int.Parse(splitedLine [1]), SimpleMethods.stringToColor(splitedLine [2]), i);
+			setItem (splitedLine [0], int.Parse(splitedLine [1]), SimpleMethods.stringToColor(splitedLine [2]), splitedLine[3], i);
 		}
 	}
 
@@ -1274,8 +1295,9 @@ public class ElementalInventory : MonoBehaviour {
 		for (int i = 0; i < Cells.Length; i++) {
 			s_Inventory += Cells[i].elementName+" ";
 			s_Inventory += Cells [i].elementCount + " ";
-			s_Inventory += SimpleMethods.colorToString (Cells[i].elementColor);
-			if (i != Cells.Length) {
+			s_Inventory += SimpleMethods.colorToString (Cells[i].elementColor) + " ";
+			s_Inventory += Cells[i].elementData;
+            if (i != Cells.Length) {
 				s_Inventory += "\n";
 			}
 		}

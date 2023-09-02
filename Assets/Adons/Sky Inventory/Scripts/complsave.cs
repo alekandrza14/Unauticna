@@ -214,6 +214,7 @@ public class complsave : MonoBehaviour
         Directory.CreateDirectory(name2.ToString());
         File.Delete(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
+        saveString1.DataItem.Clear();
         saveString1.vector3A.Clear();
         saveString1.vector3A2.Clear();
         saveString1.PvectorA.Clear();
@@ -267,6 +268,7 @@ public class complsave : MonoBehaviour
     {
 
 
+        saveString1.DataItem.Clear();
         saveString1.vector3A.Clear();
         saveString1.vector3A2.Clear();
         saveString1.PvectorA.Clear();
@@ -303,6 +305,16 @@ public class complsave : MonoBehaviour
                     {
                         saveString1.PvectorA.Add(JsonUtility.ToJson(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
                         saveString1.y.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>().v1);
+                    }
+                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<itemName>())
+                    {
+                        saveString1.DataItem.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<itemName>().ItemData);
+
+                    }
+                    else
+                    {
+                        saveString1.DataItem.Add("0");
+
                     }
 
 
@@ -358,6 +370,7 @@ public class complsave : MonoBehaviour
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
         saveString1.posW.Clear();
+        saveString1.DataItem.Clear();
 
 
     }
@@ -366,6 +379,7 @@ public class complsave : MonoBehaviour
 
         Directory.CreateDirectory( name2 + @"/objects");
 
+        saveString1.DataItem.Clear();
 
         saveString1.vector3A.Clear();
         saveString1.vector3A2.Clear();
@@ -380,167 +394,183 @@ public class complsave : MonoBehaviour
         saveString221 = Path.Combine("",   name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
 
-
-        if (File.Exists(saveString221))
+        for (int c = 0; c < 2; c++)
         {
-            saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
-
-            Debug.Log("IU");
-        }
-        else
-        {
-            Debug.Log("IU2");
-
-            File.WriteAllText( name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
-            saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-        for (int i = 0; i < info3.Length; i++)
-        {
-
-            if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+            if (c == 0)
             {
-
-
-
-                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                if (File.Exists(saveString221))
                 {
+                    saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
 
-                    GameObject.FindGameObjectsWithTag(info3[i])[i3].gameObject.AddComponent<deleter1>();
-
-
-                }
-
-
-
-            }
-
-
-
-        }
-
-        for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
-        {
-
-
-            GameObject.FindObjectsByType<telo>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
-        }
-        for (int i = 0; i < FindObjectsByType<StandartObject>(sortmode.main).Length; i++)
-        {
-
-
-            GameObject.FindObjectsByType<StandartObject>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
-        }
-
-        if (saveString1.vector3B.Count != 0)
-        {
-            for (int i = 0; i < saveString1.vector3B.Count; i++)
-            {
-
-                telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), saveString1.vector3B[i], Quaternion.identity).GetComponent<telo>();
-                g.nameCreature = saveString1.NamesCreatures[i];
-                g.gameObject.transform.position = saveString1.vector3B[i];
-            }
-        }
-        for (int i = 0; i < saveString1.id2.Count; i++)
-        {
-
-           GameObject g = Instantiate(t4[toTagToIDObject(saveString1.id2[i])], saveString1.vector3A2[i], Quaternion.identity);
-           if( g.GetComponent<MultyObject>())   g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
-
-
-        }
-        if (saveString1.PvectorA.Count == 0)
-        {
-
-
-            for (int i3 = 0; i3 < saveString1.id.Count; i3++)
-            {
-
-
-
-
-                Debug.Log(saveString1.id[i3]);
-                GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
-                if (!g.GetComponent<breauty>())
-                {
-
-
-                    g.AddComponent<breauty>().integer = saveString1.x[i3];
+                    Debug.Log("IU");
                 }
                 else
                 {
-                    g.GetComponent<breauty>().integer = saveString1.x[i3];
+                    Debug.Log("IU2");
+
+                    File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+                    saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
+
                 }
 
 
+
+
+
+
+
+
+
+
+
+
+                for (int i = 0; i < info3.Length; i++)
+                {
+
+                    if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+                    {
+
+
+
+                        for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                        {
+
+                            GameObject.FindGameObjectsWithTag(info3[i])[i3].gameObject.AddComponent<deleter1>();
+
+
+                        }
+
+
+
+                    }
+
+
+
+                }
+
+                for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
+                {
+
+
+                    GameObject.FindObjectsByType<telo>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
+                }
+                for (int i = 0; i < FindObjectsByType<StandartObject>(sortmode.main).Length; i++)
+                {
+
+
+                    GameObject.FindObjectsByType<StandartObject>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
+                }
+
+                if (saveString1.vector3B.Count != 0)
+                {
+                    for (int i = 0; i < saveString1.vector3B.Count; i++)
+                    {
+
+                        telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), saveString1.vector3B[i], Quaternion.identity).GetComponent<telo>();
+                        g.nameCreature = saveString1.NamesCreatures[i];
+                        g.gameObject.transform.position = saveString1.vector3B[i];
+                    }
+                }
+                for (int i = 0; i < saveString1.id2.Count; i++)
+                {
+
+                    GameObject g = Instantiate(t4[toTagToIDObject(saveString1.id2[i])], saveString1.vector3A2[i], Quaternion.identity);
+                    if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
+
+
+                }
+                if (saveString1.PvectorA.Count == 0)
+                {
+
+
+                    for (int i3 = 0; i3 < saveString1.id.Count; i3++)
+                    {
+
+
+
+
+                        Debug.Log(saveString1.id[i3]);
+                        GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                        if (!g.GetComponent<breauty>())
+                        {
+
+
+                            g.AddComponent<breauty>().integer = saveString1.x[i3];
+                        }
+                        else
+                        {
+                            g.GetComponent<breauty>().integer = saveString1.x[i3];
+                        }
+                        if (g.GetComponent<itemName>())
+                        {
+                            g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
+                        }
+
+                    }
+                }
+                else
+                {
+                    for (int i3 = 0; i3 < saveString1.id.Count; i3++)
+                    {
+
+
+
+
+                        Debug.Log("1");
+                        GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
+                        if (!g.GetComponent<breauty>())
+                        {
+
+
+                            g.AddComponent<breauty>().integer = saveString1.x[i3];
+                        }
+                        else
+                        {
+                            g.GetComponent<breauty>().integer = saveString1.x[i3];
+                        }
+                        if (!g.GetComponent<HyperbolicPoint>())
+                        {
+
+
+                            g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
+
+                            g.transform.position = new Vector3(
+                            g.transform.position.x,
+                            saveString1.vector3A[i3].y,
+                            g.transform.position.z
+                                             );
+                        }
+                        else
+                        {
+                            g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
+                            g.transform.position = new Vector3(
+                            g.transform.position.x,
+                            saveString1.vector3A[i3].y,
+                            g.transform.position.z
+                                             );
+                        }
+                        if (g.GetComponent<itemName>())
+                        {
+                            g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
+                        }
+
+                    }
+                }
+
+
+
+
             }
-        }
-        else
-        {
-            for (int i3 = 0; i3 < saveString1.id.Count; i3++)
+            if (c == 1)
             {
-
-
-
-
-                Debug.Log("1");
-                GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
-                if (!g.GetComponent<breauty>())
+                foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                 {
-
-
-                    g.AddComponent<breauty>().integer = saveString1.x[i3];
+                    i2.Load();
                 }
-                else
-                {
-                    g.GetComponent<breauty>().integer = saveString1.x[i3];
-                }
-                if (!g.GetComponent<HyperbolicPoint>())
-                {
-
-
-                    g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
-
-                    g.transform.position = new Vector3(
-                    g.transform.position.x,
-                    saveString1.vector3A[i3].y,
-                    g.transform.position.z
-                                     );
-                }
-                else
-                {
-                    g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
-                    g.transform.position = new Vector3(
-                    g.transform.position.x,
-                    saveString1.vector3A[i3].y,
-                    g.transform.position.z
-                                     );
-                }
-
-
             }
+
+
         }
-
-
-
-
-
-
-
-
 
 
 
@@ -602,6 +632,8 @@ public class rsave
 
 
     public List<string> NamesCreatures = new List<string>();
+
+    public List<string> DataItem = new List<string>();
 
 
 

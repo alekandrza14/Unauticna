@@ -10,24 +10,37 @@ public class RandomItem : MonoBehaviour {
 	public ElementalInventory inventory2;
 	public gsave g = new gsave();
 	public InputField ifd;
-	[SerializeField] string inventoryname;
+	[SerializeField] public string inventoryname;
 	[SerializeField] bool deleted;
 
-	private void Start()
-	{
-		Directory.CreateDirectory("unsave");
-		if (inventory == null)
-		{
-			inventory = boxItem.getInventoryMenager(gameObject.tag);
-		}
+    private void Start()
+    {
+        Directory.CreateDirectory("unsave");
+        if (inventory == null)
+        {
+            inventory = boxItem.getInventoryMenager(gameObject.tag);
+        }
 
 
-		inventory.loadFromString(VarSave.GetString(inventoryname + "inv"));
+        inventory.loadFromString(VarSave.GetString(inventoryname + "inv"));
 
 
-	}
+    }
+    public void Load()
+    {
+        Directory.CreateDirectory("unsave");
+        if (inventory == null)
+        {
+            inventory = boxItem.getInventoryMenager(gameObject.tag);
+        }
 
-	public void moweitem(ElementalInventory inventory1)
+
+        inventory.loadFromString(VarSave.GetString(inventoryname + "inv"));
+
+
+    }
+
+    public void moweitem(ElementalInventory inventory1)
 	{
 		inventory2 = inventory1;
 		if (inventory2 == null)

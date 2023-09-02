@@ -4,8 +4,9 @@ using System.Collections;
 
 public class Cell : MonoBehaviour {
 
-	public string elementName; // Element Name
-	public int elementCount; // Element Count
+    public string elementName; // Element Name
+    public string elementData; // Element Data
+    public int elementCount; // Element Count
 	public Color elementColor; // Element Color
 	public Transform elementTransform; //Transform Element
 	private GameObject elementPrefab;
@@ -70,16 +71,25 @@ public class Cell : MonoBehaviour {
 		}
     }
 
-	//Change element options
-	public void ChangeElement (string name, int count, Color color) {
-		elementName = name;
-		elementCount = count;
-		elementColor = color;
-		UpdateCellInterface ();
-	}
+    //Change element options
+    public void ChangeElement(string name, int count, Color color)
+    {
+        elementName = name;
+        elementCount = count;
+        elementColor = color;
+        UpdateCellInterface();
+    }
+    public void ChangeElement(string name, int count, Color color,string data)
+    {
+        elementName = name;
+        elementCount = count;
+        elementColor = color;
+        elementData = data;
+        UpdateCellInterface();
+    }
 
-	//Clear element
-	public void ClearElement () {
+    //Clear element
+    public void ClearElement () {
 		elementCount = 0;
 		UpdateCellInterface ();
 	}

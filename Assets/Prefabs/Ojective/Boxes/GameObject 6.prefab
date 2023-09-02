@@ -29,6 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5721844873355522142}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 16.64}
   m_LocalScale: {x: 7.5054, y: 7.5054, z: 7.5054}
@@ -37,7 +38,6 @@ Transform:
   - {fileID: 7192668766742802999}
   - {fileID: 6602562756834106161}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5721844873355522138
 BoxCollider:
@@ -569,8 +569,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3523440480330678756, guid: dd00236f28e966c4d88228745a841ccf,
         type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 7192668766742802987}
+    - target: {fileID: 3523440480330678756, guid: dd00236f28e966c4d88228745a841ccf,
+        type: 3}
       propertyPath: inventoryname
       value: chest1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523440480330678757, guid: dd00236f28e966c4d88228745a841ccf,
+        type: 3}
+      propertyPath: m_TagString
+      value: chest2
       objectReference: {fileID: 0}
     - target: {fileID: 5149189478309187560, guid: dd00236f28e966c4d88228745a841ccf,
         type: 3}
@@ -607,6 +617,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219123206397894606, guid: dd00236f28e966c4d88228745a841ccf,
+        type: 3}
+      propertyPath: m_TagString
+      value: chest2
       objectReference: {fileID: 0}
     - target: {fileID: 6219123206397894607, guid: dd00236f28e966c4d88228745a841ccf,
         type: 3}
@@ -947,6 +962,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8280471776559945505}
     m_Modifications:
+    - target: {fileID: 2296753752242443700, guid: 6e5d0da69d7c6e94ab42ee8a9d65f201,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4085813880549790235, guid: 6e5d0da69d7c6e94ab42ee8a9d65f201,
         type: 3}
       propertyPath: m_Pivot.x
