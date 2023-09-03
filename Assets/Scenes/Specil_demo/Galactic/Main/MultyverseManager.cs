@@ -9,15 +9,16 @@ public class MultyverseManager : MonoBehaviour
         int i = 0;
         foreach (HyperbolicPoint g in FindObjectsByType<HyperbolicPoint>(sortmode.main))
         {
+            float MuLtyverseCont = (float)(VarSave.GetMoney("MultyverseX")*2 + VarSave.GetMoney("MultyverseY")*3 + VarSave.GetMoney("MultyverseZ")*4 + VarSave.GetMoney("MultyverseW")*5);
             i++;
-            if (g.tag == "Star" && (float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW")) != 0f)
+            if (g.tag == "Star" && MuLtyverseCont != 0f)
             {
-                g.HyperboilcPoistion.s = Globalprefs.Hash(new Vector2((float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW") ) * i*2, -
-                    (float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW") ) * i*9)) * 4;
-                g.HyperboilcPoistion.n = Globalprefs.Hash(new Vector2((float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW") ) * i*4, -
-                    (float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW")) * i*2)) * 6;
-                g.transform.position = Vector3.up * Globalprefs.Hash(new Vector2((float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW") ) * i*2, -
-                    (float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW") ) * i*8))*20;
+                g.HyperboilcPoistion.s = Globalprefs.Hash(new Vector2((float)(MuLtyverseCont) * i*2, -
+                    (float)(MuLtyverseCont) * i*9)) * 4;
+                g.HyperboilcPoistion.n = Globalprefs.Hash(new Vector2((float)(MuLtyverseCont ) * i*4, -
+                    (float)(MuLtyverseCont) * i*2)) * 6;
+                g.transform.position = Vector3.up * Globalprefs.Hash(new Vector2((float)(MuLtyverseCont ) * i*2, -
+                    (float)(MuLtyverseCont ) * i*8))*20;
               //  g.HyperboilcPoistion.m = Globalprefs.Hash(new Vector2((float)(VarSave.GetMoney("MultyverseX") + VarSave.GetMoney("MultyverseY") + VarSave.GetMoney("MultyverseZ") + VarSave.GetMoney("MultyverseW") + i), i)) * 5;
             }
         }

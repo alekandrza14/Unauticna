@@ -70,7 +70,7 @@ public class RayCastStars : MonoBehaviour
                 if (hit.collider.tag == "Star" && s == size.Stars)
                 {
                     int o = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
-                    text.text = "star : s" + o.ToString();
+                    text.text = "Звезда " + StarNameGenrator.Create_word(Globalprefs.GetIdStar(o)) + " : s" + o.ToString();
                     if (o == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));

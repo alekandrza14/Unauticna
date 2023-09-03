@@ -1196,19 +1196,28 @@ public class ElementalInventory : MonoBehaviour {
 		}
 	}
 
-	//Set item from link
-	public void setItemLink (string name, int count, Color color, Transform cell) {
-		Cell thisCell = cell.GetComponent<Cell> ();
-		thisCell.elementName = name;
-		thisCell.elementCount = count;
-		thisCell.elementColor = color;
-	}
+    //Set item from link
+    public void setItemLink(string name, int count, Color color, Transform cell)
+    {
+        Cell thisCell = cell.GetComponent<Cell>();
+        thisCell.elementName = name;
+        thisCell.elementCount = count;
+        thisCell.elementColor = color;
+    }
+    public void setItemLink(string name, int count, Color color, string data, Transform cell)
+    {
+        Cell thisCell = cell.GetComponent<Cell>();
+        thisCell.elementName = name;
+        thisCell.elementCount = count;
+        thisCell.elementColor = color;
+        thisCell.elementData = data;
+    }
 
     //Moves item
     public void moveItem(int moveFrom, int moveTo)
     {
 
-        setItem(Cells[moveFrom].elementName, Cells[moveFrom].elementCount, Cells[moveFrom].elementColor, moveTo);
+        setItem(Cells[moveFrom].elementName, Cells[moveFrom].elementCount, Cells[moveFrom].elementColor, Cells[moveFrom].elementData, moveTo);
         setItem("", 0, new Color(), moveFrom);
 
     }
@@ -1248,7 +1257,7 @@ public class ElementalInventory : MonoBehaviour {
 			Cell moveFromCell = moveFrom.parent.GetComponent<Cell> ();
 			moveTo.GetComponent<Cell> ().elementTransform = moveFromCell.elementTransform;
 			moveFromCell.elementTransform = null;
-			setItemLink (moveFromCell.elementName, moveFromCell.elementCount, moveFromCell.elementColor, moveTo);
+			setItemLink (moveFromCell.elementName, moveFromCell.elementCount, moveFromCell.elementColor, moveFromCell.elementData, moveTo);
 			moveFromCell.elementCount = 0;
 			moveFrom.parent = moveTo;
 			moveFrom.localPosition = new Vector3 (0,0,0);

@@ -58,7 +58,7 @@ public class boxItem : InventoryEvent
     static public RandomItem getInventory(string inv)
     {
         GameObject[] s = GameObject.FindGameObjectsWithTag(inv);
-        GameObject s1 = GameObject.FindObjectsOfType<Transform>()[0].gameObject;
+        GameObject s1 = GameObject.FindObjectsByType<Transform>(sortmode.main)[0].gameObject;
         for (int i = 0; i < s.Length; i++)
         {
             if (s[i].GetComponent<RandomItem>())
@@ -71,7 +71,7 @@ public class boxItem : InventoryEvent
     static public ElementalInventory getInventoryMenager(string inv)
     {
         GameObject[] s = GameObject.FindGameObjectsWithTag(inv);
-        GameObject s1 = GameObject.FindObjectsOfType<Transform>()[0].gameObject;
+        GameObject s1 = GameObject.FindObjectsByType<Transform>(sortmode.main)[0].gameObject;
         for (int i = 0; i < s.Length; i++)
         {
             if (s[i].GetComponent<ElementalInventory>())

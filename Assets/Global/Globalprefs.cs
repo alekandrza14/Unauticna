@@ -51,10 +51,23 @@ public static class Globalprefs
             (VarSave.GetInt("planetS") * 100) +
             (VarSave.GetInt("planetG") * 100) +
             (VarSave.GetInt("planetU") * 100) +
-            ((VarSave.GetMoney("MultyverseX") +
-            VarSave.GetMoney("MultyverseY") +
-            VarSave.GetMoney("MultyverseZ") +
-            VarSave.GetMoney("MultyverseW")) * 100);
+            ((VarSave.GetMoney("MultyverseX") * 2 +
+            VarSave.GetMoney("MultyverseY") * 3 +
+            VarSave.GetMoney("MultyverseZ") * 4 +
+            VarSave.GetMoney("MultyverseW") * 5) * 100);
+
+        return seed;
+    }
+    public static decimal GetIdStar(int Planet)
+    {
+        decimal seed = Planet +
+            (VarSave.GetInt("planetS") * 100) +
+            (VarSave.GetInt("planetG") * 100) +
+            (VarSave.GetInt("planetU") * 100) +
+            ((VarSave.GetMoney("MultyverseX")*2 +
+            VarSave.GetMoney("MultyverseY") * 3 +
+            VarSave.GetMoney("MultyverseZ") * 4 +
+            VarSave.GetMoney("MultyverseW") * 5) * 100);
 
         return seed;
     }

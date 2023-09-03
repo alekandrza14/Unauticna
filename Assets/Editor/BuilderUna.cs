@@ -14,7 +14,7 @@ public class ScriptBatch
     public static void BuildGame()
     {
         // Get filename.
-        string path = EditorUtility.SaveFolderPanel("Choose Location of Built Game", "", "");
+        string path = EditorUtility.SaveFolderPanel("Choose Location of Built Game", "C:/Data", "");
 
         List<string> levels = new List<string>();
         
@@ -35,7 +35,9 @@ public class ScriptBatch
         }
 
         Directory.CreateDirectory(path + "/Application");
+        Directory.Delete(path + "/windows",true);
         FileUtil.CopyFileOrDirectory("windows", path + "/windows");
+        Directory.Delete(path + "/res", true);
         FileUtil.CopyFileOrDirectory("res", path + "/res");
 
         // Run the game (Process class from System.Diagnostics).
