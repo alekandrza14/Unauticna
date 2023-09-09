@@ -62,6 +62,22 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "6";
             }
+            if (s[0] == "Obj_E1_to_name")
+            {
+                a = "11";
+            }
+            if (s[0] == "Obj_E2_to_name")
+            {
+                a = "12";
+            }
+            if (s[0] == "Item")
+            {
+                a = "9";
+            }
+            if (s[0] == "Item_to_name")
+            {
+                a = "10";
+            }
             if (s[0] == "moremoney")
             {
                 a = "8";
@@ -110,6 +126,30 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "6")
             {
                 GameObject[] g = Resources.LoadAll<GameObject>("Primetives");
+                Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+            }
+            if (i == 1 && a == "11")
+            {
+                GameObject g = Resources.Load<GameObject>("Primetives/E1/" + s[1]);
+                Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+            }
+            if (i == 1 && a == "12")
+            {
+                GameObject g = Resources.Load<GameObject>("Primetives/E2/" + s[1]);
+                Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+            }
+            if (i == 1 && a == "10")
+            {
+                GameObject g = Resources.Load<GameObject>("items/"+ s[1]);
+                Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+            }
+            if (i == 1 && a == "9")
+            {
+                GameObject[] g = Resources.LoadAll<GameObject>("items");
                 Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
 
             }

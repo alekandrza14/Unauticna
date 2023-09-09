@@ -51,6 +51,7 @@ public class RaymarchCam : SceneViewFilter
     public Transform _directionalLight;
     public Transform _player;
     public float _precision;
+    public Texture2D _globalGeometryTexture;
     public float _max_iteration;
     [Header ("Global Transform Settings")]
     public Vector3 _wRotation;
@@ -88,54 +89,51 @@ public class RaymarchCam : SceneViewFilter
     // the main function that sends the data to the shader
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        
-
-            buffersToDispose = new List<ComputeBuffer>();
-            CreateScene();
-            SetParameters();
-
-        
-
-            if (!_raymarchMaterial)
-            {
-                Graphics.Blit(source, destination);
-                return;
-            }
+        buffersToDispose = new List<ComputeBuffer>();
+        CreateScene();
+        SetParameters();
 
 
 
-            RenderTexture.active = destination;
-            _raymarchMaterial.SetTexture("_MainTex", source);
+        if (!_raymarchMaterial)
+        {
+            Graphics.Blit(source, destination);
+            return;
+        }
 
-            GL.PushMatrix();
-            GL.LoadOrtho();
-            _raymarchMaterial.SetPass(0);
-            GL.Begin(GL.QUADS);
 
-            //BL
-            GL.MultiTexCoord2(0, 0.0f, 0.0f);
-            GL.Vertex3(0.0f, 0.0f, 3.0f);
 
-            //BR
-            GL.MultiTexCoord2(0, 1.0f, 0.0f);
-            GL.Vertex3(1.0f, 0.0f, 2.0f);
+        RenderTexture.active = destination;
+        _raymarchMaterial.SetTexture("_MainTex", source);
 
-            //TR
-            GL.MultiTexCoord2(0, 1.0f, 1.0f);
-            GL.Vertex3(1.0f, 1.0f, 1.0f);
+        GL.PushMatrix();
+        GL.LoadOrtho();
+        _raymarchMaterial.SetPass(0);
+        GL.Begin(GL.QUADS);
 
-            //TL
-            GL.MultiTexCoord2(0, 0.0f, 1.0f);
-            GL.Vertex3(0.0f, 1.0f, 0.0f);
+        //BL
+        GL.MultiTexCoord2(0, 0.0f, 0.0f);
+        GL.Vertex3(0.0f, 0.0f, 3.0f);
 
-            GL.End();
-            GL.PopMatrix();
+        //BR
+        GL.MultiTexCoord2(0, 1.0f, 0.0f);
+        GL.Vertex3(1.0f, 0.0f, 2.0f);
 
-            foreach (var buffer in buffersToDispose)
-            {
-                buffer.Dispose();
-            }
-        
+        //TR
+        GL.MultiTexCoord2(0, 1.0f, 1.0f);
+        GL.Vertex3(1.0f, 1.0f, 1.0f);
+
+        //TL
+        GL.MultiTexCoord2(0, 0.0f, 1.0f);
+        GL.Vertex3(0.0f, 1.0f, 0.0f);
+
+        GL.End();
+        GL.PopMatrix();
+
+        foreach (var buffer in buffersToDispose)
+        {
+            buffer.Dispose();
+        }
     }
     private void SetParameters()
     {
@@ -161,10 +159,12 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetMatrix("_CamFrustrum", CamFrustrum(_camera));
         _raymarchMaterial.SetMatrix("_CamToWorld", _camera.cameraToWorldMatrix);
         _raymarchMaterial.SetFloat("_maxDistance", _camera.farClipPlane);
+        _raymarchMaterial.SetTexture("_GeometryTex", _globalGeometryTexture);
 
 
         _raymarchMaterial.SetFloat("_precision", _precision);
-        _raymarchMaterial.SetFloat("_max_iteration", _max_iteration);
+        if (Application.isPlaying) _raymarchMaterial.SetFloat("_max_iteration", _max_iteration);
+        if (!Application.isPlaying) _raymarchMaterial.SetFloat("_max_iteration", _max_iteration/3);
         _raymarchMaterial.SetFloat("_maxShadowDistance", _maxShadowDistance);
         _raymarchMaterial.SetFloat("_lightIntensity", _lightIntensity);
         _raymarchMaterial.SetFloat("_shadowIntensity", _shadowIntensity);
@@ -298,12 +298,16 @@ public class RaymarchCam : SceneViewFilter
             };
         }
 
-        ComputeBuffer shapeBuffer = new ComputeBuffer(shapeData.Length, ShapeData.GetSize());
-        shapeBuffer.SetData(shapeData);
-        _raymarchMaterial.SetBuffer("shapes", shapeBuffer);
-        _raymarchMaterial.SetInt("numShapes", shapeData.Length);
+        if (0 != FindObjectsByType<Shape4D>(sortmode.main).Length) 
+        {
+            ComputeBuffer shapeBuffer = new ComputeBuffer(shapeData.Length, ShapeData.GetSize());
+            shapeBuffer.SetData(shapeData);
+            _raymarchMaterial.SetBuffer("shapes", shapeBuffer);
+            _raymarchMaterial.SetInt("numShapes", shapeData.Length);
 
-        buffersToDispose.Add(shapeBuffer);
+            buffersToDispose.Add(shapeBuffer);
+        }
+        
 
     }
     struct ShapeData

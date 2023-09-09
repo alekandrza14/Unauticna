@@ -79,6 +79,8 @@ namespace Unity.Mathematics
                     return Df.sdPipis2(p4D, shape.Scale());
                 case Shape4D.ShapeType.AbstractPlane:
                     return Df.sdAbstractPlane(p4D);
+                case Shape4D.ShapeType.infinityCilinder:
+                    return Df.sdCylinder2(p4D.xyz, ((float4)shape.Scale()).xyz);
 
             }
 
@@ -126,6 +128,10 @@ namespace Unity.Mathematics
                     return Df.sdPipis2(p4D, shape.Scale());
                 case Shape4D.ShapeType.AbstractPlane:
                     return Df.sdAbstractPlane(p4D);
+                case Shape4D.ShapeType.infinityCilinder:
+                    return Df.sdCylinder2(p4D.xyz, ((float4)shape.Scale()).xyz);
+                case Shape4D.ShapeType.none:
+                    return Df.sdNull(p4D);
 
             }
 

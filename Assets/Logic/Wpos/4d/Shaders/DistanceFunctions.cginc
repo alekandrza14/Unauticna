@@ -51,7 +51,10 @@ float GetDist2(float4 p)
        
 }
 
-
+float sdCylinder2( float3 p, float3 c )
+{
+  return length(p.xz-c.xy)-c.z;
+}
 
 float GetDist3(float4 pos,float4 b) 
 {

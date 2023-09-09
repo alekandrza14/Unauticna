@@ -170,35 +170,40 @@ public class mover : MonoBehaviour
 
         }
 
-            if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            List<string> name = new List<string>();
+            List<Vector3> v3 = new List<Vector3>();
+            List<Vector3> scale = new List<Vector3>();
+            for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
             {
-                List<string> name = new List<string>();
-                List<Vector3> v3 = new List<Vector3>();
-                for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
-                {
-                    name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
-                    v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
-                }
-                custommedelsave cms = new custommedelsave();
-                cms.name = name.ToArray();
-                cms.v3 = v3.ToArray();
-                 VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
-              
+                name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
+                v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
+                scale.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.localScale);
             }
-            if (Input.GetKeyDown(KeyCode.F2))
-            {
+            custommedelsave cms = new custommedelsave();
+            cms.name = name.ToArray();
+            cms.v3 = v3.ToArray();
+            cms.scale = scale.ToArray();
+
+            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
+
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
             for (int i = 0; i < FindObjectsByType<genmodel>(sortmode.main).Length; i++)
             {
                 FindObjectsByType<genmodel>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
             }
-                custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
-                for (int i =0;i<cms.v3.Length;i++)
-                {
-                    genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
-                    g.s = cms.name[i];
+            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
+            for (int i = 0; i < cms.v3.Length; i++)
+            {
+                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
+                g.s = cms.name[i];
+                g.transform.localScale = cms.scale[i];
 
-                }
             }
+        }
             bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
             RaycastHit hit2 = MainRay.MainHit;
             
@@ -395,6 +400,7 @@ public class mover : MonoBehaviour
                 genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
                 g.s = cms.name[i];
 
+                g.transform.localScale = cms.scale[i];
             }
         }
         SaveFileInputField.text = Globalprefs.GetTimeline();
@@ -433,6 +439,7 @@ public class mover : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("player inventory"));
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
+        Instantiate(Resources.Load<GameObject>("Rm/Hyper_null"));
         if (!tutorial && inglobalspace != true)
         {
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class musik : MonoBehaviour
 {
     public Scrollbar s;
+    static public float gameVolume;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,9 +23,8 @@ public class musik : MonoBehaviour
         void Update()
     {
         VarSave.SetGlobalFloat("mus",s.value);
-        for (int i=0;i<GameObject.FindGameObjectsWithTag("game musig").Length;i++)
-        {
-            GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
-        }
+
+        gameVolume = VarSave.GetGlobalFloat("mus");
+        
     }
 }

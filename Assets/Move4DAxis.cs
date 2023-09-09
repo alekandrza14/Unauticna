@@ -63,7 +63,9 @@ public class Move4DAxis : MonoBehaviour
         {
             curaxis = 3;
         }
-        if (select) { if (curaxis == 0)
+        if (select && !Input.GetKey(KeyCode.LeftControl))
+        {
+            if (curaxis == 0)
             {
                 select.transform.position += (Vector3.right * Input.GetAxis("Mouse X"));
             }
@@ -80,6 +82,14 @@ public class Move4DAxis : MonoBehaviour
                 if (select.GetComponent<MultyObject>())
                     select.GetComponent<MultyObject>().W_Position += Input.GetAxis("Mouse X");
             }
+        }
+        if (select && Input.GetKey(KeyCode.LeftControl))
+        {
+            if (curaxis == 1)
+            {
+                select.transform.localScale += (Vector3.one * (Input.GetAxis("Mouse X")));
+            }
+           
         }
         if (Input.GetKeyDown(KeyCode.Delete))
         {

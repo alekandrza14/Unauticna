@@ -109,7 +109,7 @@ public class complsave : MonoBehaviour
         for (int i = 0; i < g.Length; i++)
         {
             t3[i] = g[i];
-            info3[i] = g[i].tag;
+            info3[i] = g[i].GetComponent<itemName>()._Name;
 
         }
         GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
@@ -157,23 +157,22 @@ public class complsave : MonoBehaviour
     }
     private void Update()
     {
-        for (int i = 0; i < info3.Length; i++)
-        {
-            if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+       
+            if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
             {
 
 
-                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                for (int i3 = 0; i3 < FindObjectsByType<itemName>(sortmode.main).Length; i3++)
                 {
 
 
-                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>())
+                    if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>())
                     {
-                        GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>();
+                        FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>();
                     }
                     else
                     {
-                        GameObject.FindGameObjectsWithTag(info3[i])[i3].AddComponent<breauty>().integer = 10;
+                        FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10;
 
                     }
 
@@ -183,7 +182,6 @@ public class complsave : MonoBehaviour
                 }
             }
 
-        }
         if (Input.GetKeyDown(KeyCode.F1))
         {
 
@@ -214,29 +212,30 @@ public class complsave : MonoBehaviour
         Directory.CreateDirectory(name2.ToString());
         File.Delete(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
+        saveString1.Scale3A.Clear();
         saveString1.DataItem.Clear();
         saveString1.vector3A.Clear();
-        saveString1.vector3A2.Clear();
+        saveString1.vector3C.Clear();
         saveString1.PvectorA.Clear();
         saveString1.qA.Clear();
+        saveString1.Scale3B.Clear();
         saveString1.x.Clear();
         saveString1.y.Clear();
-        saveString1.id.Clear();
-        saveString1.id2.Clear();
+        saveString1.idA.Clear();
+        saveString1.idB.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
-        for (int i = 0; i < info3.Length; i++)
-        {
+        
 
-            if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+            if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
             {
 
 
 
-                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                for (int i3 = 0; i3 < GameObject.FindObjectsByType<itemName>(sortmode.main).Length; i3++)
                 {
 
-                    GameObject.FindGameObjectsWithTag(info3[i])[i3].gameObject.AddComponent<deleter1>();
+                GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<deleter1>();
 
 
                 }
@@ -247,7 +246,7 @@ public class complsave : MonoBehaviour
 
 
 
-        }
+        
 
         for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
         {
@@ -270,45 +269,46 @@ public class complsave : MonoBehaviour
 
         saveString1.DataItem.Clear();
         saveString1.vector3A.Clear();
-        saveString1.vector3A2.Clear();
+        saveString1.Scale3B.Clear();
+        saveString1.vector3C.Clear();
         saveString1.PvectorA.Clear();
         saveString1.qA.Clear();
         saveString1.x.Clear();
         saveString1.y.Clear();
-        saveString1.id.Clear();
-        saveString1.id2.Clear();
+        saveString1.idA.Clear();
+        saveString1.idB.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
+        saveString1.Scale3A.Clear();
 
         Directory.CreateDirectory(name2 + @"/objects");
 
-        for (int i = 0; i < info3.Length; i++)
-        {
-            if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+      
+            if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
             {
 
 
-                for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                for (int i3 = 0; i3 < GameObject.FindObjectsByType<itemName>(sortmode.main).Length; i3++)
                 {
 
-                    saveString1.id.Add(info3[i]);
-                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>())
+                    saveString1.idA.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3]._Name);
+                    if (GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>())
                     {
-                        saveString1.x.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<breauty>().integer);
+                        saveString1.x.Add(FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>().integer);
                     }
                     else
                     {
-                        saveString1.x.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].AddComponent<breauty>().integer = 10);
+                        saveString1.x.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10);
 
                     }
-                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>())
+                    if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>())
                     {
-                        saveString1.PvectorA.Add(JsonUtility.ToJson(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
-                        saveString1.y.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<HyperbolicPoint>().v1);
+                        saveString1.PvectorA.Add(JsonUtility.ToJson(FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
+                        saveString1.y.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>().v1);
                     }
-                    if (GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<itemName>())
+                    if (GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<itemName>())
                     {
-                        saveString1.DataItem.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].GetComponent<itemName>().ItemData);
+                        saveString1.DataItem.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<itemName>().ItemData);
 
                     }
                     else
@@ -319,13 +319,14 @@ public class complsave : MonoBehaviour
 
 
 
-                    saveString1.vector3A.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].transform.position);
-                    saveString1.qA.Add(GameObject.FindGameObjectsWithTag(info3[i])[i3].transform.rotation);
+                    saveString1.vector3A.Add(FindObjectsByType<itemName>(sortmode.main)[i3].transform.position);
+                    saveString1.Scale3A.Add(FindObjectsByType<itemName>(sortmode.main)[i3].transform.localScale);
+                    saveString1.qA.Add(FindObjectsByType<itemName>(sortmode.main)[i3].transform.rotation);
 
                 }
             }
 
-        }
+       
 
         for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
         {
@@ -336,8 +337,9 @@ public class complsave : MonoBehaviour
         }
         for (int i = 0; i < FindObjectsByType<StandartObject>(sortmode.main).Length; i++)
         {
-            saveString1.vector3A2.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].transform.position);
-            saveString1.id2.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].init);
+            saveString1.vector3C.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].transform.position);
+            saveString1.idB.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].init);
+            saveString1.Scale3B.Add(FindObjectsByType<StandartObject>(sortmode.main)[i].transform.localScale);
             if (FindObjectsByType<StandartObject>(sortmode.main)[i].
                 GetComponent<MultyObject>())
                 saveString1.posW.Add(
@@ -360,13 +362,15 @@ public class complsave : MonoBehaviour
         File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
         saveString1.vector3A.Clear();
-        saveString1.vector3A2.Clear();
+        saveString1.Scale3A.Clear();
+        saveString1.Scale3B.Clear();
+        saveString1.vector3C.Clear();
         saveString1.PvectorA.Clear();
         saveString1.qA.Clear();
         saveString1.x.Clear();
         saveString1.y.Clear();
-        saveString1.id.Clear();
-        saveString1.id2.Clear();
+        saveString1.idA.Clear();
+        saveString1.idB.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
         saveString1.posW.Clear();
@@ -382,13 +386,15 @@ public class complsave : MonoBehaviour
         saveString1.DataItem.Clear();
 
         saveString1.vector3A.Clear();
-        saveString1.vector3A2.Clear();
+        saveString1.vector3C.Clear();
         saveString1.PvectorA.Clear();
         saveString1.qA.Clear();
+        saveString1.Scale3B.Clear();
         saveString1.x.Clear();
         saveString1.y.Clear();
-        saveString1.id.Clear();
-        saveString1.id2.Clear();
+        saveString1.idA.Clear();
+        saveString1.idB.Clear();
+        saveString1.Scale3A.Clear();
         saveString1.vector3B.Clear();
         saveString1.NamesCreatures.Clear();
         saveString221 = Path.Combine("",   name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
@@ -424,18 +430,16 @@ public class complsave : MonoBehaviour
 
 
 
-                for (int i = 0; i < info3.Length; i++)
-                {
-
-                    if (GameObject.FindGameObjectsWithTag(info3[i]).Length != 0)
+              
+                    if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
                     {
 
 
 
-                        for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
+                        for (int i3 = 0; i3 < GameObject.FindObjectsByType<itemName>(sortmode.main).Length; i3++)
                         {
 
-                            GameObject.FindGameObjectsWithTag(info3[i])[i3].gameObject.AddComponent<deleter1>();
+                            GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<deleter1>();
 
 
                         }
@@ -446,7 +450,6 @@ public class complsave : MonoBehaviour
 
 
 
-                }
 
                 for (int i = 0; i < FindObjectsByType<telo>(sortmode.main).Length; i++)
                 {
@@ -471,26 +474,27 @@ public class complsave : MonoBehaviour
                         g.gameObject.transform.position = saveString1.vector3B[i];
                     }
                 }
-                for (int i = 0; i < saveString1.id2.Count; i++)
+                for (int i = 0; i < saveString1.idB.Count; i++)
                 {
 
-                    GameObject g = Instantiate(t4[toTagToIDObject(saveString1.id2[i])], saveString1.vector3A2[i], Quaternion.identity);
+                    GameObject g = Instantiate(t4[toTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
                     if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
 
+                    if (saveString1.Scale3B[i].x != 0) g.transform.localScale = saveString1.Scale3B[i];
 
                 }
                 if (saveString1.PvectorA.Count == 0)
                 {
 
 
-                    for (int i3 = 0; i3 < saveString1.id.Count; i3++)
+                    for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
                     {
 
 
 
 
-                        Debug.Log(saveString1.id[i3]);
-                        GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                        Debug.Log(saveString1.idA[i3]);
+                        GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
                         if (!g.GetComponent<breauty>())
                         {
 
@@ -505,19 +509,20 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
                         }
+                       if(saveString1.Scale3A[i3].x!=0) g.transform.localScale = saveString1.Scale3A[i3];
 
                     }
                 }
                 else
                 {
-                    for (int i3 = 0; i3 < saveString1.id.Count; i3++)
+                    for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
                     {
 
 
 
 
                         Debug.Log("1");
-                        GameObject g = Instantiate(t3[toTagToID(saveString1.id[i3])].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
+                        GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(0, 0, 0), saveString1.qA[i3]);
                         if (!g.GetComponent<breauty>())
                         {
 
@@ -578,14 +583,14 @@ public class complsave : MonoBehaviour
 
     }
 
-    public int toTagToID(string tag)
+    public int toNameToID(string name)
     {
         int u = 0;
 
         getallitems();
         for (int i = 0; i < info3.Length; i++)
         {
-            if (tag == info3[i])
+            if (name == info3[i])
             {
                 u = i;
             }
@@ -619,13 +624,15 @@ public class rsave
 {
 
     public List<Vector3> vector3A = new List<Vector3>();
-    public List<Vector3> vector3A2 = new List<Vector3>();
+    public List<Vector3> Scale3A = new List<Vector3>();
+    public List<Vector3> Scale3B = new List<Vector3>();
+    public List<Vector3> vector3C = new List<Vector3>();
     public List<string> PvectorA = new List<string>();
     public List<Quaternion> qA = new List<Quaternion>();
     public List<int> x = new List<int>();
     public List<float> y = new List<float>();
-    public List<string> id = new List<string>();
-    public List<string> id2 = new List<string>();
+    public List<string> idA = new List<string>();
+    public List<string> idB = new List<string>();
     public List<float> posW = new List<float>();
 
     public List<Vector3> vector3B = new List<Vector3>();

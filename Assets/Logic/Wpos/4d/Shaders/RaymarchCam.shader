@@ -4,7 +4,8 @@ Shader "Raymarch/RaymarchCam"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _MainTex ("RendrerTexture", 2D) = "white" {}
+        _GeometryTex ("Texture", 2D) = "white" {}
         _distance("distance", Range(0,1000)) = 1 
     }
     SubShader
@@ -26,8 +27,9 @@ Shader "Raymarch/RaymarchCam"
             #include "DistanceFunctions.cginc"
 
             // All the variables feeded through the camera
-
+            
             sampler2D _MainTex;
+            sampler2D _GeometryTex;
             uniform sampler2D _CameraDepthTexture;
             uniform float4x4 _CamFrustrum, _CamToWorld;
             uniform float3 _wRotation;
@@ -54,6 +56,7 @@ Shader "Raymarch/RaymarchCam"
 
             struct Shape {
 
+                
                 float4 position;
                 float4 scale;
                 float3 rotation;
@@ -63,8 +66,9 @@ Shader "Raymarch/RaymarchCam"
                 int operation;
                 float blendStrength;
                 int numChildren;
-            };
-
+            }; 
+            
+           
             StructuredBuffer<Shape> shapes;
             int numShapes;
 
@@ -148,11 +152,16 @@ Shader "Raymarch/RaymarchCam"
 
                 }else if (shape.shapeType == 11) {
                     return sdVoid();
+                }else if (shape.shapeType == 12) {
+                    return sdCylinder2((float3)p4D,(float3)shape.scale);
+                }else if (shape.shapeType == 13) {
+                    return sdVoid();
                 }
 
                 return _maxDistance;
             }
-            
+           
+          
 
             float4 distanceField(float3 p)
             {
@@ -241,7 +250,41 @@ Shader "Raymarch/RaymarchCam"
                 }
                 return res;
             }
+            
+              float3  poss;
+              // the actual raymarcher
+            fixed3 Pos(float3 ro, float3 rd, float depth)
+            {
 
+
+                float t = 0; //distance traveled
+
+              float3  pos;
+                for (int i = 0; i < _max_iteration/2; i++)
+                {
+                    //sends out ray from the camera
+                    float3 p = ro + rd * t;
+
+
+
+                    // check if to far
+                    if(t > _maxDistance || t >= depth)
+                    {
+
+                        //environment
+                        break;
+
+                    }
+                    
+                    float4 d = distanceField(p); 
+                    if ((d.x) < _precision) //hit
+                    {
+                    pos =p;
+                    }
+                    t += d.x;
+                }
+                return pos;
+            }
             // the actual raymarcher
             fixed4 raymarching(float3 ro, float3 rd, float depth, float3 col)
             {
@@ -269,12 +312,13 @@ Shader "Raymarch/RaymarchCam"
                     }
 
                     //return distance to fractal
-                    float4 d = (distanceField(p));
+                    float4 d = distanceField(p);
 
                     
 
                     if ((d.x) < _precision) //hit
                     {
+                        poss = p;
                         float3 colorDepth;
                         float light;
                         float shadow;
@@ -285,6 +329,9 @@ Shader "Raymarch/RaymarchCam"
                {
                    color = col;
                }
+               
+            // color.xyz += tex2D(_GeometryTex, float2(p.x-p.z,p.z-p.y));
+
                         if(_useNormal == 1){
                             float3 n = getNormal(p);
                             light = dot(-_lightDir, n); //lambertian shading
@@ -338,12 +385,20 @@ Shader "Raymarch/RaymarchCam"
                float3 rayDirection = normalize(i.ray.xyz);
                float3 rayOrigin = _WorldSpaceCameraPos;
                fixed4 result;
-              
+              float3 pos = Pos(rayOrigin, rayDirection, depth);
                 result = raymarching(rayOrigin, rayDirection, depth,col);
-                 
+                fixed4 subresult;
+               if(pos.x+pos.y+pos.z != 0){  
+                  
+                       
+              subresult = tex2D(_GeometryTex, float2(pos.x-pos.z,pos.z-pos.y)) * result.xyzw;
+                   
+               }else{
+                    subresult = result.xyzw;
+                   }
                   
               
-               return fixed4(col * (1.0 - result.w) + result.xyz * result.w ,1.0);
+               return fixed4(col * (1.0 - result.w) + subresult.xyz * result.w ,1.0);
 
             }
             ENDCG

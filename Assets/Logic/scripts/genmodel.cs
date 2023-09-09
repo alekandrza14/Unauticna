@@ -5,6 +5,7 @@ public class custommedelsave
 {
     public string[] name;
     public Vector3[] v3;
+    public Vector3[] scale;
 }
 
 
@@ -13,6 +14,7 @@ public class genmodel : MonoBehaviour
    public MeshFilter mf;
     public Vector3[] verti;
     public int[] tria;
+    public Vector2[] uvs;
     public string s;
 
     // Start is called before the first frame update
@@ -31,63 +33,41 @@ public class genmodel : MonoBehaviour
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshRenderer>().material = Resources.Load<Material>("mats/ost");
     }
-
     private Mesh generate()
     {
         ObjParser.Obj newobj = new ObjParser.Obj();
-        newobj.LoadObj("res/"+s+".obj");
+        newobj.LoadObj("res/" + s + ".obj");
         var mesh = new Mesh();
         mesh.name = "cube";
         Vector3[] vertices = new Vector3[newobj.VertexList.Count];
-        List<Vector2> uv = new List<Vector2>();
+        Vector2[] uv = new Vector2[newobj.VertexList.Count]; // Создаем массив UV-координат такого же размера, как и вершины
         List<int> triangles = new List<int>();
+
         for (int i = 0; i < newobj.VertexList.Count; i++)
         {
             vertices[i] = new Vector3((float)newobj.VertexList[i].X, (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z);
-
-           
-
-
         }
-        
 
         for (int f = 0; f < newobj.FaceList.Count; f++)
         {
-
             for (int i = 0; i < newobj.FaceList[f].VertexIndexList.Length; i++)
             {
-
-
-
-                triangles.Add(newobj.FaceList[f].VertexIndexList[(i)] - 1);
-
-
-
-
+                int vertexIndex = newobj.FaceList[f].VertexIndexList[i] - 1;
+                triangles.Add(vertexIndex);
             }
         }
-        for (int f = 0; f < newobj.VertexList.Count; f++)
+
+        
+        for (int i = 0; i < newobj.VertexList.Count; i++)
         {
-
-
-                    uv.Add(new Vector2((float)newobj.TextureList[f].X, (float)newobj.TextureList[f].Y));
-                    
-               
-
-
+            uv[i] = (new Vector2((float)newobj.VertexList[i].X-(float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z - (float)newobj.VertexList[i].Y));
         }
-
-
-        tria = triangles.ToArray();
-            verti = vertices;
-        mesh.SetVertices(vertices);
-
-        mesh.uv = uv.ToArray();
+        mesh.vertices = vertices;
         mesh.triangles = triangles.ToArray();
+        mesh.uv = uv;
         mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
         return mesh;
     }
-
     // Update is called once per frame
     void Update()
     {

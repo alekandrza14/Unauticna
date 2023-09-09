@@ -98,13 +98,18 @@ namespace Unity.Mathematics
            
             return c;
         }
+        public float sdCylinder2(float3 p, float3 c)
+        {
+            return length(p.xz - c.xy) - c.z;
+        }
+
         public float sdPipis(float4 pos, float4 b)
         {
             float4 p = pos;
             p = p / b;
 
 
-            float c = 14.5f / Vector4.Distance(float4.zero, b / 2);
+            float c = 14.5f / (b.x * b.y * b.z * b.w);
             p.x = fmod2(p.x + 0.5f * c, c) - 0.5f * c;
             p.y = fmod2(p.y + 0.5f * c, c) - 0.5f * c;
 

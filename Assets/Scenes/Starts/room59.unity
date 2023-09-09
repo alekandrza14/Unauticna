@@ -325,6 +325,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaabdc5639ec645649fb52ac9ef2d1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &511882232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7220340402648136978, guid: 574545eca55884a07aeff49f3d3ef266,
+    type: 3}
+  m_PrefabInstance: {fileID: 1368429270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &547943453
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +688,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1445138981515400520, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
         type: 3}
+      propertyPath: _globalGeometryTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 290c02f76666bf444b5d58aaf8ee8151, type: 3}
+    - target: {fileID: 1445138981515400520, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
+        type: 3}
       propertyPath: orderedShapes.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -744,6 +755,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972998650662337202, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4972998650662337212, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
         type: 3}
@@ -1155,7 +1171,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7220340402648136978, guid: 574545eca55884a07aeff49f3d3ef266,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1368429273}
   m_SourcePrefab: {fileID: 100100000, guid: 574545eca55884a07aeff49f3d3ef266, type: 3}
 --- !u!4 &1368429271 stripped
 Transform:
@@ -1169,12 +1189,34 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1368429270}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 511882232}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaabdc5639ec645649fb52ac9ef2d1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1368429273
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511882232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9dc9571375ba94419d3246c14e8885e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1491219882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1192,6 +1234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BlackHole
+      objectReference: {fileID: 0}
+    - target: {fileID: 1493632542002497076, guid: 5fd30981e1c85c344a2318d553aa2e0d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5250186734966871144, guid: 5fd30981e1c85c344a2318d553aa2e0d,
         type: 3}
@@ -1340,6 +1387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Basic4DShape
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220340402648136978, guid: 574545eca55884a07aeff49f3d3ef266,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7220340402648136979, guid: 574545eca55884a07aeff49f3d3ef266,
         type: 3}

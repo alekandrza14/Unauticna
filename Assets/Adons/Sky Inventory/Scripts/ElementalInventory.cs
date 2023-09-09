@@ -20,10 +20,13 @@ public class ElementalInventory : MonoBehaviour {
 	public GameObject elementPrefab;
 	public GameObject selectobject;
 	public int select = 0;
-	public string[] itemtags;
-	public string[] itemnames;
-	public string[] nunames;
-	private Transform choosenItem;
+    public string[] itemtags;
+    public string[] itemnames;
+    public string[] itemPrimetiveInts;
+    public GameObject[] itemPrimetive;
+    public string[] nunamesA;
+    public string[] nunamesB;
+    private Transform choosenItem;
     public Cell activeItem;
 	public bool planets;
 	public bool deletecell;
@@ -36,14 +39,15 @@ public class ElementalInventory : MonoBehaviour {
     }
 	public void getallitemsroom()
 	{
-		GameObject[] g = Resources.LoadAll<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex);
-		nunames = new string[g.Length];
-		for (int i = 0; i < nunames.Length; i++)
-		{
-			nunames[i] = g[i].name;
+        GameObject[] g = Resources.LoadAll<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex);
+        nunamesA = new string[g.Length];
+        for (int i = 0; i < nunamesA.Length; i++)
+        {
+            nunamesA[i] = g[i].name;
 
-		}
-	}
+        }
+        
+    }
 	
 
 	public void getallitems()
@@ -58,39 +62,48 @@ public class ElementalInventory : MonoBehaviour {
 			itemtags[i] = g[i].tag;
 
 		}
-	}
+        GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
+        itemPrimetive = new GameObject[g2.Length];
+        itemPrimetiveInts = new string[g2.Length];
+        for (int i = 0; i < g2.Length; i++)
+        {
+            itemPrimetive[i] = g2[i];
+            itemPrimetiveInts[i] = g2[i].GetComponent<StandartObject>().init;
+
+        }
+    }
 	public GameObject inv2(string name)
 	{
 		GameObject g1 = Resources.Load<GameObject>("death_point");
-		for (int i = 0; i < nunames.Length; i++)
-		{
-			if (i < nunames.Length)
-			{
+        for (int i = 0; i < nunamesA.Length; i++)
+        {
+            if (i < nunamesA.Length)
+            {
 
 
-				if (nunames[i] != name)
-				{
-					g1 = Resources.Load<GameObject>("items/" + name);
-					i = nunames.Length;
-
-				
-					
-				}
-			}
-			if (i < nunames.Length)
-			{
-				if (nunames[i] == name)
-				{
+                if (nunamesA[i] != name)
+                {
+                    g1 = Resources.Load<GameObject>("items/" + name);
+                    i = nunamesA.Length;
 
 
-					g1 = Resources.Load<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex + "/" + name);
-					i = nunames.Length;
-				}
-			}
-			
 
-		}
-        if (nunames.Length == 0)
+                }
+            }
+            if (i < nunamesA.Length)
+            {
+                if (nunamesA[i] == name)
+                {
+
+
+                    g1 = Resources.Load<GameObject>("itms/room" + SceneManager.GetActiveScene().buildIndex + "/" + name);
+                    i = nunamesA.Length;
+                }
+            }
+
+
+        }
+        if (nunamesA.Length == 0)
         {
 			
 			for (int i = 0; i < itemnames.Length; i++)
@@ -119,51 +132,97 @@ public class ElementalInventory : MonoBehaviour {
 
 			}
 		}
-		int t = 0;
-		for (int i = name.Length - 1; i > 0; i--)
+        for (int i = 0; i < itemPrimetive.Length; i++)
+        {
+            if (i < itemPrimetive.Length)
+            {
+
+
+                if (itemPrimetive[i].name != name)
+                {
+
+
+                    g1 = Resources.Load<GameObject>("Primetives/" + name);
+
+                }
+            }
+            if (i < itemPrimetive.Length)
+            {
+
+
+
+                g1 = Resources.Load<GameObject>("Primetives/" + name);
+
+
+            }
+
+        }
+        int t = 0;
+        for (int i = name.Length - 1; i > 0; i--)
+        {
+            if (name[i] == 'x')
+            {
+                t++;
+            }
+            if (name[i] != 'x' && t != 0)
+            {
+                string namet = name.Remove((name.Length) - t);
+                Debug.Log(namet);
+                if (true)
+                {
+
+
+                    GameObject p = Resources.Load<GameObject>("items/" + namet);
+                    if (p)
+                    {
+                        if (!p.GetComponent<breauty>())
+                        {
+                            p.AddComponent<breauty>().integer = 10 - t;
+                        }
+                        if (p.GetComponent<breauty>())
+                        {
+                            p.GetComponent<breauty>().integer = 10 - t;
+                        }
+                        if (true)
+                        {
+
+
+                            g1 = p;
+                        }
+                    }
+                }
+                i = 0;
+
+
+            }
+
+        }
+       
+        if (true)
 		{
-			if (name[i] == 'x')
-			{
-				t++;
-			}
-			if (name[i] != 'x' && t != 0)
-			{
-				string namet = name.Remove((name.Length) - t);
-				Debug.Log(namet);
-				if (true)
-				{
 
 
-					GameObject p = Resources.Load<GameObject>("items/" + namet);
-					if (p)
-					{
-						if (!p.GetComponent<breauty>())
-						{
-							p.AddComponent<breauty>().integer = 10 - t;
-						}
-						if (p.GetComponent<breauty>())
-						{
-							p.GetComponent<breauty>().integer = 10 - t;
-						}
-						if (true)
-						{
+			GameObject p = Resources.Load<GameObject>("death_point");
+            p = Resources.Load<GameObject>("items/" + name);
+
+			if (!p)
+            {
+                for (int i = 0; i < itemPrimetive.Length; i++)
+                {
+                    
 
 
-							g1 = p;
-						}
-					}
-				}
-				i = 0;
+                        if (itemPrimetive[i].name == name)
+                        {
 
 
-			}
+                            p = itemPrimetive[i];
 
-		}
-		if (true)
-		{
+                        }
+                    
 
-
-			GameObject p = Resources.Load<GameObject>("items/" + name);
+                }
+            }
 			if (p)
 			{
 				if (!p.GetComponent<breauty>())
@@ -274,27 +333,26 @@ public class ElementalInventory : MonoBehaviour {
 		string s = "";
 		string s1 = "";
 		int x = 0;
-		
-		//(clone)
-		if (h.collider.name[h.collider.name.Length-1] ==')')
-		{
-			s1 = h.collider.name.Remove(h.collider.name.Length - 7);
-		}
-		s += s1;
-		x = 10 - h.collider.GetComponent<breauty>().integer;
-		if (x >= 0)
-		{
+
+        //(clone)
+        if (h.collider.name[h.collider.name.Length - 1] == ')')
+        {
+            s1 = h.collider.name.Remove(h.collider.name.Length - 7);
+        }
+        s += s1;
+		if(h.collider.GetComponent<breauty>()) x = 10 - h.collider.GetComponent<breauty>().integer;
+        
 
 			Destroy(h.collider.gameObject);
-		}
-		if (x < 0)
+		
+        if (h.collider.GetComponent<breauty>()) if (x < 0)
 		{
 
 			h.collider.GetComponent<breauty>().integer -= 10;
 			h.collider.GetComponent<breauty>().resset();
 		}
-		
-		for (int i =0;i<x;i++)
+
+        if (h.collider.GetComponent<breauty>()) for (int i =0;i<x;i++)
         {
 			s += 'x';
         }
@@ -818,6 +876,16 @@ public class ElementalInventory : MonoBehaviour {
 
             }
             else if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
+            {
+
+
+
+                setItem(fullname(hit), 1, Color.red, select);
+                Cells[select].UpdateCellInterface();
+                sh = true;
+
+            }
+            else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<StandartObject>())
             {
 
 
