@@ -875,16 +875,6 @@ public class ElementalInventory : MonoBehaviour {
                 sh = true;
 
             }
-            else if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject))
-            {
-
-
-
-                setItem(fullname(hit), 1, Color.red, select);
-                Cells[select].UpdateCellInterface();
-                sh = true;
-
-            }
             else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<StandartObject>())
             {
 
@@ -1227,15 +1217,9 @@ public class ElementalInventory : MonoBehaviour {
 				Globalprefs.ItemPrise = 0;
 				Globalprefs.selectitem = "";
 				it = null;
-            }
-            if (it.gameObject != hit.collider.gameObject && boxItem.getInventory("i3").inventory == this)
-            {
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                it = null;
-            }
-            if (MainRay.HitError && boxItem.getInventory("i3").inventory == this)
+			}
+            
+            if (MainRay.HitError && boxItem.getInventory("i3").inventory == this && !nosell)
             {
                 Globalprefs.selectitemobj = null;
                 Globalprefs.ItemPrise = 0;
@@ -1292,29 +1276,32 @@ public class ElementalInventory : MonoBehaviour {
     public int LayItem()
     {
         int i = 0;
-		int i2 = 1;
-		if (activeItem)
+		int i2 = 0;
+		if (boxItem.getInventory("i3").inventory == this)
 		{
-			foreach (Cell cell in Cells)
+			if (activeItem)
 			{
-                if (cell.name == activeItem.name)
-                {
-                    i2 = i;
-                }
-				if (activeItem)
+				foreach (Cell cell in Cells)
 				{
-					if (cell.name != activeItem.name)
+					if (cell.name == activeItem.name)
 					{
-						i++;
+						i2 = i;
+					}
+					if (activeItem)
+					{
+						if (cell.name != activeItem.name)
+						{
+							i++;
+						}
 					}
 				}
-            }
-		}
-		if (!activeItem)
-		{
+			}
+			if (!activeItem)
+			{
 				i2 = 1;
 
-        }
+			}
+		}
 		return i2;
     }
 
@@ -1332,15 +1319,24 @@ public class ElementalInventory : MonoBehaviour {
 		}
 	}
 
-	public void moveItemLinkFirst (Transform t) {
+	public void moveItemLinkFirst (Transform t) 
+	{
 
-		choosenItem = t;
+		if (boxItem.getInventory("i3").inventory == this)
+		{
+
+
+			choosenItem = t;
+		}
 	}
 
-	public void moveItemLinkSecond (Transform t) {
-		moveItemLink (choosenItem, t);
-		choosenItem = null;
-		
+	public void moveItemLinkSecond (Transform t) 
+	{
+		if (boxItem.getInventory("i3").inventory == this)
+		{
+			moveItemLink(choosenItem, t);
+			choosenItem = null;
+		}
 	}
 
     //Sets item

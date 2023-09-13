@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -278,17 +278,18 @@ public class mover : MonoBehaviour
         c1.transform.position = new Vector3(0,v4.w,0);
 
     }
-    //физика
+    //С„РёР·РёРєР°
     void OnCollisionStay(Collision collision)
     {
-        
-        IsGraund = false;
-        if (JumpTimer < -2)
+
+        if (collision.collider.tag != "sc") if (JumpTimer < -2)
         {
             Debug.Log(JumpTimer);
             hp += Mathf.FloorToInt(JumpTimer) / 3;
         }
-        JumpTimer = jumpPower;
+        if (collision.collider.tag != "sc") JumpTimer = jumpPower; 
+       
+
         if (InWater)
         {
             IsGraund = false;
@@ -297,7 +298,8 @@ public class mover : MonoBehaviour
         c = collision;
         if (collision.collider.tag == "sc")
         {
-            JumpTimer = -jumpPower / 2;
+            
+        //IsGraund = false;
 
         }
 
@@ -318,7 +320,7 @@ public class mover : MonoBehaviour
     {
         if (other.tag == "dead")
         {
-            VarSave.SetBool("обычный сельский бог гипер смерти урбил вас", true);
+            VarSave.SetBool("РѕР±С‹С‡РЅС‹Р№ СЃРµР»СЊСЃРєРёР№ Р±РѕРі РіРёРїРµСЂ СЃРјРµСЂС‚Рё СѓСЂР±РёР» РІР°СЃ", true);
             VarSave.SetBool("cry", true);
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -365,7 +367,7 @@ public class mover : MonoBehaviour
 
         c = null;
     }
-    //физика
+    //С„РёР·РёРєР°
 
     public IEnumerator coroutine()
     {
@@ -375,7 +377,7 @@ public class mover : MonoBehaviour
         Debug.Log("log");
     }
 
-    //Пробуждение кода
+    //РџСЂРѕР±СѓР¶РґРµРЅРёРµ РєРѕРґР°
     private void Awake()
     {
         Init();
@@ -660,8 +662,8 @@ public class mover : MonoBehaviour
         hyperbolicCamera = HyperbolicCamera.Main();
     }
 
-    //Пробуждение кода
-    //Приметивный интерфейс
+    //РџСЂРѕР±СѓР¶РґРµРЅРёРµ РєРѕРґР°
+    //РџСЂРёРјРµС‚РёРІРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ
     private void OnGUI()
     {
         //
@@ -704,7 +706,8 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + Globalprefs.knowlages);
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
-            GUI.Label(new Rect(0f, 160, 200f, 100f), "UniverseType (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
+            GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
+            GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (в™Ґ) : " + hp);
 
 
         }
@@ -716,7 +719,7 @@ public class mover : MonoBehaviour
             Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
         }
     }
-    //Приметивный интерфейс
+    //РџСЂРёРјРµС‚РёРІРЅС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ
     void Start()
     {
         gameObject.AddComponent<Conseole_trigger>();
@@ -1021,7 +1024,7 @@ public class mover : MonoBehaviour
     void Update()
     {
 
-        //авто-Пост-Ренбер
+        //Р°РІС‚Рѕ-РџРѕСЃС‚-Р РµРЅР±РµСЂ
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null) 
         {
@@ -1037,7 +1040,7 @@ public class mover : MonoBehaviour
             }
 
         }
-        //авто-Пост-Ренбер
+        //Р°РІС‚Рѕ-РџРѕСЃС‚-Р РµРЅР±РµСЂ
 
         if (!Globalprefs.Pause) WPositionUpdate();
         if (!Globalprefs.Pause) EconomicUpdate();
@@ -1228,7 +1231,7 @@ public class mover : MonoBehaviour
     public float GravityConstant()
     {
         float gravity1 = jumpforse * JumpTimer;
-        gravity1 = Mathf.Clamp(gravity1,-4,18);
+        gravity1 = Mathf.Clamp(gravity1,-5,18);
         return gravity1;
     }
 
@@ -1389,7 +1392,7 @@ public class mover : MonoBehaviour
     {
         if (hp <= 0)
         {
-            VarSave.SetBool("умерли от ран", true);
+            VarSave.SetBool("СѓРјРµСЂР»Рё РѕС‚ СЂР°РЅ", true);
             VarSave.SetBool("cry", true);
 
             gsave.hp = 20;
@@ -1443,7 +1446,7 @@ public class mover : MonoBehaviour
         {
             Destroy(GameObject.FindWithTag("blood1"));
         }
-        if (tic >= time && hp < 199)
+        if (tic >= time && hp < 200)
         {
             hp += 1;
             tic = 0;

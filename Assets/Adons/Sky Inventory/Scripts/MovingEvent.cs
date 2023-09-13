@@ -21,20 +21,33 @@ public class MovingEvent : MonoBehaviour {
     {
         if (inventory == null)
         {
-            inventory = FindObjectOfType(typeof(ElementalInventory)) as ElementalInventory;
+            inventory = boxItem.getInventory("i3").inventory;
         }
+        if (inventory != null)
+        {
+            if (inventory.tag == "i3")
+            {
 
-        inventory.activeItem = cell;
-        inventory.moveItemLinkFirst(transform);
+                inventory.activeItem = cell;
+                inventory.moveItemLinkFirst(transform);
+            }
+        }
     }
 
     
     public void moveHere () {
-		if (inventory == null) {
-			inventory = FindObjectOfType (typeof(ElementalInventory)) as ElementalInventory;
+		if (inventory == null) 
+        {
+			inventory = boxItem.getInventory("i3").inventory;
         }
-        inventory.activeItem = GetComponent<Cell>();
-        inventory.moveItemLinkSecond (transform);
+        if (inventory != null)
+        {
+            if (inventory.tag == "i3")
+            {
+                inventory.activeItem = GetComponent<Cell>();
+                inventory.moveItemLinkSecond(transform);
+            }
+        }
 	}
 
 }
