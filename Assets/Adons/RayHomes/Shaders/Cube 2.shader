@@ -19,7 +19,11 @@
         P3("3", float) = 0
         P4("4", float) = 0
         P5("5", int) = 0
-
+        
+        Pos1("*", float) = 0
+        Pos2("*", float) = 0
+        Pos3("*", float) = 0
+        Pos4("*", float) = 0
         [Header(Ray Marching Options)][Space]
         _Tolerance("Tolerance", Float) = 0.001
         [Toggle] _RelativeTolerance("Relative Tolerance", Float) = 1.0

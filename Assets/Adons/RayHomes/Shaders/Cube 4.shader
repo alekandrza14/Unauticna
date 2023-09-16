@@ -8,16 +8,21 @@
         _Tint("Albedo", Color) = (1.0, 1.0, 1.0)
         [Gamma] _Metallic("Metallic", Range(0, 1)) = 0.0
         _Smoothness("Smoothness", Range(0, 1)) = 0.5
+        P1("1", float) = 0
+        P2("2", float) = 0
+        P3("3", float) = 0
+        P4("4", float) = 0
+        Pos1("*", float) = 0
+        Pos2("*", float) = 0
+        Pos3("*", float) = 0
+        Pos4("*", float) = 0
 
         [Header(Mandelbulb Parameters)][Space]
         _Iterations("Iterations", Int) = 10
         _Power("Power", Int) = 8
         _EscapeRadius("Escape Radius", Float) = 2.0
         _Scale("Scale", Float) = 0.4
-        P1("1", float) = 0
-        P2("2", float) = 0
-        P3("3", float) = 0
-        P4("4", float) = 0
+        
         P5("5", int) = 0
 
         [Header(Ray Marching Options)][Space]
@@ -78,115 +83,11 @@
         float SDF(float3 pos)
         {
             float f = 0;
-            if (P5 == 0) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
+          
 
                    
                     f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-
-
-                }
-            }if (P5 == 1) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-
-                    
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-
-                    
-                    
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-
-                }
-            }if (P5 == 2) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-                    
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-
-
-                }
-            }if (P5 == 3) {
-
-
-                if (pos.x - P1 > 0 && pos.z - P3 > 0) {
-
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, (-pos.z) + P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 < 0)
-                {
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, pos.z - P3)) * P4;
-
-                }if (pos.x - P1 > 0 && pos.z - P3 < 0) {
-
-                    f = (pos.y - P2) - fbn1(float2(pos.x - P1, pos.z - P3)) * P4;
-                }
-                if (pos.x - P1 < 0 && pos.z - P3 > 0)
-                {
-
-                    f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, (-pos.z) + P3)) * P4;
-
-
-                }
-            }
-            
-            if (pos.x - P1 > 40) {
-                f = 1;
-            }if (pos.x - P1 < -40) {
-                f = 1;
-            }if (pos.z - P3 > 40) {
-                f = 1;
-            }if (pos.z - P3 < -40) {
-                f = 1;
-            }
+               
             /*
             if (pos.x - P1 < 0) {
                 f = (pos.y - P2) - fbn1(float2((-pos.x) + P1, 0)) * P4;

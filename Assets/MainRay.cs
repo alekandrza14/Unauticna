@@ -24,7 +24,16 @@ public class MainRay : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(r, out hit))
         {
-            MainHit = hit;
+           if(!hit.collider.isTrigger) MainHit = hit;
+            else if (hit.collider.gameObject.layer == 3)
+            {
+                hit.point = hit.collider.gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
+                MainHit = hit;
+            }
+            else if (hit.collider.gameObject.layer != 3)
+            {
+               MainHit = hit;
+            }
 
             HitError = false;
         }

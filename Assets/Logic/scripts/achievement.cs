@@ -10,6 +10,12 @@ public class achievement : MonoBehaviour
     void Start()
     {
         //"убит фанатиком"
+        if (VarSave.GetBool("Фашист победил"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "Словил пулю от фашиста";
+            VarSave.SetBool("Фашист победил", false);
+        }
         if (VarSave.GetBool("убит фанатиком"))
         {
             hello.windowmesenge.Dialog_die();

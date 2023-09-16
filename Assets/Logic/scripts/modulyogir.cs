@@ -17,7 +17,7 @@ public class modulyogir : MonoBehaviour
     }
     private void OnCollisionStay(Collision c)
     {
-        if (c.collider.tag == "item1")
+        if (c.collider.GetComponent<Logic_tag_DamageObject>())
         {
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); 
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); 

@@ -5,10 +5,12 @@ using UnityEngine;
 public class bullet : MonoBehaviour
 {
     public float tic, time = 40;
+    public float speed = 10;
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        GetComponent<Rigidbody>().AddForce(transform.forward * speed*20, ForceMode.Force);
     }
 
     // Update is called once per frame
@@ -21,6 +23,13 @@ public class bullet : MonoBehaviour
             tic = 0;
 
         }
-        GetComponent<Rigidbody>().velocity = new Vector3(10,0,0);
+        if (tic >= time/2)
+        {
+            Vector3 target;
+            target = GameManager.GetPlayer().transform.position;
+            transform.rotation = Quaternion.LookRotation((target - transform.position), transform.up);
+
+        }
+        GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.VelocityChange);
     }
 }

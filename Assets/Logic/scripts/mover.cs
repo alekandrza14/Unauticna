@@ -286,10 +286,11 @@ public class mover : MonoBehaviour
         {
             Debug.Log(JumpTimer);
             hp += Mathf.FloorToInt(JumpTimer) / 3;
-        }
-        if (collision.collider.tag != "sc") JumpTimer = jumpPower; 
-       
+            }
+        if (collision.collider.tag != "sc" && Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
 
+
+        if (collision.collider.tag != "sc" && !Input.GetKey(KeyCode.Space)) JumpTimer = 0;
         if (InWater)
         {
             IsGraund = false;
@@ -1256,7 +1257,7 @@ public class mover : MonoBehaviour
     {
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        IsGraund = Physics.Raycast(transform.position, -transform.up, 1.2f);
+        IsGraund = Physics.Raycast(transform.position, -transform.up, 1.2f,0);
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null)
         {

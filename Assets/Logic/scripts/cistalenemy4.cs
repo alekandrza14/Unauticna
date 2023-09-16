@@ -35,7 +35,7 @@ public class cistalenemy4 : MonoBehaviour
     }
     private void OnCollisionStay(Collision c)
     {
-        if (c.collider.tag == "item1" && hp <= 0)
+        if (c.collider.GetComponent<Logic_tag_DamageObject>() && hp <= 0)
         {
             dies();
             for (int i = 0; i < 250; i++)
@@ -74,7 +74,7 @@ public class cistalenemy4 : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             }
         }
-        if (c.collider.tag == "item1" && hp > 0 && tic3 > 0.1f)
+        if (c.collider.GetComponent<Logic_tag_DamageObject>() && hp > 0 && tic3 > 0.1f)
         {
 
             for (int i = 0; i < 25; i++)

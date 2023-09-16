@@ -136,7 +136,7 @@ public class cistalenemy3 : MonoBehaviour
     }
     private void OnCollisionStay(Collision c)
     {
-        if (c.collider.tag == "item1" && hp <= 0)
+        if (c.collider.GetComponent<Logic_tag_DamageObject>() && hp <= 0)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
@@ -271,7 +271,7 @@ public class cistalenemy3 : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
         }
-        if (c.collider.tag == "item1" && hp > 0 && tic3 > 0.1f)
+        if (c.collider.GetComponent<Logic_tag_DamageObject>() && hp > 0 && tic3 > 0.1f)
         {
 
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

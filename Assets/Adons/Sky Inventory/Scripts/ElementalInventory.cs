@@ -485,15 +485,14 @@ public class ElementalInventory : MonoBehaviour {
 	public bool Getitem(string name)
 	{
 		bool y = false;
-		for (int i = 0; i < Cells.Length; i++)
-		{
-			if (Cells[i].elementName == name)
+		
+			if (Cells[select].elementName == name && Cells[select].elementCount != 0)
 			{
 				
 				y = true;
 				
 			}
-		}
+		
 		return y;
 	}
 	public int priaritet(string name)
@@ -780,13 +779,8 @@ public class ElementalInventory : MonoBehaviour {
           
                 if (hit.collider != null)
                 {
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-
+                    Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                   
                 }
 
             lowitem("gold");
@@ -799,12 +793,11 @@ public class ElementalInventory : MonoBehaviour {
           
                 if (hit.collider != null)
                 {
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                    Instantiate(inv2("box_").gameObject, hit.point + Vector3.up * inv2("box_").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                   
-                }
+                Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
-            
+            }
+
+
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
         {

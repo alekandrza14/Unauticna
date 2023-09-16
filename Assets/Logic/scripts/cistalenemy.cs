@@ -58,7 +58,7 @@ public class cistalenemy : MonoBehaviour
                 VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
                 Destroy(gameObject);
             }
-            if (c.collider.tag == "item1")
+            if (c.collider.GetComponent<Logic_tag_DamageObject>())
             {
                 VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
                 Destroy(gameObject);
@@ -68,7 +68,7 @@ public class cistalenemy : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             }
-            if (c.collider.tag == "box1")
+            if (c.collider.GetComponent<Logic_tag_DamageObject>())
             {
                 VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
                 Destroy(gameObject);

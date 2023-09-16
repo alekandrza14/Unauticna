@@ -48,6 +48,11 @@ float _Metallic;
 float _Smoothness;
 float _Brigtness;
 
+float Pos1;
+float Pos2;
+float Pos3;
+float Pos4;
+
 float _Tolerance;
 float _RelativeTolerance;
 float _MaxDistance;
@@ -277,7 +282,7 @@ fixed4 fragBase(VertexOutput i, out float outDepth : SV_Depth) : SV_Target
     half3 specularTint;
     half oneMinusReflectivity;
     albedo = DiffuseAndSpecularFromMetallic(albedo, _Metallic, specularTint, oneMinusReflectivity);
-    albedo *= tex2D(_MainTexture,hit.pos.xy-float2(hit.pos.z,hit.pos.z));
+    albedo *= tex2D(_MainTexture,(hit.pos.xy-float2(Pos1,Pos2))-float2(hit.pos.z-Pos3,hit.pos.z-Pos3));
     UnityLight light = MainLight();
     light.color *= shadow;
 

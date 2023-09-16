@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshRenderer))]
 [ExecuteAlways]
 public class show4D : MonoBehaviour
 {
@@ -19,7 +22,7 @@ public class show4D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        mr = GetComponent<MeshRenderer>();
         r = FindFirstObjectByType<RaymarchCam>();
     }
 
@@ -53,17 +56,12 @@ public class show4D : MonoBehaviour
             }
            transform.localScale = scale * poectscale; 
             mr.enabled = true;
-            foreach (GameObject gu in g)
-            {
-                gu.SetActive(true);
-            }
+            
         }
         else
         {
-            mr.enabled = false; foreach (GameObject gu in g)
-            {
-                gu.SetActive(false);
-            }
+            mr.enabled = false;
+            transform.localScale = Vector3.one * .0001f;
         }
     }
 }

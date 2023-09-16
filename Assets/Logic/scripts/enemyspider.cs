@@ -16,7 +16,7 @@ public class enemyspider : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag == "box1")
+        if (collision.collider.GetComponent<Logic_tag_DamageObject>())
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);

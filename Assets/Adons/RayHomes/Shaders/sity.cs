@@ -28,6 +28,9 @@ public class sity : MonoBehaviour
         m.material.SetFloat("P1", -campos.x / transform.localScale.x);
         m.material.SetFloat("P2", -campos.y / transform.localScale.y);
         m.material.SetFloat("P3", -campos.z / transform.localScale.z);
+        m.material.SetFloat("Pos1", -campos.x / transform.localScale.x);
+        m.material.SetFloat("Pos2", -campos.y / transform.localScale.y);
+        m.material.SetFloat("Pos3", -campos.z / transform.localScale.z);
         if (issnow)
         {
 
@@ -43,6 +46,9 @@ public class sity : MonoBehaviour
         m.material.SetFloat("P1", -campos.x / transform.localScale.x);
         m.material.SetFloat("P2", -campos.y / transform.localScale.y);
         m.material.SetFloat("P3", -campos.z / transform.localScale.z);
+        m.material.SetFloat("Pos1", -campos.x / transform.localScale.x);
+        m.material.SetFloat("Pos2", -campos.y / transform.localScale.y);
+        m.material.SetFloat("Pos3", -campos.z / transform.localScale.z);
         if (issnow)
         {
 
