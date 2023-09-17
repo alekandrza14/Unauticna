@@ -108,6 +108,7 @@ public class mover : MonoBehaviour
     [SerializeField] GameObject[] PlayerModelTags;
     faceView faceViewi;
     bool Sprint;
+    float fireInk;
     string lepts = "";
     [HideInInspector] public string lif;
 
@@ -317,6 +318,25 @@ public class mover : MonoBehaviour
 
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.GetComponent<Logic_tag_DamageObject>())
+        {
+            hp -= 2;
+        }
+        if (collision.collider.GetComponent<fire>())
+        {
+            if (fireInk+10 < 100)
+            {
+                fireInk += 10;
+
+            }
+            else
+            {
+                fireInk = 100;
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "dead")
@@ -386,7 +406,19 @@ public class mover : MonoBehaviour
 
     private void Init()
     {
-       
+        timer5 = System.DateTime.Now.Second;
+        timer5 += System.DateTime.Now.Minute * 60;
+        timer5 += System.DateTime.Now.Hour * 60 * 60;
+        timer5 += System.DateTime.Now.DayOfYear * 60 * 60 * 24;
+        timer5 += System.DateTime.Now.Year * 60 * 60 * 24 * 365;
+        int LastSesion = VarSave.GetInt("LastSesion");
+        if (LastSesion == 0)
+        {
+            LastSesion = timer5;
+        }
+        decimal cashFlow = (timer5 - LastSesion) * VarSave.GetMoney("CashFlow");
+        VarSave.LoadMoney("tevro", cashFlow);
+        fireInk = VarSave.GetFloat("FireInk");
         hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
@@ -648,7 +680,10 @@ public class mover : MonoBehaviour
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
             {
                 gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
-                hp = gsave.hp;
+               if(gsave.hp >= 20) hp = gsave.hp; else
+                {
+                    hp = 20;
+                }
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
                 planet_position = gsave.Spos;
@@ -709,6 +744,7 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
             GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
             GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
+            GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
 
 
         }
@@ -1190,7 +1226,17 @@ public class mover : MonoBehaviour
 
         if (!Globalprefs.Pause) Creaive();
     }
+    int timer2 = 0; int timer5 = 0;
 
+    private void OnDestroy()
+    {
+        timer2 = System.DateTime.Now.Second;
+        timer2 += System.DateTime.Now.Minute * 60;
+        timer2 += System.DateTime.Now.Hour * 60 * 60;
+        timer2 += System.DateTime.Now.DayOfYear * 60 * 60 * 24;
+        timer2 += System.DateTime.Now.Year * 60 * 60 * 24 * 365;
+        VarSave.SetInt("LastSesion",timer2);
+    }
     private void EconomicUpdate()
     {
         timer += Time.deltaTime;
@@ -1213,13 +1259,13 @@ public class mover : MonoBehaviour
     void WPositionUpdate()
     {
         Get4DCam()._wPosition = W_position;
-        if (((int)W_position) >= 500 && ((int)W_position) <= 550)
+        if (((int)W_position) >= 500 && ((int)W_position) <= 550 && !FindFirstObjectByType<Logic_tag_kataBlock>())
         {
             Globalprefs.WMovepos = transform.position;
             portallNumer.Portal = "WMove+";
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-        if (((int)W_position) <= -500 && ((int)W_position) >= -550)
+        if (((int)W_position) <= -500 && ((int)W_position) >= -550 && !FindFirstObjectByType<Logic_tag_anaBlock>())
         {
 
             Globalprefs.WMovepos = transform.position;
@@ -1235,7 +1281,8 @@ public class mover : MonoBehaviour
         gravity1 = Mathf.Clamp(gravity1,-5,18);
         return gravity1;
     }
-
+    float timer3;
+    float timer4;
     private void PhysicsUpdate()
     {
         if (faceViewi != faceView.fourd)
@@ -1248,8 +1295,59 @@ public class mover : MonoBehaviour
             
            
                 gameObject.GetComponent<Rigidbody>().useGravity = false;
-            
+
         }
+        timer3 += Time.deltaTime;
+        timer4 += Time.deltaTime;
+        if (timer3 >= 3f && fireInk > 10 && fireInk < 25)
+        {
+            if (fire.Init()) Instantiate(fire.o, transform.position, Quaternion.identity);
+            fireInk -= 12;
+            timer3 = 0;
+        }
+        else if (timer3 >= .5f && fireInk > 25)
+        {
+            if (fire.Init()) Instantiate(fire.o, transform.position, Quaternion.identity);
+            fireInk -= 12;
+            timer3 = 0;
+        }
+        else if(timer3 >= 3f && fireInk > 0)
+        {
+
+            fireInk -= 1;
+
+            timer3 = 0;
+        }
+
+        float deltaX = Input.GetAxis("Horizontal") * Speed;
+        float deltaZ = Input.GetAxis("Vertical") * Speed;
+        if (timer4 >= 1 && deltaX+deltaZ != 0)
+        {
+
+            fireInk -= 10;
+            timer4 = 0;
+
+        }
+        if (fireInk <= 0)
+        {
+            fireInk = 0;
+        }
+
+        VarSave.SetFloat("FireInk", fireInk);
+
+    }
+    public IEnumerator SpawnFire(Vector3 pos,float conf)
+    {
+        yield return new WaitForSeconds(conf);
+        fire.Init();
+        GameObject g = Instantiate(fire.o, pos, Quaternion.identity);
+        g.name = "Fire(Clone)";
+    }
+   public void Spawninitfire(Vector3 pos)
+    {
+
+        StartCoroutine(SpawnFire(pos,UnityEngine.Random.Range(0f,.5f)));
+      
     }
     float ftho;
     bool isKinematic;

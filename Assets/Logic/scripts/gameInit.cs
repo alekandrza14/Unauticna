@@ -36,6 +36,7 @@ public class gameInit : MonoBehaviour
     
     private void OnApplicationQuit()
     {
+
         if (VarSave.ExistenceVar("res3", SaveType.global) && SceneManager.GetActiveScene().buildIndex != 129) Screen.SetResolution(VarSave.GetInt("res3", SaveType.global), VarSave.GetInt("res4", SaveType.global), !VarSave.GetBool("windowed", SaveType.global));
     }
     private void OnDestroy()

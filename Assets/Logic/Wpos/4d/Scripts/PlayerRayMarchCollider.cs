@@ -86,6 +86,10 @@ namespace Unity.Mathematics
 
             return Camera.main.farClipPlane;
         }
+        private void OnDisable()
+        {
+            enabled = !enabled;
+        }
         public float GetShapeDistanceRenderer(Shape4D shape, float4 p4D)
         {
             p4D -= (float4)shape.Position();

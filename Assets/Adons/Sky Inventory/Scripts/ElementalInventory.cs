@@ -413,9 +413,9 @@ public class ElementalInventory : MonoBehaviour {
 			}
 		}
 	}
-	public void lowitem(string name)
+	public void lowitem(string name,string covert)
 	{
-		for (int i = 0; i < Cells.Length; i++)
+		 for (int i = 0; i < Cells.Length; i++)
 		{
 			if (Cells[i].elementName == name)
 			{
@@ -460,8 +460,16 @@ public class ElementalInventory : MonoBehaviour {
 			}
 			if (Cells[i].elementName == name + "xxxxx")
 			{
-				Cells[i].elementName = "";
-				Cells[i].elementCount = 0;
+                if (covert == "")
+                {
+                    Cells[i].elementName = "";
+                    Cells[i].elementCount = 0;
+                }
+                else
+                {
+                    Cells[i].elementName = covert;
+                    Cells[i].elementCount = 1;
+                }
 				Cells[i].UpdateCellInterface();
 				
 				return;
@@ -524,6 +532,262 @@ public class ElementalInventory : MonoBehaviour {
 		}
 		return i;
 	}
+	void itemUse()
+	{
+        if (GlobalInputMenager.KeyCode_eat == 1 && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+
+            }
+
+            removeitem("box1");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject.layer == 6)
+                {
+                    Destroy(hit.collider.gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+
+
+                    if (hit.collider.gameObject.tag == "el" && i == 0)
+                    {
+                        Instantiate(elementrandom().gameObject, hit.point + Vector3.up * elementrandom().gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                        Destroy(hit.collider.gameObject);
+                        return;
+                    }
+
+                }
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
+                g.GetComponent<script>().sc = hit.collider.gameObject;
+                setItem("", 0, Color.red, select);
+                Cells[select].UpdateCellInterface();
+
+                Global.PauseManager.Pause();
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0)
+            {
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject.layer != 6)
+                    {
+                        Instantiate(inv2("пена").gameObject, hit.point + Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                    }
+                }
+
+
+
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        if (hit.point.x > hit.collider.transform.position.x + 0.4f)
+                        {
+                            Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
+                        }
+
+                    }
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        if (hit.point.x < hit.collider.transform.position.x - 0.4f)
+                        {
+                            Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.right, Quaternion.identity);
+                        }
+
+                    }
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        if (hit.point.y > hit.collider.transform.position.y + 0.4f)
+                        {
+                            Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.up, Quaternion.identity);
+                        }
+
+                    }
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        if (hit.point.y < hit.collider.transform.position.y - 0.4f)
+                        {
+                            Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.up, Quaternion.identity);
+                        }
+
+                    }
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        if (hit.point.z > hit.collider.transform.position.z + 0.4f)
+                        {
+                            Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.forward, Quaternion.identity);
+                        }
+
+                    }
+                    if (hit.collider.gameObject.layer == 6)
+                    {
+                        if (hit.point.z < hit.collider.transform.position.z - 0.4f)
+                        {
+                            Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.forward, Quaternion.identity);
+                        }
+
+                    }
+                }
+
+            }
+            else if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length > 0)
+            {
+
+                if (hit.collider != null)
+                {
+                    Vector3 v3;
+                    v3 = hit.point - GameManager.isplayer().position;
+                    v3 /= 20;
+                    HyperbolicCamera c = HyperbolicCamera.Main();
+
+
+                    Transform t = Instantiate(inv2("пена").gameObject, Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
+                    t.Translate(0, v3.y, 0);
+                    t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+                    t.gameObject.GetComponent<HyperbolicPoint>().v1 = c.transform.position.y;
+                    t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
+                    t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
+                    t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2("пена").gameObject.transform.localScale;
+                    //Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
+
+                }
+
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+            }
+
+            lowitem("gold", "");
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && Getitem("SunFireGen") && Cells[select].elementName == "SunFireGen" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(inv2("Fire").gameObject, hit.point + Vector3.up * inv2("Fire").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+            }
+
+            lowitem("gold","");
+        }
+        //infinity_gun
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("infinity_gun") && Cells[select].elementName == "infinity_gun" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+            }
+
+
+        }
+        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                for (int i = 0; i < 200; i++)
+                {
+
+
+                    Instantiate(inv2("bomb").gameObject, hit.point + Vector3.up * inv2("bomb").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                }
+
+            }
+
+
+            ionenergy.energy = 1;
+            lowioncube("ionic_cube");
+
+        }
+        //ionic_cube
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("file_рыбы") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            lowitem("file_рыбы","");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("belock") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                //  Instantiate(Resources.Load("voices/belock"));
+            }
+
+            lowitem("belock","seed");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+    }
 	private void Update()
     {
 
@@ -608,246 +872,7 @@ public class ElementalInventory : MonoBehaviour {
 
             }
         }
-		if (GlobalInputMenager.KeyCode_eat == 1 && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
-		{
-
-			RaycastHit hit = MainRay.MainHit;
-			
-				if (hit.collider != null)
-				{
-					Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
-					Instantiate(inv2("belock").gameObject, hit.point + Vector3.up * inv2("belock").gameObject.transform.localScale.y / 2, Quaternion.identity);
-
-
-				}
-
-			removeitem("box1");
-			GlobalInputMenager.KeyCode_eat = 0;
-		}
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
-        {
-            RaycastHit hit = MainRay.MainHit;
-            
-                if (hit.collider != null)
-                {
-                    if (hit.collider.gameObject.layer == 6)
-                    {
-                        Destroy(hit.collider.gameObject);
-                    }
-                }
-           
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
-        {
-            RaycastHit hit = MainRay.MainHit;
-          
-                if (hit.collider != null)
-                {
-					for (int i =0;i<2; i++)
-					{
-
-
-						if (hit.collider.gameObject.tag == "el" && i==0)
-						{
-							Instantiate(elementrandom().gameObject, hit.point + Vector3.up * elementrandom().gameObject.transform.localScale.y / 2, Quaternion.identity);
-
-							Destroy(hit.collider.gameObject);
-							return;
-						}
-					    
-					}
-					}
-			
-        }
-       
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
-		{
-			RaycastHit hit = MainRay.MainHit;
-			
-				if (hit.collider != null)
-				{
-					GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
-					g.GetComponent<script>().sc = hit.collider.gameObject;
-					setItem("", 0, Color.red, select);
-					Cells[select].UpdateCellInterface();
-
-                    Global.PauseManager.Pause();
-                }
-			
-		}
-		if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
-		{
-
-			RaycastHit hit = MainRay.MainHit;
-			if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0)
-			{
-				
-					if (hit.collider != null)
-					{
-						if (hit.collider.gameObject.layer != 6)
-						{
-							Instantiate(inv2("пена").gameObject, hit.point + Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity);
-
-						}
-					}
-
-				
-			
-				
-					if (hit.collider != null)
-					{
-						if (hit.collider.gameObject.layer == 6)
-						{
-							if (hit.point.x > hit.collider.transform.position.x + 0.4f)
-							{
-								Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
-							}
-
-						}
-						if (hit.collider.gameObject.layer == 6)
-						{
-							if (hit.point.x < hit.collider.transform.position.x - 0.4f)
-							{
-								Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.right, Quaternion.identity);
-							}
-
-						}
-						if (hit.collider.gameObject.layer == 6)
-						{
-							if (hit.point.y > hit.collider.transform.position.y + 0.4f)
-							{
-								Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.up, Quaternion.identity);
-							}
-
-						}
-						if (hit.collider.gameObject.layer == 6)
-						{
-							if (hit.point.y < hit.collider.transform.position.y - 0.4f)
-							{
-								Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.up, Quaternion.identity);
-							}
-
-						}
-						if (hit.collider.gameObject.layer == 6)
-						{
-							if (hit.point.z > hit.collider.transform.position.z + 0.4f)
-							{
-								Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.forward, Quaternion.identity);
-							}
-
-						}
-						if (hit.collider.gameObject.layer == 6)
-						{
-							if (hit.point.z < hit.collider.transform.position.z - 0.4f)
-							{
-								Instantiate(inv2("пена").gameObject, hit.collider.transform.position - Vector3.forward, Quaternion.identity);
-							}
-
-						}
-					}
-
-			}
-			else if(FindObjectsByType<HyperbolicCamera>(sortmode.main).Length > 0)
-			{
-				
-					if (hit.collider != null)
-					{
-						Vector3 v3;
-						v3 = hit.point - GameManager.isplayer().position;
-						v3 /= 20;
-						HyperbolicCamera c = HyperbolicCamera.Main();
-
-
-						Transform t = Instantiate(inv2("пена").gameObject, Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-						t.Translate(0, v3.y, 0);
-						t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
-						t.gameObject.GetComponent<HyperbolicPoint>().v1 = c.transform.position.y;
-						t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
-						t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
-						t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2("пена").gameObject.transform.localScale;
-						//Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
-						
-					}
-
-			}
-		}
-	
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[select].elementName == "pistol" && boxItem.getInventory("i3").inventory == this)
-        {
-
-            RaycastHit hit = MainRay.MainHit;
-          
-                if (hit.collider != null)
-                {
-                    Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
-                   
-                }
-
-            lowitem("gold");
-        }
-        //infinity_gun
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("infinity_gun")  && Cells[select].elementName == "infinity_gun" && boxItem.getInventory("i3").inventory == this)
-        {
-
-            RaycastHit hit = MainRay.MainHit;
-          
-                if (hit.collider != null)
-                {
-                Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
-
-            }
-
-
-        }
-        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
-        {
-
-            RaycastHit hit = MainRay.MainHit;
-           
-                if (hit.collider != null)
-                {
-                    for (int i = 0; i < 200; i++)
-                    {
-
-
-                        Instantiate(inv2("bomb").gameObject, hit.point + Vector3.up * inv2("bomb").gameObject.transform.localScale.y / 2, Quaternion.identity);
-
-                    }
-
-                }
-
-           
-            ionenergy.energy = 1;
-            lowioncube("ionic_cube");
-
-        }
-        //ionic_cube
-        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("file_рыбы") != 0 && boxItem.getInventory("i3").inventory == this)
-        {
-
-
-            GameManager.saveandhill();
-
-
-
-            lowitem("file_рыбы");
-			GlobalInputMenager.KeyCode_eat = 0;
-		}
-        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("belock") != 0 && boxItem.getInventory("i3").inventory == this)
-        {
-
-
-            GameManager.saveandhill();
-
-            int i = Random.Range(0, 3);
-            if (i == 0)
-            {
-              //  Instantiate(Resources.Load("voices/belock"));
-            }
-
-            lowitem("belock");
-			GlobalInputMenager.KeyCode_eat = 0;
-		}
+		itemUse();
 
     
         if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)

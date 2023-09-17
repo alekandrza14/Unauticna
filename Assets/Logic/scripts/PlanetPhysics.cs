@@ -37,4 +37,8 @@ public class PlanetPhysics : MonoBehaviour
             Quaternion targetrotation = Quaternion.FromToRotation(bodyup,gravityUp)*body.rotation;
         body.rotation = Quaternion.Slerp(body.rotation, targetrotation,50 * Time.deltaTime);
     }
+    private void OnDisable()
+    {
+        enabled = !enabled;
+    }
 }

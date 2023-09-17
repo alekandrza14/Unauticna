@@ -55,7 +55,7 @@ public class achievement : MonoBehaviour
         if (VarSave.GetBool("умерли от ран"))
         {
             hello.windowmesenge.Dialog_die();
-            GetComponent<Text>().text = "умерли от ран мучительно";
+            GetComponent<Text>().text = "умерли от переибытка урона";
             VarSave.SetBool("умерли от ран", false);
         }
         if (VarSave.GetBool("ЧЕРВЯШ победил"))
