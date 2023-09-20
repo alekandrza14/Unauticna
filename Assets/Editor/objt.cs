@@ -35,16 +35,7 @@ public class ScriptBatch2 : EditorWindow
             g = FindObjectsOfType<GameObject>();
             for (int i = 0; i < g.Length; i++)
             {
-                if (!g[i].GetComponent<ind>())
-                {
-
-
-                    g[i].AddComponent<ind>().getind = i.ToString();
-                }
-                else
-                {
-                    g[i].GetComponent<ind>().getind = i.ToString();
-                }
+                
             }
         }
 

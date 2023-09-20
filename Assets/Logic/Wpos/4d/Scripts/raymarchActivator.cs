@@ -6,6 +6,20 @@ using UnityEngine;
 public class raymarchActivator : MonoBehaviour
 {
     public RaymarchCam rc;
+    Light[] AllLinght;
+
+    private void Start()
+    {
+        AllLinght = FindObjectsByType<Light>(sortmode.main);
+        foreach (Light light in AllLinght)
+        {
+            if (light.type == LightType.Directional)
+            {
+                rc._directionalLight = light.transform;
+            }
+        }
+    }
+
     void Update()
     {
         

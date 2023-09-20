@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
+using UnityEngine.ProBuilder.MeshOperations;
 
 public class load1
 {
@@ -406,15 +407,36 @@ public class mover : MonoBehaviour
 
     private void Init()
     {
-        timer5 = System.DateTime.Now.Second;
-        timer5 += System.DateTime.Now.Minute * 60;
-        timer5 += System.DateTime.Now.Hour * 60 * 60;
-        timer5 += System.DateTime.Now.DayOfYear * 60 * 60 * 24;
-        timer5 += System.DateTime.Now.Year * 60 * 60 * 24 * 365;
-        int LastSesion = VarSave.GetInt("LastSesion");
+        timer5 = (decimal)(System.DateTime.Now.Second);
+        timer5 += (decimal)(System.DateTime.Now.Minute) * 60;
+        timer5 += (decimal)(System.DateTime.Now.Hour) * 60 * 60;
+        timer5 += (decimal)(System.DateTime.Now.DayOfYear) * 60 * 60 * 24;
+        timer5 += (decimal)(System.DateTime.Now.Year) * 60 * 60 * 24 * 365;
+        timer7 = (decimal)(System.DateTime.Now.Hour);
+        timer7 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
+        timer7 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
+        decimal LastSesion = VarSave.GetMoney("LastSesion");
+        decimal LastSesionHours = VarSave.GetMoney("LastSesionHours");
         if (LastSesion == 0)
         {
             LastSesion = timer5;
+        }
+        if (LastSesionHours == 0)
+        {
+            LastSesionHours = timer7;
+        }
+        if (timer7 != LastSesionHours)
+        {
+           
+                VarSave.LoadMoney("tevro", UnityEngine.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
+             
+
+
+                    VarSave.SetMoney("Stocks", 0);
+            
+            
+            
+            
         }
         decimal cashFlow = (timer5 - LastSesion) * VarSave.GetMoney("CashFlow");
         VarSave.LoadMoney("tevro", cashFlow);
@@ -745,6 +767,7 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
             GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
+            GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
 
 
         }
@@ -759,6 +782,8 @@ public class mover : MonoBehaviour
     //Приметивный интерфейс
     void Start()
     {
+
+       // InvokeRepeating("GameUpdate", 1, 0.07f);
         gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
@@ -1066,7 +1091,7 @@ public class mover : MonoBehaviour
         if (ry != null) 
         {
             if(!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
-                Globalprefs.camera.GetComponent<Camera>().transform.forward))
+                Globalprefs.camera.GetComponent<Camera>().transform.forward)||Globalprefs.Scrensoting)
             {
                 postrender.main().Disable();
             }
@@ -1226,16 +1251,21 @@ public class mover : MonoBehaviour
 
         if (!Globalprefs.Pause) Creaive();
     }
-    int timer2 = 0; int timer5 = 0;
+    decimal timer2 = 0; decimal timer5 = 0;
+    decimal timer6 = 0; decimal timer7 = 0;
 
     private void OnDestroy()
     {
-        timer2 = System.DateTime.Now.Second;
-        timer2 += System.DateTime.Now.Minute * 60;
-        timer2 += System.DateTime.Now.Hour * 60 * 60;
-        timer2 += System.DateTime.Now.DayOfYear * 60 * 60 * 24;
-        timer2 += System.DateTime.Now.Year * 60 * 60 * 24 * 365;
-        VarSave.SetInt("LastSesion",timer2);
+        timer2 =  (decimal)(System.DateTime.Now.Second);
+        timer2 += (decimal)(System.DateTime.Now.Minute) * 60;
+        timer2 += (decimal)(System.DateTime.Now.Hour) * 60 * 60;
+        timer2 += (decimal)(System.DateTime.Now.DayOfYear) * 60 * 60 * 24;
+        timer2 += (decimal)(System.DateTime.Now.Year) * 60 * 60 * 24 * 365;
+        VarSave.SetMoney("LastSesion", timer2); 
+        timer6 = (decimal)(System.DateTime.Now.Hour);
+        timer6 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
+        timer6 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
+        VarSave.SetMoney("LastSesionHours", timer6);
     }
     private void EconomicUpdate()
     {
@@ -1375,7 +1405,8 @@ public class mover : MonoBehaviour
         
         if (IsGraund)
         {
-            JumpTimer = jumpPower;
+            if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
+            if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
             rigidbody3d.drag = 5;
             jumpforse = Mathf.Clamp(jumpforse,0,1000);
         }

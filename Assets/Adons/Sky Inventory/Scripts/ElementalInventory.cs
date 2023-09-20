@@ -872,7 +872,7 @@ public class ElementalInventory : MonoBehaviour {
 
             }
         }
-		itemUse();
+		if(Input.GetKey(KeyCode.Mouse0)) itemUse();
 
     
         if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)

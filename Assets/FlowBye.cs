@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class FlowBye : MonoBehaviour
 {
-  [SerializeField]  int Contribution;
+    [SerializeField] int Contribution;
+    [SerializeField] float Procent = 1;
     [SerializeField] int loan;
     [SerializeField] int flow;
     [SerializeField] string realestatename;
@@ -35,7 +36,7 @@ public class FlowBye : MonoBehaviour
                     if (hit.collider.gameObject == gameObject)
                     {
                         Globalprefs.flowteuvro += flow;
-                        Globalprefs.flowteuvro -= loan;
+                        Globalprefs.flowteuvro -= (decimal)(loan * Procent);
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                         VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
                         VarSave.SetInt("re/" + realestatename, 0);
@@ -53,8 +54,8 @@ public class FlowBye : MonoBehaviour
                     if (hit.collider.gameObject == gameObject)
                     {
                         Globalprefs.flowteuvro += flow;
-                        Globalprefs.flowteuvro -= loan;
-                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                        Globalprefs.flowteuvro -= (decimal)(loan * Procent);
+                    VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                         VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
                     }
                 }

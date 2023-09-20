@@ -64,10 +64,12 @@ public class MultyObject : MonoBehaviour
             shapes3Dcol[i].name = i.ToString();
 
         }
+
+        InvokeRepeating("ProjectionUpdate", 1, 0.1f+Random.Range(0.05f,0.1f));
     }
   
     // Update is called once per frame
-    public void Update()
+    public void ProjectionUpdate()
     {
         float w5 =0;
         if (FindFirstObjectByType<MultyTransform>()) { Vector3 r = FindFirstObjectByType<MultyTransform>().W_Rotation;

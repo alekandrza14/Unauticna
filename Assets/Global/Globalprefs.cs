@@ -13,6 +13,7 @@ public static class Globalprefs
     public static Vector3 pos;
     public static Vector3 WMovepos;
     public static bool RaymarchHitError;
+    public static bool Scrensoting;
     public static decimal flowteuvro;
     public static decimal knowlages;
     public static decimal technologies;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Shape4D : MonoBehaviour
 {
-    public enum ShapeType { HyperSphere, HyperCube, DuoCylinder, plane, Cone,FiveCell, SixteenCell, Mandelbrot ,ObjectN1, Pipis, PipisN2, AbstractPlane,infinityCilinder,none };
+    public enum ShapeType { HyperSphere, HyperCube, DuoCylinder, plane, Cone,FiveCell, SixteenCell, Mandelbrot ,ObjectN1, Pipis, PipisN2, AbstractPlane,infinityCilinder, none, tarelkaloop };
     public enum Operation { Union, Blend, Substract, Intersect };
     
     [Header("Shape Settings")]
@@ -27,6 +27,7 @@ public class Shape4D : MonoBehaviour
 
     
     public int numChildren;
+    public int numTexture;
     Vector4 parentScale = Vector4.one;
 
     // returns the 4D position of the object

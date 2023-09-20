@@ -11,9 +11,9 @@ public class MultyTransform : MonoBehaviour
       if( Application.isPlaying)  W_Position = mover.main().W_position;
         MultyObject[] g = FindObjectsByType<MultyObject>(FindObjectsSortMode.InstanceID);
         if (Application.isPlaying) W_Rotation = mover.Get4DCam()._wRotation;
-        foreach (MultyObject obj in g)
+        if (!Application.isPlaying) foreach (MultyObject obj in g)
         {
-            obj.Update();
+            obj.ProjectionUpdate();
         }
     }
     private void OnGUI()

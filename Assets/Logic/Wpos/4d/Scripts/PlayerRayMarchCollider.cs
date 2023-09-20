@@ -81,6 +81,10 @@ namespace Unity.Mathematics
                     return Df.sdAbstractPlane(p4D);
                 case Shape4D.ShapeType.infinityCilinder:
                     return Df.sdCylinder2(p4D.xyz, ((float4)shape.Scale()).xyz);
+                case Shape4D.ShapeType.none:
+                    return Df.sdNull(p4D);
+                case Shape4D.ShapeType.tarelkaloop:
+                    return Df.GetTarelkaLoop(p4D, shape.Scale());
 
             }
 
@@ -136,6 +140,8 @@ namespace Unity.Mathematics
                     return Df.sdCylinder2(p4D.xyz, ((float4)shape.Scale()).xyz);
                 case Shape4D.ShapeType.none:
                     return Df.sdNull(p4D);
+                case Shape4D.ShapeType.tarelkaloop:
+                    return Df.GetTarelkaLoop(p4D, shape.Scale());
 
             }
 

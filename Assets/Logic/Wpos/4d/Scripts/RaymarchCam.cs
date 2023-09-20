@@ -52,6 +52,20 @@ public class RaymarchCam : SceneViewFilter
     public Transform _player;
     public float _precision;
     public Texture2D _globalGeometryTexture;
+    public Texture2D _globalGeometryTexture1;
+    public Texture2D _globalGeometryTexture2;
+    public Texture2D _globalGeometryTexture3;
+    public Texture2D _globalGeometryTexture4;
+    public Texture2D _globalGeometryTexture5;
+    public Texture2D _globalGeometryTexture6;
+    public Texture2D _globalGeometryTexture7;
+    public Texture2D _globalGeometryTexture8;
+    public Texture2D _globalGeometryTexture9;
+    public Texture2D _globalGeometryTexture10;
+    public Texture2D _globalGeometryTexture11;
+    public Texture2D _globalGeometryTexture12;
+    public Texture2D _globalGeometryTexture13;
+    public Texture2D _globalGeometryTexture14;
     public float _max_iteration;
     [Header ("Global Transform Settings")]
     public Vector3 _wRotation;
@@ -160,6 +174,20 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetMatrix("_CamToWorld", _camera.cameraToWorldMatrix);
         _raymarchMaterial.SetFloat("_maxDistance", _camera.farClipPlane);
         _raymarchMaterial.SetTexture("_GeometryTex", _globalGeometryTexture);
+        _raymarchMaterial.SetTexture("_GeometryTex1", _globalGeometryTexture1);
+        _raymarchMaterial.SetTexture("_GeometryTex2", _globalGeometryTexture2);
+        _raymarchMaterial.SetTexture("_GeometryTex3", _globalGeometryTexture3);
+        _raymarchMaterial.SetTexture("_GeometryTex4", _globalGeometryTexture4);
+        _raymarchMaterial.SetTexture("_GeometryTex5", _globalGeometryTexture5);
+        _raymarchMaterial.SetTexture("_GeometryTex6", _globalGeometryTexture6);
+        _raymarchMaterial.SetTexture("_GeometryTex7", _globalGeometryTexture7);
+        _raymarchMaterial.SetTexture("_GeometryTex8", _globalGeometryTexture8);
+        _raymarchMaterial.SetTexture("_GeometryTex9", _globalGeometryTexture9);
+        _raymarchMaterial.SetTexture("_GeometryTex10", _globalGeometryTexture10);
+        _raymarchMaterial.SetTexture("_GeometryTex11", _globalGeometryTexture11);
+        _raymarchMaterial.SetTexture("_GeometryTex12", _globalGeometryTexture12);
+        _raymarchMaterial.SetTexture("_GeometryTex13", _globalGeometryTexture13);
+        _raymarchMaterial.SetTexture("_GeometryTex14", _globalGeometryTexture14);
 
 
         _raymarchMaterial.SetFloat("_precision", _precision);
@@ -294,7 +322,8 @@ public class RaymarchCam : SceneViewFilter
                 shapeType = (int)s.shapeType,
                 operation = (int)s.operation,
                 blendStrength = s.smoothRadius * 3,
-                numChildren = s.numChildren
+                numChildren = s.numChildren,
+                numTexture = s.numTexture
             };
         }
 
@@ -321,11 +350,12 @@ public class RaymarchCam : SceneViewFilter
         public int operation;
         public float blendStrength;
         public int numChildren;
+        public int numTexture;
 
         public static int GetSize()
         {
             //Debug.Log(sizeof(float) * 10 + sizeof(int) * 3);
-            return 84;//sizeof(float) * 10 + sizeof(int) * 3;
+            return 88;//sizeof(float) * 10 + sizeof(int) * 3;
         }
     }
 

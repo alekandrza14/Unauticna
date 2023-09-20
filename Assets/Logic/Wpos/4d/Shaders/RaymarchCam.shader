@@ -5,7 +5,21 @@ Shader "Raymarch/RaymarchCam"
     Properties
     {
         _MainTex ("RendrerTexture", 2D) = "white" {}
-        _GeometryTex ("Texture", 2D) = "white" {}
+        _GeometryTex("Texture", 2D) = "white" {}
+        _GeometryTex1("Texture1", 2D) = "white" {}
+        _GeometryTex2("Texture2", 2D) = "white" {}
+        _GeometryTex3("Texture3", 2D) = "white" {}
+        _GeometryTex4("Texture4", 2D) = "white" {}
+        _GeometryTex5("Texture5", 2D) = "white" {}
+        _GeometryTex6("Texture6", 2D) = "white" {}
+        _GeometryTex7("Texture7", 2D) = "white" {}
+        _GeometryTex8("Texture8", 2D) = "white" {}
+        _GeometryTex9("Texture9", 2D) = "white" {}
+        _GeometryTex10("Texture10", 2D) = "white" {}
+        _GeometryTex11("Texture11", 2D) = "white" {}
+        _GeometryTex12("Texture12", 2D) = "white" {}
+        _GeometryTex13("Texture13", 2D) = "white" {}
+        _GeometryTex14("Texture14", 2D) = "white" {}
         _distance("distance", Range(0,1000)) = 1 
     }
     SubShader
@@ -30,6 +44,19 @@ Shader "Raymarch/RaymarchCam"
             
             sampler2D _MainTex;
             sampler2D _GeometryTex;
+            sampler2D _GeometryTex1;
+            sampler2D _GeometryTex2;
+            sampler2D _GeometryTex3;
+            sampler2D _GeometryTex4;
+            sampler2D _GeometryTex5;
+            sampler2D _GeometryTex6;
+            sampler2D _GeometryTex7;
+            sampler2D _GeometryTex8;
+            sampler2D _GeometryTex9;
+            sampler2D _GeometryTex10;
+            sampler2D _GeometryTex11;
+            sampler2D _GeometryTex12;
+            sampler2D _GeometryTex13;
             uniform sampler2D _CameraDepthTexture;
             uniform float4x4 _CamFrustrum, _CamToWorld;
             uniform float3 _wRotation;
@@ -66,6 +93,7 @@ Shader "Raymarch/RaymarchCam"
                 int operation;
                 float blendStrength;
                 int numChildren;
+                int numTexture;
             }; 
             
            
@@ -156,6 +184,8 @@ Shader "Raymarch/RaymarchCam"
                     return sdCylinder2((float3)p4D,(float3)shape.scale);
                 }else if (shape.shapeType == 13) {
                     return sdVoid();
+                }else if (shape.shapeType == 14) {
+                    return GetTarelkaLoop(p4D, shape.scale);
                 }
 
                 return _maxDistance;
@@ -165,8 +195,8 @@ Shader "Raymarch/RaymarchCam"
 
             float4 distanceField(float3 p)
             {
-                float4 p4D = float4 (p,w);
-                if(length(_wRotation) != 0){
+                float4 p4D = float4 (p, w);
+                if (length(_wRotation) != 0) {
                     p4D.xw = mul(p4D.xw, float2x2(cos(_wRotation.x), -sin(_wRotation.x), sin(_wRotation.x), cos(_wRotation.x)));
                     p4D.yw = mul(p4D.yw, float2x2(cos(_wRotation.y), -sin(_wRotation.y), sin(_wRotation.y), cos(_wRotation.y)));
                     p4D.zw = mul(p4D.zw, float2x2(cos(_wRotation.z), -sin(_wRotation.z), sin(_wRotation.z), cos(_wRotation.z)));
@@ -176,30 +206,69 @@ Shader "Raymarch/RaymarchCam"
                 float globalDst = _maxDistance;
                 float3 globalColour = 1;
 
-                for (int i = 0; i < numShapes; i ++) {
+                for (int i = 0; i < numShapes; i++) {
                     Shape shape = shapes[i];
                     int numChildren = shape.numChildren;
 
-                    float localDst = GetShapeDistance(shape,p4D);
+                    float localDst = GetShapeDistance(shape, p4D);
                     float3 localColour = shape.colour;
 
 
-                    for (int j = 0; j < numChildren; j ++) {
-                        Shape childShape = shapes[i+j+1];
-                        float childDst = GetShapeDistance(childShape,p4D);
+                    for (int j = 0; j < numChildren; j++) {
+                        Shape childShape = shapes[i + j + 1];
+                        float childDst = GetShapeDistance(childShape, p4D);
 
                         float4 combined = Combine(localDst, childDst, localColour, childShape.colour, childShape.operation, childShape.blendStrength);
                         localColour = combined.xyz;
                         localDst = combined.w;
                     }
-                    i+=numChildren; // skip over children in outer loop
+                    i += numChildren; // skip over children in outer loop
 
                     float4 globalCombined = Combine(globalDst, localDst, globalColour, localColour, shape.operation, shape.blendStrength);
                     globalColour = globalCombined.xyz;
                     globalDst = globalCombined.w;
                 }
 
-                return float4(globalDst,globalColour);
+                return float4(globalDst, globalColour);
+
+            }
+            float2 distanceField2(float3 p)
+            {
+                float4 p4D = float4 (p, w);
+                if (length(_wRotation) != 0) {
+                    p4D.xw = mul(p4D.xw, float2x2(cos(_wRotation.x), -sin(_wRotation.x), sin(_wRotation.x), cos(_wRotation.x)));
+                    p4D.yw = mul(p4D.yw, float2x2(cos(_wRotation.y), -sin(_wRotation.y), sin(_wRotation.y), cos(_wRotation.y)));
+                    p4D.zw = mul(p4D.zw, float2x2(cos(_wRotation.z), -sin(_wRotation.z), sin(_wRotation.z), cos(_wRotation.z)));
+                }
+
+
+                float globalDst = _maxDistance;
+                float3 globalColour = 1;
+
+                for (int i = 0; i < numShapes; i++) {
+                    Shape shape = shapes[i];
+                    int numChildren = shape.numChildren;
+
+                    float localDst = GetShapeDistance(shape, p4D);
+                    int localColour = shape.numTexture;
+
+
+                    for (int j = 0; j < numChildren; j++) {
+                        Shape childShape = shapes[i + j + 1];
+                        float childDst = GetShapeDistance(childShape, p4D);
+
+                        float4 combined = Combine(localDst, childDst, localColour, childShape.colour, childShape.operation, childShape.blendStrength);
+                        localColour = shape.numTexture;
+                        localDst = combined.w;
+                    }
+                    i += numChildren; // skip over children in outer loop
+
+                    float4 globalCombined = Combine(globalDst, localDst, globalColour, localColour, shape.operation, shape.blendStrength);
+                    globalColour = globalCombined.xyz;
+                    globalDst = globalCombined.w;
+                }
+
+                return float4(globalDst, globalColour);
 
             }
 
@@ -253,13 +322,14 @@ Shader "Raymarch/RaymarchCam"
             
               float3  poss;
               // the actual raymarcher
-            fixed3 Pos(float3 ro, float3 rd, float depth)
+            float4 Pos(float3 ro, float3 rd, float depth)
             {
 
 
                 float t = 0; //distance traveled
 
               float3  pos;
+              int textureIndex;
                 for (int i = 0; i < _max_iteration/2; i++)
                 {
                     //sends out ray from the camera
@@ -276,14 +346,15 @@ Shader "Raymarch/RaymarchCam"
 
                     }
                     
-                    float4 d = distanceField(p); 
+                    float2 d = distanceField2(p); 
                     if ((d.x) < _precision) //hit
                     {
                     pos =p;
+                    textureIndex = d.y;
                     }
                     t += d.x;
                 }
-                return pos;
+                return float4( pos, textureIndex);
             }
             // the actual raymarcher
             fixed4 raymarching(float3 ro, float3 rd, float depth, float3 col)
@@ -343,14 +414,14 @@ Shader "Raymarch/RaymarchCam"
                         }
                         else  light = 1;
 
-                       // if(_useShadow == 1){
-                      //       shadow = (hardShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
+                     if(_useShadow == 1){
+                          shadow = (hardShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
 
-                    //    }
-                     //   else if(_useShadow == 2){
-                    //        shadow = (softShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance, _shadowSoftness) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
-                      //  }
-                     shadow = 1;
+                     }
+                     else if(_useShadow == 2){
+                         shadow = (softShadowCalc(p, -_lightDir, 0.1, _maxShadowDistance, _shadowSoftness) * (1 - _shadowIntensity) + _shadowIntensity); // soft shadows
+                     }
+                    // shadow = 1;
 
                         float ao = (1 - 2 * i/float(_max_iteration)) * (1 - _aoIntensity) + _aoIntensity; // ambient occlusion
 
@@ -385,19 +456,103 @@ Shader "Raymarch/RaymarchCam"
                float3 rayDirection = normalize(i.ray.xyz);
                float3 rayOrigin = _WorldSpaceCameraPos;
                fixed4 result;
-              float3 pos = Pos(rayOrigin, rayDirection, depth);
+              float4 pos = Pos(rayOrigin, rayDirection, depth);
                 result = raymarching(rayOrigin, rayDirection, depth,col);
                 fixed4 subresult;
-               if(pos.x+pos.y+pos.z != 0){  
-                  
-                       
-              subresult = tex2D(_GeometryTex, float2(pos.x-pos.z,pos.z-pos.y)) * result.xyzw;
+                if (pos.x + pos.y + pos.z != 0)
+                {
+
+
+                    if (pos.w == 0)
+                    {
+                        subresult = tex2D(_GeometryTex, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }
+                    if (pos.w == 1)
+                    {
+                        subresult = tex2D(_GeometryTex1, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                  
+                    if (pos.w == 2)
+                    {
+                        subresult = tex2D(_GeometryTex2, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                 
+                    if (pos.w == 3)
+                    {
+                        subresult = tex2D(_GeometryTex3, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                 
+                    if (pos.w == 4)
+                    {
+                        subresult = tex2D(_GeometryTex4, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                  
+                    if (pos.w == 5)
+                    {
+                        subresult = tex2D(_GeometryTex5, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                
+                    if (pos.w == 6)
+                    {
+                        subresult = tex2D(_GeometryTex6, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                 
+                    if (pos.w == 7)
+                    {
+                        subresult = tex2D(_GeometryTex7, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }               
+                    if (pos.w == 8)
+                    {
+                        subresult = tex2D(_GeometryTex8, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                  
+                    if (pos.w == 9)
+                    {
+                        subresult = tex2D(_GeometryTex9, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                
+                    if (pos.w == 10)
+                    {
+                        subresult = tex2D(_GeometryTex10, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                
+                    if (pos.w == 11)
+                    {
+                        subresult = tex2D(_GeometryTex11, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                
+                    if (pos.w == 12)
+                    {
+                        subresult = tex2D(_GeometryTex12, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    }                 
+                    if (pos.w == 13)
+                    {
+                        subresult = tex2D(_GeometryTex13, float2(pos.x - pos.z, pos.z - pos.y)) * result.xyzw;
+
+
+                    } 
                    
-               }else{
+                }
+                else
+                {
                     subresult = result.xyzw;
-                   }
-                  
-              
+                }
                return fixed4(col * (1.0 - result.w) + subresult.xyz * result.w ,1.0);
 
             }

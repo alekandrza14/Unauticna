@@ -64,39 +64,60 @@ float GetDist3(float4 pos,float4 b)
    //  p.y-=100000;
    //  p.z-=100000;
    //  p.w-=100000;
-     float c = 14.5f/b;
+     float4 c = float4(14.5f,14.5f, 14.5f, 14.5f)/b;
    
-     p.x = fmod2(p.x+0.5f*c,c)-0.5f*c;
-     p.y = fmod2(p.y+0.5f*c,c)-0.5f*c;
-       
-         
-     p.z = fmod2(p.z+0.5f*c,c)-0.5f*c;
-     p.w = fmod2(p.w+0.5f*c,c)-0.5f*c;
+     p.x = fmod2(p.x + 0.5f * c.x, c.x) - 0.5f * c.x;
+     p.y = fmod2(p.y + 0.5f * c.y, c.y) - 0.5f * c.y;
+
+
+     p.z = fmod2(p.z + 0.5f * c.z, c.z) - 0.5f * c.z;
+     p.w = fmod2(p.w + 0.5f * c.w, c.w) - 0.5f * c.w;
 
     
     return (length(p)- 1.0f);
        
-} float GetDist4(float4 pos,float4 b) 
+} float GetDist4(float4 pos, float4 b)
 {
     float4 p = pos;
-	p = p/  b;
+    p = p / b;
     // p.x+=100000;
    //  p.y-=100000;
    //  p.z-=100000;
    //  p.w-=100000;
-     float c = 14.5f/b;
-   
-     p.x = fmod2(p.x+0.5f*c,c)-0.5f*c;
-     p.y = fmod2(p.y+0.5f*c,c)-0.5f*c;
-       
-         
-     p.z = fmod2(p.z+0.5f*c,c)-0.5f*c;
-     p.w = fmod2(p.w+0.5f*c,c)-0.5f*c;
+    float4 c = float4(14.5f, 14.5f, 14.5f, 14.5f) / b;
 
-    
-    return (length(p)- 1.0f)*b;
-       
-}       
+    p.x = fmod2(p.x + 0.5f * c.x, c.x) - 0.5f * c.x;
+    p.y = fmod2(p.y + 0.5f * c.y, c.y) - 0.5f * c.y;
+
+
+    p.z = fmod2(p.z + 0.5f * c.z, c.z) - 0.5f * c.z;
+    p.w = fmod2(p.w + 0.5f * c.w, c.w) - 0.5f * c.w;
+
+
+    return (length(p) - 1.0f) * b;
+
+} 
+float GetTarelkaLoop(float4 pos, float4 b)
+{
+    float4 p = pos;
+    p = p / b;
+    // p.x+=100000;
+   //  p.y-=100000;
+   //  p.z-=100000;
+   //  p.w-=100000;
+    float4 c = float4(14.5f, 14.5f, 14.5f, 14.5f) / b;
+
+    p.x = fmod2(p.x + 0.5f * c.x, c.x) - 0.5f * c.x;
+    p.y = fmod2(p.y + 0.5f * c.y, c.y) - 0.5f * c.y;
+
+
+    p.z = fmod2(p.z + 0.5f * c.z, c.z) - 0.5f * c.z;
+    p.w = fmod2(p.w + 0.5f * c.w, c.w) - 0.5f * c.w;
+
+
+    return max( - min(-(length(p) - 1.0f), (length(p) - 0.7f)),-p.y) * 3;
+
+}
 float GetDist(float4 pos) 
 {
     if (length(pos) > 982.3) 

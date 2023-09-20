@@ -5,11 +5,12 @@ using UnityEngine;
 public class FlowMltyplybye : MonoBehaviour
 {
 
-    [SerializeField] int Contribution;
+    [SerializeField] float Contribution;
     [SerializeField] string flowMltyply;
+    [SerializeField] bool flowInvest;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && Globalprefs.flowteuvro > 0 && !Globalprefs.bunkrot)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro > 0 && !Globalprefs.bunkrot)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -17,11 +18,24 @@ public class FlowMltyplybye : MonoBehaviour
             {
                 if (hit.collider.gameObject == gameObject)
                 {
+                    decimal coppy2 = Globalprefs.flowteuvro;
                     decimal coppy = Globalprefs.flowteuvro;
                     coppy *= decimal.Parse(flowMltyply);
-                    Globalprefs.flowteuvro = coppy;
-                    VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
+                    if (VarSave.GetMoney("tevro") >= (((decimal)Contribution * (coppy - coppy2)) * 36000m) && !flowInvest)
+                    {
+                        Globalprefs.flowteuvro = coppy;
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                       VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (((decimal)Contribution * (coppy - coppy2)) * 36000m));
+                      
+                    }
+                    if (flowInvest)
+                    {
+                        Globalprefs.flowteuvro = coppy;
+                        VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                       
+                            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (coppy2 / 2) * 36000m);
+                       
+                    }
 
                 }
             }

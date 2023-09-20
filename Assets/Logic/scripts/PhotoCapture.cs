@@ -33,6 +33,18 @@ public class PhotoCapture : MonoBehaviour
         }
 
     }
+    IEnumerator Screenhoting()
+    {
+        Globalprefs.Scrensoting = true;
+        yield return new WaitForSeconds(.5f);
+        Directory.CreateDirectory(@"C:\Sceenshots Unauticna");
+        ScreenCapture.CaptureScreenshot(@"C:\Sceenshots Unauticna\Screenshot" + Random.Range(-9999999, 9999999) + ".png", 1);
+
+        yield return new WaitForSeconds(.5f);
+
+        Globalprefs.Scrensoting = false;
+
+    }
     private void Start()
     {
         StartCoroutine(GetText());
@@ -41,7 +53,10 @@ public class PhotoCapture : MonoBehaviour
     public void Update()
     {
 
-
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+            StartCoroutine(Screenhoting());
+        }
 
         //texture1;
         if (!Globalprefs.Pause) if (Input.GetKeyDown(KeyCode.P) && SceneManager.GetActiveScene().name != "Gread_space" && !load1.stad && !GameObject.FindWithTag("console"))
