@@ -407,11 +407,9 @@ public class mover : MonoBehaviour
 
     private void Init()
     {
-        timer5 = (decimal)(System.DateTime.Now.Second);
-        timer5 += (decimal)(System.DateTime.Now.Minute) * 60;
-        timer5 += (decimal)(System.DateTime.Now.Hour) * 60 * 60;
-        timer5 += (decimal)(System.DateTime.Now.DayOfYear) * 60 * 60 * 24;
-        timer5 += (decimal)(System.DateTime.Now.Year) * 60 * 60 * 24 * 365;
+        timer5 += (decimal)(System.DateTime.Now.Hour);
+        timer5 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
+        timer5 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
         timer7 = (decimal)(System.DateTime.Now.Hour);
         timer7 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
         timer7 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
@@ -438,7 +436,7 @@ public class mover : MonoBehaviour
             
             
         }
-        decimal cashFlow = (timer5 - LastSesion) * VarSave.GetMoney("CashFlow");
+        decimal cashFlow = ((timer5 - LastSesion) * VarSave.GetMoney("CashFlow"));
         VarSave.LoadMoney("tevro", cashFlow);
         fireInk = VarSave.GetFloat("FireInk");
         hyperbolicCamera = HyperbolicCamera.Main();
@@ -758,7 +756,7 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Game Varibles :");
             
             GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"),2));
-            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro ($^) : " + Math.Round(Globalprefs.flowteuvro,2));
+            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro,2));
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
@@ -1070,7 +1068,7 @@ public class mover : MonoBehaviour
 
         }
     }
-    float timer;
+    decimal timer;
 
     public void physicsStop()
     {
@@ -1256,11 +1254,9 @@ public class mover : MonoBehaviour
 
     private void OnDestroy()
     {
-        timer2 =  (decimal)(System.DateTime.Now.Second);
-        timer2 += (decimal)(System.DateTime.Now.Minute) * 60;
-        timer2 += (decimal)(System.DateTime.Now.Hour) * 60 * 60;
-        timer2 += (decimal)(System.DateTime.Now.DayOfYear) * 60 * 60 * 24;
-        timer2 += (decimal)(System.DateTime.Now.Year) * 60 * 60 * 24 * 365;
+        timer2 = (decimal)(System.DateTime.Now.Hour);
+        timer2 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
+        timer2 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
         VarSave.SetMoney("LastSesion", timer2); 
         timer6 = (decimal)(System.DateTime.Now.Hour);
         timer6 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
@@ -1269,8 +1265,8 @@ public class mover : MonoBehaviour
     }
     private void EconomicUpdate()
     {
-        timer += Time.deltaTime;
-        if (timer > 1f)
+        timer += (decimal)Time.deltaTime;
+        if (timer > 60m*60m)
         {
 
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.flowteuvro);

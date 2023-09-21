@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
@@ -15,6 +16,17 @@ public class Shop : MonoBehaviour
     public void Start()
     {
         tevroint = VarSave.GetMoney("tevro");
+        for (int i = 0; i < produkt.Length; i++)
+        {
+            if (produkt[i].name == "Random()")
+            {
+                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet()+ VarSave.GetMoney("LastSesion")+(i+ SceneManager.GetActiveScene().buildIndex *526)));
+                int num = r.Next(0, complsave.t3.Length);
+                produkt[i].name = complsave.t3[num].name;
+                produkt[i].price = (decimal)(complsave.t3[num].GetComponent<itemName>().ItemPrise*1.3f);
+                produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
+            }
+        }
     }
     private void Update()
     {
@@ -38,17 +50,22 @@ public class Shop : MonoBehaviour
         }
         for (int i = 0; i < produkt.Length && adecvat; i++)
         {
-            number[i].text = "имя "+ produkt[i].name  + " количество "+produkt[i].count +" цена "+ produkt[i].price;
             if (produkt[i].Give_or_Minus == true)
             {
+
+                number[i].text = "Покупаеться : имя " + produkt[i].name + " количество " + produkt[i].count + " цена " + produkt[i].price;
                 number[i].color = Color.blue;
             }
             if (produkt[i].Give_or_Minus == false)
             {
+                number[i].text = "Продаёться : имя " + produkt[i].name + " количество " + produkt[i].count + " цена " + produkt[i].price;
+
                 number[i].color = Color.white;
             }
             if (!VarSave.ExistenceVar(produkt[i].us) && produkt[i].us != "")
             {
+                number[i].text = "Х Продаёться : имя " + produkt[i].name + " количество " + produkt[i].count + " цена " + produkt[i].price;
+
                 number[i].color = Color.gray;
             }
 
@@ -98,7 +115,7 @@ public class produktid
     public string name;
     public bool Give_or_Minus;
     public int count; 
-    public int price = 0;
+    public decimal price = 0;
     public string us;
     
 }

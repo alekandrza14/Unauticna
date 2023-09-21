@@ -18,7 +18,7 @@ public class complsave : MonoBehaviour
     public string saveString221;
 
 
-    public GameObject[] t3;
+    public static GameObject[] t3;
     public GameObject[] t4;
     public string[] info4;
 

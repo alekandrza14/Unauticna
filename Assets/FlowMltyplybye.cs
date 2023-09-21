@@ -21,11 +21,11 @@ public class FlowMltyplybye : MonoBehaviour
                     decimal coppy2 = Globalprefs.flowteuvro;
                     decimal coppy = Globalprefs.flowteuvro;
                     coppy *= decimal.Parse(flowMltyply);
-                    if (VarSave.GetMoney("tevro") >= (((decimal)Contribution * (coppy - coppy2)) * 36000m) && !flowInvest)
+                    if (VarSave.GetMoney("tevro") >= (((decimal)Contribution * (coppy - coppy2)) * 10m) && !flowInvest)
                     {
                         Globalprefs.flowteuvro = coppy;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                       VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (((decimal)Contribution * (coppy - coppy2)) * 36000m));
+                       VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (((decimal)Contribution * (coppy - coppy2)) * 10m));
                       
                     }
                     if (flowInvest)
@@ -33,7 +33,7 @@ public class FlowMltyplybye : MonoBehaviour
                         Globalprefs.flowteuvro = coppy;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                        
-                            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (coppy2 / 2) * 36000m);
+                            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (coppy2 / 2) * 10m);
                        
                     }
 

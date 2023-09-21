@@ -3760,7 +3760,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1061196989}
+  - {fileID: 1514260137}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4513,6 +4513,7 @@ MonoBehaviour:
   colour: {r: 0, g: 0, b: 0, a: 0}
   smoothRadius: 0
   numChildren: 0
+  numTexture: 0
 --- !u!4 &609354834
 Transform:
   m_ObjectHideFlags: 0
@@ -8140,85 +8141,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 074b148323ce74543b53bffe4f2938df, type: 3}
---- !u!21 &1061196989
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Cube2 2 (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: 02d835f75216f6c45981e78af6f76fb9, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: 6cde3dff964b998429fe2afbe737a144, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: 21.76574
-    - P2: -10.5199995
-    - P3: -233.9962
-    - P4: 1.34
-    - P5: 0
-    - Pos1: 21.76574
-    - Pos2: -10.5199995
-    - Pos3: -233.9962
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 0
-    - _Iterations: 0
-    - _MaxDistance: 1000
-    - _MaxSteps: 200
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _P1: 0
-    - _P2: 0
-    - _P3: 0
-    - _P4: 0
-    - _Power: 0
-    - _RelativeTolerance: 1
-    - _Scale: 0
-    - _ShadowMode: 0
-    - _Smoothness: 0
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.0001
-    m_Colors:
-    - _Tint: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1090400845
 GameObject:
   m_ObjectHideFlags: 0
@@ -10712,6 +10634,85 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1514260137
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Cube2 2 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 02d835f75216f6c45981e78af6f76fb9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 6cde3dff964b998429fe2afbe737a144, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: 21.76574
+    - P2: -10.5199995
+    - P3: -233.9962
+    - P4: 1.34
+    - P5: 0
+    - Pos1: 21.76574
+    - Pos2: -10.5199995
+    - Pos3: -233.9962
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 0
+    - _Iterations: 0
+    - _MaxDistance: 1000
+    - _MaxSteps: 200
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _P1: 0
+    - _P2: 0
+    - _P3: 0
+    - _P4: 0
+    - _Power: 0
+    - _RelativeTolerance: 1
+    - _Scale: 0
+    - _ShadowMode: 0
+    - _Smoothness: 0
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.0001
+    m_Colors:
+    - _Tint: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1530495253
 GameObject:
   m_ObjectHideFlags: 0
@@ -12116,6 +12117,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6ecccb8d1a37214d950fc651d1d7d0a, type: 3}
+--- !u!1001 &1840296164
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 800.0338
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 25.71368
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 457.10992
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644765383348785088, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5421864654391039354, guid: 176380f8f00fc41458a6ac76138ad5e0,
+        type: 3}
+      propertyPath: m_Name
+      value: Strangetraider
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 176380f8f00fc41458a6ac76138ad5e0, type: 3}
 --- !u!43 &1945915877
 Mesh:
   m_ObjectHideFlags: 0
@@ -13163,3 +13232,4 @@ SceneRoots:
   - {fileID: 1215932588}
   - {fileID: 1331214108}
   - {fileID: 1391870655}
+  - {fileID: 1840296164}

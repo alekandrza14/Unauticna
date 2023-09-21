@@ -1197,7 +1197,7 @@ public class ElementalInventory : MonoBehaviour {
 
 						if (hit.collider.gameObject.name[i] != '_')
 						{
-							Globalprefs.ItemPrise = hit.collider.GetComponent<itemName>().ItemPrise;
+							Globalprefs.ItemPrise = (decimal)hit.collider.GetComponent<itemName>().ItemPrise;
 							Globalprefs.selectitemobj = hit.collider.GetComponent<itemName>();
 
 
