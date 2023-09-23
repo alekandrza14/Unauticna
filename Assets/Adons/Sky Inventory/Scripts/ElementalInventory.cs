@@ -1156,27 +1156,19 @@ public class ElementalInventory : MonoBehaviour {
 
     }
     private void hyperbolicray()
-	{
-        if (mouseDoubele > 0)
+    {
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !sh && boxItem.getInventory("i3").inventory == this && !nosell)
         {
-            mouseDoubele -= Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseDoubele < 3)
-		{
-			mouseDoubele++;
-
-        }
-		if (mouseDoubele >= 1.5f&& !sh && boxItem.getInventory("i3").inventory == this && !nosell)
-		{
             Globalprefs.selectitem = "";
-			RaycastHit hit = MainRay.MainHit;
-				StartCoroutine(sethyperbolicitem(hit));
-			
+            RaycastHit hit = MainRay.MainHit;
+            StartCoroutine(sethyperbolicitem(hit));
 
 
-			}
 
-		}
+        }
+
+    }
 	public itemName it;
 	public void SelectLayItem()
 	{

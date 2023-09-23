@@ -194,7 +194,7 @@ public class HyperbolicCamera : MonoBehaviour
         transform.position = Vector3.zero + Vector3.up * transform.position.y;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            //Application.Quit();
         }
 
 

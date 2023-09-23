@@ -178,7 +178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1319682881}
+  - {fileID: 888598150}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -262,7 +262,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2083012952}
+  - {fileID: 2115197221}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -324,6 +324,72 @@ MonoBehaviour:
   m: {fileID: 781190942}
   issnow: 0
   p5: 0
+--- !u!21 &888598150
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Sphere 5 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance)
+  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: -0
+    - P2: -0.89
+    - P3: 2.46
+    - P4: 0
+    - P5: 0
+    - Pos1: -0
+    - Pos2: -0.89
+    - Pos3: 2.46
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2
+    - _Iterations: 10
+    - _MaxDistance: 1000
+    - _MaxSteps: 600
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.25
+    - _ShadowMode: 0
+    - _Smoothness: 0.5
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.001
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1258852175
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,71 +496,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1319682881
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 5 (Instance) (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: -0
-    - P2: -0.89
-    - P3: 2.46
-    - P4: 0
-    - P5: 0
-    - Pos1: -0
-    - Pos2: -0.89
-    - Pos3: 2.46
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2
-    - _Iterations: 10
-    - _MaxDistance: 1000
-    - _MaxSteps: 600
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 0.25
-    - _ShadowMode: 0
-    - _Smoothness: 0.5
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.001
-    m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1001 &1450133779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -507,6 +508,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: playereuclidian
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972998650662337203, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
+        type: 3}
+      propertyPath: tutorial
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972998650662337203, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
+        type: 3}
+      propertyPath: tutorialsave
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4972998650662337212, guid: b53cd52ba58a0be4ea1d62dc51ed0d06,
         type: 3}
@@ -657,14 +668,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!21 &2083012952
+--- !u!21 &2115197221
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 5 (Instance) (Instance) (Instance) (Instance)
+  m_Name: Ray Marching_Sphere 5 (Instance) (Instance) (Instance) (Instance) (Instance)
   m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

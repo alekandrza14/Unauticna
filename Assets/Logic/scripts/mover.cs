@@ -467,14 +467,14 @@ public class mover : MonoBehaviour
             lepts = "-" + planet_position.ToString();
         }
         stand_stay = load1.stad;
-       
-     //   Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
-     //   c.targetDisplay = 2;
-     //   c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
-      //  c.renderingPath = RenderingPath.DeferredShading;
 
-        Globalprefs.camera = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>();
-      //  c.gameObject.AddComponent<Logic_tag_3>();
+           Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
+           c.targetDisplay = 2;
+           c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
+          c.renderingPath = RenderingPath.DeferredShading;
+
+        Globalprefs.camera = c;
+        c.gameObject.AddComponent<Logic_tag_3>();
 
         if (isplanet)
         {
