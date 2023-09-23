@@ -24,6 +24,9 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
     [HideInInspector] public Hyperbolic2D p2 = new Hyperbolic2D();
     [HideInInspector] public Hyperbolic2D p3 = new Hyperbolic2D();
     [HideInInspector] public Hyperbolic2D p4 = new Hyperbolic2D();
+    PMatrix3D fVertex = new PMatrix3D();
+    PMatrix3D sVertex = new PMatrix3D();
+    PMatrix3D tVertex = new PMatrix3D();
     [Header("Polygon")]
     [Header("==============")]
     [Header("MeshFiller")] [SerializeField] public MeshFilter mf;
@@ -35,8 +38,10 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
     [HideInInspector] public float x;
     private void Awake()
     {
+        
         ProjectionUpdate();
-        InvokeRepeating("ProjectionUpdate", 1, 0.07f);
+
+        InvokeRepeating("ProjectionUpdate", 1, 0.07f+UnityEngine.Random.Range(0f,0.02f));
     }
   
 
@@ -44,9 +49,9 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
     
     public void ProjectionUpdate()
     {
+       
 
-
-        Deplacement();
+            Deplacement();
 
     }
    // public void up2( Polar3 v2)
@@ -107,8 +112,8 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
-          //  mf.sharedMesh = null;
-        //    mc.sharedMesh = null;
+            mf.sharedMesh = null;
+           mc.sharedMesh = null;
         }
 
     }
@@ -128,19 +133,18 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
         //multiplication par le facteur hyperbolique
 
 
-
+        PMatrix3D nVertex = tVertex;
 
         if (p2 != null && p3 != null && p4 != null)
         {
 
 
+            if (tVertex == nVertex) {
+                fVertex.set(p2.getMatrix());
+                sVertex.set(p3.getMatrix());
+                tVertex.set(p4.getMatrix());
+            }
 
-            PMatrix3D copytr1 = new PMatrix3D();
-            copytr1.set(p2.getMatrix());
-            PMatrix3D copytr2 = new PMatrix3D();
-            copytr2.set(p3.getMatrix());
-            PMatrix3D copytr3 = new PMatrix3D();
-            copytr3.set(p4.getMatrix());
 
             //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
 
@@ -151,7 +155,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
-            copytr1.mult(nextPoint, nextPoint);
+           fVertex.mult(nextPoint, nextPoint);
 
             if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
 
@@ -159,66 +163,71 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
-            v31 = new Vector3(nextPoint.x, 0, nextPoint.y);
+            v31 = new Vector3(nextPoint.x - 1, 0, nextPoint.y - 1);
+
+
+
+
+
+            if (new PVector().dist(nextPoint) < 20)
+            {
+
+                //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
+
+                PVector nextPoint2 = MathHyper.polarVector(0f, 1.255f);
+
+
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+
+                sVertex.mult(nextPoint2, nextPoint2);
+
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint2, nextPoint2);
+
+                nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
+
+
+
+                v32 = new Vector3(nextPoint2.x - 1, 0, nextPoint2.y - 1);
 
 
 
 
 
 
+                PVector nextPoint3 = MathHyper.polarVector(0f, 1.255f);
+                //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
 
-            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
 
-            PVector nextPoint2 = MathHyper.polarVector(0f, 1.255f);
 
+                //Apply currentTransform on nextPoint and save the result in nextPoint 
+
+
+                tVertex.mult(nextPoint3, nextPoint3);
+
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint3, nextPoint3);
+
+                nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
+
+
+
+                v33 = new Vector3(nextPoint3.x - 1, 0, nextPoint3.y - 1);
+
+
+            }
 
             //Apply currentTransform on nextPoint and save the result in nextPoint 
 
 
-
-            copytr2.mult(nextPoint2, nextPoint2);
-
-            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint2, nextPoint2);
-
-            nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
-
-
-
-            v32 = new Vector3(nextPoint2.x, 0, nextPoint2.y);
-
-
-
-
-
-
-            PVector nextPoint3 = MathHyper.polarVector(0f, 1.255f);
-            //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-
-
-
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
-
-
-            copytr3.mult(nextPoint3, nextPoint3);
-
-            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint3, nextPoint3);
-
-            nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
-
-
-
-            v33 = new Vector3(nextPoint3.x, 0, nextPoint3.y);
-
-
-
-
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
-
-            Createmath(v31, v32, v33);
-
-
-            // Clearmath();
-
+            if (new PVector().dist(nextPoint) < 20)
+            {
+                Createmath(v31, v32, v33);
+            }
+            else 
+            {
+                Clearmath(); 
+            }
 
             //sert pour baisser a la bonne hauteur
 
@@ -230,7 +239,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
-
+  
 
 
         //sert pour baisser a la bonne hauteur

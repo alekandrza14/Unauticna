@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 
@@ -8,6 +9,7 @@ public class HyperbolicTriangle : MonoBehaviour
 {
     public HyperbolicTriangeRenederer tr;
     public HyperbolicPoint sp1, sp2, sp3;
+    bool done;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class HyperbolicTriangle : MonoBehaviour
         if (tr != null)
         {
 
-            if (sp1 && sp2 && sp3)
+            if (sp1 && sp2 && sp3 && !done)
             {
 
 
@@ -37,7 +39,7 @@ public class HyperbolicTriangle : MonoBehaviour
                 tr.p4 = sp3.HyperboilcPoistion;
                 tr.v3 = sp3.v1;
 
-
+                done = true;
             }
         }
         else

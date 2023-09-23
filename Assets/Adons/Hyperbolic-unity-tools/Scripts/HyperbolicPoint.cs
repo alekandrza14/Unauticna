@@ -37,6 +37,8 @@ public class HyperbolicPoint : MonoBehaviour
     [HideInInspector] public bool py;
     [HideInInspector] public bool mx;
     [HideInInspector] public bool my;
+
+    [SerializeField] bool VertexOrPoint;
     HyperbolicTriangle sc;
     bool pass;
     public void selfClear()
@@ -73,8 +75,11 @@ public class HyperbolicPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("ProjectionUpdate", 1, 0.05f);
-        ProjectionUpdate();
+        if (!VertexOrPoint)
+        {
+            InvokeRepeating("ProjectionUpdate", 1, 0.05f);
+            ProjectionUpdate(); 
+        }
     }
     static public void ALLSpheresRot(float r)
     {
@@ -209,8 +214,8 @@ public class HyperbolicPoint : MonoBehaviour
             if (!GetComponent<HyperbolicTriangeRenederer>())
             {
 
-                transform.position = new Vector3(nextPoint.x, transform.position.y, nextPoint.y);
-                mposition = new Vector3(nextPoint.x, transform.position.y, nextPoint.y);
+                transform.position = new Vector3(nextPoint.x-1, transform.position.y, nextPoint.y-1);
+                mposition = new Vector3(nextPoint.x - 1, transform.position.y, nextPoint.y - 1);
 
               
 
@@ -220,7 +225,7 @@ public class HyperbolicPoint : MonoBehaviour
             }
             else
             {
-                mposition = new Vector3(nextPoint.x, transform.position.y, nextPoint.y);
+                mposition = new Vector3(nextPoint.x - 1, transform.position.y, nextPoint.y - 1);
             }
 
         float dist = (25f -MathHyper.sinh((new PVector().dist(nextPoint) * 0.2f)))/25;

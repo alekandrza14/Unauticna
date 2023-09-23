@@ -112,6 +112,37 @@ public class LOADGAME : MonoBehaviour
 
         SceneManager.LoadScene("tutorial4");
     }
+    public void GeometryStraight()
+    {
+
+        SceneManager.LoadScene("StraightGeometry");
+    }
+    public void GeometryCircle()
+    {
+
+        SceneManager.LoadScene("CircleGeometry");
+    }
+    public void GeometryHyperblic()
+    {
+
+        SceneManager.LoadScene("HyperbolicGeometry");
+    }
+    public void GeometryLoop()
+    {
+
+        SceneManager.LoadScene("LoopGeometry");
+    }
+    public void GeometryLiminal()
+    {
+
+        SceneManager.LoadScene("LiminalGeometry");
+    }
+    public void mainmenu_mini_Games()
+    {
+
+        Animator_camera.Play("c1menu_mgame");
+    }
+   
     public void mainmenu()
     {
         Animator_camera.SetTrigger("<");

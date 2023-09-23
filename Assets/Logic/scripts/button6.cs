@@ -19,11 +19,11 @@ public class button6 : MonoBehaviour
     public bool p5;
     public Collider other;
     public HyperbolicPoint sp;
+    public float w;
     private void Start()
     {
         Init();
         Teleport();
-
     }
 
     private void Teleport()
@@ -33,6 +33,7 @@ public class button6 : MonoBehaviour
             Debug.Log("portaltelep "+ Portal);
             GameManager.load(transform,sp);
             portallNumer.Portal = "";
+            mover.main().W_position = w;
         }
     }
 

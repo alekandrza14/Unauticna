@@ -468,12 +468,13 @@ public class mover : MonoBehaviour
         }
         stand_stay = load1.stad;
        
-        Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
-        c.targetDisplay = 2;
-        c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
-        c.renderingPath = RenderingPath.DeferredShading;
-        Globalprefs.camera = c;
-        c.gameObject.AddComponent<Logic_tag_3>();
+     //   Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
+     //   c.targetDisplay = 2;
+     //   c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
+      //  c.renderingPath = RenderingPath.DeferredShading;
+
+        Globalprefs.camera = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>();
+      //  c.gameObject.AddComponent<Logic_tag_3>();
 
         if (isplanet)
         {
@@ -772,8 +773,10 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse1))
         {
             GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+Sprint.ToString());
-            if (!hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString();
-            if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString();
+            if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString();
+            else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString();
+            if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1";
+            if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2";
             Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
         }
     }

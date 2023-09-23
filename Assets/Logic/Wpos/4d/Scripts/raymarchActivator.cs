@@ -26,12 +26,12 @@ public class raymarchActivator : MonoBehaviour
 
         if (GameObject.FindObjectsByType<Shape4D>(sortmode.main).Length != 0)
         {
-            GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
+          //  GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
             rc.enabled = true;
         }
         if (GameObject.FindObjectsByType<Shape4D>(sortmode.main).Length == 0)
         {
-            GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
+          //  GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
             rc.enabled = false;
 
             rc._max_iteration = 0;
