@@ -77,7 +77,7 @@ public class HyperbolicPoint : MonoBehaviour
     {
         if (!VertexOrPoint)
         {
-            InvokeRepeating("ProjectionUpdate", 1, 0.05f);
+            InvokeRepeating("ProjectionUpdate", 1, 0.05f + UnityEngine.Random.Range(0f, 0.02f));
             ProjectionUpdate(); 
         }
     }
@@ -237,6 +237,7 @@ public class HyperbolicPoint : MonoBehaviour
         {
             transform.localScale = new Vector3(0.0001f, 0.0001f, 0.0001f);
         }
+      if(GetComponent<Rigidbody>())  GetComponent<Rigidbody>().useGravity = false;
             if (GetComponent<HyperbolicTriangeRenederer>())
             transform.localScale = Vector3.one;
         if (GetComponent<HyperbolicTriangeRenederer>())

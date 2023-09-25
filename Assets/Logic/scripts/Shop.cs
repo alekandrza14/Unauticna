@@ -23,7 +23,7 @@ public class Shop : MonoBehaviour
                 System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet()+ VarSave.GetMoney("LastSesion")+(i+ SceneManager.GetActiveScene().buildIndex *526)));
                 int num = r.Next(0, complsave.t3.Length);
                 produkt[i].name = complsave.t3[num].name;
-                produkt[i].price = (decimal)(complsave.t3[num].GetComponent<itemName>().ItemPrise*1.3f);
+                produkt[i].price = (complsave.t3[num].GetComponent<itemName>().ItemPrise*1.3f).ToString();
                 produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
             }
         }
@@ -79,13 +79,13 @@ public class Shop : MonoBehaviour
     {
         if (VarSave.ExistenceVar(produkt[product].us) || produkt[product].us == "")
         {
-            if (produkt[product].Give_or_Minus == false && tevroint >= produkt[product].price)
+            if (produkt[product].Give_or_Minus == false && tevroint >= decimal.Parse(produkt[product].price))
             {
                 for (int i = 0; i < produkt[product].count; i++)
                 {
                     Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), GameManager.GetPlayer().transform.position, Quaternion.identity);
                 }
-                tevroint -= produkt[product].price;
+                tevroint -= decimal.Parse( produkt[product].price);
                 VarSave.SetMoney("tevro", tevroint);
                 if (produkt[product].name == "script" && Globalprefs.signedgamejolt == true)
                 {
@@ -99,7 +99,7 @@ public class Shop : MonoBehaviour
                 for (int i = 0; i < produkt[product].count && GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().Getitem(produkt[product].name); i++)
                 {
 
-                    tevroint += produkt[product].price;
+                    tevroint += decimal.Parse(produkt[product].price);
                     VarSave.SetMoney("tevro", tevroint);
                     GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().removeitem(produkt[product].name);
 
@@ -115,7 +115,7 @@ public class produktid
     public string name;
     public bool Give_or_Minus;
     public int count; 
-    public decimal price = 0;
+    public string price = "0";
     public string us;
     
 }

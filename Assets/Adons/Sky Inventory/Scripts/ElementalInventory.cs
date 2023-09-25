@@ -20,10 +20,10 @@ public class ElementalInventory : MonoBehaviour {
 	public GameObject elementPrefab;
 	public GameObject selectobject;
 	public int select = 0;
-    public string[] itemtags;
-    public string[] itemnames;
-    public string[] itemPrimetiveInts;
-    public GameObject[] itemPrimetive;
+    public static string[] itemtags;
+    public static string[] itemnames;
+    public static string[] itemPrimetiveInts;
+    public static GameObject[] itemPrimetive;
     public string[] nunamesA;
     public string[] nunamesB;
     private Transform choosenItem;
@@ -35,7 +35,7 @@ public class ElementalInventory : MonoBehaviour {
 	bool sh;
     private void Awake()
     {
-		getallitems();
+		//getallitems();
     }
 	public void getallitemsroom()
 	{
@@ -48,21 +48,26 @@ public class ElementalInventory : MonoBehaviour {
         }
         
     }
-	
-
-	public void getallitems()
+    
+    public static ElementalInventory main()
     {
-		getallitemsroom();
-		 GameObject[] g = Resources.LoadAll<GameObject>("items");
-		itemnames = new string[g.Length]; 
-		itemtags = new string[g.Length];
-		for (int i =0;i<g.Length;i++)
-        {
-			itemnames[i] = g[i].name;
-			itemtags[i] = g[i].tag;
+      return  boxItem.getInventory("i3").inventory;
+    }
 
-		}
-        GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
+    public void getallitems()
+    {
+        getallitemsroom();
+        GameObject[] g = complsave.t3;
+
+        itemnames = new string[g.Length];
+        itemtags = new string[g.Length];
+        for (int i = 0; i < g.Length; i++)
+        {
+            itemnames[i] = g[i].name;
+            itemtags[i] = g[i].tag;
+
+        }
+        GameObject[] g2 = complsave.t4;
         itemPrimetive = new GameObject[g2.Length];
         itemPrimetiveInts = new string[g2.Length];
         for (int i = 0; i < g2.Length; i++)
@@ -71,6 +76,8 @@ public class ElementalInventory : MonoBehaviour {
             itemPrimetiveInts[i] = g2[i].GetComponent<StandartObject>().init;
 
         }
+
+
     }
 	public GameObject inv2(string name)
 	{

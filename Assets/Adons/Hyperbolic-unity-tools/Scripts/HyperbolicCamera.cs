@@ -197,7 +197,8 @@ public class HyperbolicCamera : MonoBehaviour
             //Application.Quit();
         }
 
-
+        //_Rotation
+        RenderSettings.skybox.SetFloat("_Rotation",RealtimeTransform.n*57.4f);
         //Vertical
         if (mover.main() != null)
         {

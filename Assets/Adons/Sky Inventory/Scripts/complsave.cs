@@ -18,17 +18,17 @@ public class complsave : MonoBehaviour
     public string saveString221;
 
 
-    public static GameObject[] t3;
-    public GameObject[] t4;
-    public string[] info4;
+    public static GameObject[] t3 = new GameObject[0];
+    public static GameObject[] t4 = new GameObject[0];
+    public static string[] info4 = new string[0];
 
 
     public string lif;
 
-    public string[] nunames;
+    public static string[] nunames = new string[0];
 
 
-    public string[] info3;
+    public static string[] info3 = new string[0];
 
 
     public void ResetItem()
@@ -102,26 +102,34 @@ public class complsave : MonoBehaviour
 
     public void getallitems()
     {
+      
+            if (t3.Length == 0)
+            {
+                GameObject[] g = Resources.LoadAll<GameObject>("items");
+                t3 = new GameObject[g.Length];
+                info3 = new string[g.Length];
+                for (int i = 0; i < g.Length; i++)
+                {
+                    t3[i] = g[i];
+                    info3[i] = g[i].GetComponent<itemName>()._Name;
 
-        GameObject[] g = Resources.LoadAll<GameObject>("items");
-        t3 = new GameObject[g.Length];
-        info3 = new string[g.Length];
-        for (int i = 0; i < g.Length; i++)
-        {
-            t3[i] = g[i];
-            info3[i] = g[i].GetComponent<itemName>()._Name;
+                }
+            }
+            if (t4.Length == 0)
+            {
+                GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
+                t4 = new GameObject[g2.Length];
+                info4 = new string[g2.Length];
+                for (int i = 0; i < g2.Length; i++)
+                {
+                    t4[i] = g2[i];
+                    info4[i] = g2[i].GetComponent<StandartObject>().init;
 
-        }
-        GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
-        t4 = new GameObject[g2.Length];
-        info4 = new string[g2.Length];
-        for (int i = 0; i < g2.Length; i++)
-        {
-            t4[i] = g2[i];
-            info4[i] = g2[i].GetComponent<StandartObject>().init;
+                }
+                getallitemsroom();
+            }
 
-        }
-        getallitemsroom();
+       if(t3.Length != 0) ElementalInventory.main().getallitems();
     }
 
 

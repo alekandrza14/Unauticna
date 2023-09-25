@@ -407,6 +407,10 @@ public class mover : MonoBehaviour
 
     private void Init()
     {
+        if (RenderSettings.skybox.name == "Default-Skybox")
+        {
+            RenderSettings.skybox = Resources.Load<Material>("UniversesSkys/defaultSkybox");
+        }
         timer5 += (decimal)(System.DateTime.Now.Hour);
         timer5 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
         timer5 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
