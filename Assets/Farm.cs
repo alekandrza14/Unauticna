@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum FarmType
+{
+    seed,gen
+}
+
 public class Farm : InventoryEvent
 {
-   [SerializeField] itemName itemName;
-   string time;
+    [SerializeField] itemName itemName;
+
+    [SerializeField] GameObject[] Objects;
+    [SerializeField] FarmType type;
+    string time;
    public void Load1()
     {
         if (GetComponent<itemName>())
@@ -29,9 +37,16 @@ public class Farm : InventoryEvent
         {
             if (time != (DateTime.Now.Hour + (DateTime.Now.DayOfYear * 24)).ToString())
             {
-                Instantiate(Resources.Load<GameObject>("items/belock"), transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("items/belock"), transform.position, Quaternion.identity);
-                Destroy(gameObject);
+                foreach (GameObject item in Objects)
+                {
+                    Instantiate(item, transform.position, Quaternion.identity);
+                }
+              if(type == FarmType.seed)  Destroy(gameObject);
+                if (type == FarmType.gen)
+                {
+                    time = (DateTime.Now.Hour + (DateTime.Now.DayOfYear * 24)).ToString();
+                    GetComponent<itemName>().ItemData = time;
+                }
             }
         }
     }

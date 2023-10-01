@@ -35,9 +35,11 @@ public class save
 }
 public class tsave
 {
-    
+
+    public string idsave;
     public Vector3 pos, pos2, rotW;
     public Vector4 pos3;
+    public string hpos_Polar3;
     public float wpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
@@ -284,7 +286,7 @@ public class mover : MonoBehaviour
     void OnCollisionStay(Collision collision)
     {
 
-        if (collision.collider.tag != "sc") if (JumpTimer < -2)
+        if (collision.collider.tag != "sc" && !Input.GetKey(KeyCode.G)) if (JumpTimer < -2)
         {
             Debug.Log(JumpTimer);
             hp += Mathf.FloorToInt(JumpTimer) / 3;
@@ -407,6 +409,8 @@ public class mover : MonoBehaviour
 
     private void Init()
     {
+        cistalenemy.dies = VarSave.LoadInt("Agr",0);
+        Globalprefs.Chanse_fire = 0;
         if (RenderSettings.skybox.name == "Default-Skybox")
         {
             RenderSettings.skybox = Resources.Load<Material>("UniversesSkys/defaultSkybox");
@@ -430,11 +434,11 @@ public class mover : MonoBehaviour
         if (timer7 != LastSesionHours)
         {
            
-                VarSave.LoadMoney("tevro", UnityEngine.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
+          //      VarSave.LoadMoney("tevro", UnityEngine.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
              
 
 
-                    VarSave.SetMoney("Stocks", 0);
+              //      VarSave.SetMoney("Stocks", 0);
             
             
             
@@ -544,7 +548,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-                if (portallNumer.Portal == "WMove+")
+              else  if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -569,7 +573,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-                if (portallNumer.Portal == "WMove-")
+              else  if (portallNumer.Portal == "WMove-")
                 {
                     if (true)
                     {
@@ -593,6 +597,11 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
+                }
+                else
+                {
+
+                    W_position = save.wpos;
                 }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
@@ -641,7 +650,7 @@ public class mover : MonoBehaviour
                         HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                 }
-                if (portallNumer.Portal == "WMove+")
+              else  if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -666,7 +675,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-                if (portallNumer.Portal == "WMove-")
+             else   if (portallNumer.Portal == "WMove-")
                 {
                     if (true)
                     {
@@ -690,6 +699,11 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
+                }
+                else
+                {
+
+                    W_position = save.wpos;
                 }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
@@ -771,6 +785,8 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
             GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
+            GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
+            //cistalenemy.dies
 
 
         }
@@ -808,11 +824,45 @@ public class mover : MonoBehaviour
        
 
     }
+    float timer10;
     public void load()
     {
+        timer10 += Time.deltaTime;
+        if (Input.GetKey(KeyCode.G) && !Globalprefs.Pause && timer10 >= 0.1f)
+        {
+
+            DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
+
+            playerdata.Loadeffect();
+            if (File.Exists("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text +(di.GetFiles().Length-1)))
+            {
+                tsave = JsonUtility.FromJson<tsave>(File.ReadAllText("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + (di.GetFiles().Length - 1)));
+                rigidbody3d.angularVelocity = tsave.angularvelosyty;
+                rigidbody3d.velocity = tsave.velosyty;
+                PlayerBody.transform.position = tsave.pos;// sr.transform.position = save.pos2;
+                PlayerBody.transform.rotation = tsave.q1;
+                HeadCameraSetup.transform.rotation = tsave.q3;
+                PlayerCamera.transform.rotation = tsave.q2;
+                if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW;
+                W_position = tsave.wpos;
+                if (hyperbolicCamera != null)
+                {
 
 
-      
+                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
+                }
+                PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
+                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                {
+                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = tsave.vive;
+                }
+                File.Delete("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + (di.GetFiles().Length - 1));
+            }
+            timer10 = 0;
+
+        }
+
+
         if (!tutorial)
         {
             if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
@@ -1090,7 +1140,7 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
-
+        TimeSave();
         //авто-Пост-Ренбер
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null) 
@@ -1257,6 +1307,7 @@ public class mover : MonoBehaviour
         if (!Globalprefs.Pause) Creaive();
     }
     decimal timer2 = 0; decimal timer5 = 0;
+    decimal timer8 = 0;
     decimal timer6 = 0; decimal timer7 = 0;
 
     private void OnDestroy()
@@ -1273,12 +1324,23 @@ public class mover : MonoBehaviour
     private void EconomicUpdate()
     {
         timer += (decimal)Time.deltaTime;
-        if (timer > 60m*60m)
+        if (timer > 60m * 60m)
         {
 
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.flowteuvro);
 
             timer = 0;
+        }
+        timer8 += (decimal)Time.deltaTime;
+        if (timer8 > 5 && cistalenemy.dies > 0)
+        {
+
+
+            cistalenemy.dies--;
+
+            VarSave.SetInt("Agr", cistalenemy.dies);
+
+            timer8 = 0;
         }
         if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
         {
@@ -1843,6 +1905,37 @@ public class mover : MonoBehaviour
     {
       return  FindFirstObjectByType<mover>();
     }
+    float timer9;
+    public void TimeSave()
+    {
+
+        timer9 += Time.deltaTime;
+        if (timer9 >= .1f && !Input.GetKey(KeyCode.G)) {
+          
+            tsave.angularvelosyty = rigidbody3d.angularVelocity;
+            tsave.velosyty = rigidbody3d.velocity;
+            tsave.q1 = PlayerBody.transform.rotation;
+            tsave.q2 = PlayerCamera.transform.rotation;
+            tsave.pos = PlayerBody.transform.position;
+            tsave.wpos = W_position;
+            if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
+            if (hyperbolicCamera != null)
+            {
+
+
+                tsave.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
+            }
+            tsave.vive = Camera.main.fieldOfView;
+
+            tsave.idsave = SaveFileInputField.text;
+            Directory.CreateDirectory("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
+            DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
+           
+            File.WriteAllText("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + di.GetFiles().Length, JsonUtility.ToJson(tsave));
+
+            timer9 = 0;
+        }
+    }
     public void saveing()
     {
         if (playerdata.Geteffect("LevelUp") != null)
@@ -1922,15 +2015,10 @@ public class mover : MonoBehaviour
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
-            save.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex );
             File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
-            gsave.idsave = SaveFileInputField.text;
-            gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsavet/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
-            string s = "";
-            s = SaveFileInputField.text;
-            File.WriteAllText("unsavet/s", s);
+          
+         
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
         }

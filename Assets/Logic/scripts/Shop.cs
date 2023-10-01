@@ -10,28 +10,57 @@ public class Shop : MonoBehaviour
     public bool adecvat;
     public string inv;
     public Text[] number;
-    public Text tevro; 
+    public Text tevro;
+    public Text my_tevro;
     public decimal tevroint;
+    public string ShopPosition;
+    public string TeuvroTraider = "1200";
     public produktid[] produkt;
     public void Start()
     {
+        ShopPosition = ((int)transform.position.x).ToString() +
+            ((int)transform.position.y).ToString() +
+            ((int)transform.position.z).ToString() +
+            SceneManager.GetActiveScene().name +
+            Globalprefs.GetIdPlanet().ToString();
+        if (!VarSave.ExistenceVar(ShopPosition,SaveType.world))
+        {
+            VarSave.SetMoney(ShopPosition,decimal.Parse(TeuvroTraider),SaveType.world);
+        }
+        else
+        {
+            TeuvroTraider = VarSave.LoadMoney(ShopPosition, 0, SaveType.world).ToString();
+        }
         tevroint = VarSave.GetMoney("tevro");
         for (int i = 0; i < produkt.Length; i++)
         {
             if (produkt[i].name == "Random()")
             {
-                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet()+ VarSave.GetMoney("LastSesion")+(i+ SceneManager.GetActiveScene().buildIndex *526)));
+                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
                 int num = r.Next(0, complsave.t3.Length);
                 produkt[i].name = complsave.t3[num].name;
-                produkt[i].price = (complsave.t3[num].GetComponent<itemName>().ItemPrise*1.3f).ToString();
+                if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                {
+                    produkt[i].price = (complsave.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                }
+                if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                {
+                    produkt[i].price = (complsave.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                }
                 produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
+            }
+            if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+            {
+                decimal prise = decimal.Parse(produkt[i].price);
+                prise *= 2.5m;
+                produkt[i].price = prise.ToString();
             }
         }
     }
     private void Update()
     {
-        GameManager.save();
         tevro.text = tevroint.ToString();
+       if(my_tevro) my_tevro.text = TeuvroTraider;
         for (int i = 0; i < produkt.Length && !adecvat; i++)
         {
             number[i].text = produkt[i].name;
@@ -81,30 +110,40 @@ public class Shop : MonoBehaviour
         {
             if (produkt[product].Give_or_Minus == false && tevroint >= decimal.Parse(produkt[product].price))
             {
+
                 for (int i = 0; i < produkt[product].count; i++)
                 {
                     Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), GameManager.GetPlayer().transform.position, Quaternion.identity);
                 }
                 tevroint -= decimal.Parse( produkt[product].price);
                 VarSave.SetMoney("tevro", tevroint);
+
                 if (produkt[product].name == "script" && Globalprefs.signedgamejolt == true)
                 {
                     GameJolt.API.Trophies.TryUnlock(177824);
                 }
-              
+                VarSave.LoadMoney(ShopPosition, decimal.Parse(produkt[product].price),SaveType.world);
+
+                TeuvroTraider = VarSave.LoadMoney(ShopPosition, 0, SaveType.world).ToString();
+
+                GameManager.save();
             }
             if (produkt[product].Give_or_Minus == true)
             {
 
-                for (int i = 0; i < produkt[product].count && GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().Getitem(produkt[product].name); i++)
+                for (int i = 0; i < produkt[product].count && GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().Getitem(produkt[product].name) && VarSave.LoadMoney(ShopPosition,0,SaveType.world) > 0; i++)
                 {
 
                     tevroint += decimal.Parse(produkt[product].price);
                     VarSave.SetMoney("tevro", tevroint);
                     GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().removeitem(produkt[product].name);
 
+                    VarSave.LoadMoney(ShopPosition, -decimal.Parse(produkt[product].price), SaveType.world);
+
+                    TeuvroTraider = VarSave.LoadMoney(ShopPosition, 0, SaveType.world).ToString();
                 }
 
+                GameManager.save();
             }
         }
     }

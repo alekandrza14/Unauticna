@@ -9,7 +9,13 @@ namespace Unity.Mathematics
     public class DistanceFunctions : MonoBehaviour
     {
         // ****************** Distance Functions ****************** 
-
+        public void Start()
+        {
+            if (FindFirstObjectByType<DistanceFunctions>() != this)
+            {
+                Destroy(this);
+            }
+        }
         // HyperbolicPoint
         // s: radius
         public float sdSphere(float3 p, float s)

@@ -166,29 +166,7 @@ public class complsave : MonoBehaviour
     private void Update()
     {
        
-            if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
-            {
-
-
-                for (int i3 = 0; i3 < FindObjectsByType<itemName>(sortmode.main).Length; i3++)
-                {
-
-
-                    if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>())
-                    {
-                        FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>();
-                    }
-                    else
-                    {
-                        FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10;
-
-                    }
-
-
-
-
-                }
-            }
+           
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -274,7 +252,29 @@ public class complsave : MonoBehaviour
     public void save()
     {
 
-
+      //  if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
+      //  {
+      //
+      //
+      //      for (int i3 = 0; i3 < FindObjectsByType<itemName>(sortmode.main).Length; i3++)
+      //      {
+      //
+      //
+      //          if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>())
+      //          {
+      //              FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>();
+      //          }
+      //          else
+      //          {
+      //              FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10;
+      //
+      //          }
+      //
+      //
+      //
+      //
+      //      }
+      //  }
         saveString1.DataItem.Clear();
         saveString1.vector3A.Clear();
         saveString1.Scale3B.Clear();
@@ -388,7 +388,7 @@ public class complsave : MonoBehaviour
     }
     public void load()
     {
-
+       
         Directory.CreateDirectory( name2 + @"/objects");
 
         saveString1.DataItem.Clear();

@@ -16,7 +16,7 @@ public class Stocks : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= decimal.Parse(stocks) && !Globalprefs.bunkrot && timer > 0.1)
+        if (Input.GetKey(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst()) && !Globalprefs.bunkrot && timer > 0.1)
         {
             RaycastHit hit = MainRay.MainHit;
 
@@ -25,7 +25,7 @@ public class Stocks : MonoBehaviour
                 if (hit.collider.gameObject == gameObject)
                 {
                     VarSave.LoadMoney("Stocks",1);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - decimal.Parse(stocks));
+                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (decimal)Mathf.Abs( MobileComputer.Computer().oldstockConst()));
                     timer = 0;
                 }
             }

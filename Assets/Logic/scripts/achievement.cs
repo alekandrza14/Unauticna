@@ -9,6 +9,7 @@ public class achievement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // асание анти материи
         //"убит фанатиком"
         if (VarSave.GetBool("‘ашист победил"))
         {
@@ -16,10 +17,16 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "—ловил пулю от фашиста";
             VarSave.SetBool("‘ашист победил", false);
         }
+        if (VarSave.GetBool(" асание анти материи"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "нравикс(вы) был анигилирован анти материей";
+            VarSave.SetBool(" асание анти материи", false);
+        }
         if (VarSave.GetBool("убит фанатиком"))
         {
             hello.windowmesenge.Dialog_die();
-            GetComponent<Text>().text = "вы сдохли от гота сатаниста фанатона";
+            GetComponent<Text>().text = "вы сдохли от гота сатаниста фанатика фанатона";
             VarSave.SetBool("убит фанатиком", false);
         }
         if (VarSave.GetBool("страшный паук победил"))
@@ -98,7 +105,7 @@ public class achievement : MonoBehaviour
         if (VarSave.GetBool("прикоснулс€ к анти материи"))
         {
             hello.windowmesenge.Dialog_die();
-            GetComponent<Text>().text = "нравикс был анигилирован";
+            GetComponent<Text>().text = "нравикс(вы) был анигилирован анти материей";
             VarSave.SetBool("прикоснулс€ к анти материи", false);
         }
     }

@@ -554,9 +554,11 @@ public class ElementalInventory : MonoBehaviour {
 
             }
 
+            cistalenemy.dies++;
             removeitem("box1");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+       
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -603,7 +605,7 @@ public class ElementalInventory : MonoBehaviour {
                 g.GetComponent<script>().sc = hit.collider.gameObject;
                 setItem("", 0, Color.red, select);
                 Cells[select].UpdateCellInterface();
-
+                cistalenemy.dies++;
                 Global.PauseManager.Pause();
             }
 
@@ -714,6 +716,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
+                cistalenemy.dies++;
             }
 
             lowitem("gold", "");
@@ -727,6 +730,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 Instantiate(inv2("Fire").gameObject, hit.point + Vector3.up * inv2("Fire").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
+                cistalenemy.dies++;
             }
 
             lowitem("gold","");
@@ -741,6 +745,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
+                cistalenemy.dies++;
             }
 
 
@@ -758,6 +763,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     Instantiate(inv2("bomb").gameObject, hit.point + Vector3.up * inv2("bomb").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
+                    cistalenemy.dies++;
                 }
 
             }
@@ -794,6 +800,7 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("belock","seed");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        VarSave.SetInt("Agr", cistalenemy.dies);
     }
 	private void Update()
     {
@@ -893,7 +900,17 @@ public class ElementalInventory : MonoBehaviour {
             if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject)&&hit.collider.GetComponent<itemName>())
             {
 
+                if (!VarSave.ExistenceVar("researchs/" + fullname(hit)))
+                {
+                    Directory.CreateDirectory("unsave/var/researchs");
+                   
 
+                            VarSave.LoadMoney("research", 1);
+
+                            Globalprefs.research = VarSave.GetMoney("research");
+                            VarSave.SetInt("researchs/" + fullname(hit), 0);
+                   
+                }
 
                 setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, select);
                 Cells[select].UpdateCellInterface();
@@ -904,7 +921,17 @@ public class ElementalInventory : MonoBehaviour {
             {
 
 
+                if (!VarSave.ExistenceVar("researchs/" + fullname(hit)))
+                {
+                    Directory.CreateDirectory("unsave/var/researchs");
 
+
+                    VarSave.LoadMoney("research", 1);
+
+                    Globalprefs.research = VarSave.GetMoney("research");
+                    VarSave.SetInt("researchs/" + fullname(hit), 0);
+
+                }
                 setItem(fullname(hit), 1, Color.red, select);
                 Cells[select].UpdateCellInterface();
                 sh = true;
@@ -951,6 +978,46 @@ public class ElementalInventory : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this)
         {
+            if (Input.GetKeyDown(KeyCode.Tab) && Getitem("box_") && boxItem.getInventory("i3").inventory == this)
+            {
+
+
+
+
+                cistalenemy.dies++;
+            }
+            if (Input.GetKeyDown(KeyCode.Tab) && Getitem("Ṳx") && boxItem.getInventory("i3").inventory == this)
+            {
+
+
+
+
+                cistalenemy.dies++;
+            }
+            if (Input.GetKeyDown(KeyCode.Tab) && Getitem("AntiMatter") && boxItem.getInventory("i3").inventory == this)
+            {
+
+
+
+
+                cistalenemy.dies++;
+            }
+            if (Input.GetKeyDown(KeyCode.Tab) && Getitem("Fire") && boxItem.getInventory("i3").inventory == this)
+            {
+
+
+
+
+                cistalenemy.dies++;
+            }
+            if (Input.GetKeyDown(KeyCode.Tab) && Getitem("ionic_cube") && boxItem.getInventory("i3").inventory == this)
+            {
+
+
+
+
+                cistalenemy.dies++;
+            }
             Globalprefs.selectitem = "";
             inputButton.button = 0;
         }
@@ -958,6 +1025,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
     }
+
     public IEnumerator setSphericalitem(RaycastHit hit)
     {
 

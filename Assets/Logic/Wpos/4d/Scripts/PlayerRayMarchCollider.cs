@@ -26,7 +26,7 @@ namespace Unity.Mathematics
         void Start()
         {
             camScript = FindObjectOfType<RaymarchCam>();
-            Df = GetComponent<DistanceFunctions>();
+            Df = FindFirstObjectByType<DistanceFunctions>();
         }
         
         // Update is called once per frame

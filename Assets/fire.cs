@@ -29,6 +29,7 @@ public class fire : MonoBehaviour
         {
             i += 2;
         }
+        i += Globalprefs.Chanse_fire;
     }
     private void OnCollisionEnter(Collision collision)
     {

@@ -7,6 +7,7 @@ public static class Globalprefs
 {
     public static Texture txt;
     public static int idscene;
+    public static int Chanse_fire;
     public static string PlayerPositionInfo;
     public static string AnyversePlayerPositionInfo;
     public static Vector3 newv3;

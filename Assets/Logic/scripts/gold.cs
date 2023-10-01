@@ -10,11 +10,9 @@ public class gold : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) )
         {
-            
-            Ray r = GameManager.pprey();
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
+
+            RaycastHit hit = MainRay.MainHit;
+           
                 if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
@@ -31,7 +29,7 @@ public class gold : MonoBehaviour
                     }
                 }
 
-            }
+            
         }
     }
 }

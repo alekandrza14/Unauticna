@@ -140,21 +140,27 @@ public class cistalenemy3 : MonoBehaviour
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
-            zaseranie();
+            zaseranie(); cistalenemy.dies++;
+
+            VarSave.SetInt("Agr", cistalenemy.dies);
         }
         if (c.collider.tag == "bomb" && ionenergy.energy == 0)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             zaseranie();
             Destroy(c.collider.gameObject);
-            Destroy(gameObject);
+            Destroy(gameObject); cistalenemy.dies++;
+
+            VarSave.SetInt("Agr", cistalenemy.dies);
 
         }
         if (c.collider.tag == "bomb" && ionenergy.energy == 1)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(c.collider.gameObject);
-            Destroy(gameObject);
+            Destroy(gameObject); cistalenemy.dies++;
+
+            VarSave.SetInt("Agr", cistalenemy.dies);
 
         }
         if (c.collider.tag == "errorybox")
@@ -351,7 +357,7 @@ public class cistalenemy3 : MonoBehaviour
             transform.Translate(0, 0, 8 * Time.deltaTime);
 
         }
-        if (povedenie == 4 && player != null && efinv())
+        if (povedenie == 4 && player != null && efinv() && cistalenemy.dies > 0)
         {
             if (Vector3.Distance(player.position, enemy.position) < 270)
             {

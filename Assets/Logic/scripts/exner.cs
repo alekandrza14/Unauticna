@@ -114,6 +114,10 @@ public class exner : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+
+        cistalenemy.dies++;
+
+        VarSave.SetInt("Agr", cistalenemy.dies);
     }
     private void OnCollisionStay(Collision c)
     {

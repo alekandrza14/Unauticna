@@ -31,6 +31,9 @@ public class cistalenemy4 : MonoBehaviour
     {
         VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
         VarSave.SetInt("dies-zellotton",1);
+        cistalenemy.dies++;
+
+        VarSave.SetInt("Agr", cistalenemy.dies);
         Destroy(gameObject);
     }
     private void OnCollisionStay(Collision c)
@@ -155,7 +158,7 @@ public class cistalenemy4 : MonoBehaviour
         {
             povedenie = 2;
         }
-        if (povedenie >= 4 && povedenie <= 7 && player != null)
+        if (povedenie >= 4 && povedenie <= 7 && player != null && cistalenemy.dies > 0)
         {
 
 
@@ -174,7 +177,7 @@ public class cistalenemy4 : MonoBehaviour
 
 
         }
-        if (povedenie >= 6 && povedenie <= 7 && player != null)
+        if (povedenie >= 6 && povedenie <= 7 && player != null && cistalenemy.dies > 0)
         {
 
 

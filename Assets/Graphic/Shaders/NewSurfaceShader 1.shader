@@ -70,7 +70,7 @@ Shader "Custom/NewSurfaceShader 1"
  // Если результат меньше 0, отбрасываем фрагмент
                 clip(texColor.a - _Cutoff);
  // отражательная способность
-                fixed3 albedo = texColor.rgb * _Color.rgb;
+                fixed3 albedo = texColor.rgb * (_Color.rgb*10);
                 
  // Окружающий свет
                 fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.rgb * albedo;

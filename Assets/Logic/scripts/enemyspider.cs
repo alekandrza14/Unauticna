@@ -16,7 +16,7 @@ public class enemyspider : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.GetComponent<Logic_tag_DamageObject>())
+        if (collision.collider.GetComponent<Logic_tag_DamageObject>() && cistalenemy.dies > 0)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);
@@ -25,8 +25,11 @@ public class enemyspider : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+            cistalenemy.dies++;
+
+            VarSave.SetInt("Agr", cistalenemy.dies);
         }
-        if (collision.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
+        if (collision.collider.tag == "Player" && !Input.GetKey(KeyCode.G) && cistalenemy.dies > 0)
         {
             VarSave.SetBool("cry", true);
             VarSave.SetBool("страшный паук победил", true);
@@ -60,7 +63,7 @@ public class enemyspider : MonoBehaviour
             Random.Range(-0.02f, 0.02f),
             Random.Range(-0.02f, 0.02f),
             Random.Range(-0.02f, 0.02f)));
-        if (Vector3.Distance(target,transform.position) < 3)
+        if (Vector3.Distance(target,transform.position) < 3 && cistalenemy.dies > 0)
         {
 
             if (Random.Range(1, 4) == 1)

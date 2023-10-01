@@ -46,6 +46,8 @@ PlayerSettings:
     duration: 2.36
   - logo: {fileID: 21300000, guid: 5319cdf36d2bf324b871845154cedf2b, type: 3}
     duration: 3.27
+  - logo: {fileID: 21300000, guid: bbdd08fa90d168240b832bbdfdfb4f5d, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 74a24a446a39995478c7ccb7e28c40cf,
     type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -57,9 +59,10 @@ PlayerSettings:
   m_ActiveColorSpace: 0
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
-  mipStripping: 0
+  mipStripping: 1
   numberOfMipsStripped: 0
-  numberOfMipsStrippedPerMipmapLimitGroup: {}
+  numberOfMipsStrippedPerMipmapLimitGroup:
+    Default: 0
   m_StackTraceTypes: 020000000100000002000000020000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
@@ -134,13 +137,13 @@ PlayerSettings:
   switchNVNMaxPublicTextureIDCount: 0
   switchNVNMaxPublicSamplerIDCount: 0
   switchNVNGraphicsFirmwareMemory: 32
-  vulkanNumSwapchainBuffers: 3
+  vulkanNumSwapchainBuffers: 2
   vulkanEnableSetSRGBWrite: 1
   vulkanEnablePreTransform: 0
-  vulkanEnableLateAcquireNextImage: 0
+  vulkanEnableLateAcquireNextImage: 1
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
-  bundleVersion: 2023 0.2.82
+  bundleVersion: 2023 0.2.84
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -151,8 +154,8 @@ PlayerSettings:
     enable360StereoCapture: 0
   isWsaHolographicRemotingEnabled: 0
   enableFrameTimingStats: 0
-  enableOpenGLProfilerGPURecorders: 1
-  useHDRDisplay: 1
+  enableOpenGLProfilerGPURecorders: 0
+  useHDRDisplay: 0
   hdrBitDepth: 0
   m_ColorGamuts: 0000000003000000
   targetPixelDensity: 30
@@ -185,7 +188,7 @@ PlayerSettings:
   keepLoadedShadersAlive: 0
   StripUnusedMeshComponents: 0
   strictShaderVariantMatching: 0
-  VertexChannelCompressionMask: 214
+  VertexChannelCompressionMask: 0
   iPhoneSdkVersion: 988
   iOSTargetOSVersionString: 13.0
   tvOSSdkVersion: 0
@@ -386,6 +389,9 @@ PlayerSettings:
   - m_BuildTarget: Web
     m_StaticBatching: 1
     m_DynamicBatching: 1
+  - m_BuildTarget: Standalone
+    m_StaticBatching: 0
+    m_DynamicBatching: 0
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:
   - m_BuildTarget: WindowsStandaloneSupport
@@ -438,7 +444,7 @@ PlayerSettings:
     m_Automatic: 1
   - m_BuildTarget: WindowsStandaloneSupport
     m_APIs: 02000000120000000b000000
-    m_Automatic: 1
+    m_Automatic: 0
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
     m_Automatic: 1
@@ -500,8 +506,8 @@ PlayerSettings:
   - m_BuildTarget: tvOS
     m_Enabled: 0
     m_Devices: []
-  m_DefaultShaderChunkSizeInMB: 16
-  m_DefaultShaderChunkCount: 0
+  m_DefaultShaderChunkSizeInMB: 256
+  m_DefaultShaderChunkCount: 64
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
@@ -531,7 +537,10 @@ PlayerSettings:
     m_EncodingQuality: 2
   - m_BuildTarget: GameCoreXboxOne
     m_EncodingQuality: 2
-  m_BuildTargetGroupLightmapSettings: []
+  m_BuildTargetGroupLightmapSettings:
+  - m_BuildTarget: Standalone
+    m_TextureStreamingEnabled: 1
+    m_TextureStreamingPriority: 0
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
   m_BuildTargetDefaultTextureCompressionFormat: []
@@ -836,15 +845,16 @@ PlayerSettings:
     PS4: 1
     PS5: 1
     QNX: 1
+    Standalone: 0
     WebGL: 1
     Windows Store Apps: 1
     XboxOne: 1
     iPhone: 1
     tvOS: 1
   incrementalIl2cppBuild: {}
-  suppressCommonWarnings: 1
+  suppressCommonWarnings: 0
   allowUnsafeCode: 0
-  useDeterministicCompilation: 1
+  useDeterministicCompilation: 0
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   gcIncremental: 1
@@ -951,7 +961,7 @@ PlayerSettings:
   projectName: New Unity Project (1)
   organizationId: 
   cloudEnabled: 0
-  legacyClampBlendShapeWeights: 1
+  legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
   virtualTexturingSupportEnabled: 0
-  insecureHttpOption: 0
+  insecureHttpOption: 1

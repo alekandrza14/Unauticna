@@ -15,6 +15,8 @@ public class cistalenemy : MonoBehaviour
     public float rotation_speed = 100;
     public Transform enemy;
     public bool isbig;
+    public static int dies;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,7 @@ public class cistalenemy : MonoBehaviour
     }
     private void OnCollisionStay(Collision c)
     {
-        if (!isbig)
+        if (!isbig && dies > 0)
         {
 
 
@@ -44,7 +46,9 @@ public class cistalenemy : MonoBehaviour
             {
                 Destroy(c.collider.gameObject);
                 VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
-                Destroy(gameObject);
+                Destroy(gameObject); dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
 
             }
             if (c.collider.tag == "bomb" && ionenergy.energy == 0)
@@ -56,7 +60,21 @@ public class cistalenemy : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+                Destroy(gameObject); dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
+            if (c.collider.GetComponent<Logic_tag_DamageObject>())
+            {
+                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
                 Destroy(gameObject);
+                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
             }
             if (c.collider.GetComponent<Logic_tag_DamageObject>())
             {
@@ -67,19 +85,42 @@ public class cistalenemy : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            }
-            if (c.collider.GetComponent<Logic_tag_DamageObject>())
-            {
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
-                Destroy(gameObject);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
             }
         }
-            if (c.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
+        if (!isbig)
+        {
+
+
+            if (c.collider.tag == "bomb" && ionenergy.energy == 1)
+            {
+                dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+
+            }
+            if (c.collider.tag == "bomb" && ionenergy.energy == 0)
+            {
+                dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
+            if (c.collider.GetComponent<Logic_tag_DamageObject>())
+            {
+                dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
+            if (c.collider.GetComponent<Logic_tag_DamageObject>())
+            {
+                dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
+        }
+        if (c.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
         {
             VarSave.SetBool("cry", true);
             VarSave.SetBool("призедент победил", true); 
@@ -130,7 +171,7 @@ public class cistalenemy : MonoBehaviour
                 GetComponent<AudioSource>().Play();
             }
         }
-        if (povedenie == 4 && player != null && efinv())
+        if (povedenie == 4 && player != null && efinv() && dies > 0)
         {
 
             var look_dir = player.position - transform.position;
@@ -139,8 +180,8 @@ public class cistalenemy : MonoBehaviour
             transform.position += transform.forward * move_speed * Time.deltaTime;
             if (!GetComponent<AudioSource>().isPlaying)
             {
-
-
+         
+         
                 GetComponent<AudioSource>().Play();
             }
         }

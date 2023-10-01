@@ -11,19 +11,18 @@ public class PlanetPhysics : MonoBehaviour
     private void Start()
     {
         body = GetComponent<Transform>();
-    }
-    private void Update()
-    {
         if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
         {
-            Arract();
-            body.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            InvokeRepeating("Arract", 1, 0.02f+UnityEngine.Random.Range(0,0.01f));
+ 
+             body.gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
         else
         {
             transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
 
-         if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0)   body.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0) body.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            body.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
         }
     }
     // Start is called before the first frame update

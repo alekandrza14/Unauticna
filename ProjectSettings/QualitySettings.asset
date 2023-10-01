@@ -11,17 +11,20 @@ QualitySettings:
     pixelLightCount: 4
     shadows: 2
     shadowResolution: 3
-    shadowProjection: 1
+    shadowProjection: 0
     shadowCascades: 4
-    shadowDistance: 40000
+    shadowDistance: 4000
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.05062896, y: 0.26291096, z: 0.43767232}
-    shadowmaskMode: 1
+    shadowmaskMode: 0
     skinWeights: 255
     globalTextureMipmapLimit: 0
-    textureMipmapLimitSettings: []
-    anisotropicTextures: 0
+    textureMipmapLimitSettings:
+    - serializedVersion: 0
+      limitBiasMode: 0
+      limitBias: 0
+    anisotropicTextures: 1
     antiAliasing: 0
     softParticles: 1
     softVegetation: 1
@@ -30,7 +33,7 @@ QualitySettings:
     useLegacyDetailDistribution: 1
     vSyncCount: 0
     realtimeGICPUUsage: 25
-    lodBias: 2
+    lodBias: 1
     maximumLODLevel: 0
     enableLODCrossFade: 1
     streamingMipmapsActive: 0
@@ -40,8 +43,8 @@ QualitySettings:
     streamingMipmapsMaxLevelReduction: 3
     streamingMipmapsMaxFileIORequests: 2048
     particleRaycastBudget: 5750
-    asyncUploadTimeSlice: 2
-    asyncUploadBufferSize: 16
+    asyncUploadTimeSlice: 16
+    asyncUploadBufferSize: 256
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 0}
@@ -55,7 +58,8 @@ QualitySettings:
     terrainFadeLength: 5
     terrainMaxTrees: 50
     excludedTargetPlatforms: []
-  m_TextureMipmapLimitGroupNames: []
+  m_TextureMipmapLimitGroupNames:
+  - Default
   m_PerPlatformDefaultQuality:
     Android: 0
     Server: 0
