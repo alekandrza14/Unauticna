@@ -9,6 +9,7 @@ namespace Global
         public static void Pause()
         {
             Globalprefs.Pause = true;
+            Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
         public static void Play()

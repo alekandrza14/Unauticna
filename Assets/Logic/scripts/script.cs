@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class vectors
@@ -15,25 +17,70 @@ public class script : MonoBehaviour
     public itemName itemName;
     public static List<string> words = new List<string>();
     public static string word;
+    public List<string> words2 = new List<string>();
+    public bool Magic_stick;
+    public GameObject Magic_obj;
 
     private void Update()
     {
-        if (itemName && string.IsNullOrEmpty(ifd.text))
+        if (!Magic_stick)
         {
-            ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+
+
+            if (itemName && string.IsNullOrEmpty(ifd.text))
+            {
+                ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
+                Global.PauseManager.Play();
+                Destroy(gameObject);
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Return)) 
+        else
         {
-            itemName.ItemData = (ifd.text.Replace(' ','_')).Replace('\n','^');
-            Global.PauseManager.Play();
-            Destroy(gameObject);
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+
+                Global.PauseManager.Play();
+                Use(ifd.text, Magic_obj);
+                Destroy(gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+
+                Global.PauseManager.Play();
+                Destroy(gameObject);
+            }
+
         }
+    }
+    public static bool isNumber(string s)
+    {
+        if (
+              s[0] == '0' ||
+              s[0] == '1' ||
+              s[0] == '2' ||
+              s[0] == '3' ||
+              s[0] == '4' ||
+              s[0] == '5' ||
+              s[0] == '6' ||
+              s[0] == '7' ||
+              s[0] == '8' ||
+              s[0] == '9' ||
+              s[0] == '-')
+        {
+
+            return true;
+        }
+        return false;
     }
     public static void Use(string _script, GameObject sc)
     {
 
-
-
+        words = new List<string>();
+        word = "";
 
 
         for (int i = 0; i < _script.Length; i++)
@@ -58,6 +105,7 @@ public class script : MonoBehaviour
                 word += _script[i];
             }
         }
+     if (FindFirstObjectByType<script>())  FindFirstObjectByType<script>(). words2 = words;
         string typedata = "";
         for (int i = 0; i < words.Count; i++)
         {
@@ -67,10 +115,52 @@ public class script : MonoBehaviour
             {
                 typedata = "operator";
             }
+            if (words[i] == "give")
+            {
+                typedata = "give";
+
+                i++;
+            }
+            if (words[i] == "time")
+            {
+                typedata = "timespeed";
+                i++;
+            }
+            if (words[i] == "heal")
+            {
+                //  mover.main().hp = 200;
+
+                typedata = "heal";
+                i++;
+            }
 
             if (typedata == "operator" && words[i] == "copy")
             {
                 Instantiate(sc, sc.transform.position, Quaternion.identity);
+                typedata = "end";
+            }
+            if (typedata == "give")
+            {
+                foreach (GameObject g in complsave.t3)
+                {
+
+
+                    if (g.GetComponent<itemName>()._Name == words[i])
+                    {
+
+                        Instantiate(g, mover.main().transform.position, Quaternion.identity);
+                    }
+                }
+                typedata = "end";
+            }
+            if (typedata == "timespeed" && isNumber(words[i]))
+            {
+                Time.timeScale = (float)(int.Parse(words[i])) / 20;
+                typedata = "end";
+            }
+            if (typedata == "heal" && isNumber(words[i]))
+            {
+                mover.main().hp += (int.Parse(words[i]));
                 typedata = "end";
             }
             if (typedata == "operator" && words[i] == "del")
