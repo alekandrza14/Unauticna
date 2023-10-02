@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 [System.Serializable]
 public class El
@@ -26,6 +28,19 @@ public class Element : MonoBehaviour
         {
            if( element[i].element.tag == c.collider.tag)
             {
+                string reserch = c.collider.gameObject.GetComponent<itemName>()._Name + gameObject.GetComponent<itemName>()._Name;
+
+                Directory.CreateDirectory("unsave/var/technologies");
+                if (!VarSave.ExistenceVar("technologies/" + reserch))
+                    {
+                        Directory.CreateDirectory("unsave/var/technologies");
+                        VarSave.LoadMoney("_technologies", 1);
+                        Globalprefs.technologies = VarSave.GetMoney("_technologies");
+                        VarSave.SetInt("technologies/" + reserch, 0);
+                    }
+
+                   
+
                 Instantiate(element[i].item,transform.position,transform.rotation);
                 Destroy(gameObject);
                 Destroy(c.collider.gameObject);

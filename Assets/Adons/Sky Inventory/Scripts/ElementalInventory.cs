@@ -595,18 +595,19 @@ public class ElementalInventory : MonoBehaviour {
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("script") && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "script" && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
 
             if (hit.collider != null)
             {
-                GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
-                g.GetComponent<script>().sc = hit.collider.gameObject;
-                setItem("", 0, Color.red, select);
-                Cells[select].UpdateCellInterface();
+                //  GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
+                //   g.GetComponent<script>().sc = hit.collider.gameObject;
+              //   setItem("", 0, Color.red, select);
+                 //  Cells[select].UpdateCellInterface();
+                script.Use((Cells[select].elementData.Replace('_', ' ')).Replace('^', '\n'), hit.collider.gameObject);
                 cistalenemy.dies++;
-                Global.PauseManager.Pause();
+              //  Global.PauseManager.Pause();
             }
 
         }
@@ -886,7 +887,8 @@ public class ElementalInventory : MonoBehaviour {
 
             }
         }
-		if(Input.GetKey(KeyCode.Mouse0)) itemUse();
+	//	if(Input.GetKey(KeyCode.Mouse0))
+            itemUse();
 
     
         if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)

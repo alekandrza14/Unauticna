@@ -451,6 +451,7 @@ public class mover : MonoBehaviour
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.research = VarSave.GetMoney("research");
+        Globalprefs.technologies = VarSave.GetMoney("_technologies");
         Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         lif = Globalprefs.GetIdPlanet().ToString();

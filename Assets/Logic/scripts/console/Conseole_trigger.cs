@@ -54,6 +54,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "1";
             }
+            if (s[0] == "scene_to_name")
+            {
+                a = "13";
+            }
             if (s[0] == "Gamemode")
             {
                 a = "7";
@@ -101,6 +105,11 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "1")
             {
                 SceneManager.LoadScene(int.Parse(s[1]));
+
+            }
+            if (i == 1 && a == "13")
+            {
+                SceneManager.LoadScene(s[1]);
 
             }
             if (i == 1 && a == "2")
@@ -184,7 +193,7 @@ public class Conseole_trigger : MonoBehaviour
             Global.PauseManager.Pause();
 
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
         {
             run(FindFirstObjectByType<Console_pointer>().text.text);
             VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
