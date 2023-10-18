@@ -18,7 +18,7 @@ public class button6 : MonoBehaviour
     public bool p4;
     public bool p5;
     public Collider other;
-    public HyperbolicPoint sp;
+    public PolarHyperbolicPoint sp;
     public float w;
     private void Start()
     {

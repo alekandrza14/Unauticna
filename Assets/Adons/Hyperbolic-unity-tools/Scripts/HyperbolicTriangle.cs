@@ -8,7 +8,7 @@ using UnityEngine;
 public class HyperbolicTriangle : MonoBehaviour
 {
     public HyperbolicTriangeRenederer tr;
-    public HyperbolicPoint sp1, sp2, sp3;
+    public PolarHyperbolicPoint sp1, sp2, sp3;
     bool done;
     // Start is called before the first frame update
     void Start()

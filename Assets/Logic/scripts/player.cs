@@ -190,13 +190,20 @@ public class GameManager : MonoBehaviour
         {
 
 
-           t = FindFirstObjectByType<mover>().transform;
-            
+            t = FindFirstObjectByType<mover>().transform;
+
         }
-      
-                return t;
+        if (GameObject.FindObjectsByType<RayCastStars>(sortmode.main).Length != 0)
+        {
+
+
+            t = FindFirstObjectByType<RayCastStars>().transform;
+
+        }
+
+        return t;
     }
-    static public void load(Transform transform,HyperbolicPoint hyperbolicPoint)
+    static public void load(Transform transform,PolarHyperbolicPoint hyperbolicPoint)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
@@ -209,7 +216,7 @@ public class GameManager : MonoBehaviour
       
 
     }
-    static public void load5(Hyperbolic2D pl,float i3)
+    static public void load5(PolarHyperbolic2D pl,float i3)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {

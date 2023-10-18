@@ -242,6 +242,7 @@ public class script : MonoBehaviour
 
                     }
                 }
+                VarSave.LoadMoney("Inflaition", 10, SaveType.global);
                     i++;
             }
             if (words[i] == "time")
@@ -334,6 +335,8 @@ public class script : MonoBehaviour
             }
             if (typedata == "Money")
             {
+
+                VarSave.LoadMoney("Inflation", (GetNumber(words[i], VarSave.LoadMoney("tevro", 0)))/2000, SaveType.global);
                 VarSave.LoadMoney("tevro",(GetNumber(words[i], VarSave.LoadMoney("tevro",0))));
                 typedata = "end";
             }

@@ -714,11 +714,11 @@ public class ElementalInventory : MonoBehaviour {
 
                     Transform t = Instantiate(inv2("пена").gameObject, Vector3.up * inv2("пена").gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
                     t.Translate(0, v3.y, 0);
-                    t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
-                    t.gameObject.GetComponent<HyperbolicPoint>().v1 = c.transform.position.y;
-                    t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
-                    t.gameObject.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
-                    t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2("пена").gameObject.transform.localScale;
+                    t.gameObject.AddComponent<PolarHyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+                    t.gameObject.GetComponent<PolarHyperbolicPoint>().v1 = c.transform.position.y;
+                    t.gameObject.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.applyTranslationY(-v3.z);
+                    t.gameObject.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(-v3.x);
+                    t.gameObject.GetComponent<PolarHyperbolicPoint>().ScriptSacle = inv2("пена").gameObject.transform.localScale;
                     //Instantiate(inv2("пена").gameObject, hit.collider.transform.position + Vector3.right, Quaternion.identity);
 
                 }
@@ -816,9 +816,70 @@ public class ElementalInventory : MonoBehaviour {
                 //  Instantiate(Resources.Load("voices/belock"));
             }
 
-            lowitem("belock","seed");
+            lowitem("belock", "seed");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Grib") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                //  Instantiate(Resources.Load("voices/belock"));
+            }
+
+            lowitem("Grib", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("jeltok") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                //  Instantiate(Resources.Load("voices/belock"));
+            }
+
+            lowitem("jeltok", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("mad") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                //  Instantiate(Resources.Load("voices/belock"));
+            }
+
+            lowitem("mad", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("sosisca") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 3);
+            if (i == 0)
+            {
+                //  Instantiate(Resources.Load("voices/belock"));
+            }
+
+            lowitem("sosisca", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //sosisca
         VarSave.SetInt("Agr", cistalenemy.dies);
     }
 	private void Update()
@@ -1208,13 +1269,13 @@ public class ElementalInventory : MonoBehaviour {
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
             
-            t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+            t.gameObject.AddComponent<PolarHyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
             t.transform.position = new Vector3(
 				t.transform.position.x, 
 				c.transform.position.y,
                 t.transform.position.z
                 );
-            t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
+            t.gameObject.GetComponent<PolarHyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
            if(t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
 
             Destroy(t.gameObject.GetComponent<Rigidbody>());
@@ -1231,13 +1292,13 @@ public class ElementalInventory : MonoBehaviour {
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
            
-            t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+            t.gameObject.AddComponent<PolarHyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
             t.transform.position = new Vector3(
                 t.transform.position.x,
                 c.transform.position.y,
                 t.transform.position.z
                 );
-            t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
+            t.gameObject.GetComponent<PolarHyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
             if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
             Destroy(t.gameObject.GetComponent<Rigidbody>());
             setItem("", 0, Color.red, select);

@@ -14,7 +14,7 @@ public class button7 : MonoBehaviour
     string Portal = "p2";
     public bool notsave; public Collider other;
 
-    public HyperbolicPoint sp;
+    public PolarHyperbolicPoint sp;
 
     private void Start()
     {

@@ -17,7 +17,7 @@ public class load1
     static public bool isCamd;
     static public bool isplanet;
     static public bool stad;
-    public static Hyperbolic2D pt;
+    public static PolarHyperbolic2D pt;
     static public RawImage watermask;
     static public float gr; static public float pl;
     static public Color bg; static public CameraClearFlags bg2;
@@ -524,20 +524,16 @@ public class mover : MonoBehaviour
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.velocity = save.velosyty;
+
+                W_position = save.wpos;
                 if (portallNumer.Portal == "")
                 {
-                    if (true)
+
+                    PlayerBody.transform.position = save.pos;
+                    //  sr.transform.position = save.pos2;
+                    if (HyperbolicCamera.Main() != null)
                     {
-
-                        W_position = save.wpos;
-                        PlayerBody.transform.position = save.pos;
-                        if (HyperbolicCamera.Main() != null)
-                        {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
-                        }
-                        //  sr.transform.position = save.pos2;
-                        PlayerCamera.transform.position = HeadCameraSetup.transform.position;
-
+                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                     }
                     if (Globalprefs.isnew)
                     {
@@ -550,7 +546,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-              else  if (portallNumer.Portal == "WMove+")
+                else if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -558,7 +554,7 @@ public class mover : MonoBehaviour
                         W_position = -499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -575,7 +571,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-              else  if (portallNumer.Portal == "WMove-")
+                else if (portallNumer.Portal == "WMove-")
                 {
                     if (true)
                     {
@@ -583,7 +579,7 @@ public class mover : MonoBehaviour
                         W_position = 499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -600,11 +596,7 @@ public class mover : MonoBehaviour
                         Globalprefs.isnew = false;
                     }
                 }
-                else
-                {
 
-                    W_position = save.wpos;
-                }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
                 PlayerCamera.transform.rotation = save.q2;
@@ -641,15 +633,26 @@ public class mover : MonoBehaviour
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.velocity = save.velosyty;
+
+                W_position = save.wpos;
                 if (portallNumer.Portal == "")
                 {
 
-                    W_position = save.wpos;
                     PlayerBody.transform.position = save.pos;
                     //  sr.transform.position = save.pos2;
                     if (HyperbolicCamera.Main() != null)
                     {
-                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                    }
+                    if (Globalprefs.isnew)
+                    {
+
+
+                        PlayerBody.transform.position += Globalprefs.newv3;
+                        PlayerBody.transform.rotation = Globalprefs.q[0];
+                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                        PlayerCamera.transform.rotation = Globalprefs.q[1];
+                        Globalprefs.isnew = false;
                     }
                 }
               else  if (portallNumer.Portal == "WMove+")
@@ -660,7 +663,7 @@ public class mover : MonoBehaviour
                         W_position = -499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -685,7 +688,7 @@ public class mover : MonoBehaviour
                         W_position = 499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -701,11 +704,6 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
-                }
-                else
-                {
-
-                    W_position = save.wpos;
                 }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
@@ -788,6 +786,7 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
             GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
+            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.LoadMoney("Inflation",0,SaveType.global)+"%");
             //cistalenemy.dies
 
 
@@ -851,7 +850,7 @@ public class mover : MonoBehaviour
                 {
 
 
-                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
+                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(tsave.hpos_Polar3);
                 }
                 PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
                 if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
@@ -885,7 +884,7 @@ public class mover : MonoBehaviour
                     {
 
 
-                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
@@ -927,7 +926,7 @@ public class mover : MonoBehaviour
                     {
 
 
-                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.transform.rotation = save.q2;
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
@@ -1331,6 +1330,7 @@ public class mover : MonoBehaviour
     }
     private void EconomicUpdate()
     {
+        if (VarSave.LoadMoney("Inflation", 0, SaveType.global) < 0) VarSave.LoadMoney("Inflation", -VarSave.LoadMoney("Inflation", 0, SaveType.global), SaveType.global);
         timer += (decimal)Time.deltaTime;
         if (timer > 60m * 60m)
         {

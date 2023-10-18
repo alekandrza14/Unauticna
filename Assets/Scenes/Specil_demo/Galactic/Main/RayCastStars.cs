@@ -8,7 +8,7 @@ public class SpaceSheepPosition
 {
     public Vector3 pos;
     public Quaternion rot;
-    public Hyperbolic2D hyperbolic;
+    public PolarHyperbolic2D hyperbolic;
 }
 public enum size
 {
@@ -44,6 +44,14 @@ public class RayCastStars : MonoBehaviour
           if(HyperbolicCamera)  HyperbolicCamera.RealtimeTransform = scp.hyperbolic;
         }
     }
+    private void OnGUI()
+    {
+        if (s == size.Universe) GUI.Label(new Rect(0f, 20, 300f, 100f), "Universe (*) : " + Globalprefs.GetIdUniverse());
+        if (s == size.Multyverse) GUI.Label(new Rect(0f, 20, 300f, 100f), "Multiverse (*) : " + Globalprefs.GetIdMultiverse());
+        if (s == size.Galaxy) GUI.Label(new Rect(0f, 20, 300f, 100f), "Galaxy (*) : " + Globalprefs.GetIdGalaxy());
+        if (s == size.Stars) GUI.Label(new Rect(0f, 20, 300f, 100f), "Stars (*) : " + Globalprefs.GetIdStars());
+
+    }
 
     public decimal Fract(decimal value) { return value - decimal.Truncate(value); }
     public float Frac(float value)
@@ -71,6 +79,30 @@ public class RayCastStars : MonoBehaviour
                 {
                     int o = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
                     text.text = "Звезда " + StarNameGenrator.Create_word(Globalprefs.GetIdStar(o)) + " : s" + o.ToString();
+                    if (o == 0)
+                    {
+
+                        text.text = "Звезда " + "Оурт" + " : s" + o.ToString();
+                    }
+                    else if (o == -11)
+                    {
+
+                        text.text = "Звезда " + "Геоп" + " : s" + o.ToString();
+                    }
+                    else if (o == 186)
+                    {
+
+                        text.text = "Звезда " + "Лароннн" + " : s" + o.ToString();
+                    }
+                    else if (o == -173 && Globalprefs.GetIdStar(o) == 1815127)
+                    {
+
+                        text.text = "Звезда " + "Ецлнос Сонечный" + " : s" + o.ToString();
+                    }
+                    else
+                    {
+                        text.text = "Звезда " + StarNameGenrator.Create_word(Globalprefs.GetIdStar(o)) + " : s" + o.ToString();
+                    }
                     if (o == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
@@ -94,6 +126,14 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                         VarSave.SetInt("planet", 0);
+                    }
+                    else if (o == -173 && Globalprefs.GetIdStar(o) == 1815127 && Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                        VarSave.SetInt("planet", o);
+                        SceneManager.LoadScene("dark5");
+                        VarSave.SetBool("NoStop", false);
+                        VarSave.DeleteKey("scppos");
                     }
                     else if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
@@ -244,11 +284,11 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Star" && s == size.Multyverse)
                 {
-                    int o = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
-                       (hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                    int o = (int)((hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.s * 200f) +
+                       (hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y)*200;
-                    int o2 = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
-                       ( hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                    int o2 = (int)((hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.s * 200f) +
+                       ( hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
 

@@ -65,7 +65,7 @@ public class MultyObject : MonoBehaviour
 
         }
 
-        InvokeRepeating("ProjectionUpdate", 1, 0.1f+Random.Range(0.05f,0.1f));
+        InvokeRepeating("ProjectionUpdate", 0, 0.02f+Random.Range(0.01f,0.02f));
     }
   
     // Update is called once per frame

@@ -450,7 +450,7 @@ public PVector mult(PVector source, PVector target)
 }
 
 
-/*
+
 public PVector cmult(PVector source, PVector target) {
   if (target == null) {
     target = new PVector();
@@ -464,7 +464,7 @@ public PVector cmult(PVector source, PVector target) {
   }
   return target;
 }
-*/
+
 
 
 /**

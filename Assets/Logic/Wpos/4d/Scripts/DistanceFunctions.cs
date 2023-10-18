@@ -16,7 +16,7 @@ namespace Unity.Mathematics
                 Destroy(this);
             }
         }
-        // HyperbolicPoint
+        // PolarHyperbolicPoint
         // s: radius
         public float sdSphere(float3 p, float s)
         {

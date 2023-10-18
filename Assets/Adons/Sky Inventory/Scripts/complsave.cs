@@ -309,10 +309,10 @@ public class complsave : MonoBehaviour
                         saveString1.x.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10);
 
                     }
-                    if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>())
+                    if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<PolarHyperbolicPoint>())
                     {
-                        saveString1.PvectorA.Add(JsonUtility.ToJson(FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
-                        saveString1.y.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>().v1);
+                        saveString1.PvectorA.Add(JsonUtility.ToJson(FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion));
+                        saveString1.y.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<PolarHyperbolicPoint>().v1);
                     }
                     if (GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<itemName>())
                     {
@@ -541,11 +541,11 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<breauty>().integer = saveString1.x[i3];
                         }
-                        if (!g.GetComponent<HyperbolicPoint>())
+                        if (!g.GetComponent<PolarHyperbolicPoint>())
                         {
 
 
-                            g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
+                            g.AddComponent<PolarHyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<PolarHyperbolic2D>(saveString1.PvectorA[i3]);
 
                             g.transform.position = new Vector3(
                             g.transform.position.x,
@@ -555,7 +555,7 @@ public class complsave : MonoBehaviour
                         }
                         else
                         {
-                            g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<Hyperbolic2D>(saveString1.PvectorA[i3]);
+                            g.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion = JsonUtility.FromJson<PolarHyperbolic2D>(saveString1.PvectorA[i3]);
                             g.transform.position = new Vector3(
                             g.transform.position.x,
                             saveString1.vector3A[i3].y,

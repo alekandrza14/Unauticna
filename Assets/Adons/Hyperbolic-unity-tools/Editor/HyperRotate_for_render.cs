@@ -48,12 +48,12 @@ public class HyperRotate_for_render : EditorTool
 
         }
         /*
-        if (((HyperbolicPoint)target).GetComponent<tringle>())
+        if (((PolarHyperbolicPoint)target).GetComponent<tringle>())
         {
 
 
             Gizmos.color = Color.green;
-            Gizmos.DrawSphere(((HyperbolicPoint)target).mposition, 0.3f);
+            Gizmos.DrawSphere(((PolarHyperbolicPoint)target).mposition, 0.3f);
         }
         */
 

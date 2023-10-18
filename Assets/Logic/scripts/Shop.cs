@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -55,6 +56,10 @@ public class Shop : MonoBehaviour
                 prise *= 2.5m;
                 produkt[i].price = prise.ToString();
             }
+            //etProcentInflitiuon()
+            decimal prise2 = decimal.Parse(produkt[i].price);
+            prise2 *= Globalprefs.GetProcentInflitiuon()+1;
+            produkt[i].price = prise2.ToString();
         }
     }
     private void Update()
@@ -116,6 +121,7 @@ public class Shop : MonoBehaviour
                     Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), GameManager.GetPlayer().transform.position, Quaternion.identity);
                 }
                 tevroint -= decimal.Parse( produkt[product].price);
+                VarSave.LoadMoney("Inflaition", -tevroint/2000, SaveType.global);
                 VarSave.SetMoney("tevro", tevroint);
 
                 if (produkt[product].name == "script" && Globalprefs.signedgamejolt == true)

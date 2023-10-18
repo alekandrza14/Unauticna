@@ -26,7 +26,7 @@ public class PresetMenager
 
         };
         g.AddComponent<MultyObject>();
-        g.GetComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("HyperbolicPoint");
+        g.GetComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("PolarHyperbolicPoint");
         g.GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
         g.transform.position = SceneView.lastActiveSceneView.camera.transform.position + (SceneView.lastActiveSceneView.camera.transform.forward * 10);
 

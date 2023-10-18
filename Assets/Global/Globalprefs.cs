@@ -39,6 +39,10 @@ public static class Globalprefs
     public static GameObject sit_player;
     public static Camera camera;
     public static bool Pause;
+    static public decimal GetProcentInflitiuon()
+    {
+        return VarSave.LoadMoney("Inflation", 0, SaveType.global)/100;
+    }
     static public float Hash(Vector2 p)
     {
         float d = Vector2.Dot(-p, new Vector2(12.9898f, 78.233f));
@@ -70,7 +74,53 @@ public static class Globalprefs
             (VarSave.GetInt("planetS") * 100) +
             (VarSave.GetInt("planetG") * 100) +
             (VarSave.GetInt("planetU") * 100) +
-            ((VarSave.GetMoney("MultyverseX")*2 +
+            ((VarSave.GetMoney("MultyverseX") * 2 +
+            VarSave.GetMoney("MultyverseY") * 3 +
+            VarSave.GetMoney("MultyverseZ") * 4 +
+            VarSave.GetMoney("MultyverseW") * 5) * 100);
+
+        return seed;
+    }
+    public static decimal GetIdStars()
+    {
+        decimal seed =
+            (VarSave.GetInt("planetS") * 100) +
+            (VarSave.GetInt("planetG") * 100) +
+            (VarSave.GetInt("planetU") * 100) +
+            ((VarSave.GetMoney("MultyverseX") * 2 +
+            VarSave.GetMoney("MultyverseY") * 3 +
+            VarSave.GetMoney("MultyverseZ") * 4 +
+            VarSave.GetMoney("MultyverseW") * 5) * 100);
+
+        return seed;
+    }
+    public static decimal GetIdGalaxy()
+    {
+        decimal seed =
+            (VarSave.GetInt("planetG") * 100) +
+            (VarSave.GetInt("planetU") * 100) +
+            ((VarSave.GetMoney("MultyverseX") * 2 +
+            VarSave.GetMoney("MultyverseY") * 3 +
+            VarSave.GetMoney("MultyverseZ") * 4 +
+            VarSave.GetMoney("MultyverseW") * 5) * 100);
+
+        return seed;
+    }
+    public static decimal GetIdUniverse()
+    {
+        decimal seed =
+            (VarSave.GetInt("planetU") * 100) +
+            ((VarSave.GetMoney("MultyverseX") * 2 +
+            VarSave.GetMoney("MultyverseY") * 3 +
+            VarSave.GetMoney("MultyverseZ") * 4 +
+            VarSave.GetMoney("MultyverseW") * 5) * 100);
+
+        return seed;
+    }
+    public static decimal GetIdMultiverse()
+    {
+        decimal seed =
+            ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
             VarSave.GetMoney("MultyverseW") * 5) * 100);
