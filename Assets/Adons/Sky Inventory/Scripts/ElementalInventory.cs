@@ -954,7 +954,25 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Pipis", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
-        //UltravioletColour
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Absolute_poison") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+                playerdata.Addeffect("BigShot", 600);
+            playerdata.Addeffect("MetabolismUp", 600);
+            playerdata.Addeffect("Axelerate", 600);
+            playerdata.Addeffect("invisible", 600);
+            playerdata.Addeffect("Tripl2", 600);
+            playerdata.Addeffect("Tripl2", 600);
+
+
+
+            lowitem("Pipis", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Absolute_poison
         //sosisca
         VarSave.SetInt("Agr", cistalenemy.dies);
     }

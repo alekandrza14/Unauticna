@@ -13,8 +13,18 @@ public class useeffect
 public class playerdata
 {
     
-    static public useeffect[] effects = new useeffect[7]
+    static public useeffect[] effects = new useeffect[]
     {
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
         new useeffect(),
         new useeffect(),
         new useeffect(),
