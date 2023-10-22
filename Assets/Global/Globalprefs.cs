@@ -15,10 +15,6 @@ public static class Globalprefs
     public static Vector3 WMovepos;
     public static bool RaymarchHitError;
     public static bool Scrensoting;
-    public static bool Iteract;
-    public static decimal KomplexX;
-    public static float KomplexY = 1;
-    public static List<string> SelfFunctions = new List<string>();
     public static decimal flowteuvro;
     public static decimal knowlages;
     public static decimal technologies;
