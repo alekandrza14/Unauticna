@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour
 
         return t;
     }
-    static public void load(Transform transform,PolarHyperbolicPoint hyperbolicPoint)
+    static public void load(Transform transform,HyperbolicPoint hyperbolicPoint)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
       
 
     }
-    static public void load5(PolarHyperbolic2D pl,float i3)
+    static public void load5(Hyperbolic2D pl,float i3)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {

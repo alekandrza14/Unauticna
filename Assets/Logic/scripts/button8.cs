@@ -23,7 +23,7 @@ public class button8 : MonoBehaviour
     public string pasword;
     public Canvas c;
 
-    public PolarHyperbolicPoint sp;
+    public HyperbolicPoint sp;
 
     private void Start()
     {

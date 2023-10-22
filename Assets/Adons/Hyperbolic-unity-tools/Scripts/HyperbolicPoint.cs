@@ -6,18 +6,18 @@ using UnityEngine;
 public class points
 {
 
-    [SerializeField] public PolarHyperbolicPoint points1;
-    [SerializeField] public PolarHyperbolicPoint points2;
+    [SerializeField] public HyperbolicPoint points1;
+    [SerializeField] public HyperbolicPoint points2;
 }
 [ExecuteAlways]
 static public class Hyperbolicmovetool
 {
 
-    public static PolarHyperbolicPoint mainEdit;
+    public static HyperbolicPoint mainEdit;
 }
 [ExecuteAlways]
 [AddComponentMenu("Hyperbolic space/Hyperbolic Point")]
-public class PolarHyperbolicPoint : MonoBehaviour
+public class HyperbolicPoint : MonoBehaviour
 {
     Vector4 oldposition;
     [HideInInspector] public Vector3 mposition;
@@ -28,8 +28,8 @@ public class PolarHyperbolicPoint : MonoBehaviour
     [SerializeField] public points points = new points();
 
     [HideInInspector] public Quaternion rotation;
-    public PolarHyperbolic2D HyperboilcPoistion = new PolarHyperbolic2D();
-    public PolarHyperbolic2D HyperboilcOringe = new PolarHyperbolic2D();
+    public Hyperbolic2D HyperboilcPoistion = new Hyperbolic2D();
+    public Hyperbolic2D HyperboilcOringe = new Hyperbolic2D();
     public Vector3 ScriptSacle = Vector3.one;
     [HideInInspector] public float v1 = 0;
     [HideInInspector] public float x;
@@ -77,7 +77,7 @@ public class PolarHyperbolicPoint : MonoBehaviour
     {
         if (!VertexOrPoint)
         {
-            InvokeRepeating("ProjectionUpdate", 0, 0.05f + UnityEngine.Random.Range(0f, 0.02f));
+            InvokeRepeating("ProjectionUpdate", 1, 0.05f + UnityEngine.Random.Range(0f, 0.02f));
             ProjectionUpdate(); 
         }
     }
@@ -90,9 +90,9 @@ public class PolarHyperbolicPoint : MonoBehaviour
 
         }
     }
-    static public PolarHyperbolicPoint[] ALLSpheres()
+    static public HyperbolicPoint[] ALLSpheres()
     {
-        return GameObject.FindObjectsByType<PolarHyperbolicPoint>(sortmode.main);
+        return GameObject.FindObjectsByType<HyperbolicPoint>(sortmode.main);
     }
    
 

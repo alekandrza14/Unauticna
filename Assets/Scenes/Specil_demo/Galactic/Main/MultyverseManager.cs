@@ -7,7 +7,7 @@ public class MultyverseManager : MonoBehaviour
     private void Start()
     {
         int i = 0;
-        foreach (PolarHyperbolicPoint g in FindObjectsByType<PolarHyperbolicPoint>(sortmode.main))
+        foreach (HyperbolicPoint g in FindObjectsByType<HyperbolicPoint>(sortmode.main))
         {
             float MuLtyverseCont = (float)(VarSave.GetMoney("MultyverseX")*2 + VarSave.GetMoney("MultyverseY")*3 + VarSave.GetMoney("MultyverseZ")*4 + VarSave.GetMoney("MultyverseW")*5);
             i++;

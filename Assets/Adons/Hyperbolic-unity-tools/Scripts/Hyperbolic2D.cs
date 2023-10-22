@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class PolarHyperbolic2D
+public class Hyperbolic2D
 {
     //A parametrisation SU2 that preserves hyperbolic space.
     //Starts with rotation of n rad, translation in z of s, and a rotation of m;
@@ -21,10 +21,10 @@ public class PolarHyperbolic2D
     {// formula for hyperbolic sine
         return (Mathf.Exp(x) - Mathf.Exp(-x)) / 2f;
     }
-    public  PolarHyperbolic2D()
+    public  Hyperbolic2D()
     {
     }
-    public PolarHyperbolic2D(float dN, float dS, float dM)
+    public Hyperbolic2D(float dN, float dS, float dM)
     {
         n = dN; s = dS; m = dM;
     }
@@ -57,7 +57,7 @@ public class PolarHyperbolic2D
     {
          m = m + a;
     }
-    public  void applyPolarTransform(PolarHyperbolic2D pt)
+    public  void applyPolarTransform(Hyperbolic2D pt)
     {
         applyRotation(pt.n);
         applyTranslationZ(pt.s);
@@ -86,7 +86,7 @@ public class PolarHyperbolic2D
     {
         n += a;
     }
-    public  void preApplyPolarTransform(PolarHyperbolic2D pt)
+    public  void preApplyPolarTransform(Hyperbolic2D pt)
     {
         preApplyRotation(pt.m);
         preApplyTranslationY(pt.s);
@@ -112,25 +112,25 @@ public class PolarHyperbolic2D
     {
         return (float)Mathf.Cos(angle);
     }
-    public PolarHyperbolic2D inverse()
+    public Hyperbolic2D inverse()
     {
-        return new PolarHyperbolic2D(-m, -s, -n);
+        return new Hyperbolic2D(-m, -s, -n);
     }
-    public  float distanceTo(PolarHyperbolic2D p)
+    public  float distanceTo(Hyperbolic2D p)
     {
-        PolarHyperbolic2D c = copy();
+        Hyperbolic2D c = copy();
         c.applyPolarTransform(p.inverse());
         return c.s;
     }
-    public PolarHyperbolic2D copy()
+    public Hyperbolic2D copy()
     {
-        return new PolarHyperbolic2D(n, s, m);
+        return new Hyperbolic2D(n, s, m);
     }
     public string toString()
     {
         return "<n-" + n + ",s-" + s + ",m-" + m + ">";
     }
-    public PVector posOnScreen()
+    public  PVector posOnScreen()
     {
         PMatrix3D transform = getMatrix();
         PVector p = new PVector(1, 0, 0);

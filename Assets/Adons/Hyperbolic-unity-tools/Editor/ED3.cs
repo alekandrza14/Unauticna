@@ -14,7 +14,7 @@ public class Create_4D
         {
 
         };
-        g.AddComponent<PolarHyperbolicPoint>();
+        g.AddComponent<HyperbolicPoint>();
     }
     [MenuItem("GameObject/4D Object/Hyperbolic geometry/Cube", false, -1000)]
     public static void CreateCube()
@@ -24,7 +24,7 @@ public class Create_4D
         {
 
         };
-        if (Hyperbolicmovetool.mainEdit != null) { g.AddComponent<PolarHyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<PolarHyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<PolarHyperbolicPoint>();
+        if (Hyperbolicmovetool.mainEdit != null) { g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<HyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<HyperbolicPoint>();
 
         g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("Cube");
         g.AddComponent<BoxCollider>();
@@ -38,7 +38,7 @@ public class Create_4D
         {
 
         };
-        if (Hyperbolicmovetool.mainEdit != null) {g.AddComponent<PolarHyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<PolarHyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<PolarHyperbolicPoint>();
+        if (Hyperbolicmovetool.mainEdit != null) {g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = Hyperbolicmovetool.mainEdit.HyperboilcPoistion; g.GetComponent<HyperbolicPoint>().v1 = Hyperbolicmovetool.mainEdit.v1; } else g.AddComponent<HyperbolicPoint>();
         g.AddComponent<SphereCollider>();
         g.AddComponent<MeshFilter>().sharedMesh = Resources.Load<Mesh>("sphere");
         g.AddComponent<MeshRenderer>().material = Resources.Load<Material>("Default");

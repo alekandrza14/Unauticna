@@ -17,7 +17,7 @@ public class load1
     static public bool isCamd;
     static public bool isplanet;
     static public bool stad;
-    public static PolarHyperbolic2D pt;
+    public static Hyperbolic2D pt;
     static public RawImage watermask;
     static public float gr; static public float pl;
     static public Color bg; static public CameraClearFlags bg2;
@@ -533,7 +533,7 @@ public class mover : MonoBehaviour
                     //  sr.transform.position = save.pos2;
                     if (HyperbolicCamera.Main() != null)
                     {
-                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     if (Globalprefs.isnew)
                     {
@@ -554,7 +554,7 @@ public class mover : MonoBehaviour
                         W_position = -499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -579,7 +579,7 @@ public class mover : MonoBehaviour
                         W_position = 499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -642,7 +642,7 @@ public class mover : MonoBehaviour
                     //  sr.transform.position = save.pos2;
                     if (HyperbolicCamera.Main() != null)
                     {
-                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     if (Globalprefs.isnew)
                     {
@@ -663,7 +663,7 @@ public class mover : MonoBehaviour
                         W_position = -499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -688,7 +688,7 @@ public class mover : MonoBehaviour
                         W_position = 499;
                         if (HyperbolicCamera.Main() != null)
                         {
-                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                            HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
                         //  sr.transform.position = save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -850,7 +850,7 @@ public class mover : MonoBehaviour
                 {
 
 
-                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(tsave.hpos_Polar3);
+                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
                 }
                 PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
                 if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
@@ -884,7 +884,7 @@ public class mover : MonoBehaviour
                     {
 
 
-                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                     if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
@@ -926,7 +926,7 @@ public class mover : MonoBehaviour
                     {
 
 
-                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<PolarHyperbolic2D>(save.hpos_Polar3);
+                        hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.transform.rotation = save.q2;
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;

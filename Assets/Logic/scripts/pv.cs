@@ -8,7 +8,7 @@ public class pv : MonoBehaviour
     {
         
 
-            GetComponent<Camdpoint>().p2 = new PolarHyperbolic2D(v1, v2, v3);
+            GetComponent<Camdpoint>().p2 = new Hyperbolic2D(v1, v2, v3);
             GetComponent<Camdpoint>().v1 = v4;
         
 

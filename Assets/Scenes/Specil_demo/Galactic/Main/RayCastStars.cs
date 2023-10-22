@@ -8,7 +8,7 @@ public class SpaceSheepPosition
 {
     public Vector3 pos;
     public Quaternion rot;
-    public PolarHyperbolic2D hyperbolic;
+    public Hyperbolic2D hyperbolic;
 }
 public enum size
 {
@@ -284,11 +284,11 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Star" && s == size.Multyverse)
                 {
-                    int o = (int)((hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.s * 200f) +
-                       (hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                    int o = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
+                       (hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y)*200;
-                    int o2 = (int)((hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.s * 200f) +
-                       ( hit.collider.GetComponent<PolarHyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                    int o2 = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
+                       ( hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
 

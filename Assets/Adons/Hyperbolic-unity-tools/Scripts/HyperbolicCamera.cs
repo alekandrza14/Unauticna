@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class editorsave
 {
-    public PolarHyperbolic2D pos;
+    public Hyperbolic2D pos;
 
 }
 [ExecuteAlways]
@@ -19,8 +19,8 @@ public class HyperbolicCamera : MonoBehaviour
 {
     [HideInInspector] public Vector3 position;
 
-    public PolarHyperbolic2D RealtimeTransform = new PolarHyperbolic2D(0, 0.01f, 0f);
-    public PolarHyperbolic2D HyperbolicTransform = new PolarHyperbolic2D(0, 0.01f, 0f);
+    public Hyperbolic2D RealtimeTransform = new Hyperbolic2D(0, 0.01f, 0f);
+    public Hyperbolic2D HyperbolicTransform = new Hyperbolic2D(0, 0.01f, 0f);
     [HideInInspector] public bool px; [HideInInspector] public bool py; [HideInInspector] public bool mx; [HideInInspector] public bool my;
     [HideInInspector] public BoxCollider c;
     [HideInInspector] public float startscale;
@@ -140,7 +140,7 @@ public class HyperbolicCamera : MonoBehaviour
 
     }
 
-    public PolarHyperbolic2D HyperboilcOringe = new PolarHyperbolic2D();
+    public Hyperbolic2D HyperboilcOringe = new Hyperbolic2D();
     public void edit()
     {
 

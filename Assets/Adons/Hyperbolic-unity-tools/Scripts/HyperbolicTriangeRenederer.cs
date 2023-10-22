@@ -9,6 +9,7 @@ namespace un
 {
 }
 [ExecuteAlways]
+[ExecuteInEditMode]
 public class HyperbolicTriangeRenederer : MonoBehaviour
 {
     float speed1 = 1;
@@ -20,10 +21,9 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
     [HideInInspector] public float v2 = 0;
     [HideInInspector] public float v3 = 0;
     [HideInInspector] public bool w;
-    public PolarHyperbolic2D p2 = new PolarHyperbolic2D();
-    public PolarHyperbolic2D p3 = new PolarHyperbolic2D();
-    public PolarHyperbolic2D p4 = new PolarHyperbolic2D();
-    public PolarHyperbolic2D HyperBolicCam = new PolarHyperbolic2D();
+    [HideInInspector] public Hyperbolic2D p2 = new Hyperbolic2D();
+    [HideInInspector] public Hyperbolic2D p3 = new Hyperbolic2D();
+    [HideInInspector] public Hyperbolic2D p4 = new Hyperbolic2D();
     PMatrix3D fVertex = new PMatrix3D();
     PMatrix3D sVertex = new PMatrix3D();
     PMatrix3D tVertex = new PMatrix3D();
@@ -38,14 +38,10 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
     [HideInInspector] public float x;
     private void Awake()
     {
-
-     
-
-
+        
         ProjectionUpdate();
 
-        
-        InvokeRepeating("ProjectionUpdate", 0, 0.15f+UnityEngine.Random.Range(0.15f,0.1f));
+        InvokeRepeating("ProjectionUpdate", 1, 0.07f+UnityEngine.Random.Range(0f,0.02f));
     }
   
 
@@ -53,10 +49,9 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
     
     public void ProjectionUpdate()
     {
+       
 
-
-        if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperBolicCam = HyperbolicCamera.Main().RealtimeTransform;
-        Deplacement();
+            Deplacement();
 
     }
    // public void up2( Polar3 v2)
@@ -144,10 +139,9 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
         {
 
 
-           if (tVertex == nVertex)
-            {
-               fVertex.set(p2.getMatrix());
-               sVertex.set(p3.getMatrix());
+            if (tVertex == nVertex) {
+                fVertex.set(p2.getMatrix());
+                sVertex.set(p3.getMatrix());
                 tVertex.set(p4.getMatrix());
             }
 
@@ -163,7 +157,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
            fVertex.mult(nextPoint, nextPoint);
 
-            HyperBolicCam.getMatrix().mult(nextPoint, nextPoint);
+            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 
@@ -189,7 +183,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
                 sVertex.mult(nextPoint2, nextPoint2);
 
-                HyperBolicCam.getMatrix().mult(nextPoint2, nextPoint2);
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint2, nextPoint2);
 
                 nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
 
@@ -212,7 +206,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
                 tVertex.mult(nextPoint3, nextPoint3);
 
-                HyperBolicCam.getMatrix().mult(nextPoint3, nextPoint3);
+                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint3, nextPoint3);
 
                 nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
 
@@ -270,7 +264,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
     void LateUpdate()
     {
-     //   ProjectionUpdate();
+        
     }
 
     void Update()
