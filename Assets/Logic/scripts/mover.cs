@@ -109,7 +109,8 @@ public class mover : MonoBehaviour
     bool stand_stay;
     [SerializeField] GameObject PlayerModelObject;
     [SerializeField] GameObject[] PlayerModelObjects;
-    [SerializeField] GameObject[] PlayerModelTags;
+    [SerializeField] int[] PlayerModelTags;
+    public Material DebugMat;
     faceView faceViewi;
     bool Sprint;
     float fireInk;
@@ -1141,6 +1142,7 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
+      //  EffectUpdate();
         foreach (string _script in Globalprefs.SelfFunctions)
         {
             script.Use(_script,script.Lost_Magic_obj);
@@ -1344,7 +1346,7 @@ public class mover : MonoBehaviour
         {
 
 
-            cistalenemy.dies--;
+            cistalenemy.dies-=1+invisibeobject;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
 
@@ -1480,14 +1482,14 @@ public class mover : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
             if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
-            rigidbody3d.drag = 5;
+            rigidbody3d.drag = 6- axelerate;
             jumpforse = Mathf.Clamp(jumpforse,0,1000);
         }
         else
         {
             jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
 
-            rigidbody3d.drag = 3;
+            rigidbody3d.drag = 4.5f- axelerate;
         }
 
         bool flyinng = InWater || inglobalspace || isKinematic;
@@ -1590,7 +1592,7 @@ public class mover : MonoBehaviour
             }
         }
     }
-
+    int maxhp;
     private void HpUpdate()
     {
         if (hp <= 0)
@@ -1649,9 +1651,9 @@ public class mover : MonoBehaviour
         {
             Destroy(GameObject.FindWithTag("blood1"));
         }
-        if (tic >= time && hp < 200)
+        if (tic >= time && hp < 200 + maxhp)
         {
-            hp += 1;
+            hp += 1 + hpregen;
             tic = 0;
 
         }
@@ -1872,42 +1874,163 @@ public class mover : MonoBehaviour
             }
         }
     }
-
+    float axelerate;
+    int hpregen;
+    int invisibeobject;
+    float timerTrip;
+    float timerFlowUp;
+    bool big;
     private void EffectUpdate()
     {
         if (playerdata.Geteffect("invisible") != null)
         {
-
+            invisibeobject = 10;
 
             for (int i = 0; i < PlayersModelObjObjects.Length; i++)
             {
-               
+
+
                 if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
                 {
 
+                    //  Debug.Log("invisible0");
+                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
+                   List<Material> m = new List<Material>();
+                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
+                    {
+                        m.Add(m2);
+                    }
+                    m[PlayerModelTags[i]] = m3;
+                          PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().SetMaterials(m);
+                      //  PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().sharedMaterials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
+                 //   PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
+                }
+                if (PlayersModelObjObjects[i].GetComponent<MeshRenderer>())
+                {
 
-                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials[1] = Resources.Load<Material>("pm/playermatinvisible");
+
+                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
+                    List<Material> m = new List<Material>();
+                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
+                    {
+                        m.Add(m2);
+                    }
+                    m[PlayerModelTags[i]] = m3;
+                    PlayersModelObjObjects[i].GetComponent<MeshRenderer>().SetMaterials(m);
+                    //   Debug.Log("invisible1");
+                  //  PlayersModelObjObjects[i].GetComponent<MeshRenderer>().sharedMaterials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
+                  //  PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
                 }
             }
-
             //playermatinvisible
         }
         if (playerdata.Geteffect("invisible") == null)
         {
+
+            invisibeobject = 0;
             for (int i = 0; i < PlayersModelObjObjects.Length; i++)
             {
                
                 if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
                 {
+                    Material m3 = Resources.Load<Material>("pm/playermat");
+                    List<Material> m = new List<Material>();
+                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
+                    {
+                        m.Add(m2);
+                    }
+                    m[PlayerModelTags[i]] = m3;
+                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().SetMaterials(m);
+                }
+                if (PlayersModelObjObjects[i].GetComponent<MeshRenderer>())
+                {
 
-
-                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials[1] = Resources.Load<Material>("pm/playermat");
+                    Material m3 = Resources.Load<Material>("pm/playermat");
+                    List<Material> m = new List<Material>();
+                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
+                    {
+                        m.Add(m2);
+                    }
+                    m[PlayerModelTags[i]] = m3;
+                    PlayersModelObjObjects[i].GetComponent<MeshRenderer>().SetMaterials(m);
                 }
             }
             //playermat
         }
+        //MetabolismUp
+        //playerdata.Addeffect("Trip", 60)
+        if (playerdata.Geteffect("Trip") != null)
+        {
+
+            timerTrip += 0.01f;
+            PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 5, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 5, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 5);
+
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Axelerate") != null)
+        {
+            axelerate = 2;
+
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("BigShot") != null)
+        {
+            timerFlowUp += Time.deltaTime;
+            if (timerFlowUp >= 5)
+            {
+                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.flowteuvro);
+                timerFlowUp = 0;
+            }
+            if (!big)
+            {
+                Instantiate(Resources.Load("audios/BigShot"));
+                big = true;
+            }
+                //playermatinvisible
+        }
+        if (playerdata.Geteffect("BigShot") == null)
+        {
+           
+            big = false;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Axelerate") == null)
+        {
+            axelerate = 0;
+
+            //playermatinvisible
+        }
+
+        if (playerdata.Geteffect("MetabolismUp") != null)
+        {
+            // axelerate = 2;
+            Time.timeScale = 0.8f;
+            fireInk = 20;
+            hpregen = 1;
+            maxhp = 250;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("MetabolismUp") == null)
+        {
+            //  axelerate = 0;
+
+            Time.timeScale = 1.0f;
+            hpregen = 0;
+            maxhp = 0;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Tripl2") != null)
+        {
+
+            timerTrip += 0.01f;
+            PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+        //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
         playerdata.checkeffect();
-        GameManager.GetUF();
+      //  GameManager.GetUF();
     }
     public static mover main()
     {

@@ -13,8 +13,12 @@ public class useeffect
 public class playerdata
 {
     
-    static public useeffect[] effects = new useeffect[3]
+    static public useeffect[] effects = new useeffect[7]
     {
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
+        new useeffect(),
         new useeffect(),
         new useeffect(),
         new useeffect()
@@ -96,22 +100,22 @@ public class playerdata
         
         VarSave.SetString("effect_" + "panic", JsonUtility.ToJson(playerdata.Paniceffect[0]));
     }
-    static public void Addeffect(string name, float time)
+    static public void Addeffect(string name, float secoundstime)
     {
         for (int i = 0; i < playerdata.effects.Length; i++)
         {
             if (playerdata.effects[i].effect == "")
             {
                 playerdata.effects[i].effect = name;
-                playerdata.effects[i].time = time;
+                playerdata.effects[i].time = secoundstime;
                 i = playerdata.effects.Length;
             }
         }
     }
-    static public void SetPaniceffect(string name, float time)
+    static public void SetPaniceffect(string name, float secoundstime)
     {
         playerdata.Paniceffect[0].effect = name;
-        playerdata.Paniceffect[0].time = time;
+        playerdata.Paniceffect[0].time = secoundstime;
     }
     static public void Cleareffect()
     {

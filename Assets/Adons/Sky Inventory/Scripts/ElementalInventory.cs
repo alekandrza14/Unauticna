@@ -558,7 +558,7 @@ public class ElementalInventory : MonoBehaviour {
             removeitem("box1");
             GlobalInputMenager.KeyCode_eat = 0;
         }
-       
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[select].elementName == "builder" && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -572,6 +572,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -825,11 +826,10 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 3);
-            if (i == 0)
-            {
+          
                 //  Instantiate(Resources.Load("voices/belock"));
-            }
+                playerdata.Addeffect("Trip",60);
+          
 
             lowitem("Grib", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -840,11 +840,9 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 3);
-            if (i == 0)
-            {
+          
                 //  Instantiate(Resources.Load("voices/belock"));
-            }
+         
 
             lowitem("jeltok", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -855,11 +853,11 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 3);
-            if (i == 0)
-            {
+           
                 //  Instantiate(Resources.Load("voices/belock"));
-            }
+
+                playerdata.Addeffect("Tripl2", 600);
+           
 
             lowitem("mad", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -870,15 +868,93 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 3);
+            int i = Random.Range(0, 6);
             if (i == 0)
             {
                 //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Addeffect("Trip", 60);
             }
 
             lowitem("sosisca", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        //RedColour
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("RedColour") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+          
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Cleareffect();
+          
+
+            lowitem("RedColour", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("BlueColour") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 2);
+            if (i == 0)
+            {
+                playerdata.Addeffect("invisible", 60);
+            }
+
+            lowitem("BlueColour", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("GreenColour") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 2);
+            if (i == 0)
+            {
+                playerdata.Addeffect("Axelerate", 60);
+            }
+
+            lowitem("GreenColour", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("UltravioletColour") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 2);
+            if (i == 0)
+            {
+                playerdata.Addeffect("MetabolismUp", 60);
+            }
+
+            lowitem("UltravioletColour", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Pipis") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            int i = Random.Range(0, 20);
+            if (i == 0)
+            {
+                playerdata.Addeffect("BigShot", 600);
+
+            }
+
+            lowitem("Pipis", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //UltravioletColour
         //sosisca
         VarSave.SetInt("Agr", cistalenemy.dies);
     }
