@@ -37,6 +37,7 @@ public class tsave
 {
 
     public string idsave;
+    public string timesave;
     public Vector3 pos, pos2, rotW;
     public Vector4 pos3;
     public string hpos_Polar3;
@@ -834,11 +835,11 @@ public class mover : MonoBehaviour
             DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
 
             playerdata.Loadeffect();
-            if (File.Exists("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text +(di.GetFiles().Length-1)))
+            if (File.Exists(di.GetFiles()[di.GetFiles().Length - 1].FullName))
             {
-                tsave = JsonUtility.FromJson<tsave>(File.ReadAllText("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + (di.GetFiles().Length - 1)));
-                rigidbody3d.angularVelocity = tsave.angularvelosyty;
-                rigidbody3d.velocity = tsave.velosyty;
+                tsave = JsonUtility.FromJson<tsave>(File.ReadAllText(di.GetFiles()[di.GetFiles().Length - 1].FullName));
+                rigidbody3d.angularVelocity = -tsave.angularvelosyty;
+                rigidbody3d.velocity = -tsave.velosyty;
                 PlayerBody.transform.position = tsave.pos;// sr.transform.position = save.pos2;
                 PlayerBody.transform.rotation = tsave.q1;
                 HeadCameraSetup.transform.rotation = tsave.q3;
@@ -856,7 +857,7 @@ public class mover : MonoBehaviour
                 {
                     FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = tsave.vive;
                 }
-                File.Delete("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + (di.GetFiles().Length - 1));
+                File.Delete(di.GetFiles()[di.GetFiles().Length - 1].FullName);
             }
             timer10 = 0;
 
@@ -1140,6 +1141,12 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
+        foreach (string _script in Globalprefs.SelfFunctions)
+        {
+            script.Use(_script,script.Lost_Magic_obj);
+            Globalprefs.KomplexX++;
+            //Globalprefs.KomplexY*=2;
+        }
         TimeSave();
         //авто-Пост-Ренбер
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
@@ -1912,7 +1919,7 @@ public class mover : MonoBehaviour
 
         timer9 += Time.deltaTime;
         if (timer9 >= .1f && !Input.GetKey(KeyCode.G)) {
-          
+            tsave.timesave = VarSave.LoadMoney(SceneManager.GetActiveScene().buildIndex.ToString(),1).ToString();
             tsave.angularvelosyty = rigidbody3d.angularVelocity;
             tsave.velosyty = rigidbody3d.velocity;
             tsave.q1 = PlayerBody.transform.rotation;
@@ -1932,9 +1939,13 @@ public class mover : MonoBehaviour
             Directory.CreateDirectory("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
             DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
            
-            File.WriteAllText("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + di.GetFiles().Length, JsonUtility.ToJson(tsave));
+            File.WriteAllText("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text + tsave.timesave, JsonUtility.ToJson(tsave));
 
             timer9 = 0;
+            if (di.GetFiles().Length > 500)
+            {
+                File.Delete(di.GetFiles()[0].FullName);
+            }
         }
     }
     public void saveing()

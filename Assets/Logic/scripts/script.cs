@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -20,7 +21,22 @@ public class script : MonoBehaviour
     public List<string> words2 = new List<string>();
     public bool Magic_stick;
     public GameObject Magic_obj;
+    public static GameObject Lost_Magic_obj;
 
+    void Start()
+    {
+
+        Globalprefs.Iteract = true;
+        if (Magic_stick)  ifd.text = VarSave.GetString("MagicUnaScript", SaveType.global);
+    }
+    public void NOedit()
+    {
+        Globalprefs.Iteract = false;
+    }
+    public void ONedit()
+    {
+        Globalprefs.Iteract = true;
+    }
     private void Update()
     {
         if (!Magic_stick)
@@ -31,7 +47,7 @@ public class script : MonoBehaviour
             {
                 ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
             }
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
             {
                 itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
                 Global.PauseManager.Play();
@@ -40,14 +56,15 @@ public class script : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
             {
 
                 Global.PauseManager.Play();
+              VarSave.SetString("MagicUnaScript", ifd.text,SaveType.global);
                 Use(ifd.text, Magic_obj);
                 Destroy(gameObject);
             }
-            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            if (Input.GetKeyDown(KeyCode.LeftAlt) && !Globalprefs.Iteract)
             {
 
                 Global.PauseManager.Play();
@@ -76,9 +93,77 @@ public class script : MonoBehaviour
         }
         return false;
     }
+    public static bool isKomplexNumber(string s)
+    {
+        if (s == "Xp")
+        {
+
+            return true;
+        }
+        if (s == "Yp")
+        {
+
+            return true;
+        }
+        if (s == "-Xp")
+        {
+
+            return true;
+        }
+        if (s == "-Yp")
+        {
+
+            return true;
+        }
+        if (s == "AntiThis")
+        {
+
+            return true;
+        }
+        return false;
+    }
+    public static decimal GetNumber(string s,decimal Count)
+    {
+        if (isNumber(s))
+        {
+
+            return (decimal.Parse(s));
+        }
+        else if (isKomplexNumber(s))
+        {
+            if (s == "-Xp")
+            {
+                s = (-Globalprefs.KomplexX).ToString();
+            }
+            if (s == "-Yp")
+            {
+                s = Math.Abs(Count*-Globalprefs.KomplexX).ToString();
+            }
+            if (s == "Xp")
+            {
+                s = Globalprefs.KomplexX.ToString();
+            }
+            if (s == "Yp")
+            {
+                s = Math.Abs(Count * Globalprefs.KomplexX).ToString();
+            }
+            if (s == "AntiThis")
+            {
+
+
+                    s = (-Count).ToString();
+              
+            }
+
+            return decimal.Parse(s);
+        }
+        return 0;
+    }
+ 
+
     public static void Use(string _script, GameObject sc)
     {
-
+        Lost_Magic_obj = sc;
         words = new List<string>();
         word = "";
 
@@ -115,13 +200,18 @@ public class script : MonoBehaviour
             {
                 typedata = "operator";
             }
+            if (words[i] == "Self")
+            {
+                Globalprefs.SelfFunctions.Add(_script.Replace("Self;", ""));
+                typedata = "end";
+            }
+           
             if (words[i] == "give")
             {
                 typedata = "give";
 
                 i++;
             }
-<<<<<<< HEAD
             //Omniscience
             if (words[i] == "morph")
             {
@@ -155,8 +245,6 @@ public class script : MonoBehaviour
                 VarSave.LoadMoney("Inflaition", 10, SaveType.global);
                     i++;
             }
-=======
->>>>>>> parent of 3785344c (0.2.87)
             if (words[i] == "time")
             {
                 typedata = "timespeed";
@@ -169,10 +257,51 @@ public class script : MonoBehaviour
                 typedata = "heal";
                 i++;
             }
+            if (words[i] == "agr")
+            {
+                //  mover.main().hp = 200;
+
+                typedata = "agr";
+                i++;
+            }
+            if (words[i] == "Money")
+            {
+                //  mover.main().hp = 200;
+
+                typedata = "Money";
+                i++;
+            }
 
             if (typedata == "operator" && words[i] == "copy")
             {
                 Instantiate(sc, sc.transform.position, Quaternion.identity);
+                typedata = "end";
+            }
+            if (typedata == "morph")
+            {
+                foreach (GameObject g in complsave.t3)
+                {
+
+
+                    if (g.GetComponent<itemName>()._Name == words[i])
+                    {
+
+                        Instantiate(g, sc.transform.position, Quaternion.identity);
+                    }
+                }
+
+                Destroy(sc);
+                typedata = "end";
+            }
+            if (typedata == "ExtItemName")
+            {
+
+               GameObject g = Instantiate(Resources.Load<GameObject>("String"), sc.transform.position, Quaternion.identity);
+              g.GetComponent<MagicString>().SetText(  sc.GetComponent<itemName>()._Name);
+
+
+
+                Destroy(sc);
                 typedata = "end";
             }
             if (typedata == "give")
@@ -189,14 +318,13 @@ public class script : MonoBehaviour
                 }
                 typedata = "end";
             }
-            if (typedata == "timespeed" && isNumber(words[i]))
+            if (typedata == "timespeed")
             {
-                Time.timeScale = (float)(int.Parse(words[i])) / 20;
+                Time.timeScale = (float)((int)(float)GetNumber(words[i], (decimal)Time.timeScale)) / 20;
                 typedata = "end";
             }
-            if (typedata == "heal" && isNumber(words[i]))
+            if (typedata == "heal")
             {
-<<<<<<< HEAD
                 mover.main().hp += (int)(float)(GetNumber(words[i], mover.main().hp));
                 typedata = "end";
             }
@@ -210,9 +338,6 @@ public class script : MonoBehaviour
 
                 VarSave.LoadMoney("Inflation", (GetNumber(words[i], VarSave.LoadMoney("tevro", 0)))/2000, SaveType.global);
                 VarSave.LoadMoney("tevro",(GetNumber(words[i], VarSave.LoadMoney("tevro",0))));
-=======
-                mover.main().hp += (int.Parse(words[i]));
->>>>>>> parent of 3785344c (0.2.87)
                 typedata = "end";
             }
             if (typedata == "operator" && words[i] == "del")
