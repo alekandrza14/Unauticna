@@ -750,7 +750,7 @@ public class mover : MonoBehaviour
             if (t.z > 0)
             {
                 Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
-                GUI.DrawTexture(new Rect(u.x-10, (Screen.height - u.y)-10, 20, 20), Resources.Load<Texture>("Point"));
+                GUI.DrawTexture(new Rect(u.x-10, (Screen.height - u.y)-10, 20, 20), GameObject.FindObjectsByType<Metka>(sortmode.main)[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
             }
         }
         if (Input.GetKey(KeyCode.Mouse1))

@@ -18,6 +18,12 @@ public enum UniverseSkyType
 {
     Default,Bright,Arua,Darck
 }
+public class Targets
+{
+    public List<Vector3> vector3s = new List<Vector3>();
+
+    public List<Hyperbolic2D> hyperbolic2Ds = new List<Hyperbolic2D>();
+}
 
 public class RayCastStars : MonoBehaviour
 {
@@ -43,6 +49,8 @@ public class RayCastStars : MonoBehaviour
             transform.rotation = scp.rot;
           if(HyperbolicCamera)  HyperbolicCamera.RealtimeTransform = scp.hyperbolic;
         }
+
+        LoadTargets();
     }
     private void OnGUI()
     {
@@ -50,9 +58,26 @@ public class RayCastStars : MonoBehaviour
         if (s == size.Multyverse) GUI.Label(new Rect(0f, 20, 300f, 100f), "Multiverse (*) : " + Globalprefs.GetIdMultiverse());
         if (s == size.Galaxy) GUI.Label(new Rect(0f, 20, 300f, 100f), "Galaxy (*) : " + Globalprefs.GetIdGalaxy());
         if (s == size.Stars) GUI.Label(new Rect(0f, 20, 300f, 100f), "Stars (*) : " + Globalprefs.GetIdStars());
+        for (int i = 0; i < GameObject.FindObjectsByType<Metka>(sortmode.main).Length; i++)
+        {
+
+            Vector3 t = Camera.main.WorldToViewportPoint(GameObject.FindObjectsByType<Metka>(sortmode.main)[i].transform.position);
+            if (t.z > 0)
+            {
+                Vector3 u = Camera.main.ViewportToScreenPoint(t);
+                GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), GameObject.FindObjectsByType<Metka>(sortmode.main)[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
+            }
+        }
 
     }
-
+    public decimal GetPointAnyverse()
+    {
+        if (s == size.Universe) return Globalprefs.GetIdUniverse();
+        if (s == size.Multyverse) return Globalprefs.GetIdMultiverse();
+        if (s == size.Galaxy) return Globalprefs.GetIdGalaxy();
+        if (s == size.Stars) return Globalprefs.GetIdStars(); 
+        return 0;
+    }
     public decimal Fract(decimal value) { return value - decimal.Truncate(value); }
     public float Frac(float value)
     {
@@ -68,6 +93,24 @@ public class RayCastStars : MonoBehaviour
         scp.pos = transform.position;
         scp.rot = transform.rotation;
 
+        if (Input.GetKeyDown("1"))
+        {
+            Transform t = Instantiate(Resources.Load<GameObject>("SpaceItems/PowerMetka").gameObject, transform.position, Quaternion.identity).transform;
+
+            if (s == size.Multyverse) {
+
+
+                HyperbolicCamera c = HyperbolicCamera.Main();
+                t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
+                t.transform.position = new Vector3(
+                    0,
+                    t.transform.position.y,
+                    0
+                    );
+                t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = t.localScale;
+            }
+        }
+
         if (HyperbolicCamera) scp.hyperbolic = HyperbolicCamera.RealtimeTransform;
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
@@ -77,6 +120,7 @@ public class RayCastStars : MonoBehaviour
             {
                 if (hit.collider.tag == "Star" && s == size.Stars)
                 {
+
                     int o = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
                     text.text = "Звезда " + StarNameGenrator.Create_word(Globalprefs.GetIdStar(o)) + " : s" + o.ToString();
                     if (o == 0)
@@ -102,6 +146,10 @@ public class RayCastStars : MonoBehaviour
                     else
                     {
                         text.text = "Звезда " + StarNameGenrator.Create_word(Globalprefs.GetIdStar(o)) + " : s" + o.ToString();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
                     }
                     if (o == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
@@ -146,6 +194,10 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Cell" && s == size.Stars)
                 {
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     text.text = "Галактический ретранслятор";
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
@@ -157,6 +209,10 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Cell" && s == size.Galaxy)
                 {
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     text.text = "Вселенский ретранслятор";
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
@@ -168,6 +224,10 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Cell" && s == size.Universe)
                 {
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     text.text = "Вселенский край";
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
@@ -179,6 +239,10 @@ public class RayCastStars : MonoBehaviour
                 }
                 else if (hit.collider.tag == "Cell" && s == size.Multyverse)
                 {
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     text.text = "Мультивселенская дыра";
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
@@ -234,7 +298,10 @@ public class RayCastStars : MonoBehaviour
                     int o2 = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
 
-                    text.text = "stars : s" + o2.ToString();
+                    text.text = "stars : s" + o2.ToString(); if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     if (o2 == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
@@ -261,7 +328,10 @@ public class RayCastStars : MonoBehaviour
                     int o2 = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
 
-                    text.text = "Galaxy : s" + o2.ToString();
+                    text.text = "Galaxy : s" + o2.ToString(); if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     if (o2 == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
@@ -292,7 +362,10 @@ public class RayCastStars : MonoBehaviour
                         hit.collider.transform.position.y);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
 
-                    text.text = "Universe : s" + o2.ToString();
+                    text.text = "Universe : s" + o2.ToString(); if (Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        SaveTargets();
+                    }
                     if (o2 == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
@@ -341,9 +414,12 @@ public class RayCastStars : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+
+            SaveTargets();
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            LoadTargets();
             if (VarSave.ExistenceVar("scp" + SceneManager.GetActiveScene().name))
             {
                 scp = JsonUtility.FromJson<SpaceSheepPosition>(VarSave.GetString("scp" + SceneManager.GetActiveScene().name));
@@ -353,5 +429,48 @@ public class RayCastStars : MonoBehaviour
                 if (HyperbolicCamera) HyperbolicCamera.RealtimeTransform = scp.hyperbolic;
             }
         }
+    }
+
+    private void LoadTargets()
+    {
+        for (int i = 0; i < GameObject.FindObjectsByType<SpaceObject>(sortmode.main).Length; i++)
+        {
+            GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
+        }
+        Targets t = JsonUtility.FromJson<Targets>(VarSave.GetString("spaceData" + SceneManager.GetActiveScene().name + GetPointAnyverse()));
+        int i2 = 0;
+        foreach (Vector3 v3 in t.vector3s)
+        {
+            
+           Transform t2 = Instantiate(Resources.Load<GameObject>("SpaceItems/PowerMetka").gameObject, v3, Quaternion.identity).transform;
+            if (s == size.Multyverse)
+            {
+
+
+
+                t2.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = t.hyperbolic2Ds[i2];
+                t2.transform.position = new Vector3(
+                    0,
+                    t2.transform.position.y,
+                    0
+                    );
+                t2.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = t2.localScale;
+            }
+            i2++;
+        }
+    }
+
+    private void SaveTargets()
+    {
+        Targets t = new Targets();
+        for (int i = 0; i < GameObject.FindObjectsByType<SpaceObject>(sortmode.main).Length; i++)
+        {
+            t.vector3s.Add(GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i].transform.position);
+            if (s == size.Multyverse)
+            {
+                t.hyperbolic2Ds.Add(GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i].GetComponent<HyperbolicPoint>().HyperboilcPoistion);
+            }
+        }
+        VarSave.SetString("spaceData" + SceneManager.GetActiveScene().name + GetPointAnyverse(), JsonUtility.ToJson(t));
     }
 }

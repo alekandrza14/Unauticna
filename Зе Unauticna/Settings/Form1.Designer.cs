@@ -66,7 +66,7 @@ namespace Settings
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(275, 13);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "git hub https://github.com/alekandrza14/Unauticna-test-1";
+            this.textBox1.Text = "git hub https://github.com/alekandrza14/Unauticna";
             // 
             // label1
             // 
