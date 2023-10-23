@@ -252,6 +252,7 @@ public class GameManager : MonoBehaviour
         
 
 
+
             r = Globalprefs.camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             //FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
        
