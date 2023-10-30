@@ -111,6 +111,7 @@ public class complsave : MonoBehaviour
                 for (int i = 0; i < g.Length; i++)
                 {
                     t3[i] = g[i];
+                if (g[i].GetComponent<breauty>()) g[i].GetComponent<breauty>().integer = 10;
                     info3[i] = g[i].GetComponent<itemName>()._Name;
 
                 }
@@ -306,7 +307,7 @@ public class complsave : MonoBehaviour
                     }
                     else
                     {
-                        saveString1.x.Add(GameObject.FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10);
+                        saveString1.x.Add(10);
 
                     }
                     if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<HyperbolicPoint>())

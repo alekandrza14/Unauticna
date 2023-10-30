@@ -9,6 +9,7 @@ public class InventoryEvent : MonoBehaviour
     {
         if (GetComponent<boxItem>()) GetComponent<boxItem>().Load1();
         if (GetComponent<Farm>()) GetComponent<Farm>().Load1();
+        if (GetComponent<Yourjuise>()) GetComponent<Yourjuise>().Load1();
     }
 
     

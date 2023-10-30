@@ -1354,6 +1354,12 @@ public class mover : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
         {
+            if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+            {
+
+                cistalenemy.dies += 100;
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise);
             Destroy(Globalprefs.selectitemobj.gameObject);
             Globalprefs.selectitem = "";
@@ -1967,9 +1973,10 @@ public class mover : MonoBehaviour
 
             //playermatinvisible
         }
+        axelerate = 0;
         if (playerdata.Geteffect("Axelerate") != null)
         {
-            axelerate = 2;
+            axelerate += 2;
 
             //playermatinvisible
         }
@@ -1994,31 +2001,41 @@ public class mover : MonoBehaviour
             big = false;
             //playermatinvisible
         }
-        if (playerdata.Geteffect("Axelerate") == null)
-        {
-            axelerate = 0;
-
-            //playermatinvisible
-        }
-
+       
+        hpregen = 0;
+        maxhp = 0;
+        //ImbalenceRegeneration
         if (playerdata.Geteffect("MetabolismUp") != null)
         {
             // axelerate = 2;
             Time.timeScale = 0.8f;
             fireInk = 20;
-            hpregen = 1;
-            maxhp = 250;
+            hpregen += 1;
+            maxhp += 250;
             //playermatinvisible
         }
-        if (playerdata.Geteffect("MetabolismUp") == null)
+        if (playerdata.Geteffect("Regeneration") != null)
         {
-            //  axelerate = 0;
-
-            Time.timeScale = 1.0f;
-            hpregen = 0;
-            maxhp = 0;
+            // axelerate = 2;
+            //  Time.timeScale = 0.8f;
+            //   fireInk = 20;
+            hpregen += 10;
+            maxhp += 300;
             //playermatinvisible
         }
+        if (playerdata.Geteffect("ImbalenceRegeneration") != null)
+        {
+            // axelerate = 2;
+            //  Time.timeScale = 0.8f;
+            //   fireInk = 20;
+            axelerate += 2;
+            hpregen += 100000;
+            maxhp += 300000;
+            //playermatinvisible
+        }
+
+       
+      
         if (playerdata.Geteffect("Tripl2") != null)
         {
 

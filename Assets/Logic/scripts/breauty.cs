@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class breauty : MonoBehaviour
 {
-    public int integer = 10;
+ [HideInInspector]  public int integer = 10;
     Vector3 v3;
     public void OnCollisionEnter(Collision other)
     {
@@ -28,8 +28,15 @@ public class breauty : MonoBehaviour
             }
         }
     }
+
+    private void Awake()
+    {
+       // integer = 10;
+    }
+
     private void Start()
     {
+       // integer = 10;
         float f = integer;
         float t = f / 10f;
         v3 = gameObject.transform.localScale;

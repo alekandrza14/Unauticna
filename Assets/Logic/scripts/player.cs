@@ -194,8 +194,20 @@ public class GameManager : MonoBehaviour
             FindFirstObjectByType<mover>().hp = 200;
             FindFirstObjectByType<mover>().saveing();
         }
-      
-        
+
+
+    }
+    public static void saveandDamage()
+    {
+        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
+        {
+
+            FindFirstObjectByType<mover>().saveing();
+
+            FindFirstObjectByType<mover>().hp -= 100;
+        }
+
+
     }
     public static Transform GetPlayer()
     {

@@ -347,17 +347,13 @@ public class ElementalInventory : MonoBehaviour {
             s1 = h.collider.name.Remove(h.collider.name.Length - 7);
         }
         s += s1;
-		if(h.collider.GetComponent<breauty>()) x = 10 - h.collider.GetComponent<breauty>().integer;
-        
+        if (h.collider.GetComponent<breauty>()) x = 10 - h.collider.GetComponent<breauty>().integer;
+        if (!h.collider.GetComponent<breauty>()) x = 0;
 
-			Destroy(h.collider.gameObject);
+
+        Destroy(h.collider.gameObject);
 		
-        if (h.collider.GetComponent<breauty>()) if (x < 0)
-		{
-
-			h.collider.GetComponent<breauty>().integer -= 10;
-			h.collider.GetComponent<breauty>().resset();
-		}
+       
 
         if (h.collider.GetComponent<breauty>()) for (int i =0;i<x;i++)
         {
@@ -960,16 +956,72 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-                playerdata.Addeffect("BigShot", 600);
+            playerdata.Addeffect("BigShot", 600);
             playerdata.Addeffect("MetabolismUp", 600);
             playerdata.Addeffect("Axelerate", 600);
             playerdata.Addeffect("invisible", 600);
+            playerdata.Addeffect("Trip", 600);
             playerdata.Addeffect("Tripl2", 600);
-            playerdata.Addeffect("Tripl2", 600);
 
 
 
-            lowitem("Pipis", "");
+            lowitem("Absolute_poison", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("StoneJuice") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+
+
+            lowitem("StoneJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("AppleJuice") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            playerdata.Addeffect("Regeneration", 600);
+
+
+
+            lowitem("AppleJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("DamageJuice") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandDamage();
+
+
+
+
+
+            lowitem("DamageJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("YourJuice") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandDamage();
+
+
+
+            playerdata.Addeffect("ImbalenceRegeneration", 600);
+
+
+            lowitem("YourJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         //Absolute_poison

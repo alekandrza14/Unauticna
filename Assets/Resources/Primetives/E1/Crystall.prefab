@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1119169637434501180}
   - component: {fileID: -3582653343423982959}
   - component: {fileID: 8844520614217847718}
+  - component: {fileID: -8333713787252382782}
   m_Layer: 0
   m_Name: Crystall
   m_TagString: Untagged
@@ -25,6 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3669919162245687201}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,7 +35,6 @@ Transform:
   - {fileID: 4862254065282370386}
   - {fileID: 4919527265243624773}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-3582653343423982959
 MonoBehaviour:
@@ -72,6 +73,19 @@ CapsuleCollider:
   m_Height: 7.26
   m_Direction: 1
   m_Center: {x: 0, y: 4, z: 0}
+--- !u!114 &-8333713787252382782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3669919162245687201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6ee5fa675a45441a703b2c9e3ea6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  integer: 10
 --- !u!1 &4508002755929314270
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,13 +112,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4508002755929314270}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1119169637434501180}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2416715160858486159
 MeshFilter:
@@ -202,13 +216,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5613186288208513947}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.66425735, y: 0.021227032, z: 0.018876696, w: 0.7469641}
   m_LocalPosition: {x: 0.09, y: 6.89, z: 0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1119169637434501180}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 82.547, y: 25.964, z: 25.773}
 --- !u!108 &5519540752479124119
 Light:
