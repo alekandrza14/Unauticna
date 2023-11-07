@@ -75,7 +75,9 @@ public class script : MonoBehaviour
     }
     public static bool isNumber(string s)
     {
-        if (
+        if (s.Length > 0)
+        {
+            if (
               s[0] == '0' ||
               s[0] == '1' ||
               s[0] == '2' ||
@@ -87,11 +89,26 @@ public class script : MonoBehaviour
               s[0] == '8' ||
               s[0] == '9' ||
               s[0] == '-')
-        {
+            {
 
-            return true;
+                return true;
+            }
         }
-        return false;
+            return false;
+    }
+    public static bool isboolean(string s)
+    {
+        if (s.Length > 0)
+        {
+            if (
+              s[0] == 'F' ||
+              s[0] == 'T')
+            {
+
+                return true;
+            }
+        }
+            return false;
     }
     public static bool isKomplexNumber(string s)
     {

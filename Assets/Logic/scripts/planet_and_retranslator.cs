@@ -19,7 +19,8 @@ public class planet_and_retranslator : MonoBehaviour
         Vector2 posPlanet = new Vector2 (-(float)Globalprefs.GetIdPlanet()+(IdButton*300), (float)Globalprefs.GetIdPlanet()*9);
         float Hash = Globalprefs.Hash(posPlanet);
         Hash = (Hash + 1) / 2;
-        Hash *= 30; 
+        Hash *= 30;
+        Debug.Log(Target + Hash);
         float Hash2 = Globalprefs.Hash(posPlanet);
         Hash2 = (Hash2 + 1) / 2;
         Hash2 *= 3316;

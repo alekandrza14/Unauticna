@@ -75,7 +75,7 @@ public class mover : MonoBehaviour
     [SerializeField] bool inglobalspace;
     [SerializeField] float jumpforse;
     [SerializeField] float jumpPower;
-    [SerializeField] float gravity; 
+    [SerializeField] public float gravity; 
     [SerializeField] float ForseSwaem;
     [SerializeField] Rigidbody rigidbody3d;
     [SerializeField] float Speed;
@@ -90,7 +90,7 @@ public class mover : MonoBehaviour
     public InputField SaveFileInputField;
     float JumpTimer;
     [HideInInspector] public bool IsGraund;
-    bool InWater;
+    [HideInInspector] public bool InWater;
     bool LateInWater;
     Collision c;
     float ZoomConficent = 0.04f;
@@ -103,7 +103,7 @@ public class mover : MonoBehaviour
     public GameObject HeadCameraSetup;
     float vel;
     float tics;
-    bool fly; bool Xray;
+    [HideInInspector] public bool fly; bool Xray;
     [SerializeField] GameObject[] PlayersModelObjObjects;
     [HideInInspector] public HyperbolicCamera hyperbolicCamera;
     bool stand_stay;
@@ -407,6 +407,9 @@ public class mover : MonoBehaviour
     private void Awake()
     {
         Init();
+#if !UNITY_EDITOR
+        dnSpyModer.MainModData.LoadScene();
+#endif
     }
 
     private void Init()
@@ -1142,7 +1145,10 @@ public class mover : MonoBehaviour
     }
     void Update()
     {
-      //  EffectUpdate();
+#if !UNITY_EDITOR
+        dnSpyModer.MainModData.UpadeteScene();
+#endif
+        //  EffectUpdate();
         foreach (string _script in Globalprefs.SelfFunctions)
         {
             script.Use(_script,script.Lost_Magic_obj);
@@ -1498,7 +1504,7 @@ public class mover : MonoBehaviour
             rigidbody3d.drag = 4.5f- axelerate;
         }
 
-        bool flyinng = InWater || inglobalspace || isKinematic;
+        bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0;
         if (!flyinng) JumpTimer -= Time.deltaTime*gravity;
         if (faceViewi != faceView.fourd )
         {
@@ -1516,14 +1522,16 @@ public class mover : MonoBehaviour
             float deltaZ = Input.GetAxis("Vertical") * Speed;
             float deltaW = Input.GetAxis("HyperHorizontal") *0.1f;
             float deltaY = 0.0f;
-          if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed)-0.1f;
+        //  if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
             if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
                     {
                         jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
                     }
             if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600;
-            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Time.deltaTime * 600;
-            if (Sprint) deltaY -= 1*(Time.deltaTime*100f);
+            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6;
+            if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6;
+            if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f);
+           
             float sprintCnficent = 1f;
             if (Sprint)
             {
@@ -1556,10 +1564,11 @@ public class mover : MonoBehaviour
             
             movement = transform.TransformDirection(movement);
 
-            if (!isKinematic) rigidbody3d.AddForce((movement* sprintCnficent)+ transform.up * deltaY,ForceMode.Force);
+            if ((flyinng)) if (!isKinematic) rigidbody3d.AddForce((movement * sprintCnficent) + transform.up * (deltaY * 3), ForceMode.Force); 
+            if (!(flyinng)) if (!isKinematic) rigidbody3d.AddForce((movement * sprintCnficent) + transform.up * deltaY, ForceMode.Force); 
 
 
-           
+
 
             if (tics >= 2)
             {

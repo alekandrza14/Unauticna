@@ -77,7 +77,7 @@ public class HyperbolicPoint : MonoBehaviour
     {
         if (!VertexOrPoint)
         {
-            InvokeRepeating("ProjectionUpdate", 1, 0.05f + UnityEngine.Random.Range(0f, 0.02f));
+            InvokeRepeating("ProjectionUpdate", 0, 0.05f + UnityEngine.Random.Range(0f, 0.02f));
             ProjectionUpdate(); 
         }
     }
