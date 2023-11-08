@@ -86,6 +86,7 @@ public class mover : MonoBehaviour
     gsave gsave = new gsave();
 
     [SerializeField] public float W_position;
+    [SerializeField] public float H_position;
     public int planet_position;
     public InputField SaveFileInputField;
     float JumpTimer;
@@ -753,7 +754,7 @@ public class mover : MonoBehaviour
             if (t.z > 0)
             {
                 Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
-                GUI.DrawTexture(new Rect(u.x-10, (Screen.height - u.y)-10, 20, 20), GameObject.FindObjectsByType<Metka>(sortmode.main)[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
+                GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), GameObject.FindObjectsByType<Metka>(sortmode.main)[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
             }
         }
         if (Input.GetKey(KeyCode.Mouse1))
@@ -777,32 +778,44 @@ public class mover : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Game Varibles :");
-            
-            GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"),2));
-            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro,2));
+
+            GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2));
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
-            GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + Globalprefs.knowlages);
+            GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + (Globalprefs.knowlages + gsave.progressofthepassage).ToString());
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
             GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
             GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
             GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
-            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.LoadMoney("Inflation",0,SaveType.global)+"%");
+            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.LoadMoney("Inflation", 0, SaveType.global) + "%");
             //cistalenemy.dies
 
 
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : "+Sprint.ToString());
-            if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString();
-            else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString();
-            if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1";
-            if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2";
-            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
+            if (gsave.progressofthepassage <= 1)
+            {
+                GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
+                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString();
+                else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString();
+                if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1";
+                if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2";
+                Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
+            }
+            if (gsave.progressofthepassage > 1)
+            {
+                GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
+                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString() +" h : " + H_position.ToString() ;
+                else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString();
+                if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString();
+                if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString();
+                Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
+            }
         }
     }
     //Приметивный интерфейс
@@ -2099,14 +2112,16 @@ public class mover : MonoBehaviour
     }
     public void saveing()
     {
-        if (playerdata.Geteffect("LevelUp") != null)
-        {
-            VarSave.SetInt("progress",gsave.progressofthepassage+1);
-            gsave.progressofthepassage += 1;
-            GameManager.chargescene(0);
+        
+            if (playerdata.Geteffect("LevelUp") != null)
+            {
+                VarSave.SetInt("progress", gsave.progressofthepassage + 1);
+                gsave.progressofthepassage += 1;
+                GameManager.chargescene(0);
 
-            playerdata.Cleareffect();
-        }
+                playerdata.Cleareffect();
+            }
+       
             playerdata.Saveeffect();
         
         if (!tutorial)

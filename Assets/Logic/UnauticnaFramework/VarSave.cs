@@ -296,7 +296,7 @@ public class VarSave
         float varout = 0.0f;
         if (File.Exists(Globalpath + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = float.Parse(File.ReadAllText(Globalpath + "/" + key));
+            if (script.isNumber(File.ReadAllText(Globalpath + "/" + key))) varout = float.Parse(File.ReadAllText(Globalpath + "/" + key));
         }
         return varout;
     }
