@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class itemspawn : MonoBehaviour
 {
     public string prefabname;
     public HyperbolicPoint hyperbolic;
+    public bool FirstEvent;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (FirstEvent)
+        {
+            if (VarSave.CreateEvent("item"+SceneManager.GetActiveScene()+Globalprefs.GetIdPlanet()+Globalprefs.GetTimeline()))
+            {
+                sp();
+            }
+        }
     }
 
     // Update is called once per frame

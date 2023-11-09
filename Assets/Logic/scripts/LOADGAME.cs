@@ -28,6 +28,7 @@ public class LOADGAME : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         QualitySettings.SetQualityLevel(0);
         GameObject g = new GameObject("init");
         gameInit.Init(g);

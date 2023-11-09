@@ -29,6 +29,7 @@ public class save
     public Vector4 pos3;
     public string hpos_Polar3;
     public float wpos;
+    public float hpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
@@ -42,6 +43,7 @@ public class tsave
     public Vector4 pos3;
     public string hpos_Polar3;
     public float wpos;
+    public float hpos;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
@@ -111,6 +113,7 @@ public class mover : MonoBehaviour
     [SerializeField] GameObject PlayerModelObject;
     [SerializeField] GameObject[] PlayerModelObjects;
     [SerializeField] int[] PlayerModelTags;
+   public PlayerDNA DNA = new PlayerDNA();
     public Material DebugMat;
     faceView faceViewi;
     bool Sprint;
@@ -408,13 +411,25 @@ public class mover : MonoBehaviour
     private void Awake()
     {
         Init();
+      //  DNA = JsonUtility.FromJson
 #if !UNITY_EDITOR
         dnSpyModer.MainModData.LoadScene();
 #endif
     }
-
+    Color c1;
+    int maxhp2;
+    int regen;
     private void Init()
     {
+        if (VarSave.ExistenceVar("DNA"))
+        {
+            DNA = JsonUtility.FromJson<PlayerDNA>(VarSave.GetString("DNA"));
+            c1 = DNA.colour;
+            Time.timeScale = DNA.metabolism;
+            jumpPower += DNA.Jumping;
+            maxhp2 = (int)DNA.hp;
+            regen = (int)DNA.regeneration;
+        }
         cistalenemy.dies = VarSave.LoadInt("Agr",0);
         Globalprefs.Chanse_fire = 0;
         if (RenderSettings.skybox.name == "Default-Skybox")
@@ -531,6 +546,7 @@ public class mover : MonoBehaviour
                 rigidbody3d.velocity = save.velosyty;
 
                 W_position = save.wpos;
+                H_position = save.hpos;
                 if (portallNumer.Portal == "")
                 {
 
@@ -640,6 +656,7 @@ public class mover : MonoBehaviour
                 rigidbody3d.velocity = save.velosyty;
 
                 W_position = save.wpos;
+                H_position = save.hpos;
                 if (portallNumer.Portal == "")
                 {
 
@@ -863,6 +880,7 @@ public class mover : MonoBehaviour
                 PlayerCamera.transform.rotation = tsave.q2;
                 if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW;
                 W_position = tsave.wpos;
+                H_position = tsave.hpos;
                 if (hyperbolicCamera != null)
                 {
 
@@ -897,6 +915,7 @@ public class mover : MonoBehaviour
                     PlayerCamera.transform.rotation = save.q2;
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     W_position = save.wpos;
+                    H_position = save.hpos;
                     if (hyperbolicCamera != null)
                     {
 
@@ -939,6 +958,7 @@ public class mover : MonoBehaviour
 
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     W_position = save.wpos;
+                    H_position = save.hpos;
                     if (hyperbolicCamera != null)
                     {
 
@@ -974,9 +994,9 @@ public class mover : MonoBehaviour
     }
     public void stop()
     {
-        
+
         bool r = !Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.UpArrow);
-        
+
         if (Directory.Exists("debug") && !Globalprefs.Pause)
         {
 
@@ -991,41 +1011,57 @@ public class mover : MonoBehaviour
                 planet_position += 1;
             }
         }
-        
-            if (!Sprint && !Globalprefs.Pause)
+
+        if (!Sprint && !Globalprefs.Pause)
+        {
+
+
+
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-
-
-
-                if (Input.GetKey(KeyCode.DownArrow))
-                {
-                    W_position -= 1f * Time.deltaTime;
-                }
-                if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    W_position += 1f * Time.deltaTime;
-                }
+                W_position -= 1f * Time.deltaTime;
             }
-            if (Sprint && !Globalprefs.Pause)
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-
-
-
-                if (Input.GetKey(KeyCode.DownArrow))
-                {
-                    W_position -= 10f * Time.deltaTime;
-                }
-                if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    W_position += 10f * Time.deltaTime;
-                }
+                W_position += 1f * Time.deltaTime;
             }
-            if (Input.GetKeyDown(KeyCode.F4) && !Globalprefs.Pause)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                Unload();
+                if (gsave.progressofthepassage > 1) H_position -= 1f * Time.deltaTime;
             }
-        
-        
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                if (gsave.progressofthepassage > 1) H_position += 1f * Time.deltaTime;
+            }
+        }
+        if (Sprint && !Globalprefs.Pause)
+        {
+
+
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                W_position -= 10f * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                W_position += 10f * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                if (gsave.progressofthepassage > 1) H_position -= 10f * Time.deltaTime;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                if (gsave.progressofthepassage > 1) H_position += 10f * Time.deltaTime;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F4) && !Globalprefs.Pause)
+        {
+            Unload();
+        }
+
+
         if (FindObjectsByType<RaymarchCam>(sortmode.main).Length != 0)
         {
             RaymarchCam ra = FindFirstObjectByType<RaymarchCam>();
@@ -1263,6 +1299,7 @@ public class mover : MonoBehaviour
         save.pos2 = HeadCameraSetup.transform.position;
         save.q3 = HeadCameraSetup.transform.rotation;
         save.wpos = W_position;
+        save.hpos = H_position;
         if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
         save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
@@ -1533,7 +1570,8 @@ public class mover : MonoBehaviour
 
             float deltaX = Input.GetAxis("Horizontal") * Speed;
             float deltaZ = Input.GetAxis("Vertical") * Speed;
-            float deltaW = Input.GetAxis("HyperHorizontal") *0.1f;
+            float deltaW = Input.GetAxis("HyperHorizontal") * 0.1f;
+            float deltaH = Input.GetAxis("HyperVertical") * 0.1f;
             float deltaY = 0.0f;
         //  if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
             if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
@@ -1550,13 +1588,15 @@ public class mover : MonoBehaviour
             {
 
 
-                if (!isKinematic) W_position += (deltaW *5)*Time.deltaTime*60;
+                if (!isKinematic) W_position += (deltaW * 5) * Time.deltaTime * 60;
+                if (gsave.progressofthepassage > 1) if (!isKinematic) H_position += (deltaH * 5) * Time.deltaTime * 60;
                 sprintCnficent = 2;
             }
             else
             {
 
                 if (!isKinematic) W_position += (deltaW) * Time.deltaTime * 60;
+                if (gsave.progressofthepassage > 1) if (!isKinematic) H_position += (deltaH) * Time.deltaTime * 60;
             }
             float deltaSumXZ = deltaX + deltaZ;
 
@@ -1679,9 +1719,9 @@ public class mover : MonoBehaviour
         {
             Destroy(GameObject.FindWithTag("blood1"));
         }
-        if (tic >= time && hp < 200 + maxhp)
+        if (tic >= time && hp < 200 + maxhp + maxhp2)
         {
-            hp += 1 + hpregen;
+            hp += 1 + hpregen + regen;
             tic = 0;
 
         }
@@ -1962,6 +2002,7 @@ public class mover : MonoBehaviour
                 if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
                 {
                     Material m3 = Resources.Load<Material>("pm/playermat");
+                    if (c1.r + c1.g + c1.b != 0) m3.color = c1;
                     List<Material> m = new List<Material>();
                     foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
                     {
@@ -1974,6 +2015,7 @@ public class mover : MonoBehaviour
                 {
 
                     Material m3 = Resources.Load<Material>("pm/playermat");
+                    if (c1.r + c1.g + c1.b != 0) m3.color = c1;
                     List<Material> m = new List<Material>();
                     foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
                     {
@@ -2087,7 +2129,8 @@ public class mover : MonoBehaviour
             tsave.q1 = PlayerBody.transform.rotation;
             tsave.q2 = PlayerCamera.transform.rotation;
             tsave.pos = PlayerBody.transform.position;
-            tsave.wpos = W_position;
+            tsave.wpos = W_position; 
+            tsave.hpos = H_position;
             if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera != null)
             {
@@ -2138,6 +2181,8 @@ public class mover : MonoBehaviour
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
             save.wpos = W_position;
+
+            save.hpos = H_position;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera != null)
             {
@@ -2175,6 +2220,7 @@ public class mover : MonoBehaviour
             save.pos = PlayerBody.transform.position;
             save.vive = Camera.main.fieldOfView;
             save.wpos = W_position;
+            save.hpos = H_position;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera!=null)
             {
@@ -2188,6 +2234,8 @@ public class mover : MonoBehaviour
             tsave.pos = PlayerBody.transform.position;
             tsave.vive = Camera.main.fieldOfView;
             tsave.wpos = W_position;
+
+            tsave.hpos = H_position;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;

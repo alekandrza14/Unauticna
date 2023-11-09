@@ -11,7 +11,12 @@ public enum Shape
 [RequireComponent(typeof(MeshCollider))]
 public class MultyObject : MonoBehaviour
 {
-   
+
+    MultyTransform instance;
+    MeshCollider meshCollider;
+    MeshRenderer meshRenderer;
+    BoxCollider boxCollider;
+    SphereCollider sphereCollider;
 
     [Header("Transform W")]
     [SerializeField] public float W_Position;
@@ -64,15 +69,24 @@ public class MultyObject : MonoBehaviour
             shapes3Dcol[i].name = i.ToString();
 
         }
+        if (!instance)
+        {
+            instance = FindFirstObjectByType<MultyTransform>();
 
+        }
+        meshCollider = GetComponent<MeshCollider>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        boxCollider = GetComponent<BoxCollider>();
+        sphereCollider = GetComponent<SphereCollider>();
         InvokeRepeating("ProjectionUpdate", 0, 0.02f+Random.Range(0.01f,0.02f));
     }
   
     // Update is called once per frame
     public void ProjectionUpdate()
     {
+      
         float w5 =0;
-        if (FindFirstObjectByType<MultyTransform>()) { Vector3 r = FindFirstObjectByType<MultyTransform>().W_Rotation;
+        if (instance) { Vector3 r = instance.W_Rotation;
             Quaternion quaternion = Quaternion.Euler(r.x, r.y, r.z);
 
             w5 = W_Position;
@@ -99,14 +113,14 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position - w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
 
-                        if (GetComponent<MeshRenderer>())
+                        if (meshRenderer)
                         {
-                            GetComponent<MeshRenderer>().material = shapeSettings.W_materials[w2];
+                            meshRenderer.material = shapeSettings.W_materials[w2];
                         }
 
 
@@ -114,24 +128,24 @@ public class MultyObject : MonoBehaviour
                 }
             }
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
-                FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
+            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
+                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = true;
+                    meshRenderer.enabled = true;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = true;
+                    meshCollider.enabled = true;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = true;
+                    boxCollider.enabled = true;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = true;
+                    sphereCollider.enabled = true;
                 }
                 foreach (GameObject child in childs)
                 {
@@ -144,21 +158,21 @@ public class MultyObject : MonoBehaviour
                 {
                     child.gameObject.SetActive(false);
                 }
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    meshCollider.enabled = false;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    boxCollider.enabled = false;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    sphereCollider.enabled = false;
                 }
             }
 
@@ -172,14 +186,14 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
 
-                        if (GetComponent<MeshRenderer>())
+                        if (meshRenderer)
                         {
-                            GetComponent<MeshRenderer>().material = shapeSettings.W_materials[w2];
+                            meshRenderer.material = shapeSettings.W_materials[w2];
                         }
 
 
@@ -187,7 +201,7 @@ public class MultyObject : MonoBehaviour
                 }
             }
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            w = (int)(((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
+            w = (int)(((instance.W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
 
 
 
@@ -205,43 +219,43 @@ public class MultyObject : MonoBehaviour
 
 
 
-            if (FindFirstObjectByType<MultyTransform>().W_Position >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
-                FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
+            if (instance.W_Position >w5 && instance.W_Position - W_Scale <w5 &&
+                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = true;
+                    meshRenderer.enabled = true;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = true;
+                    meshCollider.enabled = true;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = true;
+                    boxCollider.enabled = true;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = true;
+                    sphereCollider.enabled = true;
                 }
             }
             else
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    meshCollider.enabled = false;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    boxCollider.enabled = false;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    sphereCollider.enabled = false;
                 }
             }
 
@@ -255,14 +269,14 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
 
-                        if (GetComponent<MeshRenderer>())
+                        if (meshRenderer)
                         {
-                            GetComponent<MeshRenderer>().material = shapeSettings.W_materials[w2];
+                            meshRenderer.material = shapeSettings.W_materials[w2];
                         }
 
 
@@ -270,7 +284,7 @@ public class MultyObject : MonoBehaviour
                 }
             }
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            w = (int)(((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
+            w = (int)(((instance.W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
 
 
 
@@ -288,42 +302,42 @@ public class MultyObject : MonoBehaviour
 
 
 
-            if (FindFirstObjectByType<MultyTransform>().W_Position >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5)
+            if (instance.W_Position >w5 && instance.W_Position - W_Scale <w5)
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = true;
+                    meshRenderer.enabled = true;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = true;
+                    meshCollider.enabled = true;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = true;
+                    boxCollider.enabled = true;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = true;
+                    sphereCollider.enabled = true;
                 }
             }
             else
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    meshCollider.enabled = false;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    boxCollider.enabled = false;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    sphereCollider.enabled = false;
                 }
             }
 
@@ -337,63 +351,63 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
 
-                        if (GetComponent<MeshRenderer>())
+                        if (meshRenderer)
                         {
-                            GetComponent<MeshRenderer>().material = shapeSettings.W_materials[w2];
+                            meshRenderer.material = shapeSettings.W_materials[w2];
                         }
 
 
                     }
                 }
             }
-            float h = H_Scale - Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position);
+            float h = H_Scale - Mathf.Abs(H_Position - instance.H_Position);
             Vector3 v3 = scale3D;
            
-            float w = W_Scale - Mathf.Abs(w5 - FindFirstObjectByType<MultyTransform>().W_Position);
+            float w = W_Scale - Mathf.Abs(w5 - instance.W_Position);
             float s = ((w / W_Scale) + (h / H_Scale)) / 2;
             transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
-                FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
+            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
+                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = true;
+                    meshRenderer.enabled = true;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = true;
+                    meshCollider.enabled = true;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = true;
+                    boxCollider.enabled = true;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = true;
+                    sphereCollider.enabled = true;
                 }
             }
             else
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    meshCollider.enabled = false;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    boxCollider.enabled = false;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    sphereCollider.enabled = false;
                 }
             }
         }
@@ -406,120 +420,120 @@ public class MultyObject : MonoBehaviour
 
 
 
-                    int w2 = (int)((((FindFirstObjectByType<MultyTransform>().W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
+                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
 
                     if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                     {
 
-                        if (GetComponent<MeshRenderer>())
+                        if (meshRenderer)
                         {
-                            GetComponent<MeshRenderer>().material = shapeSettings.W_materials[w2];
+                            meshRenderer.material = shapeSettings.W_materials[w2];
                         }
 
 
                     }
                 }
             }
-            float h = H_Scale + Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position) * Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position);
+            float h = H_Scale + Mathf.Abs(H_Position - instance.H_Position) * Mathf.Abs(H_Position - instance.H_Position);
             Vector3 v3 = scale3D;
           
-            float w = W_Scale + Mathf.Abs(w5 - FindFirstObjectByType<MultyTransform>().W_Position) * Mathf.Abs(W_Position - FindFirstObjectByType<MultyTransform>().W_Position);
+            float w = W_Scale + Mathf.Abs(w5 - instance.W_Position) * Mathf.Abs(W_Position - instance.W_Position);
             float s = ((w / W_Scale) + (h / H_Scale)) / 2;
             transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
-                FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
+            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
+                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = true;
+                    meshRenderer.enabled = true;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = true;
+                    meshCollider.enabled = true;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = true;
+                    boxCollider.enabled = true;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = true;
+                    sphereCollider.enabled = true;
                 }
             }
             else
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    meshCollider.enabled = false;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    boxCollider.enabled = false;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    sphereCollider.enabled = false;
                 }
             }
         }
         if (shape == Shape.hyperCurveCube5D && shapeSettings != null)
         {
-            float h = (H_Scale- Mathf.Abs(H_Position - FindFirstObjectByType<MultyTransform>().H_Position))/ H_Scale;
+            float h = (H_Scale- Mathf.Abs(H_Position - instance.H_Position))/ H_Scale;
             Vector3 v3 = scale3D;
            
-            float w = (W_Scale - Mathf.Abs(w5 - FindFirstObjectByType<MultyTransform>().W_Position))/ W_Scale;
+            float w = (W_Scale - Mathf.Abs(w5 - instance.W_Position))/ W_Scale;
             transform.localScale = new Vector3(
                  scale3D.x * shapeSettings.WX_scale.Evaluate(w) * shapeSettings.HX_scale.Evaluate(h),
                  scale3D.y * shapeSettings.WY_scale.Evaluate(w) * shapeSettings.HY_scale.Evaluate(h),
                  scale3D.z * shapeSettings.WZ_scale.Evaluate(w) * shapeSettings.HZ_scale.Evaluate(h));
-            if (FindFirstObjectByType<MultyTransform>().W_Position + W_Scale >w5 && FindFirstObjectByType<MultyTransform>().W_Position - W_Scale <w5 &&
-                FindFirstObjectByType<MultyTransform>().H_Position + H_Scale > H_Position && FindFirstObjectByType<MultyTransform>().H_Position - H_Scale < H_Position)
+            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
+                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = true;
+                    meshRenderer.enabled = true;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = true;
+                    meshCollider.enabled = true;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = true;
+                    boxCollider.enabled = true;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = true;
+                    sphereCollider.enabled = true;
                 }
             }
             else
             {
-                if (GetComponent<MeshRenderer>())
+                if (meshRenderer)
                 {
-                    GetComponent<MeshRenderer>().enabled = false;
+                    meshRenderer.enabled = false;
                 }
-                if (GetComponent<MeshCollider>())
+                if (meshCollider)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    meshCollider.enabled = false;
                 }
-                if (GetComponent<BoxCollider>())
+                if (boxCollider)
                 {
-                    GetComponent<BoxCollider>().enabled = false;
+                    boxCollider.enabled = false;
                 }
-                if (GetComponent<SphereCollider>())
+                if (sphereCollider)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    sphereCollider.enabled = false;
                 }
             }
         }
-        if (GetComponent<MeshCollider>())
+        if (meshCollider)
         {
             
-               gameObject.GetComponent<MeshCollider>().sharedMesh = GetComponent<MeshFilter>().sharedMesh;
+               meshCollider.sharedMesh = GetComponent<MeshFilter>().sharedMesh;
            
         }
     }

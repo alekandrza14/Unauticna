@@ -9,6 +9,7 @@ public class Chaos_cube : MonoBehaviour
     int class_obj;
     GameObject[] items;
     GameObject[] Obj;
+    [SerializeField] bool ultra;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) )
@@ -24,7 +25,7 @@ public class Chaos_cube : MonoBehaviour
                     {
                         u--;
                     }
-                        if (hit.collider.gameObject == gameObject && u<0)
+                    if (hit.collider.gameObject == gameObject && u < 0)
                     {
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -35,7 +36,15 @@ public class Chaos_cube : MonoBehaviour
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                        Rand();
+                        if (!ultra) Rand();
+                        if (ultra)
+                        {
+                            for (int i = 0; i < 20; i++)
+                            {
+                                Rand();
+                            }
+                        }
+
                         Destroy(gameObject);
                     }
                 }

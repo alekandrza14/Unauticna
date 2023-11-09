@@ -8,7 +8,8 @@ public class MultyTransform : MonoBehaviour
     public Vector3 W_Rotation;
     private void Update()
     {
-      if( Application.isPlaying)  W_Position = mover.main().W_position;
+        if (Application.isPlaying) W_Position = mover.main().W_position;
+        if (Application.isPlaying) H_Position = mover.main().H_position;
         MultyObject[] g = FindObjectsByType<MultyObject>(FindObjectsSortMode.InstanceID);
         if (Application.isPlaying) W_Rotation = mover.Get4DCam()._wRotation;
         if (!Application.isPlaying) foreach (MultyObject obj in g)

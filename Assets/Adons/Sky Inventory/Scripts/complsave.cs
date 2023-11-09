@@ -580,6 +580,7 @@ public class complsave : MonoBehaviour
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                 {
                     i2.Load();
+                    LoadADone = true;
                 }
             }
 
@@ -591,7 +592,7 @@ public class complsave : MonoBehaviour
 
 
     }
-
+    public static bool LoadADone;
     public int toNameToID(string name)
     {
         int u = 0;

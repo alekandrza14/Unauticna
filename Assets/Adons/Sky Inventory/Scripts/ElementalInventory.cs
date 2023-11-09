@@ -9,6 +9,15 @@ public class inputButton
 	static public int button;
 }
 
+public class PlayerDNA
+{
+    public Color colour;
+    public float metabolism;
+    public float hp;
+    public float Jumping;
+    public float regeneration;
+}
+
 public class ElementalInventory : MonoBehaviour {
 
 	//Cell massive
@@ -1024,6 +1033,44 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("YourJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (Getstats.GetPlayerLevel() >= 1) {
+            if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
+                && Cells[select].elementName == "DNAColour" && Cells[select].elementCount > 0)
+            {
+                mover.main().DNA.colour = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).colour;
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
+                && Cells[select].elementName == "DNAMetabolism" && Cells[select].elementCount > 0)
+            {
+                mover.main().DNA.metabolism = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).metabolism;
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
+                && Cells[select].elementName == "DNAmuscles" && Cells[select].elementCount > 0)
+            {
+                mover.main().DNA.Jumping = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).Jumping;
+                mover.main().DNA.hp = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).hp;
+                mover.main().DNA.regeneration = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).regeneration;
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+        }
+        //GenColour
         //Absolute_poison
         //sosisca
         VarSave.SetInt("Agr", cistalenemy.dies);
