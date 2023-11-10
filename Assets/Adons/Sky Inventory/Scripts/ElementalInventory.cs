@@ -1069,6 +1069,55 @@ public class ElementalInventory : MonoBehaviour {
                 //  lowitem("DNAColour", "");
                 GlobalInputMenager.KeyCode_eat = 0;
             }
+            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+                && Cells[select].elementName == "battery" && Cells[select].elementCount > 0)
+            {
+                RaycastHit hit = MainRay.MainHit;
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<GeneratorEnergy>())
+                    {
+                        Cells[select].elementData = (float.Parse(Cells[select].elementData) + hit.collider.GetComponent<GeneratorEnergy>().energyData.energy).ToString();
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<GeneratorEnergy>().energyData.energy = 0;
+                        hit.collider.GetComponent<GeneratorEnergy>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<GeneratorEnergy>().energyData);
+
+                    }
+                }
+            }
+            //ПроигратьМузыку
+            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+             && Cells[select].elementName == "AudioPlayer" && Cells[select].elementCount > 0)
+            {
+                RaycastHit hit = MainRay.MainHit;
+
+                if (hit.collider != null)
+                {
+                    GameObject g = Instantiate(Resources.Load<GameObject>("ui/console/ПроигратьМузыку"), Vector3.zero, Quaternion.identity);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+                && Cells[select].elementName == "battery" && Cells[select].elementCount > 0)
+            {
+                RaycastHit hit = MainRay.MainHit;
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.GetComponent<LightStick>())
+                    {
+                        hit.collider.GetComponent<LightStick>().energyData.energy += float.Parse(Cells[select].elementData);
+                        hit.collider.GetComponent<LightStick>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<LightStick>().energyData);
+                        Cells[select].elementData = "0";
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<GeneratorEnergy>().energyData.energy = 0;
+                    }
+                }
+            }
+
+
+            //  lowitem("DNAColour", "");
+
         }
         //GenColour
         //Absolute_poison

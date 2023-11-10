@@ -421,6 +421,7 @@ public class mover : MonoBehaviour
     int regen;
     private void Init()
     {
+        Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
         if (VarSave.ExistenceVar("DNA"))
         {
             DNA = JsonUtility.FromJson<PlayerDNA>(VarSave.GetString("DNA"));

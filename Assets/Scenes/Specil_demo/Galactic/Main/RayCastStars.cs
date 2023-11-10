@@ -35,6 +35,8 @@ public class RayCastStars : MonoBehaviour
     public size s;
     private void Start()
     {
+
+        Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
         VarSave.SetString("scppos", SceneManager.GetActiveScene().name);
         VarSave.SetString("Universe_Position", SceneManager.GetActiveScene().name);
         VarSave.SetInt("UST",((int)skyType));
