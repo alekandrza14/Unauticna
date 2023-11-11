@@ -370,28 +370,81 @@ public class ElementalInventory : MonoBehaviour {
         }
 		return s;
     }
-	public bool tag2(GameObject name)
-	{
+    public bool tag2(GameObject name)
+    {
 
-		bool s2 = true;
-
-
-
-
-		if ("enemies" == LayerMask.LayerToName(name.layer))
-		{
-			s2 = false;
-		}
+        bool s2 = true;
 
 
 
 
+        if ("enemies" == LayerMask.LayerToName(name.layer))
+        {
+            s2 = false;
+        }
 
 
-		return s2;
 
-	}
-	public bool tag3(GameObject name)
+
+
+
+        return s2;
+
+    }
+    public string nameItem(string name)
+    {
+
+        bool s2 = true;
+        string rawname1 = name.Replace(" ","_");
+
+        string fullname = "";
+        int t = 0;
+        for (int i = rawname1.Length - 1; i > 0; i--)
+        {
+            if (rawname1[i] == 'x')
+            {
+                t++;
+            }
+            if (rawname1[i] != 'x' && t != 0)
+            {
+                fullname = rawname1.Remove((rawname1.Length) - t);
+
+                if (true)
+                {
+
+
+
+                }
+                i = 0;
+
+
+            }
+            if (rawname1[i] != 'x' && t == 0)
+            {
+                fullname = rawname1;
+
+                if (true)
+                {
+
+
+
+                }
+                i = 0;
+
+
+            }
+
+        }
+
+
+
+
+
+
+        return fullname;
+
+    }
+    public bool tag3(GameObject name)
 	{
 
 		bool s2 = true;
@@ -775,6 +828,47 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
+        if (Input.GetKey(KeyCode.Mouse0) && Cells[select].elementName == "RayGun" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            if (JsonUtility.FromJson<GeneratorEnergyData>(Cells[select].elementData).energy > 0)
+            {
+                GeneratorEnergyData ged;
+                ged = JsonUtility.FromJson<GeneratorEnergyData>(Cells[select].elementData);
+                ged.energy = (JsonUtility.FromJson<GeneratorEnergyData>(Cells[select].elementData).energy - 12);
+
+                Cells[select].elementData = JsonUtility.ToJson(ged);
+
+                Instantiate(Resources.Load<GameObject>("DamageRay").gameObject, mover.main().transform.position, mover.main().PlayerCamera.transform.rotation);
+
+
+            }
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName != "battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<GeneratorEnergy>())
+                {
+                    if (hit.collider.GetComponent<GeneratorEnergy>().get == GeneratorEnergyType.bio)
+                    {
+
+                        lowitem(nameItem(Cells[select].elementName), "");
+                        hit.collider.GetComponent<GeneratorEnergy>().energyData.energy += 25;
+                        hit.collider.GetComponent<GeneratorEnergy>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<GeneratorEnergy>().energyData);
+
+                    }
+                }
+            }
+         
+
+
+        }
         if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -819,7 +913,7 @@ public class ElementalInventory : MonoBehaviour {
             int i = Random.Range(0, 3);
             if (i == 0)
             {
-                //  Instantiate(Resources.Load("voices/belock"));
+                Instantiate(Resources.Load("voices/belock"));
             }
 
             lowitem("belock", "seed");
@@ -1033,7 +1127,8 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("YourJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
-        if (Getstats.GetPlayerLevel() >= 1) {
+        if (Getstats.GetPlayerLevel() >= 1)
+        {
             if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
                 && Cells[select].elementName == "DNAColour" && Cells[select].elementCount > 0)
             {
@@ -1069,56 +1164,73 @@ public class ElementalInventory : MonoBehaviour {
                 //  lowitem("DNAColour", "");
                 GlobalInputMenager.KeyCode_eat = 0;
             }
-            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
-                && Cells[select].elementName == "battery" && Cells[select].elementCount > 0)
-            {
-                RaycastHit hit = MainRay.MainHit;
-
-                if (hit.collider != null)
-                {
-                    if (hit.collider.GetComponent<GeneratorEnergy>())
-                    {
-                        Cells[select].elementData = (float.Parse(Cells[select].elementData) + hit.collider.GetComponent<GeneratorEnergy>().energyData.energy).ToString();
-                        //  Cells[select].elementData = 
-                        hit.collider.GetComponent<GeneratorEnergy>().energyData.energy = 0;
-                        hit.collider.GetComponent<GeneratorEnergy>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<GeneratorEnergy>().energyData);
-
-                    }
-                }
-            }
-            //ПроигратьМузыку
-            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
-             && Cells[select].elementName == "AudioPlayer" && Cells[select].elementCount > 0)
-            {
-                RaycastHit hit = MainRay.MainHit;
-
-                if (hit.collider != null)
-                {
-                    GameObject g = Instantiate(Resources.Load<GameObject>("ui/console/ПроигратьМузыку"), Vector3.zero, Quaternion.identity);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
-                && Cells[select].elementName == "battery" && Cells[select].elementCount > 0)
-            {
-                RaycastHit hit = MainRay.MainHit;
-
-                if (hit.collider != null)
-                {
-                    if (hit.collider.GetComponent<LightStick>())
-                    {
-                        hit.collider.GetComponent<LightStick>().energyData.energy += float.Parse(Cells[select].elementData);
-                        hit.collider.GetComponent<LightStick>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<LightStick>().energyData);
-                        Cells[select].elementData = "0";
-                        //  Cells[select].elementData = 
-                        hit.collider.GetComponent<GeneratorEnergy>().energyData.energy = 0;
-                    }
-                }
-            }
-
-
-            //  lowitem("DNAColour", "");
-
         }
+       
+        //ПроигратьМузыку
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+         && Cells[select].elementName == "AudioPlayer" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                GameObject g = Instantiate(Resources.Load<GameObject>("ui/console/ПроигратьМузыку"), Vector3.zero, Quaternion.identity);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "battery" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<GeneratorEnergy>())
+                {
+                    Cells[select].elementData = (float.Parse(Cells[select].elementData) + hit.collider.GetComponent<GeneratorEnergy>().energyData.energy).ToString();
+                    //  Cells[select].elementData = 
+                    hit.collider.GetComponent<GeneratorEnergy>().energyData.energy = 0;
+                    hit.collider.GetComponent<GeneratorEnergy>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<GeneratorEnergy>().energyData);
+
+                }
+            }
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<LightStick>())
+                {
+                    hit.collider.GetComponent<LightStick>().energyData.energy += float.Parse(Cells[select].elementData);
+                    hit.collider.GetComponent<LightStick>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<LightStick>().energyData);
+                    Cells[select].elementData = "0";
+                    //  Cells[select].elementData = 
+                }
+            }
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<RayGun>())
+                {
+                    hit.collider.GetComponent<RayGun>().energyData.energy += float.Parse(Cells[select].elementData);
+                    hit.collider.GetComponent<RayGun>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<RayGun>().energyData);
+                    Cells[select].elementData = "0";
+                    //  Cells[select].elementData = 
+                }
+            }
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ColdGenerator>())
+                {
+                    hit.collider.GetComponent<ColdGenerator>().energyData.energy += float.Parse(Cells[select].elementData);
+                    hit.collider.GetComponent<ColdGenerator>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<ColdGenerator>().energyData);
+                    Cells[select].elementData = "0";
+                    //  Cells[select].elementData = 
+                }
+            }
+        }
+
+
+        //  lowitem("DNAColour", "");
+
+
         //GenColour
         //Absolute_poison
         //sosisca
