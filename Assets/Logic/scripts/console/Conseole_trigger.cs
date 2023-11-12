@@ -53,7 +53,7 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "1";
             }
-            if (s[0] == "scene_to_name")
+            if (s[0] == "scene_by_name")
             {
                 a = "13";
             }
@@ -65,11 +65,11 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "6";
             }
-            if (s[0] == "Obj_E1_to_name")
+            if (s[0] == "Obj_E1_by_name")
             {
                 a = "11";
             }
-            if (s[0] == "Obj_E2_to_name")
+            if (s[0] == "Obj_E2_by_name")
             {
                 a = "12";
             }
@@ -77,7 +77,7 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "9";
             }
-            if (s[0] == "Item_to_name")
+            if (s[0] == "Item_by_name")
             {
                 a = "10";
             }
@@ -100,6 +100,10 @@ public class Conseole_trigger : MonoBehaviour
             if (s[0] == "movew")
             {
                 a = "5";
+            }
+            if (s[0] == "moveh")
+            {
+                a = "14";
             }
             if (i == 1 && a == "1")
             {
@@ -126,9 +130,14 @@ public class Conseole_trigger : MonoBehaviour
                 mover.FindFirstObjectByType<mover>().transform.position += Vector3.forward * int.Parse(s[1]);
 
             }
-            if (i == 1 && a == "2")
+            if (i == 1 && a == "5")
             {
                 mover.FindFirstObjectByType<mover>().W_position += int.Parse(s[1]);
+
+            }
+            if (i == 1 && a == "14")
+            {
+                mover.FindFirstObjectByType<mover>().H_position += int.Parse(s[1]);
 
             }
             if (i == 1 && a == "6")

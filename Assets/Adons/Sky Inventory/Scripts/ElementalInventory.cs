@@ -865,7 +865,48 @@ public class ElementalInventory : MonoBehaviour {
                     }
                 }
             }
-         
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName == "battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<accumulator>())
+                {
+                    hit.collider.GetComponent<accumulator>().energy = (float.Parse(hit.collider.GetComponent<accumulator>().energy) + float.Parse(Cells[select].elementData)).ToString();
+                    hit.collider.GetComponent<accumulator>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<accumulator>().energy;
+                    Cells[select].elementData = "0";
+                    //  Cells[select].elementData = 
+                }
+            }
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<accumulator>())
+                {
+                    hit.collider.GetComponent<accumulator>().energy = (float.Parse(hit.collider.GetComponent<accumulator>().energy) -100).ToString();
+                    hit.collider.GetComponent<accumulator>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<accumulator>().energy;
+
+                    Cells[select].elementData = (float.Parse(Cells[select].elementData)+100).ToString();
+                    //  Cells[select].elementData = 
+                }
+            }
+
 
 
         }
