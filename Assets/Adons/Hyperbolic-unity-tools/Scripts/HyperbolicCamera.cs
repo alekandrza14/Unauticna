@@ -68,12 +68,12 @@ public class HyperbolicCamera : MonoBehaviour
     }
 
     // Start is called before the first frame update
-
+    static HyperbolicCamera main_cam;
     public static HyperbolicCamera Main()
     {
+        if(main_cam==null) main_cam = FindFirstObjectByType<HyperbolicCamera>();
 
-
-        return FindFirstObjectByType<HyperbolicCamera>();
+        return main_cam;
     }
     private void LateUpdate()
     {
@@ -208,8 +208,8 @@ public class HyperbolicCamera : MonoBehaviour
             {
                 Vector3 v = Vector3.MoveTowards(Vector3.zero, new Vector3(-Input.GetAxis("Vertical") * Time.deltaTime, -Input.GetAxis("Horizontal") * Time.deltaTime), 2);
 
-                RealtimeTransform.preApplyTranslationZ(v.x);
-                RealtimeTransform.preApplyTranslationY(v.y);
+                if (!Globalprefs.Pause) RealtimeTransform.preApplyTranslationZ(v.x);
+                if (!Globalprefs.Pause) RealtimeTransform.preApplyTranslationY(v.y);
 
 
                 if (Input.GetKey(KeyCode.Mouse1))
@@ -218,7 +218,7 @@ public class HyperbolicCamera : MonoBehaviour
 
 
                     float r1 = Input.GetAxis("Mouse X") * Time.deltaTime * 1.5f;
-                    RealtimeTransform.preApplyRotation(r1);
+                    if (!Globalprefs.Pause) RealtimeTransform.preApplyRotation(r1);
 
 
 

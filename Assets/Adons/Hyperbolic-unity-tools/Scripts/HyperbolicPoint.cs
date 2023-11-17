@@ -77,23 +77,15 @@ public class HyperbolicPoint : MonoBehaviour
     {
         if (!VertexOrPoint)
         {
+            HyperboilcOringe.m = HyperboilcPoistion.m;
+            HyperboilcOringe.s = HyperboilcPoistion.s;
+            HyperboilcOringe.n = HyperboilcPoistion.n;
+            HyperboilcOringe.applyTranslationZ(1);
             InvokeRepeating("ProjectionUpdate", 0, 0.05f + UnityEngine.Random.Range(0f, 0.02f));
             ProjectionUpdate(); 
         }
     }
-    static public void ALLSpheresRot(float r)
-    {
-        for (int i = 0; i < ALLSpheres().Length;i++)
-        {
-            float ds = MathHyper.Facteur2(ALLSpheres()[i].gameObject, ALLSpheres()[i].transform.position);
-            ALLSpheres()[i].transform.rotation = Quaternion.Euler(ALLSpheres()[i].transform.rotation.eulerAngles.x, ALLSpheres()[i].transform.rotation.eulerAngles.y - r / Time.deltaTime *3.14f * ds, ALLSpheres()[i].transform.rotation.eulerAngles.z);
-
-        }
-    }
-    static public HyperbolicPoint[] ALLSpheres()
-    {
-        return GameObject.FindObjectsByType<HyperbolicPoint>(sortmode.main);
-    }
+  
    
 
     public void LateUpdate()
@@ -102,6 +94,8 @@ public class HyperbolicPoint : MonoBehaviour
     }
     public void edit()
     {
+        PMatrix3D CamMatrix = new PMatrix3D();
+        if (HyperbolicCamera.Main() != null) CamMatrix = HyperbolicCamera.Main().RealtimeTransform.getMatrix();
 
         PMatrix3D copytr = new PMatrix3D();
         copytr.set(HyperboilcOringe.getMatrix());
@@ -116,7 +110,7 @@ public class HyperbolicPoint : MonoBehaviour
 
 
             copytr.mult(nextPoint, nextPoint);
-            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
+            CamMatrix.mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
             if (GetComponent<HyperbolicTriangeRenederer>())
@@ -126,7 +120,7 @@ public class HyperbolicPoint : MonoBehaviour
             if (!GetComponent<HyperbolicTriangeRenederer>())
             {
 
-                v3 = new Vector3(nextPoint.x, 0, nextPoint.y);
+                v3 = new Vector3((float)nextPoint.x, 0, (float)nextPoint.y);
                
                 
                     transform.rotation = Quaternion.LookRotation(v3);
@@ -147,6 +141,9 @@ public class HyperbolicPoint : MonoBehaviour
     // Update is called once per frame
     public void ProjectionUpdate()
     {
+        PMatrix3D CamMatrix = new PMatrix3D();
+        if (HyperbolicCamera.Main() != null) CamMatrix = HyperbolicCamera.Main().RealtimeTransform.getMatrix();
+
         if (gameObject.GetComponent<HyperbolicTriangle>())
         {
             sc = gameObject.GetComponent<HyperbolicTriangle>();
@@ -207,15 +204,15 @@ public class HyperbolicPoint : MonoBehaviour
 
 
             copytr.mult(nextPoint, nextPoint);
-           if(FindObjectsByType<HyperbolicCamera>(sortmode.main).Length!=0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
+        CamMatrix.mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 
             if (!GetComponent<HyperbolicTriangeRenederer>())
             {
 
-                transform.position = new Vector3(nextPoint.x-1, transform.position.y, nextPoint.y-1);
-                mposition = new Vector3(nextPoint.x - 1, transform.position.y, nextPoint.y - 1);
+                transform.position = new Vector3((float)nextPoint.x-1, transform.position.y, (float)nextPoint.y-1);
+                mposition = new Vector3((float)nextPoint.x - 1, transform.position.y, (float)nextPoint.y - 1);
 
               
 
@@ -225,10 +222,10 @@ public class HyperbolicPoint : MonoBehaviour
             }
             else
             {
-                mposition = new Vector3(nextPoint.x - 1, transform.position.y, nextPoint.y - 1);
+                mposition = new Vector3((float)nextPoint.x - 1, transform.position.y, (float)nextPoint.y - 1);
             }
 
-        float dist = (25f -MathHyper.sinh((new PVector().dist(nextPoint) * 0.2f)))/25;
+        float dist = (float)(25f -MathHyper.sinh((new PVector().dist(nextPoint) * 0.2f)))/25;
 
         if (!GetComponent<HyperbolicTriangeRenederer>() && dist >= 0)
         {

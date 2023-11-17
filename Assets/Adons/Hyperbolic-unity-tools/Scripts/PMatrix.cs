@@ -33,6 +33,7 @@
 
 #endregion Header
 
+using System;
 namespace un
 {
     using System;
@@ -48,12 +49,12 @@ namespace un
     {
         #region Fields
 
-        private float offsetX;
-        private float offsetY;
+        private double offsetX;
+        private double offsetY;
 
-        //private float scale;
-        private float scaleX;
-        private float scaleY;
+        //private double scale;
+        private double scaleX;
+        private double scaleY;
 
         #endregion Fields
 
@@ -78,19 +79,19 @@ namespace un
             get { return scaleX != 0 && scaleY != 0; }
         }
 
-        public float OffsetX
+        public double OffsetX
         {
             get { return offsetX; }
             set { offsetX = value; }
         }
 
-        public float OffsetY
+        public double OffsetY
         {
             get { return offsetY; }
             set { offsetY = value; }
         }
 
-        public float Scale
+        public double Scale
         {
             //get { return scale; }
             //set { scale = value; }
@@ -138,8 +139,8 @@ namespace un
 
         public PointF InverseTransform(PointF point)
         {
-            point.X = (1 / scaleX) * (point.X - offsetX);
-            point.Y = (1 / scaleY) * (point.Y - offsetY);
+            point.X = (float)((1 / scaleX) * (point.X - (float)(offsetX)));
+            point.Y = (float)((1 / scaleY) * (point.Y - (float)offsetY));
 
             //point.X = (1/scale) * (point.X - offsetX);
             //point.Y = (1/scale) * (point.Y - offsetY);
@@ -148,8 +149,8 @@ namespace un
 
         public SizeF InverseTransform(SizeF size)
         {
-            size.Width = (1 / scaleX) * size.Width;
-            size.Height = (1 / scaleY) * size.Height;
+            size.Width = (1 / (float)scaleX) * size.Width;
+            size.Height = (1 / (float)scaleY) * size.Height;
 
             //size.Width = (1/scale) * size.Width;
             //size.Height = (1/scale) * size.Height;
@@ -158,10 +159,10 @@ namespace un
 
         public RectangleF InverseTransform(RectangleF rect)
         {
-            rect.X = (1 / scaleX) * (rect.X - offsetX);
-            rect.Y = (1 / scaleY) * (rect.Y - offsetY);
-            rect.Width = (1 / scaleX) * rect.Width;
-            rect.Height = (1 / scaleY) * rect.Height;
+            rect.X = (1 / (float)scaleX) * (rect.X - (float)offsetX);
+            rect.Y = (1 / (float)scaleY) * (rect.Y - (float)offsetY);
+            rect.Width = (1 / (float)scaleX) * rect.Width;
+            rect.Height = (1 / (float)scaleY) * rect.Height;
 
             //rect.X = (1/scale) * (rect.X - offsetX);
             //rect.Y = (1/scale) * (rect.Y - offsetY);
@@ -205,13 +206,13 @@ namespace un
             offsetY = 0;
         }
 
-        public void ScaleBy(float scale)
+        public void ScaleBy(double scale)
         {
             //this.scale *= scale;
             ScaleBy(scale, scale);
         }
 
-        public void ScaleBy(float scale, float x, float y)
+        public void ScaleBy(double scale, double x, double y)
         {
             TranslateBy(x, y);
             //this.scale *= scale;
@@ -221,8 +222,8 @@ namespace un
 
         public PointF Transform(PointF point)
         {
-            point.X = scaleX * point.X + offsetX;
-            point.Y = scaleY * point.Y + offsetY;
+            point.X = (float)scaleX * point.X + (float)offsetX;
+            point.Y = (float)scaleY * point.Y + (float)offsetY;
 
             //point.X = scale * point.X + offsetX;
             //point.Y = scale * point.Y + offsetY;
@@ -231,8 +232,8 @@ namespace un
 
         public SizeF Transform(SizeF size)
         {
-            size.Width = scaleX * size.Width;
-            size.Height = scaleY * size.Height;
+            size.Width = (float)scaleX * size.Width;
+            size.Height = (float)scaleY * size.Height;
 
             //size.Width = scale * size.Width;
             //size.Height = scale * size.Height;
@@ -241,10 +242,10 @@ namespace un
 
         public RectangleF Transform(RectangleF rect)
         {
-            rect.X = scaleX * rect.X + offsetX;
-            rect.Y = scaleY * rect.Y + offsetY;
-            rect.Width = scaleX * rect.Width;
-            rect.Height = scaleY * rect.Height;
+            rect.X = (float)scaleX * rect.X + (float)offsetX;
+            rect.Y = (float)scaleY * rect.Y + (float)offsetY;
+            rect.Width = (float)scaleX * rect.Width;
+            rect.Height = (float)scaleY * rect.Height;
 
             //rect.X = scale * rect.X + offsetX;
             //rect.Y = scale * rect.Y + offsetY;
@@ -268,7 +269,7 @@ namespace un
             }
         }
 
-        public void TranslateBy(float dx, float dy)
+        public void TranslateBy(double dx, double dy)
         {
             offsetX += (scaleX * dx);
             offsetY += (scaleY * dy);
@@ -277,7 +278,7 @@ namespace un
             //offsetY += (scale * dy);
         }
 
-        internal void ScaleBy(float scaleX, float scaleY)
+        internal void ScaleBy(double scaleX, double scaleY)
         {
             this.scaleX *= scaleX;
             this.scaleY *= scaleY;

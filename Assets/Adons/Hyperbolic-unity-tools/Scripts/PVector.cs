@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 [System.Serializable]
 public class PVector
@@ -15,7 +16,7 @@ public class PVector
    * @usage web_application
    * @brief The x component of the vector
    */
-  public float x;
+  public double x;
 
 /**
  * ( begin auto-generated from PVector_y.xml )
@@ -29,7 +30,7 @@ public class PVector
  * @usage web_application
  * @brief The y component of the vector
  */
-public float y;
+public double y;
 
 /**
  * ( begin auto-generated from PVector_z.xml )
@@ -43,10 +44,10 @@ public float y;
  * @usage web_application
  * @brief The z component of the vector
  */
-public float z;
+public double z;
 
 /** Array so that this can be temporarily used in an array context */
-protected float[] array;
+protected double[] array;
 
 
 /**
@@ -64,7 +65,7 @@ public PVector()
  * @param  y the y coordinate.
  * @param  z the z coordinate.
  */
-public PVector(float x, float y, float z)
+public PVector(double x, double y, double z)
 {
     this.x = x;
     this.y = y;
@@ -75,7 +76,7 @@ public PVector(float x, float y, float z)
 /**
  * Constructor for a 2D vector: z coordinate is set to 0.
  */
-public PVector(float x, float y)
+public PVector(double x, double y)
 {
     this.x = x;
     this.y = y;
@@ -86,7 +87,7 @@ public PVector(float x, float y)
  * ( begin auto-generated from PVector_set.xml )
  *
  * Sets the x, y, and z component of the vector using two or three separate
- * variables, the data from a PVector, or the values from a float array.
+ * variables, the data from a PVector, or the values from a double array.
  *
  * ( end auto-generated )
  *
@@ -96,7 +97,7 @@ public PVector(float x, float y)
  * @param z the z component of the vector
  * @brief Set the components of the vector
  */
-public PVector set(float x, float y, float z)
+public PVector set(double x, double y, double z)
 {
     this.x = x;
     this.y = y;
@@ -109,7 +110,7 @@ public PVector set(float x, float y, float z)
  * @param x the x component of the vector
  * @param y the y component of the vector
  */
-public PVector set(float x, float y)
+public PVector set(double x, double y)
 {
     this.x = x;
     this.y = y;
@@ -131,10 +132,10 @@ public PVector set(PVector v)
 
 
 /**
- * Set the x, y (and maybe z) coordinates using a float[] array as the source.
+ * Set the x, y (and maybe z) coordinates using a double[] array as the source.
  * @param source array to copy from
  */
-public PVector set(float[] source)
+public PVector set(double[] source)
 {
     if (source.Length >= 2)
     {
@@ -244,7 +245,7 @@ public PVector set(float[] source)
  * @param angle the angle in radians
  * @return the new unit PVector
  */
-static public PVector fromAngle(float angle)
+static public PVector fromAngle(double angle)
 {
     return fromAngle(angle, null);
 }
@@ -256,15 +257,15 @@ static public PVector fromAngle(float angle)
  * @param target the target vector (if null, a new vector will be created)
  * @return the PVector
  */
-static public PVector fromAngle(float angle, PVector target)
+static public PVector fromAngle(double angle, PVector target)
 {
     if (target == null)
     {
-        target = new PVector((float)Mathf.Cos(angle), (float)Mathf.Sin(angle), 0);
+        target = new PVector((double)Math.Cos(angle), (double)Math.Sin(angle), 0);
     }
     else
     {
-        target.set((float)Mathf.Cos(angle), (float)Mathf.Sin(angle), 0);
+        target.set((double)Math.Cos(angle), (double)Math.Sin(angle), 0);
     }
     return target;
 }
@@ -297,11 +298,11 @@ public PVector copy()
 /**
  * @param target
  */
-public float[] get(float[] target)
+public double[] get(double[] target)
 {
     if (target == null)
     {
-        return new float[] { x, y, z };
+        return new double[] { x, y, z };
     }
     if (target.Length >= 2)
     {
@@ -320,7 +321,7 @@ public float[] get(float[] target)
  * ( begin auto-generated from PVector_mag.xml )
  *
  * Calculates the magnitude (length) of the vector and returns the result
- * as a float (this is simply the equation <em>sqrt(x*x + y*y + z*z)</em>.)
+ * as a double (this is simply the equation <em>sqrt(x*x + y*y + z*z)</em>.)
  *
  * ( end auto-generated )
  *
@@ -330,9 +331,9 @@ public float[] get(float[] target)
  * @return magnitude (length) of the vector
  * @see PVector#magSq()
  */
-public float mag()
+public double mag()
 {
-    return (float)Mathf.Sqrt(x * x + y * y + z * z);
+    return (double)Math.Sqrt(x * x + y * y + z * z);
 }
 
 
@@ -340,7 +341,7 @@ public float mag()
  * ( begin auto-generated from PVector_mag.xml )
  *
  * Calculates the squared magnitude of the vector and returns the result
- * as a float (this is simply the equation <em>(x*x + y*y + z*z)</em>.)
+ * as a double (this is simply the equation <em>(x*x + y*y + z*z)</em>.)
  * Faster if the real length is not required in the
  * case of comparing vectors, etc.
  *
@@ -352,7 +353,7 @@ public float mag()
  * @return squared magnitude of the vector
  * @see PVector#mag()
  */
-public float magSq()
+public double magSq()
 {
     return (x * x + y * y + z * z);
 }
@@ -387,7 +388,7 @@ public PVector add(PVector v)
  * @param x x component of the vector
  * @param y y component of the vector
  */
-public PVector add(float x, float y)
+public PVector add(double x, double y)
 {
     this.x += x;
     this.y += y;
@@ -398,7 +399,7 @@ public PVector add(float x, float y)
 /**
  * @param z z component of the vector
  */
-public PVector add(float x, float y, float z)
+public PVector add(double x, double y, double z)
 {
     this.x += x;
     this.y += y;
@@ -465,7 +466,7 @@ public PVector sub(PVector v)
  * @param x the x component of the vector
  * @param y the y component of the vector
  */
-public PVector sub(float x, float y)
+public PVector sub(double x, double y)
 {
     this.x -= x;
     this.y -= y;
@@ -476,7 +477,7 @@ public PVector sub(float x, float y)
 /**
  * @param z the z component of the vector
  */
-public PVector sub(float x, float y, float z)
+public PVector sub(double x, double y, double z)
 {
     this.x -= x;
     this.y -= y;
@@ -526,7 +527,7 @@ static public PVector sub(PVector v1, PVector v2, PVector target)
  * @brief Multiply a vector by a scalar
  * @param n the number to multiply with the vector
  */
-public PVector mult(float n)
+public PVector mult(double n)
 {
     x *= n;
     y *= n;
@@ -538,7 +539,7 @@ public PVector mult(float n)
 /**
  * @param v the vector to multiply by the scalar
  */
-static public PVector mult(PVector v, float n)
+static public PVector mult(PVector v, double n)
 {
     return mult(v, n, null);
 }
@@ -548,7 +549,7 @@ static public PVector mult(PVector v, float n)
  * Multiply a vector by a scalar, and write the result into a target PVector.
  * @param target PVector in which to store the result
  */
-static public PVector mult(PVector v, float n, PVector target)
+static public PVector mult(PVector v, double n, PVector target)
 {
     if (target == null)
     {
@@ -574,7 +575,7 @@ static public PVector mult(PVector v, float n, PVector target)
  * @brief Divide a vector by a scalar
  * @param n the number by which to divide the vector
  */
-public PVector div(float n)
+public PVector div(double n)
 {
     x /= n;
     y /= n;
@@ -588,7 +589,7 @@ public PVector div(float n)
  * @param v the vector to divide by the scalar
  * @return a new vector that is v1 / n
  */
-static public PVector div(PVector v, float n)
+static public PVector div(PVector v, double n)
 {
     return div(v, n, null);
 }
@@ -598,7 +599,7 @@ static public PVector div(PVector v, float n)
  * Divide a vector by a scalar and store the result in another vector.
  * @param target PVector in which to store the result
  */
-static public PVector div(PVector v, float n, PVector target)
+static public PVector div(PVector v, double n, PVector target)
 {
     if (target == null)
     {
@@ -625,12 +626,12 @@ static public PVector div(PVector v, float n, PVector target)
  * @param v the x, y, and z coordinates of a PVector
  * @brief Calculate the distance between two points
  */
-public float dist(PVector v)
+public double dist(PVector v)
 {
-    float dx = x - v.x;
-    float dy = y - v.y;
-    float dz = z - v.z;
-    return (float)Mathf.Sqrt(dx * dx + dy * dy + dz * dz);
+    double dx = x - v.x;
+    double dy = y - v.y;
+    double dz = z - v.z;
+    return (double)Math.Sqrt(dx * dx + dy * dy + dz * dz);
 }
 
 
@@ -639,12 +640,12 @@ public float dist(PVector v)
  * @param v2 any variable of type PVector
  * @return the Euclidean distance between v1 and v2
  */
-static public float dist(PVector v1, PVector v2)
+static public double dist(PVector v1, PVector v2)
 {
-    float dx = v1.x - v2.x;
-    float dy = v1.y - v2.y;
-    float dz = v1.z - v2.z;
-    return (float)Mathf.Sqrt(dx * dx + dy * dy + dz * dz);
+    double dx = v1.x - v2.x;
+    double dy = v1.y - v2.y;
+    double dz = v1.z - v2.z;
+    return (double)Math.Sqrt(dx * dx + dy * dy + dz * dz);
 }
 
 
@@ -661,7 +662,7 @@ static public float dist(PVector v1, PVector v2)
  * @return the dot product
  * @brief Calculate the dot product of two vectors
  */
-public float dot(PVector v)
+public double dot(PVector v)
 {
     return x * v.x + y * v.y + z * v.z;
 }
@@ -672,7 +673,7 @@ public float dot(PVector v)
  * @param y y component of the vector
  * @param z z component of the vector
  */
-public float dot(float x, float y, float z)
+public double dot(double x, double y, double z)
 {
     return this.x * x + this.y * y + this.z * z;
 }
@@ -682,7 +683,7 @@ public float dot(float x, float y, float z)
  * @param v1 any variable of type PVector
  * @param v2 any variable of type PVector
  */
-static public float dot(PVector v1, PVector v2)
+static public double dot(PVector v1, PVector v2)
 {
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
@@ -712,9 +713,9 @@ public PVector cross(PVector v)
  */
 public PVector cross(PVector v, PVector target)
 {
-    float crossX = y * v.z - v.y * z;
-    float crossY = z * v.x - v.z * x;
-    float crossZ = x * v.y - v.x * y;
+    double crossX = y * v.z - v.y * z;
+    double crossY = z * v.x - v.z * x;
+    double crossZ = x * v.y - v.x * y;
 
     if (target == null)
     {
@@ -735,9 +736,9 @@ public PVector cross(PVector v, PVector target)
  */
 static public PVector cross(PVector v1, PVector v2, PVector target)
 {
-    float crossX = v1.y * v2.z - v2.y * v1.z;
-    float crossY = v1.z * v2.x - v2.z * v1.x;
-    float crossZ = v1.x * v2.y - v2.x * v1.y;
+    double crossX = v1.y * v2.z - v2.y * v1.z;
+    double crossY = v1.z * v2.x - v2.z * v1.x;
+    double crossZ = v1.x * v2.y - v2.x * v1.y;
 
     if (target == null)
     {
@@ -764,7 +765,7 @@ static public PVector cross(PVector v1, PVector v2, PVector target)
  */
 public PVector normalize()
 {
-    float m = mag();
+    double m = mag();
     if (m != 0 && m != 1)
     {
         div(m);
@@ -783,7 +784,7 @@ public PVector normalize(PVector target)
     {
         target = new PVector();
     }
-    float m = mag();
+    double m = mag();
     if (m > 0)
     {
         target.set(x / m, y / m, z / m);
@@ -808,7 +809,7 @@ public PVector normalize(PVector target)
  * @param max the maximum magnitude for the vector
  * @brief Limit the magnitude of the vector
  */
-public PVector limit(float max)
+public PVector limit(double max)
 {
     if (magSq() > max * max)
     {
@@ -831,7 +832,7 @@ public PVector limit(float max)
  * @param len the new length for this vector
  * @brief Set the magnitude of the vector
  */
-public PVector setMag(float len)
+public PVector setMag(double len)
 {
     normalize();
     mult(len);
@@ -845,7 +846,7 @@ public PVector setMag(float len)
  * @param len the new length for the new vector
  * @return a new vector (if target was null), or target
  */
-public PVector setMag(PVector target, float len)
+public PVector setMag(PVector target, double len)
 {
     target = normalize(target);
     target.mult(len);
@@ -865,15 +866,15 @@ public PVector setMag(PVector target, float len)
  * @return the angle of rotation
  * @brief Calculate the angle of rotation for this vector
  */
-public float heading()
+public double heading()
 {
-    float angle = (float)Mathf.Atan2(y, x);
+    double angle = (double)Math.Atan2(y, x);
     return angle;
 }
 
 
 
-  public float heading2D()
+  public double heading2D()
 {
     return heading();
 }
@@ -905,7 +906,7 @@ public float heading()
  * @brief Linear interpolate the vector to another vector
  * @param v the vector to lerp to
  * @param amt  The amount of interpolation; some value between 0.0 (old vector) and 1.0 (new vector). 0.1 is very near the old vector; 0.5 is halfway in between.
- * @see PApplet#lerp(float, float, float)
+ * @see PApplet#lerp(double, double, double)
  */
 
 
@@ -953,7 +954,7 @@ public string tostring()
 /**
  * ( begin auto-generated from PVector_array.xml )
  *
- * Return a representation of this vector as a float array. This is only
+ * Return a representation of this vector as a double array. This is only
  * for temporary use. If used in any other fashion, the contents should be
  * copied by using the <b>PVector.get()</b> method to copy into your own array.
  *
@@ -961,7 +962,7 @@ public string tostring()
  *
  * @webref pvector:method
  * @usage: web_application
- * @brief Return a representation of the vector as a float array
+ * @brief Return a representation of the vector as a double array
  */
 
 
@@ -974,9 +975,9 @@ public string tostring()
   public int hashCode()
 {
     int result = 1;
-    result = 31 * result + Mathf.FloorToInt(x);
-    result = 31 * result + Mathf.FloorToInt(y);
-    result = 31 * result + Mathf.FloorToInt(z);
+    result = 31 * result + (int)x;
+    result = 31 * result + (int)y;
+    result = 31 * result + (int)z;
     return result;
 }
 }

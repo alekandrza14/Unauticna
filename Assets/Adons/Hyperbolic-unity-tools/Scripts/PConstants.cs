@@ -52,23 +52,23 @@ public interface PConstants
   };
 
 
-  static  float EPSILON = 0.0001f;
+  static  double EPSILON = 0.0001f;
 
 
     // max/min values for numbers
 
     /**
-     * Same as Float.MAX_VALUE, but included for parity with MIN_VALUE,
+     * Same as double.MAX_VALUE, but included for parity with MIN_VALUE,
      * and to avoid teaching static methods on the first day.
      */
-    static  float MAX_FLOAT = float.MaxValue;
+    static  double MAX_double = double.MaxValue;
     /**
-     * Note that Float.MIN_VALUE is the smallest <EM>positive</EM> value
-     * for a floating point number, not actually the minimum (negative) value
-     * for a float. This constant equals 0xFF7FFFFF, the smallest (farthest
-     * negative) value a float can have before it hits NaN.
+     * Note that double.MIN_VALUE is the smallest <EM>positive</EM> value
+     * for a doubleing point number, not actually the minimum (negative) value
+     * for a double. This constant equals 0xFF7FFFFF, the smallest (farthest
+     * negative) value a double can have before it hits NaN.
      */
-    static  float MIN_FLOAT = -float.MaxValue;
+    static  double MIN_double = -double.MaxValue;
     /** Largest possible (positive) integer value */
     static  int MAX_INT = int.MaxValue;
     /** Smallest possible (negative) integer value */
@@ -103,7 +103,7 @@ public interface PConstants
      * @see PConstants#QUARTER_PI
      *
      */
-    static  float PI = (float)Mathf.PI;
+    static  double PI = (double)Mathf.PI;
     /**
      * ( begin auto-generated from HALF_PI.xml )
      *
@@ -119,8 +119,8 @@ public interface PConstants
      * @see PConstants#TAU
      * @see PConstants#QUARTER_PI
      */
-    static  float HALF_PI = (float)(Mathf.PI / 2.0);
-    static  float THIRD_PI = (float)(Mathf.PI / 3.0);
+    static  double HALF_PI = (double)(Mathf.PI / 2.0);
+    static  double THIRD_PI = (double)(Mathf.PI / 3.0);
     /**
      * ( begin auto-generated from QUARTER_PI.xml )
      *
@@ -136,7 +136,7 @@ public interface PConstants
      * @see PConstants#TAU
      * @see PConstants#HALF_PI
      */
-    static  float QUARTER_PI = (float)(Mathf.PI / 4.0);
+    static  double QUARTER_PI = (double)(Mathf.PI / 4.0);
     /**
      * ( begin auto-generated from TWO_PI.xml )
      *
@@ -152,7 +152,7 @@ public interface PConstants
      * @see PConstants#HALF_PI
      * @see PConstants#QUARTER_PI
      */
-    static  float TWO_PI = (float)(2.0 * Mathf.PI);
+    static  double TWO_PI = (double)(2.0 * Mathf.PI);
     /**
      * ( begin auto-generated from TAU.xml )
      *
@@ -168,10 +168,10 @@ public interface PConstants
      * @see PConstants#HALF_PI
      * @see PConstants#QUARTER_PI
      */
-    static  float TAU = (float)(2.0 * Mathf.PI);
+    static  double TAU = (double)(2.0 * Mathf.PI);
 
-    static  float DEG_TO_RAD = PI / 180.0f;
-    static  float RAD_TO_DEG = 180.0f / PI;
+    static  double DEG_TO_RAD = PI / 180.0f;
+    static  double RAD_TO_DEG = 180.0f / PI;
 
 
     // angle modes

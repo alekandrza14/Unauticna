@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using System;
 
 public class PMatrix2D
 {
 
-  public float m00, m01, m02;
-public float m10, m11, m12;
+  public double m00, m01, m02;
+public double m10, m11, m12;
 
 
 /**
@@ -16,8 +17,8 @@ public PMatrix2D()
 }
 
 
-public PMatrix2D(float m00, float m01, float m02,
-                 float m10, float m11, float m12)
+public PMatrix2D(double m00, double m01, double m02,
+                 double m10, double m11, double m12)
 {
     set(m00, m01, m02,
         m10, m11, m12);
@@ -41,15 +42,15 @@ public void reset()
 
 
 /**
- * Copies the matrix contents into a 6 entry float array.
+ * Copies the matrix contents into a 6 entry double array.
  * If target is null (or not the correct size), a new array will be created.
  * Returned in the order {@code {m00, m01, m02, m10, m11, m12}}.
  */
-public float[] get(float[] target)
+public double[] get(double[] target)
 {
     if ((target == null) || (target.Length != 6))
     {
-        target = new float[6];
+        target = new double[6];
     }
     target[0] = m00;
     target[1] = m01;
@@ -78,7 +79,7 @@ public float[] get(float[] target)
 }
 
 
-public void set(float[] source)
+public void set(double[] source)
 {
     m00 = source[0];
     m01 = source[1];
@@ -93,8 +94,8 @@ public void set(float[] source)
 /**
  * Sets the matrix content.
  */
-public void set(float m00, float m01, float m02,
-                float m10, float m11, float m12)
+public void set(double m00, double m01, double m02,
+                double m10, double m11, double m12)
 {
     this.m00 = m00; this.m01 = m01; this.m02 = m02;
     this.m10 = m10; this.m11 = m11; this.m12 = m12;
@@ -104,16 +105,16 @@ public void set(float m00, float m01, float m02,
 /**
  * Unavailable in 2D. Does nothing.
  */
-public void set(float m00, float m01, float m02, float m03,
-                float m10, float m11, float m12, float m13,
-                float m20, float m21, float m22, float m23,
-                float m30, float m31, float m32, float m33)
+public void set(double m00, double m01, double m02, double m03,
+                double m10, double m11, double m12, double m13,
+                double m20, double m21, double m22, double m23,
+                double m30, double m31, double m32, double m33)
 {
 
 }
 
 
-public void translate(float tx, float ty)
+public void translate(double tx, double ty)
 {
     m02 = tx * m00 + ty * m01 + m02;
     m12 = tx * m10 + ty * m11 + m12;
@@ -124,20 +125,20 @@ public void translate(float tx, float ty)
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void translate(float x, float y, float z)
+public void translate(double x, double y, double z)
 {
     
 }
 
 
 // Implementation roughly based on AffineTransform.
-public void rotate(float angle)
+public void rotate(double angle)
 {
-    float s = sin(angle);
-    float c = cos(angle);
+    double s = sin(angle);
+    double c = cos(angle);
 
-    float temp1 = m00;
-    float temp2 = m01;
+    double temp1 = m00;
+    double temp2 = m01;
     m00 = c * temp1 + s * temp2;
     m01 = -s * temp1 + c * temp2;
     temp1 = m10;
@@ -151,7 +152,7 @@ public void rotate(float angle)
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void rotateX(float angle)
+public void rotateX(double angle)
 {
     
 }
@@ -161,13 +162,13 @@ public void rotateX(float angle)
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void rotateY(float angle)
+public void rotateY(double angle)
 {
     
 }
 
 
-public void rotateZ(float angle)
+public void rotateZ(double angle)
 {
     rotate(angle);
 }
@@ -177,19 +178,19 @@ public void rotateZ(float angle)
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void rotate(float angle, float v0, float v1, float v2)
+public void rotate(double angle, double v0, double v1, double v2)
 {
     
 }
 
 
-public void scale(float s)
+public void scale(double s)
 {
     scale(s, s);
 }
 
 
-public void scale(float sx, float sy)
+public void scale(double sx, double sy)
 {
     m00 *= sx; m01 *= sy;
     m10 *= sx; m11 *= sy;
@@ -200,19 +201,19 @@ public void scale(float sx, float sy)
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void scale(float x, float y, float z)
+public void scale(double x, double y, double z)
 {
     
 }
 
 
-public void shearX(float angle)
+public void shearX(double angle)
 {
     apply(1, 0, 1, tan(angle), 0, 0);
 }
 
 
-public void shearY(float angle)
+public void shearY(double angle)
 {
     apply(1, 0, 1, 0, tan(angle), 0);
 }
@@ -237,11 +238,11 @@ public void apply(PMatrix3D source)
 }
 
 
-public void apply(float n00, float n01, float n02,
-                  float n10, float n11, float n12)
+public void apply(double n00, double n01, double n02,
+                  double n10, double n11, double n12)
 {
-    float t0 = m00;
-    float t1 = m01;
+    double t0 = m00;
+    double t1 = m01;
     m00 = n00 * t0 + n10 * t1;
     m01 = n01 * t0 + n11 * t1;
     m02 += n02 * t0 + n12 * t1;
@@ -258,10 +259,10 @@ public void apply(float n00, float n01, float n02,
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void apply(float n00, float n01, float n02, float n03,
-                  float n10, float n11, float n12, float n13,
-                  float n20, float n21, float n22, float n23,
-                  float n30, float n31, float n32, float n33)
+public void apply(double n00, double n01, double n02, double n03,
+                  double n10, double n11, double n12, double n13,
+                  double n20, double n21, double n22, double n23,
+                  double n30, double n31, double n32, double n33)
 {
     
 }
@@ -287,11 +288,11 @@ public void apply(float n00, float n01, float n02, float n03,
 
 
 
-public void preApply(float n00, float n01, float n02,
-                     float n10, float n11, float n12)
+public void preApply(double n00, double n01, double n02,
+                     double n10, double n11, double n12)
 {
-    float t0 = m02;
-    float t1 = m12;
+    double t0 = m02;
+    double t1 = m12;
     n02 += t0 * n00 + t1 * n01;
     n12 += t0 * n10 + t1 * n11;
 
@@ -314,10 +315,10 @@ public void preApply(float n00, float n01, float n02,
  * Unavailable in 2D.
  * @throws IllegalArgumentException
  */
-public void preApply(float n00, float n01, float n02, float n03,
-                     float n10, float n11, float n12, float n13,
-                     float n20, float n21, float n22, float n23,
-                     float n30, float n31, float n32, float n33)
+public void preApply(double n00, double n01, double n02, double n03,
+                     double n10, double n11, double n12, double n13,
+                     double n20, double n21, double n22, double n23,
+                     double n30, double n31, double n32, double n33)
 {
     
 }
@@ -344,18 +345,18 @@ public PVector mult(PVector source, PVector target)
 
 /**
  * Multiply a two element vector against this matrix.
- * If out is null or not length four, a new float array will be returned.
+ * If out is null or not length four, a new double array will be returned.
  * The values for vec and out can be the same (though that's less efficient).
  */
-public float[] mult(float[] vec, float[] out1)
+public double[] mult(double[] vec, double[] out1)
 {
     if (out1 == null || out1.Length != 2) {
-      out1 = new float[2];
+      out1 = new double[2];
 }
 
 if (vec == out1) {
-    float tx = m00 * vec[0] + m01 * vec[1] + m02;
-    float ty = m10 * vec[0] + m11 * vec[1] + m12;
+    double tx = m00 * vec[0] + m01 * vec[1] + m02;
+    double ty = m10 * vec[0] + m11 * vec[1] + m12;
 
       out1[0] = tx;
       out1[1] = ty;
@@ -374,7 +375,7 @@ return out1;
    * Returns the x-coordinate of the result of multiplying the point (x, y)
    * by this matrix.
    */
-  public float multX(float x, float y)
+  public double multX(double x, double y)
 {
     return m00 * x + m01 * y + m02;
 }
@@ -384,7 +385,7 @@ return out1;
  * Returns the y-coordinate of the result of multiplying the point (x, y)
  * by this matrix.
  */
-public float multY(float x, float y)
+public double multY(double x, double y)
 {
     return m10 * x + m11 * y + m12;
 }
@@ -404,18 +405,18 @@ public void transpose()
  */
 public bool invert()
 {
-    float determinant1 = determinant();
-    if (Mathf.Abs(determinant1) <= float.MinValue)
+    double determinant1 = determinant();
+    if (Mathf.Abs((float)determinant1) <= double.MinValue)
     {
         return false;
     }
 
-    float t00 = m00;
-    float t01 = m01;
-    float t02 = m02;
-    float t10 = m10;
-    float t11 = m11;
-    float t12 = m12;
+    double t00 = m00;
+    double t01 = m01;
+    double t02 = m02;
+    double t10 = m10;
+    double t11 = m11;
+    double t12 = m12;
 
     m00 = t11 / determinant1;
     m10 = -t10 / determinant1;
@@ -431,7 +432,7 @@ public bool invert()
 /**
  * @return the determinant of the matrix
  */
-public float determinant()
+public double determinant()
 {
     return m00 * m11 - m01 * m10;
 }
@@ -468,28 +469,28 @@ protected bool isWarped()
 //////////////////////////////////////////////////////////////
 
 
-static private  float max(float a, float b)
+static private  double max(double a, double b)
 {
     return (a > b) ? a : b;
 }
 
-static private  float abs(float a)
+static private  double abs(double a)
 {
     return (a < 0) ? -a : a;
 }
 
-static private  float sin(float angle)
+static private  double sin(double angle)
 {
-    return (float)Mathf.Sin(angle);
+    return (double)Math.Sin(angle);
 }
 
-static private  float cos(float angle)
+static private  double cos(double angle)
 {
-    return (float)Mathf.Cos(angle);
+    return (double)Math.Cos(angle);
 }
 
-static private  float tan(float angle)
+static private  double tan(double angle)
 {
-    return (float)Mathf.Tan(angle);
+    return (double)Math.Tan(angle);
 }
 }

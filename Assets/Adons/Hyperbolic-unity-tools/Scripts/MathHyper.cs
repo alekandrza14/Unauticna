@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using System;
 
 public class MathHyper : MonoBehaviour
 {
 
 
     
-    public static float sqrRayon = 400;
+    public static double sqrRayon = 400;
 
     // Use this for initialization
     void Start()
@@ -18,29 +19,29 @@ public class MathHyper : MonoBehaviour
     {
 
     }
-    public static float cosh(float x)
+    public static double cosh(double x)
     {// formula for hyperbolic Mathf.Cosine
-        return (Mathf.Exp(x) + Mathf.Exp(-x)) / 2f;
+        return (Math.Exp(x) + Math.Exp(-x)) / 2f;
     }
-    public static float arcosh(float a)
+    public static double arcosh(double a)
     {// inverse of hyperbolic Mathf.Cosine
-        return Mathf.Log(a + Mathf.Sqrt(a * a - 1));
+        return Math.Log(a + Math.Sqrt(a * a - 1));
     }
-    public static float sinh(float x)
+    public static double sinh(double x)
     {// formula for hyperbolic sine
-        return (Mathf.Exp(x) - Mathf.Exp(-x)) / 2f;
+        return (Math.Exp(x) - Math.Exp(-x)) / 2f;
     }
     
 
     public static PVector projectOntoPoincareDisc(PVector point)
     {// Returns vector after projecting onto unit disc
      //Poincare disc
-        float scale = 1f / (point.x + 1);
+        double scale = 1f / (point.x + 1);
         return new PVector(point.y * scale, point.z * scale,0);
     }
     public static PVector PoincareDiscOntoParaboloid(PVector point)
     {
-        float scale = 1f / (point.x + 1);
+        double scale = 1f / (point.x + 1);
         return new PVector( point.y * scale, point.z * scale, 0);
     }
     public static PVector scaleToScreen(PVector point)
@@ -51,11 +52,11 @@ public class MathHyper : MonoBehaviour
     {
         return scaleToScreen(projectOntoPoincareDisc(point));
     }
-    public static PVector polarVector(float r, float theta)
+    public static PVector polarVector(double r, double theta)
     { //vector given polar coordinates in hyperbolic space
-        return new PVector(MathHyper.cosh(r), MathHyper.sinh(r) * Mathf.Cos(theta), MathHyper.sinh(r) * Mathf.Sin(theta));
+        return new PVector(MathHyper.cosh(r), MathHyper.sinh(r) * Math.Cos(theta), MathHyper.sinh(r) * Math.Sin(theta));
     }
-    public static PMatrix3D TranslationMatrixZ(float yTrans)
+    public static PMatrix3D TranslationMatrixZ(double yTrans)
     {
         PMatrix3D P = new PMatrix3D();
         P.set(cosh(yTrans), sinh(yTrans), 0f, 0f,
@@ -64,7 +65,7 @@ public class MathHyper : MonoBehaviour
               0f, 0f, 0f, 0f);
         return P;
     }
-    public static PMatrix3D TranslationMatrixY(float yTrans)
+    public static PMatrix3D TranslationMatrixY(double yTrans)
     {
         PMatrix3D P = new PMatrix3D();
         P.set(cosh(yTrans), 0f, sinh(yTrans), 0f,
@@ -80,7 +81,7 @@ public class MathHyper : MonoBehaviour
         P.apply(TranslationMatrixZ(Translate.y));
         return P;
     }
-    public static PMatrix3D TranslationMatrix(float translateX, float translateY)
+    public static PMatrix3D TranslationMatrix(double translateX, double translateY)
     {
         PMatrix3D P = new PMatrix3D();
         P.set(TranslationMatrixY(translateX));
@@ -89,22 +90,22 @@ public class MathHyper : MonoBehaviour
     }
 
 
-    public static PMatrix3D RotationMatrix(float theta)
+    public static PMatrix3D RotationMatrix(double theta)
     {
         PMatrix3D P = new PMatrix3D();
         P.set(1f, 0f, 0f, 0f,
-              0f, Mathf. Cos(theta), -Mathf.Sin(theta), 0f,
-              0f, Mathf.Sin(theta), Mathf.Cos(theta), 0f,
+              0f, Math. Cos(theta), -Math.Sin(theta), 0f,
+              0f, Math.Sin(theta), Math.Cos(theta), 0f,
               0f, 0f, 0f, 0f);
         return P;
     }
-    public static float Facteur(GameObject objet, Vector3 p)
+    public static double Facteur(GameObject objet, Vector3 p)
     {
 
-        float posX = objet.transform.position.x - Camera.main.transform.position.x;
-        float posZ = objet.transform.position.z - Camera.main.transform.position.z;
-        float posW = p.z;
-        float sqrDistance = 399.99999f;
+        double posX = objet.transform.position.x - Camera.main.transform.position.x;
+        double posZ = objet.transform.position.z - Camera.main.transform.position.z;
+        double posW = p.z;
+        double sqrDistance = 399.99999f;
         if (posX * posX + posZ * posZ < 400)
         {
 
@@ -112,7 +113,7 @@ public class MathHyper : MonoBehaviour
             sqrDistance = posX * posX + posZ * posZ + posW * posW;
 
         }
-        float distance = Mathf.Sqrt(1 - sqrDistance / sqrRayon);
+        double distance = Math.Sqrt(1 - sqrDistance / sqrRayon);
 
 
         //Debug.Log(distance, gameObject);
@@ -120,12 +121,12 @@ public class MathHyper : MonoBehaviour
         return distance;
 
     }
-    public static float Facteur2(GameObject objet, Vector3 p)
+    public static double Facteur2(GameObject objet, Vector3 p)
     {
 
-        float posX = p.x;
-        float posZ = p.z;
-        float sqrDistance = 20f;
+        double posX = p.x;
+        double posZ = p.z;
+        double sqrDistance = 20f;
         if (posX * posX + posZ * posZ < 21)
         {
 
@@ -134,7 +135,7 @@ public class MathHyper : MonoBehaviour
 
         }
 
-        float distance = Mathf.Sqrt(1 - sqrDistance / sqrRayon);
+        double distance = Math.Sqrt(1 - sqrDistance / sqrRayon);
 
       
        
@@ -143,12 +144,12 @@ public class MathHyper : MonoBehaviour
         return distance;
 
     }
-    public static float Facteur3(GameObject objet, Vector3 p)
+    public static double Facteur3(GameObject objet, Vector3 p)
     {
 
-        float posX = objet.transform.position.x -Camera.main.transform.position.x;
-        float posZ = objet.transform.position.z -Camera.main.transform.position.z;
-        float sqrDistance = 399.99999f;
+        double posX = objet.transform.position.x -Camera.main.transform.position.x;
+        double posZ = objet.transform.position.z -Camera.main.transform.position.z;
+        double sqrDistance = 399.99999f;
         if (posX * posX + posZ * posZ < 400)
         {
 
@@ -157,7 +158,7 @@ public class MathHyper : MonoBehaviour
 
         }
 
-        float distance = Mathf.Sqrt(1 - sqrDistance / sqrRayon);
+        double distance = Math.Sqrt(1 - sqrDistance / sqrRayon);
 
 
         //Debug.Log(distance, gameObject);

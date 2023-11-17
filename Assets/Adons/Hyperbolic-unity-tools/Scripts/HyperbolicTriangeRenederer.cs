@@ -126,6 +126,8 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
+        PMatrix3D CamMatrix = new PMatrix3D();
+        if (HyperbolicCamera.Main() != null) CamMatrix = HyperbolicCamera.Main().RealtimeTransform.getMatrix();
 
 
 
@@ -157,13 +159,13 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
            fVertex.mult(nextPoint, nextPoint);
 
-            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint, nextPoint);
+            CamMatrix.mult(nextPoint, nextPoint);
 
             nextPoint = MathHyper.projectOntoScreen(nextPoint);
 
 
 
-            v31 = new Vector3(nextPoint.x - 1, 0, nextPoint.y - 1);
+            v31 = new Vector3((float)nextPoint.x - 1, 0, (float)nextPoint.y - 1);
 
 
 
@@ -183,13 +185,13 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
                 sVertex.mult(nextPoint2, nextPoint2);
 
-                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint2, nextPoint2);
+                CamMatrix.mult(nextPoint2, nextPoint2);
 
                 nextPoint2 = MathHyper.projectOntoScreen(nextPoint2);
 
 
 
-                v32 = new Vector3(nextPoint2.x - 1, 0, nextPoint2.y - 1);
+                v32 = new Vector3((float)nextPoint2.x - 1, 0, (float)nextPoint2.y - 1);
 
 
 
@@ -206,13 +208,13 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
                 tVertex.mult(nextPoint3, nextPoint3);
 
-                if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length != 0) HyperbolicCamera.Main().RealtimeTransform.getMatrix().mult(nextPoint3, nextPoint3);
+                CamMatrix.mult(nextPoint3, nextPoint3);
 
                 nextPoint3 = MathHyper.projectOntoScreen(nextPoint3);
 
 
 
-                v33 = new Vector3(nextPoint3.x - 1, 0, nextPoint3.y - 1);
+                v33 = new Vector3((float)nextPoint3.x - 1, 0, (float)nextPoint3.y - 1);
 
 
             }

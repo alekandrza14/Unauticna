@@ -26,7 +26,7 @@ public class Camdpoint : MonoBehaviour
         copytr.set(p3.inverse().getMatrix());
 
         PVector prevPoint = new PVector();
-        float ds = MathHyper.Facteur2(gameObject, transform.position);
+        float ds = (float)MathHyper.Facteur2(gameObject, transform.position);
         float inc = 0.1f;
         for (float i = 0; i < inc * 2; i += inc)
         {
@@ -41,7 +41,7 @@ public class Camdpoint : MonoBehaviour
 
             if (i >= inc)
             {
-                v6 = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                v6 = new Vector3((float)prevPoint.x, v1 * ds, (float)prevPoint.y);
 
             }
 
@@ -63,7 +63,7 @@ public class Camdpoint : MonoBehaviour
 
         PVector prevPoint = new PVector();
         //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
-        float ds = MathHyper.Facteur2(gameObject, transform.position);
+        float ds = (float)MathHyper.Facteur2(gameObject, transform.position);
         float inc = 0.1f;
         for (float i = 0; i < inc * 2; i += inc)
         {
@@ -79,7 +79,7 @@ public class Camdpoint : MonoBehaviour
 
             if (i >= inc)
             {
-                transform.position = new Vector3(prevPoint.x, v1 * ds, prevPoint.y);
+                transform.position = new Vector3((float)prevPoint.x, v1 * ds, (float)prevPoint.y);
 
             }
 
@@ -93,6 +93,6 @@ public class Camdpoint : MonoBehaviour
 
         }
 
-        transform.localScale = ls * MathHyper.Facteur2(gameObject, transform.position);
+        transform.localScale = ls * (float)MathHyper.Facteur2(gameObject, transform.position);
     }
 }

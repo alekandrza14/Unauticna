@@ -1267,10 +1267,21 @@ public class ElementalInventory : MonoBehaviour {
                 }
             }
         }
-
+        if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
+             && Cells[select].elementName == "PortativeHyperbolicSpace_" && Cells[select].elementCount > 0)
+        {
+            if (SceneManager.GetActiveScene().name != "PortativeHyperbolicSpace")
+            {
+                VarSave.SetString("SceneNamePosition", SceneManager.GetActiveScene().name);
+                GameManager.save();
+                SceneManager.LoadScene("PortativeHyperbolicSpace");
+            }
+            //  lowitem("DNAColour", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
 
         //  lowitem("DNAColour", "");
-
+        //PortativeHyperbolicSpace_
 
         //GenColour
         //Absolute_poison
