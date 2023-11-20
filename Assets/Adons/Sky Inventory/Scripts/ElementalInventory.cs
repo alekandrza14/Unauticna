@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
 using Unity.Burst.CompilerServices;
+using System.Collections.Generic;
 
 public class inputButton
 {
@@ -599,6 +600,8 @@ public class ElementalInventory : MonoBehaviour {
 	}
 	void itemUse()
 	{
+
+        bool batteytype = Cells[select].elementName == "battery" || Cells[select].elementName == "mathimatic_battery";
         if (GlobalInputMenager.KeyCode_eat == 1 && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -846,7 +849,26 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName != "battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKey(KeyCode.E) && Cells[select].elementName == "Умножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if(int.Parse(Cells[select].elementData)>0)  for (int i = 0;i<int.Parse(Cells[select].elementData)-1;i++)
+                {
+                    GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position+(new Vector3(0,1.5f,0)), Quaternion.identity);
+                    obj.name = obj.name.Remove(obj.name.Length - 7);
+                }
+                if(int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !batteytype && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -869,7 +891,58 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName == "battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<InfinityByteDisk>())
+                {
+
+                    hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.namesitem.Add(Cells[select].elementName);
+                    hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.datasitem.Add(Cells[select].elementData);
+                    hit.collider.GetComponent<InfinityByteDisk>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<InfinityByteDisk>().itemsinfo);
+
+                    setItem("", 0, Color.red, select);
+                  
+                    Cells[select].UpdateCellInterface();
+                }
+            }
+
+
+
+        }
+      else  if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementCount == 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<InfinityByteDisk>())
+                {
+
+                    List<string> s = hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.namesitem;
+                    List<string> s2 = hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.datasitem;
+
+                    setItem(s[s.Count - 1], 1, Color.red, s2[s2.Count - 1], select);
+
+                    Cells[select].UpdateCellInterface();
+
+                  
+                        s.RemoveAt(s.Count - 1);
+                        s2.RemoveAt(s2.Count - 1);
+                        hit.collider.GetComponent<InfinityByteDisk>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<InfinityByteDisk>().itemsinfo);
+                 
+                }
+            }
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && batteytype && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -897,12 +970,12 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-                if (hit.collider.GetComponent<accumulator>())
+                if (hit.collider.GetComponent<accumulator>() && float.Parse(hit.collider.GetComponent<accumulator>().energy) - 100 >= 0)
                 {
-                    hit.collider.GetComponent<accumulator>().energy = (float.Parse(hit.collider.GetComponent<accumulator>().energy) -100).ToString();
+                    hit.collider.GetComponent<accumulator>().energy = (float.Parse(hit.collider.GetComponent<accumulator>().energy) - 100).ToString();
                     hit.collider.GetComponent<accumulator>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<accumulator>().energy;
 
-                    Cells[select].elementData = (float.Parse(Cells[select].elementData)+100).ToString();
+                    Cells[select].elementData = (float.Parse(Cells[select].elementData) + 100).ToString();
                     //  Cells[select].elementData = 
                 }
             }
@@ -910,6 +983,29 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "mathimatic_battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<accumulator>())
+                {
+                    float energy = float.Parse(hit.collider.GetComponent<accumulator>().energy);
+                    hit.collider.GetComponent<accumulator>().energy = (0).ToString();
+                    hit.collider.GetComponent<accumulator>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<accumulator>().energy;
+
+                    Cells[select].elementData = (float.Parse(Cells[select].elementData) + energy).ToString();
+                    //  Cells[select].elementData = 
+                }
+            }
+
+
+
+        }
+      //  1infinityByteDisk
         if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1219,7 +1315,7 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
-            && Cells[select].elementName == "battery" && Cells[select].elementCount > 0)
+            && batteytype && Cells[select].elementCount > 0)
         {
             RaycastHit hit = MainRay.MainHit;
 

@@ -18,7 +18,7 @@ public class Pentagrama : MonoBehaviour
             
             for (int i = 0;i<tragets.Length;i++)
             {
-                Ray r = new Ray(tragets[i].transform.position, -Vector3.up);
+                Ray r = new Ray(tragets[i].transform.position, -tragets[i].transform.up);
                 RaycastHit hit;
                 if (Physics.Raycast(r, out hit))
                 {

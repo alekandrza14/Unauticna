@@ -19,6 +19,7 @@ public class InventoryEvent : MonoBehaviour
         if (GetComponent<ColdGenerator>()) GetComponent<ColdGenerator>().Load1();
         if (GetComponent<RayGun>()) GetComponent<RayGun>().Load1();
         if (GetComponent<accumulator>()) GetComponent<accumulator>().Load1();
+        if (GetComponent<InfinityByteDisk>()) GetComponent<InfinityByteDisk>().Load1();
         // RandomMetabolismDNA
     }
 

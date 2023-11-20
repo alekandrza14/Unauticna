@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Duper : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [SerializeField] Transform point;
     void Update()
     {
-        
+        RaycastHit hit = MainRay.MainHit;
+      if(hit.collider != null)  if (hit.collider.gameObject == gameObject && Input.GetKeyDown(KeyCode.E))
+        {
+            Ray updown = new Ray(point.position,-point.up);
+            RaycastHit hitupdown;
+            if (Physics.Raycast(updown,out hitupdown))
+            {
+              GameObject obj = Instantiate(hitupdown.collider.gameObject,point.position,Quaternion.identity);
+                obj.name = obj.name.Remove(obj.name.Length-7);
+            }
+        }
     }
 }
