@@ -1519,16 +1519,35 @@ public class mover : MonoBehaviour
     }
     float ftho;
     bool isKinematic;
+    float movegrag;
     private void MoveUpdate()
     {
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
 
-        IsGraund = Physics.Raycast(transform.position, -transform.up, 1.2f,0);
+        IsGraund = Physics.Raycast(transform.position, -transform.up, 1.3f, 0);
+        RaycastHit hit35;
+        if (Physics.Raycast(transform.position, -transform.up,out hit35, 100.3f))
+        {
+            if (hit35.collider != null)
+            {
+                if (hit35.distance > 1.3f)
+                {
+                    movegrag = 5;
+                }
+            }
+        }
+        else
+        {
+
+            movegrag = 5;
+        }
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null)
         {
             if (ry.GetCenterDist() < 1.2f)
             {
+
+                movegrag = 1;
                 IsGraund = true;
             }
             else
@@ -1539,19 +1558,25 @@ public class mover : MonoBehaviour
         }
 
         isKinematic = Input.GetKey(KeyCode.F);
-       
-        
+
+
         if (IsGraund)
         {
             if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
             if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
-            rigidbody3d.drag = 6- axelerate;
-            jumpforse = Mathf.Clamp(jumpforse,0,1000);
+         
+            rigidbody3d.drag = 6 - axelerate;
+            jumpforse = Mathf.Clamp(jumpforse, 0, 1000);
         }
         else
         {
             jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
-
+            if (jumpforse > 0.25f || jumpforse < -0.25f)
+            { movegrag = 5; }
+            else
+            {
+                movegrag = 1;
+            }
             rigidbody3d.drag = 4.5f- axelerate;
         }
 
@@ -1569,8 +1594,8 @@ public class mover : MonoBehaviour
                 }
             }
 
-            float deltaX = Input.GetAxis("Horizontal") * Speed;
-            float deltaZ = Input.GetAxis("Vertical") * Speed;
+            float deltaX = Input.GetAxis("Horizontal") * (Speed * (1f / movegrag));
+            float deltaZ = Input.GetAxis("Vertical") * (Speed * (1f / movegrag));
             float deltaW = Input.GetAxis("HyperHorizontal") * 0.1f;
             float deltaH = Input.GetAxis("HyperVertical") * 0.1f;
             float deltaY = 0.0f;
