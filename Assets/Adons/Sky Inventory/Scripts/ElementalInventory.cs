@@ -466,19 +466,22 @@ public class ElementalInventory : MonoBehaviour {
 		return s2;
 
 	}
-	public void removeitem(string name)
-	{
-		for (int i = 0; i < Cells.Length; i++)
-		{
-			if (Cells[i].elementName == name)
-			{
-				Cells[i].elementName = "";
-				Cells[i].elementCount = 0;
-				Cells[i].UpdateCellInterface();
-				i = Cells.Length;
-			}
-		}
-	}
+    public void removeitem(string name)
+    {
+        for (int i = 0; i < Cells.Length; i++)
+        {
+            if (Cells[i].elementCount != 0)
+            {
+                if (Cells[i].elementName == name)
+                {
+                    Cells[i].elementName = "";
+                    Cells[i].elementCount = 0;
+                    Cells[i].UpdateCellInterface();
+                    i = Cells.Length;
+                }
+            }
+        }
+    }
 	public void lowitem(string name,string covert)
 	{
 		 for (int i = 0; i < Cells.Length; i++)
@@ -556,20 +559,34 @@ public class ElementalInventory : MonoBehaviour {
 			
 		}
 	}
-	public bool Getitem(string name)
-	{
-		bool y = false;
-		
-			if (Cells[select].elementName == name && Cells[select].elementCount != 0)
-			{
-				
-				y = true;
-				
-			}
-		
-		return y;
-	}
-	public int priaritet(string name)
+    public bool Getitem(string name)
+    {
+        bool y = false;
+
+        if (Cells[select].elementName == name && Cells[select].elementCount != 0)
+        {
+
+            y = true;
+
+        }
+
+        return y;
+    }
+    public bool GetItemOnAll(string name)
+    {
+        bool y = false;
+        for (int i = 0; i < Cells.Length; i++)
+        {
+            if (Cells[i].elementName == name && Cells[i].elementCount != 0)
+            {
+
+                y = true;
+
+            }
+        }
+        return y;
+    }
+    public int priaritet(string name)
     {
 		int i = 0;
 		if (Getitem(name))
@@ -1478,7 +1495,7 @@ public class ElementalInventory : MonoBehaviour {
 			
 
 				Globalprefs.selectitem = "";
-				RaycastHit hit = MainRay.MainHit;
+            RaycastHit hit = MainRay.MainHit;
 
             if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject)&&hit.collider.GetComponent<itemName>())
             {
@@ -1520,9 +1537,25 @@ public class ElementalInventory : MonoBehaviour {
                 sh = true;
 
             }
+            
 
 
 
+        }
+        if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
+        {
+
+            RaycastHit hit2 = MainRay.SecondHit;
+            if (hit2.collider && Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey")
+            {
+
+
+
+                setItem(fullname(hit2), 1, Color.red, select);
+                Cells[select].UpdateCellInterface();
+                sh = true;
+
+            }
         }
             if (Input.GetKeyDown(KeyCode.Delete) && boxItem.getInventory("i3").inventory == this && !nosell)
             {

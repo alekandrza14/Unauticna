@@ -137,7 +137,7 @@ public class Shop : MonoBehaviour
             if (produkt[product].Give_or_Minus == true)
             {
 
-                for (int i = 0; i < produkt[product].count && GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().Getitem(produkt[product].name) && VarSave.LoadMoney(ShopPosition,0,SaveType.world) > 0; i++)
+                for (int i = 0; i < produkt[product].count && GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().GetItemOnAll(produkt[product].name) && VarSave.LoadMoney(ShopPosition,0,SaveType.world) > 0; i++)
                 {
 
                     tevroint += decimal.Parse(produkt[product].price);

@@ -6,6 +6,7 @@ using UnityEngine;
 public class MainRay : MonoBehaviour
 {
     public static RaycastHit MainHit;
+    public static RaycastHit SecondHit;
     public static bool HitError;
     public static RaycastHit RayMarhHit;
     public static Ray Ray;
@@ -34,6 +35,9 @@ public class MainRay : MonoBehaviour
             {
                MainHit = hit;
             }
+          
+                SecondHit = hit;
+           
 
             HitError = false;
         }
