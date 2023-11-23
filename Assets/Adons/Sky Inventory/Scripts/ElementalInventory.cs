@@ -1545,13 +1545,13 @@ public class ElementalInventory : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Tab) && boxItem.getInventory("i3").inventory == this && !nosell)
         {
 
-            RaycastHit hit2 = MainRay.SecondHit;
-            if (hit2.collider && Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey")
+            RaycastHit hit2 = MainRay.SecondHit; if (hit2.collider)
+            if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey" && hit2.collider.GetComponent<itemName>())
             {
 
 
 
-                setItem(fullname(hit2), 1, Color.red, select);
+                setItem(fullname(hit2), 1, Color.red, hit2.collider.GetComponent<itemName>().ItemData,  select);
                 Cells[select].UpdateCellInterface();
                 sh = true;
 
