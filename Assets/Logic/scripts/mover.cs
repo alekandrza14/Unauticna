@@ -146,11 +146,11 @@ public class mover : MonoBehaviour
     {
         RaymarchCam m = Get4DCam();
         mover w = mover.main();
-        w.swapWX3(w.transform, w);
         foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
         {
             mo.Swap();
         }
+        w.swapWX3(w.transform, w);
         if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
         
 
@@ -158,11 +158,11 @@ public class mover : MonoBehaviour
     public static void swapHXALL()
     {
         mover w = mover.main();
-        w.swapHX3(w.transform, w);
         foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
         {
             mo.SwapH();
         }
+        w.swapHX3(w.transform, w);
 
         if (VarSave.GetBool("H_Roataton") == true)  VarSave.SetBool("H_Roataton",false); else VarSave.SetBool("H_Roataton", true);
        
