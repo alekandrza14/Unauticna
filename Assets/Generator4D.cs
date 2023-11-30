@@ -11,7 +11,7 @@ public class Generator4D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        System.Random r = new System.Random((int)Globalprefs.GetIdPlanet());
+        System.Random r = new System.Random((int)Globalprefs.GetIdPlanet()+ Woffset);
         for (int i2 = 0; i2 < objs.Length; i2++)
         {
             for (int i = 0; i < count; i++)

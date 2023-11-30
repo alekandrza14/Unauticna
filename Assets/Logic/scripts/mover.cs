@@ -152,20 +152,20 @@ public class mover : MonoBehaviour
             mo.Swap();
         }
         if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
-
+        
 
     }
     public static void swapHXALL()
     {
         mover w = mover.main();
         w.swapHX3(w.transform, w);
-
         foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
         {
             mo.SwapH();
         }
-      if(VarSave.GetBool("H_Roataton") == true)  VarSave.SetBool("H_Roataton",false); else VarSave.SetBool("H_Roataton", true);
 
+        if (VarSave.GetBool("H_Roataton") == true)  VarSave.SetBool("H_Roataton",false); else VarSave.SetBool("H_Roataton", true);
+       
 
     }
     public static RaymarchCam maincam4;
@@ -791,19 +791,27 @@ public class mover : MonoBehaviour
         hyperbolicCamera = HyperbolicCamera.Main();
     }
 
+    void UpdateTargets()
+    {
+        metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
+    }
     //Пробуждение кода
     //Приметивный интерфейс
+    Metka[] metka;
     private void OnGUI()
     {
-        //
-        for (int i = 0; i < GameObject.FindObjectsByType<Metka>(sortmode.main).Length; i++)
+
+
+        if (metka.Length == 0) metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
+     
+        if (metka.Length != 0) for (int i = 0; i < metka.Length; i++)
         {
 
-            Vector3 t = Globalprefs.camera.WorldToViewportPoint(GameObject.FindObjectsByType<Metka>(sortmode.main)[i].transform.position);
+            Vector3 t = Globalprefs.camera.WorldToViewportPoint(metka[i].transform.position);
             if (t.z > 0)
             {
                 Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
-                GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), GameObject.FindObjectsByType<Metka>(sortmode.main)[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
+                GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), metka[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
             }
         }
         if (Input.GetKey(KeyCode.Mouse1))
@@ -895,6 +903,7 @@ public class mover : MonoBehaviour
             Instantiate(complsave.t5[VarSave.GetInt("CurrentMorf")], transform);
             perMorphin = true;
         }
+        InvokeRepeating("UpdateTargets", 0,1);
 
     }
         float timer10;

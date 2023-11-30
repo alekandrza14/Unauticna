@@ -1400,6 +1400,27 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+         && Cells[select].elementName == "4D-Glasses" && Cells[select].elementCount > 0)
+        {
+            MultyObject[] mo = FindObjectsByType<MultyObject>(sortmode.main);
+            Tag_4D_metka[] targs = FindObjectsByType<Tag_4D_metka>(sortmode.main);
+            GameObject Target = Resources.Load<GameObject>("4D-Metka");
+          if(targs .Length >0)  for (int i = 0; i < targs.Length; i++)
+            {
+
+
+                targs[i].gameObject.AddComponent<deleter1>();
+            }
+
+            for (int i = 0; i < mo.Length; i++)
+            {
+
+                Instantiate(Target, mo[i].transform.position, Quaternion.identity);
+
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
          && priaritet("CatCorm") != 0 && Cells[select].elementCount > 0)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -1429,7 +1450,7 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<itemName>()._Name == "Cat")
                     {
-                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position+new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("CatReplicatorCorm", "");
                     }
