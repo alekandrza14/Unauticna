@@ -2,7 +2,6 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
-using Unity.Burst.CompilerServices;
 using System.Collections.Generic;
 
 public class inputButton
@@ -171,6 +170,25 @@ public class ElementalInventory : MonoBehaviour {
                 g1 = Resources.Load<GameObject>("Primetives/" + name);
 
 
+            }
+
+        }
+        DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+        for (int i = 0; i < dif.GetFiles().Length; i++)
+        {
+            if (i < dif.GetFiles().Length)
+            {
+
+
+                if ("co!"+(dif.GetFiles()[i].Name.Replace(".txt","")) == name)
+                {
+
+
+                    g1 = Resources.Load<GameObject>("CustomObject");
+                    g1.GetComponent<CustomObject>().s = (dif.GetFiles()[i].Name.Replace(".txt", ""));
+
+                }
             }
 
         }
@@ -615,6 +633,11 @@ public class ElementalInventory : MonoBehaviour {
 		}
 		return i;
 	}
+    IEnumerator ReloadScene()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+    }
 	void itemUse()
 	{
 
@@ -696,15 +719,25 @@ public class ElementalInventory : MonoBehaviour {
 
 
             if (FindObjectsByType<script>(sortmode.main).Length < 1) if (hit.collider != null)
+                {
+                    GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
+                    g.GetComponent<script>().Magic_obj = hit.collider.gameObject;
+                    g.GetComponent<script>().Magic_stick = true;
+                    //   setItem("", 0, Color.red, select);
+                    //  Cells[select].UpdateCellInterface();
+                    //  script.Use((Cells[select].elementData.Replace('_', ' ')).Replace('^', '\n'), hit.collider.gameObject);
+                    cistalenemy.dies++;
+                    Global.PauseManager.Pause();
+                }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "MinecraftSandStick" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            GameObject g = Resources.Load<GameObject>("items/FallingSandFromMinecraft");
+            for (int i = 0;i<30;i++)
             {
-                  GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
-                g.GetComponent<script>().Magic_obj = hit.collider.gameObject;
-                g.GetComponent<script>().Magic_stick = true;
-                //   setItem("", 0, Color.red, select);
-                //  Cells[select].UpdateCellInterface();
-                //  script.Use((Cells[select].elementData.Replace('_', ' ')).Replace('^', '\n'), hit.collider.gameObject);
-                cistalenemy.dies++;
-                  Global.PauseManager.Pause();
+                Instantiate(g,hit.point+(Vector3.up*i),Quaternion.identity);
             }
 
         }
@@ -1207,6 +1240,17 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Pipis", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Cat") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            cistalenemy.dies+=100;
+
+            lowitem("Cat", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Absolute_poison") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1224,6 +1268,21 @@ public class ElementalInventory : MonoBehaviour {
 
             lowitem("Absolute_poison", "");
             GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("KsenoMorfin") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            playerdata.Addeffect("KsenoMorfin", 600);
+            VarSave.SetInt("CurrentMorf",Random.Range(0,complsave.t5.Length));
+
+            GameManager.saveandhill();
+            lowitem("KsenoMorfin", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+            StartCoroutine(ReloadScene());
+
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("StoneJuice") != 0 && boxItem.getInventory("i3").inventory == this)
         {
@@ -1281,6 +1340,15 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("YourJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
+              && Cells[select].elementName == "ItemSandFromMinecraft" && Cells[select].elementCount > 0)
+        {
+            Cells[select].elementName = "FallingSandFromMinecraft";
+            Cells[select].UpdateCellInterface();
+
+           //  lowitem("DNAColour", "");
+           GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (Getstats.GetPlayerLevel() >= 1)
         {
             if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
@@ -1319,7 +1387,7 @@ public class ElementalInventory : MonoBehaviour {
                 GlobalInputMenager.KeyCode_eat = 0;
             }
         }
-       
+
         //ПроигратьМузыку
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
          && Cells[select].elementName == "AudioPlayer" && Cells[select].elementCount > 0)
@@ -1329,6 +1397,43 @@ public class ElementalInventory : MonoBehaviour {
             if (hit.collider != null)
             {
                 GameObject g = Instantiate(Resources.Load<GameObject>("ui/console/ПроигратьМузыку"), Vector3.zero, Quaternion.identity);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+         && priaritet("CatCorm") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "Cat")
+                    {
+
+                        lowitem("CatCorm", "");
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("CatReplicatorCorm") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "Cat")
+                    {
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position+new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                        lowitem("CatReplicatorCorm", "");
+                    }
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
@@ -1537,7 +1642,33 @@ public class ElementalInventory : MonoBehaviour {
                 sh = true;
 
             }
-            
+            else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<CustomObject>() && !Input.GetKey(KeyCode.C))
+            {
+
+                CustomObject co = hit.collider.GetComponent<CustomObject>();
+
+
+                setItem("co!" + co.s, 1, Color.red, select);
+                Destroy(co.gameObject);
+
+                Cells[select].UpdateCellInterface();
+                sh = true;
+
+            }
+            else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<CustomObject>() && Input.GetKey(KeyCode.C))
+            {
+
+                CustomObject co = hit.collider.GetComponent<CustomObject>();
+
+
+                setItem("co!" + co.s, 1, Color.red, select);
+                
+
+                Cells[select].UpdateCellInterface();
+                sh = true;
+
+            }
+
 
 
 
@@ -1860,66 +1991,107 @@ public class ElementalInventory : MonoBehaviour {
         }
 
     }
-	public itemName it;
-	public void SelectLayItem()
+    public itemName it;
+    public CustomObject co2;
+    public void SelectLayItem()
 	{
-		if (it == null)
-		{
+        if (it == null)
+        {
 
 
-			RaycastHit hit = MainRay.MainHit;
-			if (hit.collider!= null)
-			{
-				if (hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
-				{
+            RaycastHit hit = MainRay.MainHit;
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
+                {
 
 
-					for (int i = 0; i < hit.collider.gameObject.name.Length - 7; i++)
-					{
+                    for (int i = 0; i < hit.collider.gameObject.name.Length - 7; i++)
+                    {
 
 
-						if (hit.collider.gameObject.name[i] != '_')
-						{
-							Globalprefs.ItemPrise = (decimal)hit.collider.GetComponent<itemName>().ItemPrise;
-							Globalprefs.selectitemobj = hit.collider.GetComponent<itemName>();
+                        if (hit.collider.gameObject.name[i] != '_')
+                        {
+                            Globalprefs.ItemPrise = (decimal)hit.collider.GetComponent<itemName>().ItemPrise;
+                            Globalprefs.selectitemobj = hit.collider.GetComponent<itemName>();
 
 
-							Globalprefs.selectitem += hit.collider.gameObject.name[i];
+                            Globalprefs.selectitem += hit.collider.gameObject.name[i];
 
-						}
-						if (hit.collider.gameObject.name[i] == '_')
-						{
+                        }
+                        if (hit.collider.gameObject.name[i] == '_')
+                        {
 
-							Globalprefs.ItemPrise = 0;
+                            Globalprefs.ItemPrise = 0;
 
-							Globalprefs.selectitemobj = null;
-							Globalprefs.selectitem += " ";
+                            Globalprefs.selectitemobj = null;
+                            Globalprefs.selectitem += " ";
 
-						}
+                        }
 
 
-					}
+                    }
 
-					it = hit.collider.GetComponent<itemName>();
-				}
-			}
-		}
-	}
+                    it = hit.collider.GetComponent<itemName>();
+                }
+            }
+        }
+        if (co2 == null)
+        {
+
+
+            RaycastHit hit = MainRay.MainHit;
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<CustomObject>() && boxItem.getInventory("i3").inventory == this && !nosell)
+                {
+
+
+                    for (int i = 0; i < hit.collider.gameObject.name.Length - 7; i++)
+                    {
+
+
+                        if (hit.collider.gameObject.name[i] != '_')
+                        {
+                            Globalprefs.ItemPrise = (decimal)100;
+
+
+                            Globalprefs.selectitem += hit.collider.gameObject.name[i];
+
+                        }
+                        if (hit.collider.gameObject.name[i] == '_')
+                        {
+
+                            Globalprefs.ItemPrise = 0;
+
+                            Globalprefs.selectitemobj = null;
+                            Globalprefs.selectitem += " ";
+
+                        }
+
+
+                    }
+
+                    co2 = hit.collider.GetComponent<CustomObject>();
+                }
+            }
+        }
+    }
 	public void DeselectLayItem()
 	{
-		if (it != null)
-		{
-			RaycastHit hit = MainRay.MainHit;
-			if (!hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
-			{
+        if (it != null)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            if (!hit.collider.GetComponent<itemName>() && boxItem.getInventory("i3").inventory == this && !nosell)
+            {
 
 
-				Globalprefs.selectitemobj = null;
-				Globalprefs.ItemPrise = 0;
-				Globalprefs.selectitem = "";
-				it = null;
-			}
-            
+                Globalprefs.selectitemobj = null;
+                Globalprefs.ItemPrise = 0;
+                Globalprefs.selectitem = "";
+                it = null;
+            }
+
             if (MainRay.HitError && boxItem.getInventory("i3").inventory == this && !nosell)
             {
                 Globalprefs.selectitemobj = null;
@@ -1929,12 +2101,34 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+        if (co2 != null)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            if (!hit.collider.GetComponent<CustomObject>() && boxItem.getInventory("i3").inventory == this && !nosell)
+            {
 
-        
+
+                Globalprefs.selectitemobj = null;
+                Globalprefs.ItemPrise = 0;
+                Globalprefs.selectitem = "";
+                co2 = null;
+            }
+
+            if (MainRay.HitError && boxItem.getInventory("i3").inventory == this && !nosell)
+            {
+                Globalprefs.selectitemobj = null;
+                Globalprefs.ItemPrise = 0;
+                Globalprefs.selectitem = "";
+                co2 = null;
+            }
+
+        }
+
+
 
 
     }
-	public bool contains (string name, int count, Color color)
+    public bool contains (string name, int count, Color color)
 	{
 		int inventoryCount = 0;
 		for (int i = 0; i < Cells.Length; i++) {

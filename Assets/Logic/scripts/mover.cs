@@ -106,6 +106,7 @@ public class mover : MonoBehaviour
     public GameObject HeadCameraSetup;
     float vel;
     float tics;
+    [HideInInspector] public int nonnatureprogress;
     [HideInInspector] public bool fly; bool Xray;
     [SerializeField] GameObject[] PlayersModelObjObjects;
     [HideInInspector] public HyperbolicCamera hyperbolicCamera;
@@ -121,6 +122,16 @@ public class mover : MonoBehaviour
     string lepts = "";
     [HideInInspector] public string lif;
 
+
+    void swapHX3(Transform x, mover w)
+    {
+        RaymarchCam m = Get4DCam();
+        float save = x.localPosition.x;
+        if (VarSave.GetBool("H_Roataton")) x.localPosition = new Vector3(w.H_position, x.localPosition.y, x.localPosition.z);
+        if (!VarSave.GetBool("H_Roataton")) x.localPosition = new Vector3(-w.H_position, x.localPosition.y, x.localPosition.z);
+        if (VarSave.GetBool("H_Roataton")) w.H_position = -save;
+        if (!VarSave.GetBool("H_Roataton")) w.H_position = save;
+    }
     void swapWX3(Transform x, mover w)
     {
         RaymarchCam m = Get4DCam();
@@ -136,12 +147,32 @@ public class mover : MonoBehaviour
         RaymarchCam m = Get4DCam();
         mover w = mover.main();
         w.swapWX3(w.transform, w);
+        foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
+        {
+            mo.Swap();
+        }
         if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
 
+
     }
+    public static void swapHXALL()
+    {
+        mover w = mover.main();
+        w.swapHX3(w.transform, w);
+
+        foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
+        {
+            mo.SwapH();
+        }
+      if(VarSave.GetBool("H_Roataton") == true)  VarSave.SetBool("H_Roataton",false); else VarSave.SetBool("H_Roataton", true);
+
+
+    }
+    public static RaymarchCam maincam4;
     public static RaymarchCam Get4DCam()
     {
-        return (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
+     if(!maincam4)   maincam4 = (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam)); else return maincam4 = (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
+        return maincam4;
     }
 
     void Building()
@@ -816,7 +847,7 @@ public class mover : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            if (gsave.progressofthepassage <= 1)
+            if (CosProgress() <= 1)
             {
                 GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
                 if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString();
@@ -825,7 +856,7 @@ public class mover : MonoBehaviour
                 if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2";
                 Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
             }
-            if (gsave.progressofthepassage > 1)
+            if (CosProgress() > 1)
             {
                 GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
                 if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString() +" h : " + H_position.ToString() ;
@@ -836,11 +867,12 @@ public class mover : MonoBehaviour
             }
         }
     }
+    bool perMorphin;
     //Приметивный интерфейс
     void Start()
     {
 
-       // InvokeRepeating("GameUpdate", 1, 0.07f);
+        // InvokeRepeating("GameUpdate", 1, 0.07f);
         gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
@@ -857,10 +889,15 @@ public class mover : MonoBehaviour
                 GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
             }
         }
-       
+        complsave.getallMorfs();
+        if (playerdata.Geteffect("KsenoMorfin") != null)
+        {
+            Instantiate(complsave.t5[VarSave.GetInt("CurrentMorf")], transform);
+            perMorphin = true;
+        }
 
     }
-    float timer10;
+        float timer10;
     public void load()
     {
         timer10 += Time.deltaTime;
@@ -993,6 +1030,10 @@ public class mover : MonoBehaviour
         File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    int CosProgress()
+    {
+        return gsave.progressofthepassage + nonnatureprogress;
+    }
     public void stop()
     {
 
@@ -1028,11 +1069,11 @@ public class mover : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                if (gsave.progressofthepassage > 1) H_position -= 1f * Time.deltaTime;
+                if (CosProgress() > 1) H_position -= 1f * Time.deltaTime;
             }
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                if (gsave.progressofthepassage > 1) H_position += 1f * Time.deltaTime;
+                if (CosProgress() > 1) H_position += 1f * Time.deltaTime;
             }
         }
         if (Sprint && !Globalprefs.Pause)
@@ -1199,6 +1240,14 @@ public class mover : MonoBehaviour
         dnSpyModer.MainModData.UpadeteScene();
 #endif
         //  EffectUpdate();
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !Globalprefs.Pause)
+        {
+            swapWXALL();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !Globalprefs.Pause && CosProgress() >= 2)
+        {
+            swapHXALL();
+        }
         foreach (string _script in Globalprefs.SelfFunctions)
         {
             script.Use(_script,script.Lost_Magic_obj);
@@ -1585,7 +1634,7 @@ public class mover : MonoBehaviour
         if (faceViewi != faceView.fourd )
         {
            if(ftho > 0) ftho -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.F) && gsave.progressofthepassage > 0)
+            if (Input.GetKeyDown(KeyCode.F) && CosProgress() > 0)
             {
                 ftho += 1;
                 if (ftho > 1)
@@ -1829,8 +1878,14 @@ public class mover : MonoBehaviour
             
            GameObject t = FindFirstObjectByType<PhotoCapture>().gameObject;
 
-            SkinManager();
-            PlayerModelObject.layer = 0;
+            SkinManager(); if (playerdata.Geteffect("KsenoMorfin") == null)
+            {
+                PlayerModelObject.layer = 0;
+            }
+            if (playerdata.Geteffect("KsenoMorfin") != null)
+            {
+                PlayerModelObject.layer = 8;
+            }
             Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
             if (UnityEngine.Physics.Raycast(r, out hit1))
@@ -1930,7 +1985,14 @@ public class mover : MonoBehaviour
     {
         foreach (Logic_tag_Skin i in FindObjectsByType<Logic_tag_Skin>(sortmode.main))
         {
-            i.gameObject.layer = 0;
+            if (playerdata.Geteffect("KsenoMorfin") == null)
+            {
+                i.gameObject.layer = 0;
+            }
+            if (playerdata.Geteffect("KsenoMorfin") != null)
+            {
+                i.gameObject.layer = 8;
+            }
         }
         for (int i =0;i< PlayerModelObjects.Length;i++)
         {
@@ -2054,8 +2116,15 @@ public class mover : MonoBehaviour
             //playermat
         }
         //MetabolismUp
-        //playerdata.Addeffect("Trip", 60)
-        if (playerdata.Geteffect("Trip") != null)
+        if (playerdata.Geteffect("KsenoMorfin") == null && perMorphin)
+        {
+
+            playerdata.Addeffect("Trip", 5);
+            GameManager.save();
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        }
+            //playerdata.Addeffect("Trip", 60)
+            if (playerdata.Geteffect("Trip") != null)
         {
 
             timerTrip += 0.01f;

@@ -9,7 +9,7 @@ public enum environment
 
 public enum SFL
 {
-    no_gravity, never_ending_hacks, Spawn_Chaos_cube
+    no_gravity, never_ending_hacks, Spawn_Chaos_cube,nophing, Mind5D, Mind4D
 }
 
 public class SceneSettings : MonoBehaviour
@@ -29,9 +29,19 @@ public class SceneSettings : MonoBehaviour
 
         if (sfl == SFL.no_gravity)
         {
-            
+
             mover.main().gravity = 0;
             mover.main().fly = true;
+        }
+        if (sfl == SFL.Mind5D)
+        {
+
+            mover.main().nonnatureprogress += 2;
+        }
+        if (sfl == SFL.Mind4D)
+        {
+
+            mover.main().nonnatureprogress += 1;
         }
         if (timer >= 1)
         {
@@ -47,6 +57,10 @@ public class SceneSettings : MonoBehaviour
             if (environment_space == environment.vacun || environment_space == environment.water)
             {
                 mover.main().InWater = true;
+            }
+            if (environment_space == environment.Magic_environment)
+            {
+                mover.main().hp += 1;
             }
             timer = 0;
         }

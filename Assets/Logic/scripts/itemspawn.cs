@@ -13,7 +13,7 @@ public class itemspawn : MonoBehaviour
     {
         if (FirstEvent)
         {
-            if (VarSave.CreateEvent("item"+SceneManager.GetActiveScene()+Globalprefs.GetIdPlanet()+Globalprefs.GetTimeline()))
+            if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene()+Globalprefs.GetIdPlanet()+Globalprefs.GetTimeline()))
             {
                 sp();
             }

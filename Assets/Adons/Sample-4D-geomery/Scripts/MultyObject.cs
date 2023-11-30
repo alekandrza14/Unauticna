@@ -17,7 +17,8 @@ public class MultyObject : MonoBehaviour
     MeshRenderer meshRenderer;
     BoxCollider boxCollider;
     SphereCollider sphereCollider;
-
+    Vector6 startPosition;
+    Vector6 startScale;
     [Header("Transform W")]
     [SerializeField] public float W_Position;
     [SerializeField] public float W_Scale = 1;
@@ -32,12 +33,75 @@ public class MultyObject : MonoBehaviour
     [Header("Save prametrs")]
     [SerializeField] public Vector3 scale3D;
     GameObject[] childs;
-    
+
+    public void Swap()
+    {
+
+        RaymarchCam m = mover.Get4DCam();
+        float save = transform.localPosition.x;
+        float saves = scale3D.x;
+        if (m._wRotation.x == 0)
+        {
+            transform.localPosition = new Vector3(W_Position, transform.localPosition.y, transform.localPosition.z);
+
+        }
+
+        if (m._wRotation.x == -90)
+        {
+            transform.localPosition = new Vector3(-W_Position, transform.localPosition.y, transform.localPosition.z);
+
+        }
+        if (m._wRotation.x == 0)
+        {
+            W_Position = -save;
+        }
+        if (m._wRotation.x == -90)
+        {
+            W_Position = save;
+        }
+        scale3D = new Vector3(W_Scale, scale3D.y, scale3D.z);
+
+        W_Scale = saves;
+
+    }
+    public void SwapH()
+    {
+
+        
+        float save = transform.localPosition.x;
+        float saves = scale3D.x;
+
+        if (VarSave.GetBool("H_Roataton"))
+        {
+            transform.localPosition = new Vector3(H_Position, transform.localPosition.y, transform.localPosition.z);
+
+        }
+
+        if (!VarSave.GetBool("H_Roataton"))
+        {
+            transform.localPosition = new Vector3(-H_Position, transform.localPosition.y, transform.localPosition.z);
+
+        }
+        if (VarSave.GetBool("H_Roataton"))
+        {
+            H_Position = -save;
+        }
+        if (!VarSave.GetBool("H_Roataton"))
+        {
+            H_Position = save;
+        }
+
+        scale3D = new Vector3(H_Scale, scale3D.y, scale3D.z);
+
+        H_Scale = saves;
+
+    }
+
     int w;
     void Start()
     {
-
-
+        startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, W_Position, H_Position, 0);
+        startScale = new Vector6(scale3D.x, scale3D.y, scale3D.z, W_Scale, H_Scale, 0);
         List<GameObject> countcild = new List<GameObject>();
           float c = transform.childCount;
         for (int i = 0; i < c; i++)
@@ -57,19 +121,21 @@ public class MultyObject : MonoBehaviour
 
             g.AddComponent<MultyTransform>();
         }
-            if (scale3D == Vector3.zero) scale3D = transform.localScale;
-        shapes3Dcol = new Mesh[shapes3D.Length];
-        for (int i = 0; i < shapes3D.Length; i++)
+            if (scale3D == Vector3.zero) scale3D = transform.localScale; if (shape == Shape.shapecube5D)
         {
-            shapes3Dcol[i] = new Mesh();
-            shapes3Dcol[i].vertices = shapes3D[i].vertices;
-            shapes3Dcol[i].triangles = shapes3D[i].triangles;
-            shapes3Dcol[i].normals = shapes3D[i].normals;
-            shapes3Dcol[i].uv = shapes3D[i].uv;
-            shapes3Dcol[i].name = i.ToString();
+            shapes3Dcol = new Mesh[shapes3D.Length];
+            for (int i = 0; i < shapes3D.Length; i++)
+            {
+                shapes3Dcol[i] = new Mesh();
+                shapes3Dcol[i].vertices = shapes3D[i].vertices;
+                shapes3Dcol[i].triangles = shapes3D[i].triangles;
+                shapes3Dcol[i].normals = shapes3D[i].normals;
+                shapes3Dcol[i].uv = shapes3D[i].uv;
+                shapes3Dcol[i].name = i.ToString();
 
+            }
         }
-        if (!instance)
+            if (!instance)
         {
             instance = FindFirstObjectByType<MultyTransform>();
 
@@ -78,9 +144,25 @@ public class MultyObject : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider = GetComponent<BoxCollider>();
         sphereCollider = GetComponent<SphereCollider>();
-        InvokeRepeating("ProjectionUpdate", 0, 0.02f+Random.Range(0.01f,0.02f));
+        InvokeRepeating("ProjectionUpdate", 0.001f, 0.02f+Random.Range(0.01f,0.02f));
+        if (mover.Get4DCam())   if (mover.Get4DCam()._wRotation.x != 0) Swap();
+        if (VarSave.GetBool("H_Roataton")) SwapH();
     }
-  
+    private void Update()
+    {
+      
+        if (!GetComponent<StandartObject>()) if (Input.GetKeyDown(KeyCode.F2))
+            {
+                transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z);
+                W_Position = startPosition.w;
+                H_Position = startPosition.h;
+                transform.localScale = new Vector3(startScale.x, startScale.y, startScale.z);
+                W_Scale = startScale.w;
+                H_Scale = startScale.h;
+                if (mover.Get4DCam()._wRotation.x != 0) Swap();
+                if (VarSave.GetBool("H_Roataton")) SwapH();
+            }
+    }
     // Update is called once per frame
     public void ProjectionUpdate()
     {
@@ -90,9 +172,9 @@ public class MultyObject : MonoBehaviour
             Quaternion quaternion = Quaternion.Euler(r.x, r.y, r.z);
 
             w5 = W_Position;
-            w5 += transform.position.x * quaternion.x;
-            w5 += transform.position.y * quaternion.y;
-            w5 += transform.position.z * quaternion.z; 
+         //   w5 += transform.position.x * quaternion.x;
+        //    w5 += transform.position.y * quaternion.y;
+         //   w5 += transform.position.z * quaternion.z; 
         }
 
         if (shape == Shape.plane3D)
@@ -101,7 +183,12 @@ public class MultyObject : MonoBehaviour
         }
         if (shape == Shape.shape3D)
         {
-            
+
+            transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
+        }
+        if (shape == Shape.cube5D)
+        {
+
             transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
         }
         if (shape == Shape.cube5D)
@@ -371,8 +458,8 @@ public class MultyObject : MonoBehaviour
             float w = W_Scale - Mathf.Abs(w5 - instance.W_Position);
             float s = ((w / W_Scale) + (h / H_Scale)) / 2;
             transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
-                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
+            if (instance.W_Position + W_Scale > w5 && instance.W_Position - W_Scale < w5 &&
+               instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
             {
                 if (meshRenderer)
                 {
@@ -390,9 +477,17 @@ public class MultyObject : MonoBehaviour
                 {
                     sphereCollider.enabled = true;
                 }
+                foreach (GameObject child in childs)
+                {
+                    child.gameObject.SetActive(true);
+                }
             }
             else
             {
+                foreach (GameObject child in childs)
+                {
+                    child.gameObject.SetActive(false);
+                }
                 if (meshRenderer)
                 {
                     meshRenderer.enabled = false;

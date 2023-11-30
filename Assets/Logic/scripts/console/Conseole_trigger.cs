@@ -81,6 +81,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "10";
             }
+            if (s[0] == "CustomObject_by_name")
+            {
+                a = "15";
+            }
             if (s[0] == "moremoney")
             {
                 a = "8";
@@ -160,8 +164,16 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "10")
             {
-                GameObject g = Resources.Load<GameObject>("items/"+ s[1]);
+                GameObject g = Resources.Load<GameObject>("items/" + s[1]);
                 Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+
+            }
+            if (i == 1 && a == "15")
+            {
+
+                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                g.GetComponent<CustomObject>().s = s[1];
+                // + s[1]
 
             }
             if (i == 1 && a == "9")

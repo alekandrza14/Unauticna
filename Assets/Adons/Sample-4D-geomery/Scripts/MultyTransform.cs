@@ -6,6 +6,7 @@ public class MultyTransform : MonoBehaviour
 {
     public float W_Position,H_Position;
     public Vector3 W_Rotation;
+    public bool SwapH, SwapW;
     private void Update()
     {
         if (Application.isPlaying) W_Position = mover.main().W_position;
@@ -16,6 +17,16 @@ public class MultyTransform : MonoBehaviour
         {
             obj.ProjectionUpdate();
         }
+        if (SwapH) foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
+            {
+                mo.SwapH();
+            }
+        if (SwapW) foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
+            {
+                mo.Swap();
+            }
+        SwapW = false;
+        SwapH = false;
     }
     private void OnGUI()
     {
