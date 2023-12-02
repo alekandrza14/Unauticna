@@ -10,6 +10,8 @@ using UnityEngine;
 [AddComponentMenu("Rendering/RayMarching Camera")]
 public class RaymarchCam : SceneViewFilter
 {
+
+    MultyTransform instance;
     [SerializeField]
     [Header("Global Settings")]
     private Shader _shader;
@@ -151,6 +153,11 @@ public class RaymarchCam : SceneViewFilter
     }
     private void SetParameters()
     {
+        if (!instance)
+        {
+            instance = FindFirstObjectByType<MultyTransform>();
+
+        }
         if (_useNormal)
         {
             _raymarchMaterial.SetInt("_useNormal", 1);
@@ -204,6 +211,8 @@ public class RaymarchCam : SceneViewFilter
 
         _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);
         _raymarchMaterial.SetFloat("w", _wPosition);
+       if(instance) _raymarchMaterial.SetFloat("_hxRotation", instance.HX_Rotation);
+        if (instance) if (instance.HX_Rotation == 0) _raymarchMaterial.SetFloat("lpx", _player.position.x);
 
 
         _raymarchMaterial.SetInt("_renderNr", _renderNr);

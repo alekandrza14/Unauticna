@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3015056702463686727}
   - component: {fileID: 4597122812684081444}
   - component: {fileID: 8841324191926152851}
-  - component: {fileID: 3377380649508773186}
   - component: {fileID: 2773701667253660993}
+  - component: {fileID: 5692804824373602948}
+  - component: {fileID: 3980796139932386107}
   m_Layer: 0
   m_Name: 4D-Glasses
   m_TagString: Untagged
@@ -36,6 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4921638554346625020}
+  - {fileID: 7715130326886918831}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7596664090143846442
@@ -122,6 +124,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 1
+    y: 1
+    z: 1
+    w: 1
+    h: 500000
+    p: 0
   W_Position: 0
   W_Scale: 1
   H_Position: 0
@@ -131,8 +147,41 @@ MonoBehaviour:
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
   scale3D: {x: 1, y: 1, z: 1}
---- !u!135 &3377380649508773186
-SphereCollider:
+  w5: 0
+  w6: 1
+  h5: 0
+  h6: 500000
+--- !u!114 &2773701667253660993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875198233845902281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f52231eaec0c8cb489be690742392d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemPrise: 100
+  ItemData: 
+  isLife: 0
+  _Name: 4D-Glasses
+--- !u!114 &5692804824373602948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875198233845902281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6ee5fa675a45441a703b2c9e3ea6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  integer: 10
+--- !u!65 &3980796139932386107
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,24 +199,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2773701667253660993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2875198233845902281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f52231eaec0c8cb489be690742392d5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemPrise: 100
-  ItemData: 
-  isLife: 0
-  _Name: 4D-Glasses
 --- !u!1001 &4884036479087538199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,4 +289,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 379d6eb5496f9b043a20cc9df039fea6,
     type: 3}
   m_PrefabInstance: {fileID: 4884036479087538199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5848795925687829615
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5791911669844407161}
+    m_Modifications:
+    - target: {fileID: 2104416190841555907, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_Name
+      value: 4D-Metka
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -60.757
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8624709844874156825, guid: a667e4170c3c5f94da1c7beb5eca5fd5, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a667e4170c3c5f94da1c7beb5eca5fd5, type: 3}
+--- !u!4 &7715130326886918831 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4195875735154470592, guid: a667e4170c3c5f94da1c7beb5eca5fd5,
+    type: 3}
+  m_PrefabInstance: {fileID: 5848795925687829615}
   m_PrefabAsset: {fileID: 0}

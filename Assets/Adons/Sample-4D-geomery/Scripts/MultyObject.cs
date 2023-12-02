@@ -17,8 +17,6 @@ public class MultyObject : MonoBehaviour
     MeshRenderer meshRenderer;
     BoxCollider boxCollider;
     SphereCollider sphereCollider;
-    Vector6 startPosition;
-    Vector6 startScale;
     [Header("Transform W")]
     [SerializeField] public float W_Position;
     [SerializeField] public float W_Scale = 1;
@@ -31,84 +29,14 @@ public class MultyObject : MonoBehaviour
     [SerializeField] Mesh[] shapes3Dcol;
     [SerializeField] public shapeSettings shapeSettings;
     [Header("Save prametrs")]
-    [SerializeField] public Vector3 scale3D;
+    [SerializeField] public Vector3 scale3D = Vector3.one;
     GameObject[] childs;
 
-    public void Swap()
-    {
-
-        RaymarchCam m = mover.Get4DCam();
-        float save = transform.localPosition.x;
-        float saves = scale3D.x;
-        if (m._wRotation.x == 0)
-        {
-            transform.localPosition = new Vector3(W_Position, transform.localPosition.y, transform.localPosition.z);
-
-        }
-
-        if (m._wRotation.x == -90)
-        {
-            transform.localPosition = new Vector3(-W_Position, transform.localPosition.y, transform.localPosition.z);
-
-        }
-        if (m._wRotation.x == 0)
-        {
-            W_Position = -save;
-        }
-        if (m._wRotation.x == -90)
-        {
-            W_Position = save;
-        }
-        scale3D = new Vector3(W_Scale, scale3D.y, scale3D.z);
-
-        W_Scale = saves;
-
-    }
-    public void SwapH()
-    {
-
-        
-        float save = transform.localPosition.x;
-        float saves = scale3D.x;
-
-        if (VarSave.GetBool("H_Roataton"))
-        {
-            transform.localPosition = new Vector3(H_Position, transform.localPosition.y, transform.localPosition.z);
-
-        }
-
-        if (!VarSave.GetBool("H_Roataton"))
-        {
-            transform.localPosition = new Vector3(-H_Position, transform.localPosition.y, transform.localPosition.z);
-
-        }
-        if (VarSave.GetBool("H_Roataton"))
-        {
-            H_Position = -save;
-        }
-        if (!VarSave.GetBool("H_Roataton"))
-        {
-            H_Position = save;
-        }
-
-        scale3D = new Vector3(H_Scale, scale3D.y, scale3D.z);
-
-        H_Scale = saves;
-
-    }
+   
 
     int w;
     void Start()
     {
-        startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, W_Position, H_Position, 0);
-        startScale = new Vector6(scale3D.x, scale3D.y, scale3D.z, W_Scale, H_Scale, 0);
-        List<GameObject> countcild = new List<GameObject>();
-          float c = transform.childCount;
-        for (int i = 0; i < c; i++)
-        {
-            countcild.Add( transform.GetChild(i).gameObject);
-        }
-        childs = countcild.ToArray();
         if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
         {
 
@@ -121,7 +49,18 @@ public class MultyObject : MonoBehaviour
 
             g.AddComponent<MultyTransform>();
         }
-            if (scale3D == Vector3.zero) scale3D = transform.localScale; if (shape == Shape.shapecube5D)
+        if (scale3D.x == 0 || scale3D.y == 0 || scale3D.z == 0) scale3D = Vector3.one;
+        startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, W_Position, H_Position, 0);
+        startScale = new Vector6(scale3D.x, scale3D.y, scale3D.z, W_Scale, H_Scale, 0);
+        List<GameObject> countcild = new List<GameObject>();
+        float c = transform.childCount;
+        for (int i = 0; i < c; i++)
+        {
+            countcild.Add(transform.GetChild(i).gameObject);
+        }
+        childs = countcild.ToArray();
+
+        if (shape == Shape.shapecube5D)
         {
             shapes3Dcol = new Mesh[shapes3D.Length];
             for (int i = 0; i < shapes3D.Length; i++)
@@ -135,7 +74,7 @@ public class MultyObject : MonoBehaviour
 
             }
         }
-            if (!instance)
+        if (!instance)
         {
             instance = FindFirstObjectByType<MultyTransform>();
 
@@ -144,492 +83,547 @@ public class MultyObject : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider = GetComponent<BoxCollider>();
         sphereCollider = GetComponent<SphereCollider>();
-        InvokeRepeating("ProjectionUpdate", 0.001f, 0.02f+Random.Range(0.01f,0.02f));
-        if (mover.Get4DCam())   if (mover.Get4DCam()._wRotation.x != 0) Swap();
-        if (VarSave.GetBool("H_Roataton")) SwapH();
+        InvokeRepeating("ProjectionUpdate", 0.001f, 0.02f + Random.Range(0.01f, 0.02f));
+        //  if (mover.Get4DCam())   if (mover.Get4DCam()._wRotation.x != 0) Swap();
+        // if (VarSave.GetBool("H_Roataton")) SwapH();
     }
     private void Update()
     {
-      
-        if (!GetComponent<StandartObject>()) if (Input.GetKeyDown(KeyCode.F2))
+        if (instance) if (GetComponent<StandartObject>() && !saved )
             {
-                transform.position = new Vector3(startPosition.x, startPosition.y, startPosition.z);
-                W_Position = startPosition.w;
-                H_Position = startPosition.h;
-                transform.localScale = new Vector3(startScale.x, startScale.y, startScale.z);
-                W_Scale = startScale.w;
-                H_Scale = startScale.h;
-                if (mover.Get4DCam()._wRotation.x != 0) Swap();
-                if (VarSave.GetBool("H_Roataton")) SwapH();
+                W_Position = instance.W_Position;
+                H_Position = instance.H_Position;
+                saved = true;
             }
+        if (instance) if (GetComponent<itemName>() && !saved )
+            {
+                W_Position = instance.W_Position;
+                H_Position = instance.H_Position;
+                saved = true;
+            }
+
     }
-    // Update is called once per frame
+    // Update is called once per frame\
+    [Header("Debug prametrs")]
+    public Vector6 startPosition;
+    public Vector6 startScale;
+    public float w5 = 0;
+    public float w6 = 0;
+    public float h5 = 0;
+    public float h6 = 0;
+
+  public  Vector3 testScale;
+   public bool saved;
     public void ProjectionUpdate()
     {
-      
-        float w5 =0;
-        if (instance) { Vector3 r = instance.W_Rotation;
-            Quaternion quaternion = Quaternion.Euler(r.x, r.y, r.z);
+        if (instance)
+        {
+            if (instance && !GetComponent<HyperbolicPoint>())
+            {
+                Vector3 r = instance.W_Rotation;
+                Quaternion quaternion = Quaternion.Euler(-r.x, r.y, r.z);
 
-            w5 = W_Position;
-         //   w5 += transform.position.x * quaternion.x;
-        //    w5 += transform.position.y * quaternion.y;
-         //   w5 += transform.position.z * quaternion.z; 
+                w5 = Mathf.Lerp(W_Position, -startPosition.x, quaternion.x * 2);
+                transform.position = Vector3.Lerp(new Vector3(startPosition.x, startPosition.y, startPosition.z), new Vector3(W_Position, startPosition.y, startPosition.z), quaternion.x * 2);
+                w6 = Mathf.Lerp(W_Scale, scale3D.x, quaternion.x * 2);
+
+                testScale = Vector3.Lerp(new Vector3(scale3D.x, scale3D.y, scale3D.z), new Vector3(W_Scale, scale3D.y, scale3D.z), quaternion.x * 2);
+
+              if (w5 == float.PositiveInfinity || w5 == float.NegativeInfinity || w5 == float.NaN || w5 == 0)
+                {
+                    w5 = 0;
+                }
+                if (w6 == float.PositiveInfinity || w6 == float.NegativeInfinity || w6 == float.NaN || w6 == 0)
+                {
+                    w6 = 0.001f;
+                }
+                Quaternion quaternionh = Quaternion.Euler(-instance.HX_Rotation, 0, 0);
+
+                h5 = Mathf.Lerp(H_Position, -transform.position.x, quaternionh.x * 2);
+                transform.position = Vector3.Lerp(new Vector3(transform.position.x, startPosition.y, startPosition.z), new Vector3(H_Position, startPosition.y, startPosition.z), quaternionh.x * 2);
+                h6 = Mathf.Lerp(H_Scale, testScale.x, quaternionh.x * 2);
+                testScale = Vector3.Lerp(new Vector3(testScale.x, scale3D.y, scale3D.z), new Vector3(H_Scale, scale3D.y, scale3D.z), quaternionh.x * 2);
+
+               if (h5 == float.PositiveInfinity || h5 == float.NegativeInfinity || h5 == float.NaN || h5 == 0)
+                {
+                    h5 = 0;
+                }
+                if (h6 == float.PositiveInfinity || h6 == float.NegativeInfinity || h6 == float.NaN || h6 == 0)
+                {
+                    h6 = 0.001f;
+                }
+            }
+            if (instance && GetComponent<HyperbolicPoint>())
+            {
+
+
+                w5 = W_Position;
+                w6 = W_Scale; 
+                h5 = H_Position;
+                h6 = H_Scale;
+
+                testScale  = new Vector3(scale3D.x, scale3D.y, scale3D.z);
+
+             
+               
+            }
         }
-
         if (shape == Shape.plane3D)
         {
-            transform.localScale = new Vector3(100000, scale3D.y, 100000);
+            transform.localScale = new Vector3(100000, testScale.y, 100000);
         }
         if (shape == Shape.shape3D)
         {
 
-            transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
+            transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
         }
-        if (shape == Shape.cube5D)
+        if (instance)
         {
-
-            transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-        }
-        if (shape == Shape.cube5D)
-        {
-            if (shapeSettings != null)
+            if (shape == Shape.cube5D)
             {
-                if (shapeSettings.W_materials.Length != 0)
+
+                transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+            }
+            if (shape == Shape.cube5D)
+            {
+                if (shapeSettings != null)
                 {
-
-
-
-                    int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
-
-                    if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
+                    if (shapeSettings.W_materials.Length != 0)
                     {
 
-                        if (meshRenderer)
+
+
+                        int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (w6 / 2)) - (w6 / 2));
+
+                        if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                         {
-                            meshRenderer.material = shapeSettings.W_materials[w2];
+
+                            if (meshRenderer)
+                            {
+                                meshRenderer.material = shapeSettings.W_materials[w2];
+                            }
+
+
                         }
+                    }
+                }
+                transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
+                    instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = true;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = true;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = true;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = true;
+                    }
+                    foreach (GameObject child in childs)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    foreach (GameObject child in childs)
+                    {
+                      if(!child.GetComponent<Metka>())  child.gameObject.SetActive(false);
+                    }
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = false;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = false;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = false;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = false;
+                    }
+                }
+
+            }
+            if (shape == Shape.shapecube5D)
+            {
+                if (shapeSettings != null)
+                {
+                    if (shapeSettings.W_materials.Length != 0)
+                    {
 
 
+
+                        int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (w6 / 2)) - (w6 / 2));
+
+                        if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
+                        {
+
+                            if (meshRenderer)
+                            {
+                                meshRenderer.material = shapeSettings.W_materials[w2];
+                            }
+
+
+                        }
+                    }
+                }
+                transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                w = (int)(((instance.W_Position - w5) * shapes3D.Length) / (w6 / 2));
+
+
+
+
+                if (w > -1 && w < shapes3Dcol.Length)
+                {
+
+                    if (GetComponent<MeshFilter>())
+                    {
+                        GetComponent<MeshFilter>().sharedMesh = shapes3Dcol[w];
+                    }
+
+
+                }
+
+
+
+                if (instance.W_Position > w5 && instance.W_Position - w6 < w5 &&
+                    instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = true;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = true;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = true;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = true;
+                    }
+                }
+                else
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = false;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = false;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = false;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = false;
+                    }
+                }
+
+            }
+            if (shape == Shape.shape4D)
+            {
+                if (shapeSettings != null)
+                {
+                    if (shapeSettings.W_materials.Length != 0)
+                    {
+
+
+
+                        int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (w6 / 2)) - (w6 / 2));
+
+                        if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
+                        {
+
+                            if (meshRenderer)
+                            {
+                                meshRenderer.material = shapeSettings.W_materials[w2];
+                            }
+
+
+                        }
+                    }
+                }
+                transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                w = (int)(((instance.W_Position - w5) * shapes3D.Length) / (w6 / 2));
+
+
+
+
+                if (w > -1 && w < shapes3D.Length)
+                {
+
+                    if (GetComponent<MeshFilter>())
+                    {
+                        GetComponent<MeshFilter>().sharedMesh = shapes3D[w];
+                    }
+
+
+                }
+
+
+
+                if (instance.W_Position > w5 && instance.W_Position - w6 < w5)
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = true;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = true;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = true;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = true;
+                    }
+                }
+                else
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = false;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = false;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = false;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = false;
+                    }
+                }
+
+            }
+            if (shape == Shape.clone5D)
+            {
+                if (shapeSettings != null)
+                {
+                    if (shapeSettings.W_materials.Length != 0)
+                    {
+
+
+
+                        int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (w6 / 2)) - (w6 / 2));
+
+                        if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
+                        {
+
+                            if (meshRenderer)
+                            {
+                                meshRenderer.material = shapeSettings.W_materials[w2];
+                            }
+
+
+                        }
+                    }
+                }
+                float h = h6 - Mathf.Abs(H_Position - instance.H_Position);
+                Vector3 v3 = testScale;
+
+                float w = w6 - Mathf.Abs(w5 - instance.W_Position);
+                float s = ((w / w6) + (h / h6)) / 2;
+                transform.localScale = new Vector3(s * testScale.x, s * testScale.y, s * testScale.z);
+                if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
+                   instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = true;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = true;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = true;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = true;
+                    }
+                    foreach (GameObject child in childs)
+                    {
+                        child.gameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    foreach (GameObject child in childs)
+                    {
+                        if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
+                    }
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = false;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = false;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = false;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = false;
                     }
                 }
             }
-            transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
-                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
+            if (shape == Shape.hyperbola5D)
             {
-                if (meshRenderer)
+                if (shapeSettings != null)
                 {
-                    meshRenderer.enabled = true;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = true;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = true;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = true;
-                }
-                foreach (GameObject child in childs)
-                {
-                    child.gameObject.SetActive(true);
-                }
-            }
-            else
-            {
-                foreach (GameObject child in childs)
-                {
-                    child.gameObject.SetActive(false);
-                }
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = false;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = false;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = false;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = false;
-                }
-            }
-
-        }
-        if (shape == Shape.shapecube5D)
-        {
-            if (shapeSettings != null)
-            {
-                if (shapeSettings.W_materials.Length != 0)
-                {
-
-
-
-                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
-
-                    if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
+                    if (shapeSettings.W_materials.Length != 0)
                     {
 
-                        if (meshRenderer)
+
+
+                        int w2 = (int)((((instance.W_Position - w5) * shapeSettings.W_materials.Length) / (w6 / 2)) - (w6 / 2));
+
+                        if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
                         {
-                            meshRenderer.material = shapeSettings.W_materials[w2];
+
+                            if (meshRenderer)
+                            {
+                                meshRenderer.material = shapeSettings.W_materials[w2];
+                            }
+
+
                         }
+                    }
+                }
+                float h = h6 + Mathf.Abs(H_Position - instance.H_Position) * Mathf.Abs(H_Position - instance.H_Position);
+                Vector3 v3 = testScale;
 
-
+                float w = w6 + Mathf.Abs(w5 - instance.W_Position) * Mathf.Abs(W_Position - instance.W_Position);
+                float s = ((w / w6) + (h / h6)) / 2;
+                transform.localScale = new Vector3(s * testScale.x, s * testScale.y, s * testScale.z);
+                if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
+                    instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = true;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = true;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = true;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = true;
+                    }
+                }
+                else
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = false;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = false;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = false;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = false;
                     }
                 }
             }
-            transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            w = (int)(((instance.W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
-
-
-
-
-            if (w > -1 && w < shapes3Dcol.Length)
+            if (shape == Shape.hyperCurveCube5D && shapeSettings != null)
             {
+                float h = (h6 - Mathf.Abs(H_Position - instance.H_Position)) / h6;
+                Vector3 v3 = testScale;
 
-                if (GetComponent<MeshFilter>())
+                float w = (w6 - Mathf.Abs(w5 - instance.W_Position)) / w6;
+                transform.localScale = new Vector3(
+                     testScale.x * shapeSettings.WX_scale.Evaluate(w) * shapeSettings.HX_scale.Evaluate(h),
+                     testScale.y * shapeSettings.WY_scale.Evaluate(w) * shapeSettings.HY_scale.Evaluate(h),
+                     testScale.z * shapeSettings.WZ_scale.Evaluate(w) * shapeSettings.HZ_scale.Evaluate(h));
+                if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
+                    instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
                 {
-                    GetComponent<MeshFilter>().sharedMesh = shapes3Dcol[w];
-                }
-
-
-            }
-
-
-
-            if (instance.W_Position >w5 && instance.W_Position - W_Scale <w5 &&
-                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = true;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = true;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = true;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = true;
-                }
-            }
-            else
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = false;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = false;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = false;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = false;
-                }
-            }
-
-        }
-        if (shape == Shape.shape4D)
-        {
-            if (shapeSettings != null)
-            {
-                if (shapeSettings.W_materials.Length != 0)
-                {
-
-
-
-                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
-
-                    if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
+                    if (meshRenderer)
                     {
-
-                        if (meshRenderer)
-                        {
-                            meshRenderer.material = shapeSettings.W_materials[w2];
-                        }
-
-
+                        meshRenderer.enabled = true;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = true;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = true;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = true;
+                    }
+                }
+                else
+                {
+                    if (meshRenderer)
+                    {
+                        meshRenderer.enabled = false;
+                    }
+                    if (meshCollider)
+                    {
+                        meshCollider.enabled = false;
+                    }
+                    if (boxCollider)
+                    {
+                        boxCollider.enabled = false;
+                    }
+                    if (sphereCollider)
+                    {
+                        sphereCollider.enabled = false;
                     }
                 }
             }
-            transform.localScale = new Vector3(scale3D.x, scale3D.y, scale3D.z);
-            w = (int)(((instance.W_Position -w5) * shapes3D.Length) / (W_Scale / 2));
-
-
-
-
-            if (w > -1 && w < shapes3D.Length)
+            if (meshCollider)
             {
 
-                if (GetComponent<MeshFilter>())
-                {
-                    GetComponent<MeshFilter>().sharedMesh = shapes3D[w];
-                }
-
+                meshCollider.sharedMesh = GetComponent<MeshFilter>().sharedMesh;
 
             }
-
-
-
-            if (instance.W_Position >w5 && instance.W_Position - W_Scale <w5)
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = true;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = true;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = true;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = true;
-                }
-            }
-            else
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = false;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = false;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = false;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = false;
-                }
-            }
-
-        }
-        if (shape == Shape.clone5D)
-        {
-            if (shapeSettings != null)
-            {
-                if (shapeSettings.W_materials.Length != 0)
-                {
-
-
-
-                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
-
-                    if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
-                    {
-
-                        if (meshRenderer)
-                        {
-                            meshRenderer.material = shapeSettings.W_materials[w2];
-                        }
-
-
-                    }
-                }
-            }
-            float h = H_Scale - Mathf.Abs(H_Position - instance.H_Position);
-            Vector3 v3 = scale3D;
-           
-            float w = W_Scale - Mathf.Abs(w5 - instance.W_Position);
-            float s = ((w / W_Scale) + (h / H_Scale)) / 2;
-            transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (instance.W_Position + W_Scale > w5 && instance.W_Position - W_Scale < w5 &&
-               instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = true;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = true;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = true;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = true;
-                }
-                foreach (GameObject child in childs)
-                {
-                    child.gameObject.SetActive(true);
-                }
-            }
-            else
-            {
-                foreach (GameObject child in childs)
-                {
-                    child.gameObject.SetActive(false);
-                }
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = false;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = false;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = false;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = false;
-                }
-            }
-        }
-        if (shape == Shape.hyperbola5D)
-        {
-            if (shapeSettings != null)
-            {
-                if (shapeSettings.W_materials.Length != 0)
-                {
-
-
-
-                    int w2 = (int)((((instance.W_Position -w5) * shapeSettings.W_materials.Length) / (W_Scale / 2)) - (W_Scale / 2));
-
-                    if (w2 > -1 && w2 < shapeSettings.W_materials.Length)
-                    {
-
-                        if (meshRenderer)
-                        {
-                            meshRenderer.material = shapeSettings.W_materials[w2];
-                        }
-
-
-                    }
-                }
-            }
-            float h = H_Scale + Mathf.Abs(H_Position - instance.H_Position) * Mathf.Abs(H_Position - instance.H_Position);
-            Vector3 v3 = scale3D;
-          
-            float w = W_Scale + Mathf.Abs(w5 - instance.W_Position) * Mathf.Abs(W_Position - instance.W_Position);
-            float s = ((w / W_Scale) + (h / H_Scale)) / 2;
-            transform.localScale = new Vector3(s * scale3D.x, s * scale3D.y, s * scale3D.z);
-            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
-                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = true;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = true;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = true;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = true;
-                }
-            }
-            else
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = false;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = false;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = false;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = false;
-                }
-            }
-        }
-        if (shape == Shape.hyperCurveCube5D && shapeSettings != null)
-        {
-            float h = (H_Scale- Mathf.Abs(H_Position - instance.H_Position))/ H_Scale;
-            Vector3 v3 = scale3D;
-           
-            float w = (W_Scale - Mathf.Abs(w5 - instance.W_Position))/ W_Scale;
-            transform.localScale = new Vector3(
-                 scale3D.x * shapeSettings.WX_scale.Evaluate(w) * shapeSettings.HX_scale.Evaluate(h),
-                 scale3D.y * shapeSettings.WY_scale.Evaluate(w) * shapeSettings.HY_scale.Evaluate(h),
-                 scale3D.z * shapeSettings.WZ_scale.Evaluate(w) * shapeSettings.HZ_scale.Evaluate(h));
-            if (instance.W_Position + W_Scale >w5 && instance.W_Position - W_Scale <w5 &&
-                instance.H_Position + H_Scale > H_Position && instance.H_Position - H_Scale < H_Position)
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = true;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = true;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = true;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = true;
-                }
-            }
-            else
-            {
-                if (meshRenderer)
-                {
-                    meshRenderer.enabled = false;
-                }
-                if (meshCollider)
-                {
-                    meshCollider.enabled = false;
-                }
-                if (boxCollider)
-                {
-                    boxCollider.enabled = false;
-                }
-                if (sphereCollider)
-                {
-                    sphereCollider.enabled = false;
-                }
-            }
-        }
-        if (meshCollider)
-        {
-            
-               meshCollider.sharedMesh = GetComponent<MeshFilter>().sharedMesh;
-           
         }
     }
 }

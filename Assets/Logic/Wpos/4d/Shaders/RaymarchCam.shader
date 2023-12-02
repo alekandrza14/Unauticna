@@ -60,7 +60,9 @@ Shader "Raymarch/RaymarchCam"
             uniform sampler2D _CameraDepthTexture;
             uniform float4x4 _CamFrustrum, _CamToWorld;
             uniform float3 _wRotation;
+            uniform float _hxRotation;
             uniform float w;
+            uniform float lpx;
             uniform float _maxDistance;
             uniform float _precision;
             uniform float _max_iteration;
@@ -144,6 +146,8 @@ Shader "Raymarch/RaymarchCam"
                 p4D.xw = mul(p4D.xw, float2x2(cos(shape.rotationW.x), sin(shape.rotationW.x), -sin(shape.rotationW.x), cos(shape.rotationW.x)));
                 p4D.zw = mul(p4D.zw, float2x2(cos(shape.rotationW.z), -sin(shape.rotationW.z), sin(shape.rotationW.z), cos(shape.rotationW.z)));
                 p4D.yw = mul(p4D.yw, float2x2(cos(shape.rotationW.y), -sin(shape.rotationW.y), sin(shape.rotationW.y), cos(shape.rotationW.y)));
+
+              
                 
                 
                 if (shape.shapeType == 0) {
@@ -201,7 +205,10 @@ Shader "Raymarch/RaymarchCam"
                     p4D.yw = mul(p4D.yw, float2x2(cos(_wRotation.y), -sin(_wRotation.y), sin(_wRotation.y), cos(_wRotation.y)));
                     p4D.zw = mul(p4D.zw, float2x2(cos(_wRotation.z), -sin(_wRotation.z), sin(_wRotation.z), cos(_wRotation.z)));
                 }
-
+                if(_hxRotation != 0)
+                {
+                     p4D.x = lpx;
+                }
 
                 float globalDst = _maxDistance;
                 float3 globalColour = 1;

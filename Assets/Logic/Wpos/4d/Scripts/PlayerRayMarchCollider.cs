@@ -13,6 +13,7 @@ namespace Unity.Mathematics
     public class PlayerRayMarchCollider : MonoBehaviour
     {
 
+        MultyTransform instance;
         public float colliderOffset = 1.2f;
         public float maxDownMovement = 0f;
         [Tooltip ("The transforms from which the raymarcher will test the distances and apply the collision")]
@@ -27,6 +28,11 @@ namespace Unity.Mathematics
         {
             camScript = FindObjectOfType<RaymarchCam>();
             Df = FindFirstObjectByType<DistanceFunctions>();
+            if (!instance)
+            {
+                instance = FindFirstObjectByType<MultyTransform>();
+
+            }
         }
         
         // Update is called once per frame
@@ -36,11 +42,16 @@ namespace Unity.Mathematics
             RayMarch(rayMarchTransforms);
             
         }
+        float LostPosX;
         // the distancefunction for the shapes
         public float GetShapeDistance(Shape4D shape, float4 p4D)
         {
-            p4D -= (float4)shape.Position();
+            if (instance) if (instance.HX_Rotation != 0)
+                {
 
+                //    p4D.x = -instance.H_Position;
+                }
+            p4D -= (float4)shape.Position();
             p4D.xz = mul(p4D.xz, float2x2(cos(shape.Rotation().y), sin(shape.Rotation().y), -sin(shape.Rotation().y), cos(shape.Rotation().y)));
             p4D.yz = mul(p4D.yz, float2x2(cos(shape.Rotation().x), -sin(shape.Rotation().x), sin(shape.Rotation().x), cos(shape.Rotation().x)));
             p4D.xy = mul(p4D.xy, float2x2(cos(shape.Rotation().z), -sin(shape.Rotation().z), sin(shape.Rotation().z), cos(shape.Rotation().z)));
@@ -96,8 +107,13 @@ namespace Unity.Mathematics
         }
         public float GetShapeDistanceRenderer(Shape4D shape, float4 p4D)
         {
-            p4D -= (float4)shape.Position();
+            if (instance) if (instance.HX_Rotation != 0)
+                {
 
+                 //   p4D.x = -instance.H_Position;
+                }
+
+            p4D -= (float4)shape.Position();
             p4D.xz = mul(p4D.xz, float2x2(cos(shape.Rotation().y), sin(shape.Rotation().y), -sin(shape.Rotation().y), cos(shape.Rotation().y)));
             p4D.yz = mul(p4D.yz, float2x2(cos(shape.Rotation().x), -sin(shape.Rotation().x), sin(shape.Rotation().x), cos(shape.Rotation().x)));
             p4D.xy = mul(p4D.xy, float2x2(cos(shape.Rotation().z), -sin(shape.Rotation().z), sin(shape.Rotation().z), cos(shape.Rotation().z)));
@@ -150,9 +166,14 @@ namespace Unity.Mathematics
 
         public float DistanceField(float3 p)
         {
+            if (instance) if (instance.HX_Rotation != 0)
+                {
+
+                    p.x = -instance.H_Position;
+                }
+                
             float4 p4D = float4(p, camScript._wPosition);
             Vector3 wRot = camScript._wRotation * Mathf.Deg2Rad;
-
             if ((wRot).magnitude != 0)
             {
                 p4D.xw = mul(p4D.xw, float2x2(cos(wRot.x), -sin(wRot.x), sin(wRot.x), cos(wRot.x)));
@@ -191,6 +212,11 @@ namespace Unity.Mathematics
         }
         public float DistanceFieldRenderer(float3 p)
         {
+            if (instance) if (instance.HX_Rotation != 0)
+                {
+
+                    p.x = -instance.H_Position;
+                }
             float4 p4D = float4(p, camScript._wPosition);
             Vector3 wRot = camScript._wRotation * Mathf.Deg2Rad;
 

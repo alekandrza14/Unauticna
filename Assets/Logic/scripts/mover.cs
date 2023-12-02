@@ -30,6 +30,7 @@ public class save
     public string hpos_Polar3;
     public float wpos;
     public float hpos;
+    public float hxrot;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
@@ -44,6 +45,7 @@ public class tsave
     public string hpos_Polar3;
     public float wpos;
     public float hpos;
+    public float hxrot;
     public Quaternion q1, q2, q3, q4;
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
@@ -121,16 +123,16 @@ public class mover : MonoBehaviour
     float fireInk;
     string lepts = "";
     [HideInInspector] public string lif;
-
+    [HideInInspector] public float HX_Rotation;
 
     void swapHX3(Transform x, mover w)
     {
         RaymarchCam m = Get4DCam();
         float save = x.localPosition.x;
-        if (VarSave.GetBool("H_Roataton")) x.localPosition = new Vector3(w.H_position, x.localPosition.y, x.localPosition.z);
-        if (!VarSave.GetBool("H_Roataton")) x.localPosition = new Vector3(-w.H_position, x.localPosition.y, x.localPosition.z);
-        if (VarSave.GetBool("H_Roataton")) w.H_position = -save;
-        if (!VarSave.GetBool("H_Roataton")) w.H_position = save;
+        if (HX_Rotation == 0) x.localPosition = new Vector3(w.H_position, x.localPosition.y, x.localPosition.z);
+        if (HX_Rotation == -90) x.localPosition = new Vector3(-w.H_position, x.localPosition.y, x.localPosition.z);
+        if (HX_Rotation == 0) w.H_position = -save;
+        if (HX_Rotation == -90) w.H_position = save;
     }
     void swapWX3(Transform x, mover w)
     {
@@ -146,10 +148,7 @@ public class mover : MonoBehaviour
     {
         RaymarchCam m = Get4DCam();
         mover w = mover.main();
-        foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
-        {
-            mo.Swap();
-        }
+       
         w.swapWX3(w.transform, w);
         if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
         
@@ -158,14 +157,11 @@ public class mover : MonoBehaviour
     public static void swapHXALL()
     {
         mover w = mover.main();
-        foreach (MultyObject mo in FindObjectsByType<MultyObject>(sortmode.main))
-        {
-            mo.SwapH();
-        }
-        w.swapHX3(w.transform, w);
-
-        if (VarSave.GetBool("H_Roataton") == true)  VarSave.SetBool("H_Roataton",false); else VarSave.SetBool("H_Roataton", true);
        
+        w.swapHX3(w.transform, w);
+        
+        if (w.HX_Rotation == 0) w.HX_Rotation  =- 90; else w.HX_Rotation = 0;
+        
 
     }
     public static RaymarchCam maincam4;
@@ -452,6 +448,19 @@ public class mover : MonoBehaviour
     int regen;
     private void Init()
     {
+        
+        if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
+        {
+
+
+            GameObject g = new GameObject("4D Controler")
+            {
+
+            };
+
+
+            g.AddComponent<MultyTransform>();
+        }
         Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
         if (VarSave.ExistenceVar("DNA"))
         {
@@ -579,6 +588,7 @@ public class mover : MonoBehaviour
 
                 W_position = save.wpos;
                 H_position = save.hpos;
+                HX_Rotation = save.hxrot;
                 if (portallNumer.Portal == "")
                 {
 
@@ -689,6 +699,7 @@ public class mover : MonoBehaviour
 
                 W_position = save.wpos;
                 H_position = save.hpos;
+                HX_Rotation = save.hxrot;
                 if (portallNumer.Portal == "")
                 {
 
@@ -876,6 +887,7 @@ public class mover : MonoBehaviour
         }
     }
     bool perMorphin;
+
     //Приметивный интерфейс
     void Start()
     {
@@ -928,6 +940,7 @@ public class mover : MonoBehaviour
                 if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW;
                 W_position = tsave.wpos;
                 H_position = tsave.hpos;
+                HX_Rotation = tsave.hxrot;
                 if (hyperbolicCamera != null)
                 {
 
@@ -950,6 +963,7 @@ public class mover : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
             {
+                VarSave.GetFloat("H_Roataton");
                 playerdata.Loadeffect();
                 if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
                 {
@@ -963,6 +977,8 @@ public class mover : MonoBehaviour
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     W_position = save.wpos;
                     H_position = save.hpos;
+
+                    HX_Rotation = save.hxrot;
                     if (hyperbolicCamera != null)
                     {
 
@@ -1006,6 +1022,8 @@ public class mover : MonoBehaviour
                     if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                     W_position = save.wpos;
                     H_position = save.hpos;
+
+                    HX_Rotation = save.hxrot;
                     if (hyperbolicCamera != null)
                     {
 
@@ -1359,6 +1377,7 @@ public class mover : MonoBehaviour
         save.q3 = HeadCameraSetup.transform.rotation;
         save.wpos = W_position;
         save.hpos = H_position;
+        save.hxrot = HX_Rotation;
         if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
         save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
@@ -2235,6 +2254,7 @@ public class mover : MonoBehaviour
             tsave.pos = PlayerBody.transform.position;
             tsave.wpos = W_position; 
             tsave.hpos = H_position;
+            tsave.hxrot = HX_Rotation;
             if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera != null)
             {
@@ -2287,6 +2307,7 @@ public class mover : MonoBehaviour
             save.wpos = W_position;
 
             save.hpos = H_position;
+            save.hxrot = HX_Rotation;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera != null)
             {
@@ -2325,6 +2346,7 @@ public class mover : MonoBehaviour
             save.vive = Camera.main.fieldOfView;
             save.wpos = W_position;
             save.hpos = H_position;
+            save.hxrot = HX_Rotation;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera!=null)
             {

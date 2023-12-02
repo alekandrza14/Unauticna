@@ -1403,6 +1403,7 @@ public class ElementalInventory : MonoBehaviour {
          && Cells[select].elementName == "4D-Glasses" && Cells[select].elementCount > 0)
         {
             MultyObject[] mo = FindObjectsByType<MultyObject>(sortmode.main);
+            show4D[] sh = FindObjectsByType<show4D>(sortmode.main);
             Tag_4D_metka[] targs = FindObjectsByType<Tag_4D_metka>(sortmode.main);
             GameObject Target = Resources.Load<GameObject>("4D-Metka");
           if(targs .Length >0)  for (int i = 0; i < targs.Length; i++)
@@ -1416,6 +1417,12 @@ public class ElementalInventory : MonoBehaviour {
             {
 
                 Instantiate(Target, mo[i].transform.position, Quaternion.identity);
+
+            }
+            for (int i = 0; i < sh.Length; i++)
+            {
+
+                Instantiate(Target, sh[i].transform.position, Quaternion.identity);
 
             }
 
