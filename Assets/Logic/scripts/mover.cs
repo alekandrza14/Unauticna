@@ -524,9 +524,9 @@ public class mover : MonoBehaviour
             for (int i = 0; i < cms.v3.Length; i++)
             {
                 genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
-                g.s = cms.name[i];
+                if (cms.name.Length > i) g.s = cms.name[i];
 
-                g.transform.localScale = cms.scale[i];
+             if(cms.scale.Length > i)   g.transform.localScale = cms.scale[i];
             }
         }
         SaveFileInputField.text = Globalprefs.GetTimeline();
@@ -1367,7 +1367,7 @@ public class mover : MonoBehaviour
         {
             FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
-        PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
+     if (!Globalprefs.LockRotate)   PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
         save.angularvelosyty = rigidbody3d.angularVelocity;
         save.velosyty = rigidbody3d.velocity;
         save.q1 = PlayerBody.transform.rotation;
@@ -1731,35 +1731,37 @@ public class mover : MonoBehaviour
                 transform.Translate(0, 0, 5);
                 tics = 0;
             }
-
-            if (Input.GetKey(KeyCode.Mouse1))
+            if (!Globalprefs.LockRotate)
             {
-                Cursor.lockState = CursorLockMode.Locked;
-                if (faceViewi == faceView.first)
+                if (Input.GetKey(KeyCode.Mouse1))
                 {
-
-
-                    PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
-                }
-                if (faceViewi == faceView.trid)
-                {
-
-
-                    HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
-                }
-                if (hyperbolicCamera == null)
-                {
-                    if (faceViewi != faceView.fourd)
+                    Cursor.lockState = CursorLockMode.Locked;
+                    if (faceViewi == faceView.first)
                     {
 
-                        PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
-                    }
-                }
 
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
+                        PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
+                    }
+                    if (faceViewi == faceView.trid)
+                    {
+
+
+                        HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                    }
+                    if (hyperbolicCamera == null)
+                    {
+                        if (faceViewi != faceView.fourd)
+                        {
+
+                            PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                        }
+                    }
+
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
             }
         }
     }

@@ -124,7 +124,7 @@ public class MultyObject : MonoBehaviour
                 Quaternion quaternion = Quaternion.Euler(-r.x, r.y, r.z);
 
                 w5 = Mathf.Lerp(W_Position, -startPosition.x, quaternion.x * 2);
-                transform.position = Vector3.Lerp(new Vector3(startPosition.x, startPosition.y, startPosition.z), new Vector3(W_Position, startPosition.y, startPosition.z), quaternion.x * 2);
+                if(Move4DAxis.GetSelect != gameObject)  transform.position = Vector3.Lerp(new Vector3(startPosition.x, startPosition.y, startPosition.z), new Vector3(W_Position, startPosition.y, startPosition.z), quaternion.x * 2);
                 w6 = Mathf.Lerp(W_Scale, scale3D.x, quaternion.x * 2);
 
                 testScale = Vector3.Lerp(new Vector3(scale3D.x, scale3D.y, scale3D.z), new Vector3(W_Scale, scale3D.y, scale3D.z), quaternion.x * 2);
@@ -140,7 +140,7 @@ public class MultyObject : MonoBehaviour
                 Quaternion quaternionh = Quaternion.Euler(-instance.HX_Rotation, 0, 0);
 
                 h5 = Mathf.Lerp(H_Position, -transform.position.x, quaternionh.x * 2);
-                transform.position = Vector3.Lerp(new Vector3(transform.position.x, startPosition.y, startPosition.z), new Vector3(H_Position, startPosition.y, startPosition.z), quaternionh.x * 2);
+                if (Move4DAxis.GetSelect != gameObject) transform.position = Vector3.Lerp(new Vector3(transform.position.x, startPosition.y, startPosition.z), new Vector3(H_Position, startPosition.y, startPosition.z), quaternionh.x * 2);
                 h6 = Mathf.Lerp(H_Scale, testScale.x, quaternionh.x * 2);
                 testScale = Vector3.Lerp(new Vector3(testScale.x, scale3D.y, scale3D.z), new Vector3(H_Scale, scale3D.y, scale3D.z), quaternionh.x * 2);
 
@@ -170,19 +170,19 @@ public class MultyObject : MonoBehaviour
         }
         if (shape == Shape.plane3D)
         {
-            transform.localScale = new Vector3(100000, testScale.y, 100000);
+          if (!GetComponent<HyperbolicPoint>())  transform.localScale = new Vector3(100000, testScale.y, 100000);
         }
         if (shape == Shape.shape3D)
         {
 
-            transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+            if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
         }
         if (instance)
         {
             if (shape == Shape.cube5D)
             {
 
-                transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
             }
             if (shape == Shape.cube5D)
             {
@@ -207,7 +207,7 @@ public class MultyObject : MonoBehaviour
                         }
                     }
                 }
-                transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
                 if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
                     instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
                 {

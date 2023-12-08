@@ -122,6 +122,89 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &62187302
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.9998002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1154559765652843398, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741041009687832151, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: id
+      value: 158
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741041009687832151, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: p4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741041009687832151, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: iaw
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320673917128486637, guid: b6b89481d346de041b2044b8b81ee146,
+        type: 3}
+      propertyPath: m_Name
+      value: 4D-gate
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b6b89481d346de041b2044b8b81ee146, type: 3}
 --- !u!1 &82841683
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +378,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 10
+  W_Scale: 5
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 5, y: 1, z: 5}
   startPosition:
     x: 11.0595
     y: 10.3418
@@ -309,17 +401,12 @@ MonoBehaviour:
     w: 5
     h: 4
     p: 0
-  W_Position: 10
-  W_Scale: 5
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 5, y: 1, z: 5}
   w5: 10
   w6: 5
+  h5: 0
+  h6: 4
+  testScale: {x: 5, y: 1, z: 5}
+  saved: 0
 --- !u!64 &189006555
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -643,6 +730,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 10
+  W_Scale: 5
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 20, y: 1, z: 5}
   startPosition:
     x: 0.2702
     y: 4.959
@@ -657,17 +753,12 @@ MonoBehaviour:
     w: 5
     h: 4
     p: 0
-  W_Position: 10
-  W_Scale: 5
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 20, y: 1, z: 5}
   w5: 10
   w6: 5
+  h5: 0
+  h6: 4
+  testScale: {x: 20, y: 1, z: 5}
+  saved: 0
 --- !u!64 &793734961
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -841,6 +932,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 20
+  W_Scale: 5
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 5, y: 1, z: 5}
   startPosition:
     x: 11.0595
     y: 10.3418
@@ -855,17 +955,12 @@ MonoBehaviour:
     w: 5
     h: 4
     p: 0
-  W_Position: 20
-  W_Scale: 5
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 5, y: 1, z: 5}
   w5: 20
   w6: 5
+  h5: 0
+  h6: 4
+  testScale: {x: 5, y: 1, z: 5}
+  saved: 0
 --- !u!64 &892991052
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1380,6 +1475,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 0
+  W_Scale: 1
+  H_Position: -0
+  H_Scale: 1
+  shape: 2
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 1, y: 1, z: 1}
   startPosition:
     x: 0
     y: 40000
@@ -1394,17 +1498,12 @@ MonoBehaviour:
     w: 1
     h: 1
     p: 0
-  W_Position: 0
-  W_Scale: 1
-  H_Position: -0
-  H_Scale: 1
-  shape: 2
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 1, y: 1, z: 1}
   w5: 0
   w6: 1
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1518422879
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1525,6 +1624,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 0
+  W_Scale: 5
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 5, y: 1, z: 5}
   startPosition:
     x: -10.3948
     y: -0.4856
@@ -1539,17 +1647,12 @@ MonoBehaviour:
     w: 5
     h: 4
     p: 0
-  W_Position: 0
-  W_Scale: 5
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 5, y: 1, z: 5}
   w5: 0
   w6: 5
+  h5: 0
+  h6: 4
+  testScale: {x: 5, y: 1, z: 5}
+  saved: 0
 --- !u!64 &1743498657
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1669,8 +1772,7 @@ MonoBehaviour:
   W_Position: 0
   H_Position: 0
   W_Rotation: {x: 0, y: 0, z: 0}
-  SwapH: 0
-  SwapW: 0
+  HX_Rotation: 0
 --- !u!4 &1773301735
 Transform:
   m_ObjectHideFlags: 0
@@ -1718,6 +1820,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 10
+  W_Scale: 5
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 5, y: 1, z: 15}
   startPosition:
     x: -10.3948
     y: -0.4856
@@ -1732,17 +1843,12 @@ MonoBehaviour:
     w: 5
     h: 4
     p: 0
-  W_Position: 10
-  W_Scale: 5
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 5, y: 1, z: 15}
   w5: 10
   w6: 5
+  h5: 0
+  h6: 4
+  testScale: {x: 5, y: 1, z: 15}
+  saved: 0
 --- !u!64 &1872778513
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1862,6 +1968,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 15
+  W_Scale: 10
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 5, y: 1, z: 10}
   startPosition:
     x: 11.0595
     y: 10.3418
@@ -1876,17 +1991,12 @@ MonoBehaviour:
     w: 10
     h: 4
     p: 0
-  W_Position: 15
-  W_Scale: 10
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 5, y: 1, z: 10}
   w5: 15
   w6: 10
+  h5: 0
+  h6: 4
+  testScale: {x: 5, y: 1, z: 10}
+  saved: 0
 --- !u!64 &1904241173
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2090,6 +2200,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 5
+  W_Scale: 10
+  H_Position: 0
+  H_Scale: 4
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  scale3D: {x: 5, y: 1, z: 5}
   startPosition:
     x: -10.3948
     y: -0.4856
@@ -2104,17 +2223,12 @@ MonoBehaviour:
     w: 10
     h: 4
     p: 0
-  W_Position: 5
-  W_Scale: 10
-  H_Position: 0
-  H_Scale: 4
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 5, y: 1, z: 5}
   w5: 5
   w6: 10
+  h5: 0
+  h6: 4
+  testScale: {x: 5, y: 1, z: 5}
+  saved: 0
 --- !u!64 &1993757577
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2364,3 +2478,4 @@ SceneRoots:
   - {fileID: 2026940610}
   - {fileID: 549630514}
   - {fileID: 448941261}
+  - {fileID: 62187302}

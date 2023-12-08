@@ -6,7 +6,8 @@ using UnityEngine;
 public class Move4DAxis : MonoBehaviour
 {
     GameObject select;
-   [SerializeField] GameObject[] axis;
+   public static GameObject GetSelect;
+    [SerializeField] GameObject[] axis;
     int curaxis = 3;
 
     // Update is called once per frame
@@ -14,7 +15,11 @@ public class Move4DAxis : MonoBehaviour
     {
         if (select != null)
         {
-            if (select.GetComponent<MultyObject>()) transform.position = select.transform.position + (new Vector3(1, 0, -1) * (select.GetComponent<MultyObject>().W_Position - mover.main().W_position));
+            if (select.GetComponent<MultyObject>())
+            {
+                transform.position = select.transform.position + (new Vector3(1, 0, -1) * (select.GetComponent<MultyObject>().W_Position - mover.main().W_position));
+                transform.position += (new Vector3(1, 1, 1) * (select.GetComponent<MultyObject>().H_Position - mover.main().H_position));
+            }
             else transform.position = select.transform.position;
         }
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -50,11 +55,15 @@ public class Move4DAxis : MonoBehaviour
                         {
                             curaxis = 2;
                         }
-                        if (axis[3] == MainRay.MainHit.collider.gameObject)
-                        {
-                            curaxis = 4;
-                        }
+                    if (axis[3] == MainRay.MainHit.collider.gameObject)
+                    {
+                        curaxis = 4;
                     }
+                    if (axis[4] == MainRay.MainHit.collider.gameObject)
+                    {
+                        curaxis = 5;
+                    }
+                }
                 }
 
             
@@ -67,20 +76,39 @@ public class Move4DAxis : MonoBehaviour
         {
             if (curaxis == 0)
             {
-                select.transform.position += (Vector3.right * Input.GetAxis("Mouse X"));
+                if (select.GetComponent<MultyObject>())
+                {
+                    select.GetComponent<MultyObject>().startPosition.x += Input.GetAxis("Mouse X");
+                }
+                else
+                    select.transform.position += (Vector3.right * Input.GetAxis("Mouse X"));
             }
             if (curaxis == 1)
             {
-                select.transform.position += (Vector3.up * Input.GetAxis("Mouse X"));
+                if (select.GetComponent<MultyObject>())
+                {
+                    select.GetComponent<MultyObject>().startPosition.y += Input.GetAxis("Mouse X");
+                }
+                else
+                    select.transform.position += (Vector3.up * Input.GetAxis("Mouse X"));
             }
             if (curaxis == 2)
             {
-                select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X"));
+                if (select.GetComponent<MultyObject>())
+                {
+                    select.GetComponent<MultyObject>().startPosition.z += Input.GetAxis("Mouse X");
+                }else
+                    select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X"));
             }
             if (curaxis == 4)
             {
                 if (select.GetComponent<MultyObject>())
                     select.GetComponent<MultyObject>().W_Position += Input.GetAxis("Mouse X");
+            }
+            if (curaxis == 5)
+            {
+                if (select.GetComponent<MultyObject>())
+                    select.GetComponent<MultyObject>().H_Position += Input.GetAxis("Mouse X");
             }
         }
         if (select && Input.GetKey(KeyCode.LeftControl))

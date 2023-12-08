@@ -638,7 +638,11 @@ public class ElementalInventory : MonoBehaviour {
         yield return new WaitForSeconds(1);
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
-	void itemUse()
+
+    int yu;
+    int yu2;
+    GameObject editObject;
+    void itemUse()
 	{
 
         bool batteytype = Cells[select].elementName == "battery" || Cells[select].elementName == "mathimatic_battery";
@@ -1400,18 +1404,37 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+         && Cells[select].elementName == "Kley" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+
+
+            if (hit.collider != null)
+            {
+               
+
+
+                    Instantiate(inv2("KleySharp").gameObject, hit.point + Vector3.up * inv2("KleySharp").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+               
+
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
          && Cells[select].elementName == "4D-Glasses" && Cells[select].elementCount > 0)
         {
             MultyObject[] mo = FindObjectsByType<MultyObject>(sortmode.main);
             show4D[] sh = FindObjectsByType<show4D>(sortmode.main);
             Tag_4D_metka[] targs = FindObjectsByType<Tag_4D_metka>(sortmode.main);
             GameObject Target = Resources.Load<GameObject>("4D-Metka");
-          if(targs .Length >0)  for (int i = 0; i < targs.Length; i++)
-            {
+            if (targs.Length > 0) for (int i = 0; i < targs.Length; i++)
+                {
 
 
-                targs[i].gameObject.AddComponent<deleter1>();
-            }
+                    targs[i].gameObject.AddComponent<deleter1>();
+                }
 
             for (int i = 0; i < mo.Length; i++)
             {
@@ -1427,7 +1450,112 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+        //GravityAx
+        //   WarpEngine
+        if (boxItem.getInventory("i3").inventory == this
+       && Cells[select].elementName == "GravityAx"
+       && Cells[select].elementCount > 0 && Input.GetKeyDown(KeyCode.E))
+        {
+            mover.main().transform.Rotate(0, 0, 180);
+        }
+        if (boxItem.getInventory("i3").inventory == this
+       && Cells[select].elementName == "WarpEngine"
+       && Cells[select].elementCount > 0 && Input.GetKeyDown(KeyCode.E))
+        {
+            mover.main().transform.position += mover.main().PlayerCamera.transform.forward * 1000;
+        }
+        if (boxItem.getInventory("i3").inventory == this
+       && Cells[select].elementName == "WarpEngine"
+       && Cells[select].elementCount > 0 && Input.GetKeyUp(KeyCode.E))
+        {
+            yu = 0;
+        }
+        if (boxItem.getInventory("i3").inventory == this
+       && Cells[select].elementName == "WarpEngine"
+       && Cells[select].elementCount > 0 && Input.GetKey(KeyCode.E))
+        {
+            yu++;
+            if (yu > 60)
+            {
+
+                mover.main().transform.position += mover.main().PlayerCamera.transform.forward * 1000;
+            }
+        }
+        if (boxItem.getInventory("i3").inventory == this
+       && Cells[select].elementName == "WarpEngine"
+       && Cells[select].elementCount > 0 && Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.LeftShift))
+        {
+            yu++;
+            if (yu > 60)
+            {
+
+                mover.main().transform.position += mover.main().PlayerCamera.transform.forward * 100000;
+            }
+        }
+        if (boxItem.getInventory("i3").inventory == this
+       && Cells[select].elementName == "WarpEngine"
+       && Cells[select].elementCount > 0 && Input.GetKeyDown(KeyCode.E) && Input.GetKey(KeyCode.LeftShift))
+        {
+            yu2++;
+            if (yu2 > 2)
+            {
+
+                mover.main().transform.position += mover.main().PlayerCamera.transform.forward * 100000;
+
+                yu2 = 0;
+            }
+        }
+        if (boxItem.getInventory("i3").inventory == this
+         && Cells[select].elementName == "Gift_item_from_other_Universe"
+         && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            if (hit.collider != null)
+            {
+              if (!Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.E) && !Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.R)) editObject = hit.collider.gameObject;
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Globalprefs.LockRotate = true;
+                }
+                if (Input.GetKey(KeyCode.Mouse0))
+                {
+                    editObject.transform.Rotate(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), Input.GetAxis("Mouse ScrollWheel") * 20);
+                }
+                if (Input.GetKeyUp(KeyCode.Mouse0))
+                {
+                    Globalprefs.LockRotate = false;
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    Globalprefs.LockRotate = true;
+                }
+                if (Input.GetKey(KeyCode.E))
+                {
+                    editObject.transform.localScale += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), Input.GetAxis("Mouse ScrollWheel") * 20);
+                }
+                if (Input.GetKeyUp(KeyCode.E))
+                {
+                    Globalprefs.LockRotate = false;
+                }
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    Globalprefs.LockRotate = true;
+                }
+                if (Input.GetKey(KeyCode.Q))
+                {
+                    editObject.transform.position += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), Input.GetAxis("Mouse ScrollWheel")*20);
+                }
+                if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    Globalprefs.LockRotate = false;
+                }
+                if (Input.GetKey(KeyCode.R))
+                {
+                    Destroy(editObject);
+                }
+            }
+        }
+            if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
          && priaritet("CatCorm") != 0 && Cells[select].elementCount > 0)
         {
             RaycastHit hit = MainRay.MainHit;

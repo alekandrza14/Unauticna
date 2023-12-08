@@ -26,6 +26,7 @@ public static class Globalprefs
     public static decimal OverFlowteuvro;
     public static decimal ItemPrise;
     public static bool bunkrot;
+    public static bool LockRotate;
 
     public static Vector3[] postes;
     public static Vector3[] postes2;

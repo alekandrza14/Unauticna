@@ -341,7 +341,13 @@ public class complsave : MonoBehaviour
 
 
 
-                    saveString1.vector3A.Add(items[i3].transform.position);
+                if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
+                
+                if (items[i3].GetComponent<MultyObject>())
+                {
+                    Vector6 v6 = items[i3].GetComponent<MultyObject>().startPosition;
+                    saveString1.vector3A.Add(new Vector3(v6.x, v6.y, v6.z));
+                }
                     saveString1.Scale3A.Add(items[i3].transform.localScale);
                     saveString1.qA.Add(items[i3].transform.rotation); 
                 if (items[i3].GetComponent<MultyObject>())
@@ -371,7 +377,12 @@ public class complsave : MonoBehaviour
 
         for (int i = 0; i < co.Length; i++)
         {
-            saveString1.vector3D.Add(co[i].transform.position);
+            if (co[i].GetComponent<MultyObject>())
+            {
+                Vector6 v6 = co[i].GetComponent<MultyObject>().startPosition;
+                 saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
+            }
+            if (!co[i].GetComponent<MultyObject>()) saveString1.vector3D.Add(co[i].transform.position);
             saveString1.idC.Add(co[i].s);
             saveString1.SavedPlayer.Add(true);
             if (co[i].GetComponent<MultyObject>())
@@ -390,7 +401,12 @@ public class complsave : MonoBehaviour
         StandartObject[] so = FindObjectsByType<StandartObject>(sortmode.main);
         for (int i = 0; i < so.Length; i++)
         {
-            saveString1.vector3C.Add(so[i].transform.position);
+            if (so[i].GetComponent<MultyObject>())
+            {
+                Vector6 v6 = so[i].GetComponent<MultyObject>().startPosition;
+                saveString1.vector3C.Add(new Vector3(v6.x, v6.y, v6.z));
+            }
+            if (!so[i].GetComponent<MultyObject>()) saveString1.vector3C.Add(so[i].transform.position);
             saveString1.idB.Add(so[i].init);
             saveString1.Scale3B.Add(so[i].transform.localScale);
             if (so[i].
