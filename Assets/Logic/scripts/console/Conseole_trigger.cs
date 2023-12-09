@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,6 +57,34 @@ public class Conseole_trigger : MonoBehaviour
             if (s[0] == "scene_by_name")
             {
                 a = "13";
+            }
+            if (s[0] == "iddqd")
+            {
+                a = "16";
+            }
+            if (s[0] == "no_kapitalizm")
+            {
+                a = "17";
+            }
+            if (s[0] == "yes_kapitalizm")
+            {
+                a = "18";
+            }
+            if (s[0] == "Kill_Economic")
+            {
+                a = "20";
+            }
+            if (s[0] == "Kill_Knowmic")
+            {
+                a = "21";
+            }
+            if (s[0] == "Unyverseium_money_cart")
+            {
+                a = "22";
+            }
+            if (s[0] == "newVolute")
+            {
+                a = "19";
             }
             if (s[0] == "Gamemode")
             {
@@ -118,6 +147,73 @@ public class Conseole_trigger : MonoBehaviour
             {
                 SceneManager.LoadScene(s[1]);
 
+            }
+            if (i == 1 && a == "16")
+            {
+                playerdata.Addeffect("Undyning", float.PositiveInfinity);
+
+            }
+            if (i == 1 && a == "17")
+            {
+                playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
+
+                VarSave.SetMoney("Inflation", 200000, SaveType.global);
+
+            }
+            if (i == 1 && a == "18")
+            {
+                VarSave.SetMoney("Inflation", 200000, SaveType.global);
+                VarSave.SetMoney("tevro", 2000);
+
+                playerdata.hasClearEffect("No kapitalism");
+
+            }
+            if (i == 1 && a == "19")
+            {
+                Globalprefs.flowteuvro /= (decimal)((Globalprefs.GetProcentInflitiuon() + 1));
+                VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                VarSave.SetMoney("Inflation", 0, SaveType.global);
+                VarSave.SetMoney("tevro", 0);
+
+            }
+            if (i == 1 && a == "20")
+            {
+
+                playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
+                VarSave.SetMoney("Inflation", 0, SaveType.global);
+
+            }
+            if (i == 1 && a == "21")
+            {
+                foreach (GameObject g in complsave.t3)
+                {
+
+                    if (!VarSave.ExistenceVar("researchs/" + g.name))
+                    {
+                        Directory.CreateDirectory("unsave/var/researchs");
+
+
+
+                        Globalprefs.research = VarSave.GetMoney("research");
+                        VarSave.SetInt("researchs/" + g.name, 0);
+
+                    }
+                }
+                Globalprefs.knowlages = 1000;
+                VarSave.SetMoney("research", decimal.MaxValue);
+                gsave gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
+                mover.main().gsave.progressofthepassage = int.MaxValue - 1000;
+                gsave.progressofthepassage = int.MaxValue-1000;
+                File.WriteAllText("unsave/capterg/" + Globalprefs.GetTimeline(), JsonUtility.ToJson(gsave));
+                GameManager.save();
+
+            }
+            //Unyverseium_money_cart
+            if (i == 1 && a == "22")
+            {
+                playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
+                Globalprefs.Infinitysteuvro += double.Parse(s[1]);
+                VarSave.LoadTrash("inftevro", double.Parse(s[1]));
             }
             if (i == 1 && a == "2")
             {

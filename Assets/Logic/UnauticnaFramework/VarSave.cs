@@ -218,7 +218,39 @@ public class VarSave
         decimal varout = 0.0m;
         if (File.Exists(path + "/" + key))
         {
-          if(script.isNumber(File.ReadAllText(path + "/" + key)))  varout = decimal.Parse(File.ReadAllText(path + "/" + key));
+            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = decimal.Parse(File.ReadAllText(path + "/" + key));
+        }
+        Directory.CreateDirectory(path);
+        File.WriteAllText(path + "/" + key, (varout + var).ToString());
+        return (varout + var);
+    }
+    public static void SetTrash(string key, double var)
+    {
+        Directory.CreateDirectory(path);
+        File.WriteAllText(path + "/" + key, var.ToString());
+    }
+    public static void SetTrash(string key, double var, SaveType saveType)
+    {
+        Directory.CreateDirectory(GetPath(saveType));
+        File.WriteAllText(GetPath(saveType) + "/" + key, var.ToString());
+    }
+    public static double LoadTrash(string key, double var, SaveType saveType)
+    {
+        double varout = 0.0d;
+        if (File.Exists(GetPath(saveType) + "/" + key))
+        {
+            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = double.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+        }
+        Directory.CreateDirectory(GetPath(saveType));
+        File.WriteAllText(GetPath(saveType) + "/" + key, (varout + var).ToString());
+        return (varout + var);
+    }
+    public static double LoadTrash(string key, double var)
+    {
+        double varout = 0.0d;
+        if (File.Exists(path + "/" + key))
+        {
+            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = double.Parse(File.ReadAllText(path + "/" + key));
         }
         Directory.CreateDirectory(path);
         File.WriteAllText(path + "/" + key, (varout + var).ToString());
@@ -283,6 +315,24 @@ public class VarSave
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
             if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = decimal.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+        }
+        return varout;
+    }
+    public static double GetTrash(string key)
+    {
+        double varout = 0.0d;
+        if (File.Exists(path + "/" + key))
+        {
+            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = double.Parse(File.ReadAllText(path + "/" + key));
+        }
+        return varout;
+    }
+    public static double GetTrash(string key, SaveType saveType)
+    {
+        double varout = 0.0d;
+        if (File.Exists(GetPath(saveType) + "/" + key))
+        {
+            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = double.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }

@@ -20,6 +20,7 @@ public static class Globalprefs
     public static float KomplexY = 1;
     public static List<string> SelfFunctions = new List<string>();
     public static decimal flowteuvro;
+    public static double Infinitysteuvro;
     public static decimal knowlages;
     public static decimal technologies;
     public static decimal research;

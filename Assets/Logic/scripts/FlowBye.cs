@@ -37,6 +37,7 @@ public class FlowBye : MonoBehaviour
                     {
                         Globalprefs.flowteuvro += flow;
                         Globalprefs.flowteuvro -= (decimal)(loan * Procent);
+
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                         VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
                         VarSave.SetInt("re/" + realestatename, 0);

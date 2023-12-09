@@ -87,7 +87,7 @@ public class mover : MonoBehaviour
     [SerializeField] Animator[] SkinedAnimators;
     save save = new save();
     tsave tsave = new tsave();
-    gsave gsave = new gsave();
+  public  gsave gsave = new gsave();
 
     [SerializeField] public float W_position;
     [SerializeField] public float H_position;
@@ -515,6 +515,7 @@ public class mover : MonoBehaviour
         Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.technologies = VarSave.GetMoney("_technologies");
         Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow");
+        Globalprefs.Infinitysteuvro = VarSave.GetTrash("inftevro");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
@@ -847,19 +848,33 @@ public class mover : MonoBehaviour
         {
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Game Varibles :");
 
-            GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+            if (playerdata.Geteffect("No kapitalism") == null)
+            {
+                if (playerdata.Geteffect("Unyverseium_money_cart") != null)
+                {
+                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : ∞ * " + Globalprefs.Infinitysteuvro);
+                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+
+                }
+                else
+                {
+                     GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+                }
+            }
+                if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞");
             GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2));
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
-            GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise);
+            GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + (Globalprefs.knowlages + gsave.progressofthepassage).ToString());
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
             GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
-            GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
+            if (playerdata.Geteffect("Undyning") == null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
+            if (playerdata.Geteffect("Undyning") != null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + "∞ ok is this mean we don't dyeing?");
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
             GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
-            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.LoadMoney("Inflation", 0, SaveType.global) + "%");
+            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.GetMoney("Inflation", SaveType.global) + "%");
             //cistalenemy.dies
 
 
@@ -1466,7 +1481,7 @@ public class mover : MonoBehaviour
     }
     private void EconomicUpdate()
     {
-        if (VarSave.LoadMoney("Inflation", 0, SaveType.global) < 0) VarSave.LoadMoney("Inflation", -VarSave.LoadMoney("Inflation", 0, SaveType.global), SaveType.global);
+        if (VarSave.GetMoney("Inflation", SaveType.global) < 0) VarSave.SetMoney("Inflation", 0, SaveType.global);
         timer += (decimal)Time.deltaTime;
         if (timer > 60m * 60m)
         {
@@ -1494,7 +1509,7 @@ public class mover : MonoBehaviour
                 cistalenemy.dies += 100;
                 VarSave.SetInt("Agr", cistalenemy.dies);
             }
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise);
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
             Destroy(Globalprefs.selectitemobj.gameObject);
             Globalprefs.selectitem = "";
             Globalprefs.ItemPrise = 0;
@@ -2068,46 +2083,20 @@ public class mover : MonoBehaviour
     bool big;
     private void EffectUpdate()
     {
-        if (playerdata.Geteffect("invisible") != null)
+        // playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
+        if (playerdata.Geteffect("Undyning") != null)
         {
-            invisibeobject = 10;
-
-            for (int i = 0; i < PlayersModelObjObjects.Length; i++)
-            {
-
-
-                if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
-                {
-
-                    //  Debug.Log("invisible0");
-                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
-                   List<Material> m = new List<Material>();
-                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
-                    {
-                        m.Add(m2);
-                    }
-                    m[PlayerModelTags[i]] = m3;
-                          PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().SetMaterials(m);
-                      //  PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().sharedMaterials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
-                 //   PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
-                }
-                if (PlayersModelObjObjects[i].GetComponent<MeshRenderer>())
-                {
-
-
-                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
-                    List<Material> m = new List<Material>();
-                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
-                    {
-                        m.Add(m2);
-                    }
-                    m[PlayerModelTags[i]] = m3;
-                    PlayersModelObjObjects[i].GetComponent<MeshRenderer>().SetMaterials(m);
-                    //   Debug.Log("invisible1");
-                  //  PlayersModelObjObjects[i].GetComponent<MeshRenderer>().sharedMaterials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
-                  //  PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials[PlayerModelTags[i]] = Resources.Load<Material>("pm/playermatinvisible");
-                }
-            }
+            hp = int.MaxValue;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("No kapitalism") != null)
+        {
+            VarSave.SetMoney("tevro", decimal.MaxValue);
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Unyverseium_money_cart") != null)
+        {
+           if(Globalprefs.Infinitysteuvro>0) VarSave.SetMoney("tevro", decimal.MaxValue);
             //playermatinvisible
         }
         if (playerdata.Geteffect("invisible") == null)

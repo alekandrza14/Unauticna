@@ -151,6 +151,29 @@ public class playerdata
         }
         return ef;
     }
+    static public useeffect hasClearEffect(string name)
+    {
+        useeffect ef = null;
+        for (int i = 0; i < playerdata.effects.Length; i++)
+        {
+            if (playerdata.effects[i].effect == name)
+            {
+                ef = playerdata.effects[i];
+
+                playerdata.effects[i].effect = "";
+                playerdata.effects[i].time = 0;
+            }
+        }
+        if (playerdata.Paniceffect[0].effect != "")
+        {
+            ef = playerdata.Paniceffect[0];
+
+            playerdata.Paniceffect[0].effect = "";
+            playerdata.Paniceffect[0].time = 0;
+        }
+
+        return ef;
+    }
     public static int overload()
     {
         int defult = 1;
