@@ -1404,6 +1404,16 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+         && Cells[select].elementName == "SampleCrown" && Cells[select].elementCount > 0 && VarSave.GetString("ProfStatus") == "King")
+        {
+
+            VarSave.SetMoney("tevro", 2500000000);
+            cistalenemy.dies = -10000;
+            VarSave.SetMoney("CashFlow", 5500);
+            Globalprefs.flowteuvro = 5500;
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
          && Cells[select].elementName == "Kley" && Cells[select].elementCount > 0)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -1412,12 +1422,12 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-               
 
 
-                    Instantiate(inv2("KleySharp").gameObject, hit.point + Vector3.up * inv2("KleySharp").gameObject.transform.localScale.y / 2, Quaternion.identity);
 
-               
+                Instantiate(inv2("KleySharp").gameObject, hit.point + Vector3.up * inv2("KleySharp").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+
 
             }
 

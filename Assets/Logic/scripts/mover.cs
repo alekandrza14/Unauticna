@@ -493,9 +493,13 @@ public class mover : MonoBehaviour
         {
             LastSesionHours = timer7;
         }
+        if (UnityEngine.Random.Range(0, 30) == 1)
+        {
+            Instantiate(Resources.Load<GameObject>("events/Pirats"));
+        }
         if (timer7 != LastSesionHours)
         {
-           
+            
           //      VarSave.LoadMoney("tevro", UnityEngine.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
              
 
@@ -565,6 +569,7 @@ public class mover : MonoBehaviour
 
         //four-Dimentional-Axis
         Instantiate(Resources.Load<GameObject>("player inventory"));
+        if (VarSave.ExistenceVar("Player_On_Pirat_Attack")) Instantiate(Resources.Load<GameObject>("events/Pirats"));
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
         Instantiate(Resources.Load<GameObject>("Rm/Hyper_null"));
@@ -875,6 +880,14 @@ public class mover : MonoBehaviour
             GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
             GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.GetMoney("Inflation", SaveType.global) + "%");
+            if (VarSave.GetString("ProfStatus") !="")
+            { 
+                GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + VarSave.GetString("ProfStatus"));
+            }
+            else 
+            {
+                GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + "Unknown");
+            }
             //cistalenemy.dies
 
 

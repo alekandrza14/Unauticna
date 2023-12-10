@@ -17,6 +17,12 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "Словил пулю от фашиста";
             VarSave.SetBool("Фашист победил", false);
         }
+        if (VarSave.GetBool("Пират победил"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "Был обокраден пиратом";
+            VarSave.SetBool("Пират победил", false);
+        }
         if (VarSave.GetBool("Касание анти материи"))
         {
             hello.windowmesenge.Dialog_die();

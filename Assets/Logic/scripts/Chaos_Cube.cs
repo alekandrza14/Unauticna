@@ -21,12 +21,18 @@ public class Chaos_cube : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
+                  
                     if (hit.collider.gameObject == gameObject)
                     {
                         u--;
                     }
                     if (hit.collider.gameObject == gameObject && u < 0)
                     {
+                        if (UnityEngine.Random.Range(0, 30) == 1)
+                        {
+                            GameObject[] res = Resources.LoadAll<GameObject>("events");
+                            Instantiate(res[Random.Range(0, res.Length)], transform.position, Quaternion.identity);
+                        }
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                         Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

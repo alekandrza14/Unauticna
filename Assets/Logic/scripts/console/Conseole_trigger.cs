@@ -82,6 +82,14 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "22";
             }
+            if (s[0] == "Pirati_sasut")
+            {
+                a = "23";
+            }
+            if (s[0] == "StartPoket")
+            {
+                a = "24";
+            }
             if (s[0] == "newVolute")
             {
                 a = "19";
@@ -175,6 +183,8 @@ public class Conseole_trigger : MonoBehaviour
                 VarSave.SetMoney("Inflation", 0, SaveType.global);
                 VarSave.SetMoney("tevro", 0);
 
+                playerdata.hasClearEffect("No kapitalism");
+                playerdata.hasClearEffect("Unyverseium_money_cart");
             }
             if (i == 1 && a == "20")
             {
@@ -214,6 +224,348 @@ public class Conseole_trigger : MonoBehaviour
                 playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
                 Globalprefs.Infinitysteuvro += double.Parse(s[1]);
                 VarSave.LoadTrash("inftevro", double.Parse(s[1]));
+            }
+            if (i == 1 && a == "23")
+            {
+                Instantiate(Resources.Load<GameObject>("events/Pirats"));
+            }
+            if (i == 1 && a == "24")
+            {
+                if (s[1] == "Pirat")
+                {
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gold"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/infinity_gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/infinity_gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.LoadMoney("tevro", 5000); VarSave.SetString("ProfStatus", "Pirat");
+                }
+
+                if (s[1] == "Programer")
+                {
+                    Instantiate(Resources.Load<GameObject>("items/Script"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Script"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Script"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Script"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Script"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Programer");
+                    VarSave.LoadMoney("tevro", 2000);
+                }
+                if (s[1] == "Farmer")
+                {
+                    Instantiate(Resources.Load<GameObject>("items/Belock"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/MiniChest"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/MiniChest"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Farmer");
+                    VarSave.LoadMoney("tevro", 200);
+                }
+                if (s[1] == "Traider")
+                {
+                    VarSave.SetString("ProfStatus", "Traider");
+                    GameObject[] res = Resources.LoadAll<GameObject>("items");
+                    for (int i2 = 0; i2 < 30; i2++)
+                    {
+                        Instantiate(res[Random.Range(0, res.Length)], mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    }
+                    VarSave.LoadMoney("tevro", 5000);
+                }
+                if (s[1] == "Adventurer")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    //4D-Glasses
+                    VarSave.SetString("ProfStatus", "Adventurer");
+                    VarSave.LoadMoney("tevro", 500);
+                }
+                if (s[1] == "Warior")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    //4D-Glasses
+                    VarSave.SetString("ProfStatus", "Warior");
+                    VarSave.LoadMoney("tevro", 100);
+                }
+                if (s[1] == "Scientist")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Kley"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    //Kley
+                    //4D-Glasses
+                    VarSave.SetString("ProfStatus", "Scientist");
+                    VarSave.LoadMoney("tevro", 10000);
+                }
+                if (s[1] == "Astronom")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Kley"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/GravityAx"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gravity_board"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    //GravityAx
+                    //Gravity_board
+                    VarSave.SetString("ProfStatus", "Astronom");
+                    VarSave.LoadMoney("tevro", 1000);
+                }
+                if (s[1] == "Astronaft")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Kley"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/GravityAx"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gravity_board"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/WarpEngine"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    //GravityAx
+                    //Gravity_board
+                    VarSave.SetString("ProfStatus", "Astronaft");
+                    VarSave.LoadMoney("tevro", 1000);
+                }
+                if (s[1] == "Economist")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks2"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks3"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks4"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks5"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    //GravityAx
+                    //Gravity_board
+                    VarSave.SetString("ProfStatus", "Economist");
+                    VarSave.LoadMoney("tevro", 20000);
+                  Globalprefs.flowteuvro =  VarSave.LoadMoney("CashFlow", 10);
+                }
+                if (s[1] == "PlanetMaster")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Gravity_board"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/WarpEngine"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/RayGun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "PlanetMaster");
+                    //GravityAx
+                    //Gravity_board
+
+                    VarSave.LoadMoney("tevro", 2000000);
+                    Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", 1000);
+                }
+                if (s[1] == "Fashist")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Kley"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Kley"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Fashist");
+                    //GravityAx
+                    //Gravity_board
+
+                    VarSave.LoadMoney("tevro", 2000);
+                }
+                if (s[1] == "Cheter")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Duper"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/СамоучительПоНероазрушимымСтенам"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Портал_в_логово_читеров"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/MltiverseMagicStick"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Cheter");
+                    //Портал_в_логово_читеров
+                    //Gravity_board
+
+                    VarSave.LoadMoney("tevro", 9999999);
+                    Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", 9999);
+                }
+                if (s[1] == "Witch")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/СамоучительПоНероазрушимымСтенам"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/MltiverseMagicStick"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Портал_в_логово_читеров"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Учебник_по_Всемогуществу"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/KsenoMorfin"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Absolute_poison"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Witch");
+                    //KsenoMorfin
+                    //Absolute_poison
+
+                    VarSave.LoadMoney("tevro", 1000);
+                }
+                if (s[1] == "Bankcrot")
+                {
+
+                    VarSave.SetString("ProfStatus", "Bankcrot");
+
+                    //KsenoMorfin
+                    //Absolute_poison
+                    VarSave.SetBool("Bunkrot", true);
+                    VarSave.LoadMoney("tevro", -10000);
+                    Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", -10);
+                }
+                if (s[1] == "BisnessMen")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/Worker"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+
+                    Instantiate(Resources.Load<GameObject>("items/DirectorTable"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "BisnessMen");
+                    //KsenoMorfin
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 1000);
+                    Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", 5);
+                }
+                if (s[1] == "StoneBraker")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "StoneBraker");
+                    //KsenoMorfin
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 10);
+                }
+                if (s[1] == "BlackHoleScientist")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/MiniHole"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "BlackHoleScientist");
+                    //KsenoMorfin
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 1000000);
+                }
+                if (s[1] == "King")
+                {
+
+                    Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/SampleCrown"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "King");
+                    //SampleCrown
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 2500000000);
+                    cistalenemy.dies -= 10000;
+                    Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", 5500);
+                }
+                if (s[1] == "Watchman")
+                {
+                    Instantiate(Resources.Load<GameObject>("items/Kley"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/4D-Glasses"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/CraftStantion"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/AppleJuice"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Watchman");
+                    //SampleCrown
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 250);
+                }
+                if (s[1] == "Builder")
+                {
+                    Instantiate(Resources.Load<GameObject>("items/Kley"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/builder"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/ItemKey"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/СамоучительПоСтраительству"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Builder");
+                    //SampleCrown
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 2500);
+                }
+                if (s[1] == "Electric")
+                {
+                    Instantiate(Resources.Load<GameObject>("items/Kley"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/builder"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/ItemKey"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/accumulator"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/battery"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/BioElectrostation"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/ButtonGenerator"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/SunPanel"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/LightStick"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/mathimatic_battery"), mover.main().transform.position + PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    VarSave.SetString("ProfStatus", "Electric");
+                    //SampleCrown
+                    //Absolute_poison
+                    VarSave.LoadMoney("tevro", 2500);
+                }
             }
             if (i == 1 && a == "2")
             {

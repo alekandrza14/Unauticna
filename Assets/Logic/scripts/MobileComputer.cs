@@ -300,7 +300,7 @@ public class MobileComputer : MonoBehaviour
                     {
                         if (item._Name == classitem.GetComponent<itemName>()._Name)
                         {
-                            VarSave.LoadMoney("tevro", (decimal)item.ItemPrise);
+                          if(VarSave.LoadMoney("tevro", 0)< decimal.MaxValue - (decimal)item.ItemPrise)  VarSave.LoadMoney("tevro", (decimal)item.ItemPrise);
                            item.gameObject.AddComponent<DELETE>();
                         }
                     }
