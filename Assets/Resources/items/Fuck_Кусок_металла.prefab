@@ -15,8 +15,10 @@ GameObject:
   - component: {fileID: 4231938091687929281}
   - component: {fileID: 8381959486969430999}
   - component: {fileID: 2391036187838674930}
+  - component: {fileID: 542820753626597714}
+  - component: {fileID: 6308694578690296367}
   m_Layer: 0
-  m_Name: "Fuck_\u041A\u0441\u043E\u043A_\u043C\u0435\u0442\u0430\u043B\u043B\u0430"
+  m_Name: "Fuck_\u041A\u0443\u0441\u043E\u043A_\u043C\u0435\u0442\u0430\u043B\u043B\u0430"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +165,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.05, z: 1}
+  m_Size: {x: 1, y: 0.1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4231938091687929281
 MonoBehaviour:
@@ -189,8 +191,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463299247913181560}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 2
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -203,7 +205,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -220,6 +222,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6e3626118ce50489ad58c0b130a0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 4010672940072454077}
+--- !u!114 &542820753626597714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463299247913181560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31a2ec3f6a09884a88e2413e721a5a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: -9
+  body: {fileID: 483255704494376225}
+--- !u!114 &6308694578690296367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463299247913181560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6ee5fa675a45441a703b2c9e3ea6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  integer: 10
 --- !u!1 &5571746778647982938
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +312,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8f3c189c3df7fc245b8a4f896076f7d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -388,7 +418,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8f3c189c3df7fc245b8a4f896076f7d3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

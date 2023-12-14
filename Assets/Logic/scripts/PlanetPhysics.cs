@@ -21,8 +21,8 @@ public class PlanetPhysics : MonoBehaviour
         {
             transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
 
-            if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0) body.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            body.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+          if (FindObjectsByType<HyperbolicCamera>(sortmode.main).Length == 0) body.gameObject.GetComponent<Rigidbody>().useGravity = true;
+          body.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
         }
     }
     // Start is called before the first frame update

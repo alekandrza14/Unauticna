@@ -391,9 +391,10 @@ public class mover : MonoBehaviour
         }
         if (other.GetComponent<notswiming>())
         {
-            InWater = true;
+             InWater = true;
 
         }
+       
     }
     private void OnTriggerStay(Collider other)
     {
@@ -402,8 +403,8 @@ public class mover : MonoBehaviour
             PlayerCamera.GetComponent<Camera>().enabled = 1 ==UnityEngine.Random.Range(0, 3);
 
         }
-       
 
+        if (other.GetComponent<FreedomOxygen>()) oxygen = 20;
     }
 
     private void OnTriggerExit(Collider other)
@@ -419,6 +420,7 @@ public class mover : MonoBehaviour
             PlayerCamera.GetComponent<Camera>().enabled = true;
 
         }
+        
     }
     void OnCollisionExit(Collision collision)
     {

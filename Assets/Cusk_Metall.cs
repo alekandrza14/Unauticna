@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Cusk_Metall : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] AudioSource audioSource;
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        audioSource.Play();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
