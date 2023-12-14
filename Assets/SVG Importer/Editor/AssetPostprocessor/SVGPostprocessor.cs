@@ -156,9 +156,9 @@ namespace SVGImporter
 
             importSVGAssets.Clear();
             importSVGAssets = null;
-            /*
+            
             // Reimport SVG Assets
-            int currentAssetIndex = 0;
+         //  int currentAssetIndex = 0;
             foreach(SVGAsset svgAsset in reimportSVGAssets)
             {
                 string asset = AssetDatabase.GetAssetPath(svgAsset);
@@ -172,7 +172,7 @@ namespace SVGImporter
                     currentAssetIndex++;
                 }
             }
-            */
+            
             EditorUtility.ClearProgressBar();
             reimportSVGAssets.Clear();
             reimportSVGAssets = null;

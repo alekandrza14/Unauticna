@@ -40,6 +40,7 @@ public class button9 : MonoBehaviour
         if (s.gameObject.tag == "Player")
         {
 
+            button6.TabUse = Instantiate(Resources.Load<GameObject>("ui/info/PressTabToUse"));
             startcol();
 
 
@@ -141,6 +142,7 @@ public class button9 : MonoBehaviour
         if (s.gameObject.tag == "Player")
         {
 
+            if (button6.TabUse) Destroy(button6.TabUse);
             enter = false;
             PlayerPrefs.SetString("text", "");
             

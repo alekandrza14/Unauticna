@@ -10,6 +10,22 @@ public class Chaos_cube : MonoBehaviour
     GameObject[] items;
     GameObject[] Obj;
     [SerializeField] bool ultra;
+    bool omega;
+    bool init;
+    private void Start()
+    {
+        float Chance = 100 / (VarSave.GetFloat("ChanceChaosCubeDeath" + "_gameSettings", SaveType.global) * 100f);
+        if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0 && !init)
+        {
+            ultra = true;
+            init = true;
+        }
+        if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0 && ultra && !init)
+        {
+            omega = true;
+            init = true;
+        }
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) )
@@ -46,6 +62,13 @@ public class Chaos_cube : MonoBehaviour
                         if (ultra)
                         {
                             for (int i = 0; i < 20; i++)
+                            {
+                                Rand();
+                            }
+                        }
+                        if (ultra&& omega)
+                        {
+                            for (int i = 0; i < 50; i++)
                             {
                                 Rand();
                             }

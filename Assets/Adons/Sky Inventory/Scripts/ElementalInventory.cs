@@ -1273,6 +1273,30 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Absolute_poison", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Absolute_poison_II") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            playerdata.Addeffect("BigShot", 600);
+            playerdata.Addeffect("MetabolismUp", 600);
+            playerdata.Addeffect("Axelerate", 600);
+            playerdata.Addeffect("invisible", 600);
+            playerdata.Addeffect("Trip", 600);
+            playerdata.Addeffect("Tripl2", 600);
+            playerdata.Addeffect("KsenoMorfin", 600);
+            VarSave.SetInt("CurrentMorf", Random.Range(0, complsave.t5.Length));
+            playerdata.Addeffect("Regeneration", 600);
+            playerdata.Addeffect("ImbalenceRegeneration", 600);
+            playerdata.Addeffect("severe hangover", 600);
+            playerdata.Addeffect("InfaltionUp", 600);
+
+            playerdata.FreezeAlleffect();
+
+            lowitem("Absolute_poison_II", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("KsenoMorfin") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1342,6 +1366,46 @@ public class ElementalInventory : MonoBehaviour {
 
 
             lowitem("YourJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Vine") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandDamage();
+
+
+
+            if (playerdata.Geteffect("mild hangover") != null)
+            {
+                playerdata.Upeffect("mild hangover", 60);
+                if (playerdata.Geteffect("mild hangover").time >= 400)
+                {
+                    playerdata.Addeffect("severe hangover", 400);
+                }
+            }
+
+            if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 100);
+
+
+
+            lowitem("Vine", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("EffectFreezer") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandDamage();
+
+
+
+            
+            if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 10);
+            playerdata.FreezeAlleffect();
+
+
+            lowitem("EffectFreezer", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this

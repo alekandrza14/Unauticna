@@ -100,15 +100,28 @@ public class playerdata
     {
         for (int i = 0; i < playerdata.effects.Length; i++)
         {
-           
 
-            VarSave.SetString("effect_"+i,JsonUtility.ToJson(playerdata.effects[i]));
+
+            VarSave.SetString("effect_" + i, JsonUtility.ToJson(playerdata.effects[i]));
 
 
 
         }
-        
+
         VarSave.SetString("effect_" + "panic", JsonUtility.ToJson(playerdata.Paniceffect[0]));
+    }
+    static public void FreezeAlleffect()
+    {
+        for (int i = 0; i < playerdata.effects.Length; i++)
+        {
+
+
+            playerdata.effects[i].time = float.PositiveInfinity;
+
+
+
+        }
+
     }
     static public void Addeffect(string name, float secoundstime)
     {
@@ -150,6 +163,20 @@ public class playerdata
             ef = playerdata.Paniceffect[0];
         }
         return ef;
+    }
+    static public void Upeffect(string name, float secoundstime)
+    {
+        for (int i = 0; i < playerdata.effects.Length; i++)
+        {
+            if (playerdata.effects[i].effect == name)
+            {
+                playerdata.effects[i].time += secoundstime;
+            }
+        }
+        if (playerdata.Paniceffect[0].effect != "")
+        {
+            playerdata.Paniceffect[0].time += secoundstime;
+        }
     }
     static public useeffect hasClearEffect(string name)
     {

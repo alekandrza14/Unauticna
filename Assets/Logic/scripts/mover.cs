@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
 using UnityEngine.ProBuilder.MeshOperations;
+using System.Runtime.ExceptionServices;
 
 public class load1
 {
@@ -493,9 +494,25 @@ public class mover : MonoBehaviour
         {
             LastSesionHours = timer7;
         }
-        if (UnityEngine.Random.Range(0, 30) == 1)
+        float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * 100f);
+        if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0)
         {
+            Debug.Log("CahncePiratAttack" + (int)Chance);
             Instantiate(Resources.Load<GameObject>("events/Pirats"));
+        }
+        float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * 100f);
+        if (UnityEngine.Random.Range(0, (int)Chance2 + 1) == 0)
+        {
+            cistalenemy.dies -= 2;
+            VarSave.LoadMoney("tevro", -100);
+        }
+        float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * 100f);
+        if (UnityEngine.Random.Range(0, (int)Chance3 + 1) == 0)
+        {
+            DirectoryInfo di = new DirectoryInfo("unsave/var/researchs");
+            int random = UnityEngine.Random.Range(0,di.GetFiles().Length);
+           File.Delete( di.GetFiles()[random].FullName);
+            VarSave.LoadMoney("research",-1);
         }
         if (timer7 != LastSesionHours)
         {
@@ -2225,15 +2242,45 @@ public class mover : MonoBehaviour
             //playermatinvisible
         }
 
-       
-      
+
+
         if (playerdata.Geteffect("Tripl2") != null)
         {
 
             timerTrip += 0.01f;
             PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
             transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
-        //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
+
+        if (playerdata.Geteffect("mild hangover") != null)
+        {
+
+            timerTrip += 0.01f;
+            PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 12, 0, 0);
+            //  transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("severe hangover") != null)
+        {
+
+            timerTrip += 0.1f;
+            PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) * 8, 0, 0);
+            //  transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("InfaltionUp") != null)
+        {
+
+            VarSave.LoadMoney("Inflation", 0.1m, SaveType.global);
+            //  transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
 
             //playermatinvisible
         }

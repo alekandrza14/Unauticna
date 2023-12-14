@@ -20,6 +20,7 @@ public class button6 : MonoBehaviour
     public Collider other;
     public HyperbolicPoint sp;
     public float w;
+    public static GameObject TabUse;
     private void Start()
     {
         Init();
@@ -67,7 +68,7 @@ public class button6 : MonoBehaviour
     {
         if (s.gameObject.tag == "Player")
         {
-
+            TabUse = Instantiate(Resources.Load<GameObject>("ui/info/PressTabToUse"));
             startcol();
 
 
@@ -95,7 +96,7 @@ public class button6 : MonoBehaviour
     {
         if (s.gameObject.tag == "Player")
         {
-
+            if (TabUse) Destroy(TabUse);
             enter = false;
             PlayerPrefs.SetString("text", "");
             other = s;
