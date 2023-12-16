@@ -6,7 +6,15 @@ using UnityEngine.UIElements;
 
 public enum NDemention
 {
-    _3D,_4D,_5D
+    _3D, _4D, _5D
+}
+public enum Functional
+{
+    none, spawner, user, mgickStick, steyk, trash
+}
+public enum StandartKey
+{
+    leftmouse,E,Q,leftshift
 }
 
 public class CustomObjectData
@@ -15,6 +23,25 @@ public class CustomObjectData
     public Color _Color;
     public Vector3 scale;
     public NDemention nDemention;
+    public Functional functional;
+    public List<useeffect> effect_no_use = new List<useeffect>()
+    {
+        new useeffect("",0)
+    };
+    public string itemSpawn;
+    public string CoSpawn;
+    public string ObjSpawn;
+    public string EventSpawn;
+    public int RegenerateHp;
+    public double Recycler;
+    public double Redecycler;
+    public double InfinityRecycler;
+    public Vector3 playerRotate;
+    public Vector3 playerMove;
+    public Vector2 playerWHMove;
+    public StandartKey standartKey;
+    public bool ClearEffect,FreezeEffect,AnigilateItem;
+    public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
 
@@ -41,7 +68,8 @@ public class CustomObject : MonoBehaviour
             body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
         }
             mf.mesh = generate();
-        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
+        GetComponent<MeshCollider>().sharedMesh = mf.mesh; 
+        transform.localScale = Model.scale;
         GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
         GetComponent<MeshRenderer>().material.color = Model._Color;
         name = s+"(Clone)";

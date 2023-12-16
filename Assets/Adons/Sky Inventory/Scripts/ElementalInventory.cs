@@ -1059,7 +1059,120 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-      //  1infinityByteDisk
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+            for (int i = 0; i < dif.GetFiles().Length; i++)
+            {
+                if (i < dif.GetFiles().Length)
+                {
+
+
+                    if ("co!" + (dif.GetFiles()[i].Name.Replace(".txt", "")) == Cells[select].elementName)
+                    {
+                        CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(dif.GetFiles()[i].FullName));
+                        if (cod.standartKey == StandartKey.E)
+                        {
+                            CustomFunctionalItem(cod);
+                        }
+                    }
+                }
+
+            }
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+            for (int i = 0; i < dif.GetFiles().Length; i++)
+            {
+                if (i < dif.GetFiles().Length)
+                {
+
+
+                    if ("co!" + (dif.GetFiles()[i].Name.Replace(".txt", "")) == Cells[select].elementName)
+                    {
+                        CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(dif.GetFiles()[i].FullName));
+                        if (cod.standartKey == StandartKey.leftmouse)
+                        {
+
+
+
+                            CustomFunctionalItem(cod);
+                        }
+                    }
+                }
+
+            }
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+            for (int i = 0; i < dif.GetFiles().Length; i++)
+            {
+                if (i < dif.GetFiles().Length)
+                {
+
+
+                    if ("co!" + (dif.GetFiles()[i].Name.Replace(".txt", "")) == Cells[select].elementName)
+                    {
+                        CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(dif.GetFiles()[i].FullName));
+                        if (cod.standartKey == StandartKey.leftshift)
+                        {
+
+
+
+                            CustomFunctionalItem(cod);
+                        }
+                    }
+                }
+
+            }
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+            for (int i = 0; i < dif.GetFiles().Length; i++)
+            {
+                if (i < dif.GetFiles().Length)
+                {
+
+
+                    if ("co!" + (dif.GetFiles()[i].Name.Replace(".txt", "")) == Cells[select].elementName)
+                    {
+                        CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(dif.GetFiles()[i].FullName));
+                        if (cod.standartKey == StandartKey.Q)
+                        {
+
+
+
+                            CustomFunctionalItem(cod);
+                        }
+                    }
+                }
+
+            }
+
+
+
+        }
+        //  1infinityByteDisk
         if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Mouse0) && Getitem("ionic_cube") && priaritet("ionic_cube") != 1 + 1 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1513,13 +1626,15 @@ public class ElementalInventory : MonoBehaviour {
             for (int i = 0; i < mo.Length; i++)
             {
 
-                Instantiate(Target, mo[i].transform.position, Quaternion.identity);
+              GameObject g =  Instantiate(Target, mo[i].transform.position, Quaternion.identity);
+                g.GetComponent<NoscaleParent>().Obj = mo[i].transform;
 
             }
             for (int i = 0; i < sh.Length; i++)
             {
 
-                Instantiate(Target, sh[i].transform.position, Quaternion.identity);
+                GameObject g = Instantiate(Target, sh[i].transform.position, Quaternion.identity);
+                g.GetComponent<NoscaleParent>().Obj = sh[i].transform;
 
             }
 
@@ -1667,6 +1782,25 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("Летунский корм") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "Летун")
+                    {
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                        lowitem("Летунский корм", "");
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
             && batteytype && Cells[select].elementCount > 0)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -1736,7 +1870,75 @@ public class ElementalInventory : MonoBehaviour {
         //sosisca
         VarSave.SetInt("Agr", cistalenemy.dies);
     }
-	private void Update()
+
+    private void CustomFunctionalItem(CustomObjectData cod)
+    {
+        mover m = mover.main();
+        if (cod.functional == Functional.spawner)
+        {
+            if (!string.IsNullOrEmpty(cod.itemSpawn)) Instantiate(Resources.Load<GameObject>("items/" + cod.itemSpawn), m.transform.position, Quaternion.identity);
+            if (!string.IsNullOrEmpty(cod.ObjSpawn)) Instantiate(Resources.Load<GameObject>(cod.ObjSpawn), m.transform.position, Quaternion.identity);
+
+            if (!string.IsNullOrEmpty(cod.CoSpawn))
+            {
+                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), m.transform.position, Quaternion.identity);
+                g.GetComponent<CustomObject>().s = cod.CoSpawn;
+
+            }
+            if (!string.IsNullOrEmpty(cod.EventSpawn)) Instantiate(Resources.Load<GameObject>("Event/" + cod.EventSpawn), m.transform.position, Quaternion.identity);
+        }
+        if (cod.functional == Functional.user)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            if (!string.IsNullOrEmpty(cod.itemSpawn)) Instantiate(Resources.Load<GameObject>("items/" + cod.itemSpawn), hit.point, Quaternion.identity);
+            if (!string.IsNullOrEmpty(cod.ObjSpawn)) Instantiate(Resources.Load<GameObject>(cod.ObjSpawn), hit.point, Quaternion.identity);
+
+            if (!string.IsNullOrEmpty(cod.CoSpawn))
+            {
+                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), hit.point, Quaternion.identity);
+                g.GetComponent<CustomObject>().s = cod.CoSpawn;
+
+            }
+            if (!string.IsNullOrEmpty(cod.EventSpawn)) Instantiate(Resources.Load<GameObject>("Event/" + cod.EventSpawn), hit.point, Quaternion.identity);
+        }
+        if (cod.functional == Functional.spawner || cod.functional == Functional.user || cod.functional == Functional.steyk)
+        {
+            complsave cps = FindFirstObjectByType<complsave>();
+           if(cod.AnigilateItem) cps.clear();
+           if((long)m.hp + (long)cod.RegenerateHp < int.MaxValue) m.hp += cod.RegenerateHp;
+            m.W_position += cod.playerWHMove.x;
+            m.H_position += cod.playerWHMove.y;
+            VarSave.LoadMoney("Inflation", ((decimal)cod.Recycler / 2000 )+((decimal)cod.InfinityRecycler)+((decimal)cod.Redecycler * 10), SaveType.global);
+            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (int)cod.Recycler);
+            VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + cod.InfinityRecycler);
+            VarSave.SetMoney("CashFlow", VarSave.GetMoney("CashFlow") + (decimal)cod.Redecycler);
+            Globalprefs.flowteuvro += (decimal)cod.Redecycler;
+            m.PlayerBody.transform.Rotate(cod.playerRotate.x, cod.playerRotate.y, cod.playerRotate.z);
+            m.PlayerBody.transform.Translate(new Vector3(cod.playerMove.x, cod.playerMove.y, cod.playerMove.z));
+        }
+        if (cod.functional == Functional.steyk)
+        {
+            foreach (useeffect item in cod.effect_no_use)
+            {
+                playerdata.Addeffect(item.effect, item.time);
+            }
+            if (cod.ClearEffect)
+            {
+                playerdata.Cleareffect();
+            }
+            if (cod.FreezeEffect)
+            {
+                playerdata.FreezeAlleffect();
+            }
+        }
+        if (cod.functional == Functional.steyk)
+        {
+            setItem("",0,Color.red,select);
+            Cells[select].UpdateCellInterface();
+        }
+    }
+
+    private void Update()
     {
 
 		for (int i =0;i<2;i++)

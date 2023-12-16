@@ -8,7 +8,7 @@ public enum NoscaleParentSettings
 
 public class NoscaleParent : MonoBehaviour
 {
-    [SerializeField] Transform Obj;
+    [SerializeField] public Transform Obj;
     [SerializeField] NoscaleParentSettings settings;
     
     void Update()

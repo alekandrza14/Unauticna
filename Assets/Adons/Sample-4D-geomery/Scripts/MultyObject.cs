@@ -89,13 +89,13 @@ public class MultyObject : MonoBehaviour
     }
     private void Update()
     {
-        if (instance) if (GetComponent<StandartObject>() && !saved )
+        if (instance) if (GetComponent<StandartObject>() && !saved && Application.isPlaying)
             {
                 W_Position = instance.W_Position;
                 H_Position = instance.H_Position;
                 saved = true;
             }
-        if (instance) if (GetComponent<itemName>() && !saved )
+        if (instance) if (GetComponent<itemName>() && !saved && Application.isPlaying)
             {
                 W_Position = instance.W_Position;
                 H_Position = instance.H_Position;

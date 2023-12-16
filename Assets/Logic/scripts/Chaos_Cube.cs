@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Chaos_cube : MonoBehaviour
@@ -86,7 +87,7 @@ public class Chaos_cube : MonoBehaviour
 
         items = Resources.LoadAll<GameObject>("items");
         Obj = Resources.LoadAll<GameObject>("Primetives");
-        class_obj = Random.Range(0, 2);
+        class_obj = Random.Range(0, 3);
         if (class_obj == 0)
         {
             Instantiate(items[Random.Range(0, items.Length)], gameObject.transform.position, Quaternion.identity);
@@ -94,6 +95,19 @@ public class Chaos_cube : MonoBehaviour
         if (class_obj == 1)
         {
             Instantiate(Obj[Random.Range(0, Obj.Length)], gameObject.transform.position, Quaternion.identity);
+        }
+        if (class_obj == 2)
+        {
+          if(Random.Range(0, 2) == 0)  Instantiate(items[Random.Range(0, items.Length)], gameObject.transform.position, Quaternion.identity);
+          else
+            {
+                DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+              
+                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), gameObject.transform.position, Quaternion.identity);
+                g.GetComponent<CustomObject>().s = dif.GetFiles()[Random.Range(0, dif.GetFiles().Length)].Name.Replace(".txt", "");
+
+            }
         }
         GameManager.saveandhill();
     }

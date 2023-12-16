@@ -4,11 +4,19 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+[System.Serializable]
 public class useeffect
 {
     public string effect = "";
     public float time = 0;
+    public useeffect(string name, float secoundstime)
+    {
+        this.effect = name;
+        this.time = secoundstime;
+    }
+    public useeffect()
+    {
+    }
 }
 public class playerdata
 {
