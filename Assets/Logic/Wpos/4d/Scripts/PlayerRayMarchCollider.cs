@@ -26,7 +26,7 @@ namespace Unity.Mathematics
         // Start is called before the first frame update
         void Start()
         {
-            camScript = FindObjectOfType<RaymarchCam>();
+            camScript = FindFirstObjectByType<RaymarchCam>();
             Df = FindFirstObjectByType<DistanceFunctions>();
             if (!instance)
             {

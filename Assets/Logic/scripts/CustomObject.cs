@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.UIElements;
 
 public enum NDemention
 {
-    _3D, _4D, _5D
+    _3D, _4D, _5D, _ND
 }
 public enum Functional
 {
@@ -14,7 +15,7 @@ public enum Functional
 }
 public enum StandartKey
 {
-    leftmouse,E,Q,leftshift
+    leftmouse,E,Q,leftshift,notrequired
 }
 
 public class CustomObjectData
@@ -28,6 +29,8 @@ public class CustomObjectData
     {
         new useeffect("",0)
     };
+  //  public float[] VectorN = new float[10];
+    public float[] ScaleN = new float[1] { 1};
     public string itemSpawn;
     public string CoSpawn;
     public string ObjSpawn;
@@ -40,7 +43,7 @@ public class CustomObjectData
     public Vector3 playerMove;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem;
+    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -101,7 +104,7 @@ public class CustomObject : MonoBehaviour
                 GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
-              GetComponent<MultyObject>().W_Position = m.W_position;
+                GetComponent<MultyObject>().W_Position = m.W_position;
                 GetComponent<MultyObject>().H_Position = m.H_position;
             }
             else
@@ -111,6 +114,47 @@ public class CustomObject : MonoBehaviour
                 GetComponent<MultyObject>().scale3D = Model.scale;
                 GetComponent<MultyObject>().W_Position = WHPos.x;
                 GetComponent<MultyObject>().H_Position = WHPos.y;
+            }
+        }
+        if (Model.nDemention == NDemention._ND)
+        {
+            gameObject.AddComponent<MultyObject>().shape = Shape.cubeND;
+            mover m = mover.main();
+            if (!saved)
+            {
+                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
+                GetComponent<MultyObject>().scale3D = Model.scale;
+                GetComponent<MultyObject>().W_Position = m.W_position;
+                GetComponent<MultyObject>().H_Position = m.H_position;
+
+                MultyObject mo = GetComponent<MultyObject>();
+                mo.N_Positions = new float[m.N_position.Count];
+                mo.N_Scales = new float[m.N_position.Count];
+                for (int i = 0; i < m.N_position.Count; i++)
+                {
+                    mo.N_Positions[i] = m.N_position[i];
+                    if (Model.ScaleN.Length - 1 > i) mo.N_Scales[i] = Model.ScaleN[i]; else { mo.N_Scales[i] = 1; }
+
+                }
+
+            }
+            else
+            {
+                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
+                GetComponent<MultyObject>().scale3D = Model.scale;
+                GetComponent<MultyObject>().W_Position = WHPos.x;
+                GetComponent<MultyObject>().H_Position = WHPos.y; 
+                MultyObject mo = GetComponent<MultyObject>();
+
+                mo.N_Positions = new float[m.N_position.Count];
+                mo.N_Scales = new float[m.N_position.Count];
+                for (int i = 0; i < m.N_position.Count; i++)
+                {
+                    mo.N_Positions[i] = m.N_position[i];
+                    if (Model.ScaleN.Length - 1 > i) mo.N_Scales[i] = Model.ScaleN[i]; else { mo.N_Scales[i] = 1; }
+                }
             }
         }
         if (Model.nDemention == NDemention._4D)

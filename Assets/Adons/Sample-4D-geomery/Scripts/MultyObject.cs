@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 public enum Shape
 {
-   shape3D, cube5D,clone5D, plane3D, shape4D, shapecube5D, hyperbola5D, hyperCurveCube5D
+   shape3D, cube5D,clone5D, plane3D, shape4D, shapecube5D, hyperbola5D, hyperCurveCube5D, cubeND
 }
 [ExecuteAlways]
 [RequireComponent(typeof(MeshFilter))]
@@ -23,6 +24,9 @@ public class MultyObject : MonoBehaviour
     [Header("Transform H")]
     [SerializeField] public float H_Position;
     [SerializeField] public float H_Scale = 1;
+    [Header("Transforms N")]
+    [SerializeField] public float[] N_Positions;
+    [SerializeField] public float[] N_Scales;
     [Header("Shape")]
     [SerializeField] public Shape shape;
     [SerializeField] public Mesh[] shapes3D;
@@ -31,7 +35,7 @@ public class MultyObject : MonoBehaviour
     [Header("Save prametrs")]
     [SerializeField] public Vector3 scale3D = Vector3.one;
     GameObject[] childs;
-
+    mover m;
    
 
     int w;
@@ -84,6 +88,8 @@ public class MultyObject : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
         sphereCollider = GetComponent<SphereCollider>();
         InvokeRepeating("ProjectionUpdate", 0.001f, 0.02f + Random.Range(0.01f, 0.02f));
+        m = mover.main();
+
         //  if (mover.Get4DCam())   if (mover.Get4DCam()._wRotation.x != 0) Swap();
         // if (VarSave.GetBool("H_Roataton")) SwapH();
     }
@@ -93,18 +99,21 @@ public class MultyObject : MonoBehaviour
             {
                 W_Position = instance.W_Position;
                 H_Position = instance.H_Position;
+                N_Positions = m.N_position.ToArray();
                 saved = true;
             }
         if (instance) if (GetComponent<itemName>() && !saved && Application.isPlaying)
             {
                 W_Position = instance.W_Position;
                 H_Position = instance.H_Position;
+                N_Positions = m.N_position.ToArray();
                 saved = true;
             }
 
+
     }
-    // Update is called once per frame\
-    [Header("Debug prametrs")]
+        // Update is called once per frame\
+        [Header("Debug prametrs")]
     public Vector6 startPosition;
     public Vector6 startScale;
     public float w5 = 0;
@@ -236,7 +245,7 @@ public class MultyObject : MonoBehaviour
                 {
                     foreach (GameObject child in childs)
                     {
-                      if(!child.GetComponent<Metka>())  child.gameObject.SetActive(false);
+                        if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
                     }
                     if (meshRenderer)
                     {
@@ -256,6 +265,88 @@ public class MultyObject : MonoBehaviour
                     }
                 }
 
+            }
+            if (shape == Shape.cubeND)
+            {
+
+                if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                bool s1 = false;
+                for (int i =0;i< m.N_position.Count&& s1 != true;i++)
+                {
+                    if (N_Positions.Length -1<i)
+                    {
+                        List<float> n = N_Positions.ToList();
+                        n.Add(0);
+
+                        N_Positions = n.ToArray();
+
+                        List<float> n2 = N_Scales.ToList();
+                        n2.Add(1);
+
+                        N_Scales = n2.ToArray();
+                    }
+                    if (N_Positions.Length != N_Scales.Length)
+                    {
+                        for (int i2 = 0; i2 < N_Positions.Length - N_Scales.Length; i2++)
+                        {
+                            List<float> n2 = N_Scales.ToList();
+                            n2.Add(1);
+
+                            N_Scales = n2.ToArray();
+                        }
+                    }
+                    if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+                    if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
+                        instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5 &&
+                         m.N_position[i] + N_Scales[i] > N_Positions[i] && m.N_position[i] - N_Scales[i] < N_Positions[i])
+                    {
+                        if (meshRenderer)
+                        {
+                            meshRenderer.enabled = true;
+                        }
+                        if (meshCollider)
+                        {
+                            meshCollider.enabled = true;
+                        }
+                        if (boxCollider)
+                        {
+                            boxCollider.enabled = true;
+                        }
+                        if (sphereCollider)
+                        {
+                            sphereCollider.enabled = true;
+                        }
+                        foreach (GameObject child in childs)
+                        {
+                            child.gameObject.SetActive(true);
+                        }
+                    }
+                    else if(complsave.LoadADone)
+                    {
+
+                        foreach (GameObject child in childs)
+                        {
+                            if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
+                        }
+                        if (meshRenderer)
+                        {
+                            meshRenderer.enabled = false;
+                        }
+                        if (meshCollider)
+                        {
+                            meshCollider.enabled = false;
+                        }
+                        if (boxCollider)
+                        {
+                            boxCollider.enabled = false;
+                        }
+                        if (sphereCollider)
+                        {
+                            sphereCollider.enabled = false;
+                        }
+                        s1 = true;
+                    }
+                }
             }
             if (shape == Shape.shapecube5D)
             {

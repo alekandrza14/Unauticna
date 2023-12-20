@@ -30,6 +30,8 @@ public class save
     public Vector4 pos3;
     public string hpos_Polar3;
     public float wpos;
+    public List<float> npos = new List<float>();
+    public int cnpos = 0;
     public float hpos;
     public float hxrot;
     public Quaternion q1, q2, q3, q4;
@@ -45,6 +47,8 @@ public class tsave
     public Vector4 pos3;
     public string hpos_Polar3;
     public float wpos;
+    public List<float> npos = new List<float>();
+    public int cnpos = 0;
     public float hpos;
     public float hxrot;
     public Quaternion q1, q2, q3, q4;
@@ -92,6 +96,11 @@ public class mover : MonoBehaviour
 
     [SerializeField] public float W_position;
     [SerializeField] public float H_position;
+    [SerializeField] public List<float> N_position = new List<float>()
+    {
+        0
+    };
+    [SerializeField] public int cur_N_position;
     public int planet_position;
     public InputField SaveFileInputField;
     float JumpTimer;
@@ -449,9 +458,10 @@ public class mover : MonoBehaviour
     Color c1;
     int maxhp2;
     int regen;
+    bool swapWHaN;
     private void Init()
     {
-        
+       if(N_position.Count <= 0) N_position.Add(0);
         if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
         {
 
@@ -613,6 +623,8 @@ public class mover : MonoBehaviour
 
                 W_position = save.wpos;
                 H_position = save.hpos;
+                N_position = save.npos;
+                cur_N_position = save.cnpos;
                 HX_Rotation = save.hxrot;
                 if (portallNumer.Portal == "")
                 {
@@ -724,6 +736,8 @@ public class mover : MonoBehaviour
 
                 W_position = save.wpos;
                 H_position = save.hpos;
+                N_position = save.npos;
+                cur_N_position = save.cnpos;
                 HX_Rotation = save.hxrot;
                 if (portallNumer.Portal == "")
                 {
@@ -922,14 +936,25 @@ public class mover : MonoBehaviour
                 if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2";
                 Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
             }
-            if (CosProgress() > 1)
+            if (CosProgress() > 1 && CosProgress() <= 2)
             {
                 GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
-                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString() +" h : " + H_position.ToString() ;
+                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString();
                 else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString();
                 if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString();
                 if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString();
                 Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
+            }
+            if (CosProgress() > 2)
+            {
+
+                if (N_position.Count <= 0) N_position.Add(0);
+                GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
+                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n ["+cur_N_position+"] : " + N_position[cur_N_position].ToString();
+                else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline();
             }
         }
     }
@@ -987,6 +1012,8 @@ public class mover : MonoBehaviour
                 if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW;
                 W_position = tsave.wpos;
                 H_position = tsave.hpos;
+                N_position = tsave.npos;
+                cur_N_position = tsave.cnpos;
                 HX_Rotation = tsave.hxrot;
                 if (hyperbolicCamera != null)
                 {
@@ -1025,6 +1052,8 @@ public class mover : MonoBehaviour
                     W_position = save.wpos;
                     H_position = save.hpos;
 
+                    N_position = save.npos;
+                    cur_N_position = save.cnpos;
                     HX_Rotation = save.hxrot;
                     if (hyperbolicCamera != null)
                     {
@@ -1070,6 +1099,8 @@ public class mover : MonoBehaviour
                     W_position = save.wpos;
                     H_position = save.hpos;
 
+                    N_position = save.npos;
+                    cur_N_position = save.cnpos;
                     HX_Rotation = save.hxrot;
                     if (hyperbolicCamera != null)
                     {
@@ -1106,7 +1137,7 @@ public class mover : MonoBehaviour
     }
     int CosProgress()
     {
-        return gsave.progressofthepassage + nonnatureprogress;
+        return gsave.progressofthepassage + nonnatureprogress + meat;
     }
     public void stop()
     {
@@ -1127,49 +1158,118 @@ public class mover : MonoBehaviour
                 planet_position += 1;
             }
         }
-
-        if (!Sprint && !Globalprefs.Pause)
+        if (Input.GetKeyDown(KeyCode.Alpha4) && !Globalprefs.Pause)
         {
+            swapWHaN = !swapWHaN;
+        }
+        if (!swapWHaN)
+        {
+            if (!Sprint && !Globalprefs.Pause)
+            {
 
 
 
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                W_position -= 1f * Time.deltaTime;
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    W_position -= 1f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    W_position += 1f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    if (CosProgress() > 1) H_position -= 1f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    if (CosProgress() > 1) H_position += 1f * Time.deltaTime;
+                }
             }
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Sprint && !Globalprefs.Pause)
             {
-                W_position += 1f * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                if (CosProgress() > 1) H_position -= 1f * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                if (CosProgress() > 1) H_position += 1f * Time.deltaTime;
+
+
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    W_position -= 10f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    W_position += 10f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    if (CosProgress() > 1) H_position -= 10f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    if (CosProgress() > 1) H_position += 10f * Time.deltaTime;
+                }
             }
         }
-        if (Sprint && !Globalprefs.Pause)
+        else
         {
+            if (!Sprint && !Globalprefs.Pause)
+            {
 
 
 
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                W_position -= 10f * Time.deltaTime;
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    if (CosProgress() > 2) N_position[cur_N_position] -= 1f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    if (CosProgress() > 2) N_position[cur_N_position] += 1f * Time.deltaTime;
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    if (cur_N_position > 0)
+                    {
+                        if (CosProgress() > 2) cur_N_position -= 1;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    if (N_position.Count < cur_N_position + 1)
+                    {
+                        N_position.Add(0);
+                    }
+                    if (CosProgress() > 2) cur_N_position += 1;
+                }
             }
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Sprint && !Globalprefs.Pause)
             {
-                W_position += 10f * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                if (gsave.progressofthepassage > 1) H_position -= 10f * Time.deltaTime;
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                if (gsave.progressofthepassage > 1) H_position += 10f * Time.deltaTime;
+
+
+
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    if (CosProgress() > 2) N_position[cur_N_position] -= 10f * Time.deltaTime;
+                }
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    if (CosProgress() > 2) N_position[cur_N_position] += 10f * Time.deltaTime;
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    if (cur_N_position-3 > 0)
+                    {
+                        if (CosProgress() > 2) cur_N_position -= 2;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    if (N_position.Count < cur_N_position + 3)
+                    {
+                        N_position.Add(0);
+                        N_position.Add(0);
+                        N_position.Add(0);
+                    }
+                    if (CosProgress() > 2) cur_N_position += 3;
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.F4) && !Globalprefs.Pause)
@@ -1308,8 +1408,27 @@ public class mover : MonoBehaviour
     {
        // IsGraund = true;
     }
+    bool SuperMind;
     void Update()
     {
+        if (N_position.Count > 7)
+        {
+            if (N_position[7] > 6.9f && N_position[7] < 7.9f && !SuperMind)
+            {
+
+                Instantiate(Resources.Load<GameObject>("events/Supermind"));
+                SuperMind = !SuperMind;
+            }
+        }
+        if (N_position.Count > 3)
+        {
+            if (N_position[3] > 9.9f && N_position[7] < 10.9f && !SuperMind)
+            {
+
+                Instantiate(Resources.Load<GameObject>("events/Зона"));
+                SuperMind = !SuperMind;
+            }
+        }
 #if !UNITY_EDITOR
         dnSpyModer.MainModData.UpadeteScene();
 #endif
@@ -1425,6 +1544,8 @@ public class mover : MonoBehaviour
         save.wpos = W_position;
         save.hpos = H_position;
         save.hxrot = HX_Rotation;
+        save.npos = N_position;
+        save.cnpos = cur_N_position;
         if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
         save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
@@ -1734,19 +1855,86 @@ public class mover : MonoBehaviour
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f);
            
             float sprintCnficent = 1f;
-            if (Sprint)
+            if (Input.GetKeyDown(KeyCode.Alpha4) && !Globalprefs.Pause)
+            {
+                if (CosProgress() > 2) swapWHaN = !swapWHaN;
+            }
+          if (swapWHaN)
+            {
+                if (!Sprint && !Globalprefs.Pause)
+                {
+
+
+
+                    if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        if (CosProgress() > 2) N_position[cur_N_position] -= 1f * Time.deltaTime;
+                    }
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        if (CosProgress() > 2) N_position[cur_N_position] += 1f * Time.deltaTime;
+                    }
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        if (cur_N_position > 0)
+                        {
+                            if (CosProgress() > 2) cur_N_position -= 1;
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        if (N_position.Count -1 < cur_N_position + 1)
+                        {
+                            N_position.Add(0);
+                        }
+                        if (CosProgress() > 2) cur_N_position += 1;
+                    }
+                }
+                if (Sprint && !Globalprefs.Pause)
+                {
+
+
+
+                    if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        if (CosProgress() > 2) N_position[cur_N_position] -= 10f * Time.deltaTime;
+                    }
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        if (CosProgress() > 2) N_position[cur_N_position] += 10f * Time.deltaTime;
+                    }
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        if (cur_N_position - 3 > 0)
+                        {
+                            if (CosProgress() > 2) cur_N_position -= 3;
+                        }
+                    }
+                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        if (N_position.Count-1 < cur_N_position + 3)
+                        {
+                            N_position.Add(0);
+                            N_position.Add(0);
+                            N_position.Add(0);
+                        }
+                        if (CosProgress() > 2) cur_N_position += 3;
+                    }
+                }
+            }
+            if (Sprint && !swapWHaN)
             {
 
 
                 if (!isKinematic) W_position += (deltaW * 5) * Time.deltaTime * 60;
-                if (gsave.progressofthepassage > 1) if (!isKinematic) H_position += (deltaH * 5) * Time.deltaTime * 60;
+                if (CosProgress() > 1) if (!isKinematic) H_position += (deltaH * 5) * Time.deltaTime * 60;
                 sprintCnficent = 2;
             }
-            else
+            else if (!swapWHaN)
             {
 
                 if (!isKinematic) W_position += (deltaW) * Time.deltaTime * 60;
-                if (gsave.progressofthepassage > 1) if (!isKinematic) H_position += (deltaH) * Time.deltaTime * 60;
+                if (CosProgress() > 1) if (!isKinematic) H_position += (deltaH) * Time.deltaTime * 60;
             }
             float deltaSumXZ = deltaX + deltaZ;
 
@@ -2286,9 +2474,29 @@ public class mover : MonoBehaviour
 
             //playermatinvisible
         }
+        //playerdata.Addeffect("meat", 10);
+        if (playerdata.Geteffect("meat") != null)
+        {
+            PlayerCamera.transform.Rotate(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+            transform.Rotate(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+            meat = 1;
+            //  transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("meat") == null)
+        {
+           meat = 0;
+            //  transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+            //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
         playerdata.checkeffect();
       //  GameManager.GetUF();
     }
+    int meat;
     public static mover main()
     {
       return  FindFirstObjectByType<mover>();
@@ -2308,6 +2516,8 @@ public class mover : MonoBehaviour
             tsave.wpos = W_position; 
             tsave.hpos = H_position;
             tsave.hxrot = HX_Rotation;
+            tsave.npos = N_position;
+            tsave.cnpos = cur_N_position;
             if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera != null)
             {
@@ -2359,6 +2569,8 @@ public class mover : MonoBehaviour
             save.pos = PlayerBody.transform.position;
             save.wpos = W_position;
 
+            save.npos = N_position;
+            save.cnpos = cur_N_position;
             save.hpos = H_position;
             save.hxrot = HX_Rotation;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
@@ -2399,6 +2611,8 @@ public class mover : MonoBehaviour
             save.vive = Camera.main.fieldOfView;
             save.wpos = W_position;
             save.hpos = H_position;
+            save.npos = N_position;
+            save.cnpos = cur_N_position;
             save.hxrot = HX_Rotation;
             if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
             if (hyperbolicCamera!=null)

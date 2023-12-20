@@ -178,12 +178,12 @@ public class complsave : MonoBehaviour
                 GameObject.FindObjectsByType<itemspawn>(sortmode.main)[i].sp();
                 VarSave.SetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, true, SaveType.world);
 
-
+                if (GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length - 1 == i)
+                {
+                    save();
+                }
             }
-            if (GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length - 1 == i)
-            {
-                save();
-            }
+            
         }
 
     }
@@ -306,50 +306,51 @@ public class complsave : MonoBehaviour
         itemName[] items = FindObjectsByType<itemName>(sortmode.main);
 
 
-            if (items.Length != 0)
+        if (items.Length != 0)
+        {
+
+            int o3 = 0;
+
+            for (int i3 = 0; i3 < items.Length; i3++)
             {
 
-
-                for (int i3 = 0; i3 < items.Length; i3++)
+                saveString1.idA.Add(items[i3]._Name);
+                if (items[i3].GetComponent<breauty>())
                 {
+                    saveString1.x.Add(items[i3].GetComponent<breauty>().integer);
+                }
+                else
+                {
+                    saveString1.x.Add(10);
 
-                    saveString1.idA.Add(items[i3]._Name);
-                    if (items[i3].GetComponent<breauty>())
-                    {
-                        saveString1.x.Add(items[i3].GetComponent<breauty>().integer);
-                    }
-                    else
-                    {
-                        saveString1.x.Add(10);
+                }
+                if (items[i3].GetComponent<HyperbolicPoint>())
+                {
+                    saveString1.PvectorA.Add(JsonUtility.ToJson(items[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
+                    saveString1.y.Add(items[i3].GetComponent<HyperbolicPoint>().v1);
+                }
+                if (items[i3].GetComponent<itemName>())
+                {
+                    saveString1.DataItem.Add(items[i3].GetComponent<itemName>().ItemData);
 
-                    }
-                    if (items[i3].GetComponent<HyperbolicPoint>())
-                    {
-                        saveString1.PvectorA.Add(JsonUtility.ToJson(items[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion));
-                        saveString1.y.Add(items[i3].GetComponent<HyperbolicPoint>().v1);
-                    }
-                    if (items[i3].GetComponent<itemName>())
-                    {
-                        saveString1.DataItem.Add(items[i3].GetComponent<itemName>().ItemData);
+                }
+                else
+                {
+                    saveString1.DataItem.Add("0");
 
-                    }
-                    else
-                    {
-                        saveString1.DataItem.Add("0");
-
-                    }
+                }
 
 
 
                 if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
-                
+
                 if (items[i3].GetComponent<MultyObject>())
                 {
                     Vector6 v6 = items[i3].GetComponent<MultyObject>().startPosition;
                     saveString1.vector3A.Add(new Vector3(v6.x, v6.y, v6.z));
                 }
-                    saveString1.Scale3A.Add(items[i3].transform.localScale);
-                    saveString1.qA.Add(items[i3].transform.rotation); 
+                saveString1.Scale3A.Add(items[i3].transform.localScale);
+                saveString1.qA.Add(items[i3].transform.rotation);
                 if (items[i3].GetComponent<MultyObject>())
                 {
                     saveString1.posW3.Add(items[i3].GetComponent<MultyObject>().W_Position);
@@ -360,9 +361,37 @@ public class complsave : MonoBehaviour
                     saveString1.posW3.Add(0);
                     saveString1.posH3.Add(0);
                 }
+                saveString1.curN.Add(o3);
+                if (items[i3].GetComponent<MultyObject>())
+                {
+                    MultyObject mo = items[i3].GetComponent<MultyObject>();
+                    if (mo.N_Positions != null)
+                    {
+                       
+                            for (int i = 0; i < mo.N_Positions.Length; i++)
+                            {
+                                o3++;
+                                saveString1.posN.Add(mo.N_Positions[i]);
+                            }
+                     
+                    }
+                    else
+                    {
+
+                        saveString1.posN.Add(0);
+                    }
+
+                    saveString1.curN.Add(o3);
+                }
+                else
+                {
+                    o3++;
+                    saveString1.posN.Add(0);
+                    saveString1.curN.Add(o3);
+                }
 
             }
-            }
+        }
 
         telo[] t = FindObjectsByType<telo>(sortmode.main);
 
@@ -375,6 +404,7 @@ public class complsave : MonoBehaviour
         }
         CustomObject[] co = FindObjectsByType<CustomObject>(sortmode.main);
 
+        int o = 0;
         for (int i = 0; i < co.Length; i++)
         {
             if (co[i].GetComponent<MultyObject>())
@@ -395,9 +425,41 @@ public class complsave : MonoBehaviour
                 saveString1.posW2.Add(0);
                 saveString1.posH2.Add(0);
             }
+            saveString1.curN2.Add(o);
+            if (co[i].GetComponent<MultyObject>())
+            {
+                MultyObject mo = co[i].GetComponent<MultyObject>();
+             //   Debug.Log("Start masiive position " + i); 
+              //  Debug.Log("Start masiive position position " + o + " / " + mo.gameObject.name);
+                if (mo.N_Positions != null)
+                {
+                  
+                        for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
+                        {
 
+                        //    Debug.Log("Start masiive position position " + o + " / " + mo.N_Positions[i3] + " / " + i3 + " / " + mo.gameObject.name);
+                            o++;
+                            saveString1.posN2.Add(mo.N_Positions[i3]);
+                        }
+                 
+                }
+                else
+                {
+
+                    saveString1.posN2.Add(0);
+                }
+              //  Debug.Log("End masiive position " + i);
+                saveString1.curN2.Add(o);
+            }
+            else
+            {
+                o++;
+                saveString1.posN2.Add(0);
+                saveString1.curN2.Add(o);
+            }
 
         }
+        int o2 = 0;
         StandartObject[] so = FindObjectsByType<StandartObject>(sortmode.main);
         for (int i = 0; i < so.Length; i++)
         {
@@ -424,7 +486,33 @@ public class complsave : MonoBehaviour
                 saveString1.posW.Add(0);
                 saveString1.posH.Add(0);
             }
+            saveString1.curN3.Add(o2);
+            if (so[i].GetComponent<MultyObject>())
+            {
+                MultyObject mo = so[i].GetComponent<MultyObject>(); if (mo.N_Positions != null)
+                {
+                    
+                        for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
+                        {
+                            o2++;
+                            saveString1.posN3.Add(mo.N_Positions[i3]);
+                        }
+                  
+                }
+                else
+                {
 
+                    saveString1.posN3.Add(0);
+                }
+
+                saveString1.curN3.Add(o2);
+            }
+            else
+            {
+                o2++;
+                saveString1.posN3.Add(0);
+                saveString1.curN3.Add(o2);
+            }
 
         }
 
@@ -455,6 +543,7 @@ public class complsave : MonoBehaviour
         {
             if (c == 0)
             {
+                LoadADone = false;
                 if (File.Exists(saveString221))
                 {
                     saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
@@ -502,8 +591,36 @@ public class complsave : MonoBehaviour
 
 
                 }
+                List<float[]> nid = new List<float[]>();
+                List<float[]> nid2 = new List<float[]>();
+                List<float[]> nid3 = new List<float[]>();
 
-
+                if (saveString1.posN.Count > 0)
+                {
+                    for (int i = 0; i < saveString1.curN.Count - 1; i+=2)
+                    {
+                        nid.Add(saveString1.posN.GetRange(saveString1.curN[i], saveString1.curN[i + 1] - saveString1.curN[i]).ToArray());
+                    }
+                    Debug.Log(saveString1.curN.Count);
+                }
+                if (saveString1.posN2.Count > 0)
+                {
+                    //  nid.Add(saveString1.posN.GetRange(saveString1.curN[saveString1.curN.Count - 2], saveString1.curN[saveString1.curN.Count - 1]-1).ToArray());
+                    for (int i = 0; i < saveString1.curN2.Count - 1; i++)
+                    {
+                        nid2.Add(saveString1.posN2.GetRange(saveString1.curN2[i], saveString1.curN2[i + 1] - saveString1.curN2[i]).ToArray());
+                    }
+                }
+                if (saveString1.posN3.Count > 0)
+                {
+                    //  nid2.Add(saveString1.posN2.GetRange(saveString1.curN2[saveString1.curN2.Count - 2], saveString1.curN2[saveString1.curN2.Count - 1]-1).ToArray());
+                  
+                    for (int i = 0; i < saveString1.curN3.Count - 1; i++)
+                    {
+                        nid3.Add(saveString1.posN3.GetRange(saveString1.curN3[i], saveString1.curN3[i + 1] - saveString1.curN3[i]).ToArray());
+                    }
+                }
+              //  nid3.Add(saveString1.posN3.GetRange(saveString1.curN3[saveString1.curN3.Count - 2], saveString1.curN3[saveString1.curN3.Count - 1] - 1).ToArray());
 
 
                 telo[] t = FindObjectsByType<telo>(sortmode.main);
@@ -544,21 +661,37 @@ public class complsave : MonoBehaviour
                 {
 
                     GameObject g = Instantiate(t4[toTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
+                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3C[i].x;
+                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3C[i].y;
+                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3C[i].z;
+
                     if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
                     if (saveString1.posH.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH[i];
                     if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
 
                     if (saveString1.Scale3B[i].x != 0) g.transform.localScale = saveString1.Scale3B[i];
+                    if (saveString1.posN3.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid3.Count; i2++)
+                        {
+                            g.GetComponent<MultyObject>().N_Positions = nid3[i];
+                        }
 
                 }
-               GameObject co = Resources.Load<GameObject>("CustomObject");
+                GameObject co = Resources.Load<GameObject>("CustomObject");
                 for (int i = 0; i < saveString1.idC.Count; i++)
                 {
 
                     GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
+
+                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
+                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
+                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
                     g.GetComponent<CustomObject>().s = saveString1.idC[i];
-                   g.GetComponent<CustomObject>().WHPos = new Vector2 (saveString1.posW2[i], saveString1.posH2[i]);
+                    g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
                     g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
+                    if (saveString1.posN2.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid2.Count; i2++)
+                        {
+                            g.GetComponent<MultyObject>().N_Positions = nid2[i];
+                        }
 
                 }
                 if (saveString1.PvectorA.Count == 0)
@@ -567,9 +700,6 @@ public class complsave : MonoBehaviour
 
                     for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
                     {
-
-
-
 
                         Debug.Log(saveString1.idA[i3]);
                         GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
@@ -587,10 +717,21 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
                         }
+
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
                         if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
                         if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
                         if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
-                        if (saveString1.Scale3A[i3].x!=0) g.transform.localScale = saveString1.Scale3A[i3];
+                        if (saveString1.Scale3A[i3].x != 0) g.transform.localScale = saveString1.Scale3A[i3];
+                        if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
+                            {
+                                g.GetComponent<MultyObject>().N_Positions = nid[i];
+
+                            }
+
+                        //  nid.Add(saveString1.posN.GetRange(saveString1.curN[saveString1.curN.Count - 2], saveString1.curN[saveString1.curN.Count - 1]).ToArray());
 
                     }
                 }
@@ -636,6 +777,10 @@ public class complsave : MonoBehaviour
                                              );
                         }
 
+
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
                         if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
                         if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
                         if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
@@ -643,7 +788,10 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
                         }
-
+                        if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
+                            {
+                                g.GetComponent<MultyObject>().N_Positions = nid[i];
+                            }
                     }
                 }
 
@@ -653,10 +801,10 @@ public class complsave : MonoBehaviour
             }
             if (c == 1)
             {
+                LoadADone = true;
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                 {
                     i2.Load();
-                    LoadADone = true;
                 }
             }
 
@@ -723,6 +871,12 @@ public class rsave
     public List<string> idC = new List<string>();
     public List<float> posW = new List<float>();
     public List<float> posW2 = new List<float>();
+    public List<float> posN = new List<float>();
+    public List<int> curN = new List<int>();
+    public List<float> posN2 = new List<float>();
+    public List<int> curN2 = new List<int>();
+    public List<float> posN3 = new List<float>();
+    public List<int> curN3 = new List<int>();
     public List<float> posH = new List<float>();
     public List<float> posH2 = new List<float>();
     public List<float> posW3 = new List<float>();

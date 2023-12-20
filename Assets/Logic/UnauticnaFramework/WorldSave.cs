@@ -81,9 +81,9 @@ public class WorldSave : MonoBehaviour
         {
             GameObject.FindObjectsOfType<RandomItem>()[i].inv();
         }
-        for (int i = 0; i < GameObject.FindObjectsOfType<complsave>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<complsave>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<complsave>()[i].save();
+            GameObject.FindObjectsByType<complsave>(sortmode.main)[i].save();
         }
         Directory.CreateDirectory(path);
         for (int i = 0; i < GameObject.FindObjectsOfType<modulyogir>().Length; i++)

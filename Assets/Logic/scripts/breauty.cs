@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class breauty : MonoBehaviour
 {
- [HideInInspector]  public int integer = 10;
+    [HideInInspector] public int integer = 10;
     Vector3 v3;
     public void OnCollisionEnter(Collision other)
     {
@@ -21,53 +21,68 @@ public class breauty : MonoBehaviour
 
 
 
-                
 
-                    GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
-               
+
+                GameManager.chargescene(SceneManager.GetActiveScene().buildIndex);
+
             }
         }
     }
 
     private void Awake()
     {
-       // integer = 10;
+        // integer = 10;
     }
 
     private void Start()
     {
-       // integer = 10;
-        float f = integer;
-        float t = f / 10f;
-        v3 = gameObject.transform.localScale;
-        if (t <= 1)
+        if (GetComponent<itemName>() && complsave.t3.Length > 0)
         {
-            gameObject.transform.localScale = v3 * t;
-        }
-        else if (t / 3f <= 1f)
-        {
-            gameObject.transform.localScale = v3 * (1f + (t / 3f));
-        }
-        else
-        {
-            gameObject.transform.localScale = v3 * (2.1f);
+            // integer = 10;
+            float f = integer;
+            float t = f / 10f;
+            GameObject g = null;
+            foreach (GameObject item in complsave.t3)
+            {
+                if (item.GetComponent<itemName>()._Name == GetComponent<itemName>()._Name)
+                {
+                    g = item;
+                }
+            }
+            v3 = g.transform.localScale;
+            if (t <= 1)
+            {
+                gameObject.transform.localScale = v3 * t;
+            }
+            else if (t / 3f <= 1f)
+            {
+                gameObject.transform.localScale = v3 * (1f + (t / 3f));
+            }
+            else
+            {
+                gameObject.transform.localScale = v3 * (2.1f);
+            }
         }
     }
     public void resset()
     {
-        float f = integer;
-        float t = f / 10f;
-        if (t<=1) {
-            gameObject.transform.localScale = v3 * t;
-        }
-        else if (t / 3f <= 1f)
+        if (GetComponent<itemName>() && complsave.t3.Length > 0)
         {
-            gameObject.transform.localScale = v3 * (1f + (t / 3f));
-        }
-        else 
-        {
-            gameObject.transform.localScale = v3 * (2.1f);
+            float f = integer;
+            float t = f / 10f;
+            if (t <= 1)
+            {
+                gameObject.transform.localScale = v3 * t;
+            }
+            else if (t / 3f <= 1f)
+            {
+                gameObject.transform.localScale = v3 * (1f + (t / 3f));
+            }
+            else
+            {
+                gameObject.transform.localScale = v3 * (2.1f);
+            }
         }
     }
-    
+
 }

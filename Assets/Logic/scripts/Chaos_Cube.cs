@@ -13,6 +13,7 @@ public class Chaos_cube : MonoBehaviour
     [SerializeField] bool ultra;
     bool omega;
     bool init;
+    [SerializeField] bool Recurse;
     private void Start()
     {
         float Chance = 100 / (VarSave.GetFloat("ChanceChaosCubeDeath" + "_gameSettings", SaveType.global) * 100f);
@@ -75,7 +76,7 @@ public class Chaos_cube : MonoBehaviour
                             }
                         }
 
-                        Destroy(gameObject);
+                     if(!Recurse)   Destroy(gameObject);
                     }
                 }
 

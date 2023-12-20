@@ -1059,7 +1059,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        if (Cells[select].elementName.Length > 2) if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
@@ -1085,7 +1085,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+      if(Cells[select].elementName.Length > 2)  if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
@@ -1114,7 +1114,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        if (Cells[select].elementName.Length > 2) if (Input.GetKeyDown(KeyCode.LeftShift) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
@@ -1143,7 +1143,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Q) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        if (Cells[select].elementName.Length > 2) if (Input.GetKeyDown(KeyCode.Q) && Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
@@ -1256,15 +1256,32 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-           
-                //  Instantiate(Resources.Load("voices/belock"));
 
-                playerdata.Addeffect("Tripl2", 600);
-           
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            playerdata.Addeffect("Tripl2", 600);
+
 
             lowitem("mad", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Скалапендра") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            cistalenemy.dies += 100;
+            playerdata.Addeffect("Tripl2", 600);
+
+
+            lowitem("Скалапендра", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Скалапендра
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("sosisca") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1513,12 +1530,25 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
-            
+
             if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 10);
             playerdata.FreezeAlleffect();
 
 
             lowitem("EffectFreezer", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Метанфитамин") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandDamage();
+
+
+
+            playerdata.Addeffect("meat", 600);
+
+            lowitem("Метанфитамин", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
@@ -1781,6 +1811,45 @@ public class ElementalInventory : MonoBehaviour {
                 }
             }
         }
+        //Метанфитамин
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("SkalapendraReplicatorCorm") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "Скалапендра")
+                    {
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                        lowitem("SkalapendraReplicatorCorm", "");
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("Метанфитамин") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "Скалапендра")
+                    {
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                        lowitem("Метанфитамин", "");
+                    }
+                }
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
             && priaritet("Летунский корм") != 0 && Cells[select].elementCount > 0)
         {
@@ -1900,6 +1969,7 @@ public class ElementalInventory : MonoBehaviour {
 
             }
             if (!string.IsNullOrEmpty(cod.EventSpawn)) Instantiate(Resources.Load<GameObject>("Event/" + cod.EventSpawn), hit.point, Quaternion.identity);
+
         }
         if (cod.functional == Functional.spawner || cod.functional == Functional.user || cod.functional == Functional.steyk)
         {
@@ -1913,6 +1983,10 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + cod.InfinityRecycler);
             VarSave.SetMoney("CashFlow", VarSave.GetMoney("CashFlow") + (decimal)cod.Redecycler);
             Globalprefs.flowteuvro += (decimal)cod.Redecycler;
+            if (cod.Dublicate)
+            {
+                Instantiate(mover.main().gameObject);
+            }
             m.PlayerBody.transform.Rotate(cod.playerRotate.x, cod.playerRotate.y, cod.playerRotate.z);
             m.PlayerBody.transform.Translate(new Vector3(cod.playerMove.x, cod.playerMove.y, cod.playerMove.z));
         }
@@ -1930,6 +2004,10 @@ public class ElementalInventory : MonoBehaviour {
             {
                 playerdata.FreezeAlleffect();
             }
+            if (cod.Dublicate)
+            {
+               Instantiate( mover.main().gameObject);
+            }
         }
         if (cod.functional == Functional.steyk)
         {
@@ -1940,8 +2018,36 @@ public class ElementalInventory : MonoBehaviour {
 
     private void Update()
     {
+        if (Cells[select].elementName.Length > 2) if (Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        {
 
-		for (int i =0;i<2;i++)
+            DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+
+            for (int i = 0; i < dif.GetFiles().Length; i++)
+            {
+                if (i < dif.GetFiles().Length)
+                {
+
+
+                    if ("co!" + (dif.GetFiles()[i].Name.Replace(".txt", "")) == Cells[select].elementName)
+                    {
+                        CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(dif.GetFiles()[i].FullName));
+                        if (cod.standartKey == StandartKey.notrequired)
+                        {
+
+
+
+                            CustomFunctionalItem(cod);
+                        }
+                    }
+                }
+
+            }
+
+
+
+        }
+        for (int i =0;i<2;i++)
 		{
             if (i == 0)
             {
