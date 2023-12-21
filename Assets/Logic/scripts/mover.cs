@@ -599,6 +599,11 @@ public class mover : MonoBehaviour
         //four-Dimentional-Axis
         Instantiate(Resources.Load<GameObject>("player inventory"));
         if (VarSave.ExistenceVar("Player_On_Pirat_Attack")) Instantiate(Resources.Load<GameObject>("events/Pirats"));
+        if (VarSave.ExistenceGlobalVar("eventPlevraSpamtona"))
+        {
+            Instantiate(Resources.Load<GameObject>("items/Смачный_плевок_Спамтона"));
+            Instantiate(Resources.Load<GameObject>("events/ПлевокСпамтона")); 
+        }
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
         Instantiate(Resources.Load<GameObject>("Rm/Hyper_null"));

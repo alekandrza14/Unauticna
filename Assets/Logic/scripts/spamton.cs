@@ -32,7 +32,11 @@ public class spamton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+        if (Random.Range(0,20) == 0)
+        {
+
+            Instantiate(Resources.Load<GameObject>("items/Смачный_плевок_Спамтона"),transform.position,Quaternion.identity);
+        }
     }
     private void OnCollisionStay(Collision c)
     {

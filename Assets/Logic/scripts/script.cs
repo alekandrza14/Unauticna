@@ -222,7 +222,12 @@ public class script : MonoBehaviour
                 Globalprefs.SelfFunctions.Add(_script.Replace("Self;", ""));
                 typedata = "end";
             }
-           
+            if (words[i] == "ImSelf")
+            {
+                Globalprefs.SelfFunctions.Add(_script);
+                typedata = "end";
+            }
+
             if (words[i] == "give")
             {
                 typedata = "give";
