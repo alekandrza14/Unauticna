@@ -645,7 +645,7 @@ public class ElementalInventory : MonoBehaviour {
     void itemUse()
 	{
 
-        bool batteytype = Cells[select].elementName == "battery" || Cells[select].elementName == "mathimatic_battery";
+        bool batteytype = Cells[select].elementName == "battery" || Cells[select].elementName == "mathimatic_battery" || Cells[select].elementName == "Reload_battery";
         if (GlobalInputMenager.KeyCode_eat == 1 && Getitem("box1") && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -868,9 +868,48 @@ public class ElementalInventory : MonoBehaviour {
                 cistalenemy.dies++;
             }
 
-            lowitem("gold","");
         }
-        //infinity_gun
+        if (Input.GetKey(KeyCode.Mouse0) && Getitem("Обосанная_зажига") && Cells[select].elementName == "Обосанная_зажига" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(inv2("Piss").gameObject, hit.point + Vector3.up * inv2("Piss").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                cistalenemy.dies++;
+            }
+
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && Getitem("Хлебапекрная_зажигалка") && Cells[select].elementName == "Хлебапекрная_зажигалка" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(inv2("Хлеб").gameObject, hit.point + Vector3.up * inv2("Хлеб").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+            }
+
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && Getitem("Поглтитель_душ") && Cells[select].elementName == "Поглтитель_душ" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                MonoBehaviour[] mb = hit.collider.gameObject.GetComponents<MonoBehaviour>();
+                foreach (MonoBehaviour item in mb)
+                {
+                    item.enabled = false;
+                }
+            }
+
+        }
+        //Хлебапекрна_зажигалка
         if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("infinity_gun") && Cells[select].elementName == "infinity_gun" && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1229,12 +1268,27 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-          
-                //  Instantiate(Resources.Load("voices/belock"));
-                playerdata.Addeffect("Trip",60);
-          
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            playerdata.Addeffect("Trip", 60);
+
 
             lowitem("Grib", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("BlackGrib") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            playerdata.Addeffect("Trip", 120);
+
+            playerdata.Addeffect("BigShot", 100);
+
+            lowitem("BlackGrib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("jeltok") != 0 && boxItem.getInventory("i3").inventory == this)
@@ -1488,7 +1542,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            GameManager.saveandDamage();
+            GameManager.saveandhill();
 
 
 
@@ -1502,7 +1556,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            GameManager.saveandDamage();
+            GameManager.saveandhill();
 
 
 
@@ -1522,11 +1576,40 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Vine", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Дтine") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            playerdata.Addeffect("Шизфрения", 600);
+
+
+
+            lowitem("Дтine", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Хлеб") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+
+
+
+            lowitem("Хлеб", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("EffectFreezer") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
 
-            GameManager.saveandDamage();
+            GameManager.saveandhill();
 
 
 
@@ -1542,13 +1625,26 @@ public class ElementalInventory : MonoBehaviour {
         {
 
 
-            GameManager.saveandDamage();
+            GameManager.saveandhill();
 
 
 
             playerdata.Addeffect("meat", 600);
 
             lowitem("Метанфитамин", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеСовы") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            playerdata.Addeffect("Совиное Зрение", 600);
+
+            lowitem("ЗельеСовы", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
@@ -1608,6 +1704,17 @@ public class ElementalInventory : MonoBehaviour {
             if (hit.collider != null)
             {
                 GameObject g = Instantiate(Resources.Load<GameObject>("ui/console/ПроигратьМузыку"), Vector3.zero, Quaternion.identity);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E) && boxItem.getInventory("i3").inventory == this
+         && Cells[select].elementName == "Reload_battery" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Cells[select].elementData = "1000";
+                Instantiate(Resources.Load<GameObject>("audios/battery_reload"), Vector3.zero, Quaternion.identity);
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
@@ -1832,6 +1939,48 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("Null") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "Скалапендра")
+                    {
+
+                        Instantiate(inv2("Скалапендрадра").gameObject, hit.point + Vector3.up * inv2("Скалапендрадра").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                        Destroy(hit.collider.gameObject);
+
+                        lowitem("Null", "");
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("Null") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "battery")
+                    {
+
+                        Instantiate(inv2("Reload_battery").gameObject, hit.point + Vector3.up * inv2("Reload_battery").gameObject.transform.localScale.y / 2, Quaternion.identity);
+                        Destroy(hit.collider.gameObject);
+
+                        lowitem("Null", "");
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
             && priaritet("Метанфитамин") != 0 && Cells[select].elementCount > 0)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -1843,6 +1992,7 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<itemName>()._Name == "Скалапендра")
                     {
+
                         GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("Метанфитамин", "");
@@ -1850,6 +2000,7 @@ public class ElementalInventory : MonoBehaviour {
                 }
             }
         }
+        //КормДляHextBot'ов
         if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
             && priaritet("Летунский корм") != 0 && Cells[select].elementCount > 0)
         {
@@ -1865,6 +2016,25 @@ public class ElementalInventory : MonoBehaviour {
                         GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("Летунский корм", "");
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && priaritet("КормДляNextBot\'ов") != 0 && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name == "AnnoyingNextBot")
+                    {
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                        lowitem("КормДляNextBot\'ов", "");
                     }
                 }
             }
@@ -1917,6 +2087,258 @@ public class ElementalInventory : MonoBehaviour {
                     //  Cells[select].elementData = 
                 }
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Grib" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "BlackGrib";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Лицензия_на_запрещёный_предмет" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "Null";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "U" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-U";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Ṳx" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-Ṳx";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "C" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-C";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Cr" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-Cr";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Fr" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-Fr";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Au" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-Au";
+                        Cells[select].UpdateCellInterface();
+                    }
+                    }
+                }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "He" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-He";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Ti" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "-Ti";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && Cells[select].elementName == "Vine" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementName = "Дтine";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && batteytype && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 1000)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementData = (float.Parse(Cells[select].elementData) * -1).ToString();
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
              && Cells[select].elementName == "PortativeHyperbolicSpace_" && Cells[select].elementCount > 0)

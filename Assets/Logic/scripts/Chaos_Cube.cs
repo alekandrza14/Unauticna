@@ -91,7 +91,8 @@ public class Chaos_cube : MonoBehaviour
         class_obj = Random.Range(0, 3);
         if (class_obj == 0)
         {
-            Instantiate(items[Random.Range(0, items.Length)], gameObject.transform.position, Quaternion.identity);
+            int rand1 = Random.Range(0, items.Length);
+            if (!items[rand1].GetComponent<Запрещён>()) Instantiate(items[rand1], gameObject.transform.position, Quaternion.identity);
         }
         if (class_obj == 1)
         {
@@ -99,12 +100,13 @@ public class Chaos_cube : MonoBehaviour
         }
         if (class_obj == 2)
         {
-          if(Random.Range(0, 2) == 0)  Instantiate(items[Random.Range(0, items.Length)], gameObject.transform.position, Quaternion.identity);
-          else
+            int rand1 = Random.Range(0, items.Length);
+            if (Random.Range(0, 2) == 0) { if (!items[rand1].GetComponent<Запрещён>()) Instantiate(items[rand1], gameObject.transform.position, Quaternion.identity); }
+            else
             {
                 DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
 
-              
+
                 GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), gameObject.transform.position, Quaternion.identity);
                 g.GetComponent<CustomObject>().s = dif.GetFiles()[Random.Range(0, dif.GetFiles().Length)].Name.Replace(".txt", "");
 

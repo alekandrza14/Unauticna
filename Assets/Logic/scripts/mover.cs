@@ -62,6 +62,8 @@ public class gsave
     public float oxygen;
     public faceView fv;
     public int Spos;
+    public DateTime starttimepos;
+    public string DateTimeJson;
     public string idsave;
     public int sceneid;
     public List<string> inventory = new List<string>();
@@ -180,7 +182,34 @@ public class mover : MonoBehaviour
      if(!maincam4)   maincam4 = (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam)); else return maincam4 = (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
         return maincam4;
     }
-
+    DateTime timeUnauticna()
+    {
+        DateTime _new = new DateTime((int)6599, (int)7, (int)22, (int)3, (int)46, (int)23);
+        return _new;
+    }
+    float fmod2(float a, float b)
+    {
+        float c = Unity.Mathematics.math.frac(Unity.Mathematics.math.abs(a / b)) * Unity.Mathematics.math.abs(b);
+        if (a < 0)
+        {
+            c = -c + b;
+        }
+        return c;
+    }
+    string CurrentTime()
+    {
+        string _new;
+        DateTime id = (DateTime.Now);
+        DateTime id2 = (gsave.starttimepos);
+        DateTime v = timeUnauticna();
+        int year = (v.Year + (id.Year - id2.Year));
+        int Month = (int)fmod2((float)(v.Month + (id.Month - id2.Month)), 12f);
+        int Day = (int)fmod2((float)(v.Day + (id.Day - id2.Day)), 30f);
+        int Hour = (int)fmod2((float)(v.Hour + (id.Hour - id2.Hour)), 60f);
+        int Minute = (int)fmod2((float)(v.Minute + (id.Minute - id2.Minute)), 60f);
+        _new = "30" + year + " г. " +Month+ " м. " + Day + " д. " +Hour + " ч. " +Minute + " м. ";
+        return _new;
+    }
     void Building()
     {
 
@@ -461,7 +490,10 @@ public class mover : MonoBehaviour
     bool swapWHaN;
     private void Init()
     {
-       if(N_position.Count <= 0) N_position.Add(0);
+        if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
+        else gsave.starttimepos = DateTime.Now;
+
+        if (N_position.Count <= 0) N_position.Add(0);
         if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
         {
 
@@ -719,7 +751,18 @@ public class mover : MonoBehaviour
                 hp = gsave.hp;
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
-                planet_position = gsave.Spos;
+                planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
+                else gsave.starttimepos = DateTime.Now;
+                if (gsave.starttimepos != null)
+                {
+                    if (gsave.starttimepos.Minute == DateTime.Now.Minute)
+                    {
+
+                        gsave.starttimepos = DateTime.Now;
+                        gsave.DateTimeJson = gsave.starttimepos.ToString();
+                    }
+                }
+
             }
         }
         if (tutorial)
@@ -835,6 +878,17 @@ public class mover : MonoBehaviour
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
                 planet_position = gsave.Spos;
+                if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
+                else gsave.starttimepos = DateTime.Now;
+                if (gsave.starttimepos != null)
+                {
+                    if (gsave.starttimepos.Minute == DateTime.Now.Minute)
+                    {
+
+                        gsave.starttimepos = DateTime.Now;
+                        gsave.DateTimeJson = gsave.starttimepos.ToString();
+                    }
+                }
             }
 
 
@@ -939,7 +993,6 @@ public class mover : MonoBehaviour
                 else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString();
                 if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1";
                 if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2";
-                Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
             }
             if (CosProgress() > 1 && CosProgress() <= 2)
             {
@@ -948,7 +1001,6 @@ public class mover : MonoBehaviour
                 else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString();
                 if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString();
                 if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString();
-                Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet();
             }
             if (CosProgress() > 2)
             {
@@ -959,8 +1011,10 @@ public class mover : MonoBehaviour
                 else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
-                Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline();
+                     //    (gsave.starttimepos - DateTime.Now)
             }
+            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime());
+
         }
     }
     bool perMorphin;
@@ -968,9 +1022,9 @@ public class mover : MonoBehaviour
     //Приметивный интерфейс
     void Start()
     {
-
-        // InvokeRepeating("GameUpdate", 1, 0.07f);
-        gameObject.AddComponent<Conseole_trigger>();
+     
+            // InvokeRepeating("GameUpdate", 1, 0.07f);
+            gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
         if (VarSave.GetBool("cry"))
@@ -1080,7 +1134,9 @@ public class mover : MonoBehaviour
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     faceViewi = gsave.fv;
-                    planet_position = gsave.Spos;
+                    planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
+                    else gsave.starttimepos = DateTime.Now;
+
                 }
 
                 if (FindFirstObjectByType<GenTest>()) FindFirstObjectByType<GenTest>().load_planet();
@@ -1128,7 +1184,9 @@ public class mover : MonoBehaviour
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     faceViewi = gsave.fv;
-                    planet_position = gsave.Spos;
+                    planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
+                    else gsave.starttimepos = DateTime.Now;
+
                 }
             }
 
@@ -2306,9 +2364,11 @@ public class mover : MonoBehaviour
     float timerTrip;
     float timerFlowUp;
     bool big;
+    bool soveVision;
     private void EffectUpdate()
     {
         // playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
+        //"Шизфрения"
         if (playerdata.Geteffect("Undyning") != null)
         {
             hp = int.MaxValue;
@@ -2396,15 +2456,41 @@ public class mover : MonoBehaviour
                 Instantiate(Resources.Load("audios/BigShot"));
                 big = true;
             }
-                //playermatinvisible
+            //playermatinvisible
         }
-        if (playerdata.Geteffect("BigShot") == null)
+        if (playerdata.Geteffect("Шизфрения") != null)
         {
-           
+
+            if (!big)
+            {
+                Instantiate(Resources.Load("audios/Шиза"));
+                big = true;
+            }
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Шизфрения") == null)
+        {
+
             big = false;
             //playermatinvisible
         }
-       
+        if (playerdata.Geteffect("Совиное Зрение") != null)
+        {
+
+            if (!soveVision)
+            {
+                Instantiate(Resources.Load("ui/info/backcamera"));
+                soveVision = true;
+            }
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Совиное Зрение") == null)
+        {
+
+            soveVision = false;
+            //playermatinvisible
+        }
+        //Совиное Зрение
         hpregen = 0;
         maxhp = 0;
         //ImbalenceRegeneration

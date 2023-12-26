@@ -8,14 +8,25 @@ public class itemspawn : MonoBehaviour
     public string prefabname;
     public HyperbolicPoint hyperbolic;
     public bool FirstEvent;
+    public string timeLine;
     // Start is called before the first frame update
     void Start()
     {
         if (FirstEvent)
         {
-            if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene()+Globalprefs.GetIdPlanet()+Globalprefs.GetTimeline()))
+            if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene().buildIndex + Globalprefs.GetIdPlanet() + Globalprefs.GetTimeline()))
             {
                 sp();
+            }
+        }
+        if (!string.IsNullOrEmpty(timeLine))
+        {
+            if (timeLine == Globalprefs.GetTimeline())
+            {
+                if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene().buildIndex + Globalprefs.GetIdPlanet() + Globalprefs.GetTimeline()))
+                {
+                    csp();
+                }
             }
         }
     }
@@ -23,18 +34,38 @@ public class itemspawn : MonoBehaviour
     // Update is called once per frame
     public void sp()
     {
-      GameObject g = Instantiate(Resources.Load<GameObject>("items/"+prefabname), transform.position, transform.rotation);
-        if (hyperbolic != null)
+        if (string.IsNullOrEmpty(timeLine))
         {
-            g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
-            g.transform.position = new Vector3(
-                0,
-                hyperbolic.transform.position.y,
-                0
-                );
-            g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
+            GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
+            if (hyperbolic != null)
+            {
+                g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
+                g.transform.position = new Vector3(
+                    0,
+                    hyperbolic.transform.position.y,
+                    0
+                    );
+                g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
 
+            }
         }
 
+    }
+    public void csp()
+    {
+       
+            GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
+            if (hyperbolic != null)
+            {
+                g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
+                g.transform.position = new Vector3(
+                    0,
+                    hyperbolic.transform.position.y,
+                    0
+                    );
+                g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
+
+            }
+       
     }
 }

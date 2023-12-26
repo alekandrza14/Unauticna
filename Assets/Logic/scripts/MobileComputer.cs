@@ -208,7 +208,14 @@ public class MobileComputer : MonoBehaviour
             }
             if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
             {
-                txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1));
+                if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                {
+                    txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1));
+                }
+                if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                {
+                    txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1));
+                }
             }
 
             Screen.texture = sprites[2];
@@ -262,8 +269,16 @@ public class MobileComputer : MonoBehaviour
             {
                 if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
                 {
-                    VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
-                    Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                    if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    {
+                        VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
+                        Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                    }
+                    if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    {
+                        VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
+                        Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                    }
                 }
             }
         }
@@ -300,9 +315,10 @@ public class MobileComputer : MonoBehaviour
                     {
                         if (item._Name == classitem.GetComponent<itemName>()._Name)
                         {
-                            
-                          if(VarSave.LoadMoney("tevro", 0)> decimal.MaxValue - Math.Abs((decimal)item.ItemPrise))  VarSave.LoadMoney("tevro", (decimal)item.ItemPrise);
-                           item.gameObject.AddComponent<DELETE>();
+
+                                if (VarSave.LoadMoney("tevro", 0) > decimal.MaxValue - Math.Abs((decimal)item.ItemPrise)) VarSave.LoadMoney("tevro", (decimal)item.ItemPrise);
+                                item.gameObject.AddComponent<DELETE>();
+                          
                         }
                     }
                 }
