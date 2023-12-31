@@ -12,6 +12,7 @@ public class Side1Switch : MonoBehaviour
     public LayerMask al1;
     public LayerMask ac;
    static bool on;
+    bool i;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,12 +39,10 @@ public class Side1Switch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Cam = Camera.main;
-
-        if (Input.GetKeyDown(KeyCode.F1)) VarSave.SetBool("Side", on);
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (!i)
         {
+
+           
             on = VarSave.GetBool("Side");
             if (on)
             {
@@ -59,6 +58,29 @@ public class Side1Switch : MonoBehaviour
                 Cam.cullingMask = ac;
                 Player.layer = 11;
             }
+            i = !i;
+        }
+        Cam = Camera.main;
+
+        if (Input.GetKeyDown(KeyCode.F1)) VarSave.SetBool("Side", on);
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            on = VarSave.GetBool("Side");
+
+        }
+        if (on)
+        {
+            Player.GetComponent<Rigidbody>().excludeLayers = l1;
+            Player.GetComponent<Rigidbody>().includeLayers = l1;
+            Cam.cullingMask = c;
+            Player.layer = 12;
+        }
+        if (!on)
+        {
+            Player.GetComponent<Rigidbody>().excludeLayers = al1;
+            Player.GetComponent<Rigidbody>().includeLayers = al1;
+            Cam.cullingMask = ac;
+            Player.layer = 11;
         }
     }
 
