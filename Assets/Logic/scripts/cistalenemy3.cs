@@ -144,20 +144,18 @@ public class cistalenemy3 : MonoBehaviour
 
             VarSave.SetInt("Agr", cistalenemy.dies);
         }
-        if (c.collider.tag == "bomb" && ionenergy.energy == 0)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             zaseranie();
-            Destroy(c.collider.gameObject);
             Destroy(gameObject); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
 
         }
-        if (c.collider.tag == "bomb" && ionenergy.energy == 1)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
-            Destroy(c.collider.gameObject);
             Destroy(gameObject); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);

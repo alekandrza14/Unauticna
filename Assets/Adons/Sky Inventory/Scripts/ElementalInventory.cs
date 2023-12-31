@@ -3,20 +3,14 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 
 public class inputButton
 {
 	static public int button;
 }
 
-public class PlayerDNA
-{
-    public Color colour;
-    public float metabolism;
-    public float hp;
-    public float Jumping;
-    public float regeneration;
-}
+
 
 public class ElementalInventory : MonoBehaviour {
 
@@ -942,19 +936,66 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKey(KeyCode.E) && Cells[select].elementName == "Умножение" && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "Умножение" && boxItem.getInventory("i3").inventory == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
 
             if (hit.collider != null)
             {
-                if(int.Parse(Cells[select].elementData)>0)  for (int i = 0;i<int.Parse(Cells[select].elementData)-1;i++)
+                if (int.Parse(Cells[select].elementData) > 0) for (int i = 0; i < int.Parse(Cells[select].elementData) - 1; i++)
+                    {
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(0, 1f+(1f*i), 0)), Quaternion.identity);
+                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
                 {
-                    GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position+(new Vector3(0,1.5f,0)), Quaternion.identity);
-                    obj.name = obj.name.Remove(obj.name.Length - 7);
+                    Destroy(gameObject);
                 }
-                if(int.Parse(Cells[select].elementData) == 0)
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "КвадратноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData) - 1; x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData) - 1; y++)
+                        {
+                            GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 0, 1f + (1f * y))), Quaternion.identity);
+                            obj.name = obj.name.Remove(obj.name.Length - 7);
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "КубическоеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData) - 1; x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData) - 1; y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData) - 1; z++)
+                            {
+                                GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                obj.name = obj.name.Remove(obj.name.Length - 7);
+                            }
+                            }
+                        }
+                if (int.Parse(Cells[select].elementData) == 0)
                 {
                     Destroy(gameObject);
                 }
@@ -1614,11 +1655,25 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
-            if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 10);
             playerdata.FreezeAlleffect();
 
 
             lowitem("EffectFreezer", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("EffectBaker") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+
+           
+            playerdata.BakeAlleffect();
+
+            lowitem("EffectBaker", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Метанфитамин") != 0 && boxItem.getInventory("i3").inventory == this)
@@ -1632,6 +1687,21 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("meat", 600);
 
             lowitem("Метанфитамин", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //ChaosPoution
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ChaosPoution") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+            GameManager.saveandhill();
+            for (int i = 0; i < 5; i++)
+            {
+
+
+                Transform t = Instantiate(inv2("Chaos_cube").gameObject, mover.main().transform.position , Quaternion.identity).transform; if (t.GetComponent<itemName>())
+                    Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
+            }
+
+            lowitem("ChaosPoution", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеСовы") != 0 && boxItem.getInventory("i3").inventory == this)
@@ -1686,6 +1756,18 @@ public class ElementalInventory : MonoBehaviour {
                 mover.main().DNA.Jumping = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).Jumping;
                 mover.main().DNA.hp = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).hp;
                 mover.main().DNA.regeneration = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).regeneration;
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
+                && Cells[select].elementName == "DNAFixer" && Cells[select].elementCount > 0)
+            {
+
+                mover.main().DNA.bakeeffects = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).bakeeffects;
 
                 VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
 
@@ -2103,6 +2185,30 @@ public class ElementalInventory : MonoBehaviour {
                         hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 1000f;
                         hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
                         Cells[select].elementName = "BlackGrib";
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+        }
+        bool itsdna  = false;
+        if (Cells[select].elementName.Length > 4) if (Cells[select].elementName.Remove(3, Cells[select].elementName.Length - 3) == "DNA") itsdna = true;
+
+       if (Input.GetKeyDown(KeyCode.Mouse0) && boxItem.getInventory("i3").inventory == this
+            && itsdna && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ПлевковаяКастрюля>())
+                {
+                    if (hit.collider.GetComponent<ПлевковаяКастрюля>().плевки > 10)
+                    {
+                        //  Cells[select].elementData = 
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().плевки -= 10f;
+                        hit.collider.GetComponent<ПлевковаяКастрюля>().GetComponent<itemName>().ItemData = hit.collider.GetComponent<ПлевковаяКастрюля>().плевки.ToString();
+                        Cells[select].elementData = "";
                         Cells[select].UpdateCellInterface();
                     }
                 }
@@ -2904,8 +3010,13 @@ public class ElementalInventory : MonoBehaviour {
             t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
            if(t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
 
-            Destroy(t.gameObject.GetComponent<Rigidbody>());
-            setItem("", 0, Color.red, select);
+            if (GetComponent<Rigidbody>())
+            {
+                t.gameObject.GetComponent<Rigidbody>().drag = 999999;
+                t.gameObject.GetComponent<Rigidbody>().mass = 999999;
+                t.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
+                setItem("", 0, Color.red, select);
             Cells[0].UpdateCellInterface();
         }
        else if (Cells[select].elementCount != 0)
@@ -2926,7 +3037,13 @@ public class ElementalInventory : MonoBehaviour {
                 );
             t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = inv2(Cells[select].elementName).gameObject.transform.localScale;
             if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
-            Destroy(t.gameObject.GetComponent<Rigidbody>());
+
+            if (GetComponent<Rigidbody>())
+            {
+                t.gameObject.GetComponent<Rigidbody>().drag = 999999;
+                t.gameObject.GetComponent<Rigidbody>().mass = 999999;
+                t.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
             setItem("", 0, Color.red, select);
             Cells[0].UpdateCellInterface();
         }

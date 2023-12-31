@@ -26,7 +26,7 @@ public class Element : MonoBehaviour
     {
         for (int i =0; i< element.Length;i++)
         {
-           if( element[i].element.tag == c.collider.tag)
+           if( element[i].element.GetComponent<itemName>()._Name == c.collider.GetComponent<itemName>()._Name)
             {
                 string reserch = c.collider.gameObject.GetComponent<itemName>()._Name + gameObject.GetComponent<itemName>()._Name;
 

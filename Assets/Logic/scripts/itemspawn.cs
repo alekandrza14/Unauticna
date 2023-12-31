@@ -19,21 +19,16 @@ public class itemspawn : MonoBehaviour
                 sp();
             }
         }
-        if (!string.IsNullOrEmpty(timeLine))
-        {
-            if (timeLine == Globalprefs.GetTimeline())
-            {
-                if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene().buildIndex + Globalprefs.GetIdPlanet() + Globalprefs.GetTimeline()))
-                {
-                    csp();
-                }
-            }
-        }
+        
+                 
+            
+        
     }
 
     // Update is called once per frame
     public void sp()
     {
+        csp();
         if (string.IsNullOrEmpty(timeLine))
         {
             GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
@@ -53,19 +48,24 @@ public class itemspawn : MonoBehaviour
     }
     public void csp()
     {
-       
-            GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
-            if (hyperbolic != null)
+        if (!string.IsNullOrEmpty(timeLine))
+        {
+            if (timeLine == Globalprefs.GetTimeline())
             {
-                g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
-                g.transform.position = new Vector3(
-                    0,
-                    hyperbolic.transform.position.y,
-                    0
-                    );
-                g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
+                GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
+                if (hyperbolic != null)
+                {
+                    g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
+                    g.transform.position = new Vector3(
+                        0,
+                        hyperbolic.transform.position.y,
+                        0
+                        );
+                    g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
 
+                }
             }
-       
+        }
+
     }
 }

@@ -50,9 +50,8 @@ public class cistalenemy4 : MonoBehaviour
 
         }
 
-        if (c.collider.tag == "bomb" && hp <= 0&& ionenergy.energy == 0)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && hp <= 0&& ionenergy.energy == 0)
         {
-            Destroy(c.collider.gameObject);
             dies();
             for (int i = 0; i < 250; i++)
             {
@@ -60,7 +59,7 @@ public class cistalenemy4 : MonoBehaviour
 
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             }
-        } if (c.collider.tag == "bomb" && hp <= 0&& ionenergy.energy == 1)
+        } if (c.collider.GetComponent<Logic_tag_exploution>() && hp <= 0&& ionenergy.energy == 1)
         {
             Destroy(c.collider.gameObject);
             dies();
@@ -90,7 +89,7 @@ public class cistalenemy4 : MonoBehaviour
             hp--;
             tic3 = 0;
         }
-        if (c.collider.tag == "bomb" && hp > 0 && tic3 > 0.1f&& ionenergy.energy == 0)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && hp > 0 && tic3 > 0.1f&& ionenergy.energy == 0)
         {
 
             for (int i = 0; i < 60; i++)
@@ -103,7 +102,7 @@ public class cistalenemy4 : MonoBehaviour
             hp -= 10;
             tic3 = 0;
         }
-        if (c.collider.tag == "bomb" && ionenergy.energy == 1&& tic3 > 0.1f)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1&& tic3 > 0.1f)
         {
 
             

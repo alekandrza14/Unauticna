@@ -122,17 +122,15 @@ public class exner : MonoBehaviour
     private void OnCollisionStay(Collision c)
     {
 
-        if (c.collider.tag == "bomb" && ionenergy.energy == 0)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
-            Destroy(c.collider.gameObject);
             Destroy(gameObject);
             zaseranie();
         }
-        if (c.collider.tag == "bomb" && ionenergy.energy == 1)
+        if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1)
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
-            Destroy(c.collider.gameObject);
             Destroy(gameObject);
             
         }

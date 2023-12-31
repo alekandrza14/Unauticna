@@ -11,6 +11,11 @@ public class GravityBoard : MonoBehaviour
     public bool sitplayer;
     public Slider slider;
     public Canvas canvas;
+    public HyperbolicCamera camera;
+    private void Start()
+    {
+        camera = HyperbolicCamera.Main();
+    }
 
     void Update()
     {
@@ -22,8 +27,14 @@ public class GravityBoard : MonoBehaviour
         {
             Globalprefs.sit_player = player.gameObject;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-            player.position = cell.position;
-            player.rotation = cell.rotation;
+          if(!camera)  player.position = cell.position;
+            else player.position = new Vector3(0, cell.position.y,0);
+            if (camera) cell.position = new Vector3(0, cell.position.y, 0);
+            if (GetComponent<HyperbolicPoint>())
+            {
+                GetComponent<HyperbolicPoint>().HyperboilcPoistion = camera.RealtimeTransform.copy().inverse();
+            }
+            if (!camera) player.rotation = cell.rotation;
             if (Input.GetKey(KeyCode.W))
             {
 

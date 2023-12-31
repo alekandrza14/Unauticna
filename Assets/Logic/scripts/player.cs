@@ -4,6 +4,17 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Xml.Linq;
+
+public class PlayerDNA
+{
+    public Color colour;
+    public float metabolism = 1;
+    public float hp = 0;
+    public float Jumping = 0;
+    public float regeneration = 0;
+    public List<useeffect> bakeeffects;
+}
 [System.Serializable]
 public class useeffect
 {
@@ -104,6 +115,18 @@ public class playerdata
 
         playerdata.Paniceffect[0] = us[0];
     }
+    static public void LoadBakeeffect()
+    {
+        PlayerDNA dna = mover.main().DNA;
+        for (int i = 0; i < dna.bakeeffects.Count; i++)
+        {
+            if (playerdata.Geteffect(dna.bakeeffects[i].effect)==null)
+            {
+                Addeffect(dna.bakeeffects[i].effect, float.PositiveInfinity);
+            }
+        }
+       
+    }
     static public void Saveeffect()
     {
         for (int i = 0; i < playerdata.effects.Length; i++)
@@ -130,6 +153,33 @@ public class playerdata
 
         }
 
+    }
+    static public void BakeAlleffect()
+    {
+        PlayerDNA dna = mover.main().DNA;
+        for (int i = 0; i < playerdata.effects.Length; i++)
+        {
+            if (playerdata.effects[i].effect != "")
+            {
+                foreach (useeffect dnaitem in dna.bakeeffects)
+                {
+                    if (Geteffect(dnaitem.effect)==null)
+                    {
+
+
+
+                        playerdata.effects[i].time = float.PositiveInfinity;
+
+
+                        mover.main().DNA.bakeeffects.Add(playerdata.effects[i]);
+                    }
+                }
+            }
+
+
+        }
+
+        VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
     }
     static public void Addeffect(string name, float secoundstime)
     {

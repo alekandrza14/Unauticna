@@ -68,7 +68,7 @@ public class HyperbolicCamera : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    static HyperbolicCamera main_cam;
+    static HyperbolicCamera main_cam = null;
     public static HyperbolicCamera Main()
     {
         if(main_cam==null) main_cam = FindFirstObjectByType<HyperbolicCamera>();

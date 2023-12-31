@@ -621,6 +621,7 @@ public class mover : MonoBehaviour
         }
         playerdata.Loadeffect();
 
+      if(DNA != null)  playerdata.LoadBakeeffect();
         ionenergy.energy = 0;
         vel = GetComponent<CapsuleCollider>().height;
 
@@ -2390,7 +2391,7 @@ public class mover : MonoBehaviour
             invisibeobject = 0;
             for (int i = 0; i < PlayersModelObjObjects.Length; i++)
             {
-               
+
                 if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
                 {
                     Material m3 = Resources.Load<Material>("pm/playermat");
@@ -2408,6 +2409,41 @@ public class mover : MonoBehaviour
 
                     Material m3 = Resources.Load<Material>("pm/playermat");
                     if (c1.r + c1.g + c1.b != 0) m3.color = c1;
+                    List<Material> m = new List<Material>();
+                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
+                    {
+                        m.Add(m2);
+                    }
+                    m[PlayerModelTags[i]] = m3;
+                    PlayersModelObjObjects[i].GetComponent<MeshRenderer>().SetMaterials(m);
+                }
+            }
+            //playermat
+        }
+        if (playerdata.Geteffect("invisible") != null)
+        {
+
+            invisibeobject = 10;
+            for (int i = 0; i < PlayersModelObjObjects.Length; i++)
+            {
+
+                if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
+                {
+                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
+                    if (c1.r + c1.g + c1.b != 0) m3.color = new Color(0,0,0,0) + (c1*0.1f);
+                    List<Material> m = new List<Material>();
+                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
+                    {
+                        m.Add(m2);
+                    }
+                    m[PlayerModelTags[i]] = m3;
+                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().SetMaterials(m);
+                }
+                if (PlayersModelObjObjects[i].GetComponent<MeshRenderer>())
+                {
+
+                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
+                    if (c1.r + c1.g + c1.b != 0) m3.color = new Color(0, 0, 0, 0) + (c1 * 0.1f);
                     List<Material> m = new List<Material>();
                     foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
                     {

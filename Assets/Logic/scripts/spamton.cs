@@ -40,7 +40,7 @@ public class spamton : MonoBehaviour
     }
     private void OnCollisionStay(Collision c)
     {
-        if (c.collider.tag == "item1")
+        if (c.collider.GetComponent<Logic_tag_DamageObject>())
         {
             VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
             Destroy(gameObject);

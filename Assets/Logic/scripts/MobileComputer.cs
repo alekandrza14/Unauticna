@@ -309,6 +309,7 @@ public class MobileComputer : MonoBehaviour
             }
             if (servers == ComputerOperationsServers.SellAllItemsOnLocation)
             {
+                decimal prise =0;
                 foreach (itemName item in FindObjectsByType<itemName>(sortmode.main))
                 {
                     foreach (GameObject classitem in complsave.t3)
@@ -316,12 +317,15 @@ public class MobileComputer : MonoBehaviour
                         if (item._Name == classitem.GetComponent<itemName>()._Name)
                         {
 
-                                if (VarSave.LoadMoney("tevro", 0) > decimal.MaxValue - Math.Abs((decimal)item.ItemPrise)) VarSave.LoadMoney("tevro", (decimal)item.ItemPrise);
+                                   prise += (decimal)item.ItemPrise;
                                 item.gameObject.AddComponent<DELETE>();
                           
                         }
                     }
                 }
+                if (prise > 0) { if (VarSave.LoadMoney("tevro", 0) < decimal.MaxValue - prise) VarSave.LoadMoney("tevro", prise); }
+                else if(VarSave.LoadMoney("tevro", 0) > decimal.MinValue - prise) VarSave.LoadMoney("tevro", prise);
+
             }
         }
     }
