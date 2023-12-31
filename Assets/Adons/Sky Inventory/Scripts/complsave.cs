@@ -681,7 +681,7 @@ public class complsave : MonoBehaviour
                 {
 
                     GameObject g = Instantiate(t4[toTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
-                    if (saveString1.PvectorB.Count < i && hc != null)
+                    if (saveString1.PvectorB.Count > i && hc != null)
                     {
                         if (!g.GetComponent<HyperbolicPoint>())
                         {
@@ -729,7 +729,7 @@ public class complsave : MonoBehaviour
                     if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
                     if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
                     if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
-                    if (saveString1.PvectorC.Count < i && hc != null)
+                    if (saveString1.PvectorC.Count > i && hc != null)
                     {
                         if (!g.GetComponent<HyperbolicPoint>())
                         {
@@ -781,7 +781,7 @@ public class complsave : MonoBehaviour
                     {
                         g.GetComponent<breauty>().integer = saveString1.x[i3];
                     }
-                    if (saveString1.PvectorA.Count < i3 && hc != null)
+                    if (saveString1.PvectorA.Count > i3 && hc != null)
                     {
                         if (!g.GetComponent<HyperbolicPoint>())
                         {
