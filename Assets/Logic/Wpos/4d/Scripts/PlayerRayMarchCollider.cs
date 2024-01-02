@@ -18,7 +18,7 @@ namespace Unity.Mathematics
         public float maxDownMovement = 0f;
         [Tooltip ("The transforms from which the raymarcher will test the distances and apply the collision")]
         public Transform[] rayMarchTransforms;
-
+        public bool playerSphericalModel;
         private DistanceFunctions Df;
         private RaymarchCam camScript;
 
@@ -452,7 +452,8 @@ namespace Unity.Mathematics
                 }
 
                 // Debug.Log(d);
-                transform.Translate(Vector3.down * d, Space.World);
+                if (!playerSphericalModel) transform.Translate(Vector3.down * d, Space.World);
+                if (playerSphericalModel) transform.Translate(-transform.up * d, Space.World);
             }
         }
 

@@ -1010,9 +1010,16 @@ public class mover : MonoBehaviour
                 GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
                 if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n ["+cur_N_position+"] : " + N_position[cur_N_position].ToString();
                 else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
-                if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
-                if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
-                     //    (gsave.starttimepos - DateTime.Now)
+                if (!hyperbolicCamera)
+                {
+                    if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                    if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Liminal World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                }
+                if (hyperbolicCamera)
+                {
+                    if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Hypercomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                    if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Hypercomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                }
             }
             Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime());
 

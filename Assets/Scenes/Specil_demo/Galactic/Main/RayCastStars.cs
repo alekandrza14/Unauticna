@@ -145,6 +145,11 @@ public class RayCastStars : MonoBehaviour
 
                         text.text = "Звезда " + "Ецлнос Сонечный" + " : s" + o.ToString();
                     }
+                    else if (o == 112 && Globalprefs.GetIdStar(o) == 1065612)
+                    {
+
+                        text.text = "Звезда " + "Свобода от Любовселенского кансервационера" + " : s" + o.ToString();
+                    }
                     else
                     {
                         text.text = "Звезда " + StarNameGenrator.Create_word(Globalprefs.GetIdStar(o)) + " : s" + o.ToString();
@@ -182,6 +187,14 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         VarSave.SetInt("planet", o);
                         SceneManager.LoadScene("dark5");
+                        VarSave.SetBool("NoStop", false);
+                        VarSave.DeleteKey("scppos");
+                    }
+                    else if (o == 112 && Globalprefs.GetIdStar(o) == 1065612 && Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                        VarSave.SetInt("planet", o);
+                        SceneManager.LoadScene("dark6");
                         VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }

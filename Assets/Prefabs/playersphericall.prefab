@@ -951,7 +951,8 @@ MonoBehaviour:
   _precision: 0.01
   _globalGeometryTexture: {fileID: 2800000, guid: 338c1635afdf6634db017d633607e40a,
     type: 3}
-  _globalGeometryTexture1: {fileID: 0}
+  _globalGeometryTexture1: {fileID: 2800000, guid: 234537d54a89e0a43af948b19d32aadb,
+    type: 3}
   _globalGeometryTexture2: {fileID: 0}
   _globalGeometryTexture3: {fileID: 0}
   _globalGeometryTexture4: {fileID: 0}
@@ -1120,12 +1121,19 @@ MonoBehaviour:
   - {fileID: 4945730235329824884}
   - {fileID: 1804130643585545230}
   W_position: 0
+  H_position: 0
+  N_position:
+  - 0
+  cur_N_position: 0
   planet_position: 0
   SaveFileInputField: {fileID: 8541250949985825862}
   IsGraund: 0
+  InWater: 0
   watermask: {fileID: 0}
   hp: 200
   HeadCameraSetup: {fileID: 7064745002962192588}
+  nonnatureprogress: 0
+  fly: 0
   PlayersModelObjObjects:
   - {fileID: 1838232960695858021}
   - {fileID: 2669909548896463910}
@@ -1141,6 +1149,7 @@ MonoBehaviour:
   PlayerModelTags: 010000000000000000000000000000000000000000000000
   DebugMat: {fileID: 0}
   lif: 
+  HX_Rotation: 0
 --- !u!54 &8541250950486462519
 Rigidbody:
   m_ObjectHideFlags: 0
