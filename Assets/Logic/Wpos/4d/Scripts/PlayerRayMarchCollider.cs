@@ -21,11 +21,12 @@ namespace Unity.Mathematics
         public bool playerSphericalModel;
         private DistanceFunctions Df;
         private RaymarchCam camScript;
-
+        
 
         // Start is called before the first frame update
         void Start()
         {
+
             camScript = FindFirstObjectByType<RaymarchCam>();
             Df = FindFirstObjectByType<DistanceFunctions>();
             if (!instance)
@@ -34,15 +35,18 @@ namespace Unity.Mathematics
 
             }
         }
-        
+
         // Update is called once per frame
         void Update()
         {
-            MoveToGround();
-            RayMarch(rayMarchTransforms);
-            
+            if (FindObjectsByType<Shape4D>(sortmode.main).Length>1)
+            {
+                MoveToGround();
+                RayMarch(rayMarchTransforms);
+            }
+
         }
-        float LostPosX;
+            float LostPosX;
         // the distancefunction for the shapes
         public float GetShapeDistance(Shape4D shape, float4 p4D)
         {

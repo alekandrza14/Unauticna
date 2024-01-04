@@ -21,6 +21,30 @@ public static class Globalprefs
     public static List<string> SelfFunctions = new List<string>();
     public static decimal flowteuvro;
     public static double Infinitysteuvro;
+    public static double Reality;
+    public static System.Random hashReal;
+
+    public static void GetRealiyHash(int offset)
+    {
+        Reality = VarSave.GetTrash("RealityX");
+        System.Random r = new System.Random(offset + (int)Reality);
+        hashReal = r;
+    }
+    public static float GetRealiyChaos(float var)
+    {
+        if (hashReal == null)
+        {
+            GetRealiyHash(4);
+        }
+       Reality = VarSave.GetTrash("RealityX");
+      System.Random r = hashReal;
+        float f = r.Next(-(int)145674, (int)145674);
+        f *= var;
+        f /= 145674;
+        if (Reality == 0) f = 0;
+        return f;
+    }
+    
     public static decimal knowlages;
     public static decimal technologies;
     public static decimal research;

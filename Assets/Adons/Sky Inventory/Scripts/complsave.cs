@@ -24,6 +24,7 @@ public class complsave : MonoBehaviour
     public static string[] t6 = new string[0];
     public static string[] info4 = new string[0];
 
+    ItemDemake Demake;
 
     public string lif;
 
@@ -116,6 +117,8 @@ public class complsave : MonoBehaviour
     }
     public void getallitems()
     {
+        if (VarSave.GetString("Demake" + Globalprefs.Reality) != "") Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
+
         if (t5.Length == 0)
         {
             GameObject[] g3 = Resources.LoadAll<GameObject>("Morfs");
@@ -165,8 +168,9 @@ public class complsave : MonoBehaviour
 
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         lif = "";
-        if(!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString(); 
+        if(!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
+      if(VarSave.GetTrash("RealityX") != 0)  lif += "_" + VarSave.GetTrash("RealityX");
         getallitems();
         load();
         for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
@@ -720,111 +724,132 @@ public class complsave : MonoBehaviour
                             }
 
                 }
+                bool j1 = false;
                 GameObject co = Resources.Load<GameObject>("CustomObject");
                 for (int i = 0; i < saveString1.idC.Count; i++)
                 {
 
-                    GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
-
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
-                    if (saveString1.PvectorC.Count > i && hc != null)
-                    {
-                        if (!g.GetComponent<HyperbolicPoint>())
+                    if (Demake != null)
+                        if (Demake.co != null)
+                            if (Demake.co.Count > 0)
+                                foreach (string s in Demake.co){
+                        if (saveString1.idC[i]==s)
                         {
-
-
-                            g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
-
-                            g.transform.position = new Vector3(
-                            g.transform.position.x,
-                            saveString1.vector3D[i].y,
-                            g.transform.position.z
-                                             );
-                        }
-                        else
-                        {
-                            g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
-                            g.transform.position = new Vector3(
-                            g.transform.position.x,
-                            saveString1.vector3D[i].y,
-                            g.transform.position.z
-                                             );
+                            j1 = true;
                         }
                     }
-                    g.GetComponent<CustomObject>().s = saveString1.idC[i];
-                    g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
-                    g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
-                    if (saveString1.posN2.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid2.Count; i2++)
+                    if (!j1)
+                    {
+                        GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
+
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
+                        if (saveString1.PvectorC.Count > i && hc != null)
+                        {
+                            if (!g.GetComponent<HyperbolicPoint>())
                             {
-                                g.GetComponent<MultyObject>().N_Positions = nid2[i];
+
+
+                                g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
+
+                                g.transform.position = new Vector3(
+                                g.transform.position.x,
+                                saveString1.vector3D[i].y,
+                                g.transform.position.z
+                                                 );
                             }
-
+                            else
+                            {
+                                g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
+                                g.transform.position = new Vector3(
+                                g.transform.position.x,
+                                saveString1.vector3D[i].y,
+                                g.transform.position.z
+                                                 );
+                            }
+                        }
+                        g.GetComponent<CustomObject>().s = saveString1.idC[i];
+                        g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
+                        g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
+                        if (saveString1.posN2.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid2.Count; i2++)
+                                {
+                                    g.GetComponent<MultyObject>().N_Positions = nid2[i];
+                                }
+                    }
                 }
-
+                bool j2 = false;
                 for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
                 {
 
-
-
-
-                    Debug.Log("1");
-                    GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
-                    if (!g.GetComponent<breauty>())
+                    if (Demake != null)
+                        if (Demake.item != null) 
+                            if (Demake.item.Count > 0) foreach (string s in Demake.item)
                     {
-
-
-                        g.AddComponent<breauty>().integer = saveString1.x[i3];
+                        if (saveString1.idA[i3] == s)
+                        {
+                            j2 = true;
+                        }
                     }
-                    else
+                    if (!j2)
                     {
-                        g.GetComponent<breauty>().integer = saveString1.x[i3];
-                    }
-                    if (saveString1.PvectorA.Count > i3 && hc != null)
-                    {
-                        if (!g.GetComponent<HyperbolicPoint>())
+
+                        Debug.Log("1");
+                        GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                        if (!g.GetComponent<breauty>())
                         {
 
 
-                            g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
-
-                            g.transform.position = new Vector3(
-                            g.transform.position.x,
-                            saveString1.vector3A[i3].y,
-                            g.transform.position.z
-                                             );
+                            g.AddComponent<breauty>().integer = saveString1.x[i3];
                         }
                         else
                         {
-                            g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
-                            g.transform.position = new Vector3(
-                            g.transform.position.x,
-                            saveString1.vector3A[i3].y,
-                            g.transform.position.z
-                                             );
+                            g.GetComponent<breauty>().integer = saveString1.x[i3];
                         }
-                    }
-
-
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
-                    if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
-                    if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
-                    if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
-                    if (g.GetComponent<itemName>())
-                    {
-                        g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
-                    }
-                    if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
+                        if (saveString1.PvectorA.Count > i3 && hc != null)
+                        {
+                            if (!g.GetComponent<HyperbolicPoint>())
                             {
-                                g.GetComponent<MultyObject>().N_Positions = nid[i];
+
+
+                                g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
+
+                                g.transform.position = new Vector3(
+                                g.transform.position.x,
+                                saveString1.vector3A[i3].y,
+                                g.transform.position.z
+                                                 );
                             }
+                            else
+                            {
+                                g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
+                                g.transform.position = new Vector3(
+                                g.transform.position.x,
+                                saveString1.vector3A[i3].y,
+                                g.transform.position.z
+                                                 );
+                            }
+                        }
+
+
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
+                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
+                        if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
+                        if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
+                        if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
+                        if (g.GetComponent<itemName>())
+                        {
+                            g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
+                        }
+                        if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
+                                {
+                                    g.GetComponent<MultyObject>().N_Positions = nid[i];
+                                }
+                    }
+
+
                 }
-
-
-
 
 
             }

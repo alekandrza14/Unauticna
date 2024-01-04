@@ -89,6 +89,18 @@ public class VarSave
         if (!File.Exists(GetPath(saveType) + "/Events/" + key)) { File.WriteAllText(GetPath(saveType) + "/Events/" + key, "Done"); Done = true; }
         return Done;
     }
+    public static void DestroyEvent(string key)
+    {
+        Directory.CreateDirectory(path + "/Events");
+        if (!File.Exists(path + "/Events/" + key)) { File.Delete(path + "/Events/" + key);  }
+   
+    }
+    public static void DestroyEvent(string key, SaveType saveType)
+    {
+        Directory.CreateDirectory(GetPath(saveType));
+        if (!File.Exists(GetPath(saveType) + "/Events/" + key)) { File.Delete(GetPath(saveType) + "/Events/" + key); }
+     
+    }
     public static int GetInt(string key)
     {
         int varout = 0;

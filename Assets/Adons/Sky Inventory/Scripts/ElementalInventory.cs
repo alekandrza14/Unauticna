@@ -943,7 +943,7 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-                if (int.Parse(Cells[select].elementData) > 0) for (int i = 0; i < int.Parse(Cells[select].elementData) - 1; i++)
+                if (int.Parse(Cells[select].elementData) > 0) for (int i = 0; i < int.Parse(Cells[select].elementData); i++)
                     {
                         GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(0, 1f+(1f*i), 0)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
@@ -962,9 +962,9 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData) - 1; x++)
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
                     {
-                        for (int y = 0; y < int.Parse(Cells[select].elementData) - 1; y++)
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
                         {
                             GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 0, 1f + (1f * y))), Quaternion.identity);
                             obj.name = obj.name.Remove(obj.name.Length - 7);
@@ -984,17 +984,17 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData) - 1; x++)
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
                     {
-                        for (int y = 0; y < int.Parse(Cells[select].elementData) - 1; y++)
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
                         {
-                            for (int z = 0; z < int.Parse(Cells[select].elementData) - 1; z++)
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
                             {
                                 GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
                                 obj.name = obj.name.Remove(obj.name.Length - 7);
                             }
-                            }
                         }
+                    }
                 if (int.Parse(Cells[select].elementData) == 0)
                 {
                     Destroy(gameObject);
@@ -1002,6 +1002,368 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "ТессерактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                    obj.name = obj.name.Remove(obj.name.Length - 7);
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "ПентарактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                        obj.name = obj.name.Remove(obj.name.Length - 7);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "СикстерактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                            obj.name = obj.name.Remove(obj.name.Length - 7);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "СемирактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            for (int s = 0; s < int.Parse(Cells[select].elementData); s++)
+                                            {
+                                                GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                                obj.name = obj.name.Remove(obj.name.Length - 7);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "ОкторактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            for (int s = 0; s < int.Parse(Cells[select].elementData); s++)
+                                            {
+                                                for (int f = 0; f < int.Parse(Cells[select].elementData); f++)
+                                                {
+                                                    GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                                    obj.name = obj.name.Remove(obj.name.Length - 7);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "НовеморактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            for (int s = 0; s < int.Parse(Cells[select].elementData); s++)
+                                            {
+                                                for (int f = 0; f < int.Parse(Cells[select].elementData); f++)
+                                                {
+                                                    for (int c = 0; c < int.Parse(Cells[select].elementData); c++)
+                                                    {
+                                                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                                        obj.name = obj.name.Remove(obj.name.Length - 7);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "ДесерактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            for (int s = 0; s < int.Parse(Cells[select].elementData); s++)
+                                            {
+                                                for (int f = 0; f < int.Parse(Cells[select].elementData); f++)
+                                                {
+                                                    for (int c = 0; c < int.Parse(Cells[select].elementData); c++)
+                                                    {
+                                                        for (int o = 0; o < int.Parse(Cells[select].elementData); o++)
+                                                        {
+                                                            GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                                            obj.name = obj.name.Remove(obj.name.Length - 7);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "УдециморактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            for (int s = 0; s < int.Parse(Cells[select].elementData); s++)
+                                            {
+                                                for (int f = 0; f < int.Parse(Cells[select].elementData); f++)
+                                                {
+                                                    for (int c = 0; c < int.Parse(Cells[select].elementData); c++)
+                                                    {
+                                                        for (int o = 0; o < int.Parse(Cells[select].elementData); o++)
+                                                        {
+                                                            for (int t = 0; t < int.Parse(Cells[select].elementData); t++)
+                                                            {
+                                                                GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                                                obj.name = obj.name.Remove(obj.name.Length - 7);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "ДуодециморактноеУмножение" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (int.Parse(Cells[select].elementData) > 0) for (int x = 0; x < int.Parse(Cells[select].elementData); x++)
+                    {
+                        for (int y = 0; y < int.Parse(Cells[select].elementData); y++)
+                        {
+                            for (int z = 0; z < int.Parse(Cells[select].elementData); z++)
+                            {
+                                for (int w = 0; w < int.Parse(Cells[select].elementData); w++)
+                                {
+                                    for (int h = 0; h < int.Parse(Cells[select].elementData); h++)
+                                    {
+                                        for (int p = 0; p < int.Parse(Cells[select].elementData); p++)
+                                        {
+                                            for (int s = 0; s < int.Parse(Cells[select].elementData); s++)
+                                            {
+                                                for (int f = 0; f < int.Parse(Cells[select].elementData); f++)
+                                                {
+                                                    for (int c = 0; c < int.Parse(Cells[select].elementData); c++)
+                                                    {
+                                                        for (int o = 0; o < int.Parse(Cells[select].elementData); o++)
+                                                        {
+                                                            for (int t = 0; t < int.Parse(Cells[select].elementData); t++)
+                                                            {
+                                                                for (int e = 0; e < int.Parse(Cells[select].elementData); e++)
+                                                                {
+                                                                    GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + (new Vector3(1f + (1f * x), 1f + (1f * y), 1f + (1f * z))), Quaternion.identity);
+                                                                    obj.name = obj.name.Remove(obj.name.Length - 7);
+                                                                }
+                                                            }
+                                                            }
+                                                        }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                if (int.Parse(Cells[select].elementData) == 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+
+        }
+        //ТессерактноеУмножение
         if (Input.GetKeyDown(KeyCode.Mouse0) && !batteytype && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1096,7 +1458,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "battery" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName != "mathimatic_battery" && batteytype && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             RaycastHit hit = MainRay.MainHit;

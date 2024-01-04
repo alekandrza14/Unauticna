@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class itemspawn : MonoBehaviour
     {
         if (FirstEvent)
         {
-            if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene().buildIndex + Globalprefs.GetIdPlanet() + Globalprefs.GetTimeline()))
+            if (VarSave.CreateEvent("item" + transform.position.x + transform.position.y + transform.position.z + SceneManager.GetActiveScene().buildIndex + Globalprefs.GetIdPlanet() + Globalprefs.GetTimeline()+DateTime.Now.DayOfYear.ToString()))
             {
                 sp();
             }

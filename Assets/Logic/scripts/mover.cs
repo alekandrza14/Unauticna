@@ -490,6 +490,7 @@ public class mover : MonoBehaviour
     bool swapWHaN;
     private void Init()
     {
+        Globalprefs.GetRealiyHash(4);
         if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
         else gsave.starttimepos = DateTime.Now;
 
@@ -516,6 +517,7 @@ public class mover : MonoBehaviour
             maxhp2 = (int)DNA.hp;
             regen = (int)DNA.regeneration;
         }
+        jumpPower += Globalprefs.GetRealiyChaos(4);
         cistalenemy.dies = VarSave.LoadInt("Agr",0);
         Globalprefs.Chanse_fire = 0;
         if (RenderSettings.skybox.name == "Default-Skybox")
@@ -538,19 +540,19 @@ public class mover : MonoBehaviour
         {
             LastSesionHours = timer7;
         }
-        float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * 100f);
+        float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * 100f+Globalprefs.GetRealiyChaos(50));
         if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0)
         {
             Debug.Log("CahncePiratAttack" + (int)Chance);
             Instantiate(Resources.Load<GameObject>("events/Pirats"));
         }
-        float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * 100f);
+        float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * 100f + Globalprefs.GetRealiyChaos(50));
         if (UnityEngine.Random.Range(0, (int)Chance2 + 1) == 0)
         {
             cistalenemy.dies -= 2;
             VarSave.LoadMoney("tevro", -100);
         }
-        float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * 100f);
+        float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * 100f + Globalprefs.GetRealiyChaos(50));
         if (UnityEngine.Random.Range(0, (int)Chance3 + 1) == 0)
         {
             DirectoryInfo di = new DirectoryInfo("unsave/var/researchs");
@@ -579,7 +581,7 @@ public class mover : MonoBehaviour
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.technologies = VarSave.GetMoney("_technologies");
-        Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow");
+        Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow")+ ((decimal)Globalprefs.GetRealiyChaos(10f)/100);
         Globalprefs.Infinitysteuvro = VarSave.GetTrash("inftevro");
         Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         lif = Globalprefs.GetIdPlanet().ToString();
@@ -1017,11 +1019,11 @@ public class mover : MonoBehaviour
                 }
                 if (hyperbolicCamera)
                 {
-                    if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Hypercomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
-                    if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Hypercomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                    if (gameObject.layer == 11) Globalprefs.PlayerPositionInfo = "Hyperkomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "1" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
+                    if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Hyperkomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + transform.position.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 }
             }
-            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime());
+            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime()) + " z : re " + Globalprefs.Reality + " , muc " + "0" + " , li " + "0" + " , gli " + "0";
 
         }
     }
@@ -1482,6 +1484,7 @@ public class mover : MonoBehaviour
     bool SuperMind;
     void Update()
     {
+        Globalprefs.Reality = VarSave.GetTrash("RealityX");
         if (N_position.Count > 7)
         {
             if (N_position[7] > 6.9f && N_position[7] < 7.9f && !SuperMind)
