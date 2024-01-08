@@ -54,8 +54,8 @@ public class GenTest : MonoBehaviour
 
         Debug.Log("Planet Id " + Globalprefs.GetIdPlanet());
         var sw = System.Diagnostics.Stopwatch.StartNew();
-		GenerateAllChunks();
-		Debug.Log("Generation Time: " + sw.ElapsedMilliseconds + " ms");
+        load_planet();
+        Debug.Log("Generation Time: " + sw.ElapsedMilliseconds + " ms");
 
 		ComputeHelper.CreateRenderTexture3D(ref originalMap, processedDensityTexture);
 		ComputeHelper.CopyRenderTexture3D(processedDensityTexture, originalMap);

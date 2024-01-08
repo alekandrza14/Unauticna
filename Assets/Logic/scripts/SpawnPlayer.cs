@@ -27,9 +27,17 @@ public class SpawnPlayer : MonoBehaviour
                      Random.Range(-300, 300),
                      Random.Range(-300, 300),
                      Random.Range(-300, 300)), Quaternion.identity);
+                for (int i = 0; i < 4; i++)
+                {
+                  GameObject g = Instantiate(Resources.Load<GameObject>("complectItems/4DChaos_cube").gameObject, new Vector3(
+                     Random.Range(-300, 300),
+                     Random.Range(-300, 300),
+                     Random.Range(-300, 300)), Quaternion.identity);
+                    g.GetComponent<MultyObject>().W_Position = Random.Range(-300, 300);
+                }
 
             }
-            if (FindObjectsByType<Chaos_cube>(sortmode.main).Length > 0)
+                if (FindObjectsByType<Chaos_cube>(sortmode.main).Length > 0)
             {
                 GameManager.saveandhill();
                 VarSave.SetFloat("planetA" + Globalprefs.GetIdPlanet(), 0,SaveType.world);

@@ -777,6 +777,10 @@ public class complsave : MonoBehaviour
                                     g.GetComponent<MultyObject>().N_Positions = nid2[i];
                                 }
                     }
+                    else
+                    {
+                        j1 = false;
+                    }
                 }
                 bool j2 = false;
                 for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
@@ -846,6 +850,10 @@ public class complsave : MonoBehaviour
                                 {
                                     g.GetComponent<MultyObject>().N_Positions = nid[i];
                                 }
+                    }
+                    else
+                    {
+                        j2 = false;
                     }
 
 

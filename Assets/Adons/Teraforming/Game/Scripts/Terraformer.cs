@@ -75,16 +75,21 @@ public class Terraformer : MonoBehaviour
 		float weight01 = Mathf.InverseLerp(dstNear, dstFar, dstFromCam);
 		float weight = Mathf.Lerp(terraformSpeedNear, terraformSpeedFar, weight01);
 
-		// Add terrain
-		
-		// Subtract terrain
-		if (Input.GetMouseButton(0))
-		{
-			isTerraforming = true;
-			genTest.Terraform(terraformPoint, weight, terraformRadius);
-		}
+        // Add terrain
 
-		if (isTerraforming)
+        // Subtract terrain
+        if (Input.GetMouseButton(0) && playerdata.Geteffect("Right_to_dig") != null)
+        {
+            isTerraforming = true;
+            genTest.Terraform(terraformPoint, weight, terraformRadius);
+        }
+        if (Input.GetMouseButton(0) && Globalprefs.item == "showel")
+        {
+            isTerraforming = true;
+            genTest.Terraform(terraformPoint, weight, terraformRadius);
+        }
+
+        if (isTerraforming)
 		{
 			onTerrainModified?.Invoke();
 		}

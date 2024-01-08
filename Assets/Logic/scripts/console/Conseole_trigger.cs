@@ -31,6 +31,10 @@ public class Conseole_trigger : MonoBehaviour
         {
             FindFirstObjectByType<complsave>().clear();
         }
+        if (console == "MyPills")
+        {
+            playerdata.Cleareffect();
+        }
 
 
         List<string> s = new List<string>();
@@ -113,6 +117,10 @@ public class Conseole_trigger : MonoBehaviour
             if (s[0] == "Item")
             {
                 a = "9";
+            }
+            if (s[0] == "right_to_dig")
+            {
+                a = "25";
             }
             if (s[0] == "Item_by_name")
             {
@@ -566,6 +574,20 @@ public class Conseole_trigger : MonoBehaviour
                     //Absolute_poison
                     VarSave.LoadMoney("tevro", 2500);
                 }
+            }
+            if (i == 1 && a == "25")
+            {
+                if (s.Count == 1) playerdata.Addeffect("Right_to_dig", float.PositiveInfinity);
+                if (s.Count == 2) if (s[1] == "on") playerdata.Addeffect("Right_to_dig", float.PositiveInfinity);
+                if (s.Count == 2) if (s[1] == "off")
+                    {
+                        playerdata.hasClearEffect("Right_to_dig");
+                        playerdata.hasClearEffect("Right_to_dig");
+                        playerdata.hasClearEffect("Right_to_dig");
+                        playerdata.hasClearEffect("Right_to_dig");
+                        playerdata.hasClearEffect("Right_to_dig");
+                        playerdata.hasClearEffect("Right_to_dig");
+                    }
             }
             if (i == 1 && a == "2")
             {

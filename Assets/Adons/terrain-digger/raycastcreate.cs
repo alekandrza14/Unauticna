@@ -22,13 +22,27 @@ public class raycastcreate : MonoBehaviour
                         Instantiate(pref, hit.point, Quaternion.identity);
                         if (!hit.collider.GetComponent<generator_terrain>())
                         {
-                           // hit.collider.gameObject.AddComponent<generator_terrain>().ter = hit.collider.GetComponent<Terrain>();
-                            
-                           // hit.collider.gameObject.GetComponent<generator_terrain>().generate();
+                            // hit.collider.gameObject.AddComponent<generator_terrain>().ter = hit.collider.GetComponent<Terrain>();
+
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().generate();
                         }
                         if (hit.collider.GetComponent<generator_terrain>())
                         {
-                           // hit.collider.gameObject.GetComponent<generator_terrain>().regenerate();
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().regenerate();
+                        }
+                    }
+                    else if (hit.collider.GetComponent<Terrain>() && playerdata.Geteffect("Right_to_dig") != null)
+                    {
+                        Instantiate(pref, hit.point, Quaternion.identity);
+                        if (!hit.collider.GetComponent<generator_terrain>())
+                        {
+                            // hit.collider.gameObject.AddComponent<generator_terrain>().ter = hit.collider.GetComponent<Terrain>();
+
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().generate();
+                        }
+                        if (hit.collider.GetComponent<generator_terrain>())
+                        {
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().regenerate();
                         }
                     }
                 }

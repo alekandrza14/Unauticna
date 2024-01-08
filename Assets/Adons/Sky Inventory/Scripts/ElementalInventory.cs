@@ -2079,6 +2079,18 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("ЗельеСовы", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("IcyCube") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            cistalenemy.dies += 1;
+
+            lowitem("IcyCube", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && boxItem.getInventory("i3").inventory == this
               && Cells[select].elementName == "ItemSandFromMinecraft" && Cells[select].elementCount > 0)
         {

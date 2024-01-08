@@ -1552,7 +1552,7 @@ public class mover : MonoBehaviour
             gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
         }
         if (!Globalprefs.Pause) EffectUpdate();
-        if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause)
+        if (File.Exists("unsave/capterg/" + SaveFileInputField.text ) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
         {
             gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             string s = "";
