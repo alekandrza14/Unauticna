@@ -2079,6 +2079,19 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("ЗельеСовы", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье_-1FPS") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            playerdata.Addeffect("-1FPS", 30);
+
+            lowitem("Зелье_-1FPS", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("IcyCube") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 

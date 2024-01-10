@@ -1062,45 +1062,7 @@ public class mover : MonoBehaviour
         float timer10;
     public void load()
     {
-        timer10 += Time.deltaTime;
-        if (Input.GetKey(KeyCode.G) && !Globalprefs.Pause && timer10 >= 0.1f)
-        {
-
-            DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
-
-            playerdata.Loadeffect();
-            if (File.Exists(di.GetFiles()[di.GetFiles().Length - 1].FullName))
-            {
-                tsave = JsonUtility.FromJson<tsave>(File.ReadAllText(di.GetFiles()[di.GetFiles().Length - 1].FullName));
-                rigidbody3d.angularVelocity = -tsave.angularvelosyty;
-                rigidbody3d.velocity = -tsave.velosyty;
-                PlayerBody.transform.position = tsave.pos;// sr.transform.position = save.pos2;
-                PlayerBody.transform.rotation = tsave.q1;
-                HeadCameraSetup.transform.rotation = tsave.q3;
-                PlayerCamera.transform.rotation = tsave.q2;
-                if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW;
-                W_position = tsave.wpos;
-                H_position = tsave.hpos;
-                N_position = tsave.npos;
-                cur_N_position = tsave.cnpos;
-                HX_Rotation = tsave.hxrot;
-                if (hyperbolicCamera != null)
-                {
-
-
-                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
-                }
-                PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
-                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
-                {
-                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = tsave.vive;
-                }
-                File.Delete(di.GetFiles()[di.GetFiles().Length - 1].FullName);
-            }
-            timer10 = 0;
-
-        }
-
+        TimeLoad(0.1f);
 
         if (!tutorial)
         {
@@ -1108,9 +1070,9 @@ public class mover : MonoBehaviour
             {
                 VarSave.GetFloat("H_Roataton");
                 playerdata.Loadeffect();
-                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
+                if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                     rigidbody3d.angularVelocity = save.angularvelosyty;
                     rigidbody3d.velocity = save.velosyty;
                     PlayerBody.transform.position = save.pos;// sr.transform.position = save.pos2;
@@ -1157,9 +1119,9 @@ public class mover : MonoBehaviour
             if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
             {
                 playerdata.Loadeffect();
-                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text))
+                if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text));
+                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                     rigidbody3d.angularVelocity = save.angularvelosyty;
                     rigidbody3d.velocity = save.velosyty;
                     PlayerBody.transform.position = save.pos; //sr.transform.position = save.pos2;
@@ -1203,6 +1165,49 @@ public class mover : MonoBehaviour
         }
 
     }
+
+    private void TimeLoad(float time)
+    {
+        timer10 += Time.deltaTime;
+        if (Input.GetKey(KeyCode.G) && !Globalprefs.Pause && timer10 >= time)
+        {
+
+            DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex);
+
+            playerdata.Loadeffect();
+            if (File.Exists(di.GetFiles()[di.GetFiles().Length - 1].FullName))
+            {
+                tsave = JsonUtility.FromJson<tsave>(File.ReadAllText(di.GetFiles()[di.GetFiles().Length - 1].FullName));
+                rigidbody3d.angularVelocity = -tsave.angularvelosyty;
+                rigidbody3d.velocity = -tsave.velosyty;
+                PlayerBody.transform.position = tsave.pos;// sr.transform.position = save.pos2;
+                PlayerBody.transform.rotation = tsave.q1;
+                HeadCameraSetup.transform.rotation = tsave.q3;
+                PlayerCamera.transform.rotation = tsave.q2;
+                if (Get4DCam()) Get4DCam()._wRotation = tsave.rotW;
+                W_position = tsave.wpos;
+                H_position = tsave.hpos;
+                N_position = tsave.npos;
+                cur_N_position = tsave.cnpos;
+                HX_Rotation = tsave.hxrot;
+                if (hyperbolicCamera != null)
+                {
+
+
+                    hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
+                }
+                PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
+                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                {
+                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = tsave.vive;
+                }
+                File.Delete(di.GetFiles()[di.GetFiles().Length - 1].FullName);
+            }
+            timer10 = 0;
+
+        }
+    }
+
     public void Unload()
     {
         File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text);
@@ -2375,6 +2380,7 @@ public class mover : MonoBehaviour
     float timerTrip;
     float timerFlowUp;
     bool big;
+    bool _n1fps;
     bool soveVision;
     private void EffectUpdate()
     {
@@ -2568,10 +2574,31 @@ public class mover : MonoBehaviour
             maxhp += 300000;
             //playermatinvisible
         }
+        if (playerdata.Geteffect("-1FPS") != null)
+        {
+            _n1fps = true;
+            TimeLoad(1);
+            Global.PauseManager.Pause();
+            // axelerate = 2;
+            //  Time.timeScale = 0.8f;
+            //   fireInk = 20;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("-1FPS") == null)
+        {
+
+            if (_n1fps) { Global.PauseManager.Play();
+                _n1fps = false;
+            }
+                // axelerate = 2;
+                //  Time.timeScale = 0.8f;
+                //   fireInk = 20;
+                //playermatinvisible
+            }
+            //-1FPS
 
 
-
-        if (playerdata.Geteffect("Tripl2") != null)
+            if (playerdata.Geteffect("Tripl2") != null)
         {
 
             timerTrip += 0.01f;
@@ -2643,7 +2670,7 @@ public class mover : MonoBehaviour
     {
 
         timer9 += Time.deltaTime;
-        if (timer9 >= .1f && !Input.GetKey(KeyCode.G)) {
+        if (timer9 >= .1f && !Input.GetKey(KeyCode.G) && !_n1fps) {
             tsave.timesave = VarSave.LoadMoney(SceneManager.GetActiveScene().buildIndex.ToString(),1).ToString();
             tsave.angularvelosyty = rigidbody3d.angularVelocity;
             tsave.velosyty = rigidbody3d.velocity;

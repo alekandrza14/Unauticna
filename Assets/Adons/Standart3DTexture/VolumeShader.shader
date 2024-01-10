@@ -69,7 +69,8 @@ Shader "Unlit/VolumeShader"
                 color.a += (1.0 - color.a) * newColor.a;
                 return color;
             }
-            bool i3;
+            float i3;
+            float i4;
             float Depth(float3 pos)
 {
     float4 clipPos = UnityObjectToClipPos(pos);
@@ -83,41 +84,67 @@ Shader "Unlit/VolumeShader"
                 float3 rayOrigin2 = mul(unity_WorldToObject, float4( _WorldSpaceCameraPos,1));
                    float3 rayOrigin = i.objectVertex;
                    float3 trayOrigin = mul(rayOrigin, -rayOrigin2);
-                   
+                    rayOrigin;
                
                 // Use vector from camera to object surface to get ray direction
                 
-                float3 rayDirection = mul(unity_WorldToObject, float4(i.vectorToSurface, 0));
-                // Use vector from camera to object surface to get ray direction
-                
-                float3 rayDirection2 = i.hitPos- rayOrigin;
-                 float3 trayDirection = mul(rayDirection, -rayDirection2);
+                float3 rayDirection = mul(unity_WorldToObject, float4(i.vectorToSurface,0));
+                float3 rayDirection2 =  mul(unity_WorldToObject, float4(i.vectorToSurface, 0));;
 
-                float4 color = float4(0, 0, 0, 0);
+                float4 color = float4(0, 0, 0, 0); float4 color2 = float4(0, 0, 0, 0);
                 float3 samplePosition = rayOrigin;
-                float3 samplePosition2 = rayOrigin;
+                float3 samplePosition2 = rayOrigin2;
+               
+               
                 // Raymarch through object space
-                for (int i = 0; i < MAX_STEP_COUNT && !i3; i++)
-                {
-                    // Accumulate color only within unit cube bounds
-                    if(max(abs(samplePosition.x), max(abs(samplePosition.y), abs(samplePosition.z))) < 0.5f + EPSILON)
-                    {
+                for (int i = 0; i < MAX_STEP_COUNT; i++)
+                { 
+                   
                         float4 sampledColor = tex3D(_MainTex, samplePosition + float3(0.5f, 0.5f, 0.5f));
-                          if( sampledColor.a > 0.01)
-                         {
                       
-                            outDepth =  Depth(samplePosition);
-                             
+                      
+                       float4 sampledColor2 = tex3D(_MainTex, samplePosition2 + float3(0.5f, 0.5f, 0.5f));
+                         
+                          if(sampledColor.a > 0.01 && i3 != 1)
+                         {
+                   
+                           outDepth =  Depth(samplePosition);
+
+                             i3 = 1;
                          }
+            
+                      
+
+                         
+                          if(sampledColor2.a > 0.01 && i3 != 1)
+                         {
+                   
+                           outDepth =  Depth(samplePosition2);
+
+                             i3 = 0;
+                         }
+            
+                       
+                        
                         sampledColor.a *= _Alpha;
+                        sampledColor2.a *= _Alpha;
+                       
+                        color = BlendUnder(color,sampledColor);
+                       
+                        color2 = BlendUnder(color2,sampledColor2);
                         
                         
-                        color = BlendUnder(color, sampledColor);
-                        samplePosition -= rayDirection * _StepSize;
-                    } 
+                        samplePosition += rayDirection * _StepSize;
+                        samplePosition2 += rayDirection * _StepSize;
+                    // Accumulate color only within unit cube bounds
+                    
+                     
+                       
+                    
+                   
                   
                 }
-               
+               color += color2/3;
                 return color;
             }
             ENDCG
