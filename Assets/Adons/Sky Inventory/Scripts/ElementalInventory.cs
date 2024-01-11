@@ -2088,7 +2088,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
             playerdata.Addeffect("-1FPS", 30);
-
+            playerdata.Saveeffect();
             lowitem("Зелье_-1FPS", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
