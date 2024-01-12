@@ -118,7 +118,7 @@ public class playerdata
     static public void LoadBakeeffect()
     {
         PlayerDNA dna = mover.main().DNA;
-        for (int i = 0; i < dna.bakeeffects.Count; i++)
+        if (dna != null) if (dna.bakeeffects != null) for (int i = 0; i < dna.bakeeffects.Count; i++)
         {
             if (playerdata.Geteffect(dna.bakeeffects[i].effect)==null)
             {

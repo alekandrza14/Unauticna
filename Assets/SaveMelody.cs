@@ -96,19 +96,23 @@ public class SaveMelody : MonoBehaviour
     int u;
     private void Update()
     {
-
-        if (source.time > 0) 
+        if (source != null)
         {
-            VarSave.SetFloat("Musick", source.time);
 
-            VarSave.SetBool("isplaying", source.isPlaying);
-        }
-        if (!source.isPlaying)
-        {
-            u++;
-            if (u > 60)
+
+            if (source.time > 0)
             {
+                VarSave.SetFloat("Musick", source.time);
+
                 VarSave.SetBool("isplaying", source.isPlaying);
+            }
+            if (!source.isPlaying)
+            {
+                u++;
+                if (u > 60)
+                {
+                    VarSave.SetBool("isplaying", source.isPlaying);
+                }
             }
         }
     }
