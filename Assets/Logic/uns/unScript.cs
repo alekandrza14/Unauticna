@@ -100,6 +100,8 @@ public class unScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+       
+       
         if (deathtime.Count != 0)
         {
             if (tic > int.Parse(deathtime[0]) && pre4 != "s")
@@ -144,7 +146,7 @@ public class unScript : MonoBehaviour
             }
         }
 
-        if (pre4 != "д"&&pre4 != "s")
+        if (pre4 != "д" && pre4 != "s")
         {
             for (int x = 0; x < outs.Count; x++)
             {
@@ -384,10 +386,15 @@ public class unScript : MonoBehaviour
                     Debug.LogWarning("движение записано");
 
                 }
+                if (outs.Count - 1 == x)
+                {
+
+                    pre4 = "д";
+                }
             }
 
 
-
+          
 
 
 

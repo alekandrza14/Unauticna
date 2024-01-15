@@ -41,7 +41,11 @@ public static class Globalprefs
         float f = r.Next(-(int)145674, (int)145674);
         f *= var;
         f /= 145674;
-        if (Reality == 0) f = 0;
+        if (Reality == 0) 
+        { 
+            f = 0;
+            return f;
+        }
         return f;
     }
     

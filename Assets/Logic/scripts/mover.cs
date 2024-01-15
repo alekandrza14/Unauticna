@@ -540,19 +540,19 @@ public class mover : MonoBehaviour
         {
             LastSesionHours = timer7;
         }
-        float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * 100f+Globalprefs.GetRealiyChaos(50));
+        float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f+Globalprefs.GetRealiyChaos(50)));
         if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0)
         {
             Debug.Log("CahncePiratAttack" + (int)Chance);
             Instantiate(Resources.Load<GameObject>("events/Pirats"));
         }
-        float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * 100f + Globalprefs.GetRealiyChaos(50));
+        float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
         if (UnityEngine.Random.Range(0, (int)Chance2 + 1) == 0)
         {
             cistalenemy.dies -= 2;
             VarSave.LoadMoney("tevro", -100);
         }
-        float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * 100f + Globalprefs.GetRealiyChaos(50));
+        float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
         if (UnityEngine.Random.Range(0, (int)Chance3 + 1) == 0)
         {
             DirectoryInfo di = new DirectoryInfo("unsave/var/researchs");

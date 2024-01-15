@@ -17,10 +17,12 @@ public class script : MonoBehaviour
     public InputField ifd;
     public itemName itemName;
     public static List<string> words = new List<string>();
+    public static List<string> postuse = new List<string>();
     public static string word;
     public List<string> words2 = new List<string>();
     public bool Magic_stick;
     public GameObject Magic_obj;
+    public bool uns;
     public static GameObject Lost_Magic_obj;
 
     void Start()
@@ -39,38 +41,78 @@ public class script : MonoBehaviour
     }
     private void Update()
     {
-        if (!Magic_stick)
+        if (!uns)
         {
-
-
-            if (itemName && string.IsNullOrEmpty(ifd.text))
+            if (!Magic_stick)
             {
-                ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+
+
+                if (itemName && string.IsNullOrEmpty(ifd.text))
+                {
+                    ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+                }
+                if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+                {
+                    itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
+                    Global.PauseManager.Play();
+                    Destroy(gameObject);
+                }
             }
-            if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+            else
             {
-                itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
-                Global.PauseManager.Play();
-                Destroy(gameObject);
+                if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+                {
+
+                    Global.PauseManager.Play();
+                    VarSave.SetString("MagicUnaScript", ifd.text, SaveType.global);
+                    Use(ifd.text, Magic_obj);
+                    Destroy(gameObject);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftAlt) && !Globalprefs.Iteract)
+                {
+
+                    Global.PauseManager.Play();
+                    Destroy(gameObject);
+                }
+
             }
         }
-        else
+        if (uns)
         {
-            if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+            if (!Magic_stick)
             {
 
-                Global.PauseManager.Play();
-              VarSave.SetString("MagicUnaScript", ifd.text,SaveType.global);
-                Use(ifd.text, Magic_obj);
-                Destroy(gameObject);
+
+                if (itemName && string.IsNullOrEmpty(ifd.text))
+                {
+                    ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+                }
+                if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+                {
+                    itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
+                    Global.PauseManager.Play();
+                    Destroy(gameObject);
+                }
             }
-            if (Input.GetKeyDown(KeyCode.LeftAlt) && !Globalprefs.Iteract)
+            else
             {
+                if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+                {
 
-                Global.PauseManager.Play();
-                Destroy(gameObject);
+                    Global.PauseManager.Play();
+                    UnsFormat uf = new UnsFormat();
+                    uf.script = ifd.text;
+                    Magic_obj.AddComponent<unScript>().ins = uf;
+                    Destroy(gameObject);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftAlt) && !Globalprefs.Iteract)
+                {
+
+                    Global.PauseManager.Play();
+                    Destroy(gameObject);
+                }
+
             }
-
         }
     }
     public static bool isNumber(string s)
@@ -222,6 +264,21 @@ public class script : MonoBehaviour
                 Globalprefs.SelfFunctions.Add(_script.Replace("Self;", ""));
                 typedata = "end";
             }
+            if (words[i] == "#Save.it" && typedata != "save")
+            {
+
+                typedata = "save";
+            }
+            if (words[i] == "#Use.uns" && typedata != "uns")
+            {
+
+                typedata = "uns";
+            }
+            if (words[i] == "#Use.script" && typedata != "script")
+            {
+
+                typedata = "script";
+            }
             if (words[i] == "ImSelf")
             {
                 Globalprefs.SelfFunctions.Add(_script);
@@ -298,6 +355,41 @@ public class script : MonoBehaviour
             {
                 Instantiate(sc, sc.transform.position, Quaternion.identity);
                 typedata = "end";
+            }
+
+            if (typedata == "save" && words[i] != "#Save.it")
+            {
+                File.WriteAllText("res/scripts/script" + words[i] + ".s", _script);
+                typedata = "end";
+            }
+            if (typedata == "uns" && words[i] != "#Use.uns")
+            {
+                if (File.Exists(words[i]))
+                {
+                    Debug.Log("fuond script");
+                    UnsFormat uf = new UnsFormat();
+                    uf.script = File.ReadAllText(words[i]);
+                    sc.gameObject.AddComponent<unScript>().ins = uf;
+
+             
+                }
+                Debug.Log("get script");
+                typedata = "end";
+               
+            }
+            if (typedata == "script" && words[i] != "#Use.script")
+            {
+                if (File.Exists(words[i]))
+                {
+
+                    Debug.Log("fuond script");
+                    postuse.Add(File.ReadAllText(words[i]));
+
+                   
+                }
+               
+                    typedata = "end";
+               
             }
             if (typedata == "morph")
             {
@@ -400,6 +492,13 @@ public class script : MonoBehaviour
         {
 
             words.Clear();
+            string scr = "";
+          if(postuse.Count > 0)  for (int i =0;i<3;i++)
+            {
+                if (i == 0) scr = (string)postuse[postuse.Count - 1].Clone();
+                if (i == 1) postuse.RemoveAt(postuse.Count-1);
+                if (i == 2) Use(scr, sc);
+            }
         }
 
 

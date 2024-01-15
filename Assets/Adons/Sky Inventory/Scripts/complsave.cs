@@ -546,7 +546,7 @@ public class complsave : MonoBehaviour
 
 
         Directory.CreateDirectory(name2.ToString());
-        File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+      if(t3.Length>0)  File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
 
         saveString1 = new rsave();

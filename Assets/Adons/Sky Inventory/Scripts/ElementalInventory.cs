@@ -711,6 +711,24 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "script.u" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                //  GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
+                //   g.GetComponent<script>().sc = hit.collider.gameObject;
+                //   setItem("", 0, Color.red, select);
+                //  Cells[select].UpdateCellInterface();
+                UnsFormat uf = new UnsFormat();
+                uf.script = Cells[select].elementData.Replace('_', ' ').Replace('^', '\n');
+                hit.collider.gameObject.AddComponent<unScript>().ins = uf;
+                cistalenemy.dies++;
+                //  Global.PauseManager.Pause();
+            }
+
+        }
         if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "MltiverseMagicStick" && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -849,6 +867,19 @@ public class ElementalInventory : MonoBehaviour {
             }
 
             lowitem("gold", "");
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0)  && Cells[select].elementName == "МонокварковыйМеч" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("DamagePlane").gameObject, mover.main().PlayerCamera.transform.position, mover.main().PlayerCamera.transform.rotation);
+
+                cistalenemy.dies++;
+            }
+
         }
         if (Input.GetKey(KeyCode.Mouse0) && Getitem("SunFireGen") && Cells[select].elementName == "SunFireGen" && boxItem.getInventory("i3").inventory == this)
         {
