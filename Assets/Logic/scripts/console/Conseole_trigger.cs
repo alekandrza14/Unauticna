@@ -90,6 +90,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "23";
             }
+            if (s[0] == "Quest")
+            {
+                a = "26";
+            }
             if (s[0] == "StartPoket")
             {
                 a = "24";
@@ -588,6 +592,10 @@ public class Conseole_trigger : MonoBehaviour
                         playerdata.hasClearEffect("Right_to_dig");
                         playerdata.hasClearEffect("Right_to_dig");
                     }
+            }
+            if (i == 1 && a == "26")
+            {
+                VarSave.SetString("quest", s[1], SaveType.global);
             }
             if (i == 1 && a == "2")
             {

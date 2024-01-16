@@ -711,6 +711,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+        //Учебник_по_Всемогуществу
         if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "script.u" && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -726,6 +727,143 @@ public class ElementalInventory : MonoBehaviour {
                 hit.collider.gameObject.AddComponent<unScript>().ins = uf;
                 cistalenemy.dies++;
                 //  Global.PauseManager.Pause();
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad1) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                GameObject g = Instantiate(Resources.Load<GameObject>("ui/CraftPanel/CraftPanel"), Vector3.zero, Quaternion.identity);
+                Element e = hit.collider.GetComponent<Element>();
+                int c = Random.Range(0, e.element.Length);
+                g.GetComponent<CargeText>().text.text = "this + " + e.element[c].element.name + " = " + e.element[c].item.name;
+                cistalenemy.dies++;
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad2) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("items/script"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/script.u"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/MltiverseMagicStick"), mover.main().transform.position, Quaternion.identity);
+
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad3) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("items/RedColour"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/ButtonGenerator"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/Duper"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/CubeNDfield"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/YourJuice"), mover.main().transform.position, Quaternion.identity);
+                //YourJuice
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad4) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("items/DeMaker"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/Deleter"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/Restorer"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/FilmCamera"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/FilmWnidow"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/builder"), mover.main().transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/KsenoMorfin"), mover.main().transform.position, Quaternion.identity);
+                //YourJuice
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad5) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                VarSave.LoadMoney("tevro", 100);
+                //YourJuice
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad6) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("items/InfinityGreenPlane"), mover.main().transform.position, Quaternion.identity);
+                //YourJuice
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad7) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Globalprefs.bunkrot = false;
+                VarSave.SetBool("Bunkrot", Globalprefs.bunkrot);
+
+                //YourJuice
+                cistalenemy.dies = -10;
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad8) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Globalprefs.bunkrot = false;
+                Instantiate(Resources.Load<GameObject>("deathparticles"), mover.main().transform.position, Quaternion.identity);
+
+                //deathparticles
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad9) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"), mover.main().transform.position + PiratAttack.randomCube(6, 6) + new Vector3(0, 6, 0), Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("items/SampleCrown"), mover.main().transform.position + PiratAttack.randomCube(6, 6) + new Vector3(0, 6, 0), Quaternion.identity);
+                VarSave.SetString("ProfStatus", "King");
+                //SampleCrown
+                //Absolute_poison
+                VarSave.LoadMoney("tevro", 2500000000);
+                cistalenemy.dies -= 10000;
+                Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", 5500);
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad0) && Cells[select].elementName == "Учебник_по_Всемогуществу" && boxItem.getInventory("i3").inventory == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+
+                Instantiate(Resources.Load<GameObject>("DieRay").gameObject, mover.main().transform.position, mover.main().PlayerCamera.transform.rotation);
+
             }
 
         }

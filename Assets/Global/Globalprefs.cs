@@ -48,8 +48,9 @@ public static class Globalprefs
         }
         return f;
     }
-    
+
     public static decimal knowlages;
+    public static short QuestItemKollect;
     public static decimal technologies;
     public static decimal research;
     public static decimal OverFlowteuvro;

@@ -11653,6 +11653,8 @@ GameObject:
   - component: {fileID: 8367820955843615314}
   - component: {fileID: 3703429552405816629}
   - component: {fileID: 8987037522426226815}
+  - component: {fileID: -7962372505436448597}
+  - component: {fileID: 2708965344125532337}
   m_Layer: 0
   m_Name: "\u041A\u0430\u043F\u0443\u0441\u0442\u0430"
   m_TagString: Untagged
@@ -11726,6 +11728,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ae9ac32fd583547969ae5b0acba7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questItem: "\u043A\u0430\u043F\u0443\u0441\u0442\u0430"
+  MaxquestItem: 10
+  prise: {fileID: 3585435641973964813, guid: db37866492fe00348ba21adba27cfa94, type: 3}
+  countPrise: 3
+--- !u!114 &-7962372505436448597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022877508032493781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f6ee5fa675a45441a703b2c9e3ea6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  integer: 10
+--- !u!114 &2708965344125532337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022877508032493781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edb4c9eb3fce1f48a8642f2fb2e4135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element:
+  - element: {fileID: 9204725667037956643, guid: 6d1df2ca31f016b4f8c5fcbc001ae18e,
+      type: 3}
+    item: {fileID: 3585435641973964813, guid: b07a36f78f4185f45bb6b0244c2688b6, type: 3}
+  - element: {fileID: 9204725667037956643, guid: e9469990459670e42a950fccca9a8f41,
+      type: 3}
+    item: {fileID: 764305347, guid: 97aaa3619d95ade45861b610f4bf18ae, type: 3}
 --- !u!1 &7713306039364273225
 GameObject:
   m_ObjectHideFlags: 0

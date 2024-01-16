@@ -490,6 +490,7 @@ public class mover : MonoBehaviour
     bool swapWHaN;
     private void Init()
     {
+        Globalprefs.QuestItemKollect = (short)VarSave.GetInt("QuestItemKollect", SaveType.global);
         Globalprefs.GetRealiyHash(4);
         if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
         else gsave.starttimepos = DateTime.Now;
@@ -898,6 +899,7 @@ public class mover : MonoBehaviour
 
 
         }
+
         lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
         hyperbolicCamera = HyperbolicCamera.Main();
@@ -932,7 +934,7 @@ public class mover : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.F8))
         {
-            GUI.Label(new Rect(0f, 0, 200f, 100f), "Unauticna Alpha-version");
+            GUI.Label(new Rect(0f, 0, 200f, 100f), "Unauticna Alpha*and Omega*-version");
             if (!hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + transform.position.x.ToString() + " y : " + transform.position.y.ToString() + " z : " + transform.position.z.ToString() + " w : " + W_position.ToString());
             if (hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.n.ToString() + " y : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + transform.position.y.ToString() + " h : " + W_position.ToString());
             GUI.Label(new Rect(0f, 70, 200f, 100f), "Cotinuum Position : " + SceneManager.GetActiveScene().buildIndex);
@@ -961,6 +963,8 @@ public class mover : MonoBehaviour
                      GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
                 }
             }
+            int maxcollect = 0;
+            if (VarSave.GetString("quest", SaveType.global) == "капуста") maxcollect = 10;
                 if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞");
             GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2));
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
@@ -983,6 +987,7 @@ public class mover : MonoBehaviour
             {
                 GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + "Unknown");
             }
+            GUI.Label(new Rect(0f, 320, 200f, 100f), "QuestItemCollect : " + Globalprefs.QuestItemKollect.ToString()+" / " + maxcollect);
             //cistalenemy.dies
 
 

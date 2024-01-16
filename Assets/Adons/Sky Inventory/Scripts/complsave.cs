@@ -165,7 +165,7 @@ public class complsave : MonoBehaviour
 
     public void Start()
     {
-
+        
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         lif = "";
         if(!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString();
@@ -562,7 +562,7 @@ public class complsave : MonoBehaviour
         saveString1 = new rsave();
         saveString221 = Path.Combine("",   name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
         HyperbolicCamera hc = HyperbolicCamera.Main();
-
+        bool questtarget = false;
         for (int c = 0; c < 2; c++)
         {
             if (c == 0)
@@ -577,7 +577,7 @@ public class complsave : MonoBehaviour
                 else
                 {
                     Debug.Log("IU2");
-
+                  if(VarSave.GetString("quest",SaveType.global) == "капуста")  questtarget = true;
                     File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
                     saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
 
@@ -867,6 +867,19 @@ public class complsave : MonoBehaviour
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                 {
                     i2.Load();
+                }
+                mover m = mover.main();
+               if(questtarget) for (int i =0;i<6 ; i++)
+                {
+                        Ray r = new Ray(m.transform.position+(m.transform.up*40),new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                        RaycastHit hit;
+                        if (Physics.Raycast(r,out hit))
+                        {
+                            if (hit.collider!=null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/Кпуста"),hit.point,Quaternion.identity);
+                            }
+                        }
                 }
             }
 

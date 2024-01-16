@@ -56,11 +56,17 @@ public class FlowBye : MonoBehaviour
                     {
                         Globalprefs.flowteuvro += flow;
                         Globalprefs.flowteuvro -= (decimal)(loan * Procent);
+                   
                     VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                         VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
                     }
                 }
 
+        }
+        if (VarSave.GetMoney("tevro") <= -15000 && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Globalprefs.bunkrot = true;
+            VarSave.SetBool("Bunkrot", Globalprefs.bunkrot);
         }
     }
 }
