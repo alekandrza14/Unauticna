@@ -18,4 +18,10 @@ public class DevCustomField : MonoBehaviour
 
             }
     }
+    public void OnSignal()
+    {
+
+        GameObject obj = Instantiate(resource.gameObject, point.position, Quaternion.identity);
+
+    }
 }

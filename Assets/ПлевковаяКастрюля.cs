@@ -44,9 +44,25 @@ public class ПлевковаяКастрюля : InventoryEvent
         }
     }
 
+    public void OnSignal()
+    {
+        if (cooldown > 0) cooldown -= Time.deltaTime;
+        уровень.position = Vector3.Lerp(точка1.position, точка2.position, плевки / Max_плевки);
+     
+        level_plevkov.text = "Плевки " + плевки + " / 1000";
+        if (cooldown <= 0)
+        {
+          
+                cooldown += 2;
 
+                плевки++;
+                GetComponent<itemName>().ItemData = плевки.ToString();
+                Instantiate(Resources.Load("voices/plevok_blad"));
+          
+        }
+    }
         // Update is called once per frame
-    void Update()
+        void Update()
     {
         if (cooldown > 0) cooldown-= Time.deltaTime;
         уровень.position = Vector3.Lerp(точка1.position,точка2.position,плевки/Max_плевки);

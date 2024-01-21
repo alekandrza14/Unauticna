@@ -10,17 +10,21 @@ public class Realybutton : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-           
+
             RaycastHit hit = MainRay.MainHit;
-                if (hit.collider != null)
+            if (hit.collider != null)
+            {
+                if (hit.collider.gameObject == gameObject)
                 {
-                    if (hit.collider.gameObject == gameObject)
-                    {
-                        Instantiate(item, point.transform.position, Quaternion.identity);
-                    }
+                    Instantiate(item, point.transform.position, Quaternion.identity);
                 }
+            }
 
         }
+    }
+    public void OnSignal()
+    {
+        Instantiate(item, point.transform.position, Quaternion.identity);
     }
 }
 

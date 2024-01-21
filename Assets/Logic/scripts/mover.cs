@@ -490,6 +490,10 @@ public class mover : MonoBehaviour
     bool swapWHaN;
     private void Init()
     {
+        if (VarSave.GetBool("lol you Banned"))
+        {
+            SceneManager.LoadScene("Banned forever");
+        }
         Globalprefs.QuestItemKollect = (short)VarSave.GetInt("QuestItemKollect", SaveType.global);
         Globalprefs.GetRealiyHash(4);
         if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
@@ -540,6 +544,12 @@ public class mover : MonoBehaviour
         if (LastSesionHours == 0)
         {
             LastSesionHours = timer7;
+        }
+        if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
+        {
+            
+      
+            Instantiate(Resources.Load<GameObject>("audios/Шум"));
         }
         float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f+Globalprefs.GetRealiyChaos(50)));
         if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0)
@@ -960,15 +970,23 @@ public class mover : MonoBehaviour
                 }
                 else
                 {
-                     GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
                 }
             }
             int maxcollect = 0;
             if (VarSave.GetString("quest", SaveType.global) == "капуста") maxcollect = 10;
-                if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞");
+            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞");
             GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2));
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
-            GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
+            if (Globalprefs.selectitemobj)
+            {
+                if (!Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise) GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
+                if (Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise) GUI.Label(new Rect(0f, 80, 300f, 100f), "Item price : ∞ * " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1) + " По скидке");
+            }
+            else 
+            {
+                GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1)); 
+            }
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + (Globalprefs.knowlages + gsave.progressofthepassage).ToString());
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
@@ -1781,22 +1799,44 @@ public class mover : MonoBehaviour
 
             timer8 = 0;
         }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
+        if (Globalprefs.selectitemobj) if (!Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
         {
-            if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
             {
+                if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+                {
 
-                cistalenemy.dies += 100;
-                VarSave.SetInt("Agr", cistalenemy.dies);
+                    cistalenemy.dies += 100;
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
+                Destroy(Globalprefs.selectitemobj.gameObject);
+                Globalprefs.selectitem = "";
+                Globalprefs.ItemPrise = 0;
             }
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
-            Destroy(Globalprefs.selectitemobj.gameObject);
-            Globalprefs.selectitem = "";
-            Globalprefs.ItemPrise = 0;
         }
-    }
+       if(Globalprefs.selectitemobj) if (Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
+        {
+            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
+            {
+                if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+                {
 
-    void WPositionUpdate()
+                    cistalenemy.dies += 100;
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
+                    Globalprefs.Infinitysteuvro += (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1);
+                VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1));
+                Destroy(Globalprefs.selectitemobj.gameObject);
+                Globalprefs.selectitem = "";
+                Globalprefs.ItemPrise = 0;
+            }
+        }
+            // playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
+        }
+
+        void WPositionUpdate()
     {
         Get4DCam()._wPosition = W_position;
         if (((int)W_position) >= 500 && ((int)W_position) <= 550 && !FindFirstObjectByType<Logic_tag_kataBlock>())
@@ -2530,7 +2570,7 @@ public class mover : MonoBehaviour
             //playerdata.Addeffect("Trip", 60)
             if (playerdata.Geteffect("Trip") != null)
         {
-
+            Get4DCam().hue += 0.1f * Time.deltaTime;
             timerTrip += 0.01f;
             PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 5, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 5, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 5);
 
@@ -2643,16 +2683,25 @@ public class mover : MonoBehaviour
                 //   fireInk = 20;
                 //playermatinvisible
             }
-            //-1FPS
+        //-1FPS
 
 
-            if (playerdata.Geteffect("Tripl2") != null)
+        if (playerdata.Geteffect("Tripl2") != null)
         {
 
+            Get4DCam().hue += 0.1f * Time.deltaTime;
             timerTrip += 0.01f;
             PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
             transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
             //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
+
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Tripl3") != null)
+        {
+            Get4DCam()._ChaosColor = UnityEngine.Random.ColorHSV() + new Color(0,0,0,1);
+            Get4DCam().hue += 1f * Time.deltaTime;
+           //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
 
             //playermatinvisible
         }

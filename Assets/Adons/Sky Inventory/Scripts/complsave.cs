@@ -868,7 +868,28 @@ public class complsave : MonoBehaviour
                 {
                     i2.Load();
                 }
-                mover m = mover.main();
+                if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
+                {
+
+                    Transform t = Instantiate(Resources.Load<GameObject>("items/Chaos_cube").gameObject, mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
+                        Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
+                    if (Random.Range(0, 8) >= 7)
+                    {
+                        Instantiate(Resources.Load<GameObject>("events/аруа_момент2").gameObject, mover.main().transform.position, Quaternion.identity);
+
+                    }
+                    if (Random.Range(0, 10) >= 9)
+                    {
+                        Instantiate(Resources.Load<GameObject>("events/аруа_момент3").gameObject, mover.main().transform.position, Quaternion.identity);
+
+                    }
+                    if (Random.Range(0, 10) >= 9)
+                    {
+                        Instantiate(Resources.Load<GameObject>("events/аруа_момент4").gameObject, mover.main().transform.position, Quaternion.identity);
+
+                    }
+                }
+                    mover m = mover.main();
                if(questtarget) for (int i =0;i<6 ; i++)
                 {
                         Ray r = new Ray(m.transform.position+(m.transform.up*40),new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));

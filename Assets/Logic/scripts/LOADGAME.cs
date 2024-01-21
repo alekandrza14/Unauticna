@@ -28,7 +28,10 @@ public class LOADGAME : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (VarSave.GetBool("lol you Banned"))
+        {
+            SceneManager.LoadScene("Banned forever");
+        }
         QualitySettings.SetQualityLevel(0);
         GameObject g = new GameObject("init");
         gameInit.Init(g);

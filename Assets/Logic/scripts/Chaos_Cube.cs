@@ -88,8 +88,11 @@ public class Chaos_cube : MonoBehaviour
 
         if (!self.Recurse) Destroy(self.gameObject);
     }
-
-    public static void Rand(Chaos_cube self)
+    public void OnSignal()
+    {
+        ChaosFunction(this);
+    }
+        public static void Rand(Chaos_cube self)
     {
 
         self.items = Resources.LoadAll<GameObject>("items");

@@ -93,8 +93,10 @@ public class RaymarchCam : SceneViewFilter
     [Space(10)]
     [Tooltip ("The color of the depthbuffer")]
     public Color _skyColor;
+    [Range(0, 1)]
+    public float hue;
+    public Color _ChaosColor = Color.white;
 
-    
 
     [HideInInspector]
     public int _renderNr = 0;
@@ -204,9 +206,11 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetFloat("_lightIntensity", _lightIntensity);
         _raymarchMaterial.SetFloat("_shadowIntensity", _shadowIntensity);
         _raymarchMaterial.SetFloat("_aoIntensity", _aoIntensity);
+        _raymarchMaterial.SetFloat("hue", hue);
         _raymarchMaterial.SetVector("_lightDir", _directionalLight ? _directionalLight.forward : Vector3.down);
         _raymarchMaterial.SetVector("_player", _player ? _player.position : Vector3.zero);
         _raymarchMaterial.SetColor("_skyColor", _skyColor);
+        _raymarchMaterial.SetColor("_ChaosColor", _ChaosColor);
 
 
         _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);
@@ -249,9 +253,11 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetFloat("_lightIntensity", _lightIntensity);
         _raymarchMaterial.SetFloat("_shadowIntensity", _shadowIntensity);
         _raymarchMaterial.SetFloat("_aoIntensity", _aoIntensity);
+        _raymarchMaterial.SetFloat("hue", hue);
         _raymarchMaterial.SetVector("_lightDir", _directionalLight ? _directionalLight.forward : Vector3.down);
         _raymarchMaterial.SetVector("_player", _player ? _player.position : Vector3.zero);
         _raymarchMaterial.SetColor("_skyColor", _skyColor);
+        _raymarchMaterial.SetColor("_ChaosColor", _ChaosColor);
 
 
         _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);

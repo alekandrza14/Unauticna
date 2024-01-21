@@ -31,4 +31,9 @@ public class Microscop : MonoBehaviour
             }
         }
     }
+    public void OnSignal()
+    {
+        GetDNALog();
+        Debug.Log("its Work");
+    }
 }

@@ -263,6 +263,7 @@ namespace Unity.Mathematics
         bool r = true;
 
         float u = 0;
+        Vector3 forward;
         // the raymarcher checks the distance to all the given transforms, if one is less than zero, the player is moved in the opposite direction
         void RayMarch(Transform[] ro)
         {
@@ -286,7 +287,7 @@ namespace Unity.Mathematics
                         //collision
                         // if(!Input.GetKey(KeyCode.F))  transform.Translate((-ro[i].up) * d * 1.5f, Space.World);
                          transform.Translate(ro[i].forward * d * 1.5f, Space.World);// transform.position += Vector3.up * 0.01f; 
-
+                        forward = ro[i].forward * d * 1.5f;
                         //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
 
                         u = 1;
@@ -454,10 +455,17 @@ namespace Unity.Mathematics
                         if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                     }
                 }
-
+                if (d < -1)
+                {
+                    d = 1;
+                   
+                }
                 // Debug.Log(d);
-                if (!playerSphericalModel) transform.Translate(Vector3.down * d, Space.World);
-                if (playerSphericalModel) transform.Translate(-transform.up * d, Space.World);
+               
+                    if (!playerSphericalModel) transform.Translate(Vector3.down * d, Space.World);
+                    if (playerSphericalModel) transform.Translate(-transform.up * d, Space.World);
+
+                
             }
         }
 

@@ -51,8 +51,12 @@ public class FilmCamera : MonoBehaviour
     int s;
     string sstring;
     int s2;
-    // Use this for initialization
-    public void SaveTexture()
+    public void OnSignal()
+    {
+        SaveTexture();
+    }
+        // Use this for initialization
+        public void SaveTexture()
     {
         byte[] bytes = toTexture2D(rt).EncodeToPNG();
         Directory.CreateDirectory("C:/Sceenshots Unauticna/RenderScrin");

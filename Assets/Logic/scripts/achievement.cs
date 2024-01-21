@@ -10,7 +10,13 @@ public class achievement : MonoBehaviour
     void Start()
     {
         //Касание анти материи
-        //"убит фанатиком"
+        //"кража аруа урон"
+        if (VarSave.GetBool("кража аруа урон"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "Вы мертвы от урона от воровства с вашей карточки";
+            VarSave.SetBool("кража аруа урон", false);
+        }
         if (VarSave.GetBool("Фашист победил"))
         {
             hello.windowmesenge.Dialog_die();

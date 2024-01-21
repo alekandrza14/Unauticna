@@ -10,6 +10,7 @@ public class ColdGenerator : InventoryEvent
 
     [SerializeField] itemName itemName;
     [SerializeField] Text EnergyCounter;
+    [SerializeField] GameObject g;
     string energy;
     public GeneratorEnergyData energyData = new GeneratorEnergyData();
     private void Start()
@@ -71,6 +72,21 @@ public class ColdGenerator : InventoryEvent
     {
         return ( (DateTime.Now.DayOfYear));
 
+    }
+    public void OnSignal()
+    {
+        if (energyData.energy > 0)
+        {
+            GeneratorEnergyData ged;
+            ged = energyData;
+            ged.energy = (energyData.energy - 12);
+
+            itemName.ItemData = JsonUtility.ToJson(ged);
+
+            Instantiate(g, transform.position, transform.rotation);
+
+
+        }
     }
     void Update()
     {

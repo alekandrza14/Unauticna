@@ -69,6 +69,21 @@ public class RayGun : InventoryEvent
         }
 
     }
+    public void OnSignal()
+    {
+        if (energyData.energy > 0)
+        {
+            GeneratorEnergyData ged;
+            ged = energyData;
+            ged.energy = (energyData.energy - 12);
+
+            itemName.ItemData = JsonUtility.ToJson(ged);
+
+            Instantiate(Resources.Load<GameObject>("DamageRay").gameObject, transform.position, transform.rotation);
+
+
+        }
+    }
     void Update()
     {
 

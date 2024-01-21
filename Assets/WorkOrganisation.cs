@@ -62,7 +62,18 @@ public class WorkOrganisation : MonoBehaviour
                 }
         }
     }
-    void Math()
+    public void OnSignal()
+    {
+
+        if (workType == WorkType.DirectorTable)
+        {
+            WorkOrganisation wo = GetComponent<WorkOrganisation>();
+            VarSave.LoadMoney("CashFlow", -wo.GetMath2());
+            if (wo.GetMath2() != CashFlow) wo.Math2();
+            VarSave.LoadMoney("CashFlow", wo.GetMath2());
+        }
+    }
+        void Math()
     {
         int workstanions = workter.Worckstatoins.Count;
         int workers = workter.Workers.Count;

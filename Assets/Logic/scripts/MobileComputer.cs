@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -59,7 +59,7 @@ public class MobileComputer : MonoBehaviour
     {
 
         operations = ComputerOperations.Servers;
-        txt.text = "Отчистка месности";
+        txt.text = "РћС‚С‡РёСЃС‚РєР° РјРµСЃРЅРѕСЃС‚Рё";
 
         servers = ComputerOperationsServers.Clearing;
         Screen.texture = sprites[4];
@@ -208,13 +208,17 @@ public class MobileComputer : MonoBehaviour
             }
             if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
             {
-                if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                if (!complsave.t3[CurrentProduct].GetComponent<Р—Р°РїСЂРµС‰С‘РЅ>())
                 {
                     txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1));
                 }
-                if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                if (complsave.t3[CurrentProduct].GetComponent<Р—Р°РїСЂРµС‰С‘РЅ>())
                 {
                     txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1));
+                }
+                if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
+                {
+                    txt.text = complsave.t3[CurrentProduct].name + " Const : в€ћ * " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1));
                 }
             }
 
@@ -269,15 +273,31 @@ public class MobileComputer : MonoBehaviour
             {
                 if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
                 {
-                    if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    if (!complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                     {
-                        VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
-                        Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                        if (!complsave.t3[CurrentProduct].GetComponent<Р—Р°РїСЂРµС‰С‘РЅ>())
+                        {
+                            VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
+                            Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                        }
+                        if (complsave.t3[CurrentProduct].GetComponent<Р—Р°РїСЂРµС‰С‘РЅ>())
+                        {
+                            VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
+                            Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                        }
                     }
-                    if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                }
+            }
+            if (VarSave.LoadTrash("inftevro", 0) >= (double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)))
+            {
+                if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                {
+                   
+                    if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                     {
-                        VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)));
+                        VarSave.LoadTrash("inftevro", -(double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)));
                         Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                        Globalprefs.Infinitysteuvro = VarSave.LoadTrash("inftevro", 0);
                     }
                 }
             }
@@ -345,27 +365,27 @@ public class MobileComputer : MonoBehaviour
             servers = (ComputerOperationsServers)serversIndex;
             if (servers == ComputerOperationsServers.Clearing)
             {
-                txt.text = "Отчистка месности";
+                txt.text = "РћС‚С‡РёСЃС‚РєР° РјРµСЃРЅРѕСЃС‚Рё";
 
                 servers = ComputerOperationsServers.Clearing;
                 Screen.texture = sprites[4];
             }
             if (servers == ComputerOperationsServers.FireDepartment)
             {
-                txt.text = "Пожарная служба";
+                txt.text = "РџРѕР¶Р°СЂРЅР°СЏ СЃР»СѓР¶Р±Р°";
 
                 servers = ComputerOperationsServers.FireDepartment;
                 Screen.texture = sprites[4];
             }
             if (servers == ComputerOperationsServers.Nophing)
             {
-                txt.text = "Безделье";
+                txt.text = "Р‘РµР·РґРµР»СЊРµ";
 
                 Screen.texture = sprites[4];
             }
             if (servers == ComputerOperationsServers.SellAllItemsOnLocation)
             {
-                txt.text = "Распродажа";
+                txt.text = "Р Р°СЃРїСЂРѕРґР°Р¶Р°";
 
                 Screen.texture = sprites[4];
             }
@@ -410,19 +430,19 @@ public class MobileComputer : MonoBehaviour
             servers = (ComputerOperationsServers)serversIndex;
             if (servers == ComputerOperationsServers.Clearing)
             {
-                txt.text = "Отчистка месности";
+                txt.text = "РћС‚С‡РёСЃС‚РєР° РјРµСЃРЅРѕСЃС‚Рё";
 
                 Screen.texture = sprites[4];
             }
             if (servers == ComputerOperationsServers.FireDepartment)
             {
-                txt.text = "Пожарная служба";
+                txt.text = "РџРѕР¶Р°СЂРЅР°СЏ СЃР»СѓР¶Р±Р°";
 
                 Screen.texture = sprites[4];
             }
             if (servers == ComputerOperationsServers.Nophing)
             {
-                txt.text = "Безделье";
+                txt.text = "Р‘РµР·РґРµР»СЊРµ";
 
                 Screen.texture = sprites[4];
             }

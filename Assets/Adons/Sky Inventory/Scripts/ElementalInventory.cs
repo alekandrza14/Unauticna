@@ -1087,6 +1087,20 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("Ban_gun") && Cells[select].elementName == "Ban_gun" && boxItem.getInventory("i3").inventory == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("BanObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("BanObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                cistalenemy.dies++;
+            }
+
+
+        }
         if (Input.GetKey(KeyCode.Mouse0) && Cells[select].elementName == "RayGun" && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1863,6 +1877,21 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("BlackGrib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Non-exist-colour-Grib") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            playerdata.Addeffect("Tripl3", 120);
+
+
+            lowitem("Non-exist-colour-Grib", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Non-exist-colour-Grib
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("jeltok") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -2122,6 +2151,19 @@ public class ElementalInventory : MonoBehaviour {
 
 
             lowitem("YourJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("УнивёрсиумнаяКарточка") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
+
+
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Vine") != 0 && boxItem.getInventory("i3").inventory == this)
