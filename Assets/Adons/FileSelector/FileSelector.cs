@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 #endregion
 
@@ -19,7 +20,7 @@ using TMPro;
 
 public enum selecttype
 {
-	model,color,creature,Object
+	model,color,creature,Object,Maps
 }
 
 public class FileSelector : MonoBehaviour 
@@ -226,16 +227,34 @@ public class FileSelector : MonoBehaviour
 
 
 
-				
 
 
 
-					
-					path = "C:/Data/Objects";
 
-					extension = "";
-				
-					ss = selecttype.Object;
+
+                path = "C:/Data/Objects";
+
+                extension = "";
+
+                ss = selecttype.Object;
+            }
+            if (dd.value == 3 && ss != selecttype.Maps)
+            {
+
+
+
+
+
+
+
+
+
+
+                path = "res/UserWorckspace/maps";
+
+                extension = ".map";
+
+                ss = selecttype.Maps;
             }
         }
 	}
@@ -496,20 +515,32 @@ public class FileSelector : MonoBehaviour
         {
 
 
-            
-                GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
-			for (int i = 0; i < g2.Length; i++)
-			{ 
-			if(file == g2[i].GetComponent<StandartObject>().name)
-				{
+
+            GameObject[] g2 = Resources.LoadAll<GameObject>("Primetives");
+            for (int i = 0; i < g2.Length; i++)
+            {
+                if (file == g2[i].GetComponent<StandartObject>().name)
+                {
 
                     Instantiate(g2[i], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
 
                 }
-			}
-                // file;
-
             }
+            // file;
+
+        }
+        if (ss == selecttype.Maps)
+        {
+
+
+            rsave r = new rsave();
+
+            r = JsonUtility.FromJson<rsave>(File.ReadAllText(path + @"\" + file));
+			complsave.mapLoad = path + @"\" + file;
+			SceneManager.LoadSceneAsync(r.sceneName);
+            // file;
+
+        }
     }
 
     #endregion

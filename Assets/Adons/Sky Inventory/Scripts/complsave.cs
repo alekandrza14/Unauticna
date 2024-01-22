@@ -29,7 +29,7 @@ public class complsave : MonoBehaviour
     public string lif;
 
     public static string[] nunames = new string[0];
-
+    public static complsave ObjectSaveManager;
 
     public static string[] info3 = new string[0];
 
@@ -165,7 +165,7 @@ public class complsave : MonoBehaviour
 
     public void Start()
     {
-        
+        ObjectSaveManager = this;
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         lif = "";
         if(!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString();
@@ -277,7 +277,7 @@ public class complsave : MonoBehaviour
         }
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
-    
+
     public void save()
     {
 
@@ -304,6 +304,54 @@ public class complsave : MonoBehaviour
         //
         //      }
         //  }
+        KompObject();
+
+
+        Directory.CreateDirectory(name2.ToString());
+        if (t3.Length > 0) File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+
+
+        saveString1 = new rsave();
+
+
+    }
+    public void saveMap(string respath)
+    {
+        //  if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
+        //  {
+        //
+        //
+        //      for (int i3 = 0; i3 < FindObjectsByType<itemName>(sortmode.main).Length; i3++)
+        //      {
+        //
+        //
+        //          if (FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>())
+        //          {
+        //              FindObjectsByType<itemName>(sortmode.main)[i3].GetComponent<breauty>();
+        //          }
+        //          else
+        //          {
+        //              FindObjectsByType<itemName>(sortmode.main)[i3].gameObject.AddComponent<breauty>().integer = 10;
+        //
+        //          }
+        //
+        //
+        //
+        //
+        //      }
+        //  }
+        KompObject();
+
+        if (t3.Length > 0) File.WriteAllText(respath+".map", JsonUtility.ToJson(saveString1));
+
+
+        saveString1 = new rsave();
+
+
+    }
+
+    private void KompObject()
+    {
         saveString1 = new rsave();
 
         Directory.CreateDirectory(name2 + @"/objects");
@@ -375,13 +423,13 @@ public class complsave : MonoBehaviour
                     MultyObject mo = items[i3].GetComponent<MultyObject>();
                     if (mo.N_Positions != null)
                     {
-                       
-                            for (int i = 0; i < mo.N_Positions.Length; i++)
-                            {
-                                o3++;
-                                saveString1.posN.Add(mo.N_Positions[i]);
-                            }
-                     
+
+                        for (int i = 0; i < mo.N_Positions.Length; i++)
+                        {
+                            o3++;
+                            saveString1.posN.Add(mo.N_Positions[i]);
+                        }
+
                     }
                     else
                     {
@@ -418,7 +466,7 @@ public class complsave : MonoBehaviour
             if (co[i].GetComponent<MultyObject>())
             {
                 Vector6 v6 = co[i].GetComponent<MultyObject>().startPosition;
-                 saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
+                saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
             }
             if (!co[i].GetComponent<MultyObject>()) saveString1.vector3D.Add(co[i].transform.position);
             saveString1.idC.Add(co[i].s);
@@ -445,26 +493,26 @@ public class complsave : MonoBehaviour
             if (co[i].GetComponent<MultyObject>())
             {
                 MultyObject mo = co[i].GetComponent<MultyObject>();
-             //   Debug.Log("Start masiive position " + i); 
-              //  Debug.Log("Start masiive position position " + o + " / " + mo.gameObject.name);
+                //   Debug.Log("Start masiive position " + i); 
+                //  Debug.Log("Start masiive position position " + o + " / " + mo.gameObject.name);
                 if (mo.N_Positions != null)
                 {
-                  
-                        for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
-                        {
+
+                    for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
+                    {
 
                         //    Debug.Log("Start masiive position position " + o + " / " + mo.N_Positions[i3] + " / " + i3 + " / " + mo.gameObject.name);
-                            o++;
-                            saveString1.posN2.Add(mo.N_Positions[i3]);
-                        }
-                 
+                        o++;
+                        saveString1.posN2.Add(mo.N_Positions[i3]);
+                    }
+
                 }
                 else
                 {
 
                     saveString1.posN2.Add(0);
                 }
-              //  Debug.Log("End masiive position " + i);
+                //  Debug.Log("End masiive position " + i);
                 saveString1.curN2.Add(o);
             }
             else
@@ -515,13 +563,13 @@ public class complsave : MonoBehaviour
             {
                 MultyObject mo = so[i].GetComponent<MultyObject>(); if (mo.N_Positions != null)
                 {
-                    
-                        for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
-                        {
-                            o2++;
-                            saveString1.posN3.Add(mo.N_Positions[i3]);
-                        }
-                  
+
+                    for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
+                    {
+                        o2++;
+                        saveString1.posN3.Add(mo.N_Positions[i3]);
+                    }
+
                 }
                 else
                 {
@@ -540,19 +588,11 @@ public class complsave : MonoBehaviour
 
         }
 
-
-
-
-
-
-        Directory.CreateDirectory(name2.ToString());
-      if(t3.Length>0)  File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
-
-
-        saveString1 = new rsave();
-
-
+        saveString1.sceneName = SceneManager.GetActiveScene().name;
     }
+
+    static public string mapLoad;
+
     public void load()
     {
        
@@ -560,7 +600,15 @@ public class complsave : MonoBehaviour
 
 
         saveString1 = new rsave();
-        saveString221 = Path.Combine("",   name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
+        if (string.IsNullOrEmpty(mapLoad))
+        {
+            saveString221 = Path.Combine("", name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
+        }
+        if (!string.IsNullOrEmpty(mapLoad))
+        {
+            saveString221 = Path.Combine("", mapLoad);
+            mapLoad = null;
+        }
         HyperbolicCamera hc = HyperbolicCamera.Main();
         bool questtarget = false;
         for (int c = 0; c < 2; c++)
@@ -980,7 +1028,7 @@ public class rsave
     public List<float> posW3 = new List<float>();
     public List<float> posH3 = new List<float>();
     public List<bool> SavedPlayer = new List<bool>();
-
+    public string sceneName;
     public List<Vector3> vector3B = new List<Vector3>();
 
 

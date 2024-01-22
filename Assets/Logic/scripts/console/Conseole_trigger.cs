@@ -94,6 +94,14 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "26";
             }
+            if (s[0] == "saveMap")
+            {
+                a = "27";
+            }
+            if (s[0] == "Teleport")
+            {
+                a = "28";
+            }
             if (s[0] == "StartPoket")
             {
                 a = "24";
@@ -596,6 +604,15 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "26")
             {
                 VarSave.SetString("quest", s[1], SaveType.global);
+            }
+            if (i == 1 && a == "27")
+            {
+                Directory.CreateDirectory("res/UserWorckspace/maps");
+                complsave.ObjectSaveManager.saveMap("res/UserWorckspace/maps/_" + s[1]);
+            }
+            if (i == 1 && a == "28")
+            {
+                mover.main().transform.position = new Vector3(float.Parse(s[1])+mover.new_offset.x, float.Parse(s[2]) + mover.new_offset.y, float.Parse( s[3]) + mover.new_offset.z);
             }
             if (i == 1 && a == "2")
             {
