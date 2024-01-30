@@ -2610,6 +2610,54 @@ public class mover : MonoBehaviour
 
             //playermatinvisible
         }
+        if (playerdata.Geteffect("Vampaire") != null)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (hit.collider != null)
+                {
+                    Globalprefs.socksObj = hit.collider.gameObject;
+                    Instantiate(Resources.Load<GameObject>("Voices/сосание"));
+                }
+                if (hit.collider == null)
+                {
+                    Instantiate(Resources.Load<GameObject>("Voices/сосание"));
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                playerdata.Addeffect("KsenoMorfin", 600);
+                int index = 0;
+                for (int i = 0; i < complsave.t5.Length; i++)
+                {
+                    if (complsave.t5[i].name == "FlyingMouse")
+                    {
+                        index = i; break;
+                    }
+                }
+                VarSave.SetInt("CurrentMorf", index);
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                playerdata.Addeffect("KsenoMorfin", 600);
+                int index = 0;
+                for (int i = 0; i < complsave.t5.Length; i++)
+                {
+                    if (complsave.t5[i].name == "Ctulchu")
+                    {
+                        index = i; break;
+                    }
+                }
+                VarSave.SetInt("CurrentMorf", index);
+            }
+            if (Input.GetKeyDown(KeyCode.Keypad0))
+            {
+                playerdata.hasClearEffect("KsenoMorfin");
+               
+            }
+
+        }
         if (playerdata.Geteffect("BigShot") != null)
         {
             timerFlowUp += Time.deltaTime;
@@ -2827,6 +2875,11 @@ public class mover : MonoBehaviour
                 File.Delete(di.GetFiles()[0].FullName);
             }
         }
+    }
+    public void SucksEnd()
+    {
+        Instantiate(Resources.Load<GameObject>("items/Куча_дерьма"), Globalprefs.socksObj.transform.position,Quaternion.identity);
+        Destroy(Globalprefs.socksObj);
     }
     public void saveing()
     {

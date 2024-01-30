@@ -26,17 +26,17 @@ public class EditorHyperRenderer : EditorWindow
         if (EditorGUILayout.LinkButton("HyperRenderStart"))
         {
 
-            for (int i = 0; i < GameObject.FindObjectsOfType<World>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<World>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<World>().Length != 0)
+                if (GameObject.FindObjectsByType<World>(sortmode.main).Length != 0)
                 {
 
 
 
 
-                    GameObject.FindObjectsOfType<World>()[i].editorcamera = SceneView.lastActiveSceneView.camera.transform;
+                    GameObject.FindObjectsByType<World>(sortmode.main)[i].editorcamera = SceneView.lastActiveSceneView.camera.transform;
 
-                    GameObject.FindObjectsOfType<World>()[i].editorhrst();
+                    GameObject.FindObjectsByType<World>(sortmode.main)[i].editorhrst();
                 }
 
             }
@@ -44,17 +44,17 @@ public class EditorHyperRenderer : EditorWindow
         if (EditorGUILayout.LinkButton("HyperRenderUpdate"))
         {
 
-            for (int i = 0; i < GameObject.FindObjectsOfType<World>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<World>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<World>().Length != 0)
+                if (GameObject.FindObjectsByType<World>(sortmode.main).Length != 0)
                 {
 
 
 
 
-                    GameObject.FindObjectsOfType<World>()[i].editorcamera = SceneView.lastActiveSceneView.camera.transform;
+                    GameObject.FindObjectsByType<World>(sortmode.main)[i].editorcamera = SceneView.lastActiveSceneView.camera.transform;
 
-                    GameObject.FindObjectsOfType<World>()[i].editorhrup();
+                    GameObject.FindObjectsByType<World>(sortmode.main)[i].editorhrup();
                 }
 
             }

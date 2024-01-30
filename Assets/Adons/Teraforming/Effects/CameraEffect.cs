@@ -24,7 +24,7 @@ public class CameraEffect : MonoBehaviour
 	{
 		if (effectManager == null)
 		{
-			effectManager = FindObjectOfType<EffectManager>();
+			effectManager = FindFirstObjectByType<EffectManager>();
 		}
 	}
 }

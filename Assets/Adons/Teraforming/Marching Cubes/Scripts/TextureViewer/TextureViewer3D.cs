@@ -24,6 +24,6 @@ public class TextureViewer3D : MonoBehaviour
 	void Update()
 	{
 		material.SetFloat("sliceDepth", sliceDepth);
-		material.SetTexture("DisplayTexture", FindObjectOfType<GenTest>().rawDensityTexture);
+		material.SetTexture("DisplayTexture", FindFirstObjectByType<GenTest>().rawDensityTexture);
 	}
 }

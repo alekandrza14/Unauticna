@@ -11,9 +11,9 @@ public class spamton_meetigg : MonoBehaviour
         {
 
 
-            FindObjectOfType<spamton>().fisttalk = true;
-            FindObjectOfType<spamton>().higamer = true;
-            FindObjectOfType<spamton>().del.stopPlayer = true;
+            FindFirstObjectByType<spamton>().fisttalk = true;
+            FindFirstObjectByType<spamton>().higamer = true;
+            FindFirstObjectByType<spamton>().del.stopPlayer = true;
 
         }
     }

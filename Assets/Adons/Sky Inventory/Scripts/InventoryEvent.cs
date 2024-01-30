@@ -28,7 +28,5 @@ public class InventoryEvent : MonoBehaviour
         // RandomMetabolismDNA
     }
 
-    public void Load1()
-    {
-    }
+    
 }

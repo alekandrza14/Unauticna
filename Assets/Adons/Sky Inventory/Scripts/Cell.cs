@@ -20,7 +20,7 @@ public class Cell : MonoBehaviour {
    
     public void UpdateCellInterface () {
 		if (elementPrefab == null) {
-			elementPrefab = (FindObjectOfType (typeof(ElementalInventory)) as ElementalInventory).elementPrefab;
+			elementPrefab = (FindFirstObjectByType (typeof(ElementalInventory)) as ElementalInventory).elementPrefab;
 		}
 		if (elementCount == 0) {
 			if (elementTransform != null) {

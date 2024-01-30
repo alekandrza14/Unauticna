@@ -407,7 +407,7 @@ public class GameManager : MonoBehaviour
     
     static public Transform isplayer()
     {
-        Transform t = GameObject.FindObjectsOfType<GameObject>()[0].transform;
+        Transform t = GameObject.FindObjectsByType<GameObject>(sortmode.main)[0].transform;
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
 

@@ -123,7 +123,7 @@ namespace SVGImporter
         
         private static void CreateEventSystem(bool select, GameObject parent)
         {
-            var esys = Object.FindObjectOfType<EventSystem>();
+            var esys = Object.FindFirstObjectByType<EventSystem>();
             if (esys == null)
             {
                 var eventSystem = new GameObject("EventSystem");
@@ -153,7 +153,7 @@ namespace SVGImporter
                 return canvas.gameObject;
             
             // No canvas in selection or its parents? Then use just any canvas..
-            canvas = Object.FindObjectOfType(typeof(Canvas)) as Canvas;
+            canvas = Object.FindFirstObjectByType(typeof(Canvas)) as Canvas;
             if (canvas != null && canvas.gameObject.activeInHierarchy)
                 return canvas.gameObject;
             

@@ -55,9 +55,9 @@ public class HrmLoader : MonoBehaviour
         }
         if (File.Exists("res/"+ ifd.text+ ".hrm"))
         {
-            for (int i = 0; i < FindObjectsOfType<HyperObject>().Length; i++)
+            for (int i = 0; i < FindObjectsByType<HyperObject>(sortmode.main).Length; i++)
             {
-                FindObjectsOfType<HyperObject>()[i].gameObject.AddComponent<DELETE>();
+                FindObjectsByType<HyperObject>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
             }
             
             HRM hrm = JsonUtility.FromJson<HRM>(File.ReadAllText("res/"+ ifd.text+ ".hrm"));

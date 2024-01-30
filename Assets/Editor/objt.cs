@@ -32,7 +32,7 @@ public class ScriptBatch2 : EditorWindow
         if (GUILayout.Button("intend scene ya?"))
         {
 
-            g = FindObjectsOfType<GameObject>();
+            g = FindObjectsByType<GameObject>(sortmode.main);
             for (int i = 0; i < g.Length; i++)
             {
                 

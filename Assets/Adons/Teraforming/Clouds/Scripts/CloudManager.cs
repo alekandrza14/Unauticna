@@ -87,7 +87,7 @@ public class CloudManager : MonoBehaviour
 		cloudRender.wrapMode = TextureWrapMode.Clamp;
 		if (noiseGenerator == null)
 		{
-			noiseGenerator = FindObjectOfType<NoiseGenerator>();
+			noiseGenerator = FindFirstObjectByType<NoiseGenerator>();
 		}
 	}
 

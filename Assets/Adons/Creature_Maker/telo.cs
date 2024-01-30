@@ -37,9 +37,9 @@ public class telo : MonoBehaviour
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
         objs = new List<GameObject>();
-        for (int i = 0; i < FindObjectsOfType<Mainscript>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<Mainscript>(sortmode.main).Length; i++)
         {
-            FindObjectsOfType<Mainscript>()[i].selfLeft();
+            FindObjectsByType<Mainscript>(sortmode.main)[i].selfLeft();
         }
 
         if (File.Exists("C:/Unauticna Multiverse/Creatures/"+ifd.text+".creature"))
@@ -59,9 +59,9 @@ public class telo : MonoBehaviour
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
         objs = new List<GameObject>();
-        for (int i = 0; i < FindObjectsOfType<Mainscript>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<Mainscript>(sortmode.main).Length; i++)
         {
-            FindObjectsOfType<Mainscript>()[i].selfLeft();
+            FindObjectsByType<Mainscript>(sortmode.main)[i].selfLeft();
         }
       
     }

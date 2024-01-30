@@ -12,9 +12,9 @@ namespace un
 [ExecuteInEditMode]
 public class HyperbolicTriangeRenederer : MonoBehaviour
 {
-    float speed1 = 1;
-    float constspeed = 1;
-    float constdist = 4;
+    readonly float speed1 = 1;
+    readonly float constspeed = 1;
+    readonly float constdist = 4;
     public static float speed = 10.0f; public static float speed2 = 10.0f;
     public static float rotationSpeed = 10.0f;
     [HideInInspector] public float v1 = 0;

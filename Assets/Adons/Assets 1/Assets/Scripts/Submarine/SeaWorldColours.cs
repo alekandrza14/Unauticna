@@ -30,10 +30,10 @@ public class SeaWorldColours : MonoBehaviour {
         UpdateTexture ();
 
         if (meshGenerator == null) {
-            meshGenerator = FindObjectOfType<MeshGenerator> ();
+            meshGenerator = FindFirstObjectByType<MeshGenerator> ();
         }
         if (cam == null) {
-            cam = FindObjectOfType<Camera> ();
+            cam = FindFirstObjectByType<Camera> ();
         }
 
         mat.SetTexture ("ramp", texture);

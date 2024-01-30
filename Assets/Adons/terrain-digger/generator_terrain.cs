@@ -23,7 +23,7 @@ public class generator_terrain : MonoBehaviour
     }
     private void Update()
     {
-        i7 = FindObjectsOfType<tearaformer>().Length;
+        i7 = FindObjectsByType<tearaformer>(sortmode.main).Length;
         if (i7 != i8)
         {
             regenerate();
@@ -60,15 +60,15 @@ public class generator_terrain : MonoBehaviour
         float r = (float)width / (float)leng1;
         float r2 = (float)leng1 / (float)width;
         Debug.Log((r,r2));
-        for (int i = 0; i < FindObjectsOfType<tearaformer>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<tearaformer>(sortmode.main).Length; i++)
         {
-            Vector2 v2i = new Vector2(FindObjectsOfType<tearaformer>()[i].transform.position.x,
+            Vector2 v2i = new Vector2(FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.x,
 
-        FindObjectsOfType<tearaformer>()[i].transform.position.z);
+        FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.z);
 
-            float f2s = FindObjectsOfType<tearaformer>()[i].transform.position.y;
+            float f2s = FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.y;
             fs.Add(f2s);
-            float f2n = FindObjectsOfType<tearaformer>()[i].value;
+            float f2n = FindObjectsByType<tearaformer>(sortmode.main)[i].value;
             fn.Add(f2n);
             vectorsis.Add(v2i);
         }
@@ -167,15 +167,15 @@ public class generator_terrain : MonoBehaviour
 
         float r = (float)width / (float)leng1;
         float r2 = (float)leng1 / (float)width;
-        for (int i = 0; i < FindObjectsOfType<tearaformer>().Length; i++)
+        for (int i = 0; i < FindObjectsByType<tearaformer>(sortmode.main).Length; i++)
         {
-            Vector2 v2i = new Vector2(FindObjectsOfType<tearaformer>()[i].transform.position.x,
+            Vector2 v2i = new Vector2(FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.x,
 
-        FindObjectsOfType<tearaformer>()[i].transform.position.z);
+        FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.z);
 
-            float f2s = FindObjectsOfType<tearaformer>()[i].transform.position.y;
+            float f2s = FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.y;
             fs.Add(f2s);
-            float f2n = FindObjectsOfType<tearaformer>()[i].value;
+            float f2n = FindObjectsByType<tearaformer>(sortmode.main)[i].value;
             fn.Add(f2n);
             vectorsis.Add(v2i);
         }

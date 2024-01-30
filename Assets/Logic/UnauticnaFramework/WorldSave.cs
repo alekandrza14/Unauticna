@@ -41,19 +41,19 @@ public class WorldSave : MonoBehaviour
     public static void SetVector4(string key)
     {
         Directory.CreateDirectory(path);
-        for (int i = 0; i < GameObject.FindObjectsOfType<scrollbareditWpos>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<scrollbareditWpos>(sortmode.main).Length; i++)
         {
 
 
             saveobj6d obj = new saveobj6d();
-            obj.v4.w = GameObject.FindObjectsOfType<scrollbareditWpos>()[i].Wpos.value;
+            obj.v4.w = GameObject.FindObjectsByType<scrollbareditWpos>(sortmode.main)[i].Wpos.value;
             File.WriteAllText(path + "/" + key + "-" + i + "-" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(obj));
         }
     }
     public static Vector4 GetVector4(string key)
     {
         Vector4 varout = new Vector4();
-        for (int i = 0; i < GameObject.FindObjectsOfType<scrollbareditWpos>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<scrollbareditWpos>(sortmode.main).Length; i++)
         {
             if (File.Exists(path + "/" + key + "-" + i + "-" + SceneManager.GetActiveScene().buildIndex))
             {
@@ -61,7 +61,7 @@ public class WorldSave : MonoBehaviour
 
 
                 obj = JsonUtility.FromJson<saveobj6d>(File.ReadAllText(path + "/" + key + "-" + i + "-" + SceneManager.GetActiveScene().buildIndex));
-                GameObject.FindObjectsOfType<scrollbareditWpos>()[i].Wpos.value = obj.v4.w;
+                GameObject.FindObjectsByType<scrollbareditWpos>(sortmode.main)[i].Wpos.value = obj.v4.w;
                 varout = obj.v4;
             }
         }
@@ -69,57 +69,57 @@ public class WorldSave : MonoBehaviour
     }
     public static void RemoveVector3()
     {
-        for (int i = 0; i < GameObject.FindObjectsOfType<complsave>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<complsave>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<complsave>()[i].ResetItem();
+            GameObject.FindObjectsByType<complsave>(sortmode.main)[i].ResetItem();
         }
     }
 
     public static void SetVector3(string key)
     {
-        for (int i = 0; i < GameObject.FindObjectsOfType<RandomItem>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<RandomItem>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<RandomItem>()[i].inv();
+            GameObject.FindObjectsByType<RandomItem>(sortmode.main)[i].inv();
         }
         for (int i = 0; i < GameObject.FindObjectsByType<complsave>(sortmode.main).Length; i++)
         {
             GameObject.FindObjectsByType<complsave>(sortmode.main)[i].save();
         }
         Directory.CreateDirectory(path);
-        for (int i = 0; i < GameObject.FindObjectsOfType<modulyogir>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<modulyogir>(sortmode.main).Length; i++)
         {
 
 
             saveobj6d obj = new saveobj6d();
-            obj.v3 = GameObject.FindObjectsOfType<modulyogir>()[i].transform.position;
-            obj.modulyogir.x = GameObject.FindObjectsOfType<modulyogir>()[i].tic;
-            obj.modulyogir.y = GameObject.FindObjectsOfType<modulyogir>()[i].povedenie;
-            obj.modulyogir.z = GameObject.FindObjectsOfType<modulyogir>()[i].rot;
+            obj.v3 = GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].transform.position;
+            obj.modulyogir.x = GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].tic;
+            obj.modulyogir.y = GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].povedenie;
+            obj.modulyogir.z = GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].rot;
             File.WriteAllText(path + "/" + key + "-" + i + "-" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(obj));
         }
-        for (int i = 0; i < GameObject.FindObjectsOfType<transport4>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<transport4>(sortmode.main).Length; i++)
         {
 
 
             saveobj6d obj = new saveobj6d();
-            obj.v3 = GameObject.FindObjectsOfType<transport4>()[i].transform.position;
-            obj.q = GameObject.FindObjectsOfType<transport4>()[i].transform.rotation;
+            obj.v3 = GameObject.FindObjectsByType<transport4>(sortmode.main)[i].transform.position;
+            obj.q = GameObject.FindObjectsByType<transport4>(sortmode.main)[i].transform.rotation;
 
             File.WriteAllText(path + "/" + key + "-transport-" + i + "-" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(obj));
         }
-        for (int i = 0; i < GameObject.FindObjectsOfType<modulyogir2>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<modulyogir2>(sortmode.main).Length; i++)
         {
 
 
             saveobj6d obj = new saveobj6d();
-            obj.v3 = GameObject.FindObjectsOfType<modulyogir2>()[i].transform.position;
-            obj.modulyogir.x = GameObject.FindObjectsOfType<modulyogir2>()[i].tic;
-            obj.modulyogir.y = GameObject.FindObjectsOfType<modulyogir2>()[i].povedenie;
-            obj.modulyogir.z = GameObject.FindObjectsOfType<modulyogir2>()[i].rot;
+            obj.v3 = GameObject.FindObjectsByType<modulyogir2>(sortmode.main)[i].transform.position;
+            obj.modulyogir.x = GameObject.FindObjectsByType<modulyogir2>(sortmode.main)[i].tic;
+            obj.modulyogir.y = GameObject.FindObjectsByType<modulyogir2>(sortmode.main)[i].povedenie;
+            obj.modulyogir.z = GameObject.FindObjectsByType<modulyogir2>(sortmode.main)[i].rot;
             File.WriteAllText(path + "/" + key + "-2-" + i + "-" + SceneManager.GetActiveScene().buildIndex, JsonUtility.ToJson(obj));
 
         }
-        File.WriteAllText(path + "/" + key + "-2-" + "modulyogir2" + "-" + SceneManager.GetActiveScene().buildIndex, GameObject.FindObjectsOfType<modulyogir2>().Length.ToString());
+        File.WriteAllText(path + "/" + key + "-2-" + "modulyogir2" + "-" + SceneManager.GetActiveScene().buildIndex, GameObject.FindObjectsByType<modulyogir2>(sortmode.main).Length.ToString());
     }
     public static void SetMusic(string key)
     {
@@ -140,7 +140,7 @@ public class WorldSave : MonoBehaviour
     {
         
         Vector4 varout = new Vector4();
-        for (int i = 0; i < GameObject.FindObjectsOfType<modulyogir>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<modulyogir>(sortmode.main).Length; i++)
         {
             if (File.Exists(path + "/" + key + "-" + i + "-" + SceneManager.GetActiveScene().buildIndex))
             {
@@ -148,14 +148,14 @@ public class WorldSave : MonoBehaviour
 
 
                 obj = JsonUtility.FromJson<saveobj6d>(File.ReadAllText(path + "/" + key + "-" + i + "-" + SceneManager.GetActiveScene().buildIndex));
-                GameObject.FindObjectsOfType<modulyogir>()[i].transform.position = obj.v3;
-                GameObject.FindObjectsOfType<modulyogir>()[i].tic = obj.modulyogir.x;
-                GameObject.FindObjectsOfType<modulyogir>()[i].rot = obj.modulyogir.z;
-                GameObject.FindObjectsOfType<modulyogir>()[i].povedenie = Mathf.FloorToInt(obj.modulyogir.y);
+                GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].transform.position = obj.v3;
+                GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].tic = obj.modulyogir.x;
+                GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].rot = obj.modulyogir.z;
+                GameObject.FindObjectsByType<modulyogir>(sortmode.main)[i].povedenie = Mathf.FloorToInt(obj.modulyogir.y);
                 varout = obj.v3;
             }
         }
-        for (int i = 0; i < GameObject.FindObjectsOfType<transport4>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<transport4>(sortmode.main).Length; i++)
         {
             if (File.Exists(path + "/" + key + "-transport-" + i + "-" + SceneManager.GetActiveScene().buildIndex))
             {
@@ -163,18 +163,18 @@ public class WorldSave : MonoBehaviour
 
 
                 obj = JsonUtility.FromJson<saveobj6d>(File.ReadAllText(path + "/" + key + "-transport-" + i + "-" + SceneManager.GetActiveScene().buildIndex));
-                GameObject.FindObjectsOfType<transport4>()[i].transform.position = obj.v3;
-                GameObject.FindObjectsOfType<transport4>()[i].transform.rotation = obj.q;
+                GameObject.FindObjectsByType<transport4>(sortmode.main)[i].transform.position = obj.v3;
+                GameObject.FindObjectsByType<transport4>(sortmode.main)[i].transform.rotation = obj.q;
 
                 varout = obj.v3;
             }
         }
 
-        for (int i = 0; i < GameObject.FindObjectsOfType<modulyogir2>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<modulyogir2>(sortmode.main).Length; i++)
         {
 
 
-            GameObject.FindObjectsOfType<modulyogir2>()[i].delete();
+            GameObject.FindObjectsByType<modulyogir2>(sortmode.main)[i].delete();
 
         }
         if (File.Exists(path + "/" + key + "-2-" + "modulyogir2" + "-" + SceneManager.GetActiveScene().buildIndex))

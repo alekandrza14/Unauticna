@@ -52,7 +52,7 @@ public class Water : MonoBehaviour
 		filter = GetComponentInChildren<MeshFilter>();
 		filter.mesh = mesh;
 		waterMaterial = GetComponentInChildren<MeshRenderer>().material;
-		planetGen = FindObjectOfType<GenTest>();
+		planetGen = FindFirstObjectByType<GenTest>();
 
 
 	}
@@ -74,7 +74,7 @@ public class Water : MonoBehaviour
 
 		waterMaterial.SetFloat("alphaFresnelPow", alphaFresnelPow);
 		waterMaterial.SetVector("params", testParams);
-		waterMaterial.SetTexture("DensityTex", FindObjectOfType<GenTest>().processedDensityTexture);
+		waterMaterial.SetTexture("DensityTex", FindFirstObjectByType<GenTest>().processedDensityTexture);
 		waterMaterial.SetVector("dirToSun", EffectManager.DirToSun);
 		waterMaterial.SetFloat("planetBoundsSize", planetGen.boundsSize);
 	}

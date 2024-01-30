@@ -9,7 +9,7 @@ public class AruaMoment : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(run());
+        if(VarSave.GetFloat("ChanceChaosCubeDeath" + "_gameSettings", SaveType.global)>50)  StartCoroutine(run());
     }
 
 

@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlanetGravity : MonoBehaviour
 {
     public float gravity = -9;
+    public bool inverse;
     public Transform body;
     private void Update()
     {
@@ -16,6 +17,7 @@ public class PlanetGravity : MonoBehaviour
     public void Arract()
     {
         Vector3 gravityUp = (body.position - Vector3.zero).normalized;
+        if (inverse) gravityUp *= -1;
         Vector3 bodyup = body.up;
         if (body.gameObject.GetComponent<mover>() && FindFirstObjectByType<PlayerRayMarchCollider>().GetCenterDist() < 0)
         {

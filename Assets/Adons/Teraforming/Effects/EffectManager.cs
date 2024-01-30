@@ -141,19 +141,19 @@ public class EffectManager : MonoBehaviour
 
 		if (waterSettings == null)
 		{
-			waterSettings = FindObjectOfType<Water>();
+			waterSettings = FindFirstObjectByType<Water>();
 		}
 
 		waterSettings?.SetUnderwaterProperties(underwaterMat);
 
 		if (cloudManager == null)
 		{
-			cloudManager = FindObjectOfType<CloudManager>();
+			cloudManager = FindFirstObjectByType<CloudManager>();
 		}
 
 		if (fxaa == null)
 		{
-			fxaa = FindObjectOfType<FXAAEffect>();
+			fxaa = FindFirstObjectByType<FXAAEffect>();
 		}
 	}
 

@@ -16,6 +16,7 @@ public static class Globalprefs
     public static bool RaymarchHitError;
     public static bool Scrensoting;
     public static bool Iteract;
+    public static GameObject socksObj;
     public static decimal KomplexX;
     public static float KomplexY = 1;
     public static List<string> SelfFunctions = new List<string>();

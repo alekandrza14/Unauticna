@@ -16,7 +16,7 @@ public class LightThrower : MonoBehaviour
 	{
 		controller = GetComponent<FirstPersonController>();
 		rb = GetComponent<Rigidbody>();
-		terraformer = FindObjectOfType<Terraformer>();
+		terraformer = FindFirstObjectByType<Terraformer>();
 	}
 
 

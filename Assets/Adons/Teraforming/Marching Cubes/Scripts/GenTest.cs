@@ -11,12 +11,14 @@ public class GenTest : MonoBehaviour
 	public int numChunks = 4;
 
 	public int numPointsPerAxis = 10;
-	public float boundsSize = 10;
-	public float isoLevel = 0f;
+    public float boundsSize = 10;
+    public float boundsSize2 = 10;
+    public float isoLevel = 0f;
 	public bool useFlatShading;
 
-	public float noiseScale;
-	public float noiseHeightMultiplier;
+	public bool inverse;
+    public float noiseScale;
+    public float noiseHeightMultiplier;
 	public bool blurMap;
 	public int blurRadius = 3;
 
@@ -216,6 +218,12 @@ public class GenTest : MonoBehaviour
                          (float)Globalprefs.GetIdPlanet(), -(float)Globalprefs.GetIdPlanet()))*-2;
 		 seed += 2f;
 		boundsSize = 300 * seed;
+		if (inverse)
+		{
+			boundsSize += boundsSize2;
+            boundsSize *= -1;
+
+        }
         GenerateAllChunks();
 
     }

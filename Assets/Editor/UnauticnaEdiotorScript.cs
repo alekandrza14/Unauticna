@@ -56,12 +56,12 @@ public class UnauticnaEdiotorScript {
     [MenuItem("GameObject/4D move Up")]
     public static void CreateUp()
     {
-        GameObject.FindObjectOfType<RaymarchCam>()._wPosition += 1f;
+        GameObject.FindFirstObjectByType<RaymarchCam>()._wPosition += 1f;
     }
     [MenuItem("GameObject/4D move Down")]
     public static void CreateDown()
     {
-        GameObject.FindObjectOfType<RaymarchCam>()._wPosition -= 1f;
+        GameObject.FindFirstObjectByType<RaymarchCam>()._wPosition -= 1f;
     }
 
 }

@@ -50,13 +50,17 @@ public class breauty : MonoBehaviour
                 }
             }
             v3 = g.transform.localScale;
-            if (t <= 1)
+            if (t < 0.9f)
             {
                 gameObject.transform.localScale = v3 * t;
             }
             else if (t / 3f <= 1f)
             {
-                gameObject.transform.localScale = v3 * (1f + (t / 3f));
+             //   gameObject.transform.localScale = v3 * (1f + (t / 3f));
+            }
+            else if (t >= 0.9f)
+            {
+
             }
             else
             {
@@ -70,13 +74,17 @@ public class breauty : MonoBehaviour
         {
             float f = integer;
             float t = f / 10f;
-            if (t <= 1)
+            if (t < 0.9f)
             {
                 gameObject.transform.localScale = v3 * t;
             }
             else if (t / 3f <= 1f)
             {
-                gameObject.transform.localScale = v3 * (1f + (t / 3f));
+             //   gameObject.transform.localScale = v3 * (1f + (t / 3f));
+            }
+            else if (t >= 0.9f)
+            {
+
             }
             else
             {

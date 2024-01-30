@@ -19,7 +19,7 @@ public class Shader_FanShe : MonoBehaviour
     {
       cubeMap = generateCubemap();
        if (Camera.main) cam = Camera.main;
-        if (GameObject.FindObjectOfType<Logic_tag_3>()) cam = GameObject.FindObjectOfType<Logic_tag_3>().GetComponent<Camera>();
+        if (GameObject.FindFirstObjectByType<Logic_tag_3>()) cam = GameObject.FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>();
         InvokeRepeating("change", 1, 0.05f);
         GetComponent<MeshRenderer>().material = Resources.Load<Material>("Mirror");
         curmat = GetComponent<MeshRenderer>().material;

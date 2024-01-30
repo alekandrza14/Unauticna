@@ -12,9 +12,9 @@ class ED4 : Editor
    
     private void OnSceneGUI()
     {
-        for (int i = 0; i < GameObject.FindObjectsOfType<sity>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<sity>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<sity>()[i].EditorUpdate(SceneView.lastActiveSceneView.camera.transform.position);
+            GameObject.FindObjectsByType<sity>(sortmode.main)[i].EditorUpdate(SceneView.lastActiveSceneView.camera.transform.position);
         }
 
     }

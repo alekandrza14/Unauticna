@@ -867,6 +867,8 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+        // ЗельеВамперизма
+      
         if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "MltiverseMagicStick" && boxItem.getInventory("i3").inventory == this)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -1960,12 +1962,25 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-          
-                //  Instantiate(Resources.Load("voices/belock"));
-                playerdata.Cleareffect();
-          
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            playerdata.Cleareffect();
+
 
             lowitem("RedColour", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("MalineColour") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+              Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
+
+
+            lowitem("MalineColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("BlueColour") != 0 && boxItem.getInventory("i3").inventory == this)
@@ -2263,6 +2278,16 @@ public class ElementalInventory : MonoBehaviour {
             GlobalInputMenager.KeyCode_eat = 0;
         }
         //ChaosPoution
+
+        // ЗельеВамперизма
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеВамперизма") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+            playerdata.Addeffect("Vampaire", 740);
+
+            lowitem("ЗельеВамперизма", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ChaosPoution") != 0 && boxItem.getInventory("i3").inventory == this)
         {
             GameManager.saveandhill();
@@ -2270,7 +2295,7 @@ public class ElementalInventory : MonoBehaviour {
             {
 
 
-                Transform t = Instantiate(inv2("Chaos_cube").gameObject, mover.main().transform.position , Quaternion.identity).transform; if (t.GetComponent<itemName>())
+                Transform t = Instantiate(inv2("Chaos_cube").gameObject, mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
                     Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
             }
 

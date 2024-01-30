@@ -10,6 +10,7 @@ public class PlanetPhysics : MonoBehaviour
     public Transform body;
     private void Start()
     {
+        gravity = FindAnyObjectByType<PlanetGravity>().gravity;
         body = GetComponent<Transform>();
         if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
         {

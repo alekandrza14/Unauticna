@@ -217,7 +217,7 @@ namespace SVGImporter
 
         static void PlaymodeStateChanged()
         {
-			SVGAtlas svgAtlas = Object.FindObjectOfType<SVGAtlas>();
+			SVGAtlas svgAtlas = Object.FindFirstObjectByType<SVGAtlas>();
 			if(svgAtlas != null)
 			{
 				svgAtlas.ClearAll();

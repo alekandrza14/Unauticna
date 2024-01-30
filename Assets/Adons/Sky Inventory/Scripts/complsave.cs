@@ -848,6 +848,7 @@ public class complsave : MonoBehaviour
 
                         Debug.Log("1");
                         GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                        g.transform.localScale = (saveString1.Scale3A[i3]);
                         if (!g.GetComponent<breauty>())
                         {
 
@@ -946,7 +947,7 @@ public class complsave : MonoBehaviour
                         {
                             if (hit.collider!=null)
                             {
-                                Instantiate(Resources.Load<GameObject>("Items/Кпуста"),hit.point,Quaternion.identity);
+                                Instantiate(Resources.Load<GameObject>("Items/Капуста"),hit.point,Quaternion.identity);
                             }
                         }
                 }

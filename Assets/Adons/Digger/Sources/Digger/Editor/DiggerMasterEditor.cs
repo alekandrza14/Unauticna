@@ -239,7 +239,7 @@ namespace Digger
         {
             master = (DiggerMaster) target;
             CheckDiggerVersion();
-            diggerSystems = FindObjectsOfType<DiggerSystem>();
+            diggerSystems = FindObjectsByType<DiggerSystem>(sortmode.main);
             foreach (var diggerSystem in diggerSystems) {
                 DiggerSystemEditor.Init(diggerSystem, false);
             }
@@ -283,7 +283,7 @@ namespace Digger
 
         private static void UndoCallback()
         {
-            var diggers = FindObjectsOfType<DiggerSystem>();
+            var diggers = FindObjectsByType<DiggerSystem>(sortmode.main);
             foreach (var digger in diggers) {
                 digger.DoUndo();
             }
@@ -450,7 +450,7 @@ namespace Digger
             var showUnderlyingObjects = EditorGUILayout.Toggle("Show underlying objects", master.ShowUnderlyingObjects);
             if (showUnderlyingObjects != master.ShowUnderlyingObjects) {
                 master.ShowUnderlyingObjects = showUnderlyingObjects;
-                var diggers = FindObjectsOfType<DiggerSystem>();
+                var diggers = FindObjectsByType<DiggerSystem>(sortmode.main);
                 foreach (var digger in diggers) {
                     digger.ShowDebug = true;
                     foreach (Transform child in digger.transform) {
@@ -584,7 +584,7 @@ namespace Digger
 
         public void OnInspectorGUIEditTab()
         {
-            var diggerSystem = FindObjectOfType<DiggerSystem>();
+            var diggerSystem = FindFirstObjectByType<DiggerSystem>();
             if (diggerSystem) {
                 EditorGUILayout.Space();
                 EditorGUILayout.Space();
@@ -709,7 +709,7 @@ namespace Digger
 
         private static void DoClear()
         {
-            var diggers = FindObjectsOfType<DiggerSystem>();
+            var diggers = FindObjectsByType<DiggerSystem>(sortmode.main);
 
             try {
                 AssetDatabase.StartAssetEditing();
@@ -740,7 +740,7 @@ namespace Digger
 
         private static void DoReload()
         {
-            var diggers = FindObjectsOfType<DiggerSystem>();
+            var diggers = FindObjectsByType<DiggerSystem>(sortmode.main);
             try {
                 AssetDatabase.StartAssetEditing();
                 foreach (var digger in diggers) {
@@ -889,7 +889,7 @@ namespace Digger
         [MenuItem("Tools/Digger/Setup terrains", false, 1)]
         public static void SetupTerrains()
         {
-            if (!FindObjectOfType<DiggerMaster>()) {
+            if (!FindFirstObjectByType<DiggerMaster>()) {
                 var goMaster = new GameObject("Digger Master");
                 goMaster.transform.localPosition = Vector3.zero;
                 goMaster.transform.localRotation = Quaternion.identity;
@@ -900,7 +900,7 @@ namespace Digger
 
             var isCTS = false;
             var lightmapStaticWarn = false;
-            var terrains = FindObjectsOfType<Terrain>();
+            var terrains = FindObjectsByType<Terrain>(sortmode.main);
             try {
                 AssetDatabase.StartAssetEditing();
 
@@ -973,7 +973,7 @@ namespace Digger
             if (!confirm)
                 return;
 
-            var terrains = FindObjectsOfType<Terrain>();
+            var terrains = FindObjectsByType<Terrain>(sortmode.main);
             foreach (var terrain in terrains) {
                 var digger = terrain.gameObject.GetComponentInChildren<DiggerSystem>();
                 if (digger) {
@@ -982,7 +982,7 @@ namespace Digger
                 }
             }
 
-            var diggerMaster = FindObjectOfType<DiggerMaster>();
+            var diggerMaster = FindFirstObjectByType<DiggerMaster>();
             if (diggerMaster) {
                 DestroyImmediate(diggerMaster.gameObject);
             }
@@ -1032,7 +1032,7 @@ namespace Digger
         {
             try {
                 AssetDatabase.StartAssetEditing();
-                var diggers = FindObjectsOfType<DiggerSystem>();
+                var diggers = FindObjectsByType<DiggerSystem>(sortmode.main);
                 foreach (var digger in diggers) {
                     digger.SaveMeshesAsAssets();
                 }
@@ -1049,7 +1049,7 @@ namespace Digger
         {
             var warned = false;
             var warnedAboutLegacyFiles = false;
-            var diggers = FindObjectsOfType<DiggerSystem>();
+            var diggers = FindObjectsByType<DiggerSystem>(sortmode.main);
             foreach (var digger in diggers) {
                 if (Upgrading.HasLegacyFiles(digger)) {
                     if (!warnedAboutLegacyFiles) {

@@ -97,7 +97,7 @@ public class RaymarchControl : SceneViewFilter
 
             if (!_light)
             {
-                l = (Light)FindObjectOfType(typeof(Light));
+                l = (Light)FindFirstObjectByType(typeof(Light));
 
                 if (!l)
                 {
@@ -286,11 +286,11 @@ public class RaymarchControl : SceneViewFilter
     {
         int childTransformCount = 0;
 
-        for (int i = 0; i < FindObjectOfType<RO_Controller>().transform.childCount; i++)
+        for (int i = 0; i < FindFirstObjectByType<RO_Controller>().transform.childCount; i++)
         {
             childTransformCount++;
 
-            for (int j = 0; j < FindObjectOfType<RO_Controller>().transform.GetChild(i).transform.childCount; j++)
+            for (int j = 0; j < FindFirstObjectByType<RO_Controller>().transform.GetChild(i).transform.childCount; j++)
             {
                 childTransformCount++;
             }
@@ -308,12 +308,12 @@ public class RaymarchControl : SceneViewFilter
         operations = new List<RaymarchOperation>();
         shapes = new List<RaymarchShape>();
 
-        for (int i = 0; i < FindObjectOfType<RO_Controller>().transform.childCount; i++)
+        for (int i = 0; i < FindFirstObjectByType<RO_Controller>().transform.childCount; i++)
         {
             int count = 0;
 
-            if (FindObjectOfType<RO_Controller>().transform.GetChild(i).GetComponent<RaymarchOperation>())
-                operations.Add(FindObjectOfType<RO_Controller>().transform.GetChild(i).GetComponent<RaymarchOperation>());
+            if (FindFirstObjectByType<RO_Controller>().transform.GetChild(i).GetComponent<RaymarchOperation>())
+                operations.Add(FindFirstObjectByType<RO_Controller>().transform.GetChild(i).GetComponent<RaymarchOperation>());
 
             for (int j = 0; j < operations[i].transform.childCount; j++)
             {

@@ -114,7 +114,7 @@ public class attacktrigerr : MonoBehaviour
 
         end();
         
-        allobj = GameObject.FindObjectsOfType<GameObject>();
+        allobj = GameObject.FindObjectsByType<GameObject>(sortmode.main);
         for (int i = 0; i < allobj.Length; i++)
         {
             if (allobj[i].gameObject != gameObject)

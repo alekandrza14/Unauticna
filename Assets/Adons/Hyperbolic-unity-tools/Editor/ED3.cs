@@ -5,7 +5,7 @@ using UnityEditor;
 
 public class Create_4D
 {
-    static int mainversion = 0; static int neoversion = 1; static int version = 0;
+   // static int mainversion = 0; static int neoversion = 1; static int version = 0;
     [MenuItem("GameObject/4D Object/Hyperbolic geometry/Point", false,-1000)]
     public static void Create()
     {

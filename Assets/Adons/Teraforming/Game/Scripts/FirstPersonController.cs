@@ -46,7 +46,7 @@ public class FirstPersonController : MonoBehaviour
 
 	void Awake()
 	{
-		Water water = FindObjectOfType<Water>();
+		Water water = FindFirstObjectByType<Water>();
 		if (water)
 		{
 			waterRadius = water.radius;

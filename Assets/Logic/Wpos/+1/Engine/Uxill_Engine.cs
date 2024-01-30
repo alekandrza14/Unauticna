@@ -18,9 +18,9 @@ public class transform4d
     }
     public Quaternion RotateIW(Vector3 rot, Vector3 rot2)
     {
-        GameObject.FindObjectsOfType<Enginemanager>()[0].transform.rotation = i;
-        GameObject.FindObjectsOfType<Enginemanager>()[0].transform.Rotate(rot);
-        i = GameObject.FindObjectsOfType<Enginemanager>()[0].transform.rotation;
+        GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0].transform.rotation = i;
+        GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0].transform.Rotate(rot);
+        i = GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0].transform.rotation;
         t.Rotate(rot2);
         
         return i;
@@ -60,9 +60,9 @@ public class Uxill_Engine
     static public WorldSave1 ws = new WorldSave1();
     static public void kill() 
     {
-        for (int i = 0; i < GameObject.FindObjectsOfType<Cube>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<Cube>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<Cube>()[i].gameObject.AddComponent<DELETE>();
+            GameObject.FindObjectsByType<Cube>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
         }
         pref4d8 = new List<GameObject>();
         pref4d18 = new List<GameObject>();
@@ -90,26 +90,26 @@ public class Uxill_Engine
 
             load = new List<GameObject>();
             
-            Enginemanager e = GameObject.FindObjectsOfType<Enginemanager>()[0];
+            Enginemanager e = GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0];
             ws = new WorldSave1();
             ws = JsonUtility.FromJson<WorldSave1>(File.ReadAllText(WorldData.path + SceneManager.GetActiveScene().buildIndex + "/worlddata.wd"));
             transform.posistion = ws.pv4;
             
             Transform4DSetRotation(transform, ws.w, ws.i);
-            for (int i = 0; i < GameObject.FindObjectsOfType<Cube>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<Cube>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<Cube>().Length != 0)
+                if (GameObject.FindObjectsByType<Cube>(sortmode.main).Length != 0)
                 {
 
 
-                    GameObject.FindObjectsOfType<Cube>()[i].gameObject.AddComponent<DELETE>();
+                    GameObject.FindObjectsByType<Cube>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
                 }
             }
-            for (int i = 0; i < GameObject.FindObjectsOfType<Position4>().Length; i++)
+            for (int i = 0; i < GameObject.FindObjectsByType<Position4>(sortmode.main).Length; i++)
             {
-                if (GameObject.FindObjectsOfType<Position4>().Length != 0)
+                if (GameObject.FindObjectsByType<Position4>(sortmode.main).Length != 0)
                 {
-                    GameObject.FindObjectsOfType<Position4>()[i].gameObject.AddComponent<DELETE>();
+                    GameObject.FindObjectsByType<Position4>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
                 }
             }
             for (int i = 0; i < ws.mats.Length; i++)
@@ -132,7 +132,7 @@ public class Uxill_Engine
             
             loadend = false;
             load = new List<GameObject>();
-            Enginemanager e = GameObject.FindObjectsOfType<Enginemanager>()[0];
+            Enginemanager e = GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0];
             ws = new WorldSave1();
             ws = JsonUtility.FromJson<WorldSave1>(File.ReadAllText(WorldData.path + SceneManager.GetActiveScene().buildIndex + "/worlddata.wd"));
 
@@ -140,19 +140,19 @@ public class Uxill_Engine
             {
                 transform.posistion = ws.pv4;
 
-                for (int i = 0; i < GameObject.FindObjectsOfType<Cube>().Length; i++)
+                for (int i = 0; i < GameObject.FindObjectsByType<Cube>(sortmode.main).Length; i++)
                 {
-                    if (GameObject.FindObjectsOfType<Cube>().Length != 0)
+                    if (GameObject.FindObjectsByType<Cube>(sortmode.main).Length != 0)
                     {
-                        GameObject.FindObjectsOfType<Cube>()[i].gameObject.AddComponent<DELETE>();
+                        GameObject.FindObjectsByType<Cube>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
                     }
                 }
 
-                for (int i = 0; i < GameObject.FindObjectsOfType<Position4>().Length; i++)
+                for (int i = 0; i < GameObject.FindObjectsByType<Position4>(sortmode.main).Length; i++)
                 {
-                    if (GameObject.FindObjectsOfType<Position4>().Length != 0)
+                    if (GameObject.FindObjectsByType<Position4>(sortmode.main).Length != 0)
                     {
-                        GameObject.FindObjectsOfType<Position4>()[i].gameObject.AddComponent<DELETE>();
+                        GameObject.FindObjectsByType<Position4>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
                     }
                 }
                 for (int i = 0; i < ws.mats.Length; i++)
@@ -188,19 +188,19 @@ public class Uxill_Engine
             ws.w2 = transform.w2;
             ws.w3 = transform.w3; 
             ws.pv4 = transform.posistion;
-            ws.mats = new string[GameObject.FindObjectsOfType<Position4>().Length];
-            ws.sv3 = new Vector4[GameObject.FindObjectsOfType<Position4>().Length];
-            ws.v4 = new Vector4[GameObject.FindObjectsOfType<Position4>().Length];
-            ws.qs4 = new Quaternion[GameObject.FindObjectsOfType<Position4>().Length];
-            for (int i = 0; i < GameObject.FindObjectsOfType<Position4>().Length; i++)
+            ws.mats = new string[GameObject.FindObjectsByType<Position4>(sortmode.main).Length];
+            ws.sv3 = new Vector4[GameObject.FindObjectsByType<Position4>(sortmode.main).Length];
+            ws.v4 = new Vector4[GameObject.FindObjectsByType<Position4>(sortmode.main).Length];
+            ws.qs4 = new Quaternion[GameObject.FindObjectsByType<Position4>(sortmode.main).Length];
+            for (int i = 0; i < GameObject.FindObjectsByType<Position4>(sortmode.main).Length; i++)
             {
-                Vector3 v3s = GameObject.FindObjectsOfType<Position4>()[i].transform.position;
+                Vector3 v3s = GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.position;
                 
-                ws.v4[i] = new Vector4(v3s.x, v3s.y, v3s.z, GameObject.FindObjectsOfType<Position4>()[i].w);
+                ws.v4[i] = new Vector4(v3s.x, v3s.y, v3s.z, GameObject.FindObjectsByType<Position4>(sortmode.main)[i].w);
 
-                ws.mats[i] = GameObject.FindObjectsOfType<Position4>()[i].mat;
-                ws.sv3[i] = GameObject.FindObjectsOfType<Position4>()[i].transform.localScale;
-                ws.qs4[i] = GameObject.FindObjectsOfType<Position4>()[i].transform.rotation;
+                ws.mats[i] = GameObject.FindObjectsByType<Position4>(sortmode.main)[i].mat;
+                ws.sv3[i] = GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.localScale;
+                ws.qs4[i] = GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.rotation;
 
 
 
@@ -211,9 +211,9 @@ public class Uxill_Engine
     }
     static public void Update(transform4d transform, GameObject[] gs)
     {
-        Enginemanager e = GameObject.FindObjectsOfType<Enginemanager>()[0];
+        Enginemanager e = GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0];
         
-        if (v4.Length != GameObject.FindObjectsOfType<Position4>().Length && GameObject.FindObjectsOfType<Position4>().Length != 0 &&loadend)
+        if (v4.Length != GameObject.FindObjectsByType<Position4>(sortmode.main).Length && GameObject.FindObjectsByType<Position4>(sortmode.main).Length != 0 &&loadend)
         {
             
             kill();
@@ -231,7 +231,7 @@ public class Uxill_Engine
     static public void Start(transform4d transform, GameObject[] gs)
     {
         
-        Enginemanager e = GameObject.FindObjectsOfType<Enginemanager>()[0];
+        Enginemanager e = GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0];
         
 
 
@@ -247,14 +247,14 @@ public class Uxill_Engine
             Vector3 y = transform.localposition();
             Vector4 pos = transform.posistion;
 
-            v4 = new Vector4[GameObject.FindObjectsOfType<Position4>().Length];
-            Vector3 v3s2 = GameObject.FindObjectsOfType<Position4>()[0].transform.position;
-            Vector4 v422 = new Vector4(v3s2.x, v3s2.y, v3s2.z, GameObject.FindObjectsOfType<Position4>()[0].w);
+            v4 = new Vector4[GameObject.FindObjectsByType<Position4>(sortmode.main).Length];
+            Vector3 v3s2 = GameObject.FindObjectsByType<Position4>(sortmode.main)[0].transform.position;
+            Vector4 v422 = new Vector4(v3s2.x, v3s2.y, v3s2.z, GameObject.FindObjectsByType<Position4>(sortmode.main)[0].w);
             p4.Add(v4[0].w = v422.w);
             for (int i = 0; i < v4.Length; i++)
             {
-                Vector3 v3s = GameObject.FindObjectsOfType<Position4>()[i].transform.position;
-                Vector4 v42 = new Vector4(v3s.x, v3s.y, v3s.z, GameObject.FindObjectsOfType<Position4>()[i].w);
+                Vector3 v3s = GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.position;
+                Vector4 v42 = new Vector4(v3s.x, v3s.y, v3s.z, GameObject.FindObjectsByType<Position4>(sortmode.main)[i].w);
                 bool t2 = true;
                 for (int i2 = 0; i2 < p4.Count; i2++)
                 {
@@ -279,14 +279,14 @@ public class Uxill_Engine
             for (int i = 0; i < v4.Length; i++)
             {
 
-                Vector3 v3s = GameObject.FindObjectsOfType<Position4>()[i].transform.position;
-                Vector4 v42 = new Vector4(v3s.x, v3s.y, v3s.z, GameObject.FindObjectsOfType<Position4>()[i].w);
+                Vector3 v3s = GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.position;
+                Vector4 v42 = new Vector4(v3s.x, v3s.y, v3s.z,  GameObject.FindObjectsByType<Position4>(sortmode.main)[i].w);
 
 
                 p3d.Add(v42);
-                sc.Add(GameObject.FindObjectsOfType<Position4>()[i].transform.localScale);
-                s4.Add(GameObject.FindObjectsOfType<Position4>()[i].w);
-                camera3d.Add(GameObject.FindObjectsOfType<Position4>()[i].transform.rotation);
+                sc.Add(GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.localScale);
+                s4.Add(GameObject.FindObjectsByType<Position4>(sortmode.main)[i].w);
+                camera3d.Add(GameObject.FindObjectsByType<Position4>(sortmode.main)[i].transform.rotation);
 
 
 
@@ -334,7 +334,7 @@ public class Uxill_Engine
                 pref4d28.Add(e.create(gs[2], new Vector3(p3d[i].x, p3d[i].y, p3d[i].z + t), Quaternion.identity));
                 pref4d28[i].transform.localScale = sc[i];
             pref4d28[i].transform.rotation = camera3d[i];
-            pref4d28[i].GetComponent<MeshRenderer>().material = Resources.Load<Material>("mats/"+ GameObject.FindObjectsOfType<Position4>()[i].mat);
+            pref4d28[i].GetComponent<MeshRenderer>().material = Resources.Load<Material>("mats/"+ GameObject.FindObjectsByType<Position4>(sortmode.main)[i].mat);
 
 
             }
@@ -500,7 +500,7 @@ public class Uxill_Engine
                         if (Input.GetKeyDown(KeyCode.Tab))
                         {
                             float d4s = ots * p4[i3] + transform.posistion.w;
-                            Position4 p = GameObject.FindObjectsOfType<Enginemanager>()[0].create(Resources.Load<GameObject>("block").gameObject, hit.point - new Vector3(0, 0, d4s), Quaternion.identity).GetComponent<Position4>();
+                            Position4 p = GameObject.FindObjectsByType<Enginemanager>(sortmode.main)[0].create(Resources.Load<GameObject>("block").gameObject, hit.point - new Vector3(0, 0, d4s), Quaternion.identity).GetComponent<Position4>();
                             p.w = Mathf.FloorToInt(transform.posistion.w);
 
 

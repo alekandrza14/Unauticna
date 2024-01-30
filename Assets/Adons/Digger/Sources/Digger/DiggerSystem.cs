@@ -117,7 +117,7 @@ namespace Digger
         [SerializeField]
         public string ComputeBasePathData()
         {
-            if (!master) master = FindObjectOfType<DiggerMaster>();
+            if (!master) master = FindFirstObjectByType<DiggerMaster>();
             return Path.Combine(master.SceneDataPath, BaseFolder);
         }
 
@@ -459,7 +459,7 @@ namespace Digger
                 return;
             }
 
-            master = FindObjectOfType<DiggerMaster>();
+            master = FindFirstObjectByType<DiggerMaster>();
             if (!master) {
                 Debug.LogError("A DiggerMaster is required in the scene.");
                 return;

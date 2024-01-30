@@ -12,21 +12,21 @@ public class cam1 : MonoBehaviour
     }
     void startFunctions()
     {
-        for (int i = 0; i < GameObject.FindObjectsOfType<Salut>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<Salut>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<Salut>()[i].function1();
+            GameObject.FindObjectsByType<Salut>(sortmode.main)[i].function1();
         }
-        for (int i = 0; i < GameObject.FindObjectsOfType<door>().Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<door>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsOfType<door>()[i].function1();
+            GameObject.FindObjectsByType<door>(sortmode.main)[i].function1();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Ray r1 = new Ray(GameObject.FindObjectOfType<mover>().PlayerCamera.transform.position, GameObject.FindObjectOfType<mover>().PlayerCamera.transform.forward);
-        RaycastHit hit;
+        Ray r1 = new Ray(GameObject.FindFirstObjectByType<mover>().PlayerCamera.transform.position, GameObject.FindFirstObjectByType<mover>().PlayerCamera.transform.forward);
+        RaycastHit hit; 
         if (Physics.Raycast(r1, out hit))
         {
             if (hit.collider != null)

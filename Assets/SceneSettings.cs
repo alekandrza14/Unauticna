@@ -9,11 +9,12 @@ public enum environment
 
 public enum SFL
 {
-    no_gravity, never_ending_hacks, Spawn_Chaos_cube,nophing, Mind5D, Mind4D
+    no_gravity, never_ending_hacks, Spawn_Chaos_cube,nophing, Mind5D, Mind4D, MindND, AntiGravity
 }
 
 public class SceneSettings : MonoBehaviour
 {
+    
     public environment environment_space;
     public SFL sfl;
     float timer;
@@ -33,10 +34,20 @@ public class SceneSettings : MonoBehaviour
             mover.main().gravity = 0;
             mover.main().fly = true;
         }
+        if (sfl == SFL.AntiGravity)
+        {
+
+            FindAnyObjectByType<PlanetGravity>().inverse = true;
+        }
         if (sfl == SFL.Mind5D)
         {
 
             mover.main().nonnatureprogress += 2;
+        }
+        if (sfl == SFL.MindND)
+        {
+
+            mover.main().nonnatureprogress += 3;
         }
         if (sfl == SFL.Mind4D)
         {

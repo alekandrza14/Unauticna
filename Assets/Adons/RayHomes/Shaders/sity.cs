@@ -24,16 +24,16 @@ public class sity : MonoBehaviour
     {
         if (Prefab)
         {
-            if (FindObjectsOfType<Logic_tag_3>().Length == 0) campos = Camera.main.transform.position;
-            if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+            if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length == 0) campos = Camera.main.transform.position;
+            if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
             {
-                campos = FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().transform.position;
+                campos = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().transform.position;
             }
             campos += ppos;
-            if (FindObjectsOfType<Logic_tag_3>().Length == 0) transform.position = Camera.main.transform.position;
-            if (FindObjectsOfType<Logic_tag_3>().Length != 0)
+            if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length == 0) transform.position = Camera.main.transform.position;
+            if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
             {
-                transform.position = FindObjectOfType<Logic_tag_3>().GetComponent<Camera>().transform.position;
+                transform.position = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().transform.position;
             }
             if (PrefabPosition)
             {

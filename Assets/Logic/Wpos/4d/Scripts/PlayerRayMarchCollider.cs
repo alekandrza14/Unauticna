@@ -16,12 +16,12 @@ namespace Unity.Mathematics
         MultyTransform instance;
         public float colliderOffset = 1.2f;
         public float maxDownMovement = 0f;
-        [Tooltip ("The transforms from which the raymarcher will test the distances and apply the collision")]
+        [Tooltip("The transforms from which the raymarcher will test the distances and apply the collision")]
         public Transform[] rayMarchTransforms;
         public bool playerSphericalModel;
         private DistanceFunctions Df;
         private RaymarchCam camScript;
-        
+
 
         // Start is called before the first frame update
         void Start()
@@ -39,21 +39,21 @@ namespace Unity.Mathematics
         // Update is called once per frame
         void Update()
         {
-            if (FindObjectsByType<Shape4D>(sortmode.main).Length>1)
+            if (FindObjectsByType<Shape4D>(sortmode.main).Length > 1)
             {
                 MoveToGround();
                 RayMarch(rayMarchTransforms);
             }
 
         }
-            float LostPosX;
+        float LostPosX;
         // the distancefunction for the shapes
         public float GetShapeDistance(Shape4D shape, float4 p4D)
         {
             if (instance) if (instance.HX_Rotation != 0)
                 {
 
-                //    p4D.x = -instance.H_Position;
+                    //    p4D.x = -instance.H_Position;
                 }
             p4D -= (float4)shape.Position();
             p4D.xz = mul(p4D.xz, float2x2(cos(shape.Rotation().y), sin(shape.Rotation().y), -sin(shape.Rotation().y), cos(shape.Rotation().y)));
@@ -114,7 +114,7 @@ namespace Unity.Mathematics
             if (instance) if (instance.HX_Rotation != 0)
                 {
 
-                 //   p4D.x = -instance.H_Position;
+                    //   p4D.x = -instance.H_Position;
                 }
 
             p4D -= (float4)shape.Position();
@@ -175,7 +175,7 @@ namespace Unity.Mathematics
 
                     p.x = -instance.H_Position;
                 }
-                
+
             float4 p4D = float4(p, camScript._wPosition);
             Vector3 wRot = camScript._wRotation * Mathf.Deg2Rad;
             if ((wRot).magnitude != 0)
@@ -262,8 +262,10 @@ namespace Unity.Mathematics
         }
         bool r = true;
 
-        float u = 0;
         Vector3 forward;
+
+      
+
         // the raymarcher checks the distance to all the given transforms, if one is less than zero, the player is moved in the opposite direction
         void RayMarch(Transform[] ro)
         {
@@ -290,7 +292,6 @@ namespace Unity.Mathematics
                         forward = ro[i].forward * d * 1.5f;
                         //  GetComponent<Rigidbody>().MovePosition((ro[i].forward + (ro[i].up*2)) * d * 1f);
 
-                        u = 1;
                     }
                     else
                     {
