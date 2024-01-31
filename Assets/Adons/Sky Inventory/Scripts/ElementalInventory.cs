@@ -68,7 +68,7 @@ public class ElementalInventory : MonoBehaviour {
         {
             itemnames[i] = g[i].name;
             itemtags[i] = g[i].tag;
-
+            if (g[i].GetComponent<breauty>()) g[i].GetComponent<breauty>().integer = 10;
         }
         GameObject[] g2 = complsave.t4;
         itemPrimetive = new GameObject[g2.Length];

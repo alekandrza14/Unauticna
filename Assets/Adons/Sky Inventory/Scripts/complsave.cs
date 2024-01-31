@@ -611,6 +611,7 @@ public class complsave : MonoBehaviour
         }
         HyperbolicCamera hc = HyperbolicCamera.Main();
         bool questtarget = false;
+        bool FirstSpawn = false;
         for (int c = 0; c < 2; c++)
         {
             if (c == 0)
@@ -628,6 +629,7 @@ public class complsave : MonoBehaviour
                   if(VarSave.GetString("quest",SaveType.global) == "капуста")  questtarget = true;
                     File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
                     saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
+                    FirstSpawn = true;
 
                 }
 
@@ -939,27 +941,33 @@ public class complsave : MonoBehaviour
                     }
                 }
                     mover m = mover.main();
-               if(questtarget) for (int i =0;i<6 ; i++)
+                if (questtarget)
                 {
-                        Ray r = new Ray(m.transform.position+(m.transform.up*40),new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
                         RaycastHit hit;
-                        if (Physics.Raycast(r,out hit))
+                        if (Physics.Raycast(r, out hit))
                         {
-                            if (hit.collider!=null)
+                            if (hit.collider != null)
                             {
-                                Instantiate(Resources.Load<GameObject>("Items/Капуста"),hit.point,Quaternion.identity);
+                                Instantiate(Resources.Load<GameObject>("Items/Капуста"), hit.point, Quaternion.identity);
                             }
                         }
+                    }
                 }
-                for (int i = 0; i < 6; i++)
+                if (FirstSpawn)
                 {
-                    Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
-                    RaycastHit hit;
-                    if (Physics.Raycast(r, out hit))
+                    if (Random.Range(0, 2) >= 1) for (int i = 0; i < 6; i++)
                     {
-                        if (hit.collider != null)
+                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
                         {
-                            Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity);
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity);
+                            }
                         }
                     }
                 }
