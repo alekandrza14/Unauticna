@@ -951,6 +951,18 @@ public class complsave : MonoBehaviour
                             }
                         }
                 }
+                for (int i = 0; i < 6; i++)
+                {
+                    Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                    RaycastHit hit;
+                    if (Physics.Raycast(r, out hit))
+                    {
+                        if (hit.collider != null)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity);
+                        }
+                    }
+                }
             }
 
 

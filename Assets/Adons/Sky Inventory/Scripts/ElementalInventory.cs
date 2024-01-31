@@ -1970,6 +1970,20 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("RedColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        //AnyphingJuice
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("AnyphingJuice") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
+
+
+            lowitem("AnyphingJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("MalineColour") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -1977,7 +1991,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
-              Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
+            Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
 
 
             lowitem("MalineColour", "");
