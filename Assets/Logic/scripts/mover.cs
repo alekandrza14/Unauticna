@@ -490,6 +490,10 @@ public class mover : MonoBehaviour
     bool swapWHaN;
     private void Init()
     {
+        if ((UniverseSkyType)VarSave.GetInt("UST") == UniverseSkyType.Litch)
+        {
+            Instantiate(Resources.Load<GameObject>("events/LitchUniverse"));
+        }
         if (VarSave.GetBool("lol you Banned"))
         {
             SceneManager.LoadScene("Banned forever");
@@ -1005,7 +1009,8 @@ public class mover : MonoBehaviour
             {
                 GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + "Unknown");
             }
-            GUI.Label(new Rect(0f, 320, 200f, 100f), "QuestItemCollect : " + Globalprefs.QuestItemKollect.ToString()+" / " + maxcollect);
+            GUI.Label(new Rect(0f, 320, 200f, 100f), "QuestItemCollect : " + Globalprefs.QuestItemKollect.ToString() + " / " + maxcollect);
+            GUI.Label(new Rect(0f, 340, 200f, 100f), "Intelect : " + (100+(CosProgress())*10));
             //cistalenemy.dies
 
 

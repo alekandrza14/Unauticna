@@ -9,7 +9,7 @@ public enum environment
 
 public enum SFL
 {
-    no_gravity, never_ending_hacks, Spawn_Chaos_cube,nophing, Mind5D, Mind4D, MindND, AntiGravity
+    no_gravity, never_ending_hacks, Spawn_Chaos_cube,nophing, Mind5D, Mind4D, MindND, AntiGravity, WorkInLitchUniverse
 }
 
 public class SceneSettings : MonoBehaviour
@@ -21,24 +21,6 @@ public class SceneSettings : MonoBehaviour
     float timer2;
     void Start()
     {
-        
-    }
-    void Update()
-    {
-        timer += Time.deltaTime;
-        timer2 += Time.deltaTime;
-
-        if (sfl == SFL.no_gravity)
-        {
-
-            mover.main().gravity = 0;
-            mover.main().fly = true;
-        }
-        if (sfl == SFL.AntiGravity)
-        {
-
-            FindAnyObjectByType<PlanetGravity>().inverse = true;
-        }
         if (sfl == SFL.Mind5D)
         {
 
@@ -54,8 +36,58 @@ public class SceneSettings : MonoBehaviour
 
             mover.main().nonnatureprogress += 1;
         }
+        if (sfl == SFL.WorkInLitchUniverse)
+        {
+
+            mover.main().nonnatureprogress += 1;
+
+        }
+    }
+    void Update()
+    {
+        timer += Time.deltaTime;
+        timer2 += Time.deltaTime;
+
+        if (sfl == SFL.no_gravity)
+        {
+
+            mover.main().gravity = 0;
+            mover.main().fly = true;
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (sfl == SFL.Mind5D)
+            {
+
+                mover.main().nonnatureprogress -= 2;
+            }
+            if (sfl == SFL.MindND)
+            {
+
+                mover.main().nonnatureprogress -= 3;
+            }
+            if (sfl == SFL.Mind4D)
+            {
+
+                mover.main().nonnatureprogress -= 1;
+            }
+            if (sfl == SFL.WorkInLitchUniverse)
+            {
+
+                mover.main().nonnatureprogress -= 1;
+
+            }
+            Instantiate(gameObject, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
         if (timer >= 1)
         {
+            if (sfl == SFL.WorkInLitchUniverse)
+            {
+
+                mover.main().hp -= 1;
+                VarSave.LoadMoney("tevro",0.01m);
+            }
             if (environment_space == environment.pain)
             {
                 mover.main().hp -= 1;

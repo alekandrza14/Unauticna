@@ -16,7 +16,7 @@ public enum size
 }
 public enum UniverseSkyType
 {
-    Default,Bright,Arua,Darck
+    Default,Bright,Arua,Darck,Litch
 }
 public class Targets
 {
@@ -39,7 +39,7 @@ public class RayCastStars : MonoBehaviour
         Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
         VarSave.SetString("scppos", SceneManager.GetActiveScene().name);
         VarSave.SetString("Universe_Position", SceneManager.GetActiveScene().name);
-        VarSave.SetInt("UST",((int)skyType));
+      if(s== size.Universe)  VarSave.SetInt("UST",((int)skyType));
         if (s == size.Galaxy) VarSave.SetString("Universe_galaxy_Position", SceneManager.GetActiveScene().name);
         if (s == size.Universe) VarSave.SetString("Multyverse_Universe_Position", SceneManager.GetActiveScene().name);
         if (s == size.Multyverse) VarSave.SetString("Multyverse_Position", SceneManager.GetActiveScene().name);
