@@ -27,6 +27,7 @@ public class complsave : MonoBehaviour
     ItemDemake Demake;
 
     public string lif;
+    public static string total_lif;
 
     public static string[] nunames = new string[0];
     public static complsave ObjectSaveManager;
@@ -165,17 +166,17 @@ public class complsave : MonoBehaviour
 
     public void Start()
     {
+       
+       
         ObjectSaveManager = this;
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
-        lif = "";
-        if(!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString();
-        lif += "_" + Globalprefs.GetTimeline();
-      if(VarSave.GetTrash("RealityX") != 0)  lif += "_" + VarSave.GetTrash("RealityX");
+        LimMath();
+      
         getallitems();
         load();
         for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
         {
-            if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i,SaveType.world) != true)
+            if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, SaveType.world) != true)
             {
 
 
@@ -187,10 +188,21 @@ public class complsave : MonoBehaviour
                     save();
                 }
             }
-            
+
         }
 
     }
+
+    private void LimMath()
+    {
+        lif = "";
+        if (!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString();
+        lif += "_" + Globalprefs.GetTimeline();
+        if (VarSave.GetTrash("RealityX") != 0) lif += "_" + VarSave.GetTrash("RealityX");
+        //end script
+       total_lif = lif;
+    }
+
     private void Update()
     {
        
@@ -587,7 +599,28 @@ public class complsave : MonoBehaviour
             }
 
         }
+        Collider[] allobj2 = Globalprefs.allTransphorms;
 
+
+
+            TransformObject to_save = new TransformObject();
+            to_save.v3 = new Vector3[allobj2.Length];
+            to_save.q4 = new Quaternion[allobj2.Length];
+            to_save.s3 = new Vector3[allobj2.Length];
+            to_save.name = new string[allobj2.Length];
+            to_save.initpos = Globalprefs.allpos;
+            int i4 = 0;
+            foreach (Collider obj in allobj2)
+            {
+                to_save.v3[i4] = obj.transform.position;
+                to_save.q4[i4] = obj.transform.rotation;
+                to_save.s3[i4] = obj.transform.localScale;
+                to_save.name[i4] = obj.transform.name;
+                if (true) i4 += 1;
+            }
+            Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
+        saveString1.editpos = JsonUtility.ToJson(to_save);
+       
         saveString1.sceneName = SceneManager.GetActiveScene().name;
     }
 
@@ -598,7 +631,8 @@ public class complsave : MonoBehaviour
        
         Directory.CreateDirectory( name2 + @"/objects");
 
-
+      
+        
         saveString1 = new rsave();
         if (string.IsNullOrEmpty(mapLoad))
         {
@@ -638,8 +672,30 @@ public class complsave : MonoBehaviour
 
 
 
+                if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera==null)
+                {
+                    TransformObject to_save = JsonUtility.FromJson<TransformObject>(saveString1.editpos);
 
+                    for (int i = 0; i < Globalprefs.allpos.Length; i++)
+                    {
+                        for (int i5 = 0; i5 < to_save.initpos.Length; i5++)
+                        {
+                            if (Vector3.negativeInfinity.ToString() == to_save.initpos[i5].ToString() &&
+                                Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                            {
+                               
+                            }
+                            else if (Globalprefs.allpos[i].ToString() == to_save.initpos[i5].ToString() &&
+                                Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                            {
+                                Globalprefs.allTransphorms[i].transform.position = to_save.v3[i5];
+                                Globalprefs.allTransphorms[i].transform.rotation = to_save.q4[i5];
+                                Globalprefs.allTransphorms[i].transform.localScale = to_save.s3[i5];
+                            }
+                        }
+                    }
 
+                }
 
 
 
@@ -1036,6 +1092,7 @@ public class rsave
     public List<string> idA = new List<string>();
     public List<string> idB = new List<string>();
     public List<string> idC = new List<string>();
+    public string editpos;
     public List<float> posW = new List<float>();
     public List<float> posW2 = new List<float>();
     public List<float> posN = new List<float>();

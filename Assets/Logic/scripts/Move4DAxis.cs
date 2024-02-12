@@ -82,6 +82,10 @@ public class Move4DAxis : MonoBehaviour
                 }
                 else
                     select.transform.position += (Vector3.right * Input.GetAxis("Mouse X"));
+                if (select.GetComponent<HyperbolicPoint>())
+                {
+                    select.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationY(Input.GetAxis("Mouse X")/20);
+                }
             }
             if (curaxis == 1)
             {
@@ -91,6 +95,7 @@ public class Move4DAxis : MonoBehaviour
                 }
                 else
                     select.transform.position += (Vector3.up * Input.GetAxis("Mouse X"));
+               
             }
             if (curaxis == 2)
             {
@@ -98,7 +103,11 @@ public class Move4DAxis : MonoBehaviour
                 {
                     select.GetComponent<MultyObject>().startPosition.z += Input.GetAxis("Mouse X");
                 }else
-                    select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X"));
+                    select.transform.position += (Vector3.forward * Input.GetAxis("Mouse X")); 
+                if (select.GetComponent<HyperbolicPoint>())
+                {
+                    select.GetComponent<HyperbolicPoint>().HyperboilcPoistion.applyTranslationZ(Input.GetAxis("Mouse X") / 20);
+                }
             }
             if (curaxis == 4)
             {

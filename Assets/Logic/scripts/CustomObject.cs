@@ -48,7 +48,7 @@ public class CustomObjectData
 
 }
 
-public class CustomObject : MonoBehaviour
+public class CustomObject : CustomSaveObject
 {
    public MeshFilter mf;
     public Vector3[] verti;

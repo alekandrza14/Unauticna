@@ -1,7 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public class TransformObject
+{
+    public Vector3[] v3;
+    public Quaternion[] q4;
+    public Vector3[] s3;
+    public string[] name;
+    public Vector3[] initpos;
+
+}
 
 public class gameInit : MonoBehaviour
 {
@@ -32,10 +44,9 @@ public class gameInit : MonoBehaviour
     }
     private void Update()
     {
-        
-        if (VarSave.ExistenceVar("res3", SaveType.global)&& SceneManager.GetActiveScene().buildIndex != 129) Screen.SetResolution(VarSave.GetInt("res3", SaveType.global), VarSave.GetInt("res4", SaveType.global), !VarSave.GetBool("windowed", SaveType.global));
-
-        PlayerPrefs.DeleteAll();
+       
+      
+            PlayerPrefs.DeleteAll();
     }
     
     private void OnApplicationQuit()

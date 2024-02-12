@@ -75,7 +75,7 @@ public enum faceView
     first ,trid,fourd
 }
 
-public class mover : MonoBehaviour
+public class mover : CustomSaveObject
 {
     public GameObject PlayerBody;
     public GameObject PlayerCamera;
@@ -490,6 +490,24 @@ public class mover : MonoBehaviour
     bool swapWHaN;
     private void Init()
     {
+        Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
+        Vector3[] allpos = new Vector3[allobj.Length];
+        int i2 = 0;
+        foreach (Collider obj in allobj)
+        {
+
+          if(!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
+            {
+                allpos[i2] = Vector3.negativeInfinity;
+            }
+            if (true) i2 += 1;
+        }
+        Globalprefs.allTransphorms = allobj;
+        Globalprefs.allpos = allpos;
+
+        GameObject g2 = new GameObject("init");
+        gameInit.Init(g2);
+        DontDestroyOnLoad(g2);
         if ((UniverseSkyType)VarSave.GetInt("UST") == UniverseSkyType.Litch)
         {
             Instantiate(Resources.Load<GameObject>("events/LitchUniverse"));
@@ -681,12 +699,14 @@ public class mover : MonoBehaviour
                 N_position = save.npos;
                 cur_N_position = save.cnpos;
                 HX_Rotation = save.hxrot;
-                if (portallNumer.Portal == "")
-                {
 
-                    PlayerBody.transform.position = save.pos;
-                    //  sr.transform.position = save.pos2;
-                    if (HyperbolicCamera.Main() != null)
+
+
+                PlayerBody.transform.position = save.pos + Globalprefs.newv3;
+                Debug.Log(Globalprefs.newv3);
+                Globalprefs.newv3 = Vector3.zero;
+                //  sr.transform.position = save.pos2;
+                if (HyperbolicCamera.Main() != null)
                     {
                         HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
@@ -700,8 +720,8 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
-                }
-                else if (portallNumer.Portal == "WMove+")
+              
+               if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -805,12 +825,13 @@ public class mover : MonoBehaviour
                 N_position = save.npos;
                 cur_N_position = save.cnpos;
                 HX_Rotation = save.hxrot;
-                if (portallNumer.Portal == "")
-                {
+              
 
-                    PlayerBody.transform.position = save.pos;
-                    //  sr.transform.position = save.pos2;
-                    if (HyperbolicCamera.Main() != null)
+                    PlayerBody.transform.position = save.pos+ Globalprefs.newv3;
+                Debug.Log(Globalprefs.newv3);
+                Globalprefs.newv3 = Vector3.zero;
+                //  sr.transform.position = save.pos2;
+                if (HyperbolicCamera.Main() != null)
                     {
                         HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
@@ -824,8 +845,7 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.rotation = Globalprefs.q[1];
                         Globalprefs.isnew = false;
                     }
-                }
-              else  if (portallNumer.Portal == "WMove+")
+               if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -839,16 +859,7 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
-                    if (Globalprefs.isnew)
-                    {
-
-
-                        PlayerBody.transform.position += Globalprefs.newv3;
-                        PlayerBody.transform.rotation = Globalprefs.q[0];
-                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
-                        PlayerCamera.transform.rotation = Globalprefs.q[1];
-                        Globalprefs.isnew = false;
-                    }
+                   
                 }
              else   if (portallNumer.Portal == "WMove-")
                 {
@@ -864,16 +875,7 @@ public class mover : MonoBehaviour
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
-                    if (Globalprefs.isnew)
-                    {
-
-
-                        PlayerBody.transform.position += Globalprefs.newv3;
-                        PlayerBody.transform.rotation = Globalprefs.q[0];
-                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
-                        PlayerCamera.transform.rotation = Globalprefs.q[1];
-                        Globalprefs.isnew = false;
-                    }
+                  
                 }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;

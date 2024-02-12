@@ -175,7 +175,7 @@ public class ElementalInventory : MonoBehaviour {
             {
 
 
-                if ("co!"+(dif.GetFiles()[i].Name.Replace(".txt","")) == name)
+                if ("co!" + (dif.GetFiles()[i].Name.Replace(".txt", "")) == name)
                 {
 
 
@@ -186,6 +186,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+       
         int t = 0;
         for (int i = name.Length - 1; i > 0; i--)
         {
@@ -1879,6 +1880,18 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("BlackGrib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье_Чистки_Инвенторя") != 0 && boxItem.getInventory("i3").inventory == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            clear();
+
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Non-exist-colour-Grib") != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
@@ -3183,7 +3196,7 @@ public class ElementalInventory : MonoBehaviour {
 
     private void Update()
     {
-        if (Cells[select].elementName.Length > 2) if (Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
+      if(!Globalprefs.Pause)  if (Cells[select].elementName.Length > 2) if (Cells[select].elementName[2] == '!' && Cells[select].elementCount != 0 && boxItem.getInventory("i3").inventory == this)
         {
 
             DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");

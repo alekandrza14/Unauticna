@@ -679,6 +679,7 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "8")
             {
+                
                 VarSave.LoadMoney("Inflation", int.Parse(s[1]) / 2000, SaveType.global);
               VarSave.SetMoney("tevro", VarSave.GetMoney("tevro")+  int.Parse(s[1]));
             }

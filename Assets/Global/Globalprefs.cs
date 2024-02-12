@@ -17,6 +17,8 @@ public static class Globalprefs
     public static bool Scrensoting;
     public static bool Iteract;
     public static GameObject socksObj;
+    public static Collider[] allTransphorms;
+    public static Vector3[] allpos;
     public static decimal KomplexX;
     public static float KomplexY = 1;
     public static List<string> SelfFunctions = new List<string>();

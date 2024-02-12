@@ -110,15 +110,30 @@ public class Chaos_cube : MonoBehaviour
         if (self.class_obj == 2)
         {
             int rand1 = Random.Range(0, self.items.Length);
-            if (Random.Range(0, 2) == 0) { if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self. gameObject.transform.position, Quaternion.identity); }
+            if (Random.Range(0, 2) == 0) { if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self.gameObject.transform.position, Quaternion.identity); }
             else
             {
                 DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+                bool moneta= false;
+                while (!moneta) {
 
+                    string t = dif.GetFiles()[Random.Range(0, dif.GetFiles().Length)].Name.Replace(".txt", "");
+                    if (t.Remove(10,t.Length-1-9) != "Chaos_Item")
+                    {
+                        GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), self.gameObject.transform.position, Quaternion.identity);
+                        g.GetComponent<CustomObject>().s = t;
 
-                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), self.gameObject.transform.position, Quaternion.identity);
-                g.GetComponent<CustomObject>().s = dif.GetFiles()[Random.Range(0, dif.GetFiles().Length)].Name.Replace(".txt", "");
-
+                        Debug.Log("Chaos_NotImmunity");
+                        Debug.Log(t.Remove(10, t.Length - 1 - 9));
+                        Debug.Log(t);
+                        moneta = true;
+                    }
+                    else
+                    {
+                        Debug.Log("Chaos_Immunity");
+                        moneta = false;
+                    }
+                }
             }
         }
         GameManager.saveandhill();

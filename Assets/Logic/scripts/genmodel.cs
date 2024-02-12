@@ -9,7 +9,7 @@ public class custommedelsave
 }
 
 
-public class genmodel : MonoBehaviour
+public class genmodel : CustomSaveObject
 {
    public MeshFilter mf;
     public Vector3[] verti;

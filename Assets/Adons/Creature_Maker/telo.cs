@@ -10,7 +10,7 @@ public class Creature
     public List<Vector3> positions = new List<Vector3>();
 }
 
-public class telo : MonoBehaviour
+public class telo : CustomSaveObject
 {
     public List<GameObject> objs = new List<GameObject>();
     public GameObject obj;

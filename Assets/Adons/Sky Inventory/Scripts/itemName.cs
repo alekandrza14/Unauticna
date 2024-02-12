@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class itemName : MonoBehaviour
+public class itemName : CustomSaveObject
 {
     public float ItemPrise;
     public bool ItemInfinitysPrise;
