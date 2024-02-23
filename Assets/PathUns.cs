@@ -12,7 +12,25 @@ public enum scriptFormat
 public class PathUns : MonoBehaviour
 {
     [SerializeField] InputField Path,Output;
-    [SerializeField] scriptFormat scriptFormat;
+    [SerializeField] scriptFormat ScriptFormat;
+    private void Start()
+    {
+        switch (ScriptFormat)
+        {
+            case scriptFormat.s:
+                Path.text += ".s";
+                break;
+            case scriptFormat.uns:
+                Path.text += ".unu";
+                break;
+            case scriptFormat.lua:
+                Path.text += ".lua";
+                break;
+            case scriptFormat.txt:
+                Path.text += ".txt";
+                break;
+        }
+    }
     public void GetString()
     {
         if (File.Exists(Path.text))
@@ -22,17 +40,8 @@ public class PathUns : MonoBehaviour
     }
     public void saveString()
     {
-        if (scriptFormat == scriptFormat.s) 
-                File.WriteAllText(Path.text + ".s", Output.text);
-
-        if (scriptFormat == scriptFormat.uns)
-            File.WriteAllText(Path.text + ".uns", Output.text);
-
-        if (scriptFormat == scriptFormat.lua)
-            File.WriteAllText(Path.text + ".lua", Output.text);
-
-        if (scriptFormat == scriptFormat.txt)
-            File.WriteAllText(Path.text + ".txt", Output.text);
+       
+            File.WriteAllText(Path.text, Output.text);
 
     }
 }

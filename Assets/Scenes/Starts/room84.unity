@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -94,8 +94,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 251ed410576a9d3449996e36927f321f,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 25a8e9156a3abd34c924a784f79deaf9,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -505,7 +507,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1802705245}
+      objectReference: {fileID: 1269202724}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -608,14 +610,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2587814b469864ebb68df6204dd403, type: 3}
---- !u!21 &345044015
+--- !u!21 &544615386
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 6 (Instance) (Instance)
+  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance)
   m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -642,13 +645,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - P1: 1.46
-    - P2: 1.165
+    - P1: -0
+    - P2: -0.14499998
     - P3: 1.074
     - P4: 0
     - P5: 0
-    - Pos1: 1.46
-    - Pos2: 1.165
+    - Pos1: -0
+    - Pos2: -0.14499998
     - Pos3: 1.074
     - Pos4: 0
     - _AmbientOcclusion: 1
@@ -705,7 +708,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 345044015}
+      objectReference: {fileID: 1450696502}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1222,7 +1225,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2144844130}
+      objectReference: {fileID: 1475602276}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1377,71 +1380,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!21 &922930202
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 6 (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: -0
-    - P2: -0.14499998
-    - P3: 1.074
-    - P4: 0
-    - P5: 0
-    - Pos1: -0
-    - Pos2: -0.14499998
-    - Pos3: 1.074
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2
-    - _Iterations: 10
-    - _MaxDistance: 1000
-    - _MaxSteps: 600
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 0.5
-    - _ShadowMode: 0
-    - _Smoothness: 0.5
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.001
-    m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &939520872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,6 +1495,72 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b53cd52ba58a0be4ea1d62dc51ed0d06, type: 3}
+--- !u!21 &1269202724
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: 3.03
+    - P2: 2.655
+    - P3: 1.074
+    - P4: 0
+    - P5: 0
+    - Pos1: 3.03
+    - Pos2: 2.655
+    - Pos3: 1.074
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2
+    - _Iterations: 10
+    - _MaxDistance: 1000
+    - _MaxSteps: 600
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.5
+    - _ShadowMode: 0
+    - _Smoothness: 0.5
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.001
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!43 &1277480749
 Mesh:
   m_ObjectHideFlags: 0
@@ -1848,7 +1852,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 922930202}
+      objectReference: {fileID: 544615386}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1956,13 +1960,145 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2587814b469864ebb68df6204dd403, type: 3}
+--- !u!21 &1450696502
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: 1.46
+    - P2: 1.165
+    - P3: 1.074
+    - P4: 0
+    - P5: 0
+    - Pos1: 1.46
+    - Pos2: 1.165
+    - Pos3: 1.074
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2
+    - _Iterations: 10
+    - _MaxDistance: 1000
+    - _MaxSteps: 600
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.5
+    - _ShadowMode: 0
+    - _Smoothness: 0.5
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.001
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!21 &1475602276
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_cube loop (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: 8a5c8ea7a79d0a24ea157e6ab1778a57, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: -0
+    - P2: -4.745
+    - P3: 1.074
+    - P4: 0
+    - P5: 0
+    - Pos1: -0
+    - Pos2: -4.745
+    - Pos3: 1.074
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2
+    - _Iterations: 10
+    - _MaxDistance: 1000
+    - _MaxSteps: 300
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 3
+    - _ShadowMode: 0
+    - _Smoothness: 0.5
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.001
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
 --- !u!43 &1706086417
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28980
+  m_Name: pb_Mesh57078
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
@@ -2121,71 +2257,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!21 &1802705245
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 6 (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: 3.03
-    - P2: 2.655
-    - P3: 1.074
-    - P4: 0
-    - P5: 0
-    - Pos1: 3.03
-    - Pos2: 2.655
-    - Pos3: 1.074
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2
-    - _Iterations: 10
-    - _MaxDistance: 1000
-    - _MaxSteps: 600
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 0.5
-    - _ShadowMode: 0
-    - _Smoothness: 0.5
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.001
-    m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!43 &2054403461
 Mesh:
   m_ObjectHideFlags: 0
@@ -2351,71 +2422,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!21 &2144844130
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_cube loop (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: 8a5c8ea7a79d0a24ea157e6ab1778a57, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: -0
-    - P2: -4.745
-    - P3: 1.074
-    - P4: 0
-    - P5: 0
-    - Pos1: -0
-    - Pos2: -4.745
-    - Pos3: 1.074
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2
-    - _Iterations: 10
-    - _MaxDistance: 1000
-    - _MaxSteps: 300
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 3
-    - _ShadowMode: 0
-    - _Smoothness: 0.5
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.001
-    m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -610,7 +610,6 @@ public class complsave : MonoBehaviour
         to_save.name = new string[allobj2.Length];
         to_save.initpos = Globalprefs.allpos;
         int i4 = 0;
-        Collider c1 = null;
         foreach (Collider obj in allobj2)
         {
             if (obj != null)
@@ -619,14 +618,14 @@ public class complsave : MonoBehaviour
                 to_save.q4[i4] = obj.transform.rotation;
                 to_save.s3[i4] = obj.transform.localScale;
                 to_save.name[i4] = obj.transform.name;
-                c1 = obj;
+                
             }
             if (obj == null)
             {
-                to_save.v3[i4] = c1.transform.position;
-                to_save.q4[i4] = c1.transform.rotation;
-                to_save.s3[i4] = c1.transform.localScale;
-                to_save.name[i4] = c1.transform.name;
+                to_save.v3[i4] = Vector3.zero;
+                to_save.q4[i4] = Quaternion.identity;
+                to_save.s3[i4] = Vector3.one;
+                to_save.name[i4] = "";
                 
             }
             if (true) i4 += 1;
