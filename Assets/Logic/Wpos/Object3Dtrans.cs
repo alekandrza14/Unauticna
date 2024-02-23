@@ -13,10 +13,7 @@ public class Object3Dtrans : MonoBehaviour
     public AnimationCurve sx; 
     public AnimationCurve sy;
     public AnimationCurve sz;
-    void Start()
-    {
-        
-    }
+
     private void Awake()
     {
         oldpos = transform.position;

@@ -30,11 +30,7 @@ public class Shader_FanShe : MonoBehaviour
 
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     void change()
     {
         

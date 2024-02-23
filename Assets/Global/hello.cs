@@ -12,8 +12,17 @@ public class hello
         public static void Dialog_die()
         {
             Process p = new Process();
-            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath))+ @"\windows\window die.exe";
+            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\window die.exe";
             if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\window die.exe"))
+            {
+                p.Start();
+            }
+        }
+        public static void Dialog_Radar()
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\StrangeRadar.exe";
+            if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\StrangeRadar.exe"))
             {
                 p.Start();
             }

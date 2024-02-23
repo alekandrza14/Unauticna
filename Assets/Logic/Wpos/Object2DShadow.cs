@@ -8,14 +8,7 @@ public class Object2DShadow : MonoBehaviour
     public float wpos;
     public float wscale;
     public AnimationCurve s;
-    void Start()
-    {
-        
-    }
-    private void Awake()
-    {
-        
-    }
+
 
     void Update()
     {

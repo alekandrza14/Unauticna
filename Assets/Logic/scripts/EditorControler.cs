@@ -12,11 +12,7 @@ public class EditorControler : MonoBehaviour
     public snow[] snows;
     public Transform t;
     public Vector3 v3;
-    void Start()
-    {
-        
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

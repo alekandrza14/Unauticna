@@ -21,7 +21,7 @@ public class MovingEvent : MonoBehaviour {
     {
         if (inventory == null)
         {
-            inventory = boxItem.getInventory("i3").inventory;
+            inventory = ElementalInventory.main();
         }
         if (inventory != null)
         {
@@ -38,7 +38,7 @@ public class MovingEvent : MonoBehaviour {
     public void moveHere () {
 		if (inventory == null) 
         {
-			inventory = boxItem.getInventory("i3").inventory;
+			inventory = ElementalInventory.main();
         }
         if (inventory != null)
         {

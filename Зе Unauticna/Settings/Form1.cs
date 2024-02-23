@@ -51,7 +51,13 @@ namespace Settings
         private void button2_MouseClick(object sender, MouseEventArgs e)
         {
 
-            System.Diagnostics.Process.Start(Application.StartupPath + "/windows/UnauticnaConsole.exe");
+        }
+
+        private void checkBox2_CheckStateChanged(object sender, EventArgs e)
+        {
+
+
+            System.Diagnostics.Process.Start(Application.StartupPath + "/UOI.exe");
         }
     }
 }

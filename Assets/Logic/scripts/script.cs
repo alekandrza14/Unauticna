@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -49,11 +49,11 @@ public class script : MonoBehaviour
 
                 if (itemName && string.IsNullOrEmpty(ifd.text))
                 {
-                    ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+                    ifd.text = (itemName.ItemData.Replace('♥', ' ')).Replace('♦', '\n');
                 }
                 if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
                 {
-                    itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
+                    itemName.ItemData = (ifd.text.Replace(' ', '♥')).Replace('\n', '♦');
                     Global.PauseManager.Play();
                     Destroy(gameObject);
                 }
@@ -85,11 +85,11 @@ public class script : MonoBehaviour
 
                 if (itemName && string.IsNullOrEmpty(ifd.text))
                 {
-                    ifd.text = (itemName.ItemData.Replace('_', ' ')).Replace('^', '\n');
+                    ifd.text = (itemName.ItemData.Replace('♥', ' ')).Replace('♦', '\n');
                 }
                 if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
                 {
-                    itemName.ItemData = (ifd.text.Replace(' ', '_')).Replace('\n', '^');
+                    itemName.ItemData = (ifd.text.Replace(' ', '♥')).Replace('\n', '♦');
                     Global.PauseManager.Play();
                     Destroy(gameObject);
                 }
@@ -304,7 +304,7 @@ public class script : MonoBehaviour
 
                 i++;
             }
-            if (words[i] == "UnlockOmniscience_item")
+            if (words[i] == "UnlockOmniscience.item")
             {
                 typedata = "end"; foreach (GameObject g in complsave.t3)
                 {
@@ -321,8 +321,26 @@ public class script : MonoBehaviour
 
                     }
                 }
-                VarSave.LoadMoney("Inflaition", 10, SaveType.global);
-                    i++;
+                VarSave.LoadMoney("Inflation", 10, SaveType.global);
+                i++;
+            }
+            if (words[i] == "ResetScience.item")
+            {
+                typedata = "end";
+
+                    
+
+
+                        VarSave.SetMoney("research", 0);
+
+                Globalprefs.research = VarSave.GetMoney("research");
+
+                Directory.Delete(VarSave.path+"/researchs",true);
+
+                    Directory.CreateDirectory(VarSave.path + "/researchs");
+
+                
+                i++;
             }
             if (words[i] == "time")
             {

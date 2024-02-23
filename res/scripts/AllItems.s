@@ -1,1 +1,1 @@
-UnlockOmniscience_item;
+UnlockOmniscience.item;

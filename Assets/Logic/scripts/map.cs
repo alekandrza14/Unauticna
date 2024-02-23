@@ -16,9 +16,5 @@ public class map : MonoBehaviour
         texture.GetComponents<MeshRenderer>()[0].material.SetTexture("_MainTex",r);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

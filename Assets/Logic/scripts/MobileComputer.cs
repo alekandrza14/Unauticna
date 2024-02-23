@@ -148,6 +148,7 @@ public class MobileComputer : MonoBehaviour
     public void Map()
     {
 
+        operations = ComputerOperations.Map;
         txt.text = "Map";
         Screen.texture = sprites[3];
 
@@ -196,6 +197,10 @@ public class MobileComputer : MonoBehaviour
             if (CurrentStock == 2) txt.text = "DupCorporated Const" + Math.Round((decimal)stockConst2(), 2);
             if (CurrentStock == 3) txt.text = "Ceribrals Const" + Math.Round((decimal)stockConst3(), 2);
             if (CurrentStock == 4) txt.text = "MiniHome Const" + Math.Round((decimal)stockConst4(), 2);
+        }
+        else
+        {
+            txt2.text = "";
         }
         if (operations == ComputerOperations.Porducts)
         {
@@ -312,7 +317,7 @@ public class MobileComputer : MonoBehaviour
                     {
                         if (item._Name == classitem._Name)
                         {
-                            item.gameObject.AddComponent<DELETE>();
+                            if (!item.GetComponent<Logic_tag_UnDeleteing>()) item.gameObject.AddComponent<DELETE>();
                         }
                     }
                 }
@@ -338,7 +343,7 @@ public class MobileComputer : MonoBehaviour
                         {
 
                                    prise += (decimal)item.ItemPrise;
-                                item.gameObject.AddComponent<DELETE>();
+                            if (!item.GetComponent<Logic_tag_UnDeleteing>()) item.gameObject.AddComponent<DELETE>();
                           
                         }
                     }

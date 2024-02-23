@@ -6,7 +6,7 @@ using System.IO;
 
 public enum scriptFormat
 {
-    s,uns,lua
+    s,uns,lua,txt
 }
 
 public class PathUns : MonoBehaviour
@@ -24,9 +24,15 @@ public class PathUns : MonoBehaviour
     {
         if (scriptFormat == scriptFormat.s) 
                 File.WriteAllText(Path.text + ".s", Output.text);
-           
-        if (scriptFormat == scriptFormat.uns) 
-                File.WriteAllText(Path.text + ".uns", Output.text);
-          
+
+        if (scriptFormat == scriptFormat.uns)
+            File.WriteAllText(Path.text + ".uns", Output.text);
+
+        if (scriptFormat == scriptFormat.lua)
+            File.WriteAllText(Path.text + ".lua", Output.text);
+
+        if (scriptFormat == scriptFormat.txt)
+            File.WriteAllText(Path.text + ".txt", Output.text);
+
     }
 }

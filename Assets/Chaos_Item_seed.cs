@@ -40,6 +40,7 @@ public class Chaos_Item_seed : MonoBehaviour
                 s = "Chaos_Item" + Random.Range(0,long.MaxValue);
                 if (ElementalInventory.main().Getitem("Universal-ье_Удобрения"))
                 {
+                    Model = new CustomObjectData();
                     Model.nDemention = (NDemention)Random.Range(0, 4);
                     Model.standartKey = (StandartKey)Random.Range(0, 5);
                     Model.functional = (Functional)Random.Range(0, 6);
@@ -60,13 +61,13 @@ public class Chaos_Item_seed : MonoBehaviour
                     Model.itemSpawn = complsave.t3[Random.Range(-1, complsave.t3.Length)].name;
                     bool monet = false;
                     while(!monet){
-                        Model.effect_no_use.Add(new useeffect(massiveEffect[massiveEffect.Length], Random.Range(-600000, 6000000)));
+                        Model.effect_no_use.Add(new useeffect(massiveEffect[Random.Range(0, massiveEffect.Length)], Random.Range(-600000, 6000000)));
                         monet = Random.Range(0, 2) == 1;
                     }
                     Model.DefultInfo = "Hello im devil item";
                     Model.InfinityRecycler = Random.Range(-600000, 6000000);
-                    Model.playerMove = Global.math.randomCube(-300000, -300000);
-                    Model.playerRotate = Global.math.randomCube(-300000, -300000);
+                    Model.playerMove = Global.math.randomCube(-300000, 300000);
+                    Model.playerRotate = Global.math.randomCube(-300000, 300000);
                     Model.playerWHMove = new Vector2(Random.Range(-600, 600),Random.Range(-600, 600));
                     bool monet2 = false;
                     List<float> fn = new List<float>();

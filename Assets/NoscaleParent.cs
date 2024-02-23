@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove,noRotate,MoveandRotate
+    noMove,noRotate,MoveandRotate,palyerY
 }
 
 public class NoscaleParent : MonoBehaviour
@@ -25,6 +25,10 @@ public class NoscaleParent : MonoBehaviour
         {
             transform.position = Obj.position;
             transform.rotation = Obj.rotation;
+        }
+        if (settings == NoscaleParentSettings.palyerY)
+        {
+            transform.position = new Vector3(transform.position.x, mover.main().transform.position.y, transform.position.z);
         }
     }
 }

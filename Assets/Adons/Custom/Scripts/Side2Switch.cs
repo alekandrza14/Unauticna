@@ -16,13 +16,5 @@ public class Side2Switch : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        
-    }
+   
 }

@@ -39,17 +39,20 @@ public class sity : MonoBehaviour
             {
                 campos -= PrefabPosition.position;
             }
-            m.material.SetFloat("P1", -campos.x / transform.localScale.x);
-            m.material.SetFloat("P2", -campos.y / transform.localScale.y);
-            m.material.SetFloat("P3", -campos.z / transform.localScale.z);
-            m.material.SetFloat("Pos1", -campos.x / transform.localScale.x);
-            m.material.SetFloat("Pos2", -campos.y / transform.localScale.y);
-            m.material.SetFloat("Pos3", -campos.z / transform.localScale.z);
-            if (issnow)
+            if (m.material)
             {
+                m.material.SetFloat("P1", -campos.x / transform.localScale.x);
+                m.material.SetFloat("P2", -campos.y / transform.localScale.y);
+                m.material.SetFloat("P3", -campos.z / transform.localScale.z);
+                m.material.SetFloat("Pos1", -campos.x / transform.localScale.x);
+                m.material.SetFloat("Pos2", -campos.y / transform.localScale.y);
+                m.material.SetFloat("Pos3", -campos.z / transform.localScale.z);
+                if (issnow)
+                {
 
 
-                m.material.SetFloat("P5", p5);
+                    m.material.SetFloat("P5", p5);
+                }
             }
         }
     }
@@ -58,23 +61,26 @@ public class sity : MonoBehaviour
         if (Prefab)
         {
             campos = cam;
-            campos += ppos; 
+            campos += ppos;
             if (PrefabPosition)
             {
                 campos -= PrefabPosition.position;
             }
             transform.position = cam;
-            m.material.SetFloat("P1", -campos.x / transform.localScale.x);
-            m.material.SetFloat("P2", -campos.y / transform.localScale.y);
-            m.material.SetFloat("P3", -campos.z / transform.localScale.z);
-            m.material.SetFloat("Pos1", -campos.x / transform.localScale.x);
-            m.material.SetFloat("Pos2", -campos.y / transform.localScale.y);
-            m.material.SetFloat("Pos3", -campos.z / transform.localScale.z);
-            if (issnow)
+            if (m.material)
             {
+                m.material.SetFloat("P1", -campos.x / transform.localScale.x);
+                m.material.SetFloat("P2", -campos.y / transform.localScale.y);
+                m.material.SetFloat("P3", -campos.z / transform.localScale.z);
+                m.material.SetFloat("Pos1", -campos.x / transform.localScale.x);
+                m.material.SetFloat("Pos2", -campos.y / transform.localScale.y);
+                m.material.SetFloat("Pos3", -campos.z / transform.localScale.z);
+                if (issnow)
+                {
 
 
-                m.material.SetFloat("P5", p5);
+                    m.material.SetFloat("P5", p5);
+                }
             }
         }
     }

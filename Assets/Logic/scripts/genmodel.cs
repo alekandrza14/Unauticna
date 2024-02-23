@@ -68,9 +68,5 @@ public class genmodel : CustomSaveObject
         mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
         return mesh;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

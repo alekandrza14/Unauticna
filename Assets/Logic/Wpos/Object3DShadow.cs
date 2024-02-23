@@ -10,14 +10,7 @@ public class Object3DShadow : MonoBehaviour
     public float wxscale, wyscale, wzscale;
 
     public AnimationCurve s;
-    void Start()
-    {
-        
-    }
-    private void Awake()
-    {
-        
-    }
+
 
     void Update()
     {

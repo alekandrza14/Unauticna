@@ -6,17 +6,53 @@ using UnityEngine;
 
 public enum SaveType
 {
-    local,global,world
+    local,global,world,computer
 }
 
 public class VarSave
 {
     public static string path = "unsave/var";
     public static string Worldpath = "world/var";
+    public static string Computerpath = "C:/data";
     public static string Globalpath = Application.persistentDataPath;
 
+    public static bool isboolean(string s)
+    {
+        if (s.Length > 0)
+        {
+            if (
+              s[0] == 'F' ||
+              s[0] == 'T')
+            {
 
+                return true;
+            }
+        }
+        return false;
+    }
+    public static bool isNumber(string s)
+    {
+        if (s.Length > 0)
+        {
+            if (
+              s[0] == '0' ||
+              s[0] == '1' ||
+              s[0] == '2' ||
+              s[0] == '3' ||
+              s[0] == '4' ||
+              s[0] == '5' ||
+              s[0] == '6' ||
+              s[0] == '7' ||
+              s[0] == '8' ||
+              s[0] == '9' ||
+              s[0] == '-')
+            {
 
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static string GetPath(SaveType saveType)
     {
@@ -32,6 +68,9 @@ public class VarSave
             case SaveType.world:
                 value = Worldpath;
                 break;
+            case SaveType.computer:
+                value = Computerpath;
+                break;
         }
         return value;
     }
@@ -42,7 +81,8 @@ public class VarSave
         Directory.CreateDirectory(Globalpath);
         Directory.CreateDirectory(Worldpath);
 
-    
+        Directory.CreateDirectory(Computerpath);
+
     }
 
     public static void DeleteAll()
@@ -106,7 +146,7 @@ public class VarSave
         int varout = 0;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = int.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = int.Parse(File.ReadAllText(path + "/" + key));
         }
         return varout;
     }
@@ -115,7 +155,7 @@ public class VarSave
         int varout = 0;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = int.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = int.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }
@@ -134,7 +174,7 @@ public class VarSave
         bool varout = false;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isboolean(File.ReadAllText(path + "/" + key))) varout = bool.Parse(File.ReadAllText(path + "/" + key));
+            if (isboolean(File.ReadAllText(path + "/" + key))) varout = bool.Parse(File.ReadAllText(path + "/" + key));
         }
         return varout;
     }
@@ -143,7 +183,7 @@ public class VarSave
         bool varout = false;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isboolean(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = bool.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isboolean(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = bool.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }
@@ -191,7 +231,7 @@ public class VarSave
         float varout = 0.0f;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = float.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = float.Parse(File.ReadAllText(path + "/" + key));
         }
         return varout;
     }
@@ -200,7 +240,7 @@ public class VarSave
         float varout = 0.0f;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = float.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = float.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }
@@ -219,7 +259,7 @@ public class VarSave
         decimal varout = 0.0m;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = decimal.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = decimal.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         Directory.CreateDirectory(GetPath(saveType));
         File.WriteAllText(GetPath(saveType) + "/" + key, (varout + var).ToString());
@@ -230,7 +270,7 @@ public class VarSave
         decimal varout = 0.0m;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = decimal.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = decimal.Parse(File.ReadAllText(path + "/" + key));
         }
         Directory.CreateDirectory(path);
         File.WriteAllText(path + "/" + key, (varout + var).ToString());
@@ -251,7 +291,7 @@ public class VarSave
         double varout = 0.0d;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = double.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = double.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         Directory.CreateDirectory(GetPath(saveType));
         File.WriteAllText(GetPath(saveType) + "/" + key, (varout + var).ToString());
@@ -262,7 +302,7 @@ public class VarSave
         double varout = 0.0d;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = double.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = double.Parse(File.ReadAllText(path + "/" + key));
         }
         Directory.CreateDirectory(path);
         File.WriteAllText(path + "/" + key, (varout + var).ToString());
@@ -273,7 +313,7 @@ public class VarSave
         int varout = 0;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = int.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = int.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         Directory.CreateDirectory(GetPath(saveType));
         File.WriteAllText(GetPath(saveType) + "/" + key, (varout + var).ToString());
@@ -284,7 +324,7 @@ public class VarSave
         int varout = 0;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = int.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = int.Parse(File.ReadAllText(path + "/" + key));
         }
         Directory.CreateDirectory(path);
         File.WriteAllText(path + "/" + key, (varout + var).ToString());
@@ -295,7 +335,7 @@ public class VarSave
         float varout = 0;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = float.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = float.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         Directory.CreateDirectory(GetPath(saveType));
         File.WriteAllText(GetPath(saveType) + "/" + key, (varout + var).ToString());
@@ -306,7 +346,7 @@ public class VarSave
         float varout = 0;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = float.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = float.Parse(File.ReadAllText(path + "/" + key));
         }
         Directory.CreateDirectory(path);
         File.WriteAllText(path + "/" + key, (varout + var).ToString());
@@ -317,7 +357,7 @@ public class VarSave
         decimal varout = 0.0m;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = decimal.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = decimal.Parse(File.ReadAllText(path + "/" + key));
         }
         return varout;
     }
@@ -326,7 +366,7 @@ public class VarSave
         decimal varout = 0.0m;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = decimal.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = decimal.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }
@@ -335,7 +375,7 @@ public class VarSave
         double varout = 0.0d;
         if (File.Exists(path + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(path + "/" + key))) varout = double.Parse(File.ReadAllText(path + "/" + key));
+            if (isNumber(File.ReadAllText(path + "/" + key))) varout = double.Parse(File.ReadAllText(path + "/" + key));
         }
         return varout;
     }
@@ -344,7 +384,7 @@ public class VarSave
         double varout = 0.0d;
         if (File.Exists(GetPath(saveType) + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = double.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
+            if (isNumber(File.ReadAllText(GetPath(saveType) + "/" + key))) varout = double.Parse(File.ReadAllText(GetPath(saveType) + "/" + key));
         }
         return varout;
     }
@@ -358,7 +398,7 @@ public class VarSave
         float varout = 0.0f;
         if (File.Exists(Globalpath + "/" + key))
         {
-            if (script.isNumber(File.ReadAllText(Globalpath + "/" + key))) varout = float.Parse(File.ReadAllText(Globalpath + "/" + key));
+            if (isNumber(File.ReadAllText(Globalpath + "/" + key))) varout = float.Parse(File.ReadAllText(Globalpath + "/" + key));
         }
         return varout;
     }

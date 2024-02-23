@@ -50,14 +50,14 @@ public class CustomObjectData
 
 public class CustomObject : CustomSaveObject
 {
-   public MeshFilter mf;
+    public MeshFilter mf;
     public Vector3[] verti;
     public int[] tria;
     public Vector2 WHPos;
     public Vector2[] uvs;
     public string s;
     public bool saved;
-    CustomObjectData Model = new CustomObjectData();
+    public CustomObjectData Model = new CustomObjectData();
     // Start is called before the first frame update
     void Start()
     {
@@ -70,26 +70,39 @@ public class CustomObject : CustomSaveObject
             Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
             body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
         }
-            mf.mesh = generate();
-        GetComponent<MeshCollider>().sharedMesh = mf.mesh; 
+        mf.mesh = generate();
+        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         transform.localScale = Model.scale;
         GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
         GetComponent<MeshRenderer>().material.color = Model._Color;
-        name = s+"(Clone)";
+        name = s + "(Clone)";
+    }
+    public void resetCurrentSettings()
+    {
+        mf.mesh = generate();
+        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
+        transform.localScale = Model.scale;
+        GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+        GetComponent<MeshRenderer>().material.color = Model._Color;
+        name = s + "(Clone)";
+    }
+    public void rcs()
+    {
+        resetCurrentSettings();
     }
     private Mesh generate()
     {
         ObjParser.Obj newobj = new ObjParser.Obj();
         Directory.CreateDirectory("res/UserWorckspace/Items");
-        
-      
+
+
         if (!File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
         {
             Model.nDemention = NDemention._3D;
             Model.scale = Vector3.one;
             Model._Color = Color.red;
             Model.NameModel = "cube";
-            File.WriteAllText("res/UserWorckspace/Items/" + s + ".txt",JsonUtility.ToJson(Model));
+            File.WriteAllText("res/UserWorckspace/Items/" + s + ".txt", JsonUtility.ToJson(Model));
         }
         if (File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
         {
@@ -145,7 +158,7 @@ public class CustomObject : CustomSaveObject
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
                 GetComponent<MultyObject>().W_Position = WHPos.x;
-                GetComponent<MultyObject>().H_Position = WHPos.y; 
+                GetComponent<MultyObject>().H_Position = WHPos.y;
                 MultyObject mo = GetComponent<MultyObject>();
 
                 mo.N_Positions = new float[m.N_position.Count];
@@ -197,20 +210,15 @@ public class CustomObject : CustomSaveObject
             }
         }
 
-        
+
         for (int i = 0; i < newobj.VertexList.Count; i++)
         {
-            uv[i] = (new Vector2((float)newobj.VertexList[i].X-(float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z - (float)newobj.VertexList[i].Y));
+            uv[i] = (new Vector2((float)newobj.VertexList[i].X - (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z - (float)newobj.VertexList[i].Y));
         }
         mesh.vertices = vertices;
         mesh.triangles = triangles.ToArray();
         mesh.uv = uv;
         mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
         return mesh;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -5,15 +5,5 @@ using UnityEngine;
 public class ends : MonoBehaviour
 {
     public bool endactorone; public bool endactortho; public bool endactorthee;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

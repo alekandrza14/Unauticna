@@ -603,22 +603,35 @@ public class complsave : MonoBehaviour
 
 
 
-            TransformObject to_save = new TransformObject();
-            to_save.v3 = new Vector3[allobj2.Length];
-            to_save.q4 = new Quaternion[allobj2.Length];
-            to_save.s3 = new Vector3[allobj2.Length];
-            to_save.name = new string[allobj2.Length];
-            to_save.initpos = Globalprefs.allpos;
-            int i4 = 0;
-            foreach (Collider obj in allobj2)
+        TransformObject to_save = new TransformObject();
+        to_save.v3 = new Vector3[allobj2.Length];
+        to_save.q4 = new Quaternion[allobj2.Length];
+        to_save.s3 = new Vector3[allobj2.Length];
+        to_save.name = new string[allobj2.Length];
+        to_save.initpos = Globalprefs.allpos;
+        int i4 = 0;
+        Collider c1 = null;
+        foreach (Collider obj in allobj2)
+        {
+            if (obj != null)
             {
                 to_save.v3[i4] = obj.transform.position;
                 to_save.q4[i4] = obj.transform.rotation;
                 to_save.s3[i4] = obj.transform.localScale;
                 to_save.name[i4] = obj.transform.name;
-                if (true) i4 += 1;
+                c1 = obj;
             }
-            Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
+            if (obj == null)
+            {
+                to_save.v3[i4] = c1.transform.position;
+                to_save.q4[i4] = c1.transform.rotation;
+                to_save.s3[i4] = c1.transform.localScale;
+                to_save.name[i4] = c1.transform.name;
+                
+            }
+            if (true) i4 += 1;
+        }
+        Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         saveString1.editpos = JsonUtility.ToJson(to_save);
        
         saveString1.sceneName = SceneManager.GetActiveScene().name;
@@ -660,7 +673,7 @@ public class complsave : MonoBehaviour
                 else
                 {
                     Debug.Log("IU2");
-                  if(VarSave.GetString("quest",SaveType.global) == "капуста")  questtarget = true;
+                    if (VarSave.GetString("quest", SaveType.global) == "капуста") questtarget = true;
                     File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
                     saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
                     FirstSpawn = true;
@@ -672,7 +685,7 @@ public class complsave : MonoBehaviour
 
 
 
-                if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera==null)
+                if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera == null)
                 {
                     TransformObject to_save = JsonUtility.FromJson<TransformObject>(saveString1.editpos);
 
@@ -680,17 +693,20 @@ public class complsave : MonoBehaviour
                     {
                         for (int i5 = 0; i5 < to_save.initpos.Length; i5++)
                         {
-                            if (Vector3.negativeInfinity.ToString() == to_save.initpos[i5].ToString() &&
-                                Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                           if(i>i5) if (Globalprefs.allTransphorms.Length > i)
                             {
-                               
-                            }
-                            else if (Globalprefs.allpos[i].ToString() == to_save.initpos[i5].ToString() &&
-                                Globalprefs.allTransphorms[i].name == to_save.name[i5])
-                            {
-                                Globalprefs.allTransphorms[i].transform.position = to_save.v3[i5];
-                                Globalprefs.allTransphorms[i].transform.rotation = to_save.q4[i5];
-                                Globalprefs.allTransphorms[i].transform.localScale = to_save.s3[i5];
+                                if (Globalprefs.allTransphorms[i] != null) if (Vector3.negativeInfinity.ToString() == to_save.initpos[i5].ToString() &&
+                                      Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                                    {
+
+                                    }
+                                    else if (Globalprefs.allpos[i].ToString() == to_save.initpos[i5].ToString() &&
+                                        Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                                    {
+                                        Globalprefs.allTransphorms[i].transform.position = to_save.v3[i5];
+                                        Globalprefs.allTransphorms[i].transform.rotation = to_save.q4[i5];
+                                        Globalprefs.allTransphorms[i].transform.localScale = to_save.s3[i5];
+                                    }
                             }
                         }
                     }
@@ -838,12 +854,13 @@ public class complsave : MonoBehaviour
                     if (Demake != null)
                         if (Demake.co != null)
                             if (Demake.co.Count > 0)
-                                foreach (string s in Demake.co){
-                        if (saveString1.idC[i]==s)
-                        {
-                            j1 = true;
-                        }
-                    }
+                                foreach (string s in Demake.co)
+                                {
+                                    if (saveString1.idC[i] == s)
+                                    {
+                                        j1 = true;
+                                    }
+                                }
                     if (!j1)
                     {
                         GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
@@ -893,14 +910,14 @@ public class complsave : MonoBehaviour
                 {
 
                     if (Demake != null)
-                        if (Demake.item != null) 
+                        if (Demake.item != null)
                             if (Demake.item.Count > 0) foreach (string s in Demake.item)
-                    {
-                        if (saveString1.idA[i3] == s)
-                        {
-                            j2 = true;
-                        }
-                    }
+                                {
+                                    if (saveString1.idA[i3] == s)
+                                    {
+                                        j2 = true;
+                                    }
+                                }
                     if (!j2)
                     {
 
@@ -996,7 +1013,7 @@ public class complsave : MonoBehaviour
 
                     }
                 }
-                    mover m = mover.main();
+                mover m = mover.main();
                 if (questtarget)
                 {
                     for (int i = 0; i < 6; i++)
@@ -1014,18 +1031,36 @@ public class complsave : MonoBehaviour
                 }
                 if (FirstSpawn)
                 {
-                    if (Random.Range(0, 2) >= 1) for (int i = 0; i < 6; i++)
+                    foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                     {
-                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
-                        RaycastHit hit;
-                        if (Physics.Raycast(r, out hit))
+                        i2.init();
+                    }
+                    if (Random.Range(0, 2) >= 1)
+                    {
+                        for (int i = 0; i < 6; i++)
                         {
-                            if (hit.collider != null)
+                            Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
                             {
-                                Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity);
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity);
+                                }
                             }
                         }
                     }
+                    if (Random.Range(0, 24) == 1)
+                    {
+                      
+                            GameObject[] g = Resources.LoadAll<GameObject>("danges");
+
+                            Instantiate(g[Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity);
+
+
+                       
+                    }
+
                 }
             }
 

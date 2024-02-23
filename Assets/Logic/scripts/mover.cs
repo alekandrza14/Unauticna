@@ -134,6 +134,7 @@ public class mover : CustomSaveObject
     bool Sprint;
     float fireInk;
     string lepts = "";
+
     [HideInInspector] public string lif;
     [HideInInspector] public float HX_Rotation;
 
@@ -229,10 +230,11 @@ public class mover : CustomSaveObject
                     g.gameObject.transform.position = hit.point;
                     List<string> name = new List<string>();
                     List<Vector3> v3 = new List<Vector3>();
-                    for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
+                genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+                    for (int i = 0; i < gm.Length; i++)
                     {
-                        name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
-                        v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
+                        name.Add(gm[i].s);
+                        v3.Add(gm[i].transform.position);
                     }
                     custommedelsave cms = new custommedelsave();
                     cms.name = name.ToArray();
@@ -251,11 +253,12 @@ public class mover : CustomSaveObject
             List<string> name = new List<string>();
             List<Vector3> v3 = new List<Vector3>();
             List<Vector3> scale = new List<Vector3>();
-            for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
+            genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+            for (int i = 0; i < gm.Length; i++)
             {
-                name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
-                v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
-                scale.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.localScale);
+                name.Add(gm[i].s);
+                v3.Add(gm[i].transform.position);
+                scale.Add(gm[i].transform.localScale);
             }
             custommedelsave cms = new custommedelsave();
             cms.name = name.ToArray();
@@ -267,9 +270,10 @@ public class mover : CustomSaveObject
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            for (int i = 0; i < FindObjectsByType<genmodel>(sortmode.main).Length; i++)
+            genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+            for (int i = 0; i < gm.Length; i++)
             {
-                FindObjectsByType<genmodel>(sortmode.main)[i].gameObject.AddComponent<deleter1>();
+                gm[i].gameObject.AddComponent<deleter1>();
             }
             custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
             for (int i = 0; i < cms.v3.Length; i++)
@@ -290,15 +294,17 @@ public class mover : CustomSaveObject
                         hit2.collider.gameObject.AddComponent<DELETE>();
                         List<string> name = new List<string>();
                         List<Vector3> v3 = new List<Vector3>();
-                        for (int i = 0; i < GameObject.FindObjectsByType<genmodel>(sortmode.main).Length; i++)
+                genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+                for (int i = 0; i <gm.Length; i++)
                         {
-                            name.Add(FindObjectsByType<genmodel>(sortmode.main)[i].s);
-                            v3.Add(FindObjectsByType<genmodel>(sortmode.main)[i].transform.position);
+                            name.Add(gm[i].s);
+                            v3.Add(gm[i].transform.position);
                         }
                         custommedelsave cms = new custommedelsave();
                         cms.name = name.ToArray();
                         cms.v3 = v3.ToArray();
-                        if (GameObject.FindObjectsByType<genmodel>(sortmode.main).Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world); }
+
+                        if (gm.Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world); }
                         else
                         {
                             cms.name = new string[] { };
@@ -337,15 +343,7 @@ public class mover : CustomSaveObject
     {
        faceViewi =a;
     }
-    public Vector4 GetHyperbolicVector(HyperbolicCamera c1)
-    {
-        Vector4 v4 = new Vector4();
-        v4.x = c1.RealtimeTransform.n;
-        v4.y = c1.RealtimeTransform.s;
-        v4.z = c1.RealtimeTransform.m;
-        v4.w = c1.transform.position.y;
-        return v4;
-    }
+    
     public void LoadHyperbolicVector(Vector4 v4,HyperbolicCamera c1)
     {
         c1.RealtimeTransform.n = v4.x;
@@ -488,15 +486,16 @@ public class mover : CustomSaveObject
     int maxhp2;
     int regen;
     bool swapWHaN;
+    Logic_tag_3[] lt;
     private void Init()
     {
         Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
         Vector3[] allpos = new Vector3[allobj.Length];
         int i2 = 0;
-        foreach (Collider obj in allobj)
+        for (int i =0;i<allobj.Length;i++)
         {
-
-          if(!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
+            Collider obj = allobj[i];
+          if (!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
             {
                 allpos[i2] = Vector3.negativeInfinity;
             }
@@ -505,9 +504,13 @@ public class mover : CustomSaveObject
         Globalprefs.allTransphorms = allobj;
         Globalprefs.allpos = allpos;
 
-        GameObject g2 = new GameObject("init");
-        gameInit.Init(g2);
-        DontDestroyOnLoad(g2);
+       
+            GameObject g2 = new GameObject("init");
+            gameInit.Init(g2); 
+        if (gameInit.init != null)
+        {
+                DontDestroyOnLoad(g2);
+        }
         if ((UniverseSkyType)VarSave.GetInt("UST") == UniverseSkyType.Litch)
         {
             Instantiate(Resources.Load<GameObject>("events/LitchUniverse"));
@@ -675,6 +678,8 @@ public class mover : CustomSaveObject
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
         Instantiate(Resources.Load<GameObject>("Rm/Hyper_null"));
+
+        lt = FindObjectsByType<Logic_tag_3>(sortmode.main);
         if (!tutorial && inglobalspace != true)
         {
 
@@ -778,9 +783,9 @@ public class mover : CustomSaveObject
 
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                if (lt.Length != 0)
                 {
-                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
+                   lt[0].GetComponent<Camera>().fieldOfView = save.vive;
                 }
             }
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
@@ -883,9 +888,9 @@ public class mover : CustomSaveObject
 
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                if (lt.Length != 0)
                 {
-                    FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
+                   lt[0].GetComponent<Camera>().fieldOfView = save.vive;
                 }
             }
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
@@ -921,9 +926,9 @@ public class mover : CustomSaveObject
         hyperbolicCamera = HyperbolicCamera.Main();
     }
 
-    void UpdateTargets()
+    Metka[] UpdateTargets()
     {
-        metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
+     return   metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
     }
     //Пробуждение кода
     //Приметивный интерфейс
@@ -932,16 +937,23 @@ public class mover : CustomSaveObject
     {
 
 
-        if (metka.Length == 0) metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
-     
-        if (metka.Length != 0) for (int i = 0; i < metka.Length; i++)
-        {
 
-            Vector3 t = Globalprefs.camera.WorldToViewportPoint(metka[i].transform.position);
-            if (t.z > 0)
+
+
+        if (metka.Length != 0)
+        {
+            for (int i = 0; i < metka.Length; i++)
             {
-                Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
-                GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), metka[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
+
+                if (metka[i] != null)
+                {
+                    Vector3 t = Globalprefs.camera.WorldToViewportPoint(metka[i].transform.position);
+                    if (t.z > 0)
+                    {
+                        Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
+                        GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), metka[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
+                    }
+                }
             }
         }
         if (Input.GetKey(KeyCode.Mouse1))
@@ -1075,9 +1087,11 @@ public class mover : CustomSaveObject
         }
         if (VarSave.ExistenceGlobalVar("mus"))
         {
-            for (int i = 0; i < GameObject.FindGameObjectsWithTag("game musig").Length; i++)
+            GameObject[] g = GameObject.FindGameObjectsWithTag("game musig");
+
+            for (int i = 0; i < g.Length; i++)
             {
-                GameObject.FindGameObjectsWithTag("game musig")[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
+                g[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
             }
         }
         complsave.getallMorfs();
@@ -1090,6 +1104,7 @@ public class mover : CustomSaveObject
        
     }
         float timer10;
+    GenTest ingen;
     public void load()
     {
         TimeLoad(0.1f);
@@ -1123,9 +1138,9 @@ public class mover : CustomSaveObject
                         hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                    if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                    if (lt.Length != 0)
                     {
-                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
+                       lt[0].GetComponent<Camera>().fieldOfView = save.vive;
                     }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -1141,7 +1156,7 @@ public class mover : CustomSaveObject
 
                 }
 
-                if (FindFirstObjectByType<GenTest>()) FindFirstObjectByType<GenTest>().load_planet();
+                if (ingen) FindFirstObjectByType<GenTest>().load_planet(); else { ingen = FindFirstObjectByType<GenTest>();}
             }
         }
         else
@@ -1173,9 +1188,9 @@ public class mover : CustomSaveObject
                     }
                     PlayerCamera.transform.rotation = save.q2;
                     PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
-                    if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                    if (lt.Length != 0)
                     {
-                        FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = save.vive;
+                       lt[0].GetComponent<Camera>().fieldOfView = save.vive;
                     }
                     WorldSave.GetVector4("var"); WorldSave.GetVector3("var1");
                     WorldSave.GetMusic(SceneManager.GetActiveScene().name);
@@ -1245,9 +1260,9 @@ public class mover : CustomSaveObject
                             hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
                         }
                         PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
-                        if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+                        if (lt.Length != 0)
                         {
-                            FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = tsave.vive;
+                           lt[0].GetComponent<Camera>().fieldOfView = tsave.vive;
                         }
                         File.Delete(di.GetFiles()[di.GetFiles().Length - 1].FullName);
                     }
@@ -1429,7 +1444,7 @@ public class mover : CustomSaveObject
         }
 
 
-        if (FindObjectsByType<RaymarchCam>(sortmode.main).Length != 0)
+        if (mover.Get4DCam())
         {
             RaymarchCam ra = FindFirstObjectByType<RaymarchCam>();
             ra._wPosition = W_position;
@@ -1526,22 +1541,24 @@ public class mover : CustomSaveObject
         
         if (Xray)
         {
-            for (int i = 0; i < GameObject.FindObjectsByType<MeshRenderer>(sortmode.main).Length; i++)
+            MeshRenderer[] mr = FindObjectsByType<MeshRenderer>(sortmode.main);
+            for (int i = 0; i < mr.Length; i++)
             {
-                GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].enabled = true;
-                GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].material = Resources.Load<Material>("mats/xray");
-                if (GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].gameObject.GetComponent<BoxCollider>())
+                mr[i].enabled = true;
+                mr[i].material = Resources.Load<Material>("mats/xray");
+                if (mr[i].gameObject.GetComponent<BoxCollider>())
                 {
-                    if (GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].gameObject.GetComponent<BoxCollider>().isTrigger == true)
+                    if (mr[i].gameObject.GetComponent<BoxCollider>().isTrigger == true)
                     {
-                        GameObject.FindObjectsByType<MeshRenderer>(sortmode.main)[i].material = Resources.Load<Material>("mats/xray3");
+                        mr[i].material = Resources.Load<Material>("mats/xray3");
                     }
                 }
             }
-            for (int i = 0; i < GameObject.FindObjectsByType<SkinnedMeshRenderer>(sortmode.main).Length; i++)
+            SkinnedMeshRenderer[] mr2 = FindObjectsByType<SkinnedMeshRenderer>(sortmode.main);
+            for (int i = 0; i < mr2.Length; i++)
             {
-                GameObject.FindObjectsByType<SkinnedMeshRenderer>(sortmode.main)[i].enabled = true;
-                GameObject.FindObjectsByType<SkinnedMeshRenderer>(sortmode.main)[i].material = Resources.Load<Material>("mats/xray2");
+                mr[i].enabled = true;
+                mr[i].material = Resources.Load<Material>("mats/xray2");
             }
 
         }
@@ -1566,6 +1583,7 @@ public class mover : CustomSaveObject
     int indexpos;
     void Update()
     {
+        metka = UpdateTargets();
         E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);
         cc = new List<Vector3>();
        
@@ -1600,7 +1618,7 @@ public class mover : CustomSaveObject
         }
         if (N_position.Count > 3)
         {
-            if (N_position[3] > 9.9f && N_position[7] < 10.9f && !SuperMind)
+            if (N_position[3] > 9.9f && N_position[3] < 10.9f && !SuperMind)
             {
 
                 Instantiate(Resources.Load<GameObject>("events/Зона"));
@@ -1668,15 +1686,18 @@ public class mover : CustomSaveObject
 
 
         if (!Globalprefs.Pause) TridFace();
-        if (GameObject.FindGameObjectsWithTag("oxy").Length != 0)
+        GameObject[] oxy = GameObject.FindGameObjectsWithTag("oxy");
+        if (oxy.Length != 0)
         {
-            GameObject.FindGameObjectWithTag("oxy").GetComponent<Image>().fillAmount = oxygen / 20;
+            oxy[0].GetComponent<Image>().fillAmount = oxygen / 20;
         }
         if (InWater == true)
         {
-            if (!GameObject.FindGameObjectWithTag("oxy"))
+            if (oxy.Length != 0)
             {
-                Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
+               
+                    Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
+                
             }
             oxygen -= Time.deltaTime;
         }
@@ -1687,15 +1708,16 @@ public class mover : CustomSaveObject
         }
         if (InWater == false && oxygen >= 5 && oxygen <= 20)
         {
-            if (GameObject.FindGameObjectWithTag("oxy"))
+            if (oxy.Length != 0)
             {
-                Destroy(GameObject.FindWithTag("oxy"));
+                Destroy(oxy[0]);
             }
             oxygen += Time.deltaTime * 2;
         }
-        if (VarSave.GetBool("partic") && 0 <= GameObject.FindObjectsByType<ParticleSystem>(sortmode.main).Length - 1)
+        ParticleSystem[] ps = GameObject.FindObjectsByType<ParticleSystem>(sortmode.main);
+        if (VarSave.GetBool("partic") && ps.Length > 0)
         {
-            DestroyImmediate(GameObject.FindObjectsByType<ParticleSystem>(sortmode.main)[0].gameObject);
+            DestroyImmediate(ps[0].gameObject);
         }
         tic += Time.deltaTime;
         if (!Globalprefs.Pause) HpUpdate();
@@ -1708,9 +1730,9 @@ public class mover : CustomSaveObject
 
         //"unsave/capter/"+ifd.text
         //Mouse ScrollWheel
-        if (FindObjectsByType<Logic_tag_3>(sortmode.main).Length != 0)
+        if (lt.Length != 0)
         {
-            FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
+           lt[0].GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
      if (!Globalprefs.LockRotate)   PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
         save.angularvelosyty = rigidbody3d.angularVelocity;
@@ -2244,28 +2266,39 @@ public class mover : CustomSaveObject
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         }
-        if (hp <= 20 && !GameObject.FindWithTag("blood"))
+
+        GameObject g = GameObject.FindWithTag("blood");
+        if (hp >= 20 && g)
+        {
+            Destroy(g);
+        }
+
+
+        if (hp <= 20 && !g)
         {
             Instantiate(Resources.Load<GameObject>("ui/damage/blood").gameObject, transform.position, Quaternion.identity);
         }
-        if (hp >= 20 && GameObject.FindWithTag("blood"))
+
+
+        GameObject g2 = GameObject.FindWithTag("oxy");
+
+
+        if (oxygen >= 5 && g2)
         {
-            Destroy(GameObject.FindWithTag("blood"));
+            Destroy(g2);
         }
-        if (oxygen <= 5 && !GameObject.FindWithTag("blood1"))
+        if (oxygen <= 5 && !g2)
         {
             Instantiate(Resources.Load<GameObject>("ui/damage/blood1").gameObject, transform.position, Quaternion.identity);
         }
-        if (oxygen >= 5 && GameObject.FindWithTag("blood1"))
-        {
-            Destroy(GameObject.FindWithTag("blood1"));
-        }
+
         if (tic >= time && hp < 200 + maxhp + maxhp2)
         {
             hp += 1 + hpregen + regen;
             tic = 0;
 
         }
+
     }
 
     private void Inputnravix()
@@ -2277,7 +2310,8 @@ public class mover : CustomSaveObject
         }
         if (Input.GetKey("1") && Input.GetKeyDown(KeyCode.Mouse0))
         {
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag("PaintPoint"))
+            GameObject[] pp = GameObject.FindGameObjectsWithTag("PaintPoint");
+            foreach (GameObject g in pp)
             {
                 g.AddComponent<deleter1>();
             }
@@ -2331,7 +2365,7 @@ public class mover : CustomSaveObject
             }
         }
     }
-
+    GameObject t;
     private void TridFace()
     {
         if (faceViewi == faceView.first)
@@ -2341,8 +2375,11 @@ public class mover : CustomSaveObject
         }
         if (faceViewi == faceView.trid)
         {
-            
-           GameObject t = FindFirstObjectByType<PhotoCapture>().gameObject;
+
+            if (t == null)
+            {
+                t = FindFirstObjectByType<PhotoCapture>().gameObject;
+            }
 
             SkinManager(); if (playerdata.Geteffect("KsenoMorfin") == null)
             {
@@ -2383,7 +2420,10 @@ public class mover : CustomSaveObject
         if (faceViewi == faceView.fourd)
         {
             SkinManager();
-            GameObject t = PhotoCapture.FindFirstObjectByType<PhotoCapture>().gameObject;
+            if (t == null)
+            {
+                t = FindFirstObjectByType<PhotoCapture>().gameObject;
+            }
             if (t.GetComponent<FreeCam>())
             {
 
@@ -2395,7 +2435,10 @@ public class mover : CustomSaveObject
         }
         else
         {
-            GameObject t = PhotoCapture.FindFirstObjectByType<PhotoCapture>().gameObject;
+            if (t == null)
+            {
+                t = FindFirstObjectByType<PhotoCapture>().gameObject;
+            }
             if (t.GetComponent<FreeCam>())
             {
                 Destroy(t.GetComponent<FreeCam>());
@@ -2405,7 +2448,8 @@ public class mover : CustomSaveObject
 
     private void SkinOff()
     {
-        foreach (Logic_tag_Skin i in FindObjectsByType<Logic_tag_Skin>(sortmode.main))
+        Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
+        foreach (Logic_tag_Skin i in ls)
         {
             i.gameObject.layer = 8;
         }
@@ -2449,7 +2493,8 @@ public class mover : CustomSaveObject
 
     private void SkinManager()
     {
-        foreach (Logic_tag_Skin i in FindObjectsByType<Logic_tag_Skin>(sortmode.main))
+        Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
+        foreach (Logic_tag_Skin i in ls)
         {
             if (playerdata.Geteffect("KsenoMorfin") == null)
             {
@@ -2504,6 +2549,7 @@ public class mover : CustomSaveObject
     bool big;
     bool _n1fps;
     bool soveVision;
+    Vector3 uniepos;
     private void EffectUpdate()
     {
         // playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
@@ -2616,6 +2662,17 @@ public class mover : CustomSaveObject
             axelerate += 2;
 
             //playermatinvisible
+        }
+        if (playerdata.Geteffect("█_█__██") != null)
+        {
+            RaycastHit hit = MainRay.MainHit;
+            if(hit.point.ToString()!= uniepos.ToString())
+            {
+                rigidbody3d.mass = UnityEngine.Random.Range(0, 400);
+                rigidbody3d.drag = UnityEngine.Random.Range(0, 400);
+                rigidbody3d.velocity += Global.math.randomCube(-1, 1);
+                uniepos = hit.point;
+            }
         }
         if (playerdata.Geteffect("Vampaire") != null)
         {
@@ -2840,9 +2897,14 @@ public class mover : CustomSaveObject
       //  GameManager.GetUF();
     }
     int meat;
+  static public  mover Instance;
     public static mover main()
     {
-      return  FindFirstObjectByType<mover>();
+        if (Instance == null)
+        {
+            Instance = FindFirstObjectByType<mover>();
+        }
+        return Instance;
     }
     float timer9;
     public void TimeSave()
@@ -2906,10 +2968,10 @@ public class mover : CustomSaveObject
         {
 
 
-            if (GameObject.Find("w2"))
-            {
-                GameObject.Find("w2").GetComponent<pos4>().save();
-            }
+         //   if (GameObject.Find("w2"))
+         //   {
+              //  GameObject.Find("w2").GetComponent<pos4>().save();
+         //   }
             save.angularvelosyty = rigidbody3d.angularVelocity;
             save.velosyty = rigidbody3d.velocity;
             save.q1 = PlayerBody.transform.rotation;
@@ -2947,10 +3009,10 @@ public class mover : CustomSaveObject
         }
         else
         {
-            if (GameObject.Find("w2"))
-            {
-                GameObject.Find("w2").GetComponent<pos4>().save();
-            }
+         //   if (GameObject.Find("w2"))
+         //   {
+            //    GameObject.Find("w2").GetComponent<pos4>().save();
+         //   }
             save.angularvelosyty = rigidbody3d.angularVelocity;
             save.velosyty = rigidbody3d.velocity;
             save.q1 = PlayerBody.transform.rotation;

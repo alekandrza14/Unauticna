@@ -15,6 +15,7 @@ public static class Globalprefs
     public static Vector3 WMovepos;
     public static bool RaymarchHitError;
     public static bool Scrensoting;
+    public static bool RadarOn;
     public static bool Iteract;
     public static GameObject socksObj;
     public static Collider[] allTransphorms;

@@ -29,7 +29,7 @@ public class planet_and_retranslator : MonoBehaviour
             Destroy(gameObject);
         }
         namePlanet = GetNamePlanet((int)Hash2);
-        LaiblePlanet.text = namePlanet;
+     if (LaiblePlanet)   LaiblePlanet.text = namePlanet;
     }
     string GetNamePlanet(int Hash)
     {

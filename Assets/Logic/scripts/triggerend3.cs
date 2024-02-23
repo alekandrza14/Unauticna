@@ -10,9 +10,5 @@ public class triggerend3 : MonoBehaviour
         VarSave.SetBool("spamton_ending",true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

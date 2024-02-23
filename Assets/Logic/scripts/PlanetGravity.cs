@@ -9,6 +9,15 @@ public class PlanetGravity : MonoBehaviour
     public float gravity = -9;
     public bool inverse;
     public Transform body;
+    public static PlanetGravity Instance;
+    public static PlanetGravity main()
+    {
+        if (Instance == null)
+        {
+            Instance = FindFirstObjectByType<PlanetGravity>();
+        }
+        return Instance;
+    }
     private void Update()
     {
         Arract();

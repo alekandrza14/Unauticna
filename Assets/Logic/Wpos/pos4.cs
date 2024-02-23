@@ -10,28 +10,28 @@ public class pos4 : MonoBehaviour
     void Start()
     {
 
+        w = 0 >= mover.main().W_position;
 
         GetComponent<Animator>().SetBool("inits", false);
 
-        w = 0 >= mover.main().W_position;
-        
-            if (w && gameObject.name == "w1")
-            {
-                GetComponent<Animator>().SetTrigger("exit");
-            }
-            if (!w && gameObject.name == "w1")
-            {
-                GetComponent<Animator>().SetTrigger("enter");
-            }
-            if (!w && gameObject.name == "w2")
-            {
-                GetComponent<Animator>().SetTrigger("exit");
-            }
-            if (w && gameObject.name == "w2")
-            {
-                GetComponent<Animator>().SetTrigger("enter");
-            }
-        
+
+        if (w && gameObject.name == "w1")
+        {
+            GetComponent<Animator>().SetTrigger("exit");
+        }
+        if (!w && gameObject.name == "w1")
+        {
+            GetComponent<Animator>().SetTrigger("enter");
+        }
+        if (!w && gameObject.name == "w2")
+        {
+            GetComponent<Animator>().SetTrigger("exit");
+        }
+        if (w && gameObject.name == "w2")
+        {
+            GetComponent<Animator>().SetTrigger("enter");
+        }
+
 
         GetComponent<Animator>().SetBool("transf", w);
     }
@@ -71,37 +71,9 @@ public class pos4 : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-
-
-            if (gameObject.name == "w2")
-            {
-
-                VarSave.SetBool(SceneManager.GetActiveScene().name, w,SaveType.world);
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-
-
-            GetComponent<Animator>().SetBool("inits", true);
-
-            w = VarSave.GetBool(SceneManager.GetActiveScene().name, SaveType.world);
-
-
-            GetComponent<Animator>().SetBool("transf", w);
-
-        }
 
     }
-    public void save()
-    {
-        if (gameObject.name == "w2")
-            {
 
-                VarSave.SetBool(SceneManager.GetActiveScene().name, w, SaveType.world);
-            }
-    }
+
+  
 }

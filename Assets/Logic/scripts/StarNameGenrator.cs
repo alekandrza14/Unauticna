@@ -118,9 +118,5 @@ public class StarNameGenrator : MonoBehaviour
         }
         return new_word;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

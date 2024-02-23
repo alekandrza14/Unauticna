@@ -383,7 +383,7 @@ public class GameManager : MonoBehaviour
     static public void fall(GameObject other)
     {
 
-       
+       if(other!=null) mover.main().transform.position = new Vector3(mover.main().transform.position.x,other.transform.position.y, mover.main().transform.position.z);
 
 
     }

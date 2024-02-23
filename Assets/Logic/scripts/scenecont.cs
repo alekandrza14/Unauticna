@@ -11,13 +11,7 @@ public class scenecont : MonoBehaviour
     public float time;
     public GameObject Object1;
     public GameObject[] Object2;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (command == 1)

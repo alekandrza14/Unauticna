@@ -17,9 +17,5 @@ public class PlanetSystemManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

@@ -12,9 +12,9 @@ public class vectorss
 
 public class getind : MonoBehaviour
 {
-    GameObject[] g;
-    void Start()
-    {
+  //  GameObject[] g;
+  //  void Start()
+ //   {
         /*
         g = new GameObject[FindObjectsOfType<ind>().Length];
         for (int i = 0; i < FindObjectsOfType<ind>().Length; i++)
@@ -40,14 +40,14 @@ public class getind : MonoBehaviour
             }
         }
         */
-    }
-    private void Update()
-    {
+  //  }
+  //  private void Update()
+  //  {
       //  if (Input.GetKeyDown(KeyCode.F1))
       //  {
       //      save();
       //  }
-    }
+  //  }
     /*
     public void load()
     {

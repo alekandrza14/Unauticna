@@ -139,10 +139,6 @@ namespace Surface4D
             gameObject.GetComponent<MeshFilter>().mesh = mesh;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+      
     }
 }

@@ -32,9 +32,5 @@ public class Generator3DSpace : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-      
-    }
+  
 }

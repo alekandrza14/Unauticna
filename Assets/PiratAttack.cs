@@ -17,7 +17,7 @@ public class PiratAttack : MonoBehaviour
     void Start()
     {
         VarSave.SetString("Player_On_Pirat_Attack", "Please don't destroy this file be a man");
-        Instantiate(piratSheap, mover.main().transform.position + randomCube(500,500)+(Vector3.up*500), Quaternion.identity);
+        Instantiate(piratSheap, mover.main().transform.position + randomCube(-500,500)+(Vector3.up*500), Quaternion.identity);
         if (UnityEngine.Random.Range(0, 5) == 1)
         {
             timer2 = 7 * 60;
@@ -32,7 +32,7 @@ public class PiratAttack : MonoBehaviour
         txt.text = "бей или беги " + (int)(  timer3 / 60) + " : " + (int)(  timer3 % 60);
         if (timer >= 12)
         {
-            Instantiate(pirat,mover.main().transform.position + randomCube(100, 100), Quaternion.identity);
+            Instantiate(pirat,mover.main().transform.position + randomCube(-100, 100), Quaternion.identity);
             timer = 0;
         }
         if (timer2 >= 8 * 60)

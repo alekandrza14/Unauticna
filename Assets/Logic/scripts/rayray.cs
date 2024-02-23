@@ -8,10 +8,7 @@ public class rayray : MonoBehaviour
     public Quaternion q;
     public Quaternion q2;
     public Transform t;
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void Update()

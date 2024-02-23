@@ -1,30 +1,31 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [System.Serializable]
 public class Hyperbolic2D
 {
     //A parametrisation SU2 that preserves hyperbolic space.
     //Starts with rotation of n rad, translation in z of s, and a rotation of m;
-    public float n;
-    public float s;
-    public float m;
+    public double n;
+    public double s;
+    public double m;
     
-    public static float cosh(float x)
+    public static double cosh(double x)
     {// formula for hyperbolic Mathf.Cosine
-        return (Mathf.Exp(x) + Mathf.Exp(-x)) / 2f;
+        return (Math.Exp(x) + Math.Exp(-x)) / 2f;
     }
-    public static float arcosh(float a)
+    public static double arcosh(double a)
     {// inverse of hyperbolic Mathf.Cosine
-        return Mathf.Log(a + Mathf.Sqrt(a * a - 1));
+        return Math.Log(a + Math.Sqrt(a * a - 1));
     }
-    public static float sinh(float x)
+    public static double sinh(double x)
     {// formula for hyperbolic sine
-        return (Mathf.Exp(x) - Mathf.Exp(-x)) / 2f;
+        return (Math.Exp(x) - Math.Exp(-x)) / 2f;
     }
     public  Hyperbolic2D()
     {
     }
-    public Hyperbolic2D(float dN, float dS, float dM)
+    public Hyperbolic2D(double dN, double dS, double dM)
     {
         n = dN; s = dS; m = dM;
     }
@@ -35,25 +36,25 @@ public class Hyperbolic2D
         startTransform.apply(MathHyper.RotationMatrix(m));
         return startTransform;
     }
-    public  void applyTranslationZ(float l)
+    public  void applyTranslationZ(double l)
     {
-        float N = Mathf.Atan2((cos(n) * sin(m) + cos(m) * sin(n) * cosh(s)) * sinh(l) + sin(n) * sinh(s) * cosh(l), ((cos(m) * cos(n) * cosh(s) - sin(m) * sin(n)) * sinh(l) + cos(n) * cosh(l) * sinh(s)));
-        float S = arcosh(cosh(l) * cosh(s) + cos(m) * sinh(l) * sinh(s));
-        float M = Mathf.Atan2((sin(m) * sinh(s)), (cosh(s) * sinh(l) + cosh(l) * sinh(s) * cos(m)));
+        double N = Math.Atan2((cos(n) * sin(m) + cos(m) * sin(n) * cosh(s)) * sinh(l) + sin(n) * sinh(s) * cosh(l), ((cos(m) * cos(n) * cosh(s) - sin(m) * sin(n)) * sinh(l) + cos(n) * cosh(l) * sinh(s)));
+        double S = arcosh(cosh(l) * cosh(s) + cos(m) * sinh(l) * sinh(s));
+        double M = Math.Atan2((sin(m) * sinh(s)), (cosh(s) * sinh(l) + cosh(l) * sinh(s) * cos(m)));
         n = N;
         s = S;
         m = M;
     }
-    public  void applyTranslationY(float l)
+    public  void applyTranslationY(double l)
     {
-        float N = Mathf.Atan2((cos(m) * cos(n) - cosh(s) * sin(m) * sin(n)) * sinh(l) + cosh(l) * sinh(s) * sin(n), (-cos(n) * cosh(s) * sin(m) - cos(m) * sin(n)) * sinh(l) + cosh(l) * sinh(s) * cos(n));
-        float S = arcosh(cosh(l) * cosh(s) + sin(m) * sinh(l) * sinh(s));
-        float M = Mathf.Atan2(-(cosh(s) * sinh(l) + cosh(l) * sinh(s) * sin(m)), (cos(m) * sinh(s)));
+        double N = Math.Atan2((cos(m) * cos(n) - cosh(s) * sin(m) * sin(n)) * sinh(l) + cosh(l) * sinh(s) * sin(n), (-cos(n) * cosh(s) * sin(m) - cos(m) * sin(n)) * sinh(l) + cosh(l) * sinh(s) * cos(n));
+        double S = arcosh(cosh(l) * cosh(s) + sin(m) * sinh(l) * sinh(s));
+        double M = Math.Atan2(-(cosh(s) * sinh(l) + cosh(l) * sinh(s) * sin(m)), (cos(m) * sinh(s)));
         n = N;
         s = S;
         m = M;
     }
-    public  void applyRotation(float a)
+    public  void applyRotation(double a)
     {
          m = m + a;
     }
@@ -63,26 +64,26 @@ public class Hyperbolic2D
         applyTranslationZ(pt.s);
         applyRotation(pt.m);
     }
-    public  void preApplyTranslationY(float l)
+    public  void preApplyTranslationY(double l)
     {
-        float N = Mathf.Atan2(sin(n) * sinh(s), cosh(s) * sinh(l) + cos(n) * cosh(l) * sinh(s));
-        float S = arcosh(cosh(l) * cosh(s) + cos(n) * sinh(l) * sinh(s));
-        float M = Mathf.Atan2(cos(m) * sin(n) * sinh(l) + sin(m) * (cos(n) * sinh(l) * cosh(s) + cosh(l) * sinh(s)), cos(m) * (cos(n) * cosh(s) * sinh(l) + cosh(l) * sinh(s)) - sin(m) * sin(n) * sinh(l));
+        double N = Math.Atan2(sin(n) * sinh(s), cosh(s) * sinh(l) + cos(n) * cosh(l) * sinh(s));
+        double S = arcosh(cosh(l) * cosh(s) + cos(n) * sinh(l) * sinh(s));
+        double M = Math.Atan2(cos(m) * sin(n) * sinh(l) + sin(m) * (cos(n) * sinh(l) * cosh(s) + cosh(l) * sinh(s)), cos(m) * (cos(n) * cosh(s) * sinh(l) + cosh(l) * sinh(s)) - sin(m) * sin(n) * sinh(l));
 
         n = N;
         s = S;
         m = M;
     }
-    public  void preApplyTranslationZ(float l)
+    public  void preApplyTranslationZ(double l)
     {
-        float N = Mathf.Atan2(cosh(s) * sinh(l) + cosh(l) * sinh(s) * sin(n), cos(n) * sinh(s));
-        float S = arcosh(cosh(l) * cosh(s) + sin(n) * sinh(l) * sinh(s));
-        float M = Mathf.Atan2(-cos(m) * cos(n) * sinh(l) + sin(m) * (cosh(s) * sinh(l) * sin(n) + cosh(l) * sinh(s)), cos(n) * sin(m) * sinh(l) + cos(m) * (cosh(s) * sinh(l) * sin(n) + cosh(l) * sinh(s)));
+        double N = Math.Atan2(cosh(s) * sinh(l) + cosh(l) * sinh(s) * sin(n), cos(n) * sinh(s));
+        double S = arcosh(cosh(l) * cosh(s) + sin(n) * sinh(l) * sinh(s));
+        double M = Math.Atan2(-cos(m) * cos(n) * sinh(l) + sin(m) * (cosh(s) * sinh(l) * sin(n) + cosh(l) * sinh(s)), cos(n) * sin(m) * sinh(l) + cos(m) * (cosh(s) * sinh(l) * sin(n) + cosh(l) * sinh(s)));
         n = N;
         s = S;
         m = M;
     }
-    public  void preApplyRotation(float a)
+    public  void preApplyRotation(double a)
     {
         n += a;
     }
@@ -93,30 +94,30 @@ public class Hyperbolic2D
         preApplyRotation(pt.n);
     }
 
-    static private float max(float a, float b)
+    static private double max(double a, double b)
     {
         return (a > b) ? a : b;
     }
 
-    static private float abs(float a)
+    static private double abs(double a)
     {
         return (a < 0) ? -a : a;
     }
 
-    static public float sin(float angle)
+    static public double sin(double angle)
     {
-        return (float)Mathf.Sin(angle);
+        return (double)Math.Sin(angle);
     }
 
-    static public float cos(float angle)
+    static public double cos(double angle)
     {
-        return (float)Mathf.Cos(angle);
+        return (double)Math.Cos(angle);
     }
     public Hyperbolic2D inverse()
     {
         return new Hyperbolic2D(-m, -s, -n);
     }
-    public  float distanceTo(Hyperbolic2D p)
+    public double distanceTo(Hyperbolic2D p)
     {
         Hyperbolic2D c = copy();
         c.applyPolarTransform(p.inverse());

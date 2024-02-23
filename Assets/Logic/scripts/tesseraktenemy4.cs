@@ -15,17 +15,7 @@ public class tesseraktenemy4 : MonoBehaviour
     public float rotation_speed = 100;
     public Transform enemy;
     public bool tes;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    private void OnCollisionStay(Collision c)
-    {
-        
-        
-    }
-
+ 
     // Update is called once per frame
     void Update()
     {

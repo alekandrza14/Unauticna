@@ -55,6 +55,7 @@ public class boxItem : InventoryEvent
             getInventory("i3").moweitem(null);
         }
     }
+
     static public RandomItem getInventory(string inv)
     {
         GameObject[] s = GameObject.FindGameObjectsWithTag(inv);

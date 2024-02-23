@@ -8,11 +8,7 @@ public class KomplexPosition : MonoBehaviour
     [SerializeField] public double[] ImVector3 = new double[4];
     [SerializeField] static double[] ImVector3Global = new double[4];
     Vector3 Projection;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
     public void HyperbolicKomplexPosition()
     {
         Projection.x = (float)(math.sin((ImVector3[0] - (ImVector3Global[0]) / math.cosh(ImVector3[1] - (ImVector3Global[1])))));
