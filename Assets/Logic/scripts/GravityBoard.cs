@@ -17,7 +17,7 @@ public class GravityBoard : MonoBehaviour
         camera = HyperbolicCamera.Main();
     }
 
-    void Update()
+    void LateUpdate()
     {
         
             canvas.enabled = sitplayer;

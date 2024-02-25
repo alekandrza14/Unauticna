@@ -2300,10 +2300,14 @@ public class mover : CustomSaveObject
         }
 
     }
-
+    GameObject mats;
     private void Inputnravix()
     {
-
+        if (Input.GetKeyDown("5"))
+        {
+          if(mats == null)  mats = Instantiate(Resources.Load<GameObject>("ui/mats/mats").gameObject, transform.position, Quaternion.identity);
+          else  if (mats != null) Destroy(mats);
+        }
         if (Input.GetKeyDown("1"))
         {
             Instantiate(Resources.Load<GameObject>("Primetives/E2/PowerMetka").gameObject, transform.position, Quaternion.identity);
@@ -2391,29 +2395,31 @@ public class mover : CustomSaveObject
             }
             Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
+            float distcam = 0;
+            if (Globalprefs.sit_player) distcam = 5; else distcam = 0;
             if (UnityEngine.Physics.Raycast(r, out hit1))
             {
                 if (hit1.collider != null)
                 {
-                    if (hit1.distance < 6)
+                    if (hit1.distance < 6+ distcam)
                     {
 
                         PlayerCamera.transform.position = hit1.point;
                     }
-                    if (hit1.distance > 6)
+                    if (hit1.distance > 6 + distcam)
                     {
 
-                        PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (6 + distcam);
                     }
                 }
                 else
                 {
-                    PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
+                    PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (6 + distcam);
                 }
             }
             else
             {
-                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * 6;
+                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (6 + distcam);
             }
 
         }
