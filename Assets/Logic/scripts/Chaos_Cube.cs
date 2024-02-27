@@ -11,12 +11,22 @@ public class Chaos_cube : MonoBehaviour
     GameObject[] items;
     GameObject[] Obj;
     [SerializeField] bool ultra;
+    [SerializeField] bool _double;
+    [SerializeField] bool _quadle;
     bool omega;
     bool init;
     [SerializeField] bool Recurse;
     private void Start()
     {
         float Chance = 100 / (VarSave.GetFloat("ChanceChaosCubeDeath" + "_gameSettings", SaveType.global) * 100f);
+        if (!init && VarSave.LoadFloat("luck", 0f) > 2)
+        {
+            _double = true;
+        }
+        if (!init && VarSave.LoadFloat("luck", 0f) > 6)
+        {
+            _quadle = true;
+        }
         if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0 && !init)
         {
             ultra = true;
@@ -56,6 +66,7 @@ public class Chaos_cube : MonoBehaviour
 
     public static void ChaosFunction(Chaos_cube self)
     {
+        VarSave.LoadFloat("luck",0.1f);
         if (UnityEngine.Random.Range(0, 30) == 1)
         {
             GameObject[] res = Resources.LoadAll<GameObject>("events");
@@ -77,6 +88,19 @@ public class Chaos_cube : MonoBehaviour
             {
                 Rand(self);
             }
+        }
+        if (self._quadle)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                Rand(self);
+            }
+        }
+        if (self._double)
+        {
+            
+                Rand(self);
+            
         }
         if (self.ultra && self.omega)
         {

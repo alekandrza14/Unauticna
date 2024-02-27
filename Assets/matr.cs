@@ -19,6 +19,11 @@ public class matr : MonoBehaviour
             Invoke(function,2.5f);
         }
     }
+    IEnumerator end()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
+    }
     public void нту()
     {
         RaycastHit hit = MainRay.MainHit; if (hit.collider != null)
@@ -32,7 +37,7 @@ public class matr : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
             cistalenemy.dies += 1;
-            if (true) Destroy(gameObject);
+            if (true) StartCoroutine(end());
         }
     }
     public void fash()
@@ -49,8 +54,47 @@ public class matr : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
-                if (true) Destroy(gameObject);
+                if (true) StartCoroutine(end());
             }
+        }
+    }
+    public void пок()
+    {
+
+        RaycastHit hit = MainRay.MainHit;
+        if (hit.collider != null)
+        {
+            hit.collider.gameObject.AddComponent<cfc>().cursevelosity = mover.main().PlayerCamera.transform.forward;
+            if (true) StartCoroutine(end());
+
+        }
+    }
+    //poverfull
+    public void poverfull()
+    {
+
+        RaycastHit hit = MainRay.MainHit;
+        if (hit.collider != null)
+        {
+
+            Instantiate(Resources.Load<GameObject>("items/Учебник_по_Всемогуществу"), hit.point, Quaternion.identity);
+
+            if (true) StartCoroutine(end());
+
+        }
+    }
+    public void карате()
+    {
+
+        RaycastHit hit = MainRay.MainHit;
+        if (hit.collider != null)
+        {
+            hit.collider.gameObject.AddComponent<MeshDestroy>().CutCascades = 12;
+            hit.collider.gameObject.GetComponent<MeshDestroy>().ExplodeForce = 500;
+            hit.collider.gameObject.GetComponent<MeshDestroy>().Invoke("DestroyMesh", 0);
+
+            if (true) StartCoroutine(end());
+
         }
     }
     public void more()
@@ -62,7 +106,7 @@ public class matr : MonoBehaviour
             GameObject obj = Instantiate(hit.collider.gameObject, hit.point, Quaternion.identity);
             obj.name = obj.name.Remove(obj.name.Length - 7);
 
-            if (true) Destroy(gameObject);
+            if (true) StartCoroutine(end());
 
         }
     }
@@ -80,7 +124,7 @@ public class matr : MonoBehaviour
                 {
                     item.enabled = false;
                 }
-                if (true) Destroy(gameObject);
+                if (true) StartCoroutine(end());
             }
 
         }
@@ -105,7 +149,7 @@ public class matr : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
-                if (true) Destroy(gameObject);
+                if (true) StartCoroutine(end());
             }
 
         }
@@ -141,7 +185,7 @@ public class matr : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
-                if (true) Destroy(gameObject);
+                if (true) StartCoroutine(end());
             }
 
         }
@@ -160,7 +204,7 @@ public class matr : MonoBehaviour
             if (hit.collider.GetComponent<CustomObject>()) Demake.co.Add(hit.collider.GetComponent<CustomObject>().s);
             VarSave.SetString("Demake" + Globalprefs.Reality, JsonUtility.ToJson(Demake));
 
-           if(true)  Destroy(gameObject);
+           if(true)  StartCoroutine(end());
         }
     }
     public void вм()
@@ -172,7 +216,7 @@ public class matr : MonoBehaviour
             
             VarSave.DeleteKey("Demake" + Globalprefs.Reality);
 
-        if (VarSave.GetString("Demake" + Globalprefs.Reality) == "") Destroy(gameObject);
+        if (VarSave.GetString("Demake" + Globalprefs.Reality) == "") StartCoroutine(end());
     }
     public void evr()
     {
@@ -184,7 +228,7 @@ public class matr : MonoBehaviour
                 if (Random.Range(0, 4) ==1)
                 {
                     VarSave.LoadMoney("tevro", 5);
-                    if (true) Destroy(gameObject);
+                    if (true) StartCoroutine(end());
                 }
             }
             if (hit.collider.GetComponent<CharacterName>())
@@ -192,7 +236,7 @@ public class matr : MonoBehaviour
                 if (Random.Range(0, 4) == 1)
                 {
                     VarSave.LoadMoney("tevro", 5);
-                    if (true) Destroy(gameObject);
+                    if (true) StartCoroutine(end());
                 }
             }
             if (hit.collider.GetComponent<itemName>())
@@ -202,7 +246,7 @@ public class matr : MonoBehaviour
                     if (Random.Range(0, 4) == 1)
                     {
                         VarSave.LoadMoney("tevro", 5);
-                        if (true) Destroy(gameObject);
+                        if (true) StartCoroutine(end());
                     }
                 }
             }

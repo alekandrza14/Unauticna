@@ -509,12 +509,19 @@ MonoBehaviour:
   - {fileID: 2018021061276364413}
   - {fileID: 7648189434674589119}
   W_position: 0
+  H_position: 0
+  N_position:
+  - 0
+  cur_N_position: 0
   planet_position: 0
   SaveFileInputField: {fileID: 4972998650160504527}
   IsGraund: 0
+  InWater: 0
   watermask: {fileID: 0}
   hp: 200
   HeadCameraSetup: {fileID: 5872757370526376517}
+  nonnatureprogress: 0
+  fly: 0
   PlayersModelObjObjects:
   - {fileID: 4693040154836522348}
   - {fileID: 3495313894376155389}
@@ -530,6 +537,7 @@ MonoBehaviour:
   PlayerModelTags: 010000000000000000000000000000000000000000000000
   DebugMat: {fileID: 0}
   lif: 
+  HX_Rotation: 0
 --- !u!54 &4972998650662337214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -636,6 +644,7 @@ MonoBehaviour:
   - {fileID: 5549424503277960545}
   - {fileID: 5549424503487024317}
   - {fileID: 5549424504083119411}
+  playerSphericalModel: 0
 --- !u!95 &6504158516061183758
 Animator:
   serializedVersion: 7
@@ -894,11 +903,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4807112346077963775}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8832758996160688427, guid: 46f4f028df7979741a486527760079b1,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1259701996618378686}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46f4f028df7979741a486527760079b1, type: 3}
 --- !u!4 &4972998649946357824 stripped
 Transform:
@@ -918,24 +923,6 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 190856810705616582}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8661069422076186605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8832758996160688427, guid: 46f4f028df7979741a486527760079b1,
-    type: 3}
-  m_PrefabInstance: {fileID: 190856810705616582}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1259701996618378686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8661069422076186605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a08783435df9a964db669e5112d1c9dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3436360134951467203
 PrefabInstance:
   m_ObjectHideFlags: 0

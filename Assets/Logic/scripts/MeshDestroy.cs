@@ -52,7 +52,7 @@ public class MeshDestroy : MonoBehaviour
         }
     }
 
-        private void DestroyMesh()
+    void DestroyMesh()
     {
         var originalMesh = GetComponent<MeshFilter>().mesh;
         originalMesh.RecalculateBounds();

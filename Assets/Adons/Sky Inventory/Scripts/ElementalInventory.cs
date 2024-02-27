@@ -2206,6 +2206,7 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("DamageJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        //ЗельеМанны
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("YourJuice") != 0 && main() == this)
         {
 
@@ -2218,6 +2219,50 @@ public class ElementalInventory : MonoBehaviour {
 
 
             lowitem("YourJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Зелье(БуйнойУдачи)
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(БуйнойУдачи)") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+
+            VarSave.LoadFloat("luck", 10f);
+
+            lowitem("Зелье(БуйнойУдачи)", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Зелье(Удачи)
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(Удачи)") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+
+            VarSave.LoadFloat("luck", 0.1f);
+
+            lowitem("Зелье(Удачи)", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеМанны") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+
+            VarSave.LoadFloat("mana", 5);
+
+            lowitem("ЗельеМанны", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("УнивёрсиумнаяКарточка") != 0 && main() == this)

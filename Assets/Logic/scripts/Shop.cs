@@ -56,6 +56,30 @@ public class Shop : MonoBehaviour
                 prise *= 2.5m;
                 produkt[i].price = prise.ToString();
             }
+            if (VarSave.LoadFloat("luck", 0f) > 3 && Random.Range(0, 2) == 0)
+            {
+                decimal prise = decimal.Parse(produkt[i].price);
+                prise /= 1.5m;
+                produkt[i].price = prise.ToString();
+            }
+            if (VarSave.LoadFloat("luck", 0f) > 24 && Random.Range(0, 7) == 0)
+            {
+                decimal prise = decimal.Parse(produkt[i].price);
+                prise /= 4.5m;
+                produkt[i].price = prise.ToString();
+            }
+            if (VarSave.LoadFloat("luck", 0f) > 666 && Random.Range(0, 80) == 0)
+            {
+                decimal prise = decimal.Parse(produkt[i].price);
+                prise /= 400.5m;
+                produkt[i].price = prise.ToString();
+            }
+            if (VarSave.LoadFloat("luck", 0f) > 906 && Random.Range(0, 100) == 0)
+            {
+                decimal prise = decimal.Parse(produkt[i].price);
+                prise = 0m;
+                produkt[i].price = prise.ToString();
+            }
             //etProcentInflitiuon()
             decimal prise2 = decimal.Parse(produkt[i].price);
             prise2 *= Globalprefs.GetProcentInflitiuon()+1;

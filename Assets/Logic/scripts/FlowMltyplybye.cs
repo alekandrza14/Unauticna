@@ -8,11 +8,18 @@ public class FlowMltyplybye : MonoBehaviour
     [SerializeField] float Contribution;
     [SerializeField] string flowMltyply;
     [SerializeField] bool flowInvest;
+    decimal shorta;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro > 0 && !Globalprefs.bunkrot)
         {
 
+            if (VarSave.LoadFloat("luck", 0f) > 13 && UnityEngine.Random.Range(0, 3) == 0)
+            {
+                shorta += (decimal)VarSave.LoadFloat("luck", 0f)/13m;
+            }
+
+            
             RaycastHit hit = MainRay.MainHit;
             if (hit.collider != null)
             {
@@ -23,7 +30,7 @@ public class FlowMltyplybye : MonoBehaviour
                     coppy *= decimal.Parse(flowMltyply);
                     if (VarSave.GetMoney("tevro") >= (((decimal)Contribution * (coppy - coppy2)) * 400m) && !flowInvest)
                     {
-                        Globalprefs.flowteuvro = coppy;
+                        Globalprefs.flowteuvro = coppy * shorta;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (((decimal)Contribution * (coppy - coppy2)) * 400m));
                       
@@ -33,7 +40,7 @@ public class FlowMltyplybye : MonoBehaviour
                         Globalprefs.flowteuvro = coppy;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
                        
-                            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (coppy2 / 2) * 400m);
+                            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (coppy2 / 2) * 400m * shorta);
                        
                     }
 

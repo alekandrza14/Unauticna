@@ -27,9 +27,7 @@ public class gameInit : MonoBehaviour
         dnSpyModer.MainModData.Main();
 #endif
 
-        if (VarSave.ExistenceVar("res3", SaveType.global) && SceneManager.GetActiveScene().buildIndex != 129)
-            Screen.SetResolution(VarSave.GetInt("res3", SaveType.global), VarSave.GetInt("res4", SaveType.global), !VarSave.GetBool("windowed", SaveType.global));
-
+       
         if (init==null) {
             g.AddComponent<gameInit>();
             init = g;
@@ -45,6 +43,8 @@ public class gameInit : MonoBehaviour
 
     private void Update()
     {
+        if (VarSave.ExistenceVar("res3", SaveType.global) && SceneManager.GetActiveScene().buildIndex != 129)
+            Screen.SetResolution(VarSave.GetInt("res3", SaveType.global), VarSave.GetInt("res4", SaveType.global), !VarSave.GetBool("windowed", SaveType.global));
 
         if (Globalprefs.RadarOn) 
         { tag2dmap[] m2 = FindObjectsByType<tag2dmap>(sortmode.main);

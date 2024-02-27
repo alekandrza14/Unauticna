@@ -120,6 +120,13 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "поздравл€ю вы сдохли от : подени€";
             VarSave.SetBool("переломал кости и от правлен в больницу", false);
         }
+        //подавлен запрещЄным уровнем удачи
+        if (VarSave.GetBool("подавлен запрещЄным уровнем удачи"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "нравикс(вы) был подавлен запрещЄным уровнем удачи";
+            VarSave.SetBool("подавлен запрещЄным уровнем удачи", false);
+        }
         //"прикоснулс€ к анти материи"
         if (VarSave.GetBool("прикоснулс€ к анти материи"))
         {

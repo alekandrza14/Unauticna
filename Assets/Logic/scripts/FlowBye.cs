@@ -21,6 +21,7 @@ public class FlowBye : MonoBehaviour
             Globalprefs.GetIdPlanet().ToString();
     }
 
+    decimal shorta;
     void Update()
     {
         
@@ -30,12 +31,21 @@ public class FlowBye : MonoBehaviour
 
             RaycastHit hit = MainRay.MainHit;
 
+            if (VarSave.LoadFloat("luck", 0f) > 0.5 && UnityEngine.Random.Range(0, 7) == 0)
+            {
+                shorta += 1m;
+            }
+           
+            if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 1) == 0)
+            {
 
-                if (hit.collider != null)
+                shorta += 1m;
+            }
+            if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
                     {
-                        Globalprefs.flowteuvro += flow;
+                        Globalprefs.flowteuvro += flow+shorta;
                         Globalprefs.flowteuvro -= (decimal)(loan * Procent);
 
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
@@ -49,12 +59,21 @@ public class FlowBye : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename == "")
         {
             RaycastHit hit = MainRay.MainHit;
-           
-                if (hit.collider != null)
+            if (VarSave.LoadFloat("luck", 0f) > 0.5 && UnityEngine.Random.Range(0, 7) == 0)
+            {
+                shorta += 1m;
+            }
+
+            if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 1) == 0)
+            {
+
+                shorta += 1m;
+            }
+            if (hit.collider != null)
                 {
                     if (hit.collider.gameObject == gameObject)
                     {
-                        Globalprefs.flowteuvro += flow;
+                        Globalprefs.flowteuvro += flow + shorta;
                         Globalprefs.flowteuvro -= (decimal)(loan * Procent);
                    
                     VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);

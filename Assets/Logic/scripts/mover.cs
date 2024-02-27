@@ -1024,7 +1024,9 @@ public class mover : CustomSaveObject
                 GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + "Unknown");
             }
             GUI.Label(new Rect(0f, 320, 200f, 100f), "QuestItemCollect : " + Globalprefs.QuestItemKollect.ToString() + " / " + maxcollect);
-            GUI.Label(new Rect(0f, 340, 200f, 100f), "Intelect : " + (100+(CosProgress())*10));
+            GUI.Label(new Rect(0f, 340, 200f, 100f), "Intelect : " + (100 + (CosProgress()) * 10));
+            GUI.Label(new Rect(0f, 360, 200f, 100f), "Mana : " + VarSave.GetFloat("mana"));
+            GUI.Label(new Rect(0f, 380, 200f, 100f), "Luck : " + VarSave.GetFloat("luck"));
             //cistalenemy.dies
 
 
