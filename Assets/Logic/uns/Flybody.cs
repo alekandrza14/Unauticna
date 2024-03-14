@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Flybody : MonoBehaviour
+public class Flybody : ScriptObject
 {
     
-    public unScript script1;
-    float tic; int tir; float time = 1;
     // Start is called before the first frame update
     void Start()
     {
+        transform.position -= new Vector3(script1.outsv3[0].x, script1.outsv3[0].y, script1.outsv3[0].z)*7.5f;
         if (!gameObject.GetComponent<Rigidbody>())
         {
 
@@ -36,7 +35,9 @@ public class Flybody : MonoBehaviour
         tic += Time.deltaTime;
         if (tic >= time)
         {
-            GetComponent<Rigidbody>().velocity += new Vector3(script1.outsv3[tir].x, script1.outsv3[tir].y, script1.outsv3[tir].z)*10;
+            
+
+            GetComponent<Rigidbody>().velocity = new Vector3(script1.outsv3[tir].x, script1.outsv3[tir].y, script1.outsv3[tir].z)*10;
             tir++;
             tic = 0;
         }

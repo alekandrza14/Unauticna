@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -42,25 +43,7 @@ public class MobileComputer : MonoBehaviour
     }
     public void StockMarket()
     {
-        if (VarSave.LoadFloat("luck", 0f) > 3 && UnityEngine.Random.Range(0, 2) == 0)
-        {
-            shorta = 1.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 24 && UnityEngine.Random.Range(0, 7) == 0)
-        {
-
-            shorta = 4.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 666 && UnityEngine.Random.Range(0, 80) == 0)
-        {
-
-            shorta = 400.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 100) == 0)
-        {
-
-            shorta = decimal.MaxValue;
-        }
+        shorta1();
         float sec = DateTime.Now.Second + DateTime.Now.Minute * 60 + DateTime.Now.Hour * 60;
         Screen.texture = sprites[0];
         txt.text = stockConst().ToString();
@@ -69,25 +52,8 @@ public class MobileComputer : MonoBehaviour
     public void MultinetShop()
     {
 
-        if (VarSave.LoadFloat("luck", 0f) > 3 && UnityEngine.Random.Range(0, 2) == 0)
-        {
-            shorta = 1.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 24 && UnityEngine.Random.Range(0, 7) == 0)
-        {
 
-            shorta = 4.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 666 && UnityEngine.Random.Range(0, 80) == 0)
-        {
-
-            shorta = 400.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 100) == 0)
-        {
-
-            shorta = decimal.MaxValue;
-        }
+        shorta1();
         operations = ComputerOperations.Porducts;
         txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f*(float)(Globalprefs.GetProcentInflitiuon()+1));
 
@@ -95,32 +61,50 @@ public class MobileComputer : MonoBehaviour
     }
     public void MultinetServers()
     {
-
-        if (VarSave.LoadFloat("luck", 0f) > 3 && UnityEngine.Random.Range(0, 2) == 0)
-        {
-            shorta = 1.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 24 && UnityEngine.Random.Range(0, 7) == 0)
-        {
-
-            shorta = 4.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 666 && UnityEngine.Random.Range(0, 80) == 0)
-        {
-
-            shorta = 400.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 100) == 0)
-        {
-
-            shorta = decimal.MaxValue;
-        }
+        shorta1();
         operations = ComputerOperations.Servers;
         txt.text = "Отчистка месности";
 
         servers = ComputerOperationsServers.Clearing;
         Screen.texture = sprites[4];
     }
+
+    private void shorta1()
+    {
+        if (playerdata.Geteffect("free") == null)
+        {
+            if (VarSave.LoadFloat("luck", 0f) > 3 && UnityEngine.Random.Range(0, 2) == 0)
+            {
+                shorta = 1.5m;
+            }
+            if (VarSave.LoadFloat("luck", 0f) > 24 && UnityEngine.Random.Range(0, 7) == 0)
+            {
+
+                shorta = 4.5m;
+            }
+            if (VarSave.LoadFloat("luck", 0f) > 666 && UnityEngine.Random.Range(0, 80) == 0)
+            {
+
+                shorta = 400.5m;
+            }
+            if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 100) == 0)
+            {
+
+                shorta = decimal.MaxValue;
+            }
+            if (VarSave.LoadFloat("luck", 0f) < -40 && UnityEngine.Random.Range(0, 1) == 0)
+            {
+
+                shorta = 0;
+            }
+        }
+        else
+        {
+            shorta = decimal.MaxValue;
+
+        }
+    }
+
     public float stockConst()
     {
         float sec = DateTime.Now.Second + DateTime.Now.Minute * 60 + DateTime.Now.Hour * 60;
@@ -205,31 +189,13 @@ public class MobileComputer : MonoBehaviour
     public void Map()
     {
 
-        if (VarSave.LoadFloat("luck", 0f) > 3 && UnityEngine.Random.Range(0, 2) == 0)
-        {
-            shorta = 1.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 24 && UnityEngine.Random.Range(0, 7) == 0)
-        {
-
-            shorta = 4.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 666 && UnityEngine.Random.Range(0, 80) == 0)
-        {
-
-            shorta = 400.5m;
-        }
-        if (VarSave.LoadFloat("luck", 0f) > 906 && UnityEngine.Random.Range(0, 100) == 0)
-        {
-
-            shorta = decimal.MaxValue;
-        }
+        shorta1();
         operations = ComputerOperations.Map;
         txt.text = "Map";
         Screen.texture = sprites[3];
 
     }
-    decimal shorta;
+    decimal shorta = 1;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
@@ -276,33 +242,52 @@ public class MobileComputer : MonoBehaviour
         }
         else
         {
-            txt2.text = "";
+            if (operations != ComputerOperations.Porducts) txt2.text = "";
         }
         if (operations == ComputerOperations.Porducts)
         {
 
             operations = ComputerOperations.Porducts;
-            if (!VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+            if (!Directory.Exists("debug"))
             {
-                txt.text = "Unknown " + CurrentProduct + " Const : " + "NULL";
+                if (!VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                {
+                    txt.text = "Unknown " + CurrentProduct + " Const : " + "NULL";
 
+                }
+                if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                {
+                    if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    {
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
+                    }
+                    if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    {
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
+                    }
+                    if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
+                    {
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : ∞ * " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
+                    }
+                }
             }
-            if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+            if (Directory.Exists("debug"))
             {
-                if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
-                {
-                    txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1) ) / (float)shorta;
-                }
-                if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
-                {
-                    txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
-                }
-                if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
-                {
-                    txt.text = complsave.t3[CurrentProduct].name + " Const : ∞ * " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
-                }
+               
+                 
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : Халява";
+                   
             }
-
+            if (complsave.t3[CurrentProduct].name == "AllAnyphingItems")
+            {
+                txt2.text = "если ты это купишь ты буквально сломаешь сохранения игры удачи";
+                txt2.color = Color.red;
+            }
+            if (complsave.t3[CurrentProduct].name != "AllAnyphingItems")
+            {
+                txt2.text = "";
+                txt2.color = Color.black;
+            }
             Screen.texture = sprites[2];
         }
        
@@ -350,37 +335,44 @@ public class MobileComputer : MonoBehaviour
         }
         if (operations == ComputerOperations.Porducts)
         {
-            if (VarSave.LoadMoney("tevro", 0) >= (decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)))
+            if (!Directory.Exists("debug"))
             {
-                if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                if (VarSave.LoadMoney("tevro", 0) >= (decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)))
                 {
-                    if (!complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
+                    if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
                     {
-                        if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                        if (!complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                         {
-                            VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
-                            Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                            if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                            {
+                                VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                            }
+                            if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                            {
+                                VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                            }
                         }
-                        if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    }
+                }
+                if (VarSave.LoadTrash("inftevro", 0) >= (double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta)
+                {
+                    if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                    {
+
+                        if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                         {
-                            VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                            VarSave.LoadTrash("inftevro", -(double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta);
                             Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                            Globalprefs.Infinitysteuvro = VarSave.LoadTrash("inftevro", 0);
                         }
                     }
                 }
             }
-            if (VarSave.LoadTrash("inftevro", 0) >= (double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta)
+            if (Directory.Exists("debug"))
             {
-                if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
-                {
-                   
-                    if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
-                    {
-                        VarSave.LoadTrash("inftevro", -(double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta);
-                        Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
-                        Globalprefs.Infinitysteuvro = VarSave.LoadTrash("inftevro", 0);
-                    }
-                }
+                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
             }
         }
         if (operations == ComputerOperations.Servers)

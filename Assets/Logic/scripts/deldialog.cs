@@ -150,6 +150,15 @@ public class deldialog : MonoBehaviour
                     VarSave.SetBool(delattack, true);
 
                 }
+                else if (sm == "s2-BattlePlay()")
+                {
+                    stopPlayer = false;
+                    tir2 = 0;
+                    tir = 0;
+                    VarSave.SetBool(delattack, true);
+
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+                }
                 else if (sm == "s2-charge()")
                 {
                     stopPlayer = false;
@@ -335,6 +344,35 @@ public class deldialog : MonoBehaviour
             {
                 anim.SetTrigger("talke");
             }
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift) && enter)
+        {
+            text.text = "";
+            if (VarSave.GetString("lenguage_english") == "True")
+            {
+                act = false;
+                text.text = se[tir2];
+                tir = se[tir2].Length - 1;
+            }
+            if (VarSave.GetString("lenguage_english") == "False")
+            {
+                act = false;
+                text.text = s[tir2];
+                tir = s[tir2].Length - 1;
+            }
+            if (VarSave.GetString("lenguage_english") == "")
+            {
+                act = false;
+                text.text = s[tir2];
+                tir = s[tir2].Length - 1;
+            }
+            if (VarSave.GetString("lenguage_english") == "none")
+            {
+                act = false;
+                text.text = su[tir2];
+                tir = su[tir2].Length - 1;
+            }
+            tir++;
         }
         if (Input.GetKeyDown(KeyCode.Tab) && startActivate)
         {

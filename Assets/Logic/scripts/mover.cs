@@ -107,7 +107,7 @@ public class mover : CustomSaveObject
     public InputField SaveFileInputField;
     float JumpTimer;
     [HideInInspector] public bool IsGraund;
-    [HideInInspector] public bool InWater;
+    public bool InWater;
     bool LateInWater;
     Collision c;
     float ZoomConficent = 0.04f;
@@ -321,16 +321,17 @@ public class mover : CustomSaveObject
         {
             vaule2 = GlobalInputMenager.KeyCode_Spawn;
             RaycastHit hit = MainRay.MainHit;
-          
 
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
-                {
-                    telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
-                    g.nameCreature = vaule2;
-                    g.gameObject.transform.position = hit.point;
-                    GlobalInputMenager.KeyCode_Spawn = "";
 
-                }
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
+            {
+                telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
+                g.nameCreature = vaule2;
+                g.gameObject.transform.position = hit.point;
+                vaule2 = "";
+                GlobalInputMenager.KeyCode_Spawn = "";
+                GlobalInputMenager.build.text = "";
+            }
             
 
         }
@@ -503,7 +504,7 @@ public class mover : CustomSaveObject
         }
         Globalprefs.allTransphorms = allobj;
         Globalprefs.allpos = allpos;
-
+      
        
             GameObject g2 = new GameObject("init");
             gameInit.Init(g2); 
@@ -643,10 +644,10 @@ public class mover : CustomSaveObject
         }
         stand_stay = load1.stad;
 
-           Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
-           c.targetDisplay = 2;
+             Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
+          c.targetDisplay = 2;
            c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
-          c.renderingPath = RenderingPath.DeferredShading;
+           c.renderingPath = RenderingPath.DeferredShading;
 
         Globalprefs.camera = c;
         c.gameObject.AddComponent<Logic_tag_3>();
@@ -1489,7 +1490,12 @@ public class mover : CustomSaveObject
 
         if (fly && !Globalprefs.Pause)
         {
-            JumpTimer = 0;
+            if (playerdata.Geteffect("AutoJump") != null)
+            {
+                animator.SetBool("swem", true);
+                rigidbody3d.velocity += PlayerBody.transform.up * 30;
+            }
+                JumpTimer = 0;
             c = new Collision();
             if (Input.GetKey(KeyCode.W))
             {
@@ -1583,6 +1589,8 @@ public class mover : CustomSaveObject
     Vector3 new_center;
    static public Vector3 new_offset;
     int indexpos;
+
+    GameObject waterscreen;
     void Update()
     {
         metka = UpdateTargets();
@@ -1689,18 +1697,22 @@ public class mover : CustomSaveObject
 
         if (!Globalprefs.Pause) TridFace();
         GameObject[] oxy = GameObject.FindGameObjectsWithTag("oxy");
-        if (oxy.Length != 0)
+
+        
+        bool toxy = oxy.Length > 0;
+        bool nonoxy = oxy.Length == 0;
+        if (toxy)
         {
             oxy[0].GetComponent<Image>().fillAmount = oxygen / 20;
         }
         if (InWater == true)
         {
-            if (oxy.Length != 0)
+            if (nonoxy)
             {
-               
-                    Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
-                
+             if (!waterscreen)   waterscreen = Instantiate(Resources.Load<GameObject>("ui/Screens/Water").gameObject, transform.position, Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
             }
+            
             oxygen -= Time.deltaTime;
         }
         if (InWater == false && oxygen <= 5)
@@ -1710,13 +1722,18 @@ public class mover : CustomSaveObject
         }
         if (InWater == false && oxygen >= 5 && oxygen <= 20)
         {
-            if (oxy.Length != 0)
+            if (toxy)
             {
                 Destroy(oxy[0]);
             }
             oxygen += Time.deltaTime * 2;
         }
-        ParticleSystem[] ps = GameObject.FindObjectsByType<ParticleSystem>(sortmode.main);
+        if (InWater == false && waterscreen)
+        {
+
+            Destroy(waterscreen);
+        }
+            ParticleSystem[] ps = GameObject.FindObjectsByType<ParticleSystem>(sortmode.main);
         if (VarSave.GetBool("partic") && ps.Length > 0)
         {
             DestroyImmediate(ps[0].gameObject);
@@ -2050,7 +2067,7 @@ public class mover : CustomSaveObject
             rigidbody3d.drag = 4.5f- axelerate;
         }
 
-        bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0;
+        bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0 || god;
         if (!flyinng) JumpTimer -= Time.deltaTime*gravity;
         if (faceViewi != faceView.fourd )
         {
@@ -2066,8 +2083,35 @@ public class mover : CustomSaveObject
 
             float deltaX = Input.GetAxis("Horizontal") * (Speed * (1f / movegrag));
             float deltaZ = Input.GetAxis("Vertical") * (Speed * (1f / movegrag));
+            //AutoRun
+            //AutoRotate
+            if (playerdata.Geteffect("AutoRun") != null)
+            {
+                deltaZ += (Speed * (1f / movegrag));
+            }
+            if (playerdata.Geteffect("AutoRight") != null)
+            {
+                deltaX += (Speed * (1f / movegrag));
+            }
+            if (playerdata.Geteffect("AutoLeft") != null)
+            {
+                deltaX += -(Speed * (1f / movegrag));
+            }
+           
             float deltaW = Input.GetAxis("HyperHorizontal") * 0.1f;
             float deltaH = Input.GetAxis("HyperVertical") * 0.1f;
+            if (playerdata.Geteffect("AutoDimenshonal") != null)
+            {
+                if (VarSave.GetFloat("Dimenshonal") == 4) deltaW += (1f);
+                if (VarSave.GetFloat("Dimenshonal") == 5) deltaH += (1f);
+                if (VarSave.GetFloat("Dimenshonal") > 5) N_position[(int)VarSave.GetFloat("Dimenshonal") - 6] += (0.1f);
+            }
+            if (playerdata.Geteffect("-AutoDimenshonal") != null)
+            {
+                if (VarSave.GetFloat("Dimenshonal") == 4) deltaW += -(1f);
+                if (VarSave.GetFloat("Dimenshonal") == 5) deltaH += -(1f);
+                if (VarSave.GetFloat("Dimenshonal") > 5) N_position[(int)VarSave.GetFloat("Dimenshonal") - 6] += -(0.1f);
+            }
             float deltaY = 0.0f;
         //  if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
             if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
@@ -2173,6 +2217,34 @@ public class mover : CustomSaveObject
                 animator.SetBool("InWater", InWater);
                 LateInWater = InWater;
             }
+            if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoJump") != null)
+                    {
+                        deltaY = Speed * Time.deltaTime * 6;
+                        transform.Translate(0, 0.1f, 0);
+                        rigidbody3d.AddForce(transform.up * (deltaY * 3), ForceMode.Force);
+                    }
+            if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
+                    {
+                        deltaY = -Speed * Time.deltaTime * 6;
+                        transform.Translate(0, 0.1f, 0);
+                        rigidbody3d.AddForce(transform.up * (deltaY * 1), ForceMode.Force);
+                    }
+            if (!(flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
+                    {
+                        deltaY = -Speed * Time.deltaTime * 6;
+                        transform.Translate(0, 0.1f, 0);
+                        rigidbody3d.AddForce(transform.up * (deltaY * 1), ForceMode.Force);
+                        JumpTimer = 0;
+                    }
+            if (!(flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoJump") != null)
+                    {
+                        if (IsGraund)
+                        {
+                            deltaY = Speed * Time.deltaTime * 6;
+                            transform.Translate(0, 0.1f, 0);
+                            rigidbody3d.AddForce(transform.up * (deltaY * 3), ForceMode.Force);
+                        }
+                    }
             if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
             Vector3 movement = new Vector3(deltaX, 0, deltaZ);
@@ -2191,36 +2263,67 @@ public class mover : CustomSaveObject
                 transform.Translate(0, 0, 5);
                 tics = 0;
             }
-            if (!Globalprefs.LockRotate)
+            if (playerdata.Geteffect("AutoRotate") == null)
             {
-                if (Input.GetKey(KeyCode.Mouse1))
+                if (!Globalprefs.LockRotate)
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    if (faceViewi == faceView.first)
+                    if (Input.GetKey(KeyCode.Mouse1))
                     {
-
-
-                        PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
-                    }
-                    if (faceViewi == faceView.trid)
-                    {
-
-
-                        HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
-                    }
-                    if (hyperbolicCamera == null)
-                    {
-                        if (faceViewi != faceView.fourd)
+                        Cursor.lockState = CursorLockMode.Locked;
+                        if (faceViewi == faceView.first)
                         {
 
-                            PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
-                        }
-                    }
 
+                            PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
+                        }
+                        if (faceViewi == faceView.trid)
+                        {
+
+
+                            HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                        }
+                        if (hyperbolicCamera == null)
+                        {
+                            if (faceViewi != faceView.fourd)
+                            {
+
+                                PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        Cursor.lockState = CursorLockMode.None;
+                    }
                 }
-                else
+            }
+            if (playerdata.Geteffect("AutoRotate") != null)
+            {
+                if (!Globalprefs.LockRotate)
                 {
-                    Cursor.lockState = CursorLockMode.None;
+                        Cursor.lockState = CursorLockMode.Locked;
+                        if (faceViewi == faceView.first)
+                        {
+
+
+                            PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
+                        }
+                        if (faceViewi == faceView.trid)
+                        {
+
+
+                            HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                        }
+                        if (hyperbolicCamera == null)
+                        {
+                            if (faceViewi != faceView.fourd)
+                            {
+
+                                PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                            }
+                        }
+
                 }
             }
         }
@@ -2282,7 +2385,7 @@ public class mover : CustomSaveObject
         }
 
 
-        GameObject g2 = GameObject.FindWithTag("oxy");
+        GameObject g2 = GameObject.FindWithTag("blood1");
 
 
         if (oxygen >= 5 && g2)
@@ -2557,6 +2660,7 @@ public class mover : CustomSaveObject
     bool big;
     bool _n1fps;
     bool soveVision;
+    bool god;
     Vector3 uniepos;
     private void EffectUpdate()
     {
@@ -2809,7 +2913,34 @@ public class mover : CustomSaveObject
             maxhp += 300000;
             //playermatinvisible
         }
-        if (playerdata.Geteffect("-1FPS") != null)
+        if (playerdata.Geteffect("█_GodMode_█") != null)
+        {
+            god = true;
+            Directory.CreateDirectory("debug");
+            GetComponent<CapsuleCollider>().enabled = false;
+        }
+        if (playerdata.Geteffect("█_GodMode_█") == null)
+        {
+            for (int i =0;i<2;i++)
+            {
+
+
+                if (i == 0)
+                {
+                    if (god)
+                    {
+                        Directory.Delete("debug");
+                    }
+                }
+                if (i == 1)
+                {
+                    god = false;
+                    GetComponent<CapsuleCollider>().enabled = true;
+                }
+            }
+            }
+            //█_GodMode_█
+            if (playerdata.Geteffect("-1FPS") != null)
         {
             _n1fps = true;
             TimeLoad(4);

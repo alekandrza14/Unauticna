@@ -134,6 +134,38 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "25";
             }
+            if (s[0] == "AutoRun")
+            {
+                a = "29";
+            }
+            if (s[0] == "AutoRotate")
+            {
+                a = "30";
+            }
+            if (s[0] == "AutoJump")
+            {
+                a = "31";
+            }
+            if (s[0] == "AutoDown")
+            {
+                a = "32";
+            }
+            if (s[0] == "AutoRight")
+            {
+                a = "33";
+            }
+            if (s[0] == "AutoLeft")
+            {
+                a = "34";
+            }
+            if (s[0] == "AutoDimenshonal")
+            {
+                a = "35";
+            }
+            if (s[0] == "-AutoDimenshonal")
+            {
+                a = "36";
+            }
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -600,6 +632,50 @@ public class Conseole_trigger : MonoBehaviour
                         playerdata.hasClearEffect("Right_to_dig");
                         playerdata.hasClearEffect("Right_to_dig");
                     }
+            }
+            if (i == 1 && a == "29")
+            {
+                playerdata.hasClearEffect("AutoRun");
+                playerdata.Addeffect("AutoRun", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "30")
+            {
+                playerdata.hasClearEffect("AutoRotate");
+                playerdata.Addeffect("AutoRotate", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "31")
+            {
+                playerdata.hasClearEffect("AutoJump");
+                playerdata.Addeffect("AutoJump", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "32")
+            {
+                playerdata.hasClearEffect("AutoDown");
+                playerdata.Addeffect("AutoDown", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "33")
+            {
+                playerdata.hasClearEffect("AutoRight");
+                playerdata.Addeffect("AutoRight", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "34")
+            {
+                playerdata.hasClearEffect("AutoLeft");
+                playerdata.Addeffect("AutoLeft", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "35")
+            {
+                playerdata.hasClearEffect("AutoDimenshonal");
+                playerdata.hasClearEffect("-AutoDimenshonal");
+                VarSave.SetFloat("Dimenshonal", float.Parse(s[2]));
+                playerdata.Addeffect("AutoDimenshonal", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "36")
+            {
+                playerdata.hasClearEffect("AutoDimenshonal");
+                playerdata.hasClearEffect("-AutoDimenshonal");
+                VarSave.SetFloat("Dimenshonal", float.Parse(s[2]));
+                playerdata.Addeffect("-AutoDimenshonal", float.Parse(s[1]));
             }
             if (i == 1 && a == "26")
             {

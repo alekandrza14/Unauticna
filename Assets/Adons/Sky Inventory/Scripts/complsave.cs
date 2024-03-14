@@ -388,6 +388,16 @@ public class complsave : MonoBehaviour
                     saveString1.x.Add(10);
 
                 }
+                if (items[i3].GetComponent<unScript>())
+                {
+                    saveString1.scriptA.Add(items[i3].GetComponent<unScript>().ins.script);
+                }
+                else
+                {
+                    saveString1.scriptA.Add(null);
+
+                }
+              
                 if (items[i3].GetComponent<HyperbolicPoint>())
                 {
                     saveString1.PvectorA.Add(items[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion);
@@ -603,33 +613,33 @@ public class complsave : MonoBehaviour
 
 
 
-        TransformObject to_save = new TransformObject();
-        to_save.v3 = new Vector3[allobj2.Length];
-        to_save.q4 = new Quaternion[allobj2.Length];
-        to_save.s3 = new Vector3[allobj2.Length];
-        to_save.name = new string[allobj2.Length];
-        to_save.initpos = Globalprefs.allpos;
-        int i4 = 0;
-        foreach (Collider obj in allobj2)
-        {
-            if (obj != null)
-            {
-                to_save.v3[i4] = obj.transform.position;
-                to_save.q4[i4] = obj.transform.rotation;
-                to_save.s3[i4] = obj.transform.localScale;
-                to_save.name[i4] = obj.transform.name;
-                
-            }
-            if (obj == null)
-            {
-                to_save.v3[i4] = Vector3.zero;
-                to_save.q4[i4] = Quaternion.identity;
-                to_save.s3[i4] = Vector3.one;
-                to_save.name[i4] = "";
-                
-            }
-            if (true) i4 += 1;
-        }
+          TransformObject to_save = new TransformObject();
+           to_save.v3 = new Vector3[allobj2.Length];
+           to_save.q4 = new Quaternion[allobj2.Length];
+           to_save.s3 = new Vector3[allobj2.Length];
+           to_save.name = new string[allobj2.Length];
+           to_save.initpos = Globalprefs.allpos;
+          int i4 = 0;
+           foreach (Collider obj in allobj2)
+           {
+               if (obj != null)
+               {
+                   to_save.v3[i4] = obj.transform.position;
+                   to_save.q4[i4] = obj.transform.rotation;
+                   to_save.s3[i4] = obj.transform.localScale;
+                   to_save.name[i4] = obj.transform.name;
+
+               }
+               if (obj == null)
+               {
+                   to_save.v3[i4] = Vector3.zero;
+                   to_save.q4[i4] = Quaternion.identity;
+                   to_save.s3[i4] = Vector3.one;
+                   to_save.name[i4] = "";
+
+               }
+               if (true) i4 += 1;
+           }
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         saveString1.editpos = JsonUtility.ToJson(to_save);
        
@@ -933,6 +943,14 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<breauty>().integer = saveString1.x[i3];
                         }
+                        if (!g.GetComponent<unScript>())
+                        {
+                            UnsFormat info = new UnsFormat();
+                            info.script = saveString1.scriptA[i3];
+
+                            if (!string.IsNullOrEmpty(saveString1.scriptA[i3])) g.AddComponent<unScript>().ins = info;
+                        }
+                       
                         if (saveString1.PvectorA.Count > i3 && hc != null)
                         {
                             if (!g.GetComponent<HyperbolicPoint>())
@@ -1113,6 +1131,7 @@ public class rsave
 {
 
     public List<Vector3> vector3A = new List<Vector3>();
+    public List<string> scriptA = new List<string>();
     public List<Vector3> vector3D = new List<Vector3>();
     public List<Vector3> Scale3A = new List<Vector3>();
     public List<Vector3> Scale3B = new List<Vector3>();

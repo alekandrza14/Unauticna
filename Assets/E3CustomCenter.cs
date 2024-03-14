@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class E3CustomCenter : MonoBehaviour
 {
-    int index;
+    static int index;
     private void Update()
     {
         RaycastHit hit = MainRay.MainHit;

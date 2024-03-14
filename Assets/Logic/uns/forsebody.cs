@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class forsebody : MonoBehaviour
+public class forsebody : ScriptObject
 {
     public debug script;
-    public unScript script1;
-    float tic; int tir; float time = 1;
     // Start is called before the first frame update
     void Start()
     {

@@ -26,5 +26,10 @@ public class nasajevayaTarget : MonoBehaviour
             target.transform.rotation = transform.rotation;
 
         }
+        if (Input.GetKeyDown(KeyCode.T) && !Globalprefs.Pause && hit.collider != null)
+        {
+            mover.main().GetComponent<Rigidbody>().drag=100;
+            mover.main().transform.SetParent(hit.transform, true);
+        }
     }
 }

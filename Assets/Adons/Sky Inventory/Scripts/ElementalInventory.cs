@@ -1857,6 +1857,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("file_рыбы", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -1872,6 +1873,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 Instantiate(Resources.Load("voices/belock"));
             }
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("belock", "seed");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -1887,6 +1889,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Trip", 60);
 
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("Grib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -1902,6 +1905,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("BigShot", 100);
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("BlackGrib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -1915,6 +1919,7 @@ public class ElementalInventory : MonoBehaviour {
             //  Instantiate(Resources.Load("voices/belock"));
             clear();
 
+            VarSave.LoadFloat("mana", 1f);
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Non-exist-colour-Grib") != 0 && main() == this)
@@ -1928,6 +1933,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Tripl3", 120);
 
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("Non-exist-colour-Grib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -1941,6 +1947,7 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("jeltok", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -1956,6 +1963,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("Tripl2", 600);
 
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("mad", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -1972,6 +1980,7 @@ public class ElementalInventory : MonoBehaviour {
             cistalenemy.dies += 100;
             playerdata.Addeffect("Tripl2", 600);
 
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("Скалапендра", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -1989,6 +1998,7 @@ public class ElementalInventory : MonoBehaviour {
                 //  Instantiate(Resources.Load("voices/belock"));
                 playerdata.Addeffect("Trip", 60);
             }
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("sosisca", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2004,6 +2014,7 @@ public class ElementalInventory : MonoBehaviour {
             //  Instantiate(Resources.Load("voices/belock"));
             playerdata.Cleareffect();
 
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("RedColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2019,6 +2030,7 @@ public class ElementalInventory : MonoBehaviour {
             Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
 
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("AnyphingJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2031,6 +2043,7 @@ public class ElementalInventory : MonoBehaviour {
 
             Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
 
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("MalineColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2047,6 +2060,7 @@ public class ElementalInventory : MonoBehaviour {
                 playerdata.Addeffect("invisible", 60);
             }
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("BlueColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2062,6 +2076,7 @@ public class ElementalInventory : MonoBehaviour {
                 playerdata.Addeffect("Axelerate", 60);
             }
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("GreenColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2076,6 +2091,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 playerdata.Addeffect("MetabolismUp", 60);
             }
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("UltravioletColour", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2092,6 +2108,7 @@ public class ElementalInventory : MonoBehaviour {
                 playerdata.Addeffect("BigShot", 600);
 
             }
+            VarSave.LoadFloat("mana", 1f);
 
             lowitem("Pipis", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2104,6 +2121,7 @@ public class ElementalInventory : MonoBehaviour {
 
             cistalenemy.dies += 100;
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("Cat", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2120,6 +2138,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Trip", 600);
             playerdata.Addeffect("Tripl2", 600);
 
+            VarSave.LoadFloat("mana", 1f);
 
 
             lowitem("Absolute_poison", "");
@@ -2144,6 +2163,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("severe hangover", 600);
             playerdata.Addeffect("InfaltionUp", 600);
 
+            VarSave.LoadFloat("mana", 1f);
             playerdata.FreezeAlleffect();
 
             lowitem("Absolute_poison_II", "");
@@ -2157,6 +2177,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("KsenoMorfin", 600);
             VarSave.SetInt("CurrentMorf", Random.Range(0, complsave.t5.Length));
+            VarSave.LoadFloat("mana", 1f);
 
             GameManager.saveandhill();
             lowitem("KsenoMorfin", "");
@@ -2171,6 +2192,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
 
 
@@ -2183,6 +2205,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadFloat("mana", 1f);
 
 
             playerdata.Addeffect("Regeneration", 600);
@@ -2201,6 +2224,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
+            VarSave.LoadFloat("mana", 1f);
 
 
             lowitem("DamageJuice", "");
@@ -2215,6 +2239,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
+            VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("ImbalenceRegeneration", 600);
 
 
@@ -2230,6 +2255,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             VarSave.LoadFloat("luck", 10f);
 
@@ -2245,6 +2271,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             VarSave.LoadFloat("luck", 0.1f);
 
@@ -2272,6 +2299,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
 
@@ -2285,6 +2313,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             if (playerdata.Geteffect("mild hangover") != null)
             {
@@ -2312,6 +2341,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("Шизфрения", 600);
 
+            VarSave.LoadFloat("mana", 1f);
 
 
             lowitem("Дтine", "");
@@ -2325,6 +2355,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
+            VarSave.LoadFloat("mana", 1f);
 
 
 
@@ -2338,6 +2369,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
 
             playerdata.FreezeAlleffect();
@@ -2355,6 +2387,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             playerdata.BakeAlleffect();
 
@@ -2368,6 +2401,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             playerdata.Addeffect("meat", 600);
 
@@ -2380,6 +2414,7 @@ public class ElementalInventory : MonoBehaviour {
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеВамперизма") != 0 && main() == this)
         {
 
+            VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("Vampaire", 740);
 
             lowitem("ЗельеВамперизма", "");
@@ -2396,6 +2431,7 @@ public class ElementalInventory : MonoBehaviour {
                     Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
             }
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("ChaosPoution", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2409,6 +2445,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("Совиное Зрение", 600);
 
+            VarSave.LoadFloat("mana", 1f);
             lowitem("ЗельеСовы", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2419,12 +2456,29 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
 
             playerdata.Addeffect("-1FPS", 30);
             playerdata.Saveeffect();
             lowitem("Зелье_-1FPS", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        //БилетБезплано
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("БилетБезплано") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            VarSave.LoadFloat("mana", 1f);
+            playerdata.Addeffect("free", 300);
+            cistalenemy.dies += 0;
+
+            lowitem("БилетБезплано", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+      
         //  █_█__██
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("IcyCube") != 0 && main() == this)
         {
@@ -2433,9 +2487,24 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
             cistalenemy.dies += 1;
 
             lowitem("IcyCube", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Таблетки_для_GodMode
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Таблетки_для_GodMode") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            VarSave.LoadFloat("mana", 1f);
+            playerdata.Addeffect("█_GodMode_█", float.PositiveInfinity);
+
+            lowitem("Таблетки_для_GodMode", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("█_█__██") != 0 && main() == this)
@@ -2445,6 +2514,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("█_█__██", 30);
 
             lowitem("█_█__██", "");
@@ -2468,6 +2538,7 @@ public class ElementalInventory : MonoBehaviour {
 
                 VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
 
+                VarSave.LoadFloat("mana", 1f);
 
                 //  lowitem("DNAColour", "");
                 GlobalInputMenager.KeyCode_eat = 0;
@@ -2480,6 +2551,7 @@ public class ElementalInventory : MonoBehaviour {
                 VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
 
 
+                VarSave.LoadFloat("mana", 1f);
                 //  lowitem("DNAColour", "");
                 GlobalInputMenager.KeyCode_eat = 0;
             }
@@ -2492,6 +2564,7 @@ public class ElementalInventory : MonoBehaviour {
 
                 VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
 
+                VarSave.LoadFloat("mana", 1f);
 
                 //  lowitem("DNAColour", "");
                 GlobalInputMenager.KeyCode_eat = 0;
@@ -2504,12 +2577,27 @@ public class ElementalInventory : MonoBehaviour {
 
                 VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
 
+                VarSave.LoadFloat("mana", 1f);
 
                 //  lowitem("DNAColour", "");
                 GlobalInputMenager.KeyCode_eat = 0;
             }
         }
+        //УпаковщикМусора
+        if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
+          && Cells[select].elementName == "УпаковщикМусора" && Cells[select].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
 
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<CustomSaveObject>())
+                {
+                    GameObject g = Instantiate(Resources.Load<GameObject>("items/Мусор"), hit.point, Quaternion.identity);
+                    Destroy(hit.collider.gameObject); 
+                }
+            }
+        }
         //ПроигратьМузыку
         if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
          && Cells[select].elementName == "AudioPlayer" && Cells[select].elementCount > 0)
@@ -3211,6 +3299,7 @@ public class ElementalInventory : MonoBehaviour {
             if (SceneManager.GetActiveScene().name != "PortativeHyperbolicSpace")
             {
                 VarSave.SetString("SceneNamePosition", SceneManager.GetActiveScene().name);
+                VarSave.LoadFloat("mana", 1f);
                 GameManager.save();
                 SceneManager.LoadScene("PortativeHyperbolicSpace");
             }

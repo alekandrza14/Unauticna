@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class itemspawn : MonoBehaviour
 {
     public string prefabname;
+    public string prefabname2;
     public HyperbolicPoint hyperbolic;
     public bool FirstEvent;
     public string timeLine;
@@ -32,39 +33,38 @@ public class itemspawn : MonoBehaviour
         csp();
         if (string.IsNullOrEmpty(timeLine))
         {
-            GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
-            if (hyperbolic != null)
-            {
-                g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
-                g.transform.position = new Vector3(
-                    0,
-                    hyperbolic.transform.position.y,
-                    0
-                    );
-                g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
-
-            }
+            Spawn();
         }
 
     }
+
+    private void Spawn()
+    {
+        if (UnityEngine.Random.Range(0,17)==1&& !string.IsNullOrEmpty(prefabname2))
+        {
+            prefabname = prefabname2;
+        }
+            GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
+        if (hyperbolic != null)
+        {
+            g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
+            g.transform.position = new Vector3(
+                0,
+                hyperbolic.transform.position.y,
+                0
+                );
+            g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
+
+        }
+    }
+
     public void csp()
     {
         if (!string.IsNullOrEmpty(timeLine))
         {
             if (timeLine == Globalprefs.GetTimeline())
             {
-                GameObject g = Instantiate(Resources.Load<GameObject>("items/" + prefabname), transform.position, transform.rotation);
-                if (hyperbolic != null)
-                {
-                    g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
-                    g.transform.position = new Vector3(
-                        0,
-                        hyperbolic.transform.position.y,
-                        0
-                        );
-                    g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;
-
-                }
+                Spawn();
             }
         }
 

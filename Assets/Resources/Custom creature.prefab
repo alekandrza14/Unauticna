@@ -333,13 +333,13 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!135 &6582226214320566207
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -394,6 +394,7 @@ MonoBehaviour:
   - {fileID: 2314995234843797935}
   - {fileID: 109382264923295833}
   - {fileID: 4781307124256777397}
+  playerSphericalModel: 1
 --- !u!114 &4685646116787005646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: -9
-  body: {fileID: 0}
+  body: {fileID: 5439299471394419480}
 --- !u!114 &7685801070303842753
 MonoBehaviour:
   m_ObjectHideFlags: 0

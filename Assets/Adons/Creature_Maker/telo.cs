@@ -5,14 +5,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum SizeCreachure
+{
+    nope, ant, small, medium, big, giga, titan, planet
+}
+
 public class Creature
 {
     public List<Vector3> positions = new List<Vector3>();
+    public SizeCreachure sc;
 }
 
 public class telo : CustomSaveObject
 {
     public List<GameObject> objs = new List<GameObject>();
+    public SizeCreachure sc;
+    public Dropdown sizesCreachure;
     public GameObject obj;
     public Toggle tg;
     public InputField ifd;
@@ -29,6 +37,7 @@ public class telo : CustomSaveObject
         {
             c.positions.Add(obj.transform.position);
         }
+        c.sc = sc;
         Directory.CreateDirectory("C:/Unauticna Multiverse/Creatures");
         File.WriteAllText("C:/Unauticna Multiverse/Creatures/" + ifd.text + ".creature", JsonUtility.ToJson(c));
     }
@@ -47,6 +56,8 @@ public class telo : CustomSaveObject
             Creature c = JsonUtility.FromJson<Creature>(File.ReadAllText("C:/Unauticna Multiverse/Creatures/" + ifd.text + ".creature"));
             for (int i = 0; i < c.positions.Count; i++)
             {
+                sc = c.sc;
+                sizesCreachure.value = (int)sc;
                 GameObject g = Instantiate(obj, transform);
                 g.transform.position = c.positions[i];
                 g.GetComponent<Mainscript>().telo = gameObject;
@@ -78,40 +89,76 @@ public class telo : CustomSaveObject
                 for (int i = 0; i < c.positions.Count; i++)
                 {
                     GameObject g = Instantiate(obj, transform);
+                    sc = c.sc;
                     g.transform.position = c.positions[i] + transform.position;
                     g.GetComponent<Mainscript>().telo = gameObject;
                     objs.Add(g);
                 }
             }
+            if (sc == SizeCreachure.nope)
+            {
+                transform.localScale *= 1;
+                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<Rigidbody>().mass = 10;
+                GetComponent<PlanetPhysics>().gravity *= 1;
+            }
+            if (sc == SizeCreachure.ant)
+            {
+                transform.localScale *= 0.1f;
+                GetComponent<Rigidbody>().mass = 1f;
+                GetComponent<Rigidbody>().drag = 10;
+                GetComponent<PlanetPhysics>().gravity *= 0.1f;
+            }
+            if (sc == SizeCreachure.small)
+            {
+                transform.localScale *= 0.3f;
+                GetComponent<Rigidbody>().mass = 3f;
+                GetComponent<Rigidbody>().drag = 2;
+                GetComponent<PlanetPhysics>().gravity *= 0.3f;
+            }
+            if (sc == SizeCreachure.medium)
+            {
+                transform.localScale *= 1;
+                GetComponent<Rigidbody>().mass = 10f;
+                GetComponent<Rigidbody>().drag =1;
+                GetComponent<PlanetPhysics>().gravity *=1f;
+            }
+            if (sc == SizeCreachure.big)
+            {
+                transform.localScale *= 2;
+                GetComponent<Rigidbody>().mass = 40f;
+                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<PlanetPhysics>().gravity *= 4f;
+            }
+            if (sc == SizeCreachure.giga)
+            {
+                transform.localScale *= 10;
+                GetComponent<Rigidbody>().mass = 10000f;
+                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<PlanetPhysics>().gravity *= 30f;
+            }
+            if (sc == SizeCreachure.titan)
+            {
+                transform.localScale *= 50;
+                GetComponent<Rigidbody>().mass = 200000f;
+                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<PlanetPhysics>().gravity *= 100f;
+            }
+            if (sc == SizeCreachure.planet)
+            {
+                transform.localScale *= 400;
+                GetComponent<Rigidbody>().mass = 16000000f;
+                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<PlanetPhysics>().gravity *= 500f;
+            }
         }
         else
         {
-
+          //  InvokeRepeating("EditorUpdate", 0f + Random.Range(0f, 1f), 0.05f);
         }
     }
 
-    public void FixedUpdate()
-    {
-        if (nameCreature != "")
-        {
-
-        }
-        else
-        {
-
-
-            if (tg.isOn && !gameObject.GetComponent<Rigidbody>())
-            {
-                gameObject.AddComponent<Rigidbody>();
-            }
-            if (!tg.isOn && gameObject.GetComponent<Rigidbody>())
-            {
-                Destroy(gameObject.GetComponent<Rigidbody>());
-                transform.position = Vector3.zero;
-                transform.rotation = Quaternion.identity;
-            }
-        }
-    }
+  
     public void RotateCreature()
     {
         transform.Rotate(0, Input.GetAxis("Mouse X"), 0);
@@ -127,8 +174,27 @@ public class telo : CustomSaveObject
             }
         }
     }
-    private void LateUpdate()
+    private void Update()
     {
+        if (nameCreature != "")
+        {
+
+        }
+        else
+        {
+          sc =  (SizeCreachure)sizesCreachure.value;
+
+            if (tg.isOn && !gameObject.GetComponent<Rigidbody>())
+            {
+                gameObject.AddComponent<Rigidbody>();
+            }
+            if (!tg.isOn && gameObject.GetComponent<Rigidbody>())
+            {
+                Destroy(gameObject.GetComponent<Rigidbody>());
+                transform.position = Vector3.zero;
+                transform.rotation = Quaternion.identity;
+            }
+        }
         if (nameCreature != "")
         {
 
@@ -146,6 +212,12 @@ public class telo : CustomSaveObject
                     g.transform.position = hit.point;
                     g.GetComponent<Mainscript>().telo = gameObject;
                     objs.Add(g);
+                }
+                if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Delete))
+                {
+                    GameObject g = hit.collider.gameObject;
+                    objs.Remove(hit.collider.gameObject);
+                    Destroy(g);
                 }
                 else if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Mouse0))
                 {

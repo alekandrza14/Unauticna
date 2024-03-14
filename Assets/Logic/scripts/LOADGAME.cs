@@ -86,6 +86,10 @@ public class LOADGAME : MonoBehaviour
         {
             data.text = stadart.data.ToString();
         }
+        if (VarSave.CreateEvent("spawnMana"))
+        {
+            VarSave.LoadFloat("mana", 10000f);
+        }
     }
     public void Tutorials()
     {

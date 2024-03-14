@@ -73,12 +73,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 8400000, guid: fc7fae201ce3fee4fa7e649c918e51a6, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -133,6 +133,8 @@ MonoBehaviour:
   _shadowIntensity: 1
   _aoIntensity: 0.532
   _skyColor: {r: 0, g: 0, b: 0, a: 0}
+  hue: 0
+  _ChaosColor: {r: 1, g: 1, b: 1, a: 1}
   _renderNr: 0
   orderedShapes: []
 --- !u!1 &5205389183473996378
@@ -303,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPrise: 200
+  ItemInfinitysPrise: 0
   ItemData: 
   isLife: 0
   _Name: FilmCamera

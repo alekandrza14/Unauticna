@@ -26,6 +26,7 @@ public class spamton : MonoBehaviour
     public string text;
     public string bol;
     public bool iznendial;
+    public bool mage;
 
     public bool fisttalk;
     public bool rayMarch;
@@ -36,6 +37,19 @@ public class spamton : MonoBehaviour
         {
 
             Instantiate(Resources.Load<GameObject>("items/Смачный_плевок_Спамтона"),transform.position,Quaternion.identity);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<mover>() && mage)
+        {
+            Instantiate(Resources.Load<GameObject>("camGameOver/worker"), other.transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
+        }
+        if (other.GetComponent<CharacterName>() && mage)
+        {
+            Instantiate(Resources.Load<GameObject>("Morfs/worker"), other.transform.position, Quaternion.identity);
+            Destroy(other.gameObject);
         }
     }
     private void OnCollisionStay(Collision c)

@@ -456,15 +456,12 @@ namespace Unity.Mathematics
                         if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                     }
                 }
-                if (d < -1)
-                {
-                    d = 1;
-                   
-                }
+              
                 // Debug.Log(d);
                
-                    if (!playerSphericalModel) transform.Translate(Vector3.down * d, Space.World);
-                    if (playerSphericalModel) transform.Translate(-transform.up * d, Space.World);
+                  //  if (!playerSphericalModel) transform.Translate(Vector3.down * d, Space.World);
+                //    if (playerSphericalModel) 
+                    transform.Translate(-transform.up * d, Space.World);
 
                 
             }

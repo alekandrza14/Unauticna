@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class shoting : MonoBehaviour
+public class shoting : ScriptObject
 {
     public debug script;
-    public unScript script1;
-    float tic;  float time = 1;
     public long hp = 1;
     // Start is called before the first frame update
     void Start()

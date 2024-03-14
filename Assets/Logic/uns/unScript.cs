@@ -389,7 +389,7 @@ public class unScript : MonoBehaviour
                 if (outs.Count - 1 == x)
                 {
 
-                    pre4 = "ä";
+                    pre4 = "s";
                 }
             }
 

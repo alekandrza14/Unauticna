@@ -21,7 +21,7 @@ public class PathUns : MonoBehaviour
                 Path.text += ".s";
                 break;
             case scriptFormat.uns:
-                Path.text += ".unu";
+                Path.text += ".uns";
                 break;
             case scriptFormat.lua:
                 Path.text += ".lua";

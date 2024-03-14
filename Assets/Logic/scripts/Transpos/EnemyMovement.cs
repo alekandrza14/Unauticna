@@ -62,7 +62,7 @@ public class EnemyMovement : MonoBehaviour
             left = false;
         }
         Ray r7 = new Ray(transform.position + (transform.right * 2), (transform.right * 2) - transform.up);
-        Debug.DrawRay(transform.position + (transform.right * 2), (transform.right * 2) + (-transform.up * 80));
+      
         RaycastHit hit7;
         if (Physics.Raycast(r7, out hit7))
         {
