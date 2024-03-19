@@ -23,6 +23,8 @@ public class Targets
     public List<Vector3> vector3s = new List<Vector3>();
 
     public List<Hyperbolic2D> hyperbolic2Ds = new List<Hyperbolic2D>();
+
+    public List<string> names = new List<string>();
 }
 
 public class RayCastStars : MonoBehaviour
@@ -99,7 +101,8 @@ public class RayCastStars : MonoBehaviour
         {
             Transform t = Instantiate(Resources.Load<GameObject>("SpaceItems/PowerMetka").gameObject, transform.position, Quaternion.identity).transform;
 
-            if (s == size.Multyverse) {
+            if (s == size.Multyverse)
+            {
 
 
                 HyperbolicCamera c = HyperbolicCamera.Main();
@@ -110,6 +113,27 @@ public class RayCastStars : MonoBehaviour
                     0
                     );
                 t.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = t.localScale;
+            }
+        }
+        if (Input.GetKeyDown("2"))
+        {
+            if (s == size.Universe)
+            {
+
+                Transform t = Instantiate(Resources.Load<GameObject>("SpaceItems/CustomGalaxy").gameObject, transform.position, Quaternion.identity).transform;
+
+
+
+
+            }
+            if (s == size.Stars)
+            {
+
+                Transform t = Instantiate(Resources.Load<GameObject>("SpaceItems/CustomSubStars").gameObject, transform.position, Quaternion.identity).transform;
+
+
+
+
             }
         }
 
@@ -367,13 +391,40 @@ public class RayCastStars : MonoBehaviour
                         VarSave.DeleteKey("scppos");
                     }
                 }
+                else if (hit.collider.GetComponent<SpaceObject>() && s == size.Universe)
+                {
+                    if (hit.collider.GetComponent<SpaceObject>()._Name == "CustomGalaxy")
+                    {
+                        int o = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
+                        int o2 = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
+                        o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
+
+                        text.text = "Custom Galaxy : s" + o2.ToString();
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            SaveTargets();
+                        }
+
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+
+
+                            VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+
+                            VarSave.SetInt("planetG", o2);
+                            SceneManager.LoadScene("Galactic full 8");
+                            VarSave.SetBool("NoStop", false);
+                            VarSave.DeleteKey("scppos");
+                        }
+                    }
+                }
                 else if (hit.collider.tag == "Star" && s == size.Multyverse)
                 {
                     int o = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
                        (hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
-                        hit.collider.transform.position.y)*200;
+                        hit.collider.transform.position.y) * 200;
                     int o2 = (int)((hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
-                       ( hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                       (hit.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
                         hit.collider.transform.position.y);
                     o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
 
@@ -453,17 +504,20 @@ public class RayCastStars : MonoBehaviour
             GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i].gameObject.AddComponent<DELETE>();
         }
         Targets t = JsonUtility.FromJson<Targets>(VarSave.GetString("spaceData" + SceneManager.GetActiveScene().name + GetPointAnyverse()));
-        int i2 = 0;
-        foreach (Vector3 v3 in t.vector3s)
+
+        for (int i = 0;i< t.vector3s.Count; i++)
         {
-            
-           Transform t2 = Instantiate(Resources.Load<GameObject>("SpaceItems/PowerMetka").gameObject, v3, Quaternion.identity).transform;
+            Vector3 v3 = t.vector3s[i];
+          
+
+                Transform t2 = Instantiate(Resources.Load<GameObject>("SpaceItems/" + t.names[i]).gameObject, v3, Quaternion.identity).transform;
+           
             if (s == size.Multyverse)
             {
 
 
 
-                t2.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = t.hyperbolic2Ds[i2];
+                t2.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = t.hyperbolic2Ds[i];
                 t2.transform.position = new Vector3(
                     0,
                     t2.transform.position.y,
@@ -471,7 +525,6 @@ public class RayCastStars : MonoBehaviour
                     );
                 t2.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = t2.localScale;
             }
-            i2++;
         }
     }
 
@@ -480,7 +533,9 @@ public class RayCastStars : MonoBehaviour
         Targets t = new Targets();
         for (int i = 0; i < GameObject.FindObjectsByType<SpaceObject>(sortmode.main).Length; i++)
         {
+
             t.vector3s.Add(GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i].transform.position);
+            t.names.Add(GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i]._Name);
             if (s == size.Multyverse)
             {
                 t.hyperbolic2Ds.Add(GameObject.FindObjectsByType<SpaceObject>(sortmode.main)[i].GetComponent<HyperbolicPoint>().HyperboilcPoistion);

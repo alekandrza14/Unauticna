@@ -1893,6 +1893,186 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Grib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("U") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("U", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("пильмени") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("пильмени", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Мусор") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Мусор", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Клевер") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Клевер", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Капуста") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Капуста", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Летун") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Летун", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ДомТорт") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("ДомТорт", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Взрыв") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Взрыв", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Water") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Water", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("TreeMaodelbulb") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("TreeMaodelbulb", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("GPU") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("GPU", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Fire") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Fire", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("BlackGrib") != 0 && main() == this)
         {
 

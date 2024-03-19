@@ -60,6 +60,11 @@ public class SceneSettings : MonoBehaviour
             mover.main().gravity = 0;
             mover.main().fly = true;
         }
+        if (sfl == SFL.AntiGravity)
+        {
+
+            PlanetGravity.Instance.inverse = true;
+        }
         if (Input.GetKeyDown(KeyCode.F2))
         {
             if (sfl == SFL.Mind5D)

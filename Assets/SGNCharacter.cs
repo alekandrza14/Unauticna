@@ -13,7 +13,8 @@ public enum PvidSGN
     trahotsa=4,
     strelat = 5,
     tepehatsa = 7,
-    grstnosebatisya = 8
+    grstnosebatisya = 8,
+    pantovatsa = 9
 }
 
 public class SGNCharacter : MonoBehaviour
@@ -27,6 +28,7 @@ public class SGNCharacter : MonoBehaviour
     public ParticleSystem love;
     public ParticleSystem agr;
     public ParticleSystem ska;
+    public Animator anim;
     float timer;
     float timer2;
     public bool psiho;
@@ -89,6 +91,16 @@ public class SGNCharacter : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+            }
+            if (povid == PvidSGN.pantovatsa)
+            {
+                anim.SetBool("danceandstrelat", true);
+
+            }
+            if (povid != PvidSGN.pantovatsa)
+            {
+                anim.SetBool("danceandstrelat", false);
+
             }
             if (povid == PvidSGN.sebatisya)
             {

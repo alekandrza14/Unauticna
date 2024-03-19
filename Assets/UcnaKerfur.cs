@@ -10,6 +10,9 @@ public enum Pviduk
     trahotsa = 3,
     strelat = 4,
     tepehatsa = 5,
+    randwalke = 7,
+    moverwalke = 8,
+    hlebpech = 9
 }
 public class UcnaKerfur : MonoBehaviour
 {
@@ -20,8 +23,13 @@ public class UcnaKerfur : MonoBehaviour
     public ParticleSystem agr;
     public ParticleSystem ska;
     public Animator anim;
+    public TextMesh txt;
     float timer;
     float timer2;
+    float timer3;
+    float timer4;
+
+    int function;
     public bool psiho;
     public bool stat; private void OnCollisionStay(Collision c)
     {
@@ -44,20 +52,55 @@ public class UcnaKerfur : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        txt.text = "Function : " + function;
         if (!stat) timer += Time.deltaTime;
-         timer2 += Time.deltaTime;
+        timer2 += Time.deltaTime;
+        if (!stat) timer3 += Time.deltaTime;
+        if (!stat) timer4 += Time.deltaTime;
         RaycastHit hit = MainRay.MainHit;
         if (hit.collider != null)
         {
             if (hit.collider.gameObject == gameObject && Input.GetKeyDown(KeyCode.E))
             {
-               if(povid != Pviduk.trahotsa) povid = Pviduk.trahotsa; else
-                    povid = Pviduk.spat; stat = !stat;
-                VarSave.LoadMoney("tevro", -10);
+                if (function == 0)
+                {
+                    if (povid != Pviduk.trahotsa) povid = Pviduk.trahotsa;
+                    else
+                        povid = Pviduk.spat; stat = !stat;
+                    VarSave.LoadMoney("tevro", -10);
+                }
+                if (function == 1)
+                {
+                    if (povid != Pviduk.moverwalke) povid = Pviduk.moverwalke;
+                    else
+                        povid = Pviduk.spat; stat = !stat;
+                    VarSave.LoadMoney("tevro", -10);
+                }
+                if (function == 2)
+                {
+                    if (povid != Pviduk.strelat) povid = Pviduk.strelat;
+                    else
+                        povid = Pviduk.spat; stat = !stat;
+                    VarSave.LoadMoney("tevro", -10);
+                }
+                if (function == 3)
+                {
+                    Instantiate(Resources.Load("items/Хлеб"),transform.position,Quaternion.identity);
+                    VarSave.LoadMoney("tevro", -20);
+                }
+            }
+            if (!stat) if (hit.collider.gameObject == gameObject && Input.GetKeyDown(KeyCode.Q))
+            {
+                function += 1;
+                if (function > 3)
+                {
+                    function =0;
+                }
+                VarSave.LoadMoney("tevro", -2);
             }
         }
-                if (timer > 60)
+
+        if (timer > 3 * 60)
         {
             povid = (Pviduk)Random.Range(0, 7);
             if (Random.Range(0, 70) == 0 && !psiho)
@@ -73,9 +116,17 @@ public class UcnaKerfur : MonoBehaviour
                 timer = 0;
             }
         }
+        if (timer3 > 20)
+        {
+            povid = Pviduk.randwalke;
+            if (!psiho)
+            {
+                timer3 = 0;
+            }
+        }
 
 
-        if(cistalenemy.dies>-100)    if (povid == Pviduk.strelat)
+        if (cistalenemy.dies>-100)    if (povid == Pviduk.strelat)
         {
 
             Instantiate(Resources.Load<GameObject>("SGNBoll"), gameObject.transform.position, Quaternion.identity);
@@ -134,13 +185,14 @@ public class UcnaKerfur : MonoBehaviour
         }
       
         if (povid == Pviduk.sebatisya) transform.rotation = Quaternion.LookRotation(m.transform.position);
-        if (povid == Pviduk.napdat || povid == Pviduk.trahotsa) transform.rotation = Quaternion.LookRotation(m.transform.position - Vector3.up - transform.position );
-        if (povid == Pviduk.sebatisya || povid == Pviduk.napdat) transform.Translate(0, 0, 1 * Time.deltaTime);
+        if (povid == Pviduk.napdat || povid == Pviduk.trahotsa || povid == Pviduk.moverwalke) transform.rotation = Quaternion.LookRotation(m.transform.position - Vector3.up - transform.position);
+        if (povid == Pviduk.randwalke) if (timer4>5) { transform.rotation = Random.rotation; timer4 = 0; }
+        if (povid == Pviduk.sebatisya || povid == Pviduk.napdat || povid == Pviduk.moverwalke|| povid == Pviduk.randwalke) transform.Translate(0, 0, 1 * Time.deltaTime);
         if (povid == Pviduk.trahotsa)
         {
-          if(Vector3.Distance(m.transform.position - Vector3.up, transform.position)>0.1f)  transform.Translate(0, 0, 1f * Time.deltaTime); 
+          if(Vector3.Distance(m.transform.position - Vector3.up, transform.position)>0.6f)  transform.Translate(0, 0, 1f * Time.deltaTime); 
         }
-        if (povid == Pviduk.sebatisya || povid == Pviduk.napdat)
+        if (povid == Pviduk.sebatisya || povid == Pviduk.napdat || povid == Pviduk.randwalke || povid == Pviduk.moverwalke)
         {
 
             anim.SetBool("move", true);

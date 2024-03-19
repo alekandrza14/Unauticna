@@ -18,5 +18,11 @@ public class SGNGun : MonoBehaviour
 
             Instantiate(Resources.Load<GameObject>("SGNBoll"), gameObject.transform.position, Quaternion.identity);
         }
+        if (SGNCharacter.Instance.povid == PvidSGN.pantovatsa)
+        {
+
+            Instantiate(Resources.Load<GameObject>("SGNBoll"), gameObject.transform.position, Quaternion.identity); 
+            Instantiate(Resources.Load<GameObject>("SGNBoll"), gameObject.transform.position, Quaternion.identity);
+        }
     }
 }

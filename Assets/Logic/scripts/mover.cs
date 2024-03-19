@@ -496,7 +496,7 @@ public class mover : CustomSaveObject
         for (int i =0;i<allobj.Length;i++)
         {
             Collider obj = allobj[i];
-          if (!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
+            if (!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
             {
                 allpos[i2] = Vector3.negativeInfinity;
             }
