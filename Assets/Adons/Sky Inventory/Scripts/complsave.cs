@@ -1004,6 +1004,7 @@ public class complsave : MonoBehaviour
             }
             if (c == 1)
             {
+                mover m = mover.main();
                 LoadADone = true;
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                 {
@@ -1029,8 +1030,29 @@ public class complsave : MonoBehaviour
                         Instantiate(Resources.Load<GameObject>("events/аруа_момент4").gameObject, mover.main().transform.position, Quaternion.identity);
 
                     }
+                    //ВышийЛетун
+                    if (Random.Range(0, 2) >= 1)
+                    {
+                        Instantiate(Resources.Load<GameObject>("events/ВышийЛетун").gameObject, mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity);
+
+                    }
+                    if (FirstSpawn)
+                    {
+                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (Random.Range(0, 6) >= 1)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("events/РетуалКультяпистов").gameObject, hit.point, Quaternion.identity);
+
+                                }
+                            }
+                        }
+                    }
                 }
-                mover m = mover.main();
                 if (questtarget)
                 {
                     for (int i = 0; i < 6; i++)

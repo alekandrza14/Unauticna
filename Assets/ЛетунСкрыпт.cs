@@ -7,6 +7,7 @@ public class ЛетунСкрыпт : MonoBehaviour
 {
     public Collider c;
     Vector3 target;
+    public float speed = 6;
     bool attack;
     public void OnCollisionEnter(Collision collision)
     {
@@ -34,9 +35,15 @@ public class ЛетунСкрыпт : MonoBehaviour
 
         }
     }
+    MultyTransform instance;
     // Update is called once per frame
     void Update()
     {
+        if (!instance)
+        {
+            instance = FindFirstObjectByType<MultyTransform>();
+
+        }
         Ray r = new Ray(transform.position, new Vector3(
             Random.Range(-1f, 1f),
             Random.Range(-1f, 1f),
@@ -52,7 +59,22 @@ public class ЛетунСкрыпт : MonoBehaviour
             }
         }
         transform.rotation = Quaternion.LookRotation(-(target - transform.position), transform.up);
-        if (c) transform.Translate(new Vector3(0, 0, -6 * Time.deltaTime));
+        if (c) transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime));
+        MultyObject multyObject = GetComponent<MultyObject>();
+
+        if (c == GameManager.GetPlayer().gameObject.GetComponent<Collider>())
+        {
+            multyObject.W_Position += multyObject.W_Position > instance.W_Position ? -0.5f : 0.5f;
+
+            multyObject.H_Position += multyObject.H_Position > instance.H_Position ? -0.5f : 0.5f;
+        }
+        else
+        {
+            multyObject.W_Position += Random.Range(-0.02f, 0.02f);
+
+            multyObject.H_Position += Random.Range(-0.02f, 0.02f);
+        }
+
         transform.Translate(new Vector3(
             Random.Range(-0.02f, 0.02f),
         Random.Range(-0.02f, 0.02f),
