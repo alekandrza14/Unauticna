@@ -1033,7 +1033,7 @@ public class complsave : MonoBehaviour
                     //ВышийЛетун
                     if (Random.Range(0, 2) >= 1)
                     {
-                        Instantiate(Resources.Load<GameObject>("events/ВышийЛетун").gameObject, mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity);
+                        Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун").gameObject, mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity);
 
                     }
                     if (FirstSpawn)
@@ -1046,7 +1046,7 @@ public class complsave : MonoBehaviour
                             {
                                 if (Random.Range(0, 6) >= 1)
                                 {
-                                    Instantiate(Resources.Load<GameObject>("events/РетуалКультяпистов").gameObject, hit.point, Quaternion.identity);
+                                    Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов").gameObject, hit.point, Quaternion.identity);
 
                                 }
                             }
