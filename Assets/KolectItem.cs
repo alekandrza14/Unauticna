@@ -27,11 +27,17 @@ public class KolectItem : MonoBehaviour
                             GameObject obj = Instantiate(prise, mover.main().transform.position, Quaternion.identity);
                             obj.name = obj.name.Remove(obj.name.Length - 7);
                             VarSave.SetString("quest", "is done", SaveType.global);
+                            if (VarSave.GetFloat(
+          "Altruism" + "_gameSettings", SaveType.global) >= 10)
+                            {
+                                VarSave.LoadFloat("reason", 1);
+                            }
                         }
                        
                     }
                 VarSave.SetInt("QuestItemKollect", (int)Globalprefs.QuestItemKollect,SaveType.global);
 
             }
+        
     }
 }

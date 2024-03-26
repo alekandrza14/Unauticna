@@ -2043,19 +2043,21 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("TreeMaodelbulb", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
-        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("GPU") != 0 && main() == this)
+        if (GlobalInputMenager.KeyCode_eat == 1 && Cells[select].elementName == "GPU"
+         && Cells[select].elementCount > 0 && main() == this)
         {
-
-
             GameManager.saveandhill();
 
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
+            VarSave.LoadFloat("BGPU", 1f);
 
             VarSave.LoadFloat("mana", 1f);
-            lowitem("GPU", "");
+            Cells[select].elementName = "";
+            Cells[select].elementCount = 0;
+            Cells[select].elementData = "";
+            Cells[select].UpdateCellInterface();
+
+
+
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Fire") != 0 && main() == this)

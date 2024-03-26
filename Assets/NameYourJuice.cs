@@ -10,6 +10,11 @@ public class NameYourJuice : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (VarSave.GetFloat(
+            "Creative" + "_gameSettings", SaveType.global) >= 10)
+        {
+            VarSave.LoadFloat("reason", 1);
+        }
         ifd.text = (itemName.ItemData.Replace(' ', 'È')).Replace('\n', 'Ʀ');
     }
 

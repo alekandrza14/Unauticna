@@ -15,6 +15,11 @@ public class AudioPlay : MonoBehaviour
 
     private void Start()
     {
+        if (VarSave.GetFloat(
+            "Creative" + "_gameSettings", SaveType.global) >= 10)
+        {
+            VarSave.LoadFloat("reason", 1);
+        }
         Global.PauseManager.Pause();
         ifd.text = musicDir;
     }

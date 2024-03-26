@@ -340,6 +340,11 @@ public class deldialog : MonoBehaviour
         {
             text.text = "";
             act = true;
+            if (VarSave.GetFloat(
+               "Social" + "_gameSettings", SaveType.global) >= 10)
+            {
+                VarSave.LoadFloat("reason", 1);
+            }
             if (anim)
             {
                 anim.SetTrigger("talke");

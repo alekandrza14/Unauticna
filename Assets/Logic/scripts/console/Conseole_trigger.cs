@@ -787,6 +787,11 @@ public class Conseole_trigger : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
         {
+            if (VarSave.GetFloat(
+            "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+            {
+                VarSave.LoadFloat("reason", 1);
+            }
             run(FindFirstObjectByType<Console_pointer>().text.text);
             VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
             Destroy(GameObject.FindWithTag("console"));

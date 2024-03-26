@@ -301,35 +301,55 @@ public class MobileComputer : MonoBehaviour
                 decimal stocks = VarSave.GetMoney("StocksUMU", 0);
                 VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksUMU", 0));
-                VarSave.SetMoney("StocksUMU", 0);
+                VarSave.SetMoney("StocksUMU", 0); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
             }
            if (CurrentStock == 1)
             {
                 decimal stocks = VarSave.GetMoney("StocksCrinjeGame", 0);
                 VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksCrinjeGame", 0));
-                VarSave.SetMoney("StocksCrinjeGame", 0);
+                VarSave.SetMoney("StocksCrinjeGame", 0); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
             }
            if (CurrentStock == 2)
             {
                 decimal stocks = VarSave.GetMoney("StocksDupCorporated", 0);
                 VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksDupCorporated", 0));
-                VarSave.SetMoney("StocksDupCorporated", 0);
+                VarSave.SetMoney("StocksDupCorporated", 0); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
             }
            if (CurrentStock == 3)
             {
                 decimal stocks = VarSave.GetMoney("StocksCeribrals", 0);
                 VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksCeribrals", 0));
-                VarSave.SetMoney("StocksCeribrals", 0);
+                VarSave.SetMoney("StocksCeribrals", 0); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
             }
             if (CurrentStock == 4)
             {
                 decimal stocks = VarSave.GetMoney("StocksMiniHome", 0);
                 VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksMiniHome", 0));
-                VarSave.SetMoney("StocksMiniHome", 0);
+                VarSave.SetMoney("StocksMiniHome", 0); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
             }
 
         }
@@ -347,11 +367,20 @@ public class MobileComputer : MonoBehaviour
                             {
                                 VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
                                 Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                                if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                                {
+                                    VarSave.LoadFloat("reason", 1);
+                                }
                             }
                             if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
                             {
                                 VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
-                                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                                {
+                                    VarSave.LoadFloat("reason", 1);
+                                }
                             }
                         }
                     }
@@ -365,7 +394,11 @@ public class MobileComputer : MonoBehaviour
                         {
                             VarSave.LoadTrash("inftevro", -(double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta);
                             Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
-                            Globalprefs.Infinitysteuvro = VarSave.LoadTrash("inftevro", 0);
+                            Globalprefs.Infinitysteuvro = VarSave.LoadTrash("inftevro", 0); if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+                            {
+                                VarSave.LoadFloat("reason", 1);
+                            }
                         }
                     }
                 }

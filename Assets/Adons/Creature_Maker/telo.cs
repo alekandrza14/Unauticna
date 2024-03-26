@@ -183,7 +183,11 @@ public class telo : CustomSaveObject
         else
         {
           sc =  (SizeCreachure)sizesCreachure.value;
-
+            if (VarSave.GetFloat(
+           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+            {
+                VarSave.LoadFloat("reason", 1);
+            }
             if (tg.isOn && !gameObject.GetComponent<Rigidbody>())
             {
                 gameObject.AddComponent<Rigidbody>();
@@ -201,7 +205,11 @@ public class telo : CustomSaveObject
         }
         else
         {
-
+            if (VarSave.GetFloat(
+           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+            {
+                VarSave.LoadFloat("reason", 1);
+            }
             Ray r = ViewC.getMainView().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(r, out hit))

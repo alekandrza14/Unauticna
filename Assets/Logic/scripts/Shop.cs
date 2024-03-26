@@ -19,6 +19,11 @@ public class Shop : MonoBehaviour
     public produktid[] produkt;
     public void Start()
     {
+        if (VarSave.GetFloat(
+             "Creative" + "_gameSettings", SaveType.global) >= 10)
+        {
+            VarSave.LoadFloat("reason", 1);
+        }
         ShopPosition = ((int)transform.position.x).ToString() +
             ((int)transform.position.y).ToString() +
             ((int)transform.position.z).ToString() +

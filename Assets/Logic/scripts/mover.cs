@@ -224,8 +224,18 @@ public class mover : CustomSaveObject
             RaycastHit hit = MainRay.MainHit;
            
                 if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (VarSave.GetFloat(
+        "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
                 {
-                    genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
+                    VarSave.LoadFloat("reason", 1);
+                }
+                if (VarSave.GetFloat(
+            "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
                     g.s = vaule1;
                     g.gameObject.transform.position = hit.point;
                     List<string> name = new List<string>();
@@ -270,6 +280,11 @@ public class mover : CustomSaveObject
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            if (VarSave.GetFloat(
+           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+            {
+                VarSave.LoadFloat("reason", 1);
+            }
             genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
             for (int i = 0; i < gm.Length; i++)
             {
@@ -290,8 +305,18 @@ public class mover : CustomSaveObject
                 if (hit2.collider != null && j)
                 {
                     if (hit2.collider.GetComponent<genmodel>())
-                    {
-                        hit2.collider.gameObject.AddComponent<DELETE>();
+            {
+                if (VarSave.GetFloat(
+    "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                if (VarSave.GetFloat(
+            "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                hit2.collider.gameObject.AddComponent<DELETE>();
                         List<string> name = new List<string>();
                         List<Vector3> v3 = new List<Vector3>();
                 genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
@@ -325,6 +350,16 @@ public class mover : CustomSaveObject
 
             if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
             {
+                if (VarSave.GetFloat(
+            "Creative" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                if (VarSave.GetFloat(
+           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
                 telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
                 g.nameCreature = vaule2;
                 g.gameObject.transform.position = hit.point;
@@ -474,6 +509,45 @@ public class mover : CustomSaveObject
         Debug.Log("log");
     }
 
+    void reasonUpdate()
+    {
+        var reason =
+        VarSave.GetFloat("reason");
+       if(UnityEngine.Random.Range(0,100)>1) reason -= 1;
+        if (reason > 0)
+        {
+            reason = 0;
+        }
+        if (VarSave.GetFloat(
+          "Alterversesion" + "_gameSettings", SaveType.global) >= 10)
+        {
+            if (reason > 10)
+            {
+                reason = 10;
+            }
+        }
+      
+        if (VarSave.CreateEvent("reason"))
+        {
+            reason = 100;
+
+        }
+      
+        if (reason > 10)
+        {
+            Application.targetFrameRate = 5;
+        }
+        else if (reason < 10 && reason > 100)
+        {
+            Application.targetFrameRate = 30;
+        }
+        else if (reason < 100)
+        {
+            Application.targetFrameRate = 60;
+        }
+        VarSave.SetFloat("reason",reason);
+    }
+
     //Пробуждение кода
     private void Awake()
     {
@@ -490,6 +564,7 @@ public class mover : CustomSaveObject
     Logic_tag_3[] lt;
     private void Init()
     {
+        InvokeRepeating("reasonUpdate",1,1);
         Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
         Vector3[] allpos = new Vector3[allobj.Length];
         int i2 = 0;
@@ -1028,6 +1103,7 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 340, 200f, 100f), "Intelect : " + (100 + (CosProgress()) * 10));
             GUI.Label(new Rect(0f, 360, 200f, 100f), "Mana : " + VarSave.GetFloat("mana"));
             GUI.Label(new Rect(0f, 380, 200f, 100f), "Luck : " + VarSave.GetFloat("luck"));
+            GUI.Label(new Rect(0f, 400, 200f, 100f), "reason : " + VarSave.GetFloat("reason"));
             //cistalenemy.dies
 
 
@@ -1116,6 +1192,11 @@ public class mover : CustomSaveObject
         {
             if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
             {
+                if (VarSave.GetFloat(
+           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
                 VarSave.GetFloat("H_Roataton");
                 playerdata.Loadeffect();
                 if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
@@ -1166,6 +1247,11 @@ public class mover : CustomSaveObject
         {
             if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
             {
+                if (VarSave.GetFloat(
+           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
                 playerdata.Loadeffect();
                 if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
                 {
@@ -1304,9 +1390,34 @@ public class mover : CustomSaveObject
         File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    int CosProgress()
+    float CosProgress()
     {
-        return gsave.progressofthepassage + nonnatureprogress + meat;
+        if (VarSave.GetFloat(
+         "Alterversesion" + "_gameSettings", SaveType.global) < 10)
+        {
+            if (VarSave.GetFloat("reason") < 30)
+            {
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+            }
+        }
+        if (VarSave.GetFloat(
+         "Alterversesion" + "_gameSettings", SaveType.global) > 10 && VarSave.GetFloat(
+         "Alterversesion" + "_gameSettings", SaveType.global) < 50)
+        {
+            if (VarSave.GetFloat("reason") < 15)
+            {
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+            }
+        }
+        if (VarSave.GetFloat(
+         "Alterversesion" + "_gameSettings", SaveType.global) > 50)
+        {
+            if (VarSave.GetFloat("reason") < 10)
+            {
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+            }
+        }
+        return (float)(gsave.progressofthepassage + nonnatureprogress + meat)+ (VarSave.LoadFloat("BGPU", 0f)/2);
     }
     public void stop()
     {
@@ -1871,7 +1982,11 @@ public class mover : CustomSaveObject
             cistalenemy.dies-=1+invisibeobject;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
-
+            if(VarSave.GetFloat(
+                "Sadist" + "_gameSettings", SaveType.global)>=10)
+            {
+                VarSave.LoadFloat("reason", 1);
+            }
             timer8 = 0;
         }
         if (Globalprefs.selectitemobj) if (!Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
