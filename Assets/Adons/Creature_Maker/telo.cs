@@ -184,7 +184,7 @@ public class telo : CustomSaveObject
         {
           sc =  (SizeCreachure)sizesCreachure.value;
             if (VarSave.GetFloat(
-           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+           "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
             {
                 VarSave.LoadFloat("reason", 1);
             }
@@ -206,7 +206,7 @@ public class telo : CustomSaveObject
         else
         {
             if (VarSave.GetFloat(
-           "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+           "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
             {
                 VarSave.LoadFloat("reason", 1);
             }

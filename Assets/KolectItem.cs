@@ -28,7 +28,7 @@ public class KolectItem : MonoBehaviour
                             obj.name = obj.name.Remove(obj.name.Length - 7);
                             VarSave.SetString("quest", "is done", SaveType.global);
                             if (VarSave.GetFloat(
-          "Altruism" + "_gameSettings", SaveType.global) >= 10)
+          "Altruism" + "_gameSettings", SaveType.global) >= .1f)
                             {
                                 VarSave.LoadFloat("reason", 1);
                             }

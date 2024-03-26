@@ -788,7 +788,7 @@ public class Conseole_trigger : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
         {
             if (VarSave.GetFloat(
-            "Freedomfil" + "_gameSettings", SaveType.global) >= 10)
+            "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
             {
                 VarSave.LoadFloat("reason", 1);
             }

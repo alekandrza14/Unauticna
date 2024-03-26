@@ -16,7 +16,7 @@ public class AudioPlay : MonoBehaviour
     private void Start()
     {
         if (VarSave.GetFloat(
-            "Creative" + "_gameSettings", SaveType.global) >= 10)
+            "Creative" + "_gameSettings", SaveType.global) >= .1f)
         {
             VarSave.LoadFloat("reason", 1);
         }

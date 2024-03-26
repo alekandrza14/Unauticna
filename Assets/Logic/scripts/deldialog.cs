@@ -341,7 +341,7 @@ public class deldialog : MonoBehaviour
             text.text = "";
             act = true;
             if (VarSave.GetFloat(
-               "Social" + "_gameSettings", SaveType.global) >= 10)
+               "Social" + "_gameSettings", SaveType.global) >= .1f)
             {
                 VarSave.LoadFloat("reason", 1);
             }
