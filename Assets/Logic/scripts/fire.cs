@@ -60,6 +60,7 @@ public class fire : MonoBehaviour
     }
     void Spawn()
     {
+        Globalprefs.LoadTevroPrise(-15);
         mover.main().Spawninitfire(transform.position);
     }
     private void OnDisable()

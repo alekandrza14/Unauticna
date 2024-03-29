@@ -259,15 +259,15 @@ public class MobileComputer : MonoBehaviour
                 {
                     if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
                     {
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + ((complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f  * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ) ;
                     }
                     if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
                     {
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + ((complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f  * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ) ;
                     }
                     if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                     {
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : ∞ * " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta;
+                        txt.text = complsave.t3[CurrentProduct].name + " Const : ∞ * " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ;
                     }
                 }
             }
@@ -299,7 +299,7 @@ public class MobileComputer : MonoBehaviour
             if (CurrentStock == 0)
             {
                 decimal stocks = VarSave.GetMoney("StocksUMU", 0);
-                VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
+                Globalprefs.LoadTevroPrise(stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksUMU", 0));
                 VarSave.SetMoney("StocksUMU", 0); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
@@ -310,7 +310,7 @@ public class MobileComputer : MonoBehaviour
            if (CurrentStock == 1)
             {
                 decimal stocks = VarSave.GetMoney("StocksCrinjeGame", 0);
-                VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
+                Globalprefs.LoadTevroPrise(stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksCrinjeGame", 0));
                 VarSave.SetMoney("StocksCrinjeGame", 0); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
@@ -321,7 +321,7 @@ public class MobileComputer : MonoBehaviour
            if (CurrentStock == 2)
             {
                 decimal stocks = VarSave.GetMoney("StocksDupCorporated", 0);
-                VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
+                Globalprefs.LoadTevroPrise(stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksDupCorporated", 0));
                 VarSave.SetMoney("StocksDupCorporated", 0); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
@@ -332,7 +332,7 @@ public class MobileComputer : MonoBehaviour
            if (CurrentStock == 3)
             {
                 decimal stocks = VarSave.GetMoney("StocksCeribrals", 0);
-                VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
+                Globalprefs.LoadTevroPrise(stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksCeribrals", 0));
                 VarSave.SetMoney("StocksCeribrals", 0); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
@@ -343,7 +343,7 @@ public class MobileComputer : MonoBehaviour
             if (CurrentStock == 4)
             {
                 decimal stocks = VarSave.GetMoney("StocksMiniHome", 0);
-                VarSave.LoadMoney("tevro", stocks * (decimal)stocknew * shorta);
+                Globalprefs.LoadTevroPrise(stocks * (decimal)stocknew * shorta);
                 VarSave.LoadMoney("Stocks", -VarSave.GetMoney("StocksMiniHome", 0));
                 VarSave.SetMoney("StocksMiniHome", 0); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
@@ -357,7 +357,7 @@ public class MobileComputer : MonoBehaviour
         {
             if (!Directory.Exists("debug"))
             {
-                if (VarSave.LoadMoney("tevro", 0) >= (decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)))
+                if (Globalprefs.LoadTevroPrise(0) >= (decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)))
                 {
                     if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
                     {
@@ -365,7 +365,7 @@ public class MobileComputer : MonoBehaviour
                         {
                             if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
                             {
-                                VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                                Globalprefs.LoadTevroPrise(-(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
                                 Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
                                 if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
@@ -375,7 +375,7 @@ public class MobileComputer : MonoBehaviour
                             }
                             if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
                             {
-                                VarSave.LoadMoney("tevro", -(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                                Globalprefs.LoadTevroPrise(-(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
                                 Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
                                 {
@@ -450,8 +450,8 @@ public class MobileComputer : MonoBehaviour
                     }
                 }
                
-                if (prise > 0) { if (VarSave.LoadMoney("tevro", 0) < decimal.MaxValue - prise) VarSave.LoadMoney("tevro", prise * shorta); }
-                else if(VarSave.LoadMoney("tevro", 0) > decimal.MinValue - prise) VarSave.LoadMoney("tevro", prise * shorta);
+                if (prise > 0) { if (Globalprefs.LoadTevroPrise(0) < decimal.MaxValue - prise) Globalprefs.LoadTevroPrise(prise * shorta); }
+                else if(Globalprefs.LoadTevroPrise(0) > decimal.MinValue - prise)Globalprefs. LoadTevroPrise( prise * shorta);
 
             }
         }

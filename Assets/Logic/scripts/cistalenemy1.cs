@@ -25,14 +25,14 @@ public class cistalenemy1 : MonoBehaviour
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1)
         {
 
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
         }
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -44,7 +44,7 @@ public class cistalenemy1 : MonoBehaviour
         }
         if (c.collider.GetComponent<Logic_tag_DamageObject>())
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -54,7 +54,7 @@ public class cistalenemy1 : MonoBehaviour
         }
         if (c.collider.GetComponent<Logic_tag_DamageObject>())
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

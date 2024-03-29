@@ -11,7 +11,7 @@ public class offBunkron : MonoBehaviour
     {
         if (!oft)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= 2000 && Globalprefs.bunkrot)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= 2000 && Globalprefs.bunkrot)
             {
 
                 RaycastHit hit = MainRay.MainHit;
@@ -20,7 +20,7 @@ public class offBunkron : MonoBehaviour
                     {
                         if (hit.collider.gameObject == gameObject)
                         {
-                        VarSave.LoadMoney("tevro", 2000);
+                        Globalprefs.LoadTevroPrise(2000);
                             Globalprefs.flowteuvro -= 1;
                             VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
 

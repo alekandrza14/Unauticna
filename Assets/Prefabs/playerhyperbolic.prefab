@@ -305,12 +305,19 @@ MonoBehaviour:
   - {fileID: 2414463882727657444}
   - {fileID: 7059298103091076427}
   W_position: 0
+  H_position: 0
+  N_position:
+  - 0
+  cur_N_position: 0
   planet_position: 0
   SaveFileInputField: {fileID: 1990992665242822036}
   IsGraund: 0
+  InWater: 0
   watermask: {fileID: 0}
   hp: 200
   HeadCameraSetup: {fileID: 2156225193460172551}
+  nonnatureprogress: 0
+  fly: 0
   PlayersModelObjObjects:
   - {fileID: 8980619980893631733}
   - {fileID: 6769835947818255715}
@@ -325,7 +332,11 @@ MonoBehaviour:
   - {fileID: 3018629709563623458}
   PlayerModelTags: 010000000000000000000000000000000000000000000000
   DebugMat: {fileID: 0}
+  faceViewi: 0
   lif: 
+  HX_Rotation: 0
+  c1: {r: 0, g: 0, b: 0, a: 0}
+  invisibeobject: 0
 --- !u!54 &9051240765063298989
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -432,6 +443,7 @@ MonoBehaviour:
   - {fileID: 1207816334872728046}
   - {fileID: 1207816334797873202}
   - {fileID: 1207816334604439996}
+  playerSphericalModel: 0
 --- !u!95 &8178178777836496718
 Animator:
   serializedVersion: 7
@@ -469,7 +481,7 @@ MonoBehaviour:
   position: {x: 1.44, y: 1.86, z: 0.78}
   RealtimeTransform:
     n: 0
-    s: 0.01
+    s: 0.04848839923739101
     m: 0
   HyperbolicTransform:
     n: 0
@@ -812,6 +824,8 @@ MonoBehaviour:
   _shadowIntensity: 0.645
   _aoIntensity: 0.537
   _skyColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  hue: 0
+  _ChaosColor: {r: 1, g: 1, b: 1, a: 1}
   _renderNr: 0
   orderedShapes: []
 --- !u!114 &3384919600771902153
@@ -1533,7 +1547,7 @@ PrefabInstance:
     - target: {fileID: 8520350704456583323, guid: eef2ba868cf775c43bc3d90f469a2f81,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9040287400232882721, guid: eef2ba868cf775c43bc3d90f469a2f81,
         type: 3}

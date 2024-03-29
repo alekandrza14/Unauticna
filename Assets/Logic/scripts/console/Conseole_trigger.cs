@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class Conseole_trigger : MonoBehaviour
@@ -165,6 +166,38 @@ public class Conseole_trigger : MonoBehaviour
             if (s[0] == "-AutoDimenshonal")
             {
                 a = "36";
+            }
+            if (s[0] == "ExpTevro")
+            {
+                a = "37";
+            }
+            if (s[0] == "OverFlow")
+            {
+                a = "38";
+            }
+            if (s[0] == "MoreFlow")
+            {
+                a = "40";
+            }
+            if (s[0] == "Arkadilion")
+            {
+                a = "39";
+            }
+            if (s[0] == "Million")
+            {
+                a = "41";
+            }
+            if (s[0] == "Night")
+            {
+                a = "42";
+            }
+            if (s[0] == "AntiNight")
+            {
+                a = "43";
+            }
+            if (s[0] == "Day")
+            {
+                a = "44";
             }
             if (s[0] == "Item_by_name")
             {
@@ -676,6 +709,44 @@ public class Conseole_trigger : MonoBehaviour
                 playerdata.hasClearEffect("-AutoDimenshonal");
                 VarSave.SetFloat("Dimenshonal", float.Parse(s[2]));
                 playerdata.Addeffect("-AutoDimenshonal", float.Parse(s[1]));
+            }
+            if (i == 1 && a == "37")
+            {
+
+                VarSave.SetTrash("MOMU", double.Parse(s[1]));
+            }
+            if (i == 1 && a == "38")
+            {
+
+                VarSave.SetMoney("OverFlow", decimal.Parse(s[1]));
+            }
+            if (i == 1 && a == "40")
+            {
+              Globalprefs.flowteuvro = decimal.Parse(s[1]);
+
+                VarSave.SetMoney("CashFlow", decimal.Parse(s[1]));
+            }
+            if (i == 1 && a == "39")
+            {
+                VarSave.SetTrash("MOMU", 30e15);
+                VarSave.SetMoney("tevro", 1);
+            }
+            if (i == 1 && a == "41")
+            {
+                VarSave.SetTrash("MOMU", 0);
+                VarSave.SetMoney("tevro", 1000000);
+            }
+            if (i == 1 && a == "42")
+            {
+                Sutck.SetSutck(0f);
+            }
+            if (i == 1 && a == "43")
+            {
+                Sutck.SetSutck(2f);
+            }
+            if (i == 1 && a == "44")
+            {
+                Sutck.SetSutck(1f);
             }
             if (i == 1 && a == "26")
             {

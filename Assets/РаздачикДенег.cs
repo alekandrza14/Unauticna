@@ -12,7 +12,7 @@ public class РаздачикДенег : MonoBehaviour
         if (hit.collider != null) if (hit.collider.gameObject == gameObject && Input.GetKeyDown(KeyCode.Mouse0))
         {
 
-                VarSave.LoadMoney("tevro", 1);
+                Globalprefs.LoadTevroPrise(1);
                 VarSave.LoadMoney("РаздачикДенег"+System.DateTime.Now.Day, 1);
                 if (VarSave.LoadMoney("РаздачикДенег" + System.DateTime.Now.Day, 0) > maxtevro)
                 {

@@ -46,7 +46,7 @@ public class cistalenemy2 : MonoBehaviour
             }
             if (craft1 != null && craft2 != null)
             {
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+                Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject);
             }
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -63,7 +63,7 @@ public class cistalenemy2 : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("items/belock"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("items/belock"), gameObject.transform.position, Quaternion.identity);
             }
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 1);
+            Globalprefs.LoadTevroPrise(- 1);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
         }

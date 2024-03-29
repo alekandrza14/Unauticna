@@ -35,7 +35,7 @@ public class UcnaKerfur : MonoBehaviour
     {
         if (c.collider.GetComponent<Logic_tag_DamageObject>())
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
           
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             cistalenemy.dies+=10;
@@ -67,26 +67,26 @@ public class UcnaKerfur : MonoBehaviour
                     if (povid != Pviduk.trahotsa) povid = Pviduk.trahotsa;
                     else
                         povid = Pviduk.spat; stat = !stat;
-                    VarSave.LoadMoney("tevro", -10);
+                    Globalprefs.LoadTevroPrise(-10);
                 }
                 if (function == 1)
                 {
                     if (povid != Pviduk.moverwalke) povid = Pviduk.moverwalke;
                     else
                         povid = Pviduk.spat; stat = !stat;
-                    VarSave.LoadMoney("tevro", -10);
+                    Globalprefs.LoadTevroPrise(-10);
                 }
                 if (function == 2)
                 {
                     if (povid != Pviduk.strelat) povid = Pviduk.strelat;
                     else
                         povid = Pviduk.spat; stat = !stat;
-                    VarSave.LoadMoney("tevro", -10);
+                    Globalprefs.LoadTevroPrise(-10);
                 }
                 if (function == 3)
                 {
                     Instantiate(Resources.Load("items/Хлеб"),transform.position,Quaternion.identity);
-                    VarSave.LoadMoney("tevro", -20);
+                    Globalprefs.LoadTevroPrise(-20);
                 }
             }
             if (!stat) if (hit.collider.gameObject == gameObject && Input.GetKeyDown(KeyCode.Q))
@@ -96,7 +96,7 @@ public class UcnaKerfur : MonoBehaviour
                 {
                     function =0;
                 }
-                VarSave.LoadMoney("tevro", -2);
+                    Globalprefs.LoadTevroPrise(-2);
             }
         }
 
@@ -166,13 +166,13 @@ public class UcnaKerfur : MonoBehaviour
                 if (!anim.GetBool("sex")) anim.SetBool("sex", true);
                 if (timer2 > 2)
                 {
-                    VarSave.LoadMoney("tevro", -1);
+                    Globalprefs.LoadTevroPrise(-1);
                     timer2 = 0;
                 }
-                if (VarSave.LoadMoney("tevro", 0) < 0)
+                if (Globalprefs.LoadTevroPrise(0) < 0)
                 {
 
-                    VarSave.LoadMoney("tevro", -10);
+                    Globalprefs.LoadTevroPrise(-10);
                     povid = Pviduk.sebatisya;
 
                 }

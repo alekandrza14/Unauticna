@@ -29,7 +29,7 @@ public class cistalenemy4 : MonoBehaviour
     }
     void dies()
     {
-        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+        Globalprefs.LoadTevroPrise(- 100);
         VarSave.SetInt("dies-zellotton",1);
         cistalenemy.dies++;
 

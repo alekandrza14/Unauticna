@@ -44,6 +44,30 @@ public class SceneSettings : MonoBehaviour
 
         }
     }
+    private void OnDestroy()
+    {
+        if (sfl == SFL.Mind5D)
+        {
+
+            mover.main().nonnatureprogress -= 2;
+        }
+        if (sfl == SFL.MindND)
+        {
+
+            mover.main().nonnatureprogress -= 3;
+        }
+        if (sfl == SFL.Mind4D)
+        {
+
+            mover.main().nonnatureprogress -= 1;
+        }
+        if (sfl == SFL.WorkInLitchUniverse)
+        {
+
+            mover.main().nonnatureprogress -= 1;
+
+        }
+    }
     string si;
     void Update()
     {
@@ -67,27 +91,7 @@ public class SceneSettings : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            if (sfl == SFL.Mind5D)
-            {
-
-                mover.main().nonnatureprogress -= 2;
-            }
-            if (sfl == SFL.MindND)
-            {
-
-                mover.main().nonnatureprogress -= 3;
-            }
-            if (sfl == SFL.Mind4D)
-            {
-
-                mover.main().nonnatureprogress -= 1;
-            }
-            if (sfl == SFL.WorkInLitchUniverse)
-            {
-
-                mover.main().nonnatureprogress -= 1;
-
-            }
+          
             Instantiate(gameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -97,7 +101,7 @@ public class SceneSettings : MonoBehaviour
             {
 
                 mover.main().hp -= 1;
-                VarSave.LoadMoney("tevro",0.01m);
+                Globalprefs.LoadTevroPrise(0.01m);
             }
             if (environment_space == environment.pain)
             {

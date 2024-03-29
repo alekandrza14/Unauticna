@@ -37,7 +37,7 @@ public class Shop : MonoBehaviour
         {
             TeuvroTraider = VarSave.LoadMoney(ShopPosition, 0, SaveType.world).ToString();
         }
-        tevroint = VarSave.GetMoney("tevro");
+        tevroint = Globalprefs.LoadTevroPrise(0);
         for (int i = 0; i < produkt.Length; i++)
         {
             if (produkt[i].name == "Random()")
@@ -157,7 +157,7 @@ public class Shop : MonoBehaviour
                 }
                 tevroint -= decimal.Parse( produkt[product].price);
                 VarSave.LoadMoney("Inflaition", -tevroint/2000, SaveType.global);
-                VarSave.SetMoney("tevro", tevroint);
+                Globalprefs.LoadTevroPrise(tevroint);
 
                 if (produkt[product].name == "script" && Globalprefs.signedgamejolt == true)
                 {
@@ -176,7 +176,7 @@ public class Shop : MonoBehaviour
                 {
 
                     tevroint += decimal.Parse(produkt[product].price);
-                    VarSave.SetMoney("tevro", tevroint);
+                    Globalprefs.LoadTevroPrise(tevroint);
                     GameObject.FindGameObjectWithTag(inv).GetComponent<ElementalInventory>().removeitem(produkt[product].name);
 
                     VarSave.LoadMoney(ShopPosition, -decimal.Parse(produkt[product].price), SaveType.world);

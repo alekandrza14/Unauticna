@@ -6,8 +6,6 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
-using UnityEngine.ProBuilder.MeshOperations;
-using System.Runtime.ExceptionServices;
 
 public class load1
 {
@@ -90,12 +88,12 @@ public class mover : CustomSaveObject
     [SerializeField] float ForseSwaem;
     [SerializeField] Rigidbody rigidbody3d;
     [SerializeField] float Speed;
-    [SerializeField] Animator animator;
+    [SerializeField] public Animator animator;
     [SerializeField] Animator[] SkinedAnimators;
     save save = new save();
     tsave tsave = new tsave();
   public  gsave gsave = new gsave();
-
+    [SerializeField] GUISkin editor;
     [SerializeField] public float W_position;
     [SerializeField] public float H_position;
     [SerializeField] public List<float> N_position = new List<float>()
@@ -130,7 +128,7 @@ public class mover : CustomSaveObject
     [SerializeField] int[] PlayerModelTags;
    public PlayerDNA DNA = new PlayerDNA();
     public Material DebugMat;
-    faceView faceViewi;
+ [HideInInspector] public  faceView faceViewi;
     bool Sprint;
     float fireInk;
     string lepts = "";
@@ -516,9 +514,8 @@ public class mover : CustomSaveObject
        if(rand.Next(0,100)<1) reason -= 1;
         int min = 0;
         int max = 100;
-        max += (int)(VarSave.LoadFloat("BGPU", 0f)*10);
-        for (int i=0;i<2;i++) { if(i==0)if (VarSave.GetFloat(
-        "Alterversion" + "_gameSettings", SaveType.global) >= 0.1f)
+        max += (int)(data_BGPU*10);
+        for (int i=0;i<2;i++) { if(i==0)if (Globalprefs.alterversion >= 0.1f)
             {
                     Debug.Log("Fork?");
                 min = 10;
@@ -563,7 +560,7 @@ public class mover : CustomSaveObject
         dnSpyModer.MainModData.LoadScene();
 #endif
     }
-    Color c1;
+  [HideInInspector] public Color c1;
     int maxhp2;
     int regen;
     bool swapWHaN;
@@ -597,6 +594,7 @@ public class mover : CustomSaveObject
         {
             Instantiate(Resources.Load<GameObject>("events/LitchUniverse"));
         }
+        Instantiate(Resources.Load<GameObject>("Sutck"));
         if (VarSave.GetBool("lol you Banned"))
         {
             SceneManager.LoadScene("Banned forever");
@@ -620,6 +618,7 @@ public class mover : CustomSaveObject
             g.AddComponent<MultyTransform>();
         }
         Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
+        editor = Resources.Load<GUISkin>("ui/test");
         if (VarSave.ExistenceVar("DNA"))
         {
             DNA = JsonUtility.FromJson<PlayerDNA>(VarSave.GetString("DNA"));
@@ -668,7 +667,7 @@ public class mover : CustomSaveObject
         if (UnityEngine.Random.Range(0, (int)Chance2 + 1) == 0)
         {
             cistalenemy.dies -= 2;
-            VarSave.LoadMoney("tevro", -100);
+           Globalprefs. LoadTevroPrise(-100);
         }
         float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
         if (UnityEngine.Random.Range(0, (int)Chance3 + 1) == 0)
@@ -692,7 +691,10 @@ public class mover : CustomSaveObject
             
         }
         decimal cashFlow = ((timer5 - LastSesion) * VarSave.GetMoney("CashFlow"));
-        VarSave.LoadMoney("tevro", cashFlow);
+      if ( Sutck.day!=0) VarSave.LoadMoney("tevro", cashFlow);
+        decimal overFlow = ((timer5 - LastSesion) * VarSave.GetMoney("OverFlow"));
+        if (Sutck.day != 0) VarSave.LoadMoney("CashFlow", cashFlow);
+        Globalprefs.MultTevro = VarSave.GetTrash("MOMU",0);
         fireInk = VarSave.GetFloat("FireInk");
         hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
@@ -700,8 +702,9 @@ public class mover : CustomSaveObject
         Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.technologies = VarSave.GetMoney("_technologies");
         Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow")+ ((decimal)Globalprefs.GetRealiyChaos(10f)/100);
+        Globalprefs.OverFlowteuvro = VarSave.GetMoney("OverFlow");
         Globalprefs.Infinitysteuvro = VarSave.GetTrash("inftevro");
-        Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
+      //  Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
         if (VarSave.ExistenceVar("cms" + SceneManager.GetActiveScene().buildIndex + lif,SaveType.world))
@@ -1012,6 +1015,13 @@ public class mover : CustomSaveObject
     {
      return   metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
     }
+    float data_BGPU;
+    float data_mana;
+    float data_luck;
+    decimal data_stocks;
+    string data_profstatus;
+    decimal data_inflation;
+    UniverseSkyType data_universetype;
     //Пробуждение кода
     //Приметивный интерфейс
     Metka[] metka;
@@ -1064,19 +1074,19 @@ public class mover : CustomSaveObject
             {
                 if (playerdata.Geteffect("Unyverseium_money_cart") != null)
                 {
-                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : ∞ * " + Globalprefs.Infinitysteuvro);
-                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : ∞ * " + Globalprefs.Infinitysteuvro + "E" + Globalprefs.MultTevro);
+                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
 
                 }
                 else
                 {
-                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2));
+                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2)+"E"+Globalprefs.MultTevro);
                 }
             }
             int maxcollect = 0;
             if (VarSave.GetString("quest", SaveType.global) == "капуста") maxcollect = 10;
-            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞");
-            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2));
+            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞" + "E" + Globalprefs.MultTevro);
+            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2) + "E" + Globalprefs.MultTevro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             if (Globalprefs.selectitemobj)
             {
@@ -1090,16 +1100,16 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + (Globalprefs.knowlages + gsave.progressofthepassage).ToString());
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
-            GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + (UniverseSkyType)VarSave.GetInt("UST"));
+            GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + data_universetype);
             if (playerdata.Geteffect("Undyning") == null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
             if (playerdata.Geteffect("Undyning") != null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + "∞ ok is this mean we don't dyeing?");
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
-            GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + VarSave.LoadMoney("Stocks", 0));
+            GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + data_stocks);
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
-            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + VarSave.GetMoney("Inflation", SaveType.global) + "%");
-            if (VarSave.GetString("ProfStatus") !="")
+            GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + data_inflation + "%");
+            if (data_profstatus !="")
             { 
-                GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + VarSave.GetString("ProfStatus"));
+                GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + data_profstatus);
             }
             else 
             {
@@ -1107,9 +1117,13 @@ public class mover : CustomSaveObject
             }
             GUI.Label(new Rect(0f, 320, 200f, 100f), "QuestItemCollect : " + Globalprefs.QuestItemKollect.ToString() + " / " + maxcollect);
             GUI.Label(new Rect(0f, 340, 200f, 100f), "Intelect : " + (100 + (CosProgress()) * 10));
-            GUI.Label(new Rect(0f, 360, 200f, 100f), "Mana : " + VarSave.GetFloat("mana"));
-            GUI.Label(new Rect(0f, 380, 200f, 100f), "Luck : " + VarSave.GetFloat("luck"));
-            GUI.Label(new Rect(0f, 400, 200f, 100f), "Reason : " + VarSave.GetFloat("reason")+" / "+(100+ ((VarSave.LoadFloat("BGPU", 0f)*10))));
+            GUI.Label(new Rect(0f, 360, 200f, 100f), "Mana : " + data_mana);
+            GUI.Label(new Rect(0f, 380, 200f, 100f), "Luck : " + data_luck);
+            GUI.Label(new Rect(0f, 400, 200f, 100f), "Reason : " + Globalprefs.reasone+" / "+(100+ (data_BGPU * 10)));
+            GUI.Label(new Rect(0f, 420, 300f, 100f), "Flow Flow Teuvro on hour ($^^) : " + Math.Round(Globalprefs.OverFlowteuvro, 2) + "E" + Globalprefs.MultTevro);
+
+            GUI.Label(new Rect(Screen.width - 200, 0, 200, 40), "TimeRegion : " + ((TimeOfGame)Sutck.day).ToString(), editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 20, 200, 40), "Temperature : " + Sutck.Temperature()+"˚", editor.label);
             //cistalenemy.dies
 
 
@@ -1398,40 +1412,35 @@ public class mover : CustomSaveObject
     }
     float CosProgress()
     {
-        if (VarSave.GetFloat(
-         "Alterversion" + "_gameSettings", SaveType.global) < .1f)
+        if (Globalprefs.alterversion < .1f)
         {
-            if (VarSave.GetFloat("reason") < 30)
+            if (Globalprefs.reasone < 30)
             {
-                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (data_BGPU / 2) / 2;
             }
         }
-        if (VarSave.GetFloat(
-         "Alterversion" + "_gameSettings", SaveType.global) > .1f && VarSave.GetFloat(
-         "Alterversion" + "_gameSettings", SaveType.global) < .5f)
+       else if (Globalprefs.alterversion > .1f && Globalprefs.alterversion < .5f)
         {
-            if (VarSave.GetFloat("reason") < 15)
+            if (Globalprefs.reasone < 15)
             {
-                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (data_BGPU / 2) / 2;
             }
         }
-        if (VarSave.GetFloat(
-         "Alterversion" + "_gameSettings", SaveType.global) > .5f)
+        else if (Globalprefs.alterversion > .5f && Globalprefs.alterversion < .99f)
         {
-            if (VarSave.GetFloat("reason") < 10)
+            if (Globalprefs.reasone < 10)
             {
-                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (data_BGPU / 2) / 2;
             }
         }
-        if (VarSave.GetFloat(
-         "Alterversion" + "_gameSettings", SaveType.global) > .99f)
+        else if ( Globalprefs.alterversion > .99f)
         {
-            if (VarSave.GetFloat("reason") < 0)
+            if (Globalprefs.reasone < 0)
             {
-                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (VarSave.LoadFloat("BGPU", 0f) / 2) / 2;
+                return (float)(gsave.progressofthepassage + nonnatureprogress + meat) + (data_BGPU / 2) / 2;
             }
         }
-        return (float)(gsave.progressofthepassage + nonnatureprogress + meat)+ (VarSave.LoadFloat("BGPU", 0f)/2);
+        return (float)(gsave.progressofthepassage + nonnatureprogress + meat)+ (data_BGPU / 2);
     }
     public void stop()
     {
@@ -1718,6 +1727,14 @@ public class mover : CustomSaveObject
     GameObject waterscreen;
     void Update()
     {
+        Globalprefs.UpdatePsiho();
+        data_profstatus = VarSave.GetString("ProfStatus");
+        data_BGPU = VarSave.GetFloat("BGPU", 0f);
+        data_mana = VarSave.GetFloat("mana");
+        data_luck = VarSave.GetFloat("luck");
+        data_universetype = (UniverseSkyType)VarSave.GetInt("UST");
+        data_stocks = VarSave.LoadMoney("Stocks", 0);
+        data_inflation = VarSave.GetMoney("Inflation", SaveType.global);
         metka = UpdateTargets();
         E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);
         cc = new List<Vector3>();
@@ -1984,7 +2001,7 @@ public class mover : CustomSaveObject
         if (timer > 60m * 60m)
         {
 
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.flowteuvro);
+            Globalprefs.LoadTevroPrise(Globalprefs.flowteuvro);
 
             timer = 0;
         }
@@ -2013,7 +2030,7 @@ public class mover : CustomSaveObject
                     cistalenemy.dies += 100;
                     VarSave.SetInt("Agr", cistalenemy.dies);
                 }
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
+                    Globalprefs.LoadTevroPrise( Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
                 Destroy(Globalprefs.selectitemobj.gameObject);
                 Globalprefs.selectitem = "";
                 Globalprefs.ItemPrise = 0;
@@ -2619,14 +2636,7 @@ public class mover : CustomSaveObject
                 t = FindFirstObjectByType<PhotoCapture>().gameObject;
             }
 
-            SkinManager(); if (playerdata.Geteffect("KsenoMorfin") == null)
-            {
-                PlayerModelObject.layer = 0;
-            }
-            if (playerdata.Geteffect("KsenoMorfin") != null)
-            {
-                PlayerModelObject.layer = 8;
-            }
+            SkinManager(); 
             Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
             float distcam = 0;
@@ -2688,7 +2698,7 @@ public class mover : CustomSaveObject
 
     private void SkinOff()
     {
-        Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
+      /*  Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
         foreach (Logic_tag_Skin i in ls)
         {
             i.gameObject.layer = 8;
@@ -2728,12 +2738,12 @@ public class mover : CustomSaveObject
                     SkinedAnimators[i].enabled = false;
                 }
             }
-        }
+        }*/
     }
 
     private void SkinManager()
     {
-        Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
+     /*   Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
         foreach (Logic_tag_Skin i in ls)
         {
             if (playerdata.Geteffect("KsenoMorfin") == null)
@@ -2779,11 +2789,11 @@ public class mover : CustomSaveObject
                     SkinedAnimators[i].enabled = false;
                 }
             }
-        }
+        }*/
     }
     float axelerate;
     int hpregen;
-    int invisibeobject;
+  [HideInInspector] public int invisibeobject;
     float timerTrip;
     float timerFlowUp;
     bool big;
@@ -2810,76 +2820,7 @@ public class mover : CustomSaveObject
            if(Globalprefs.Infinitysteuvro>0) VarSave.SetMoney("tevro", decimal.MaxValue);
             //playermatinvisible
         }
-        if (playerdata.Geteffect("invisible") == null)
-        {
-
-            invisibeobject = 0;
-            for (int i = 0; i < PlayersModelObjObjects.Length; i++)
-            {
-
-                if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
-                {
-                    Material m3 = Resources.Load<Material>("pm/playermat");
-                    if (c1.r + c1.g + c1.b != 0) m3.color = c1;
-                    List<Material> m = new List<Material>();
-                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
-                    {
-                        m.Add(m2);
-                    }
-                    m[PlayerModelTags[i]] = m3;
-                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().SetMaterials(m);
-                }
-                if (PlayersModelObjObjects[i].GetComponent<MeshRenderer>())
-                {
-
-                    Material m3 = Resources.Load<Material>("pm/playermat");
-                    if (c1.r + c1.g + c1.b != 0) m3.color = c1;
-                    List<Material> m = new List<Material>();
-                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
-                    {
-                        m.Add(m2);
-                    }
-                    m[PlayerModelTags[i]] = m3;
-                    PlayersModelObjObjects[i].GetComponent<MeshRenderer>().SetMaterials(m);
-                }
-            }
-            //playermat
-        }
-        if (playerdata.Geteffect("invisible") != null)
-        {
-
-            invisibeobject = 10;
-            for (int i = 0; i < PlayersModelObjObjects.Length; i++)
-            {
-
-                if (PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>())
-                {
-                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
-                    if (c1.r + c1.g + c1.b != 0) m3.color = new Color(0,0,0,0) + (c1*0.1f);
-                    List<Material> m = new List<Material>();
-                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().materials)
-                    {
-                        m.Add(m2);
-                    }
-                    m[PlayerModelTags[i]] = m3;
-                    PlayersModelObjObjects[i].GetComponent<SkinnedMeshRenderer>().SetMaterials(m);
-                }
-                if (PlayersModelObjObjects[i].GetComponent<MeshRenderer>())
-                {
-
-                    Material m3 = Resources.Load<Material>("pm/playermatinvisible");
-                    if (c1.r + c1.g + c1.b != 0) m3.color = new Color(0, 0, 0, 0) + (c1 * 0.1f);
-                    List<Material> m = new List<Material>();
-                    foreach (Material m2 in PlayersModelObjObjects[i].GetComponent<MeshRenderer>().materials)
-                    {
-                        m.Add(m2);
-                    }
-                    m[PlayerModelTags[i]] = m3;
-                    PlayersModelObjObjects[i].GetComponent<MeshRenderer>().SetMaterials(m);
-                }
-            }
-            //playermat
-        }
+     
         //MetabolismUp
         if (playerdata.Geteffect("KsenoMorfin") == null && perMorphin)
         {
@@ -2968,7 +2909,7 @@ public class mover : CustomSaveObject
             timerFlowUp += Time.deltaTime;
             if (timerFlowUp >= 5)
             {
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + Globalprefs.flowteuvro);
+                if (Sutck.day != 0) Globalprefs.LoadTevroPrise( Globalprefs.flowteuvro);
                 timerFlowUp = 0;
             }
             if (!big)

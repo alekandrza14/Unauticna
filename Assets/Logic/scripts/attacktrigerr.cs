@@ -109,8 +109,8 @@ public class attacktrigerr : MonoBehaviour
     {
         
             isactive = true;
+        Globalprefs.LoadTevroPrise(-100);
 
-        
 
         end();
         

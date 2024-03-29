@@ -143,12 +143,19 @@ MonoBehaviour:
   - {fileID: 7088475968201330826}
   - {fileID: 4549555254785438510}
   W_position: 0
+  H_position: 0
+  N_position:
+  - 0
+  cur_N_position: 0
   planet_position: 0
   SaveFileInputField: {fileID: 6357860800822553318}
   IsGraund: 0
+  InWater: 0
   watermask: {fileID: 0}
   hp: 200
   HeadCameraSetup: {fileID: 5778523005992244352}
+  nonnatureprogress: 0
+  fly: 0
   PlayersModelObjObjects:
   - {fileID: 4575418658935155611}
   - {fileID: 227334691035474694}
@@ -163,7 +170,11 @@ MonoBehaviour:
   - {fileID: 8588573282315310663}
   PlayerModelTags: 0100000000000000000000000000000000000000
   DebugMat: {fileID: 0}
+  faceViewi: 0
   lif: 
+  HX_Rotation: 0
+  c1: {r: 0, g: 0, b: 0, a: 0}
+  invisibeobject: 0
 --- !u!54 &7202002801372569015
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -270,6 +281,7 @@ MonoBehaviour:
   - {fileID: 978435421543146093}
   - {fileID: 978435421517599665}
   - {fileID: 978435420737954367}
+  playerSphericalModel: 0
 --- !u!95 &4415952447242572369
 Animator:
   serializedVersion: 7
@@ -811,7 +823,7 @@ PrefabInstance:
     - target: {fileID: 8520350704456583323, guid: eef2ba868cf775c43bc3d90f469a2f81,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9040287400232882721, guid: eef2ba868cf775c43bc3d90f469a2f81,
         type: 3}

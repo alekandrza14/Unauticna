@@ -9,7 +9,7 @@ public class NullingLoan : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetMoney("tevro") > -15000)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && Globalprefs.LoadTevroPrise(0) > -15000)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -19,13 +19,13 @@ public class NullingLoan : MonoBehaviour
                     {
                         Globalprefs.flowteuvro += 1;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 10000);
+                    Globalprefs.LoadTevroPrise(- 10000);
                     }
                 }
 
             
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && VarSave.GetMoney("tevro") < -15000)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.flowteuvro < 0 && Globalprefs.LoadTevroPrise(0) < -15000)
         {
 
             RaycastHit hit = MainRay.MainHit;

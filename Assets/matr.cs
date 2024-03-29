@@ -143,7 +143,7 @@ public class matr : MonoBehaviour
                 {
                     item.enabled = false;
                 }
-                VarSave.LoadMoney("tevro", 5);
+                Globalprefs.LoadTevroPrise(5);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), hit.point, Quaternion.identity);
@@ -227,7 +227,7 @@ public class matr : MonoBehaviour
             {
                 if (Random.Range(0, 4) ==1)
                 {
-                    VarSave.LoadMoney("tevro", 5);
+                    Globalprefs.LoadTevroPrise(5);
                     if (true) StartCoroutine(end());
                 }
             }
@@ -235,7 +235,7 @@ public class matr : MonoBehaviour
             {
                 if (Random.Range(0, 4) == 1)
                 {
-                    VarSave.LoadMoney("tevro", 5);
+                    Globalprefs.LoadTevroPrise(5);
                     if (true) StartCoroutine(end());
                 }
             }
@@ -245,7 +245,7 @@ public class matr : MonoBehaviour
                 {
                     if (Random.Range(0, 4) == 1)
                     {
-                        VarSave.LoadMoney("tevro", 5);
+                        Globalprefs.LoadTevroPrise(5);
                         if (true) StartCoroutine(end());
                     }
                 }

@@ -5,5 +5,6 @@ using UnityEngine;
 public class Logic_tag_Skin : MonoBehaviour
 {
     public string tag;
+    public string id;
 
 }

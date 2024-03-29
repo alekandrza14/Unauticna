@@ -124,13 +124,13 @@ public class exner : MonoBehaviour
 
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
             zaseranie();
         }
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1)
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
             
         }

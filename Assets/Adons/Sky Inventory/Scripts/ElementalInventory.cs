@@ -817,7 +817,7 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-                VarSave.LoadMoney("tevro", 100);
+                Globalprefs.LoadTevroPrise(100);
                 //YourJuice
             }
 
@@ -871,7 +871,7 @@ public class ElementalInventory : MonoBehaviour {
                 VarSave.SetString("ProfStatus", "King");
                 //SampleCrown
                 //Absolute_poison
-                VarSave.LoadMoney("tevro", 2500000000);
+                Globalprefs.LoadTevroPrise(2500000000);
                 cistalenemy.dies -= 10000;
                 Globalprefs.flowteuvro = VarSave.LoadMoney("CashFlow", 5500);
             }
@@ -2057,6 +2057,23 @@ public class ElementalInventory : MonoBehaviour {
             Cells[select].UpdateCellInterface();
 
 
+
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && Cells[select].elementName == "Херург-Ключ"
+         && Cells[select].elementCount > 0 && main() == this)
+        {
+            GameManager.saveandhill();
+
+            if (VarSave.GetFloat("BGPU") > 0)
+            {
+                VarSave.LoadFloat("BGPU", -1f);
+
+                Instantiate(Resources.Load<GameObject>("Items/GPU"), mover.main().transform.position, Quaternion.identity);
+
+                VarSave.LoadFloat("mana", 1f);
+
+            }
 
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -3541,7 +3558,7 @@ public class ElementalInventory : MonoBehaviour {
             m.W_position += cod.playerWHMove.x;
             m.H_position += cod.playerWHMove.y;
             VarSave.LoadMoney("Inflation", ((decimal)cod.Recycler / 2000) + ((decimal)cod.InfinityRecycler) + ((decimal)cod.Redecycler * 10), SaveType.global);
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (int)cod.Recycler);
+            Globalprefs.LoadTevroPrise(+ (int)cod.Recycler);
             VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + cod.InfinityRecycler);
             VarSave.SetMoney("CashFlow", VarSave.GetMoney("CashFlow") + (decimal)cod.Redecycler);
             Globalprefs.flowteuvro += (decimal)cod.Redecycler;

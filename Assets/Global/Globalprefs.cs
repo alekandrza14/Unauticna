@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +25,7 @@ public static class Globalprefs
     public static float KomplexY = 1;
     public static List<string> SelfFunctions = new List<string>();
     public static decimal flowteuvro;
+    public static double MultTevro =0;
     public static double Infinitysteuvro;
     public static double Reality;
     public static System.Random hashReal;
@@ -33,6 +35,17 @@ public static class Globalprefs
         Reality = VarSave.GetTrash("RealityX");
         System.Random r = new System.Random(offset + (int)Reality);
         hashReal = r;
+    }
+    public static decimal LoadTevroPrise(decimal prise)
+    {
+        if ((MultTevro*2)>64)
+        {
+            return  decimal.MaxValue;
+
+        }
+            VarSave.LoadMoney("tevro", prise / (decimal)Math.Exp(MultTevro*2));
+
+        return VarSave.GetMoney("tevro") * (decimal)Math.Exp(MultTevro*2);
     }
     public static float GetRealiyChaos(float var)
     {
@@ -161,6 +174,14 @@ public static class Globalprefs
             VarSave.GetMoney("MultyverseW") * 5) * 100);
 
         return seed;
+    }
+    public static float alterversion;
+    public static float reasone;
+    public static void UpdatePsiho()
+    {
+        alterversion = VarSave.GetFloat(
+         "Alterversion" + "_gameSettings", SaveType.global);
+        reasone = VarSave.GetFloat("reason");
     }
 
     public static string GetTimeline()

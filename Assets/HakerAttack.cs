@@ -12,7 +12,7 @@ public class HakerAttack : MonoBehaviour
         timer2 += Time.deltaTime;
         if (timer >= 1)
         {
-            VarSave.LoadMoney("tevro", -1);
+            Globalprefs.LoadTevroPrise(-1);
             timer = 0;
         }
         if (timer2 >= 3*60)

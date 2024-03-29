@@ -27,7 +27,7 @@ public class MeshDestroy : MonoBehaviour
                 CutCascades = 3;
                 ExplodeForce = 5000;
                 if (UnityEngine.Random.Range(0,3)>0) {
-                    VarSave.LoadMoney("tevro", 0.1m);
+                    Globalprefs.LoadTevroPrise(0.1m);
                     DestroyMesh();
                 }
                 else
@@ -45,7 +45,7 @@ public class MeshDestroy : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && MainRay.MainHit.collider.gameObject == gameObject)
             {
-                VarSave.LoadMoney("tevro", 0.1m);
+                Globalprefs.LoadTevroPrise(0.1m);
                 DestroyMesh();
             }
 

@@ -138,7 +138,7 @@ public class cistalenemy3 : MonoBehaviour
     {
         if (c.collider.GetComponent<Logic_tag_DamageObject>() && hp <= 0)
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
             zaseranie(); cistalenemy.dies++;
 
@@ -146,7 +146,7 @@ public class cistalenemy3 : MonoBehaviour
         }
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             zaseranie();
             Destroy(gameObject); cistalenemy.dies++;
 
@@ -155,7 +155,7 @@ public class cistalenemy3 : MonoBehaviour
         }
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1)
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
@@ -163,7 +163,7 @@ public class cistalenemy3 : MonoBehaviour
         }
         if (c.collider.tag == "errorybox")
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(c.collider.gameObject);
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

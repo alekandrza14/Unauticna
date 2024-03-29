@@ -469,7 +469,7 @@ public class script : MonoBehaviour
             {
 
                 VarSave.LoadMoney("Inflation", (GetNumber(words[i], VarSave.LoadMoney("tevro", 0)))/2000, SaveType.global);
-                VarSave.LoadMoney("tevro",(GetNumber(words[i], VarSave.LoadMoney("tevro",0))));
+                Globalprefs.LoadTevroPrise((GetNumber(words[i], VarSave.LoadMoney("tevro",0))));
                 typedata = "end";
             }
             if (typedata == "operator" && words[i] == "del")

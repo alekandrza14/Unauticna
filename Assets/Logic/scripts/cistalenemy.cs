@@ -44,7 +44,7 @@ public class cistalenemy : MonoBehaviour
 
             if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 1)
             {
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+                Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject); dies++;
 
                 VarSave.SetInt("Agr", cistalenemy.dies);
@@ -57,14 +57,14 @@ public class cistalenemy : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+                Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject); dies++;
 
                 VarSave.SetInt("Agr", cistalenemy.dies);
             }
             if (c.collider.GetComponent<Logic_tag_DamageObject>())
             {
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+                Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
@@ -76,7 +76,7 @@ public class cistalenemy : MonoBehaviour
             }
             if (c.collider.GetComponent<Logic_tag_DamageObject>())
             {
-                VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+                Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

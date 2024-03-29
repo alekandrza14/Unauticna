@@ -979,6 +979,8 @@ MonoBehaviour:
   _shadowIntensity: 0.645
   _aoIntensity: 0.537
   _skyColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  hue: 0
+  _ChaosColor: {r: 1, g: 1, b: 1, a: 1}
   _renderNr: 0
   orderedShapes: []
 --- !u!114 &9179321659375817831
@@ -1148,8 +1150,11 @@ MonoBehaviour:
   - {fileID: 5844114041391272295}
   PlayerModelTags: 010000000000000000000000000000000000000000000000
   DebugMat: {fileID: 0}
+  faceViewi: 0
   lif: 
   HX_Rotation: 0
+  c1: {r: 0, g: 0, b: 0, a: 0}
+  invisibeobject: 0
 --- !u!54 &8541250950486462519
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1244,6 +1249,7 @@ MonoBehaviour:
   - {fileID: 1679965462205416760}
   - {fileID: 1679965462414734564}
   - {fileID: 1679965461936997738}
+  playerSphericalModel: 0
 --- !u!114 &4295058687876597385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1269,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: -9
+  inverse: 0
   body: {fileID: 8541250950486462517}
 --- !u!1001 &2820426629310683644
 PrefabInstance:
@@ -1286,7 +1293,7 @@ PrefabInstance:
     - target: {fileID: 8520350704456583323, guid: eef2ba868cf775c43bc3d90f469a2f81,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9040287400232882721, guid: eef2ba868cf775c43bc3d90f469a2f81,
         type: 3}

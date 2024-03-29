@@ -24,7 +24,7 @@ public class charity : MonoBehaviour
                 if (hit.collider.gameObject == gameObject)
                 {
                     VarSave.LoadMoney("Inflation", -decimal.Parse(Deflaition), SaveType.global);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
+                    Globalprefs.LoadTevroPrise(- Contribution);
                 }
             }
 

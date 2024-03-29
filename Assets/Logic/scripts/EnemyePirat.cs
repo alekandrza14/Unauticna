@@ -23,7 +23,7 @@ public class EnemyePirat : MonoBehaviour
     {
         if (collision.collider.GetComponent<Logic_tag_DamageObject>())
         {
-            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - 100);
+            Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
          
         }

@@ -13,7 +13,7 @@ public class Stocks : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst()) && NameStock =="UMU" && !Globalprefs.bunkrot && timer > 0.1)
+        if (Input.GetKey(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst()) && NameStock =="UMU" && !Globalprefs.bunkrot && timer > 0.1)
         {
             RaycastHit hit = MainRay.MainHit;
 
@@ -23,13 +23,13 @@ public class Stocks : MonoBehaviour
                 {
                     VarSave.LoadMoney("Stocks", 1);
                     VarSave.LoadMoney("Stocks" + NameStock, 1);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst()));
+                    Globalprefs.LoadTevroPrise(- (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst()));
                     timer = 0;
                 }
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst1()) && NameStock == "CrinjeGame" && !Globalprefs.bunkrot && timer > 0.1)
+        if (Input.GetKey(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst1()) && NameStock == "CrinjeGame" && !Globalprefs.bunkrot && timer > 0.1)
         {
             RaycastHit hit = MainRay.MainHit;
 
@@ -39,13 +39,13 @@ public class Stocks : MonoBehaviour
                 {
                     VarSave.LoadMoney("Stocks", 1);
                     VarSave.LoadMoney("Stocks" + NameStock, 1);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst1()));
+                    Globalprefs.LoadTevroPrise(- (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst1()));
                     timer = 0;
                 }
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst2()) && NameStock == "DupCorporated" && !Globalprefs.bunkrot && timer > 0.1)
+        if (Input.GetKey(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst2()) && NameStock == "DupCorporated" && !Globalprefs.bunkrot && timer > 0.1)
         {
             RaycastHit hit = MainRay.MainHit;
 
@@ -55,7 +55,7 @@ public class Stocks : MonoBehaviour
                 {
                     VarSave.LoadMoney("Stocks", 1);
                     VarSave.LoadMoney("Stocks" + NameStock, 1);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst2()));
+                    Globalprefs.LoadTevroPrise(- (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst2()));
                     timer = 0;
                 }
             }
@@ -71,13 +71,13 @@ public class Stocks : MonoBehaviour
                 {
                     VarSave.LoadMoney("Stocks", 1);
                     VarSave.LoadMoney("Stocks" + NameStock, 1);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst3()));
+                    Globalprefs.LoadTevroPrise(- (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst3()));
                     timer = 0;
                 }
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst4()) && NameStock == "MiniHome" && !Globalprefs.bunkrot && timer > 0.1)
+        if (Input.GetKey(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst4()) && NameStock == "MiniHome" && !Globalprefs.bunkrot && timer > 0.1)
         {
             RaycastHit hit = MainRay.MainHit;
 
@@ -87,7 +87,7 @@ public class Stocks : MonoBehaviour
                 {
                     VarSave.LoadMoney("Stocks", 1);
                     VarSave.LoadMoney("Stocks" + NameStock, 1);
-                    VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst4()));
+                    Globalprefs.LoadTevroPrise(- (decimal)Mathf.Abs(MobileComputer.Computer().oldstockConst4()));
                     timer = 0;
                 }
             }

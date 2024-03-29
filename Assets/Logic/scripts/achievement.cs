@@ -9,6 +9,7 @@ public class achievement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Globalprefs.LoadTevroPrise(-100);
         //Касание анти материи
         //"кража аруа урон"
         if (VarSave.GetBool("кража аруа урон"))

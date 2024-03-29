@@ -25,7 +25,7 @@ public class FlowBye : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= Contribution && !Globalprefs.bunkrot && realestatename != "" && !VarSave.ExistenceVar("re/" + realestatename))
         {
             Directory.CreateDirectory("unsave/var/re");
 
@@ -49,14 +49,14 @@ public class FlowBye : MonoBehaviour
                         Globalprefs.flowteuvro -= (decimal)(loan * Procent);
 
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
+                    Globalprefs.LoadTevroPrise(- Contribution);
                         VarSave.SetInt("re/" + realestatename, 0);
                     }
                 }
 
            
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && VarSave.GetMoney("tevro") >= Contribution && !Globalprefs.bunkrot && realestatename == "")
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Globalprefs.LoadTevroPrise(0) >= Contribution && !Globalprefs.bunkrot && realestatename == "")
         {
             RaycastHit hit = MainRay.MainHit;
             if (VarSave.LoadFloat("luck", 0f) > 0.5 && UnityEngine.Random.Range(0, 7) == 0)
@@ -77,12 +77,12 @@ public class FlowBye : MonoBehaviour
                         Globalprefs.flowteuvro -= (decimal)(loan * Procent);
                    
                     VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                        VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - Contribution);
+                    Globalprefs.LoadTevroPrise(- Contribution);
                     }
                 }
 
         }
-        if (VarSave.GetMoney("tevro") <= -15000 && Input.GetKeyDown(KeyCode.Mouse0))
+        if (Globalprefs.LoadTevroPrise(0) <= -15000 && Input.GetKeyDown(KeyCode.Mouse0))
         {
             Globalprefs.bunkrot = true;
             VarSave.SetBool("Bunkrot", Globalprefs.bunkrot);

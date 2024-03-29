@@ -28,19 +28,19 @@ public class FlowMltyplybye : MonoBehaviour
                     decimal coppy2 = Globalprefs.flowteuvro;
                     decimal coppy = Globalprefs.flowteuvro;
                     coppy *= decimal.Parse(flowMltyply);
-                    if (VarSave.GetMoney("tevro") >= (((decimal)Contribution * (coppy - coppy2)) * 400m) && !flowInvest)
+                    if (Globalprefs.LoadTevroPrise(0) >= (((decimal)Contribution * (coppy - coppy2)) * 400m) && !flowInvest)
                     {
                         Globalprefs.flowteuvro = coppy * shorta;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                       VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") - (((decimal)Contribution * (coppy - coppy2)) * 400m));
+                        Globalprefs.LoadTevroPrise(- (((decimal)Contribution * (coppy - coppy2)) * 400m));
                       
                     }
                     if (flowInvest)
                     {
                         Globalprefs.flowteuvro = coppy;
                         VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
-                       
-                            VarSave.SetMoney("tevro", VarSave.GetMoney("tevro") + (coppy2 / 2) * 400m * shorta);
+
+                        Globalprefs.LoadTevroPrise(+ (coppy2 / 2) * 400m * shorta);
                        
                     }
 
