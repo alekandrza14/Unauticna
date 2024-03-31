@@ -75,6 +75,7 @@ public enum faceView
 
 public class mover : CustomSaveObject
 {
+    
     public GameObject PlayerBody;
     public GameObject PlayerCamera;
     [SerializeField] bool isplanet;
