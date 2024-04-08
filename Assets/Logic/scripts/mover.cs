@@ -565,7 +565,7 @@ public class mover : CustomSaveObject
     int maxhp2;
     int regen;
     bool swapWHaN;
-    Logic_tag_3[] lt;
+  public  Logic_tag_3[] lt;
     private void Init()
     {
         InvokeRepeating("reasonUpdate",1,1);
@@ -731,7 +731,7 @@ public class mover : CustomSaveObject
 
              Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
           c.targetDisplay = 2;
-           c.targetTexture = new RenderTexture(Screen.width, Screen.height, 1000);
+           c.targetTexture = new RenderTexture(new RenderTextureDescriptor(Screen.width, Screen.height));
            c.renderingPath = RenderingPath.DeferredShading;
 
         Globalprefs.camera = c;

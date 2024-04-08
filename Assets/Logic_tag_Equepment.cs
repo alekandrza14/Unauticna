@@ -6,13 +6,16 @@ public class Logic_tag_Equepment : MonoBehaviour
 {
     public string Varible;
     public double Value;
-
-    void Start()
+ 
+    public void UpdateEquepment()
     {
-        if (VarSave.GetTrash(Varible)<Value)
+        if (VarSave.GetTrash(Varible) < Value)
         {
-            Destroy(gameObject.GetComponent<MeshRenderer>());
-            Destroy(gameObject.GetComponent<MeshFilter>());
+            gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
+        if (VarSave.GetTrash(Varible) >= Value)
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
     }
 

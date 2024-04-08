@@ -2042,7 +2042,7 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.LoadFloat("mana", 1f);
             lowitem("TreeMaodelbulb", "");
             GlobalInputMenager.KeyCode_eat = 0;
-        }
+        }//FreedomHat
         if (GlobalInputMenager.KeyCode_eat == 1 && Cells[select].elementName == "GPU"
          && Cells[select].elementCount > 0 && main() == this)
         {
@@ -2056,7 +2056,38 @@ public class ElementalInventory : MonoBehaviour {
             Cells[select].elementData = "";
             Cells[select].UpdateCellInterface();
 
+            Global.MEM.UE();
 
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (main() == this && !Globalprefs.Pause && Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Alpha1))
+        {
+            GameManager.saveandhill();
+            float fh = VarSave.LoadFloat("FH", 0f);
+            for (int i =0;i < fh;i++)
+            {
+                Instantiate(Resources.Load<GameObject>("Items/FreedomHat"), mover.main().transform.position, Quaternion.identity);
+            }
+
+            VarSave.SetFloat("FH", 0f);
+            Global.MEM.UE();
+            
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && Cells[select].elementName == "FreedomHat"
+         && Cells[select].elementCount > 0 && main() == this)
+        {
+            GameManager.saveandhill();
+
+            VarSave.LoadFloat("FH", 1f);
+
+            VarSave.LoadFloat("mana", 1f);
+            Cells[select].elementName = "";
+            Cells[select].elementCount = 0;
+            Cells[select].elementData = "";
+            Cells[select].UpdateCellInterface();
+
+            Global.MEM.UE();
 
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2074,6 +2105,8 @@ public class ElementalInventory : MonoBehaviour {
                 VarSave.LoadFloat("mana", 1f);
 
             }
+
+            Global.MEM.UE();
 
             GlobalInputMenager.KeyCode_eat = 0;
         }
