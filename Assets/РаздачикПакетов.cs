@@ -8,6 +8,7 @@ public class РаздачикПакетов : MonoBehaviour
     [SerializeField] Transform point;
     [SerializeField] GameObject resource;
     [SerializeField] int maxtevro;
+    [SerializeField] bool crack;
     void Update()
     {
         RaycastHit hit = MainRay.MainHit;
@@ -16,13 +17,13 @@ public class РаздачикПакетов : MonoBehaviour
 
 
                 GameObject obj = Instantiate(resource.gameObject, point.position, Quaternion.identity);
-
-                VarSave.LoadMoney("РаздачикПакетов" + System.DateTime.Now.Day, 1);
-                if (VarSave.LoadMoney("РаздачикПакетов" + System.DateTime.Now.Day, 0) > maxtevro)
-                {
-                    cistalenemy.dies += 2;
+                if (!crack) {
+                    VarSave.LoadMoney("РаздачикПакетов" + System.DateTime.Now.Day, 1);
+                    if (VarSave.LoadMoney("РаздачикПакетов" + System.DateTime.Now.Day, 0) > maxtevro)
+                    {
+                        cistalenemy.dies += 2;
+                    }
                 }
-
             }
     }
 }

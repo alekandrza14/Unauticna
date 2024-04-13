@@ -1666,6 +1666,18 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
+        // Grimoire_Gravity_Sphere_(1000000000)
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "Grimoire_Gravity_Sphere_(1000000000)" && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+
+            Instantiate(inv2("UcnaHole").gameObject, hit.point + Vector3.up * inv2("UcnaHole").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+
+
+        }
         if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName != "mathimatic_battery" && batteytype && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && main() == this)
         {
 

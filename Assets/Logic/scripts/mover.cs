@@ -568,7 +568,9 @@ public class mover : CustomSaveObject
   public  Logic_tag_3[] lt;
     private void Init()
     {
+        Global.MEM.UE();
         InvokeRepeating("reasonUpdate",1,1);
+
         Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
         Vector3[] allpos = new Vector3[allobj.Length];
         int i2 = 0;
