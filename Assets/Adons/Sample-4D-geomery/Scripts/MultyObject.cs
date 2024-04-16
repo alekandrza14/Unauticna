@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 public enum Shape
 {
-   shape3D, cube5D,clone5D, plane3D, shape4D, shapecube5D, hyperbola5D, hyperCurveCube5D, cubeND
+   shape3D, cube5D,clone5D, plane3D, shape4D, shapecube5D, hyperbola5D, hyperCurveCube5D, cubeND, slice4Dcube
 }
 [ExecuteAlways]
 [RequireComponent(typeof(MeshFilter))]
@@ -20,6 +20,7 @@ public class MultyObject : MonoBehaviour
     SphereCollider sphereCollider;
     [Header("Transform W")]
     [SerializeField] public float W_Position;
+    [SerializeField] public float W_Count_Slice;
     [SerializeField] public float W_Scale = 1;
     [Header("Transform H")]
     [SerializeField] public float H_Position;
@@ -32,6 +33,7 @@ public class MultyObject : MonoBehaviour
     [SerializeField] public Mesh[] shapes3D;
     [SerializeField] Mesh[] shapes3Dcol;
     [SerializeField] public shapeSettings shapeSettings;
+    [SerializeField] GameObject[] Slices;
     [Header("Save prametrs")]
     [SerializeField] public Vector3 scale3D = Vector3.one;
     GameObject[] childs;
@@ -265,6 +267,27 @@ public class MultyObject : MonoBehaviour
                     }
                 }
 
+            }
+          
+            if (shape == Shape.slice4Dcube)
+            {
+                for (int i =0; i< Slices.Length; i++) {
+                   
+                    if (instance.W_Position + w6 > w5 + (i*W_Count_Slice) && instance.W_Position - w6 < w5 + (i * W_Count_Slice) &&
+                        instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
+                    {
+                        GameObject slice = Slices[i];
+                            slice.SetActive(true);
+                      
+                     
+                    }
+                    else
+                    {
+                        GameObject slice = Slices[i];
+                        slice.SetActive(false);
+                       
+                    }
+                }
             }
             if (shape == Shape.cubeND)
             {

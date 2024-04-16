@@ -58,10 +58,10 @@ public class playerdata
     };
     static public void checkeffect()
     {
-        
+
         for (int i = 0; i < playerdata.effects.Length; i++)
         {
-            
+
             if (i < playerdata.effects.Length)
             {
 
@@ -86,6 +86,31 @@ public class playerdata
             playerdata.Paniceffect[0].time -= Time.deltaTime;
         }
 
+    }
+    static public int counteffect()
+    {
+        int count =0;
+        for (int i = 0; i < playerdata.effects.Length; i++)
+        {
+
+            if (i < playerdata.effects.Length)
+            {
+
+
+               
+                if (playerdata.effects[i].time >= 0)
+                {
+                    count += 1;
+                }
+
+            }
+        }
+       
+        if (playerdata.Paniceffect[0].time >= 0)
+        {
+            count += 1;
+        }
+        return count;
     }
     static public void Loadeffect()
     {
@@ -213,12 +238,13 @@ public class playerdata
         {
             if (playerdata.effects[i].effect == name)
             {
-                ef = playerdata.effects[i];
+                ef = playerdata.effects[i]; 
+                return ef;
             }
         }
-        if (playerdata.Paniceffect[0].effect != "")
+        if (playerdata.Paniceffect[0].effect == name)
         {
-            ef = playerdata.Paniceffect[0];
+            ef = playerdata.Paniceffect[0]; return ef;
         }
         return ef;
     }
@@ -231,7 +257,7 @@ public class playerdata
                 playerdata.effects[i].time += secoundstime;
             }
         }
-        if (playerdata.Paniceffect[0].effect != "")
+        if (playerdata.Paniceffect[0].effect == name)
         {
             playerdata.Paniceffect[0].time += secoundstime;
         }
@@ -249,7 +275,7 @@ public class playerdata
                 playerdata.effects[i].time = 0;
             }
         }
-        if (playerdata.Paniceffect[0].effect != "")
+        if (playerdata.Paniceffect[0].effect == name)
         {
             ef = playerdata.Paniceffect[0];
 

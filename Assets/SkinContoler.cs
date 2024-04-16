@@ -14,6 +14,7 @@ public class SkinContoler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InvokeRepeating("SkinUpdate", 0f, 2);
         if (!VarSave.ExistenceVar("Controler")) VarSave.SetString("Controler","0");
         m2 = mover.main();
     }
@@ -117,7 +118,7 @@ public class SkinContoler : MonoBehaviour
         }
     }
     // Update is called once per frame
-    void Update()
+    void SkinUpdate()
     {
 
         if (m2.faceViewi == faceView.first)

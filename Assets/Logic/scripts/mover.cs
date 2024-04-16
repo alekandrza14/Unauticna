@@ -512,7 +512,7 @@ public class mover : CustomSaveObject
     {
         var reason =
         VarSave.GetFloat("reason");
-       if(rand.Next(0,100)<1) reason -= 1;
+       if(rand.Next(0,10)<1) reason -= 1;
         int min = 0;
         int max = 100;
         max += (int)(data_BGPU*10);
@@ -569,7 +569,7 @@ public class mover : CustomSaveObject
     private void Init()
     {
         Global.MEM.UE();
-        InvokeRepeating("reasonUpdate",1,1);
+        InvokeRepeating("reasonUpdate",1,10);
 
         Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
         Vector3[] allpos = new Vector3[allobj.Length];
@@ -1829,7 +1829,7 @@ public class mover : CustomSaveObject
 
             gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
         }
-        if (!Globalprefs.Pause || _n1fps) EffectUpdate();
+       if(playerdata.counteffect()>0) if (!Globalprefs.Pause || _n1fps) EffectUpdate();
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text ) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
         {
             gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
@@ -2246,20 +2246,20 @@ public class mover : CustomSaveObject
             {
                 deltaX += -(Speed * (1f / movegrag));
             }
-           
+            float Dimenshonal = VarSave.GetFloat("Dimenshonal");
             float deltaW = Input.GetAxis("HyperHorizontal") * 0.1f;
             float deltaH = Input.GetAxis("HyperVertical") * 0.1f;
             if (playerdata.Geteffect("AutoDimenshonal") != null)
             {
-                if (VarSave.GetFloat("Dimenshonal") == 4) deltaW += (1f);
-                if (VarSave.GetFloat("Dimenshonal") == 5) deltaH += (1f);
-                if (VarSave.GetFloat("Dimenshonal") > 5) N_position[(int)VarSave.GetFloat("Dimenshonal") - 6] += (0.1f);
+                if (Dimenshonal == 4) deltaW += (1f);
+                if (Dimenshonal == 5) deltaH += (1f);
+                if (Dimenshonal > 5) N_position[(int)Dimenshonal - 6] += (0.1f);
             }
             if (playerdata.Geteffect("-AutoDimenshonal") != null)
             {
-                if (VarSave.GetFloat("Dimenshonal") == 4) deltaW += -(1f);
-                if (VarSave.GetFloat("Dimenshonal") == 5) deltaH += -(1f);
-                if (VarSave.GetFloat("Dimenshonal") > 5) N_position[(int)VarSave.GetFloat("Dimenshonal") - 6] += -(0.1f);
+                if (Dimenshonal == 4) deltaW += -(1f);
+                if (Dimenshonal == 5) deltaH += -(1f);
+                if (Dimenshonal > 5) N_position[(int)Dimenshonal - 6] += -(0.1f);
             }
             float deltaY = 0.0f;
         //  if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
@@ -2832,13 +2832,20 @@ public class mover : CustomSaveObject
             GameManager.save();
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
-            //playerdata.Addeffect("Trip", 60)
-            if (playerdata.Geteffect("Trip") != null)
+        //playerdata.Addeffect("Trip", 60)
+        if (playerdata.Geteffect("Trip") != null)
         {
             Get4DCam().hue += 0.1f * Time.deltaTime;
             timerTrip += 0.01f;
             PlayerCamera.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 5, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 5, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 5);
 
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Trin") != null)
+        {
+            Get4DCam().hue += 0.1f * Time.deltaTime;
+            hpregen += 600;
+            maxhp += 30000;
             //playermatinvisible
         }
         axelerate = 0;

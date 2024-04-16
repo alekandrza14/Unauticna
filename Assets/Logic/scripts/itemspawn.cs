@@ -13,6 +13,7 @@ public class itemspawn : MonoBehaviour
     public HyperbolicPoint hyperbolic;
     public bool FirstEvent;
     public string timeLine;
+    public float offsetY;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +53,7 @@ public class itemspawn : MonoBehaviour
             g.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = hyperbolic.HyperboilcPoistion;
             g.transform.position = new Vector3(
                 0,
-                hyperbolic.transform.position.y,
+                hyperbolic.transform.position.y+ offsetY,
                 0
                 );
             g.gameObject.GetComponent<HyperbolicPoint>().ScriptSacle = g.gameObject.transform.localScale;

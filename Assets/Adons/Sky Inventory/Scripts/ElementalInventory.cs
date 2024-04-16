@@ -1890,6 +1890,22 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("belock", "seed");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        //4Dvkusnashka
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("4Dvkusnashka") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            playerdata.Addeffect("Trin", 60);
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("4Dvkusnashka", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Grib") != 0 && main() == this)
         {
 

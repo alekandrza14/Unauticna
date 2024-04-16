@@ -139,6 +139,7 @@ public class complsave : MonoBehaviour
             {
                 t3[i] = g[i];
                 if (g[i].GetComponent<breauty>()) g[i].GetComponent<breauty>().integer = 10;
+               if(!g[i].GetComponent<itemName>()) Debug.Log(g[i].name+"!NoForck");
                 info3[i] = g[i].GetComponent<itemName>()._Name;
 
             }
@@ -943,7 +944,7 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<breauty>().integer = saveString1.x[i3];
                         }
-                        if (!g.GetComponent<unScript>())
+                      if(saveString1.scriptA.Count!=0)  if (!g.GetComponent<unScript>())
                         {
                             UnsFormat info = new UnsFormat();
                             info.script = saveString1.scriptA[i3];
@@ -1010,6 +1011,7 @@ public class complsave : MonoBehaviour
                 {
                     i2.Load();
                 }
+                
                 if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
                 {
 
@@ -1038,7 +1040,7 @@ public class complsave : MonoBehaviour
                     }
                     if (FirstSpawn)
                     {
-                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
                         RaycastHit hit;
                         if (Physics.Raycast(r, out hit))
                         {
@@ -1057,7 +1059,7 @@ public class complsave : MonoBehaviour
                 {
                     for (int i = 0; i < 6; i++)
                     {
-                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
                         RaycastHit hit;
                         if (Physics.Raycast(r, out hit))
                         {
@@ -1078,7 +1080,7 @@ public class complsave : MonoBehaviour
                     {
                         for (int i = 0; i < 6; i++)
                         {
-                            Ray r = new Ray(m.transform.position + (m.transform.up * 40), new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z));
+                            Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
                             RaycastHit hit;
                             if (Physics.Raycast(r, out hit))
                             {
@@ -1091,13 +1093,44 @@ public class complsave : MonoBehaviour
                     }
                     if (Random.Range(0, 24) == 1)
                     {
-                      
-                            GameObject[] g = Resources.LoadAll<GameObject>("danges");
 
-                            Instantiate(g[Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity);
+                        GameObject[] g = Resources.LoadAll<GameObject>("danges");
+
+                        Instantiate(g[Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity);
 
 
-                       
+
+                    }
+                    if (Random.Range(0, 3) == 1)
+                    {
+                        for (int i =0;i<3+ Random.Range(0, 3);i++) {
+                            GameObject g = Resources.Load<GameObject>("danges/4D_Home");
+                            Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(g, hit.point, Quaternion.identity);
+                                }
+                            } 
+                        }
+                    }
+                    if (Random.Range(0, 3) == 1)
+                    {
+                        for (int i = 0; i < 1 + Random.Range(0, 2); i++)
+                        {
+                            GameObject g = Resources.Load<GameObject>("items/Tristolbie");
+                            Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(g, hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -1111,6 +1144,17 @@ public class complsave : MonoBehaviour
 
 
     }
+    Vector3 randommaze()
+    {
+        Vector3 rand = new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z);
+        return rand;
+    }
+    Vector3 randommazedown()
+    {
+        Vector3 down = randommaze() - mover.main().transform.up * .5f;
+        return down;
+    }
+
     public static bool LoadADone;
     public int toNameToID(string name)
     {

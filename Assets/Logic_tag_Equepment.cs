@@ -6,7 +6,7 @@ public class Logic_tag_Equepment : MonoBehaviour
 {
     public string Varible;
     public double Value;
- 
+
     public void UpdateEquepment()
     {
         if (VarSave.GetTrash(Varible) < Value)
@@ -17,6 +17,10 @@ public class Logic_tag_Equepment : MonoBehaviour
         {
             gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
+    }
+    void Start()
+    {
+        UpdateEquepment();
     }
 
 }
