@@ -49,7 +49,7 @@ public class InfinityByteDisk : InventoryEvent
 
             }
             itemsinfo = JsonUtility.FromJson<ItemsInfo>(data);
-            //  EnergyCounter.text = "Energy : " + energy;
+            //  EnergyCounter.text = "Energy : " + mobData;
         }
     }
     private void Update()

@@ -1103,35 +1103,20 @@ public class complsave : MonoBehaviour
                     }
                     if (Random.Range(0, 3) == 1)
                     {
-                        for (int i =0;i<3+ Random.Range(0, 3);i++) {
-                            GameObject g = Resources.Load<GameObject>("danges/4D_Home");
+                        for (int i =0;i<3+ Random.Range(0, 7);i++) {
+                            GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
                             Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
                             RaycastHit hit;
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    Instantiate(g, hit.point, Quaternion.identity);
+                                    Instantiate(g[Random.Range(0,g.Length)], hit.point, Quaternion.identity);
                                 }
                             } 
                         }
                     }
-                    if (Random.Range(0, 3) == 1)
-                    {
-                        for (int i = 0; i < 1 + Random.Range(0, 2); i++)
-                        {
-                            GameObject g = Resources.Load<GameObject>("items/Tristolbie");
-                            Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
-                            RaycastHit hit;
-                            if (Physics.Raycast(r, out hit))
-                            {
-                                if (hit.collider != null)
-                                {
-                                    Instantiate(g, hit.point, Quaternion.identity);
-                                }
-                            }
-                        }
-                    }
+                    
 
                 }
             }
