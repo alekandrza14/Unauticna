@@ -4,10 +4,16 @@ using UnityEngine;
 
 namespace Global
 {
+   
     public class Main_EquepmentManager : MonoBehaviour
     {
         public static void UpdateEquepment()
         {
+            SkinContoler[] sc = FindObjectsByType<SkinContoler>(sortmode.main);
+            foreach (SkinContoler item in sc)
+            {
+                item.SkinUpdate();
+            }
             Logic_tag_Equepment[] lte = FindObjectsByType<Logic_tag_Equepment>(sortmode.main);
             foreach (Logic_tag_Equepment item in lte)
             {
@@ -19,11 +25,7 @@ namespace Global
     {
         public static void UE()
         {
-            Logic_tag_Equepment[] lte = FindObjectsByType<Logic_tag_Equepment>(sortmode.main);
-            foreach (Logic_tag_Equepment item in lte)
-            {
-                item.UpdateEquepment();
-            }
+            Main_EquepmentManager.UpdateEquepment();
         }
     }
     public class PauseManager

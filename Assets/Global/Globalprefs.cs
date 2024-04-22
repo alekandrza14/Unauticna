@@ -38,14 +38,23 @@ public static class Globalprefs
     }
     public static decimal LoadTevroPrise(decimal prise)
     {
-        if ((MultTevro*2)>64)
+        if (prise != 0)
         {
-            return  decimal.MaxValue;
+            if ((MultTevro * 2) > 64)
+            {
+                return decimal.MaxValue;
 
+            }
+            VarSave.LoadMoney("tevro", prise / (decimal)Math.Exp(MultTevro * 2));
         }
-            VarSave.LoadMoney("tevro", prise / (decimal)Math.Exp(MultTevro*2));
+        if (MultTevro == 0) return currenttevro;
+        return currenttevro * (decimal)Math.Exp(MultTevro * 2);
+    }
+    public static void UpadateTevro()
+    {
 
-        return VarSave.GetMoney("tevro") * (decimal)Math.Exp(MultTevro*2);
+        currenttevro = VarSave.GetMoney("tevro");
+      
     }
     public static float GetRealiyChaos(float var)
     {
@@ -67,6 +76,7 @@ public static class Globalprefs
     }
 
     public static decimal knowlages;
+    public static decimal currenttevro;
     public static short QuestItemKollect;
     public static decimal technologies;
     public static decimal research;

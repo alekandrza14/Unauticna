@@ -1999,6 +1999,7 @@ public class mover : CustomSaveObject
     }
     private void EconomicUpdate()
     {
+        Globalprefs.UpadateTevro();
         if (VarSave.GetMoney("Inflation", SaveType.global) < 0) VarSave.SetMoney("Inflation", 0, SaveType.global);
         timer += (decimal)Time.deltaTime;
         if (timer > 60m * 60m)
@@ -2598,6 +2599,7 @@ public class mover : CustomSaveObject
         }
         if (Input.GetKeyDown(KeyCode.F5))
         {
+          
             PlayerBody.transform.rotation = Quaternion.identity;
             PlayerCamera.transform.rotation = HeadCameraSetup.transform.rotation;
 
@@ -2607,19 +2609,20 @@ public class mover : CustomSaveObject
 
 
                 faceViewi = faceView.trid;
+                Global.MEM.UE();
                 return;
             }
             if (faceViewi == faceView.trid)
             {
 
 
-                faceViewi = faceView.fourd; return;
+                faceViewi = faceView.fourd; Global.MEM.UE(); return;
             }
             if (faceViewi == faceView.fourd)
             {
 
 
-                faceViewi = faceView.first; return;
+                faceViewi = faceView.first; Global.MEM.UE(); return;
             }
         }
     }

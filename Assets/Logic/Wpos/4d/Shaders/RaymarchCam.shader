@@ -193,6 +193,8 @@ Shader "Raymarch/RaymarchCam"
                     return sdVoid();
                 }else if (shape.shapeType == 14) {
                     return GetTarelkaLoop(p4D, shape.scale);
+                }else if (shape.shapeType == 15) {
+                    return sdCubeLine(p4D);
                 }
 
                 return _maxDistance;

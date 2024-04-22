@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Unity.Mathematics.math;
 
 namespace Unity.Mathematics
@@ -21,6 +22,29 @@ namespace Unity.Mathematics
         public float sdSphere(float3 p, float s)
         {
             return length(p) - s;
+        }
+       public float sdCubeLine(float4 p)
+        {
+
+            float c = 14.5f;
+
+
+            p.x = fmod2(p.x + 0.5f * c, c) - 0.5f * c;
+            p.y = fmod2(p.y + 0.5f * c, c) - 0.5f * c;
+
+
+
+            p.z = fmod2(p.z + 0.5f * c, c) - 0.5f * c;
+            float4 d2 = abs(p);
+            p.w = fmod2(p.w + 0.5f * c, c) - 0.5f * c;
+            float4 d = abs(p);
+            d -= 1;
+            d.x -= 5;
+            d.z -= 5;
+            d.w -= 5;
+
+            return (float)max(length(max(d, 0)) + min(max(d.x, max(d.y, max(d.z, d.w))), 0), d2.w - 14.5f * 1.5);
+
         }
         public float GetDist2(float4 p)
         {

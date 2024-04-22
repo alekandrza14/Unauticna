@@ -100,6 +100,8 @@ namespace Unity.Mathematics
                     return Df.sdNull(p4D);
                 case Shape4D.ShapeType.tarelkaloop:
                     return Df.GetTarelkaLoop(p4D, shape.Scale());
+                case Shape4D.ShapeType.cubeLine:
+                    return Df.sdCubeLine(p4D);
 
             }
 
@@ -162,6 +164,8 @@ namespace Unity.Mathematics
                     return Df.sdNull(p4D);
                 case Shape4D.ShapeType.tarelkaloop:
                     return Df.GetTarelkaLoop(p4D, shape.Scale());
+                case Shape4D.ShapeType.cubeLine:
+                    return Df.sdCubeLine(p4D);
 
             }
 

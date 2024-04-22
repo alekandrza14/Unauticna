@@ -238,16 +238,16 @@ public class MultyObject : MonoBehaviour
                     {
                         sphereCollider.enabled = true;
                     }
-                    foreach (GameObject child in childs)
+                    if (childs.Length > 0) foreach (GameObject child in childs)
                     {
-                        child.gameObject.SetActive(true);
+                            if (child != null) child.gameObject.SetActive(true);
                     }
                 }
                 else
                 {
-                    foreach (GameObject child in childs)
+                  if(childs.Length > 0)  foreach (GameObject child in childs)
                     {
-                        if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
+                       if(child!=null) if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
                     }
                     if (meshRenderer)
                     {
