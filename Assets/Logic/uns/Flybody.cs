@@ -37,7 +37,7 @@ public class Flybody : ScriptObject
         {
             
 
-            GetComponent<Rigidbody>().velocity = new Vector3(script1.outsv3[tir].x, script1.outsv3[tir].y, script1.outsv3[tir].z)*10;
+            GetComponent<Rigidbody>().linearVelocity = new Vector3(script1.outsv3[tir].x, script1.outsv3[tir].y, script1.outsv3[tir].z)*10;
             tir++;
             tic = 0;
         }

@@ -456,7 +456,7 @@ namespace Unity.Mathematics
                 {
                     if (!GetComponent<mover>())
                     {
-                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
                         if (GetComponent<Rigidbody>()) GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
                     }
                 }

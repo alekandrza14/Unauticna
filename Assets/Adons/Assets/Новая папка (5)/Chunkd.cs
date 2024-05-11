@@ -37,7 +37,7 @@ public class Chunkd {
         PopulateVoxelMap();
         CreateMeshData();
         CreateMesh();
-        chunkObject.AddComponent<MeshCollider>().material = Resources.Load<PhysicMaterial>("mat");
+        chunkObject.AddComponent<MeshCollider>().material = Resources.Load<PhysicsMaterial>("mat");
 
     }
 

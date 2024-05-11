@@ -26,7 +26,7 @@ public class GravityBoard : MonoBehaviour
         if (sitplayer)
         {
             Globalprefs.sit_player = player.gameObject;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
           if(!camera)  player.position = cell.position;
             else player.position = new Vector3(0, cell.position.y,0);
             if (camera) cell.position = new Vector3(0, cell.position.y, 0);
@@ -39,37 +39,37 @@ public class GravityBoard : MonoBehaviour
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.forward * 20f*speed;
+                GetComponent<Rigidbody>().linearVelocity += transform.forward * 20f*speed;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.forward * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += -transform.forward * 20f * speed;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.up * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += transform.up * 20f * speed;
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.up * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += -transform.up * 20f * speed;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.right * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += transform.right * 20f * speed;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.right * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += -transform.right * 20f * speed;
             }
             if (Input.GetKey(KeyCode.Mouse1))
             {

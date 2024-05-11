@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum environment
 {
-    vacun,air,water,palsma, Magic_environment,code,pain,pressure_gravity
+    vacun,air,water,palsma, Magic_environment,code,pain,pressure_gravity,psihodelic
 }
 
 public enum SFL
@@ -84,6 +84,14 @@ public class SceneSettings : MonoBehaviour
             mover.main().gravity = 0;
             mover.main().fly = true;
         }
+        if (environment_space == environment.psihodelic)
+        {
+            if (playerdata.Geteffect("Trin") == null)
+            {
+                playerdata.Addeffect("Trin",60);
+            }
+        }
+        // if (playerdata.Geteffect("Trin") != null)
         if (sfl == SFL.AntiGravity)
         {
 

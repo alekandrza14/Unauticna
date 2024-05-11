@@ -69,7 +69,7 @@ public class Sutck : MonoBehaviour
                 {
                     antinight = false;
                     light.intensity = 0.1f;
-                    RenderSettings.ambientLight = Color.black;
+                    RenderSettings.ambientLight = new Color(0.2f, 0.2f, 0.2f, 0);
                     RenderSettings.ambientMode = AmbientMode.Flat;
                     RenderSettings.fog = true;
                     RenderSettings.fogStartDistance = 1;
@@ -88,7 +88,7 @@ public class Sutck : MonoBehaviour
                 {
                     antinight = false;
                     light.intensity = 1f;
-                    RenderSettings.ambientLight = Color.white;
+                    RenderSettings.ambientLight = new Color(0.1f, 0.1f, 0.1f, 0);
                     RenderSettings.ambientMode = AmbientMode.Skybox;
                     RenderSettings.fog = false;
                 }
@@ -103,7 +103,7 @@ public class Sutck : MonoBehaviour
                     antinight = true;
 
                     light.intensity = 50f;
-                    RenderSettings.ambientLight = Color.black;
+                    RenderSettings.ambientLight = new Color(0f, 0f, 0f, 0);
                     RenderSettings.ambientMode = AmbientMode.Skybox;
                     RenderSettings.fog = false;
                 }

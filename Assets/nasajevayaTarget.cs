@@ -28,7 +28,7 @@ public class nasajevayaTarget : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T) && !Globalprefs.Pause && hit.collider != null)
         {
-            mover.main().GetComponent<Rigidbody>().drag=100;
+            mover.main().GetComponent<Rigidbody>().linearDamping=100;
             mover.main().transform.SetParent(hit.transform, true);
         }
     }

@@ -74,7 +74,7 @@ public class FirstPersonController : MonoBehaviour
 			if (debug_stopMovement)
 			{
 				desiredLocalVelocity = Vector3.zero;
-				rigidBody.velocity = Vector3.zero;
+				rigidBody.linearVelocity = Vector3.zero;
 			}
 
 			if (!Application.isEditor)
@@ -181,7 +181,7 @@ public class FirstPersonController : MonoBehaviour
 		Vector3 localUp = MathUtility.LocalToWorldVector(rigidBody.rotation, Vector3.up);
 		rigidBody.rotation = Quaternion.FromToRotation(localUp, gravityUp) * rigidBody.rotation;
 
-		rigidBody.velocity = (underwater) ? CalculateNewVelocitySwim(localUp) : CalculateNewVelocity(localUp);
+		rigidBody.linearVelocity = (underwater) ? CalculateNewVelocitySwim(localUp) : CalculateNewVelocity(localUp);
 
 
 	}
@@ -235,7 +235,7 @@ public class FirstPersonController : MonoBehaviour
 	Vector3 CalculateNewVelocitySwim(Vector3 localUp)
 	{
 		float deltaTime = Time.fixedDeltaTime;
-		Vector3 currentVelocity = rigidBody.velocity;
+		Vector3 currentVelocity = rigidBody.linearVelocity;
 
 
 		Vector3 newVelocity = currentVelocity + localUp * (buoyancy - gravity) * deltaTime;
@@ -266,7 +266,7 @@ public class FirstPersonController : MonoBehaviour
 	{
 		// Apply movement and gravity to rigidbody
 		float deltaTime = Time.fixedDeltaTime;
-		Vector3 currentLocalVelocity = MathUtility.WorldToLocalVector(rigidBody.rotation, rigidBody.velocity);
+		Vector3 currentLocalVelocity = MathUtility.WorldToLocalVector(rigidBody.rotation, rigidBody.linearVelocity);
 
 		float localYVelocity = currentLocalVelocity.y + (-gravity) * deltaTime;
 

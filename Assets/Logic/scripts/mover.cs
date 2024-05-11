@@ -785,7 +785,7 @@ public class mover : CustomSaveObject
             {
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
-                rigidbody3d.velocity = save.velosyty;
+                rigidbody3d.linearVelocity = save.velosyty;
 
                 W_position = save.wpos;
                 H_position = save.hpos;
@@ -911,7 +911,7 @@ public class mover : CustomSaveObject
             {
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
-                rigidbody3d.velocity = save.velosyty;
+                rigidbody3d.linearVelocity = save.velosyty;
 
                 W_position = save.wpos;
                 H_position = save.hpos;
@@ -1226,7 +1226,7 @@ public class mover : CustomSaveObject
                 {
                     save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                     rigidbody3d.angularVelocity = save.angularvelosyty;
-                    rigidbody3d.velocity = save.velosyty;
+                    rigidbody3d.linearVelocity = save.velosyty;
                     PlayerBody.transform.position = save.pos;// sr.transform.position = save.pos2;
                     PlayerBody.transform.rotation = save.q1;
                     HeadCameraSetup.transform.rotation = save.q3;
@@ -1280,7 +1280,7 @@ public class mover : CustomSaveObject
                 {
                     save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                     rigidbody3d.angularVelocity = save.angularvelosyty;
-                    rigidbody3d.velocity = save.velosyty;
+                    rigidbody3d.linearVelocity = save.velosyty;
                     PlayerBody.transform.position = save.pos; //sr.transform.position = save.pos2;
                     PlayerBody.transform.rotation = save.q1;
                     HeadCameraSetup.transform.rotation = save.q3;
@@ -1354,7 +1354,7 @@ public class mover : CustomSaveObject
                        
                         tsave = JsonUtility.FromJson<tsave>(File.ReadAllText(di.GetFiles()[di.GetFiles().Length - 1].FullName));
                         rigidbody3d.angularVelocity = -tsave.angularvelosyty;
-                        rigidbody3d.velocity = -tsave.velosyty;
+                        rigidbody3d.linearVelocity = -tsave.velosyty;
                         PlayerBody.transform.position = tsave.pos;// sr.transform.position = save.pos2;
                         PlayerBody.transform.rotation = tsave.q1;
                         HeadCameraSetup.transform.rotation = tsave.q3;
@@ -1604,7 +1604,7 @@ public class mover : CustomSaveObject
             {
 
 
-                rigidbody3d.velocity = Vector3.zero;
+                rigidbody3d.linearVelocity = Vector3.zero;
             }
         }
 
@@ -1630,7 +1630,7 @@ public class mover : CustomSaveObject
             if (playerdata.Geteffect("AutoJump") != null)
             {
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity += PlayerBody.transform.up * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.up * 30;
             }
                 JumpTimer = 0;
             c = new Collision();
@@ -1638,37 +1638,37 @@ public class mover : CustomSaveObject
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity += PlayerBody.transform.forward * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.forward * 30;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity += -PlayerBody.transform.forward * 30;
+                rigidbody3d.linearVelocity += -PlayerBody.transform.forward * 30;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity += PlayerBody.transform.right * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.right * 30;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity += -PlayerBody.transform.right * 30;
+                rigidbody3d.linearVelocity += -PlayerBody.transform.right * 30;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity += PlayerBody.transform.up * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.up * 30;
             }
             if (Input.GetKey(KeyCode.LeftControl))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.velocity -= PlayerBody.transform.up * 30;
+                rigidbody3d.linearVelocity -= PlayerBody.transform.up * 30;
             }
 
         }
@@ -1899,8 +1899,10 @@ public class mover : CustomSaveObject
            lt[0].GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
      if (!Globalprefs.LockRotate)   PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
+        Globalprefs.camera.fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
+        Globalprefs.camera.fieldOfView *= 1;
         save.angularvelosyty = rigidbody3d.angularVelocity;
-        save.velosyty = rigidbody3d.velocity;
+        save.velosyty = rigidbody3d.linearVelocity;
         save.q1 = PlayerBody.transform.rotation;
         save.q2 = PlayerCamera.transform.rotation;
         save.pos = PlayerBody.transform.position;
@@ -2009,57 +2011,59 @@ public class mover : CustomSaveObject
 
             timer = 0;
         }
-        timer8 += (decimal)Time.deltaTime;
-        if (timer8 > 5 && cistalenemy.dies > 0)
-        {
+        /*
+          timer8 += (decimal)Time.deltaTime;
+          if (timer8 > 5 && cistalenemy.dies > 0)
+          {
 
 
-            cistalenemy.dies-=1+invisibeobject;
+              cistalenemy.dies-=1+invisibeobject;
 
-            VarSave.SetInt("Agr", cistalenemy.dies);
-            if(VarSave.GetFloat(
-                "Sadist" + "_gameSettings", SaveType.global)>=.1f)
-            {
-                VarSave.LoadFloat("reason", 1);
-            }
-            timer8 = 0;
-        }
+              VarSave.SetInt("Agr", cistalenemy.dies);
+              if(VarSave.GetFloat(
+                  "Sadist" + "_gameSettings", SaveType.global)>=.1f)
+              {
+                  VarSave.LoadFloat("reason", 1);
+              }
+              timer8 = 0;
+          }
+        */
         if (Globalprefs.selectitemobj) if (!Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
-        {
-            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
             {
-                if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+                if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
                 {
+                    if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+                    {
 
-                    cistalenemy.dies += 100;
-                    VarSave.SetInt("Agr", cistalenemy.dies);
+                        cistalenemy.dies += 100;
+                        VarSave.SetInt("Agr", cistalenemy.dies);
+                    }
+                    Globalprefs.LoadTevroPrise(Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
+                    Destroy(Globalprefs.selectitemobj.gameObject);
+                    Globalprefs.selectitem = "";
+                    Globalprefs.ItemPrise = 0;
                 }
-                    Globalprefs.LoadTevroPrise( Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
-                Destroy(Globalprefs.selectitemobj.gameObject);
-                Globalprefs.selectitem = "";
-                Globalprefs.ItemPrise = 0;
             }
-        }
-       if(Globalprefs.selectitemobj) if (Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
-        {
-            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
+        if (Globalprefs.selectitemobj) if (Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
             {
-                if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+                if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
                 {
+                    if (Globalprefs.selectitemobj.GetComponent<itemName>().isLife)
+                    {
 
-                    cistalenemy.dies += 100;
-                    VarSave.SetInt("Agr", cistalenemy.dies);
-                }
-                playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
+                        cistalenemy.dies += 100;
+                        VarSave.SetInt("Agr", cistalenemy.dies);
+                    }
+                    playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
                     Globalprefs.Infinitysteuvro += (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1);
-                VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1));
-                Destroy(Globalprefs.selectitemobj.gameObject);
-                Globalprefs.selectitem = "";
-                Globalprefs.ItemPrise = 0;
+                    VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1));
+                    Destroy(Globalprefs.selectitemobj.gameObject);
+                    Globalprefs.selectitem = "";
+                    Globalprefs.ItemPrise = 0;
+                }
             }
-        }
-            // playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
-        }
+        // playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
+    }
 
         void WPositionUpdate()
     {
@@ -2202,7 +2206,7 @@ public class mover : CustomSaveObject
             if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
             if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
          
-            rigidbody3d.drag = 6 - axelerate;
+            rigidbody3d.linearDamping = 6 - axelerate;
             jumpforse = Mathf.Clamp(jumpforse, 0, 1000);
         }
         else
@@ -2214,7 +2218,7 @@ public class mover : CustomSaveObject
             {
                 movegrag = 1;
             }
-            rigidbody3d.drag = 4.5f- axelerate;
+            rigidbody3d.linearDamping = 4.5f- axelerate;
         }
 
         bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0 || god;
@@ -2864,8 +2868,8 @@ public class mover : CustomSaveObject
             if(hit.point.ToString()!= uniepos.ToString())
             {
                 rigidbody3d.mass = UnityEngine.Random.Range(0, 400);
-                rigidbody3d.drag = UnityEngine.Random.Range(0, 400);
-                rigidbody3d.velocity += Global.math.randomCube(-1, 1);
+                rigidbody3d.linearDamping = UnityEngine.Random.Range(0, 400);
+                rigidbody3d.linearVelocity += Global.math.randomCube(-1, 1);
                 uniepos = hit.point;
             }
         }
@@ -3136,7 +3140,7 @@ public class mover : CustomSaveObject
         if (timer9 >= .1f && !Input.GetKey(KeyCode.G) && !_n1fps) {
             tsave.timesave = VarSave.LoadMoney(SceneManager.GetActiveScene().buildIndex.ToString(),1).ToString();
             tsave.angularvelosyty = rigidbody3d.angularVelocity;
-            tsave.velosyty = rigidbody3d.velocity;
+            tsave.velosyty = rigidbody3d.linearVelocity;
             tsave.q1 = PlayerBody.transform.rotation;
             tsave.q2 = PlayerCamera.transform.rotation;
             tsave.pos = PlayerBody.transform.position;
@@ -3195,7 +3199,7 @@ public class mover : CustomSaveObject
               //  GameObject.Find("w2").GetComponent<pos4>().save();
          //   }
             save.angularvelosyty = rigidbody3d.angularVelocity;
-            save.velosyty = rigidbody3d.velocity;
+            save.velosyty = rigidbody3d.linearVelocity;
             save.q1 = PlayerBody.transform.rotation;
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
@@ -3236,7 +3240,7 @@ public class mover : CustomSaveObject
             //    GameObject.Find("w2").GetComponent<pos4>().save();
          //   }
             save.angularvelosyty = rigidbody3d.angularVelocity;
-            save.velosyty = rigidbody3d.velocity;
+            save.velosyty = rigidbody3d.linearVelocity;
             save.q1 = PlayerBody.transform.rotation;
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
@@ -3253,7 +3257,7 @@ public class mover : CustomSaveObject
                 save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
             }
             tsave.angularvelosyty = rigidbody3d.angularVelocity;
-            tsave.velosyty = rigidbody3d.velocity;
+            tsave.velosyty = rigidbody3d.linearVelocity;
             tsave.q1 = PlayerBody.transform.rotation;
             tsave.q2 = PlayerCamera.transform.rotation;
             tsave.pos = PlayerBody.transform.position;

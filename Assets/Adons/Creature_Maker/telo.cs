@@ -98,7 +98,7 @@ public class telo : CustomSaveObject
             if (sc == SizeCreachure.nope)
             {
                 transform.localScale *= 1;
-                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<Rigidbody>().mass = 10;
                 GetComponent<PlanetPhysics>().gravity *= 1;
             }
@@ -106,49 +106,49 @@ public class telo : CustomSaveObject
             {
                 transform.localScale *= 0.1f;
                 GetComponent<Rigidbody>().mass = 1f;
-                GetComponent<Rigidbody>().drag = 10;
+                GetComponent<Rigidbody>().linearDamping = 10;
                 GetComponent<PlanetPhysics>().gravity *= 0.1f;
             }
             if (sc == SizeCreachure.small)
             {
                 transform.localScale *= 0.3f;
                 GetComponent<Rigidbody>().mass = 3f;
-                GetComponent<Rigidbody>().drag = 2;
+                GetComponent<Rigidbody>().linearDamping = 2;
                 GetComponent<PlanetPhysics>().gravity *= 0.3f;
             }
             if (sc == SizeCreachure.medium)
             {
                 transform.localScale *= 1;
                 GetComponent<Rigidbody>().mass = 10f;
-                GetComponent<Rigidbody>().drag =1;
+                GetComponent<Rigidbody>().linearDamping =1;
                 GetComponent<PlanetPhysics>().gravity *=1f;
             }
             if (sc == SizeCreachure.big)
             {
                 transform.localScale *= 2;
                 GetComponent<Rigidbody>().mass = 40f;
-                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 4f;
             }
             if (sc == SizeCreachure.giga)
             {
                 transform.localScale *= 10;
                 GetComponent<Rigidbody>().mass = 10000f;
-                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 30f;
             }
             if (sc == SizeCreachure.titan)
             {
                 transform.localScale *= 50;
                 GetComponent<Rigidbody>().mass = 200000f;
-                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 100f;
             }
             if (sc == SizeCreachure.planet)
             {
                 transform.localScale *= 400;
                 GetComponent<Rigidbody>().mass = 16000000f;
-                GetComponent<Rigidbody>().drag = 1;
+                GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 500f;
             }
         }

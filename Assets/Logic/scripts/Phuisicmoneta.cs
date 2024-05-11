@@ -15,6 +15,6 @@ public class Phuisicmoneta : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<BoxCollider>().size = vel  * GetComponent<Rigidbody>().velocity.y * velplus;
+        GetComponent<BoxCollider>().size = vel  * GetComponent<Rigidbody>().linearVelocity.y * velplus;
     }
 }

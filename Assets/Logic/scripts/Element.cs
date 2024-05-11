@@ -19,8 +19,8 @@ public class Element : MonoBehaviour
     private void Start()
     {
         gameObject.AddComponent<Rigidbody>().useGravity = false;
-        gameObject.GetComponent<Rigidbody>().drag = 100;
-        gameObject.GetComponent<Rigidbody>().angularDrag = 100;
+        gameObject.GetComponent<Rigidbody>().linearDamping = 100;
+        gameObject.GetComponent<Rigidbody>().angularDamping = 100;
     }
     private void OnCollisionEnter(Collision c)
     {

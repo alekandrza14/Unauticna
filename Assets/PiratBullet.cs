@@ -17,7 +17,7 @@ public class PiratBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity =- v3 * 60;
+        rb.linearVelocity =- v3 * 60;
        // transform.position -= v3 * Time.deltaTime *30;
         s++;
         if (s>800)

@@ -140,7 +140,7 @@ public class terracat : MonoBehaviour
         }
         if (c.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
         {
-            VarSave.SetBool("умерли от ран", true);
+            VarSave.SetBool("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ", true);
             VarSave.SetBool("cry", true);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
@@ -154,12 +154,12 @@ public class terracat : MonoBehaviour
     void Update()
     {
         transform.Rotate(new Vector3(0, Random.Range(-1030, 1031) * Time.deltaTime *3, 0));
-        rb.velocity = transform.right * -10000 * Time.deltaTime;
+        rb.linearVelocity = transform.right * -10000 * Time.deltaTime;
         if (s==null)
         {
 
 
-            rb.velocity += transform.up * -1000 * Time.fixedDeltaTime;
+            rb.linearVelocity += transform.up * -1000 * Time.fixedDeltaTime;
 
         }
         s = null;

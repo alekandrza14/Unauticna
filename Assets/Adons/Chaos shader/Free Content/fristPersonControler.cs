@@ -51,7 +51,7 @@ public class fristPersonControler : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-       if((rb.velocity.x+ rb.velocity.z) <= 1) rb.MovePosition( ((transform.right * Input.GetAxisRaw("Horizontal")+ transform.forward * Input.GetAxisRaw("Vertical"))/6)+transform.position);
+       if((rb.linearVelocity.x+ rb.linearVelocity.z) <= 1) rb.MovePosition( ((transform.right * Input.GetAxisRaw("Horizontal")+ transform.forward * Input.GetAxisRaw("Vertical"))/6)+transform.position);
       
     }
 }

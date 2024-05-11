@@ -1011,7 +1011,11 @@ public class complsave : MonoBehaviour
                 {
                     i2.Load();
                 }
-                
+                if (Random.Range(0, 4) >= 2 && VarSave.GetInt("Agr") > 1000)
+                {
+                    Instantiate(Resources.Load<GameObject>("events/Legal_mafia").gameObject, mover.main().transform.position, Quaternion.identity);
+
+                }
                 if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
                 {
 
@@ -1091,6 +1095,7 @@ public class complsave : MonoBehaviour
                             }
                         }
                     }
+                   
                     if (Random.Range(0, 24) == 1)
                     {
 
@@ -1103,7 +1108,8 @@ public class complsave : MonoBehaviour
                     }
                     if (Random.Range(0, 3) == 1)
                     {
-                        for (int i =0;i<3+ Random.Range(0, 7);i++) {
+                        for (int i = 0; i < 3 + Random.Range(0, 7); i++)
+                        {
                             GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
                             Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
                             RaycastHit hit;
@@ -1111,12 +1117,28 @@ public class complsave : MonoBehaviour
                             {
                                 if (hit.collider != null)
                                 {
-                                    Instantiate(g[Random.Range(0,g.Length)], hit.point, Quaternion.identity);
+                                    Instantiate(g[Random.Range(0, g.Length)], hit.point, Quaternion.identity);
                                 }
-                            } 
+                            }
                         }
                     }
-                    
+                    if (Random.Range(0, 3) == 1)
+                    {
+                        for (int i = 0; i < 0 + Random.Range(0, 28); i++)
+                        {
+                            GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
+                            Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(g, hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+
 
                 }
             }

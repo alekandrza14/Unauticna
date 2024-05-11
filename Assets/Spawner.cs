@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
 
    public string mobData = "FashistEnemye";
     public GameObject spawn4DTrigger;
+    public static List<GameObject> objs = new List<GameObject>();
     private void Start()
     {
         mobData = GetComponent<itemName>().ItemData;
@@ -46,18 +47,28 @@ public class Spawner : MonoBehaviour
     }
     public void spawn()
     {
-        if (Vector3.Distance(mover.main().transform.position,transform.position)<60) 
-        {  
-            if (!spawn4DTrigger) Instantiate(Resources.Load<GameObject>("items/" + mobData), transform.position + Global.math.randomCube(-10, 10), Quaternion.identity);
-            if (spawn4DTrigger) if (spawn4DTrigger.activeSelf) Instantiate(Resources.Load<GameObject>("items/" + mobData), transform.position + Global.math.randomCube(-10, 10), Quaternion.identity); 
+        if (Vector3.Distance(mover.main().transform.position,transform.position)<60)
+        {
+            SpawnAction();
+            if (objs.Count > 5)
+            {
+                GameObject obj = objs[Random.Range(0, objs.Count)];
+                objs.Remove(obj);
+                Destroy(obj);
+            }
         }
     }
+
+    private void SpawnAction()
+    {
+        if (!spawn4DTrigger) objs.Add( Instantiate(Resources.Load<GameObject>("items/" + mobData), transform.position + Global.math.randomCube(-10, 10), Quaternion.identity));
+        if (spawn4DTrigger) if (spawn4DTrigger.activeSelf) objs.Add(Instantiate(Resources.Load<GameObject>("items/" + mobData), transform.position + Global.math.randomCube(-10, 10), Quaternion.identity));
+      
+    }
+
     public void OnSignal()
     {
-        
-            if (!spawn4DTrigger) Instantiate(Resources.Load<GameObject>("items/" + mobData), transform.position + Global.math.randomCube(-10, 10), Quaternion.identity);
-            if (spawn4DTrigger) if (spawn4DTrigger.activeSelf) Instantiate(Resources.Load<GameObject>("items/" + mobData), transform.position + Global.math.randomCube(-10, 10), Quaternion.identity);
-       
+        SpawnAction();
     }
     private void Update()
     {

@@ -20,7 +20,7 @@ public class doorExplushon : MonoBehaviour
         {
 
 
-            GetComponent<BoxCollider>().size = vel * GetComponent<Rigidbody>().velocity.y * velplus;
+            GetComponent<BoxCollider>().size = vel * GetComponent<Rigidbody>().linearVelocity.y * velplus;
 
         }
     
@@ -42,7 +42,7 @@ public class doorExplushon : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); 
             Destroy(c.collider.gameObject);
-            gameObject.AddComponent<Rigidbody>().velocity = new Vector3(0,0,0);
+            gameObject.AddComponent<Rigidbody>().linearVelocity = new Vector3(0,0,0);
 
 
         }

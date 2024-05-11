@@ -96,7 +96,14 @@ public class MeshDestroy : MonoBehaviour
             parts[i].MakeGameobject(this);
             parts[i].GameObject.GetComponent<Rigidbody>().AddForceAtPosition(parts[i].Bounds.center * ExplodeForce, transform.position);
         }
-
+        if (GetComponent<itemName>()&&UnityEngine.Random.Range(0,7)>=6)
+        {
+            GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
+           
+                    Instantiate(g, transform.position, Quaternion.identity);
+              
+            
+        }
         Destroy(gameObject);
     }
 

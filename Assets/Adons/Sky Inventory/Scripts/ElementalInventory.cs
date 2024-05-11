@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
+using static UnityEngine.GraphicsBuffer;
 
 public class inputButton
 {
@@ -1646,6 +1647,62 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ComputerSave>())
+                {
+                    if (hit.collider.GetComponent<ComputerSave>().iteractive)
+                    {
+
+                        hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem.Add(Cells[select].elementName);
+                        hit.collider.GetComponent<ComputerSave>().itemsinfo.datasitem.Add(Cells[select].elementData);
+
+                        setItem("", 0, Color.red, select);
+
+                        Cells[select].UpdateCellInterface();
+                    }
+                }
+            }
+
+
+
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementCount == 0 && main() == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<ComputerSave>())
+                {
+                    if (hit.collider.GetComponent<ComputerSave>().iteractive)
+                    {
+                        List<string> s = hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem;
+                        List<string> s2 = hit.collider.GetComponent<ComputerSave>().itemsinfo.datasitem;
+
+                        setItem(s[s.Count - 1], 1, Color.red, s2[s2.Count - 1], select);
+
+                        Cells[select].UpdateCellInterface();
+
+
+                        s.RemoveAt(s.Count - 1);
+                        s2.RemoveAt(s2.Count - 1);
+                    }
+
+                }
+            }
+
+
+
+        }
+      
+       
         if (Input.GetKeyDown(KeyCode.Mouse0) && batteytype && Cells[select].elementCount != 0 && main() == this)
         {
 
@@ -2981,6 +3038,12 @@ public class ElementalInventory : MonoBehaviour {
             mover.main().transform.Rotate(0, 0, 180);
         }
         if (main() == this
+       && Cells[select].elementName == "T█████okeg"
+       && Cells[select].elementCount > 0 && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(Resources.Load("Items/Kout█████"), mover.main().transform.position, Quaternion.identity);
+        }
+        if (main() == this
        && Cells[select].elementName == "WarpEngine"
        && Cells[select].elementCount > 0 && Input.GetKeyDown(KeyCode.E))
         {
@@ -4134,7 +4197,7 @@ public class ElementalInventory : MonoBehaviour {
 
             if (GetComponent<Rigidbody>())
             {
-                t.gameObject.GetComponent<Rigidbody>().drag = 999999;
+                t.gameObject.GetComponent<Rigidbody>().linearDamping = 999999;
                 t.gameObject.GetComponent<Rigidbody>().mass = 999999;
                 t.gameObject.GetComponent<Rigidbody>().useGravity = false;
             }
@@ -4162,7 +4225,7 @@ public class ElementalInventory : MonoBehaviour {
 
             if (GetComponent<Rigidbody>())
             {
-                t.gameObject.GetComponent<Rigidbody>().drag = 999999;
+                t.gameObject.GetComponent<Rigidbody>().linearDamping = 999999;
                 t.gameObject.GetComponent<Rigidbody>().mass = 999999;
                 t.gameObject.GetComponent<Rigidbody>().useGravity = false;
             }

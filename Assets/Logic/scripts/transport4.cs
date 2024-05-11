@@ -25,44 +25,44 @@ public class transport4 : MonoBehaviour
         if (sitplayer)
         {
             Globalprefs.sit_player = player.gameObject;
-            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
             player.position = cell.position;
             player.rotation = cell.rotation;
             if (Input.GetKey(KeyCode.W))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.forward * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += transform.forward * 20f * speed;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.forward * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += -transform.forward * 20f * speed;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.up * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += transform.up * 20f * speed;
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
 
 
-                GetComponent<Rigidbody>().velocity += -transform.up * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += -transform.up * 20f * speed;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
 
-                GetComponent<Rigidbody>().velocity += transform.right * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += transform.right * 20f * speed;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
                 
-                GetComponent<Rigidbody>().velocity += -transform.right * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += -transform.right * 20f * speed;
             }
             if (Input.GetKey(KeyCode.Mouse1))
             {

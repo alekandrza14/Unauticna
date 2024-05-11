@@ -9,14 +9,14 @@ Shader "Custom/Texture3DOnPoygons"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+       //  Tags {"Queue" = "Transparent" "RenderType"="Transparent" }
+         Tags {"Queue" = "Opaque" "RenderType"="Opaque" }
         LOD 200
-
+   
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
-
-        // Use shader model 3.0 target, to get nicer looking lighting
+     //   #pragma surface surf Standard fullforwardshadows alpha:fade
+      #pragma surface surf Standard fullforwardshadows
         #pragma target 3.0
 
         sampler3D _MainTex;
@@ -53,5 +53,7 @@ Shader "Custom/Texture3DOnPoygons"
         }
         ENDCG
     }
-    FallBack "Diffuse"
+    // FallBack "Standard"
+    
+     FallBack "Diffuse"
 }

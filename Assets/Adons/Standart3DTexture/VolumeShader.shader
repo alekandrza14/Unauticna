@@ -121,7 +121,7 @@ Shader "Unlit/VolumeShader"
                    
                            outDepth =  Depth(samplePosition2);
 
-                             i3 = 0;
+                             i3 = 1;
                          }
             
                        
@@ -144,7 +144,9 @@ Shader "Unlit/VolumeShader"
                    
                   
                 }
-               color += color2/3;
+               if(color.a<=0){
+                  color  = color2;
+                   }
                 return color;
             }
             ENDCG

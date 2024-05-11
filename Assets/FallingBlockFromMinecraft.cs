@@ -14,7 +14,7 @@ public class FallingBlockFromMinecraft : MonoBehaviour
             if (hit.normal.y < 0.99f)
             {
                 Rigidbody rb = Instantiate(Obj, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4));
+                rb.linearVelocity = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4));
                 Destroy(gameObject);
             }
         }
@@ -28,7 +28,7 @@ public class FallingBlockFromMinecraft : MonoBehaviour
             if (hit.normal.y < 0.99f && hit.distance < 1)
             {
               Rigidbody rb =  Instantiate(Obj,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4));
+                rb.linearVelocity = new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4));
                 Destroy(gameObject);
             }
         }

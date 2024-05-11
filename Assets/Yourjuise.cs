@@ -94,7 +94,7 @@ public class Yourjuise : InventoryEvent
             {
 
                 IntPtr r = IntPtr.Zero;
-                Texture3D tex = new Texture3D(((Texture2D)t).width, ((Texture2D)t).width, ((Texture2D)t).width, TextureFormat.RGBA32, true, r) { hideFlags = HideFlags.NotEditable ,filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp};
+                Texture3D tex = new Texture3D(((Texture2D)t).width, ((Texture2D)t).width, ((Texture2D)t).width, TextureFormat.RGBA32, true, r) { hideFlags = HideFlags.NotEditable ,filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp ,mipMapBias =-1000};
                 //  tex.
                 int dim = ((Texture2D)t).width;
                 Color[] c2D = ((Texture2D)t).GetPixels();

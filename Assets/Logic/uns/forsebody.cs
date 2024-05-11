@@ -49,7 +49,7 @@ public class forsebody : ScriptObject
             tic += Time.deltaTime;
             if (tic >= time)
             {
-                GetComponent<Rigidbody>().velocity += new Vector3(script.outsv[tir].x, 0, script.outsv[tir].y) * 10;
+                GetComponent<Rigidbody>().linearVelocity += new Vector3(script.outsv[tir].x, 0, script.outsv[tir].y) * 10;
                 tir++;
                 tic = 0;
             }
@@ -67,7 +67,7 @@ public class forsebody : ScriptObject
             tic += Time.deltaTime;
             if (tic >= time)
             {
-                GetComponent<Rigidbody>().velocity += new Vector3(script1.outsv[tir].x, 0, script1.outsv[tir].y) * 10;
+                GetComponent<Rigidbody>().linearVelocity += new Vector3(script1.outsv[tir].x, 0, script1.outsv[tir].y) * 10;
                 tir++;
                 tic = 0;
             }

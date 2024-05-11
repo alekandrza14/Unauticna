@@ -5,9 +5,15 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+public enum ConsoleType
+{
+    Player,Computer
+}
 
 public class Conseole_trigger : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -847,33 +853,56 @@ public class Conseole_trigger : MonoBehaviour
 
         }
     }
+    public ConsoleType ct;
+    public InputField ifd;
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
+        if (ct == ConsoleType.Player) 
         {
-            Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
-            Global.PauseManager.Pause();
-
-        }
-        if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
-        {
-            if (VarSave.GetFloat(
-            "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
+            if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
             {
-                VarSave.LoadFloat("reason", 1);
+                Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
+                Global.PauseManager.Pause();
+
             }
-            run(FindFirstObjectByType<Console_pointer>().text.text);
-            VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
-            Destroy(GameObject.FindWithTag("console"));
+            if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
+            {
+                if (VarSave.GetFloat(
+                "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                run(FindFirstObjectByType<Console_pointer>().text.text);
+              if(!string.IsNullOrEmpty(FindFirstObjectByType<Console_pointer>().text.text))  VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
+                Destroy(GameObject.FindWithTag("console"));
 
-            Global.PauseManager.Play();
+                Global.PauseManager.Play();
 
 
-        }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && FindFirstObjectByType<Console_pointer>() != null)
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow) && FindFirstObjectByType<Console_pointer>() != null)
+            {
+                FindFirstObjectByType<Console_pointer>().text.text = VarSave.GetString("console");
+
+
+            }
+        } 
+    }
+    public void Computer ()
+    {
+        if (ct == ConsoleType.Computer)
         {
-            FindFirstObjectByType<Console_pointer>().text.text = VarSave.GetString("console");
+            
+            
+                if (VarSave.GetFloat(
+                "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                run(ifd.text);
+
+
 
 
         }

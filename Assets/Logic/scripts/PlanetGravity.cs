@@ -41,7 +41,7 @@ public class PlanetGravity : MonoBehaviour
 
             if (body.gameObject.GetComponent<mover>().IsGraund == true)
             {
-                body.gameObject.GetComponent<Rigidbody>().drag = 20;
+                body.gameObject.GetComponent<Rigidbody>().linearDamping = 20;
             }
         }
         Quaternion targetrotation = Quaternion.FromToRotation(bodyup,gravityUp)*body.rotation;
