@@ -28,7 +28,7 @@ public class World : MonoBehaviour {
         {
             Random.InitState(seed);
 
-        spawnPosition = new Vector3((VoxelData.WorldSizeInChunks * VoxelData.ChunkWidth) / 2f, VoxelData.ChunkHeight + 2f, (VoxelData.WorldSizeInChunks * VoxelData.ChunkWidth) / 2f);
+        spawnPosition = new Vector3(160f, 66f, 160f);
         GenerateWorld();
 
 
@@ -69,7 +69,7 @@ public class World : MonoBehaviour {
 
         Random.InitState(seed);
 
-        spawnPosition = new Vector3((VoxelData.WorldSizeInChunks * VoxelData.ChunkWidth) / 2f, VoxelData.ChunkHeight + 2f, (VoxelData.WorldSizeInChunks * VoxelData.ChunkWidth) / 2f);
+        spawnPosition = new Vector3(160f, 66f, 160f);
         GenerateWorld();
         playerLastChunkCoord = GetChunkCoordFromVector3(player.position);
 
@@ -93,8 +93,8 @@ public class World : MonoBehaviour {
 
     void GenerateWorld () {
 
-        for (int x = (VoxelData.WorldSizeInChunks / 2) - VoxelData.ViewDistanceInChunks; x < (VoxelData.WorldSizeInChunks / 2) + VoxelData.ViewDistanceInChunks; x++) {
-            for (int z = (VoxelData.WorldSizeInChunks / 2) - VoxelData.ViewDistanceInChunks; z < (VoxelData.WorldSizeInChunks / 2) + VoxelData.ViewDistanceInChunks; z++) {
+        for (int x = (20 / 2) - VoxelData.ViewDistanceInChunks; x < (20 / 2) + VoxelData.ViewDistanceInChunks; x++) {
+            for (int z = (20 / 2) - VoxelData.ViewDistanceInChunks; z < (20 / 2) + VoxelData.ViewDistanceInChunks; z++) {
 
                 CreateNewChunk(x, z);
 

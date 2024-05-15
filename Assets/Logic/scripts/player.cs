@@ -238,7 +238,7 @@ public class playerdata
         {
             if (playerdata.effects[i].effect == name)
             {
-                ef = playerdata.effects[i]; 
+                ef = playerdata.effects[i];
                 return ef;
             }
         }
@@ -246,6 +246,20 @@ public class playerdata
         {
             ef = playerdata.Paniceffect[0]; return ef;
         }
+        return ef;
+    }
+    static public useeffect Geteffect(string name,List<useeffect> effects)
+    {
+        useeffect ef = null;
+      if(effects!=null)  for (int i = 0; i < effects.Count; i++)
+        {
+            if (effects[i].effect == name)
+            {
+                ef = effects[i];
+                return ef;
+            }
+        }
+        
         return ef;
     }
     static public void Upeffect(string name, float secoundstime)

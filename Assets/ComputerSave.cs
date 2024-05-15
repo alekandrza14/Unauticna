@@ -67,7 +67,7 @@ public class ComputerSave : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Collider other = collision.collider;
-        if (other.GetComponent<itemName>()._Name=="GPU")
+      if(other.GetComponent<itemName>())  if (other.GetComponent<itemName>()._Name=="GPU")
         {
             Globalprefs.flowteuvro += 0.1m;
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2692703385140253869}
   - component: {fileID: 8168243521939432005}
   - component: {fileID: 6054117598686327503}
+  - component: {fileID: 4589049330523547874}
   m_Layer: 0
   m_Name: sing cube
   m_TagString: Untagged
@@ -75,6 +76,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 14
   m_CollisionDetection: 0
+--- !u!114 &4589049330523547874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7622946949846227030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b35a62cd2a21484ba7666899500aceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yPos: -1
 --- !u!1001 &7825847870869140225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,13 +195,13 @@ ConfigurableJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8767649998255255345}
+  serializedVersion: 4
   m_ConnectedBody: {fileID: 6054117598686327503}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
   m_YMotion: 0

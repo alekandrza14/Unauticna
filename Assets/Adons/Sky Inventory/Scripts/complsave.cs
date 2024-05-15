@@ -196,9 +196,21 @@ public class complsave : MonoBehaviour
 
     private void LimMath()
     {
+        Directory.CreateDirectory(VarSave.path + "/datasurface");
+        DirectoryInfo di = new DirectoryInfo(VarSave.path + "/datasurface");
+        string str = "";
+        foreach (FileInfo fi in di.GetFiles())
+        {
+            if (File.Exists(fi.FullName))
+            {
+                string spase = File.ReadAllText(fi.FullName);
+                if (script.isNumber(spase)) str += fi.Name + spase; 
+            }
+        }
         lif = "";
         if (!FindAnyObjectByType<StaticAnyversePosition>()) lif += Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
+      if(VarSave.GetString("CurrentSpace")!="")  lif += "_" + str;
         if (VarSave.GetTrash("RealityX") != 0) lif += "_" + VarSave.GetTrash("RealityX");
         //end script
        total_lif = lif;

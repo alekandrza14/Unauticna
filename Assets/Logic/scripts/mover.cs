@@ -1167,7 +1167,7 @@ public class mover : CustomSaveObject
                     if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Hyperkomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + new_center.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 }
             }
-            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime()) + " z : re " + Globalprefs.Reality + " , muc " + "0" + " , li " + "0" + " , gli " + "0";
+            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime()) + " z : re " + Globalprefs.Reality + " , muc " + "0" + " , li " + VarSave.GetString("CurrentSpace") +" "+ VarSave.GetMoney("datasurface/" + VarSave.GetString("CurrentSpace")) + " , gli " + "0";
 
         }
     }
@@ -1199,7 +1199,9 @@ public class mover : CustomSaveObject
         complsave.getallMorfs();
         if (playerdata.Geteffect("KsenoMorfin") != null)
         {
-            Instantiate(complsave.t5[VarSave.GetInt("CurrentMorf")], transform);
+            GameObject morphmodel = null;
+            morphmodel = Instantiate(complsave.t5[VarSave.GetInt("CurrentMorf")], transform);
+            if (morphmodel != null) if (morphmodel.GetComponent<MoveCamera>())  HeadCameraSetup.transform.position += PlayerBody.transform.up * morphmodel.GetComponent<MoveCamera>().yPos;
             perMorphin = true;
         }
         InvokeRepeating("UpdateTargets", 0,1);
