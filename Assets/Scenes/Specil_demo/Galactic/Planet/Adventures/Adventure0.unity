@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -44,7 +44,6 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
-  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -156,14 +155,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 8
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 1
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 8, y: 1, z: 8}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &84283210
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -203,6 +226,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -306,14 +332,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 8
+  W_Count_Slice: 0
   W_Scale: 8
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 1
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 8, y: 1, z: 8}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &237902913
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -353,6 +403,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -526,9 +579,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581693679}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -578,8 +630,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &581693681
 Transform:
   m_ObjectHideFlags: 0
@@ -771,6 +827,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -841,6 +900,7 @@ MonoBehaviour:
   colour: {r: 1, g: 1, b: 1, a: 0}
   smoothRadius: 0
   numChildren: 1
+  numTexture: 0
 --- !u!4 &959573470
 Transform:
   m_ObjectHideFlags: 0
@@ -891,14 +951,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 8
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 1
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 8, y: 1, z: 8}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &983868908
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -938,6 +1022,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1041,14 +1128,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 24
+  W_Count_Slice: 0
   W_Scale: 8
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 1
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 8, y: 1, z: 8}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1096363255
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1088,6 +1199,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1191,14 +1305,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 8
+  W_Count_Slice: 0
   W_Scale: 8
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 1
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 8, y: 1, z: 8}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1103271525
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1238,6 +1376,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1342,14 +1483,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 32.2
+  W_Count_Slice: 0
   W_Scale: 57.6
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 6
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 1, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1310392838
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1389,6 +1554,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1504,6 +1672,7 @@ MonoBehaviour:
   W_Position: 0.11
   H_Position: 0
   W_Rotation: {x: 0, y: 0, z: 0}
+  HX_Rotation: 0
 --- !u!4 &1327672298
 Transform:
   m_ObjectHideFlags: 0
@@ -1696,6 +1865,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1807,14 +1979,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 8
+  W_Count_Slice: 0
   W_Scale: 8
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 1
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 8, y: 1, z: 8}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &2066017406
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1854,6 +2050,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1976,6 +2175,7 @@ MonoBehaviour:
   colour: {r: 1, g: 0.95554936, b: 0, a: 0}
   smoothRadius: 0
   numChildren: 1
+  numTexture: 0
 --- !u!1001 &5128309400484402240
 PrefabInstance:
   m_ObjectHideFlags: 0

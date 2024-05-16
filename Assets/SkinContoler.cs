@@ -20,10 +20,27 @@ public class SkinContoler : MonoBehaviour
     }
     private void SkinOff()
     {
+        bool e = playerdata.Geteffect("KsenoMorfin") != null;
         Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
         foreach (Logic_tag_Skin i in ls)
         {
+            if (!e)
+            {
+                i.gameObject.SetActive(true);
+            }
+            if (e)
+            {
+                i.gameObject.SetActive(false);
+            }
             i.gameObject.layer = 8;
+        }
+        if (mover.DopPlayerModel)
+        {
+            Renderer[] renderers = mover.DopPlayerModel.GetComponentsInChildren<Renderer>();
+            foreach (Renderer i in renderers)
+            {
+                i.gameObject.layer = 8;
+            }
         }
         if (VarSave.GetString("Controler") == id){
             SkinedAnimators[0].enabled = true;
@@ -45,29 +62,54 @@ public class SkinContoler : MonoBehaviour
                     PlayerModelObjects[i].SetActive(false);
                 }
             }
-            else
+            else if (!e)
             {
                 if (PlayerModelObjects[i].GetComponent<Logic_tag_Skin>().id == "0")
                 {
 
                     PlayerModelObjects[i].SetActive(true);
-                   
+
                 }
                 else
                 {
 
                     PlayerModelObjects[i].SetActive(false);
-                   
+
                 }
+            }
+            else if (e)
+            {
+                
+
+                    PlayerModelObjects[i].SetActive(false);
+
+                
+               
             }
         }
     }
 
     private void SkinManager()
     {
-        Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
+        if (mover.DopPlayerModel)
+        {
+            Renderer[] renderers = mover.DopPlayerModel.GetComponentsInChildren<Renderer>();
+            foreach (Renderer i in renderers)
+            {
+                i.gameObject.layer = 0;
+            }
+        }
+         Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
         foreach (Logic_tag_Skin i in ls)
         {
+            if (playerdata.Geteffect("KsenoMorfin") != null)
+            {
+                i.gameObject.SetActive(false);
+            }
+            if (playerdata.Geteffect("KsenoMorfin") == null)
+            {
+                i.gameObject.SetActive(true);
+            }
             if (playerdata.Geteffect("KsenoMorfin") == null)
             {
                 i.gameObject.layer = 0;

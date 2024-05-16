@@ -227,6 +227,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -338,7 +341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPrise: 3
+  ItemInfinitysPrise: 0
   ItemData: 
+  isLife: 0
   _Name: seed
 --- !u!114 &-8219710680617734138
 MonoBehaviour:
@@ -373,6 +378,7 @@ MonoBehaviour:
   - {fileID: 481195768608680092}
   - {fileID: 7606188838394547376}
   - {fileID: 7856932643114178113}
+  playerSphericalModel: 0
 --- !u!114 &8346343619000693448
 MonoBehaviour:
   m_ObjectHideFlags: 0

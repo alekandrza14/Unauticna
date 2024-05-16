@@ -216,6 +216,12 @@ public class playerdata
                 playerdata.effects[i].time = secoundstime;
                 i = playerdata.effects.Length;
             }
+            else if (playerdata.effects[i].time<0)
+            {
+                playerdata.effects[i].effect = name;
+                playerdata.effects[i].time = secoundstime;
+                i = playerdata.effects.Length;
+            }
         }
     }
     static public void SetPaniceffect(string name, float secoundstime)
@@ -377,7 +383,7 @@ public class GameManager : MonoBehaviour
 
         return t;
     }
-    static public void load(Transform transform,HyperbolicPoint hyperbolicPoint)
+    static public void load(Transform transform, HyperbolicPoint hyperbolicPoint)
     {
         if (FindObjectsByType<mover>(sortmode.main).Length != 0)
         {
@@ -385,9 +391,19 @@ public class GameManager : MonoBehaviour
 
             if (hyperbolicPoint == null) mover.main().transform.position = transform.position;
             else { HyperbolicCamera.Main().RealtimeTransform = hyperbolicPoint.HyperboilcPoistion.copy().inverse(); mover.main().transform.position = transform.position; }
-           
+
         }
+
+
+    }
+    static public void loadoutReincarnation()
+    {
+       
+            gsave sr = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
+            SceneManager.LoadSceneAsync(sr.sceneid);
+
       
+
 
     }
     static public void load5(Hyperbolic2D pl,float i3)

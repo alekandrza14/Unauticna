@@ -1172,6 +1172,7 @@ public class mover : CustomSaveObject
         }
     }
     bool perMorphin;
+    public static GameObject DopPlayerModel;
 
     //Приметивный интерфейс
     void Start()
@@ -1202,6 +1203,7 @@ public class mover : CustomSaveObject
             GameObject morphmodel = null;
             morphmodel = Instantiate(complsave.t5[VarSave.GetInt("CurrentMorf")], transform);
             if (morphmodel != null) if (morphmodel.GetComponent<MoveCamera>())  HeadCameraSetup.transform.position += PlayerBody.transform.up * morphmodel.GetComponent<MoveCamera>().yPos;
+            DopPlayerModel = morphmodel;
             perMorphin = true;
         }
         InvokeRepeating("UpdateTargets", 0,1);

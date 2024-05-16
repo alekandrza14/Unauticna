@@ -27,6 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1837253208734771959}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 116.73, y: 1.2520745, z: -7.87}
   m_LocalScale: {x: 11.147, y: 11.147, z: 11.147}
@@ -34,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 6196907298697665178}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1837253208734771954
 MeshFilter:
@@ -61,6 +61,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -132,15 +135,6 @@ MonoBehaviour:
   su:
   - 
   smu: s2-resset()
-  rs:
-  - 
-  rsm: "\u041E\u0447\u0435\u0432\u0438\u0434\u043D\u043E..."
-  rse:
-  - 
-  rsme: yeap...
-  rsu:
-  - 
-  rsmu: "\u041E\u0447\u0438\u0432\u0438\u0442\u0434\u043D..."
   text: {fileID: 6196907299374661974}
   qu: {fileID: 0}
   anim: {fileID: 0}
@@ -190,7 +184,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6196907299823998404}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -262,6 +255,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
       propertyPath: m_fontColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -277,8 +276,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 664696185388844386, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}

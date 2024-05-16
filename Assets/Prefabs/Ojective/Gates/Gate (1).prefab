@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803078552096786549}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8053501762445371926}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5720928607193719300
 MeshFilter:
@@ -58,6 +58,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -106,6 +109,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7244068053711433900}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 100.730225, y: 0.33670044, z: -26.931927}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -114,14 +118,13 @@ Transform:
   - {fileID: 7472594510720326478}
   - {fileID: 7196281787683359114}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4861543182738718307
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 8053501762445371926}
     m_Modifications:
     - target: {fileID: 2353693673266755561, guid: fd6a04df7363a99449e6db94a9d473f1,
@@ -206,7 +209,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8536287831274115656, guid: fd6a04df7363a99449e6db94a9d473f1, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2353693673266755565, guid: fd6a04df7363a99449e6db94a9d473f1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2680368950206416597}
   m_SourcePrefab: {fileID: 100100000, guid: fd6a04df7363a99449e6db94a9d473f1, type: 3}
 --- !u!4 &7196281787683359114 stripped
 Transform:
@@ -235,3 +244,5 @@ MonoBehaviour:
   id: 0
   enter: 0
   notsave: 0
+  other: {fileID: 0}
+  sp: {fileID: 0}

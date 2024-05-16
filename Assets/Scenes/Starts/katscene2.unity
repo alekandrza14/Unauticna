@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -44,7 +44,6 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
-  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -355,6 +354,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -394,19 +396,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373962
-  m_Size: {x: 9.000912, y: -0.45478064, z: 3.2759433}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2090
-  m_ShapeBox:
-    m_Center: {x: 4.500456, y: -0.22739032, z: 1.6379716}
-    m_Extent: {x: 4.500456, y: 0.22739032, z: 1.6379716}
+  m_Size: {x: 9.000912, y: -0.45478064, z: 3.2759433}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373962
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &8718216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,13 +630,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8718211}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 19.806398, y: -3.4048948, z: -0.6410384}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &25343016
 GameObject:
@@ -707,6 +706,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -746,19 +748,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373965
-  m_Size: {x: -2.6455548, y: 6.9855404, z: -2.7711935}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 930
-  m_ShapeBox:
-    m_Center: {x: -1.3227768, y: 3.4927702, z: -1.3855972}
-    m_Extent: {x: 1.3227773, y: 3.4927702, z: 1.3855968}
+  m_Size: {x: -2.6455548, y: 6.9855404, z: -2.7711935}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373965
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &25343021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -983,13 +982,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25343016}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.000000022351742, y: 0.000000029802322, z: 0.14095423, w: 0.99001616}
   m_LocalPosition: {x: 25.690834, y: -3.4177885, z: 13.38982}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &115738852
 GameObject:
@@ -1059,6 +1058,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1098,19 +1100,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373966
-  m_Size: {x: -3.1394277, y: 0.77745295, z: -3.427287}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1420
-  m_ShapeBox:
-    m_Center: {x: -1.0571198, y: 0.3887285, z: -1.0665064}
-    m_Extent: {x: 1.5697138, y: 0.38872647, z: 1.7136436}
+  m_Size: {x: -3.1394277, y: 0.77745295, z: -3.427287}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373966
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &115738857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1335,13 +1334,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115738852}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.0000000074505797, y: 0.000000029802319, z: 0.14095427, w: 0.9900161}
   m_LocalPosition: {x: 23.489952, y: 3.2171478, z: 17.024216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &195327583
 GameObject:
@@ -1411,6 +1410,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1450,19 +1452,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373966
-  m_Size: {x: -3.1394277, y: 0.77745295, z: -3.427287}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1420
-  m_ShapeBox:
-    m_Center: {x: -1.0571198, y: 0.3887285, z: -1.0665064}
-    m_Extent: {x: 1.5697138, y: 0.38872647, z: 1.7136436}
+  m_Size: {x: -3.1394277, y: 0.77745295, z: -3.427287}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373966
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &195327588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,13 +1686,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195327583}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.0000000074505797, y: 0.000000029802319, z: 0.14095427, w: 0.9900161}
   m_LocalPosition: {x: 23.489954, y: 3.2171469, z: 13.131918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &372664485
 GameObject:
@@ -1763,6 +1762,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1802,19 +1804,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373954
-  m_Size: {x: -20.794, y: 21.183887, z: -2.4693127}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 588
-  m_ShapeBox:
-    m_Center: {x: -10.396999, y: 10.591944, z: -1.2346554}
-    m_Extent: {x: 10.396999, y: 10.591944, z: 1.2346563}
+  m_Size: {x: -20.794, y: 21.183887, z: -2.4693127}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373954
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &372664490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2039,13 +2038,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372664485}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 30.908812, y: -2.7954416, z: 23.543816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &388204726
 PrefabInstance:
@@ -3008,6 +3007,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3047,19 +3049,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373964
-  m_Size: {x: -3.530748, y: 0.858686, z: -3.406013}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 432
-  m_ShapeBox:
-    m_Center: {x: -1.7653744, y: 0.4293431, z: -1.7030067}
-    m_Extent: {x: 1.765374, y: 0.429343, z: 1.7030065}
+  m_Size: {x: -3.530748, y: 0.858686, z: -3.406013}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373964
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &552644471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3284,13 +3283,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552644466}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 26.327242, y: -4.12704, z: 9.832314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &566228179
 GameObject:
@@ -3360,6 +3359,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3399,19 +3401,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373965
-  m_Size: {x: -2.6455548, y: 6.9855404, z: -2.7711935}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 930
-  m_ShapeBox:
-    m_Center: {x: -1.3227768, y: 3.4927702, z: -1.3855972}
-    m_Extent: {x: 1.3227773, y: 3.4927702, z: 1.3855968}
+  m_Size: {x: -2.6455548, y: 6.9855404, z: -2.7711935}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373965
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &566228184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3636,13 +3635,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566228179}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.000000022351742, y: 0.000000029802322, z: 0.14095423, w: 0.99001616}
   m_LocalPosition: {x: 25.690834, y: -3.4177895, z: 17.282116}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616545327
 GameObject:
@@ -3712,6 +3711,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3751,19 +3753,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373957
-  m_Size: {x: 18.636866, y: 22.737965, z: 7.349964}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 903
-  m_ShapeBox:
-    m_Center: {x: 9.318434, y: 11.368982, z: 3.674982}
-    m_Extent: {x: 9.318434, y: 11.368982, z: 3.674982}
+  m_Size: {x: 18.636866, y: 22.737965, z: 7.349964}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373957
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &616545332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3988,13 +3987,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616545327}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 10.298918, y: -8.785555, z: -20.124434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &714237498
 GameObject:
@@ -4064,6 +4063,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4103,19 +4105,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373955
-  m_Size: {x: 4.76606, y: 10.064841, z: 40.29365}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 972
-  m_ShapeBox:
-    m_Center: {x: 2.38303, y: 5.032423, z: 20.146826}
-    m_Extent: {x: 2.38303, y: 5.032421, z: 20.146826}
+  m_Size: {x: 4.76606, y: 10.064841, z: 40.29365}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373955
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &714237503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,13 +4339,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714237498}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 23.952341, y: -4.8172975, z: -17.996477}
   m_LocalScale: {x: 1, y: 1, z: 0.35034996}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &778777808
 Mesh:
@@ -4560,6 +4559,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783471340}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.23066, y: 8.254773, z: 1.157885}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -4592,7 +4592,6 @@ Transform:
   - {fileID: 982969601}
   - {fileID: 1503755907}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &783471343
 MonoBehaviour:
@@ -4680,6 +4679,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4719,19 +4721,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373956
-  m_Size: {x: 3.7612438, y: 10.7394705, z: 40.721725}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1082
-  m_ShapeBox:
-    m_Center: {x: 1.8806214, y: 5.3697376, z: 20.360863}
-    m_Extent: {x: 1.8806219, y: 5.3697357, z: 20.360863}
+  m_Size: {x: 3.7612438, y: 10.7394705, z: 40.721725}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373956
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &830953769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4956,13 +4955,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830953764}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 21.819788, y: 5.0442247, z: -17.256927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &982969598
 GameObject:
@@ -5048,13 +5047,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982969598}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.17807318, y: 0.76698476, z: -0.12604979, w: 0.6034367}
   m_LocalPosition: {x: -2.2193398, y: 2.5252266, z: 2.882115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 24.096, y: 105.24, z: 7.619}
 --- !u!1 &1124618822
 GameObject:
@@ -5124,6 +5123,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5163,19 +5165,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373964
-  m_Size: {x: -3.530748, y: 0.858686, z: -3.406013}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 432
-  m_ShapeBox:
-    m_Center: {x: -1.7653744, y: 0.4293431, z: -1.7030067}
-    m_Extent: {x: 1.765374, y: 0.429343, z: 1.7030065}
+  m_Size: {x: -3.530748, y: 0.858686, z: -3.406013}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373964
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1124618827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5400,13 +5399,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124618822}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 26.327244, y: -4.12704, z: 17.634413}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1159133546
 GameObject:
@@ -5464,6 +5463,7 @@ Terrain:
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
+  m_HeightmapMinimumLODSimplification: 0
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
@@ -5484,6 +5484,7 @@ Terrain:
   m_AllowAutoConnect: 1
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
+  m_TreeMotionVectorModeOverride: 3
 --- !u!4 &1159133549
 Transform:
   m_ObjectHideFlags: 0
@@ -5491,13 +5492,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159133546}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.9193397, y: -8.254773, z: -12.71789}
   m_LocalScale: {x: 0.0009999999, y: 1, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1206833101
 GameObject:
@@ -5559,13 +5560,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1206833101}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1248493754
 Mesh:
@@ -6130,6 +6131,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6169,19 +6173,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373965
-  m_Size: {x: -2.6455548, y: 6.9855404, z: -2.7711935}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 930
-  m_ShapeBox:
-    m_Center: {x: -1.3227768, y: 3.4927702, z: -1.3855972}
-    m_Extent: {x: 1.3227773, y: 3.4927702, z: 1.3855968}
+  m_Size: {x: -2.6455548, y: 6.9855404, z: -2.7711935}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373965
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1295776034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6406,13 +6407,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295776029}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.000000022351742, y: 0.000000029802322, z: 0.14095423, w: 0.99001616}
   m_LocalPosition: {x: 25.690832, y: -3.4177895, z: 9.480017}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1313543893
 Mesh:
@@ -6610,7 +6611,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1503755907}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7047,6 +7047,7 @@ Terrain:
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
+  m_HeightmapMinimumLODSimplification: 0
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
@@ -7067,6 +7068,7 @@ Terrain:
   m_AllowAutoConnect: 1
   m_EnableHeightmapRayTracing: 1
   m_EnableTreesAndDetailsRayTracing: 0
+  m_TreeMotionVectorModeOverride: 3
 --- !u!4 &1432622425
 Transform:
   m_ObjectHideFlags: 0
@@ -7074,13 +7076,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432622422}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -454.76938, y: -47.254757, z: -510.15805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1471020069
 PrefabInstance:
@@ -7244,7 +7246,6 @@ RectTransform:
   m_Children:
   - {fileID: 1363808348}
   m_Father: {fileID: 783471342}
-  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7308,6 +7309,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -7502,13 +7504,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600615455}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 586.4581, y: -170.52835, z: 337.28397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1600615457
 MonoBehaviour:
@@ -7591,6 +7593,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7630,19 +7635,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373958
-  m_Size: {x: -0.8034506, y: 2.5133765, z: -0.8517816}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 617
-  m_ShapeBox:
-    m_Center: {x: -0.4017251, y: 1.2566881, z: -0.4258908}
-    m_Extent: {x: 0.4017253, y: 1.2566881, z: 0.4258908}
+  m_Size: {x: -0.8034506, y: 2.5133765, z: -0.8517816}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373958
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1659182299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7867,13 +7869,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659182294}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 21.239508, y: -5.605752, z: 0.114225864}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1678065158
 GameObject:
@@ -7900,9 +7902,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678065158}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -7952,8 +7953,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &1678065160
 Transform:
   m_ObjectHideFlags: 0
@@ -7961,13 +7966,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678065158}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.70097125, y: 0.0826669, z: 0.30286404, w: 0.640374}
   m_LocalPosition: {x: 3.2306619, y: -5.254773, z: -1.157886}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 57.962, y: 89.61, z: 108.255}
 --- !u!1 &1691936096
 GameObject:
@@ -8037,6 +8042,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8076,19 +8084,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373964
-  m_Size: {x: -3.530748, y: 0.858686, z: -3.406013}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 432
-  m_ShapeBox:
-    m_Center: {x: -1.7653744, y: 0.4293431, z: -1.7030067}
-    m_Extent: {x: 1.765374, y: 0.429343, z: 1.7030065}
+  m_Size: {x: -3.530748, y: 0.858686, z: -3.406013}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373964
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1691936101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8313,13 +8318,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1691936096}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 26.327244, y: -4.12704, z: 13.742119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1799290208
 Mesh:
@@ -8719,6 +8724,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8758,19 +8766,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373963
-  m_Size: {x: -1.4916888, y: 2.2181635, z: 4.0014563}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1002
-  m_ShapeBox:
-    m_Center: {x: -0.7458445, y: 1.1090817, z: 2.0007281}
-    m_Extent: {x: 0.7458445, y: 1.1090817, z: 2.0007281}
+  m_Size: {x: -1.4916888, y: 2.2181635, z: 4.0014563}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373963
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1876942210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8995,13 +9000,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876942205}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 29.308805, y: -3.2604718, z: -1.0816531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1893284126
 Mesh:
@@ -9401,6 +9406,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9440,19 +9448,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373953
-  m_Size: {x: -22.810379, y: 24.230806, z: 45.70174}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2013
-  m_ShapeBox:
-    m_Center: {x: -10.820629, y: 4.5035105, z: 26.886654}
-    m_Extent: {x: 11.4051895, y: 12.115403, z: 22.850872}
+  m_Size: {x: -22.810379, y: 24.230806, z: 45.70174}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373953
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &1945144448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9677,13 +9682,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945144443}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.000000007450581, y: 0.000000029802322, z: 0.14095414, w: 0.9900162}
   m_LocalPosition: {x: 35.594013, y: -18.740334, z: -24.945019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1961291711
 Mesh:
@@ -9873,13 +9878,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1968616464}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1973409081
 Mesh:
@@ -10508,6 +10513,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10547,19 +10555,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373959
-  m_Size: {x: -0.7526396, y: 2.4305866, z: -0.83552194}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 362
-  m_ShapeBox:
-    m_Center: {x: -0.376319, y: 1.2152929, z: -0.4177611}
-    m_Extent: {x: 0.37631983, y: 1.2152934, z: 0.41776097}
+  m_Size: {x: -0.7526396, y: 2.4305866, z: -0.83552194}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373959
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &2057040212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10784,13 +10789,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057040207}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.0000000074505797, y: 0.000000029802319, z: 0.14095418, w: 0.9900161}
   m_LocalPosition: {x: 21.119808, y: -5.640544, z: 2.599524}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2062897558
 GameObject:
@@ -10860,6 +10865,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10899,19 +10907,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 1602154887173373966
-  m_Size: {x: -3.1394277, y: 0.77745295, z: -3.427287}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1420
-  m_ShapeBox:
-    m_Center: {x: -1.0571198, y: 0.3887285, z: -1.0665064}
-    m_Extent: {x: 1.5697138, y: 0.38872647, z: 1.7136436}
+  m_Size: {x: -3.1394277, y: 0.77745295, z: -3.427287}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
     - rid: 1602154887173373966
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
+      data: 
 --- !u!114 &2062897563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11136,13 +11141,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062897558}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.0000000074505797, y: 0.000000029802319, z: 0.14095427, w: 0.9900161}
   m_LocalPosition: {x: 23.489954, y: 3.2171469, z: 9.222116}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 783471342}
-  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &2125211671
 Mesh:
@@ -11309,3 +11314,10 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 783471342}
+  - {fileID: 1206833104}
+  - {fileID: 1600615456}

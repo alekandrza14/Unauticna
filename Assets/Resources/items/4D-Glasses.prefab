@@ -65,6 +65,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -124,6 +127,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379d1cf84747a9e43b99868312711609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  W_Position: 0
+  W_Count_Slice: 0
+  W_Scale: 1
+  H_Position: 0
+  H_Scale: 500000
+  N_Positions: []
+  N_Scales: []
+  shape: 1
+  shapes3D: []
+  shapes3Dcol: []
+  shapeSettings: {fileID: 0}
+  Slices: []
+  scale3D: {x: 1, y: 1, z: 1}
   startPosition:
     x: 0
     y: 0
@@ -138,19 +154,12 @@ MonoBehaviour:
     w: 1
     h: 500000
     p: 0
-  W_Position: 0
-  W_Scale: 1
-  H_Position: 0
-  H_Scale: 500000
-  shape: 1
-  shapes3D: []
-  shapes3Dcol: []
-  shapeSettings: {fileID: 0}
-  scale3D: {x: 1, y: 1, z: 1}
   w5: 0
   w6: 1
   h5: 0
   h6: 500000
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!114 &2773701667253660993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPrise: 100
+  ItemInfinitysPrise: 0
   ItemData: 
   isLife: 0
   _Name: 4D-Glasses

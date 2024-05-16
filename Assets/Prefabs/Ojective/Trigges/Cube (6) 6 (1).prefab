@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8966622940400546269}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -108,6 +107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3526092399416479470}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 231.95038, y: 25, z: 193.42747}
   m_LocalScale: {x: 11.147, y: 11.147, z: 11.147}
@@ -116,7 +116,6 @@ Transform:
   - {fileID: 8966622941276012163}
   - {fileID: 1916835486721933412}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3526092399416479467
 MeshFilter:
@@ -143,6 +142,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -176,9 +178,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3526092399416479470}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1172850934968662273
@@ -194,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 8966622940400546268}
+  button2: {fileID: 0}
   del: sans(1)
   delattack: 
   s:
@@ -211,7 +222,11 @@ MonoBehaviour:
   - I'd say em... this is not appropriate here
   - 'nravix (you) : "only your harya is inappropriate"'
   sme: s2-resset()
+  su:
+  - 
+  smu: "\u041E\u0447\u0438\u0432\u0438\u0442\u0434\u043D..."
   text: {fileID: 8966622941923583311}
+  qu: {fileID: 0}
   anim: {fileID: 0}
   enter: 0
   act: 0
@@ -226,11 +241,14 @@ MonoBehaviour:
   startActivate: 0
   animationsnames: []
   cur: 0
+  question: 0
+  tr: 
 --- !u!1001 &2680005151192830308
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3526092399416479466}
     m_Modifications:
     - target: {fileID: 3811010006976564154, guid: 7d51109d71819cd46bbafff1d5b44208,
@@ -309,6 +327,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d51109d71819cd46bbafff1d5b44208, type: 3}
 --- !u!4 &1916835486721933412 stripped
 Transform:
@@ -321,6 +342,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3526092399416479466}
     m_Modifications:
     - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
@@ -338,6 +360,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
       propertyPath: m_fontColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -353,8 +381,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 664696185388844386, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}
@@ -477,6 +515,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 664696186254805564, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1290503100741057772}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adfb54e43bd8c2e44b46e0a9ca4a2504, type: 3}
 --- !u!1 &8966622940400546268 stripped
 GameObject:

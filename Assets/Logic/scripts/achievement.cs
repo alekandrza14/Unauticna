@@ -1,14 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class achievement : MonoBehaviour
 {
-
+    IEnumerator Reincarnation()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("GameReink");
+    }
     // Start is called before the first frame update
     void Start()
     {
+        if (VarSave.GetFloat(
+          "reynkarnatcia" + "_gameSettings", SaveType.global) >= .5f)
+        {
+            StartCoroutine(Reincarnation());
+        }
         Globalprefs.LoadTevroPrise(-100);
         //Касание анти материи
         //"кража аруа урон"

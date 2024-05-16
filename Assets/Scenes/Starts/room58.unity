@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -44,7 +44,6 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
-  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -583,6 +582,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -991,6 +993,7 @@ MonoBehaviour:
   W_Position: 0
   H_Position: 0
   W_Rotation: {x: 0, y: 0, z: 0}
+  HX_Rotation: 0
 --- !u!4 &220361282
 Transform:
   m_ObjectHideFlags: 0
@@ -1064,6 +1067,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1665,6 +1671,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2439,6 +2448,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2478,14 +2490,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 7680168437615427587
-  m_Size: {x: -3.9420452, y: 0.73377806, z: -3.5464387}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 609
-  m_ShapeBox:
-    m_Center: {x: -1.9710233, y: 0.36688983, z: -1.7732193}
-    m_Extent: {x: 1.9710226, y: 0.366889, z: 1.7732193}
+  m_Size: {x: -3.9420452, y: 0.73377806, z: -3.5464387}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -2758,14 +2766,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 63.75, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &756798937
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2805,6 +2837,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2908,14 +2943,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 55.03, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &769328996
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2955,6 +3014,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3228,6 +3290,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3310,14 +3375,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 1, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &789063414
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3357,6 +3446,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3876,14 +3968,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 39.65, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &866852631
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3923,6 +4039,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3996,9 +4115,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878335452}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -4048,8 +4166,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &878335454
 Transform:
   m_ObjectHideFlags: 0
@@ -4123,6 +4245,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4365,14 +4490,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 49.35, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1088689123
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4412,6 +4561,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4525,14 +4677,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 39.65, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1174988512
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4572,6 +4748,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4939,6 +5118,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5045,6 +5227,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5174,15 +5359,17 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 0
   m_isCullingEnabled: 0
@@ -5220,6 +5407,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5322,6 +5512,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5404,14 +5597,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   W_Position: 0
+  W_Count_Slice: 0
   W_Scale: 1
   H_Position: 0
   H_Scale: 1
+  N_Positions: []
+  N_Scales: []
   shape: 3
   shapes3D: []
   shapes3Dcol: []
   shapeSettings: {fileID: 0}
+  Slices: []
   scale3D: {x: 1, y: 49.35, z: 1}
+  startPosition:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  startScale:
+    x: 0
+    y: 0
+    z: 0
+    w: 0
+    h: 0
+    p: 0
+  w5: 0
+  w6: 0
+  h5: 0
+  h6: 0
+  testScale: {x: 0, y: 0, z: 0}
+  saved: 0
 --- !u!64 &1426581642
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5451,6 +5668,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5743,6 +5963,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6025,6 +6248,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6064,14 +6290,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 7680168437615427585
-  m_Size: {x: -2.0197554, y: 0.42915824, z: -2.0105968}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 629
-  m_ShapeBox:
-    m_Center: {x: -1.0098771, y: 0.21457994, z: -1.0052985}
-    m_Extent: {x: -1.0098777, y: 0.21457912, z: -1.0052984}
+  m_Size: {x: -2.0197554, y: 0.42915824, z: -2.0105968}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -8279,6 +8501,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

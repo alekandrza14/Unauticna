@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -44,7 +44,6 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
-  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -299,7 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 126
 --- !u!1 &33240848
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,6 +367,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -408,14 +409,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865574
-  m_Size: {x: 1.7437315, y: 12.384703, z: -13.996437}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 3040
-  m_ShapeBox:
-    m_Center: {x: 0.87186456, y: 6.1923513, z: -1.6911812}
-    m_Extent: {x: 0.87186575, y: 6.1923513, z: 6.9982185}
+  m_Size: {x: 1.7437315, y: 12.384703, z: -13.996437}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -666,7 +663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 176
 --- !u!1001 &37264888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -772,7 +768,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 174
 --- !u!114 &52977344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 64
 --- !u!4 &53365927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -876,6 +870,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -915,14 +912,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865552
-  m_Size: {x: -1.9172349, y: 1.8558531, z: 2.8092194}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2104
-  m_ShapeBox:
-    m_Center: {x: 0.15332985, y: 0.927927, z: 1.4046097}
-    m_Extent: {x: 0.95861745, y: 0.92792654, z: 1.4046097}
+  m_Size: {x: -1.9172349, y: 1.8558531, z: 2.8092194}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -1173,7 +1166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 177
 --- !u!43 &92977557
 Mesh:
   m_ObjectHideFlags: 0
@@ -1573,6 +1565,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1612,14 +1607,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865545
-  m_Size: {x: 0.89102936, y: 4.5894413, z: -5.7844143}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 795
-  m_ShapeBox:
-    m_Center: {x: 0.44551432, y: 2.2947206, z: -2.8922071}
-    m_Extent: {x: 0.44551468, y: 2.2947206, z: 2.8922071}
+  m_Size: {x: 0.89102936, y: 4.5894413, z: -5.7844143}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -1870,7 +1861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 178
 --- !u!1 &129611441
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +1930,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1979,14 +1972,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865575
-  m_Size: {x: -1.0833156, y: 8.722568, z: 16.458279}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1032
-  m_ShapeBox:
-    m_Center: {x: -0.5416579, y: 4.3612857, z: 8.229139}
-    m_Extent: {x: 0.5416578, y: 4.361284, z: 8.229139}
+  m_Size: {x: -1.0833156, y: 8.722568, z: 16.458279}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -2237,7 +2226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 179
 --- !u!114 &130361819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2250,7 +2238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 142
 --- !u!114 &136339031 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6716491229752426237, guid: cc58692184831c84989596357988c015,
@@ -2446,7 +2433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 22
 --- !u!43 &156170880
 Mesh:
   m_ObjectHideFlags: 0
@@ -2806,7 +2792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 0
 --- !u!4 &176908221
 Transform:
   m_ObjectHideFlags: 0
@@ -3386,6 +3371,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3425,14 +3413,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384121115312132
-  m_Size: {x: -4.253376, y: 0.5547116, z: -9.00715}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 424
-  m_ShapeBox:
-    m_Center: {x: -2.126688, y: 0.27735567, z: -4.5035744}
-    m_Extent: {x: 2.126688, y: 0.2773558, z: 4.5035744}
+  m_Size: {x: -4.253376, y: 0.5547116, z: -9.00715}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -3683,7 +3667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 180
 --- !u!114 &212067062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3696,7 +3679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 130
 --- !u!1001 &212081224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3797,7 +3779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 119
 --- !u!114 &217031820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3810,7 +3791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 71
 --- !u!1 &219615291
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,6 +3875,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3934,14 +3917,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865549
-  m_Size: {x: 0.8794384, y: 1.9655428, z: 2.5345707}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 405
-  m_ShapeBox:
-    m_Center: {x: 0.4397192, y: 0.9827709, z: 1.2672844}
-    m_Extent: {x: 0.4397192, y: 0.9827714, z: 1.2672853}
+  m_Size: {x: 0.8794384, y: 1.9655428, z: 2.5345707}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -4192,7 +4171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 181
 --- !u!1001 &232278829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4379,7 +4357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 172
 --- !u!114 &232278836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4392,7 +4369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 169
 --- !u!114 &232278837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4405,7 +4381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 171
 --- !u!114 &232278838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4418,7 +4393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 168
 --- !u!114 &232278839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4431,7 +4405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 170
 --- !u!1001 &260457812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4542,7 +4515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 115
 --- !u!114 &295085053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4555,7 +4527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 145
 --- !u!114 &302251025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4568,7 +4539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 97
 --- !u!4 &305247011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -5062,6 +5032,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5101,14 +5074,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865543
-  m_Size: {x: -0.8035946, y: 13.571669, z: 5.8986387}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1690
-  m_ShapeBox:
-    m_Center: {x: -0.4017973, y: 6.7858343, z: 2.9493198}
-    m_Extent: {x: 0.4017973, y: 6.7858343, z: 2.9493194}
+  m_Size: {x: -0.8035946, y: 13.571669, z: 5.8986387}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -5359,7 +5328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 182
 --- !u!114 &354626005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5372,7 +5340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 112
 --- !u!43 &359425448
 Mesh:
   m_ObjectHideFlags: 0
@@ -5715,7 +5682,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 86
 --- !u!1001 &369029258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5831,7 +5797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 165
 --- !u!114 &369029263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5844,7 +5809,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 163
 --- !u!114 &369029264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5857,7 +5821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 164
 --- !u!1001 &380107576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6045,7 +6008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 162
 --- !u!114 &380107583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6058,7 +6020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 159
 --- !u!114 &380107584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6071,7 +6032,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 161
 --- !u!114 &380107585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6084,7 +6044,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 158
 --- !u!114 &380107586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6097,7 +6056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 160
 --- !u!114 &382940018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6110,7 +6068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 73
 --- !u!1 &389149797
 GameObject:
   m_ObjectHideFlags: 0
@@ -6180,6 +6137,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6219,14 +6179,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865583
-  m_Size: {x: -9.637756, y: 6.157135, z: -3.2525177}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1008
-  m_ShapeBox:
-    m_Center: {x: -4.818878, y: 3.0785675, z: -1.6262589}
-    m_Extent: {x: 4.818878, y: 3.0785675, z: 1.6262589}
+  m_Size: {x: -9.637756, y: 6.157135, z: -3.2525177}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -6477,7 +6433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 183
 --- !u!4 &390313786 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -6553,6 +6508,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6592,14 +6550,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865571
-  m_Size: {x: -1.1410856, y: 16.41998, z: -4.547794}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1777
-  m_ShapeBox:
-    m_Center: {x: -0.5705428, y: 8.20999, z: -2.2738972}
-    m_Extent: {x: 0.5705428, y: 8.20999, z: 2.2738972}
+  m_Size: {x: -1.1410856, y: 16.41998, z: -4.547794}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -6850,7 +6804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 184
 --- !u!114 &406038280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6863,7 +6816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 32
 --- !u!1 &411889574
 GameObject:
   m_ObjectHideFlags: 0
@@ -6948,6 +6900,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -6987,14 +6942,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865567
-  m_Size: {x: 1.7576094, y: 0.9404173, z: 3.1955948}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1018
-  m_ShapeBox:
-    m_Center: {x: 0.8788047, y: 0.47020912, z: 1.5977974}
-    m_Extent: {x: 0.8788047, y: 0.47020864, z: 1.5977974}
+  m_Size: {x: 1.7576094, y: 0.9404173, z: 3.1955948}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -7245,7 +7196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 185
 --- !u!1 &416097255
 GameObject:
   m_ObjectHideFlags: 0
@@ -7345,6 +7295,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -7384,14 +7337,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865564
-  m_Size: {x: -2.3449936, y: 4.6432076, z: 0.9996128}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 818
-  m_ShapeBox:
-    m_Center: {x: -1.172497, y: 2.3216038, z: 0.4998064}
-    m_Extent: {x: 1.1724968, y: 2.3216038, z: 0.4998064}
+  m_Size: {x: -2.3449936, y: 4.6432076, z: 0.9996128}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -7627,7 +7576,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 186
 --- !u!43 &424603009
 Mesh:
   m_ObjectHideFlags: 0
@@ -8393,6 +8341,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8432,14 +8383,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865568
-  m_Size: {x: -1.6120191, y: 1.0369625, z: 3.5821075}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1339
-  m_ShapeBox:
-    m_Center: {x: -0.80600953, y: 0.5184822, z: 1.7910538}
-    m_Extent: {x: 0.80600953, y: 0.51848125, z: 1.7910538}
+  m_Size: {x: -1.6120191, y: 1.0369625, z: 3.5821075}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -8675,7 +8622,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 187
 --- !u!114 &448025505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8688,7 +8634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 123
 --- !u!1001 &458134277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9274,7 +9219,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 152
 --- !u!114 &458134329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9287,7 +9231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 153
 --- !u!114 &458134330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9300,7 +9243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 156
 --- !u!114 &458134331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9313,7 +9255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 155
 --- !u!114 &458134332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9326,7 +9267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 108
 --- !u!1001 &472211715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9432,7 +9372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 116
 --- !u!114 &482309806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9445,7 +9384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 4
 --- !u!4 &488098000 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -9464,7 +9402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 157
 --- !u!1 &526196367
 GameObject:
   m_ObjectHideFlags: 0
@@ -9534,6 +9471,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9573,14 +9513,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384121115312133
-  m_Size: {x: 10.758541, y: 0.37422132, z: -5.2541704}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 554
-  m_ShapeBox:
-    m_Center: {x: 5.3792706, y: 0.18711066, z: -2.6270852}
-    m_Extent: {x: 5.3792706, y: 0.18711066, z: 2.6270852}
+  m_Size: {x: 10.758541, y: 0.37422132, z: -5.2541704}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -9831,7 +9767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 188
 --- !u!1 &529545695
 GameObject:
   m_ObjectHideFlags: 0
@@ -9901,6 +9836,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9940,14 +9878,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865584
-  m_Size: {x: -7.2051697, y: 5.590837, z: -2.8721886}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1252
-  m_ShapeBox:
-    m_Center: {x: -3.6025848, y: 2.7954197, z: -1.4360924}
-    m_Extent: {x: 3.6025848, y: 2.7954187, z: 1.4360943}
+  m_Size: {x: -7.2051697, y: 5.590837, z: -2.8721886}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -10198,7 +10132,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 189
 --- !u!114 &552706477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10211,7 +10144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 120
 --- !u!114 &558147029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10224,7 +10156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 134
 --- !u!43 &560344630
 Mesh:
   m_ObjectHideFlags: 0
@@ -10624,6 +10555,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10663,14 +10597,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865580
-  m_Size: {x: 2.3097649, y: 2.5510511, z: -1.5726161}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1211
-  m_ShapeBox:
-    m_Center: {x: 1.1548805, y: 1.2755256, z: -0.78630805}
-    m_Extent: {x: 1.1548824, y: 1.2755256, z: 0.78630805}
+  m_Size: {x: 2.3097649, y: 2.5510511, z: -1.5726161}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -10921,7 +10851,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 190
 --- !u!1001 &599997527
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11094,6 +11023,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11133,14 +11065,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865565
-  m_Size: {x: -3.4056778, y: 4.814707, z: -1.3092518}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1090
-  m_ShapeBox:
-    m_Center: {x: -1.7028391, y: 2.4073534, z: -0.65462685}
-    m_Extent: {x: 1.7028389, y: 2.4073534, z: 0.6546259}
+  m_Size: {x: -3.4056778, y: 4.814707, z: -1.3092518}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -11391,7 +11319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 191
 --- !u!114 &601954610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11404,7 +11331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 118
 --- !u!1001 &612095013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11510,7 +11436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 105
 --- !u!114 &625197684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11523,7 +11448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 84
 --- !u!114 &626688769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11536,7 +11460,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 128
 --- !u!1 &633987890
 GameObject:
   m_ObjectHideFlags: 0
@@ -11621,6 +11544,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11660,14 +11586,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865591
-  m_Size: {x: -21.10138, y: 4.846504, z: -4.762802}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 508
-  m_ShapeBox:
-    m_Center: {x: -10.55069, y: 2.423252, z: -2.3814087}
-    m_Extent: {x: 10.55069, y: 2.423252, z: 2.381401}
+  m_Size: {x: -21.10138, y: 4.846504, z: -4.762802}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -11918,7 +11840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 192
 --- !u!114 &639375219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11931,7 +11852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 10
 --- !u!1 &652540446
 GameObject:
   m_ObjectHideFlags: 0
@@ -12016,6 +11936,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12055,14 +11978,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865553
-  m_Size: {x: -3.3090286, y: 1.0072126, z: -16.207684}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1112
-  m_ShapeBox:
-    m_Center: {x: -1.6545143, y: 0.5036068, z: -8.103842}
-    m_Extent: {x: 1.6545143, y: 0.5036063, z: 8.103842}
+  m_Size: {x: -3.3090286, y: 1.0072126, z: -16.207684}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -12313,7 +12232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 193
 --- !u!1 &665965233
 GameObject:
   m_ObjectHideFlags: 0
@@ -12413,6 +12331,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12452,14 +12373,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865565
-  m_Size: {x: -3.4056778, y: 4.814707, z: -1.3092518}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1090
-  m_ShapeBox:
-    m_Center: {x: -1.7028391, y: 2.4073534, z: -0.65462685}
-    m_Extent: {x: 1.7028389, y: 2.4073534, z: 0.6546259}
+  m_Size: {x: -3.4056778, y: 4.814707, z: -1.3092518}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -12695,7 +12612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 194
 --- !u!43 &672477331
 Mesh:
   m_ObjectHideFlags: 0
@@ -12930,6 +12846,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -12969,14 +12888,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865560
-  m_Size: {x: 1.0850525, y: 3.435402, z: -5.3747234}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1690
-  m_ShapeBox:
-    m_Center: {x: 0.542526, y: 1.717701, z: -2.6873617}
-    m_Extent: {x: 0.54252625, y: 1.717701, z: 2.6873617}
+  m_Size: {x: 1.0850525, y: 3.435402, z: -5.3747234}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -13227,7 +13142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 195
 --- !u!1 &684150301
 GameObject:
   m_ObjectHideFlags: 0
@@ -13297,6 +13211,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -13336,14 +13253,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865546
-  m_Size: {x: 0.7336006, y: 5.0074234, z: -5.910534}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 667
-  m_ShapeBox:
-    m_Center: {x: 0.36679995, y: 2.5037127, z: -2.955267}
-    m_Extent: {x: 0.3668003, y: 2.5037117, z: 2.955267}
+  m_Size: {x: 0.7336006, y: 5.0074234, z: -5.910534}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -13594,7 +13507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 196
 --- !u!114 &687571023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13607,7 +13519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 91
 --- !u!1001 &690860187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13788,7 +13699,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 101
 --- !u!114 &690860197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13801,7 +13711,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 100
 --- !u!114 &690860198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13814,7 +13723,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 99
 --- !u!114 &690860199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13827,7 +13735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 103
 --- !u!114 &690860200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13840,7 +13747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 104
 --- !u!114 &710836362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13853,7 +13759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 125
 --- !u!43 &722273336
 Mesh:
   m_ObjectHideFlags: 0
@@ -14259,7 +14164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 92
 --- !u!114 &734182795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14272,7 +14176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 93
 --- !u!114 &734182796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14285,7 +14188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 94
 --- !u!114 &734182797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14298,7 +14200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 95
 --- !u!114 &734182798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14311,7 +14212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 96
 --- !u!43 &763758902
 Mesh:
   m_ObjectHideFlags: 0
@@ -14583,7 +14483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 83
 --- !u!1 &778840171
 GameObject:
   m_ObjectHideFlags: 0
@@ -14668,6 +14567,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -14707,14 +14609,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865593
-  m_Size: {x: -14.88767, y: 7.708046, z: 3.1552582}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 681
-  m_ShapeBox:
-    m_Center: {x: -7.4438343, y: 3.854023, z: 1.5776215}
-    m_Extent: {x: 7.4438343, y: 3.854023, z: 1.5776291}
+  m_Size: {x: -14.88767, y: 7.708046, z: 3.1552582}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -14965,7 +14863,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 197
 --- !u!114 &778870484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14978,7 +14875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 113
 --- !u!1 &787286945
 GameObject:
   m_ObjectHideFlags: 0
@@ -15048,6 +14944,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -15087,14 +14986,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865536
-  m_Size: {x: 5.9988403, y: 0.37153292, z: -9.33469}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2617
-  m_ShapeBox:
-    m_Center: {x: 2.9994202, y: 0.5807774, z: -4.667345}
-    m_Extent: {x: 2.9994202, y: 0.18576646, z: 4.667345}
+  m_Size: {x: 5.9988403, y: 0.37153292, z: -9.33469}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -15345,7 +15240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 198
 --- !u!43 &803821233
 Mesh:
   m_ObjectHideFlags: 0
@@ -15621,7 +15515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 82
 --- !u!114 &805403064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15634,7 +15527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 81
 --- !u!43 &818748759
 Mesh:
   m_ObjectHideFlags: 0
@@ -15899,6 +15791,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -15938,14 +15833,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865563
-  m_Size: {x: -1.7902899, y: -1.8632582, z: 13.776096}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1473
-  m_ShapeBox:
-    m_Center: {x: -0.8951447, y: -0.93162924, z: 6.888048}
-    m_Extent: {x: 0.89514494, y: 0.9316291, z: 6.888048}
+  m_Size: {x: -1.7902899, y: -1.8632582, z: 13.776096}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -16181,7 +16072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 199
 --- !u!1001 &827815045
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16362,7 +16252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 133
 --- !u!114 &845447943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16375,7 +16264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 33
 --- !u!1001 &875941963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16481,7 +16369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 78
 --- !u!1 &878126347
 GameObject:
   m_ObjectHideFlags: 0
@@ -16551,6 +16438,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -16590,14 +16480,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865600
-  m_Size: {x: -16.639603, y: 13.673134, z: -11.478405}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1105
-  m_ShapeBox:
-    m_Center: {x: -8.319801, y: 6.836567, z: -5.7392044}
-    m_Extent: {x: -8.319801, y: 6.836567, z: -5.7392025}
+  m_Size: {x: -16.639603, y: 13.673134, z: -11.478405}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -22916,7 +22802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 200
 --- !u!43 &880998628
 Mesh:
   m_ObjectHideFlags: 0
@@ -23151,6 +23036,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -23190,14 +23078,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384121115312131
-  m_Size: {x: -8.962837, y: 0.53980637, z: -5.147886}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 685
-  m_ShapeBox:
-    m_Center: {x: -4.4814186, y: 0.26990318, z: -2.573943}
-    m_Extent: {x: 4.4814186, y: 0.26990318, z: 2.573943}
+  m_Size: {x: -8.962837, y: 0.53980637, z: -5.147886}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -23448,7 +23332,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 201
 --- !u!43 &886057486
 Mesh:
   m_ObjectHideFlags: 0
@@ -23683,6 +23566,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -23722,14 +23608,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865578
-  m_Size: {x: 13.819111, y: 1.6892519, z: 15.969732}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2237
-  m_ShapeBox:
-    m_Center: {x: 6.9095573, y: 0.84462655, z: 7.984865}
-    m_Extent: {x: 6.9095554, y: 0.84462595, z: 7.984866}
+  m_Size: {x: 13.819111, y: 1.6892519, z: 15.969732}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -23980,7 +23862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 202
 --- !u!114 &891090047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23993,7 +23874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 154
 --- !u!1001 &909072517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24144,7 +24024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 203
 --- !u!114 &909072522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24157,7 +24036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 77
 --- !u!4 &916820356 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -24176,7 +24054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 173
 --- !u!43 &919312042
 Mesh:
   m_ObjectHideFlags: 0
@@ -24426,6 +24303,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -24465,14 +24345,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865560
-  m_Size: {x: 1.0850525, y: 3.435402, z: -5.3747234}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1690
-  m_ShapeBox:
-    m_Center: {x: 0.542526, y: 1.717701, z: -2.6873617}
-    m_Extent: {x: 0.54252625, y: 1.717701, z: 2.6873617}
+  m_Size: {x: 1.0850525, y: 3.435402, z: -5.3747234}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -24708,7 +24584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 204
 --- !u!114 &929714846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24721,7 +24596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 143
 --- !u!114 &937780627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24734,7 +24608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 124
 --- !u!114 &943743695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24747,7 +24620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 135
 --- !u!1 &945303292
 GameObject:
   m_ObjectHideFlags: 0
@@ -24832,6 +24704,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -24871,14 +24746,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865589
-  m_Size: {x: -5.557592, y: 4.7182164, z: 5.050537}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1393
-  m_ShapeBox:
-    m_Center: {x: -2.778797, y: 2.3591156, z: 2.5252686}
-    m_Extent: {x: 2.778796, y: 2.359108, z: 2.5252686}
+  m_Size: {x: -5.557592, y: 4.7182164, z: 5.050537}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -25129,7 +25000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 205
 --- !u!1001 &945942124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25230,7 +25100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 76
 --- !u!1001 &947863325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25496,7 +25365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 127
 --- !u!1001 &960314166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25641,7 +25509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 206
 --- !u!1001 &962882634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25873,7 +25740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 67
 --- !u!114 &962882676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25886,7 +25752,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 63
 --- !u!114 &962882677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25899,7 +25764,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 65
 --- !u!114 &962882678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25912,7 +25776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 72
 --- !u!114 &962882679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25925,7 +25788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 68
 --- !u!114 &970583675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25938,7 +25800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 132
 --- !u!1 &982166103
 GameObject:
   m_ObjectHideFlags: 0
@@ -26023,6 +25884,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -26062,14 +25926,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865564
-  m_Size: {x: -2.3449936, y: 4.6432076, z: 0.9996128}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 818
-  m_ShapeBox:
-    m_Center: {x: -1.172497, y: 2.3216038, z: 0.4998064}
-    m_Extent: {x: 1.1724968, y: 2.3216038, z: 0.4998064}
+  m_Size: {x: -2.3449936, y: 4.6432076, z: 0.9996128}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -26320,7 +26180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 207
 --- !u!1 &996439918
 GameObject:
   m_ObjectHideFlags: 0
@@ -26347,9 +26206,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996439918}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 1
-  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -26399,8 +26257,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!4 &996439920
 Transform:
   m_ObjectHideFlags: 0
@@ -26428,7 +26290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 208
 --- !u!114 &1013599689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26441,7 +26302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 62
 --- !u!1001 &1054276668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26607,6 +26467,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -26646,14 +26509,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865544
-  m_Size: {x: 1.2424681, y: 14.8773, z: 13.681905}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 914
-  m_ShapeBox:
-    m_Center: {x: 0.6212331, y: 7.438653, z: 6.840952}
-    m_Extent: {x: 0.62123406, y: 7.43865, z: 6.840952}
+  m_Size: {x: 1.2424681, y: 14.8773, z: 13.681905}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -26904,7 +26763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 209
 --- !u!114 &1060359141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26917,7 +26775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 146
 --- !u!1001 &1068927151
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27018,7 +26875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 34
 --- !u!1 &1070241411
 GameObject:
   m_ObjectHideFlags: 0
@@ -27130,7 +26986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 210
 --- !u!43 &1085564420
 Mesh:
   m_ObjectHideFlags: 0
@@ -27314,7 +27169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 167
 --- !u!1 &1095634830
 GameObject:
   m_ObjectHideFlags: 0
@@ -27384,6 +27238,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -27423,14 +27280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865547
-  m_Size: {x: 0.8135328, y: 2.8150024, z: 0.933033}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 875
-  m_ShapeBox:
-    m_Center: {x: 0.4067664, y: 1.4075012, z: 0.4665165}
-    m_Extent: {x: 0.4067664, y: 1.4075012, z: 0.4665165}
+  m_Size: {x: 0.8135328, y: 2.8150024, z: 0.933033}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -27681,7 +27534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 211
 --- !u!1001 &1116341852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27862,7 +27714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 29
 --- !u!114 &1116341862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27875,7 +27726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 28
 --- !u!114 &1116341863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27888,7 +27738,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 30
 --- !u!114 &1116341864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27901,7 +27750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 26
 --- !u!114 &1124849072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27914,7 +27762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 121
 --- !u!4 &1127656455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -27933,7 +27780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 166
 --- !u!43 &1130190443
 Mesh:
   m_ObjectHideFlags: 0
@@ -28168,6 +28014,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -28207,14 +28056,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384121115312130
-  m_Size: {x: -15.30577, y: 0.6980748, z: -14.248613}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1387
-  m_ShapeBox:
-    m_Center: {x: -7.652885, y: 0.3490374, z: -7.1243067}
-    m_Extent: {x: 7.652885, y: 0.3490374, z: 7.1243067}
+  m_Size: {x: -15.30577, y: 0.6980748, z: -14.248613}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -28465,7 +28310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 212
 --- !u!1 &1156899763
 GameObject:
   m_ObjectHideFlags: 0
@@ -28535,6 +28379,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -28574,14 +28421,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384121115312134
-  m_Size: {x: -18.67025, y: -1.5221205, z: -14.451681}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1015
-  m_ShapeBox:
-    m_Center: {x: -9.335125, y: -0.76106024, z: -7.2258406}
-    m_Extent: {x: 9.335125, y: 0.76106024, z: 7.2258406}
+  m_Size: {x: -18.67025, y: -1.5221205, z: -14.451681}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -28832,7 +28675,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 213
 --- !u!43 &1166314654
 Mesh:
   m_ObjectHideFlags: 0
@@ -29408,7 +29250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 21
 --- !u!43 &1189549714
 Mesh:
   m_ObjectHideFlags: 0
@@ -29586,7 +29427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 150
 --- !u!114 &1214918396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29599,7 +29439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 131
 --- !u!114 &1216711755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29612,7 +29451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 20
 --- !u!1 &1234954876
 GameObject:
   m_ObjectHideFlags: 0
@@ -29697,6 +29535,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -29736,14 +29577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865587
-  m_Size: {x: 5.0764017, y: 3.3311925, z: 3.871643}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 712
-  m_ShapeBox:
-    m_Center: {x: 2.5382009, y: 1.6655881, z: 1.9358215}
-    m_Extent: {x: 2.5382009, y: 1.6655962, z: 1.9358215}
+  m_Size: {x: 5.0764017, y: 3.3311925, z: 3.871643}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -29994,7 +29831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 214
 --- !u!1 &1255339754
 GameObject:
   m_ObjectHideFlags: 0
@@ -30024,6 +29860,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: eb3f3628b8504ef4fb1219d5867a5c7c, type: 3}
+  m_Resource: {fileID: 8300000, guid: eb3f3628b8504ef4fb1219d5867a5c7c, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -30136,7 +29973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 215
 --- !u!114 &1284615591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30149,7 +29985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 89
 --- !u!1 &1290752311
 GameObject:
   m_ObjectHideFlags: 0
@@ -30219,6 +30054,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -30258,14 +30096,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865573
-  m_Size: {x: 0.6351328, y: 21.788057, z: 4.6610336}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2547
-  m_ShapeBox:
-    m_Center: {x: 0.31756562, y: 10.8940325, z: 2.3305168}
-    m_Extent: {x: 0.3175664, y: 10.894029, z: 2.3305168}
+  m_Size: {x: 0.6351328, y: 21.788057, z: 4.6610336}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -30516,7 +30350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 216
 --- !u!4 &1302820894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3832140392295512712, guid: 91c69d7d10e4f174da3fc332d7f63a5c,
@@ -30535,7 +30368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 175
 --- !u!43 &1304956122
 Mesh:
   m_ObjectHideFlags: 0
@@ -30713,7 +30545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 148
 --- !u!1001 &1315439213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30799,7 +30630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 136
 --- !u!43 &1339760045
 Mesh:
   m_ObjectHideFlags: 0
@@ -31035,6 +30865,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -31074,14 +30907,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865548
-  m_Size: {x: -1.295929, y: 3.7130735, z: 2.8751411}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1038
-  m_ShapeBox:
-    m_Center: {x: -0.6479647, y: 1.8565365, z: 1.4375706}
-    m_Extent: {x: 0.6479645, y: 1.8565367, z: 1.4375706}
+  m_Size: {x: -1.295929, y: 3.7130735, z: 2.8751411}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -31425,7 +31254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 217
 --- !u!1 &1370579524
 GameObject:
   m_ObjectHideFlags: 0
@@ -31510,6 +31338,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -31549,14 +31380,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865585
-  m_Size: {x: 22.917118, y: 41.11712, z: 1.9912453}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 2021
-  m_ShapeBox:
-    m_Center: {x: 9.299011, y: 20.55856, z: 0.99562454}
-    m_Extent: {x: 11.458559, y: 20.55856, z: 0.99562263}
+  m_Size: {x: 22.917118, y: 41.11712, z: 1.9912453}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -31807,7 +31634,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 218
 --- !u!43 &1382189041
 Mesh:
   m_ObjectHideFlags: 0
@@ -32057,6 +31883,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -32096,14 +31925,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865551
-  m_Size: {x: -2.643383, y: 5.1269937, z: -1.8756981}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 839
-  m_ShapeBox:
-    m_Center: {x: -1.321692, y: 2.5634968, z: -0.93784904}
-    m_Extent: {x: 1.3216915, y: 2.5634968, z: 0.93784904}
+  m_Size: {x: -2.643383, y: 5.1269937, z: -1.8756981}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -32354,7 +32179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 219
 --- !u!1 &1393815965
 GameObject:
   m_ObjectHideFlags: 0
@@ -32425,6 +32249,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -32464,14 +32291,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865594
-  m_Size: {x: 4.5806427, y: 6.4453673, z: 3.8200188}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 779
-  m_ShapeBox:
-    m_Center: {x: 2.2903137, y: 3.222684, z: 1.9100075}
-    m_Extent: {x: 2.2903214, y: 3.222684, z: 1.9100094}
+  m_Size: {x: 4.5806427, y: 6.4453673, z: 3.8200188}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -32779,7 +32602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 220
 --- !u!114 &1417267604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32792,7 +32614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 85
 --- !u!1 &1421055801
 GameObject:
   m_ObjectHideFlags: 0
@@ -32877,6 +32698,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -32916,14 +32740,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865568
-  m_Size: {x: -1.6120191, y: 1.0369625, z: 3.5821075}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1339
-  m_ShapeBox:
-    m_Center: {x: -0.80600953, y: 0.5184822, z: 1.7910538}
-    m_Extent: {x: 0.80600953, y: 0.51848125, z: 1.7910538}
+  m_Size: {x: -1.6120191, y: 1.0369625, z: 3.5821075}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -33174,7 +32994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 221
 --- !u!1 &1436165369
 GameObject:
   m_ObjectHideFlags: 0
@@ -33259,6 +33078,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -33298,14 +33120,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865592
-  m_Size: {x: -17.747993, y: 9.020893, z: -2.5685883}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1271
-  m_ShapeBox:
-    m_Center: {x: -8.873997, y: 4.5104446, z: -1.2842865}
-    m_Extent: {x: 8.873997, y: 4.5104465, z: 1.2842941}
+  m_Size: {x: -17.747993, y: 9.020893, z: -2.5685883}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -33556,7 +33374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 222
 --- !u!43 &1438098101
 Mesh:
   m_ObjectHideFlags: 0
@@ -33734,7 +33551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 151
 --- !u!1001 &1444225280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33850,7 +33666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 25
 --- !u!114 &1448524266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33863,7 +33678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 117
 --- !u!114 &1455352717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33876,7 +33690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 88
 --- !u!43 &1474581819
 Mesh:
   m_ObjectHideFlags: 0
@@ -34060,7 +33873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 75
 --- !u!114 &1509764185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34073,7 +33885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 139
 --- !u!114 &1520992319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34086,7 +33897,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 147
 --- !u!4 &1542713048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -34162,6 +33972,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -34201,14 +34014,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865597
-  m_Size: {x: -2.3000565, y: 11.439133, z: -17.169985}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 558
-  m_ShapeBox:
-    m_Center: {x: -1.1500282, y: 5.7195663, z: -8.584992}
-    m_Extent: {x: 1.1500282, y: 5.7195663, z: 8.584992}
+  m_Size: {x: -2.3000565, y: 11.439133, z: -17.169985}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -34459,7 +34268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 223
 --- !u!1001 &1567041741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34560,7 +34368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 24
 --- !u!43 &1592025814
 Mesh:
   m_ObjectHideFlags: 0
@@ -34762,7 +34569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 224
 --- !u!1 &1617169597
 GameObject:
   m_ObjectHideFlags: 0
@@ -34832,6 +34638,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -34871,14 +34680,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865555
-  m_Size: {x: 1.3579681, y: 9.745143, z: -13.76902}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1045
-  m_ShapeBox:
-    m_Center: {x: 0.67898405, y: 4.87257, z: -6.88451}
-    m_Extent: {x: 0.67898405, y: 4.872572, z: 6.88451}
+  m_Size: {x: 1.3579681, y: 9.745143, z: -13.76902}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -35129,7 +34934,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 225
 --- !u!1 &1624394398
 GameObject:
   m_ObjectHideFlags: 0
@@ -35214,6 +35018,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -35253,14 +35060,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865563
-  m_Size: {x: -1.7902899, y: -1.8632582, z: 13.776096}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1473
-  m_ShapeBox:
-    m_Center: {x: -0.8951447, y: -0.93162924, z: 6.888048}
-    m_Extent: {x: 0.89514494, y: 0.9316291, z: 6.888048}
+  m_Size: {x: -1.7902899, y: -1.8632582, z: 13.776096}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -35511,7 +35314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 226
 --- !u!114 &1629599103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35524,7 +35326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 111
 --- !u!4 &1642610813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -35543,7 +35344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 107
 --- !u!114 &1645243598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35556,7 +35356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 138
 --- !u!1 &1651132943
 GameObject:
   m_ObjectHideFlags: 0
@@ -35626,6 +35425,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -35665,14 +35467,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865570
-  m_Size: {x: 1.676331, y: 17.674988, z: 7.849045}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 991
-  m_ShapeBox:
-    m_Center: {x: 0.8381653, y: 8.837494, z: 3.9245224}
-    m_Extent: {x: 0.8381655, y: 8.837494, z: 3.9245224}
+  m_Size: {x: 1.676331, y: 17.674988, z: 7.849045}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -35923,7 +35721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 227
 --- !u!1 &1680720976
 GameObject:
   m_ObjectHideFlags: 0
@@ -35993,6 +35790,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -36032,14 +35832,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865577
-  m_Size: {x: 0.91091156, y: 42.58449, z: -8.298897}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1736
-  m_ShapeBox:
-    m_Center: {x: 0.45545578, y: 21.292246, z: -4.1494484}
-    m_Extent: {x: 0.45545578, y: 21.292246, z: 4.1494484}
+  m_Size: {x: 0.91091156, y: 42.58449, z: -8.298897}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -36290,7 +36086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 228
 --- !u!114 &1685844468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36303,7 +36098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 109
 --- !u!1 &1691010227
 GameObject:
   m_ObjectHideFlags: 0
@@ -36355,7 +36149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 229
 --- !u!1001 &1694305018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36471,7 +36264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 23
 --- !u!114 &1699632336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36484,7 +36276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 144
 --- !u!4 &1712462703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3832140392295512712, guid: 91c69d7d10e4f174da3fc332d7f63a5c,
@@ -36503,7 +36294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 106
 --- !u!114 &1716674499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36516,7 +36306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 141
 --- !u!43 &1723254604
 Mesh:
   m_ObjectHideFlags: 0
@@ -36694,7 +36483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 137
 --- !u!1001 &1730673430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36860,7 +36648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 18
 --- !u!114 &1730673440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36873,7 +36660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 17
 --- !u!114 &1730673441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36886,7 +36672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 19
 --- !u!114 &1730673442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36899,7 +36684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 15
 --- !u!43 &1740465929
 Mesh:
   m_ObjectHideFlags: 0
@@ -37164,6 +36948,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -37203,14 +36990,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865567
-  m_Size: {x: 1.7576094, y: 0.9404173, z: 3.1955948}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1018
-  m_ShapeBox:
-    m_Center: {x: 0.8788047, y: 0.47020912, z: 1.5977974}
-    m_Extent: {x: 0.8788047, y: 0.47020864, z: 1.5977974}
+  m_Size: {x: 1.7576094, y: 0.9404173, z: 3.1955948}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -37446,7 +37229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 230
 --- !u!114 &1753775210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37459,7 +37241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 122
 --- !u!114 &1769630818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37472,7 +37253,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 149
 --- !u!43 &1775601401
 Mesh:
   m_ObjectHideFlags: 0
@@ -37815,7 +37595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 74
 --- !u!43 &1797246250
 Mesh:
   m_ObjectHideFlags: 0
@@ -37993,7 +37772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 90
 --- !u!4 &1805730927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 333542657470701185, guid: 75d9565bbdedde4489e1d6238386c183,
@@ -38012,7 +37790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 80
 --- !u!1 &1821969107
 GameObject:
   m_ObjectHideFlags: 0
@@ -38082,6 +37859,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -38121,14 +37901,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865572
-  m_Size: {x: 11.212913, y: -1.4845605, z: 10.472813}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1734
-  m_ShapeBox:
-    m_Center: {x: 5.6064563, y: -0.74228024, z: 5.236408}
-    m_Extent: {x: 5.6064563, y: 0.74228024, z: 5.2364063}
+  m_Size: {x: 11.212913, y: -1.4845605, z: 10.472813}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -38379,7 +38155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 231
 --- !u!114 &1823446358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38392,7 +38167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 69
 --- !u!43 &1829557777
 Mesh:
   m_ObjectHideFlags: 0
@@ -38735,7 +38509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 87
 --- !u!1 &1852051465
 GameObject:
   m_ObjectHideFlags: 0
@@ -38806,6 +38579,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -38845,14 +38621,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865562
-  m_Size: {x: -1.5120659, y: 2.8917427, z: 3.4116497}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 797
-  m_ShapeBox:
-    m_Center: {x: -0.7560313, y: 1.4458714, z: 1.7058258}
-    m_Extent: {x: 0.75603294, y: 1.4458714, z: 1.7058249}
+  m_Size: {x: -1.5120659, y: 2.8917427, z: 3.4116497}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -39169,7 +38941,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 232
 --- !u!43 &1858878716
 Mesh:
   m_ObjectHideFlags: 0
@@ -39512,7 +39283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 140
 --- !u!43 &1883248888
 Mesh:
   m_ObjectHideFlags: 0
@@ -40092,6 +39862,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -40131,14 +39904,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865590
-  m_Size: {x: -4.505356, y: 4.155299, z: -4.4148483}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1146
-  m_ShapeBox:
-    m_Center: {x: -2.2526855, y: 2.0776496, z: -2.2074242}
-    m_Extent: {x: 2.252678, y: 2.0776496, z: 2.2074242}
+  m_Size: {x: -4.505356, y: 4.155299, z: -4.4148483}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -40389,7 +40158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 233
 --- !u!4 &1976837980 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3832140392295512712, guid: 91c69d7d10e4f174da3fc332d7f63a5c,
@@ -40408,7 +40176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 79
 --- !u!1 &1977992995
 GameObject:
   m_ObjectHideFlags: 0
@@ -40493,6 +40260,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -40532,14 +40302,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865557
-  m_Size: {x: 1.0809135, y: 3.6123133, z: -5.955492}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 927
-  m_ShapeBox:
-    m_Center: {x: 0.5404546, y: 1.8061571, z: -2.977747}
-    m_Extent: {x: 0.5404568, y: 1.8061566, z: 2.977746}
+  m_Size: {x: 1.0809135, y: 3.6123133, z: -5.955492}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -40775,7 +40541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 234
 --- !u!1001 &1986740344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40876,7 +40641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 14
 --- !u!1 &1993757043
 GameObject:
   m_ObjectHideFlags: 0
@@ -40961,6 +40725,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -41000,14 +40767,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865588
-  m_Size: {x: 3.1418152, y: 4.15061, z: -2.5137253}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 510
-  m_ShapeBox:
-    m_Center: {x: 1.5709081, y: 2.075306, z: -1.2568626}
-    m_Extent: {x: 1.5709076, y: 2.075305, z: 1.2568626}
+  m_Size: {x: 3.1418152, y: 4.15061, z: -2.5137253}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -41258,7 +41021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 235
 --- !u!1 &1997866205
 GameObject:
   m_ObjectHideFlags: 0
@@ -41328,6 +41090,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -41367,14 +41132,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865581
-  m_Size: {x: 3.1278515, y: 21.243301, z: -20.418747}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 1122
-  m_ShapeBox:
-    m_Center: {x: 1.5639257, y: 10.621651, z: -10.209366}
-    m_Extent: {x: 1.5639257, y: 10.621651, z: 10.209373}
+  m_Size: {x: 3.1278515, y: 21.243301, z: -20.418747}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -41625,7 +41386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 236
 --- !u!1 &1998281152
 GameObject:
   m_ObjectHideFlags: 0
@@ -41710,6 +41470,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -41749,14 +41512,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865550
-  m_Size: {x: 2.443121, y: 4.9954023, z: -2.3148956}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 537
-  m_ShapeBox:
-    m_Center: {x: 1.2215595, y: 2.4977012, z: -1.1574478}
-    m_Extent: {x: 1.2215605, y: 2.4977012, z: 1.1574478}
+  m_Size: {x: 2.443121, y: 4.9954023, z: -2.3148956}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -42007,7 +41766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 237
 --- !u!43 &2009416553
 Mesh:
   m_ObjectHideFlags: 0
@@ -42242,6 +42000,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -42281,14 +42042,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865561
-  m_Size: {x: 0.9625578, y: 2.7792969, z: -0.6374016}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 874
-  m_ShapeBox:
-    m_Center: {x: 0.4812789, y: 1.3896484, z: -0.3187027}
-    m_Extent: {x: 0.4812789, y: 1.3896484, z: 0.3187008}
+  m_Size: {x: 0.9625578, y: 2.7792969, z: -0.6374016}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -42539,7 +42296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 238
 --- !u!43 &2050390073
 Mesh:
   m_ObjectHideFlags: 0
@@ -42774,6 +42530,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -42813,14 +42572,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 2862384126156865557
-  m_Size: {x: 1.0809135, y: 3.6123133, z: -5.955492}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 927
-  m_ShapeBox:
-    m_Center: {x: 0.5404546, y: 1.8061571, z: -2.977747}
-    m_Extent: {x: 0.5404568, y: 1.8061566, z: 2.977746}
+  m_Size: {x: 1.0809135, y: 3.6123133, z: -5.955492}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -43071,7 +42826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 239
 --- !u!114 &2069761520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43084,7 +42838,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 129
 --- !u!1001 &2081616236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43195,7 +42948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 13
 --- !u!43 &2087004985
 Mesh:
   m_ObjectHideFlags: 0
@@ -43373,7 +43125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 102
 --- !u!114 &2088839274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43386,7 +43137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 114
 --- !u!114 &2091948801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43399,7 +43149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 31
 --- !u!1 &2103460098 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4066282139393752094, guid: fc9735d6efc66ce47b73163507d0a274,
@@ -43440,7 +43189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 240
 --- !u!114 &2109308467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43453,7 +43201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 70
 --- !u!114 &2109810408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43466,7 +43213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 110
 --- !u!1001 &2123207514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43577,7 +43323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 12
 --- !u!114 &2123207518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43590,7 +43335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 11
 --- !u!43 &2140043453
 Mesh:
   m_ObjectHideFlags: 0
@@ -44086,7 +43830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 5
 --- !u!114 &7119905212541609623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44099,7 +43842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 6
 --- !u!114 &7119905212541609624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44112,7 +43854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 7
 --- !u!114 &7119905212541609625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44125,7 +43866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 8
 --- !u!114 &7119905212541609626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44138,7 +43878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 9
 --- !u!1001 &7509774939147157510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44254,7 +43993,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 3
 --- !u!114 &7509774939147157515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44267,7 +44005,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 1
 --- !u!114 &7509774939147157516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44280,7 +44017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d1234998b367924d83db21b66f278ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getind: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -19,36 +19,39 @@ public class Reincarnator : MonoBehaviour
                     index = i; break;
                 }
             }
-            PlayerDNA dna = mover.main().DNA;
-            if (ifd.text != "Nravix" &&
+            PlayerDNA dna = mover.main().DNA; for (int i = 0; i < 2; i++)
+            {
+              if(i==0)  if (ifd.text != "Nravix" &&
                 ifd.text != "Player" &&
                 ifd.text != "Null" &&
                 ifd.text != "" &&
                 ifd.text != null)
-            {
-                VarSave.SetInt("CurrentMorf", index);
-
-                if (playerdata.Geteffect("KsenoMorfin", dna.bakeeffects) == null)
                 {
-                    if (dna.bakeeffects != null)
-                      dna.bakeeffects.Add(effect);
-                    if (dna.bakeeffects == null)
-                    {
-                        dna.bakeeffects = new List<useeffect>() { effect };
+                    VarSave.SetInt("CurrentMorf", index);
 
+                    if (playerdata.Geteffect("KsenoMorfin", dna.bakeeffects) == null)
+                    {
+                        if (dna.bakeeffects != null)
+                            dna.bakeeffects.Add(effect);
+                        if (dna.bakeeffects == null)
+                        {
+                            dna.bakeeffects = new List<useeffect>() { effect };
+
+                        }
                     }
                 }
-            }
-            if (ifd.text == "Nravix"||
-                ifd.text == "Player"||
-                ifd.text == "Null" ||
-                ifd.text == "" ||
-                ifd.text == null)
-            {
-                while (playerdata.Geteffect("KsenoMorfin", dna.bakeeffects) != null) {
-                    dna.bakeeffects.Remove(playerdata.Geteffect("KsenoMorfin", dna.bakeeffects)); 
+                if (i == 1) if (ifd.text == "Nravix" ||
+                    ifd.text == "Player" ||
+                    ifd.text == "Null" ||
+                    ifd.text == "" ||
+                    ifd.text == null)
+                {
+                    while (playerdata.Geteffect("KsenoMorfin", dna.bakeeffects) != null)
+                    {
+                        dna.bakeeffects.Remove(playerdata.Geteffect("KsenoMorfin", dna.bakeeffects));
+                    }
+                    playerdata.hasClearEffect("KsenoMorfin");
                 }
-                playerdata.hasClearEffect("KsenoMorfin");
             }
             VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
             GameManager.saveandhill();

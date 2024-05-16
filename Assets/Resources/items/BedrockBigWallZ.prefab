@@ -267,14 +267,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Shape:
     rid: 7532468408783994887
-  m_Size: {x: 10827.003, y: 15561.316, z: 227.3605}
-  m_Rotation: {x: 0, y: 0, z: 0, w: 1}
-  m_PivotLocation: 1
-  m_PivotPosition: {x: 0, y: 0, z: 0}
+  m_ShapeRotation: {x: 0, y: 0, z: 0, w: 1}
   m_UnmodifiedMeshVersion: 5517
-  m_ShapeBox:
-    m_Center: {x: 5413.5015, y: 7780.658, z: 113.68025}
-    m_Extent: {x: 5413.5015, y: 7780.658, z: 113.68025}
+  m_Size: {x: 10827.003, y: 15561.316, z: 227.3605}
+  m_LocalCenter: {x: 0, y: 0, z: 0}
   references:
     version: 2
     RefIds:
@@ -298,6 +294,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -399,6 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPrise: 10000
+  ItemInfinitysPrise: 0
   ItemData: 
   isLife: 0
   _Name: BedrockBigWallZ

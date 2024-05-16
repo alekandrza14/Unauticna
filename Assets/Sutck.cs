@@ -117,27 +117,33 @@ public class Sutck : MonoBehaviour
         if (antinight)
         {
             mover m = mover.main();
-            Ray r = new Ray(m.transform.position, -main.transform.forward);
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
+            if(m!=null)
+            if (main != null)
             {
-                if (hit.collider == null)
+                if (main.transform != null)
                 {
-                    m.hp -= 1;
-                }
-                if (hit.collider != null)
-                {
-                    if (hit.distance > 60)
+                    Ray r = new Ray(m.transform.position, -main.transform.forward);
+                    RaycastHit hit;
+                    if (Physics.Raycast(r, out hit))
+                    {
+                        if (hit.collider == null)
+                        {
+                            m.hp -= 1;
+                        }
+                        if (hit.collider != null)
+                        {
+                            if (hit.distance > 60)
+                            {
+                                m.hp -= 1;
+                            }
+                        }
+                    }
+                    else
                     {
                         m.hp -= 1;
                     }
                 }
             }
-            else
-            {
-                m.hp -= 1;
-            }
-
         }
     }
 }

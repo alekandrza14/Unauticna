@@ -27,6 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627694871556129775}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 20.739208, y: 0.0000032186508, z: -63.196014}
   m_LocalScale: {x: 11.147, y: 11.147, z: 11.147}
@@ -34,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 6096428276957484298}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1627694871556129770
 MeshFilter:
@@ -61,6 +61,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -94,9 +97,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627694871556129775}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3908917976492028928
@@ -112,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 6096428278092667477}
+  button2: {fileID: 0}
   del: "\u043D\u0440\u0430\u0432\u0438\u043A\u0441"
   delattack: 
   s:
@@ -120,7 +132,11 @@ MonoBehaviour:
   se:
   - 
   sme: "\u041E\u0447\u0435\u0432\u0438\u0434\u043D\u043E..."
+  su:
+  - 
+  smu: "\u041E\u0447\u0438\u0432\u0438\u0442\u0434\u043D..."
   text: {fileID: 6096428276561235654}
+  qu: {fileID: 0}
   anim: {fileID: 0}
   enter: 0
   act: 0
@@ -135,6 +151,8 @@ MonoBehaviour:
   startActivate: 0
   animationsnames: []
   cur: 0
+  question: 0
+  tr: 
 --- !u!1001 &6747417669992599656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,6 +212,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 664696184690843310, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 664696185109709158, guid: adfb54e43bd8c2e44b46e0a9ca4a2504,
         type: 3}
