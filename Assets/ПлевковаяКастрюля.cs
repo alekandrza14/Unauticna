@@ -70,13 +70,29 @@ public class ПлевковаяКастрюля : InventoryEvent
         level_plevkov.text = "Плевки " + плевки + " / 1000";
         if (Input.GetKeyDown(KeyCode.Mouse0) && hit.collider != null && cooldown <= 0)
         {
-            if (gameObject== hit.collider.gameObject)
+            if (gameObject == hit.collider.gameObject)
             {
                 cooldown += 2;
 
                 плевки++;
                 GetComponent<itemName>().ItemData = плевки.ToString();
                 Instantiate(Resources.Load("voices/plevok_blad"));
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E) && hit.collider != null && cooldown <= 0)
+        {
+            if (gameObject == hit.collider.gameObject)
+            {
+                if (Globalprefs.item == "Смачный_плевок_Спамтона")
+                {
+
+
+                    ElementalInventory ei = ElementalInventory.main();
+                    ei.setItem("", 0, Color.red, ei.select);
+                    плевки += 10;
+                    GetComponent<itemName>().ItemData = плевки.ToString();
+                }
+             
             }
         }
     }

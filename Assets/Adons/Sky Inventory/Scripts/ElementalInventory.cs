@@ -391,6 +391,32 @@ public class ElementalInventory : MonoBehaviour {
             }
         return s;
     }
+    public string fullnamesafe(RaycastHit h)
+    {
+        string s = "";
+        string s1 = "";
+        int x = 0;
+
+        //(clone)
+        if (h.collider.name[h.collider.name.Length - 1] == ')')
+        {
+            s1 = h.collider.name.Remove(h.collider.name.Length - 7);
+        }
+        s += s1;
+        if (h.collider.GetComponent<breauty>()) x = 10 - h.collider.GetComponent<breauty>().integer;
+        if (!h.collider.GetComponent<breauty>()) x = 0;
+
+
+      //  Destroy(h.collider.gameObject);
+
+
+
+        if (h.collider.GetComponent<breauty>()) for (int i = 0; i < x; i++)
+            {
+                s += 'x';
+            }
+        return s;
+    }
     public bool tag2(GameObject name)
     {
 
@@ -2465,7 +2491,7 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.LoadFloat("mana", 1f);
 
 
-            lowitem("Absolute_poison", "");
+            lowitem("Absolute_poison", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Absolute_poison_II") != 0 && main() == this)
@@ -2490,7 +2516,7 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.LoadFloat("mana", 1f);
             playerdata.FreezeAlleffect();
 
-            lowitem("Absolute_poison_II", "");
+            lowitem("Absolute_poison_II", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("KsenoMorfin") != 0 && main() == this)
@@ -2504,7 +2530,7 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.LoadFloat("mana", 1f);
 
             GameManager.saveandhill();
-            lowitem("KsenoMorfin", "");
+            lowitem("KsenoMorfin", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
             StartCoroutine(ReloadScene());
 
@@ -2571,6 +2597,7 @@ public class ElementalInventory : MonoBehaviour {
             GlobalInputMenager.KeyCode_eat = 0;
         }
         //Зелье(БуйнойУдачи)
+        //Зелье(Неудачи)
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(БуйнойУдачи)") != 0 && main() == this)
         {
 
@@ -2583,10 +2610,25 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("luck", 10f);
 
-            lowitem("Зелье(БуйнойУдачи)", "");
+            lowitem("Зелье(БуйнойУдачи)", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         //Зелье(Удачи)
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(Неудачи)") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+
+            VarSave.SetFloat("luck", 0f);
+
+            lowitem("Зелье(Неудачи)", "Колба");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(Удачи)") != 0 && main() == this)
         {
 
@@ -2599,7 +2641,7 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("luck", 0.1f);
 
-            lowitem("Зелье(Удачи)", "");
+            lowitem("Зелье(Удачи)", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеМанны") != 0 && main() == this)
@@ -2613,7 +2655,7 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 5);
 
-            lowitem("ЗельеМанны", "");
+            lowitem("ЗельеМанны", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("УнивёрсиумнаяКарточка") != 0 && main() == this)
@@ -2699,7 +2741,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.FreezeAlleffect();
 
 
-            lowitem("EffectFreezer", "");
+            lowitem("EffectFreezer", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("EffectBaker") != 0 && main() == this)
@@ -2715,7 +2757,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.BakeAlleffect();
 
-            lowitem("EffectBaker", "");
+            lowitem("EffectBaker", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Метанфитамин") != 0 && main() == this)
@@ -2741,7 +2783,7 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("Vampaire", 740);
 
-            lowitem("ЗельеВамперизма", "");
+            lowitem("ЗельеВамперизма", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ChaosPoution") != 0 && main() == this)
@@ -2756,7 +2798,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
             VarSave.LoadFloat("mana", 1f);
-            lowitem("ChaosPoution", "");
+            lowitem("ChaosPoution", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеСовы") != 0 && main() == this)
@@ -2770,7 +2812,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Совиное Зрение", 600);
 
             VarSave.LoadFloat("mana", 1f);
-            lowitem("ЗельеСовы", "");
+            lowitem("ЗельеСовы", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье_-1FPS") != 0 && main() == this)
@@ -2784,7 +2826,7 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("-1FPS", 30);
             playerdata.Saveeffect();
-            lowitem("Зелье_-1FPS", "");
+            lowitem("Зелье_-1FPS", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         //БилетБезплано
@@ -3934,6 +3976,21 @@ public class ElementalInventory : MonoBehaviour {
 
 
                         setItem(fullname(hit2), 1, Color.red, hit2.collider.GetComponent<itemName>().ItemData, select);
+                        Cells[select].UpdateCellInterface();
+                        sh = true;
+
+                    }
+            }
+            if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
+            {
+
+                RaycastHit hit2 = MainRay.SecondHit; if (hit2.collider)
+                    if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey(Copy)" && hit2.collider.GetComponent<itemName>())
+                    {
+
+
+
+                        setItem(fullnamesafe(hit2), 1, Color.red, hit2.collider.GetComponent<itemName>().ItemData, select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 

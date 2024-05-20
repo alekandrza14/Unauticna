@@ -390,97 +390,101 @@ public class complsave : MonoBehaviour
 
             for (int i3 = 0; i3 < items.Length; i3++)
             {
-
-                saveString1.idA.Add(items[i3]._Name);
-                if (items[i3].GetComponent<breauty>())
+                if (!items[i3].GetComponent<ChildNode>())
                 {
-                    saveString1.x.Add(items[i3].GetComponent<breauty>().integer);
-                }
-                else
-                {
-                    saveString1.x.Add(10);
-
-                }
-                if (items[i3].GetComponent<unScript>())
-                {
-                    saveString1.scriptA.Add(items[i3].GetComponent<unScript>().ins.script);
-                }
-                else
-                {
-                    saveString1.scriptA.Add(null);
-
-                }
-              
-                if (items[i3].GetComponent<HyperbolicPoint>())
-                {
-                    saveString1.PvectorA.Add(items[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion);
-                    saveString1.y.Add(items[i3].GetComponent<HyperbolicPoint>().v1);
-                }
-                else
-                {
-                    saveString1.PvectorA.Add(new Hyperbolic2D());
-                }
-                if (items[i3].GetComponent<itemName>())
-                {
-                    saveString1.DataItem.Add(items[i3].GetComponent<itemName>().ItemData);
-
-                }
-                else
-                {
-                    saveString1.DataItem.Add("0");
-
-                }
 
 
-
-                if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
-
-                if (items[i3].GetComponent<MultyObject>())
-                {
-                    Vector6 v6 = items[i3].GetComponent<MultyObject>().startPosition;
-                    saveString1.vector3A.Add(new Vector3(v6.x, v6.y, v6.z));
-                }
-                saveString1.Scale3A.Add(items[i3].transform.localScale);
-                saveString1.qA.Add(items[i3].transform.rotation);
-                if (items[i3].GetComponent<MultyObject>())
-                {
-                    saveString1.posW3.Add(items[i3].GetComponent<MultyObject>().W_Position);
-                    saveString1.posH3.Add(items[i3].GetComponent<MultyObject>().H_Position);
-                }
-                else
-                {
-                    saveString1.posW3.Add(0);
-                    saveString1.posH3.Add(0);
-                }
-                saveString1.curN.Add(o3);
-                if (items[i3].GetComponent<MultyObject>())
-                {
-                    MultyObject mo = items[i3].GetComponent<MultyObject>();
-                    if (mo.N_Positions != null)
+                    saveString1.idA.Add(items[i3]._Name);
+                    if (items[i3].GetComponent<breauty>())
                     {
+                        saveString1.x.Add(items[i3].GetComponent<breauty>().integer);
+                    }
+                    else
+                    {
+                        saveString1.x.Add(10);
 
-                        for (int i = 0; i < mo.N_Positions.Length; i++)
-                        {
-                            o3++;
-                            saveString1.posN.Add(mo.N_Positions[i]);
-                        }
+                    }
+                    if (items[i3].GetComponent<unScript>())
+                    {
+                        saveString1.scriptA.Add(items[i3].GetComponent<unScript>().ins.script);
+                    }
+                    else
+                    {
+                        saveString1.scriptA.Add(null);
+
+                    }
+
+                    if (items[i3].GetComponent<HyperbolicPoint>())
+                    {
+                        saveString1.PvectorA.Add(items[i3].GetComponent<HyperbolicPoint>().HyperboilcPoistion);
+                        saveString1.y.Add(items[i3].GetComponent<HyperbolicPoint>().v1);
+                    }
+                    else
+                    {
+                        saveString1.PvectorA.Add(new Hyperbolic2D());
+                    }
+                    if (items[i3].GetComponent<itemName>())
+                    {
+                        saveString1.DataItem.Add(items[i3].GetComponent<itemName>().ItemData);
 
                     }
                     else
                     {
+                        saveString1.DataItem.Add("0");
 
-                        saveString1.posN.Add(0);
                     }
 
-                    saveString1.curN.Add(o3);
-                }
-                else
-                {
-                    o3++;
-                    saveString1.posN.Add(0);
-                    saveString1.curN.Add(o3);
-                }
 
+
+                    if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
+
+                    if (items[i3].GetComponent<MultyObject>())
+                    {
+                        Vector6 v6 = items[i3].GetComponent<MultyObject>().startPosition;
+                        saveString1.vector3A.Add(new Vector3(v6.x, v6.y, v6.z));
+                    }
+                    saveString1.Scale3A.Add(items[i3].transform.localScale);
+                    saveString1.qA.Add(items[i3].transform.rotation);
+                    if (items[i3].GetComponent<MultyObject>())
+                    {
+                        saveString1.posW3.Add(items[i3].GetComponent<MultyObject>().W_Position);
+                        saveString1.posH3.Add(items[i3].GetComponent<MultyObject>().H_Position);
+                    }
+                    else
+                    {
+                        saveString1.posW3.Add(0);
+                        saveString1.posH3.Add(0);
+                    }
+                    saveString1.curN.Add(o3);
+                    if (items[i3].GetComponent<MultyObject>())
+                    {
+                        MultyObject mo = items[i3].GetComponent<MultyObject>();
+                        if (mo.N_Positions != null)
+                        {
+
+                            for (int i = 0; i < mo.N_Positions.Length; i++)
+                            {
+                                o3++;
+                                saveString1.posN.Add(mo.N_Positions[i]);
+                            }
+
+                        }
+                        else
+                        {
+
+                            saveString1.posN.Add(0);
+                        }
+
+                        saveString1.curN.Add(o3);
+                    }
+                    else
+                    {
+                        o3++;
+                        saveString1.posN.Add(0);
+                        saveString1.curN.Add(o3);
+                    }
+
+                } 
             }
         }
 
