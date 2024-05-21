@@ -765,6 +765,7 @@ public class mover : CustomSaveObject
         }
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
+        Instantiate(Resources.Load<GameObject>("360AngleCamera"));
         Instantiate(Resources.Load<GameObject>("Rm/Hyper_null"));
 
         lt = FindObjectsByType<Logic_tag_3>(sortmode.main);
