@@ -9,6 +9,7 @@ public class WorkTerritory : MonoBehaviour
     public List<GameObject> Worckstatoins = new List<GameObject>();
     public List<GameObject> Dupers = new List<GameObject>();
     public List<GameObject> EctroStations = new List<GameObject>();
+    public List<GameObject> TaxHomes = new List<GameObject>();
     public List<GameObject> Programs = new List<GameObject>();
     public List<GameObject> Magia = new List<GameObject>();
     public GameObject TableDirector;
@@ -25,6 +26,14 @@ public class WorkTerritory : MonoBehaviour
         if (other.GetComponent<itemName>()._Name == "MltiverseMagicStick")
         {
             Magia.Add(other.gameObject);
+        }
+        if (other.GetComponent<itemName>()._Name == "Знамя")
+        {
+            Magia.Add(other.gameObject);
+        }
+        if (other.GetComponent<itemName>()._Name == "Налоговая")
+        {
+            TaxHomes.Add(other.gameObject);
         }
         if (other.GetComponent<GeneratorEnergy>())
         {

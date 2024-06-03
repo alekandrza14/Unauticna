@@ -58,6 +58,7 @@ public class gsave
     public int progressofthepassage = 0;
     public int hp;
     public float oxygen;
+    public float PlayerScale = 1;
     public faceView fv;
     public int Spos;
     public DateTime starttimepos;
@@ -221,8 +222,8 @@ public class mover : CustomSaveObject
         {
             vaule1 = GlobalInputMenager.KeyCode_build;
             RaycastHit hit = MainRay.MainHit;
-           
-                if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
+
+            if (hit.collider != null && Input.GetKeyDown(KeyCode.Tab))
             {
                 if (VarSave.GetFloat(
         "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
@@ -235,23 +236,11 @@ public class mover : CustomSaveObject
                     VarSave.LoadFloat("reason", 1);
                 }
                 genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
-                    g.s = vaule1;
-                    g.gameObject.transform.position = hit.point;
-                    List<string> name = new List<string>();
-                    List<Vector3> v3 = new List<Vector3>();
-                genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
-                    for (int i = 0; i < gm.Length; i++)
-                    {
-                        name.Add(gm[i].s);
-                        v3.Add(gm[i].transform.position);
-                    }
-                    custommedelsave cms = new custommedelsave();
-                    cms.name = name.ToArray();
-                    cms.v3 = v3.ToArray();
-                    VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
-                    GlobalInputMenager.build.text = "";
+                g.s = vaule1;
+                g.gameObject.transform.position = hit.point;
+               
 
-                }
+            }
 
 
 
@@ -259,22 +248,7 @@ public class mover : CustomSaveObject
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            List<string> name = new List<string>();
-            List<Vector3> v3 = new List<Vector3>();
-            List<Vector3> scale = new List<Vector3>();
-            genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
-            for (int i = 0; i < gm.Length; i++)
-            {
-                name.Add(gm[i].s);
-                v3.Add(gm[i].transform.position);
-                scale.Add(gm[i].transform.localScale);
-            }
-            custommedelsave cms = new custommedelsave();
-            cms.name = name.ToArray();
-            cms.v3 = v3.ToArray();
-            cms.scale = scale.ToArray();
-
-            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
+          
 
         }
         if (Input.GetKeyDown(KeyCode.F2))
@@ -284,26 +258,14 @@ public class mover : CustomSaveObject
             {
                 VarSave.LoadFloat("reason", 1);
             }
-            genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
-            for (int i = 0; i < gm.Length; i++)
-            {
-                gm[i].gameObject.AddComponent<deleter1>();
-            }
-            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
-            for (int i = 0; i < cms.v3.Length; i++)
-            {
-                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
-                g.s = cms.name[i];
-                g.transform.localScale = cms.scale[i];
 
-            }
         }
-            bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
-            RaycastHit hit2 = MainRay.MainHit;
-            
-                if (hit2.collider != null && j)
-                {
-                    if (hit2.collider.GetComponent<genmodel>())
+        bool j = Input.GetKeyDown(KeyCode.Delete) || Input.GetKeyDown(KeyCode.Backspace);
+        RaycastHit hit2 = MainRay.MainHit;
+
+        if (hit2.collider != null && j)
+        {
+            if (hit2.collider.GetComponent<genmodel>())
             {
                 if (VarSave.GetFloat(
     "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
@@ -316,27 +278,9 @@ public class mover : CustomSaveObject
                     VarSave.LoadFloat("reason", 1);
                 }
                 hit2.collider.gameObject.AddComponent<DELETE>();
-                        List<string> name = new List<string>();
-                        List<Vector3> v3 = new List<Vector3>();
-                genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
-                for (int i = 0; i <gm.Length; i++)
-                        {
-                            name.Add(gm[i].s);
-                            v3.Add(gm[i].transform.position);
-                        }
-                        custommedelsave cms = new custommedelsave();
-                        cms.name = name.ToArray();
-                        cms.v3 = v3.ToArray();
 
-                        if (gm.Length >= 2) { VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world); }
-                        else
-                        {
-                            cms.name = new string[] { };
-                            cms.v3 = new Vector3[] { };
-                            VarSave.SetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, JsonUtility.ToJson(cms), SaveType.world);
-                        }
-                    }
-                }
+            }
+        } 
           
 
 
@@ -565,7 +509,8 @@ public class mover : CustomSaveObject
     int maxhp2;
     int regen;
     bool swapWHaN;
-  public  Logic_tag_3[] lt;
+    public float CamDistanceMult = 1;
+    public Logic_tag_3[] lt;
     private void Init()
     {
         Global.MEM.UE();
@@ -696,7 +641,7 @@ public class mover : CustomSaveObject
         decimal cashFlow = ((timer5 - LastSesion) * VarSave.GetMoney("CashFlow"));
       if ( Sutck.day!=0) VarSave.LoadMoney("tevro", cashFlow);
         decimal overFlow = ((timer5 - LastSesion) * VarSave.GetMoney("OverFlow"));
-        if (Sutck.day != 0) VarSave.LoadMoney("CashFlow", cashFlow);
+        if (Sutck.day != 0) VarSave.LoadMoney("CashFlow", overFlow);
         Globalprefs.MultTevro = VarSave.GetTrash("MOMU",0);
         fireInk = VarSave.GetFloat("FireInk");
         hyperbolicCamera = HyperbolicCamera.Main();
@@ -710,17 +655,7 @@ public class mover : CustomSaveObject
       //  Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
-        if (VarSave.ExistenceVar("cms" + SceneManager.GetActiveScene().buildIndex + lif,SaveType.world))
-        {
-            custommedelsave cms = JsonUtility.FromJson<custommedelsave>(VarSave.GetString("cms" + SceneManager.GetActiveScene().buildIndex + lif, SaveType.world));
-            for (int i = 0; i < cms.v3.Length; i++)
-            {
-                genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), cms.v3[i], Quaternion.identity).GetComponent<genmodel>();
-                if (cms.name.Length > i) g.s = cms.name[i];
-
-             if(cms.scale.Length > i)   g.transform.localScale = cms.scale[i];
-            }
-        }
+       
         SaveFileInputField.text = Globalprefs.GetTimeline();
 
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
@@ -787,6 +722,7 @@ public class mover : CustomSaveObject
                 save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.linearVelocity = save.velosyty;
+               
 
                 W_position = save.wpos;
                 H_position = save.hpos;
@@ -879,7 +815,9 @@ public class mover : CustomSaveObject
             }
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
             {
-                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
+                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text)); 
+                CamDistanceMult = gsave.PlayerScale;
+                transform.localScale = Vector3.one * gsave.PlayerScale;
                 hp = gsave.hp;
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
@@ -985,7 +923,9 @@ public class mover : CustomSaveObject
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
             {
                 gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
-               if(gsave.hp >= 20) hp = gsave.hp; else
+                CamDistanceMult = gsave.PlayerScale;
+                transform.localScale = Vector3.one * gsave.PlayerScale;
+                if (gsave.hp >= 20) hp = gsave.hp; else
                 {
                     hp = 20;
                 }
@@ -1127,7 +1067,8 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 420, 300f, 100f), "Flow Flow Teuvro on hour ($^^) : " + Math.Round(Globalprefs.OverFlowteuvro, 2) + "E" + Globalprefs.MultTevro);
 
             GUI.Label(new Rect(Screen.width - 200, 0, 200, 40), "TimeRegion : " + ((TimeOfGame)Sutck.day).ToString(), editor.label);
-            GUI.Label(new Rect(Screen.width - 200, 20, 200, 40), "Temperature : " + Sutck.Temperature()+"˚", editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 20, 200, 40), "Temperature : " + Sutck.Temperature() + "˚", editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 40, 200, 40), "Count pepole in your contry : " + VarSave.GetInt("pepole"), editor.label);
             //cistalenemy.dies
 
 
@@ -1207,8 +1148,32 @@ public class mover : CustomSaveObject
             DopPlayerModel = morphmodel;
             perMorphin = true;
         }
-        InvokeRepeating("UpdateTargets", 0,1);
-       
+        InvokeRepeating("UpdateTargets", 0, 1);
+        InvokeRepeating("bomjspawn", 60*3, 60 * 3);
+
+    }
+    Vector3 randommaze()
+    {
+        Vector3 rand = new Vector3(UnityEngine.Random.rotation.x, UnityEngine.Random.rotation.y, UnityEngine.Random.rotation.z);
+        return rand;
+    }
+    void bomjspawn()
+    {
+        if (UnityEngine.Random.Range(0, 2) >= 1)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                Ray r = new Ray(transform.position + (transform.up * 40), randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
     }
         float timer10;
     GenTest ingen;
@@ -1262,6 +1227,8 @@ public class mover : CustomSaveObject
                     gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
+                    CamDistanceMult = gsave.PlayerScale;
+                    transform.localScale = Vector3.one * gsave.PlayerScale;
                     faceViewi = gsave.fv;
                     planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
                     else gsave.starttimepos = DateTime.Now;
@@ -1317,6 +1284,8 @@ public class mover : CustomSaveObject
                     gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
+                    CamDistanceMult = gsave.PlayerScale;
+                    transform.localScale = Vector3.one * gsave.PlayerScale;
                     faceViewi = gsave.fv;
                     planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
                     else gsave.starttimepos = DateTime.Now;
@@ -1813,11 +1782,13 @@ public class mover : CustomSaveObject
                 Globalprefs.camera.GetComponent<Camera>().transform.forward)||Globalprefs.Scrensoting)
             {
                 postrender.main().Disable();
+                Globalprefs.RaymarchOn = false;
             }
             else
             {
 
                 postrender.main().Enable();
+                Globalprefs.RaymarchOn = true;
             }
 
         }
@@ -1950,6 +1921,7 @@ public class mover : CustomSaveObject
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
 
+            gsave.PlayerScale = CamDistanceMult;
             gsave.Spos = planet_position;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
@@ -1973,6 +1945,7 @@ public class mover : CustomSaveObject
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
 
+            gsave.PlayerScale = CamDistanceMult;
             gsave.Spos = planet_position;
             gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
             File.WriteAllText("unsavet/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
@@ -2208,11 +2181,11 @@ public class mover : CustomSaveObject
 
         if (IsGraund)
         {
-            if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
+            if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * CamDistanceMult;
             if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
          
-            rigidbody3d.linearDamping = 6 - axelerate;
-            jumpforse = Mathf.Clamp(jumpforse, 0, 1000);
+            rigidbody3d.linearDamping = 6 -( axelerate * CamDistanceMult);
+            jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * CamDistanceMult;
         }
         else
         {
@@ -2223,7 +2196,7 @@ public class mover : CustomSaveObject
             {
                 movegrag = 1;
             }
-            rigidbody3d.linearDamping = 4.5f- axelerate;
+            rigidbody3d.linearDamping = 4.5f- (axelerate * CamDistanceMult);
         }
 
         bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0 || god;
@@ -2275,10 +2248,10 @@ public class mover : CustomSaveObject
         //  if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
             if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
                     {
-                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
+                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * CamDistanceMult;
                     }
-            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600;
-            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6;
+            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * CamDistanceMult;
+            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * CamDistanceMult;
             if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6;
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f);
            
@@ -2378,19 +2351,19 @@ public class mover : CustomSaveObject
             }
             if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoJump") != null)
                     {
-                        deltaY = Speed * Time.deltaTime * 6;
+                        deltaY = Speed * Time.deltaTime * 6 * CamDistanceMult;
                         transform.Translate(0, 0.1f, 0);
                         rigidbody3d.AddForce(transform.up * (deltaY * 3), ForceMode.Force);
                     }
             if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
                     {
-                        deltaY = -Speed * Time.deltaTime * 6;
+                        deltaY = -Speed * Time.deltaTime * 6 * CamDistanceMult;
                         transform.Translate(0, 0.1f, 0);
                         rigidbody3d.AddForce(transform.up * (deltaY * 1), ForceMode.Force);
                     }
             if (!(flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
                     {
-                        deltaY = -Speed * Time.deltaTime * 6;
+                        deltaY = -Speed * Time.deltaTime * 6 * CamDistanceMult;
                         transform.Translate(0, 0.1f, 0);
                         rigidbody3d.AddForce(transform.up * (deltaY * 1), ForceMode.Force);
                         JumpTimer = 0;
@@ -2399,14 +2372,14 @@ public class mover : CustomSaveObject
                     {
                         if (IsGraund)
                         {
-                            deltaY = Speed * Time.deltaTime * 6;
+                            deltaY = Speed * Time.deltaTime * 6 * CamDistanceMult;
                             transform.Translate(0, 0.1f, 0);
                             rigidbody3d.AddForce(transform.up * (deltaY * 3), ForceMode.Force);
                         }
                     }
             if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
-            Vector3 movement = new Vector3(deltaX, 0, deltaZ);
+            Vector3 movement = new Vector3(deltaX * CamDistanceMult, 0, deltaZ * CamDistanceMult);
             movement = Vector3.ClampMagnitude(movement, Speed);
             
             movement = transform.TransformDirection(movement);
@@ -2419,7 +2392,7 @@ public class mover : CustomSaveObject
 
             if (tics >= 2)
             {
-                transform.Translate(0, 0, 5);
+                transform.Translate(0, 0, 5* CamDistanceMult);
                 tics = 0;
             }
             if (playerdata.Geteffect("AutoRotate") == null)
@@ -2655,30 +2628,32 @@ public class mover : CustomSaveObject
             Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
             float distcam = 0;
+            // CamDistanceMult
+            float dist = (6 + distcam)* CamDistanceMult;
             if (Globalprefs.sit_player) distcam = 5; else distcam = 0;
             if (UnityEngine.Physics.Raycast(r, out hit1))
             {
                 if (hit1.collider != null)
                 {
-                    if (hit1.distance < 6+ distcam)
+                    if (hit1.distance < dist)
                     {
 
                         PlayerCamera.transform.position = hit1.point;
                     }
-                    if (hit1.distance > 6 + distcam)
+                    if (hit1.distance > dist)
                     {
 
-                        PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (6 + distcam);
+                        PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
                     }
                 }
                 else
                 {
-                    PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (6 + distcam);
+                    PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
                 }
             }
             else
             {
-                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (6 + distcam);
+                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
             }
 
         }
@@ -3225,6 +3200,7 @@ public class mover : CustomSaveObject
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
+            gsave.PlayerScale = CamDistanceMult;
 
             save.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex );
@@ -3272,6 +3248,7 @@ public class mover : CustomSaveObject
             tsave.hpos = H_position;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
+            gsave.PlayerScale = CamDistanceMult;
             gsave.fv = faceViewi;
             Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex );
             File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex  + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));

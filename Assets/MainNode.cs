@@ -4,6 +4,8 @@ using UnityEngine;
 public class NodeData
 {
     public List<Vector3> pos = new List<Vector3>();
+    public List<Vector3> scale = new List<Vector3>();
+    public List<Quaternion> rot = new List<Quaternion>();
     public List<string> itemID = new List<string>();
     public List<string> itemData = new List<string>();
 
@@ -45,6 +47,8 @@ public class MainNode : MonoBehaviour
                 Childs.Add(collider.gameObject);
                 itemName item = collider.GetComponent<itemName>();
                 energyData.pos.Add(item.transform.position - transform.position);
+                energyData.scale.Add(item.transform.localScale);
+                energyData.rot.Add(item.transform.rotation);
                 energyData.itemData.Add(item.ItemData);
                 energyData.itemID.Add(item._Name);
                 item.GetComponent<ChildNode>();
@@ -53,6 +57,7 @@ public class MainNode : MonoBehaviour
                 GetComponent<itemName>().ItemData = energy;
             }
         }
+        ReWriteChild();
     }
     void ReWriteChild()
     {
@@ -65,6 +70,8 @@ public class MainNode : MonoBehaviour
             if (Childs[i]!=null)
             { itemName item = Childs[i].GetComponent<itemName>();
                 energyData.pos.Add(item.transform.position - transform.position);
+                energyData.scale.Add(item.transform.localScale);
+                energyData.rot.Add(item.transform.rotation);
                 energyData.itemData.Add(item.ItemData);
                 energyData.itemID.Add(item._Name);
                 energy = JsonUtility.ToJson(energyData);
@@ -99,7 +106,20 @@ public class MainNode : MonoBehaviour
                 {
                     GameObject obj = Instantiate(ItemNameToGameObject(energyData.itemID[i]),
                     energyData.pos[i] + transform.position, Quaternion.identity);
-
+                    if (energyData.scale.Count > 0)
+                    {
+                        if (energyData.scale.Count > i)
+                        {
+                            obj.transform.localScale = energyData.scale[i];
+                        }
+                    }
+                    if (energyData.rot.Count > 0)
+                    {
+                        if (energyData.rot.Count > i)
+                        {
+                            obj.transform.rotation = energyData.rot[i];
+                        }
+                    }
                     itemName item = obj.GetComponent<itemName>();
                     item.ItemData = energyData.itemData[i];
                     obj.transform.SetParent(transform);

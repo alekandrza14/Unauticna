@@ -19,83 +19,101 @@ public class MirrorReflection : MonoBehaviour
 	private int m_OldReflectionTextureSize = 0;
 	
 	private static bool s_InsideRendering = false;
-	
+
 	// This is called when it's known that the object will be rendered by some
 	// camera. We render reflections and do other updates here.
 	// Because the script executes in edit mode, reflections for the scene view
 	// camera will just work!
+	int s;
 	public void OnWillRenderObject()
-	{
-		var rend = GetComponent<Renderer>();
-		if (!enabled || !rend || !rend.sharedMaterial || !rend.enabled)
-			return;
-		
-		Camera cam = Camera.current;
-		if( !cam )
-			return;
-		
-		// Safeguard from recursive reflections.        
-		if( s_InsideRendering )
-			return;
-		s_InsideRendering = true;
-		
-		Camera reflectionCamera;
-		CreateMirrorObjects( cam, out reflectionCamera );
-		
-		// find out the reflection plane: position and normal in world space
-		Vector3 pos = transform.position;
-		Vector3 normal = transform.up;
-		
-		// Optionally disable pixel lights for reflection
-		int oldPixelLightCount = QualitySettings.pixelLightCount;
-		if( m_DisablePixelLights )
-			QualitySettings.pixelLightCount = 0;
-		
-		UpdateCameraModes( cam, reflectionCamera );
-		
-		// Render reflection
-		// Reflect camera around reflection plane
-		float d = -Vector3.Dot (normal, pos) - m_ClipPlaneOffset;
-		Vector4 reflectionPlane = new Vector4 (normal.x, normal.y, normal.z, d);
-		
-		Matrix4x4 reflection = Matrix4x4.zero;
-		CalculateReflectionMatrix (ref reflection, reflectionPlane);
-		Vector3 oldpos = cam.transform.position;
-		Vector3 newpos = reflection.MultiplyPoint( oldpos );
-		reflectionCamera.worldToCameraMatrix = cam.worldToCameraMatrix * reflection;
-		
-		// Setup oblique projection matrix so that near plane is our reflection
-		// plane. This way we clip everything below/above it for free.
-		Vector4 clipPlane = CameraSpacePlane( reflectionCamera, pos, normal, 1.0f );
-		//Matrix4x4 projection = cam.projectionMatrix;
-		Matrix4x4 projection = cam.CalculateObliqueMatrix(clipPlane);
-		reflectionCamera.projectionMatrix = projection;
-		
-		reflectionCamera.cullingMask = ~(1<<4) & m_ReflectLayers.value; // never render water layer
-		reflectionCamera.targetTexture = m_ReflectionTexture;
-		GL.invertCulling = true;
-		reflectionCamera.transform.position = newpos;
-		Vector3 euler = cam.transform.eulerAngles;
-		reflectionCamera.transform.eulerAngles = new Vector3(0, euler.y, euler.z);
-		reflectionCamera.Render();
-		reflectionCamera.transform.position = oldpos;
-		GL.invertCulling = false;
-		Material[] materials = rend.sharedMaterials;
-		foreach( Material mat in materials ) {
-			if( mat.HasProperty("_ReflectionTex") )
-				mat.SetTexture( "_ReflectionTex", m_ReflectionTexture );
-		}
-		
-		// Restore pixel light count
-		if( m_DisablePixelLights )
-			QualitySettings.pixelLightCount = oldPixelLightCount;
-		
-		s_InsideRendering = false;
-	}
-	
-	
-	// Cleanup all the objects we possibly have created
-	void OnDisable()
+    {
+
+        if (Globalprefs.camera) if (Globalprefs.camera.fieldOfView > 170)
+            {
+                return;
+            }
+
+        RenderMirror();
+    }
+
+    private void RenderMirror()
+    {
+        var rend = GetComponent<Renderer>();
+        if (!enabled || !rend || !rend.sharedMaterial || !rend.enabled)
+            return;
+
+        Camera cam = Camera.current;
+        if (!cam)
+            return;
+
+        // Safeguard from recursive reflections.        
+        if (s_InsideRendering)
+        {
+
+            return;
+
+
+        }
+        s_InsideRendering = true;
+
+        Camera reflectionCamera;
+        CreateMirrorObjects(cam, out reflectionCamera);
+
+        // find out the reflection plane: position and normal in world space
+        Vector3 pos = transform.position;
+        Vector3 normal = transform.up;
+
+        // Optionally disable pixel lights for reflection
+        int oldPixelLightCount = QualitySettings.pixelLightCount;
+        if (m_DisablePixelLights)
+            QualitySettings.pixelLightCount = 0;
+
+        UpdateCameraModes(cam, reflectionCamera);
+
+        // Render reflection
+        // Reflect camera around reflection plane
+        float d = -Vector3.Dot(normal, pos) - m_ClipPlaneOffset;
+        Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
+
+        Matrix4x4 reflection = Matrix4x4.zero;
+        CalculateReflectionMatrix(ref reflection, reflectionPlane);
+        Vector3 oldpos = cam.transform.position;
+        Vector3 newpos = reflection.MultiplyPoint(oldpos);
+        reflectionCamera.worldToCameraMatrix = cam.worldToCameraMatrix * reflection;
+
+        // Setup oblique projection matrix so that near plane is our reflection
+        // plane. This way we clip everything below/above it for free.
+        Vector4 clipPlane = CameraSpacePlane(reflectionCamera, pos, normal, 1.0f);
+        //Matrix4x4 projection = cam.projectionMatrix;
+        Matrix4x4 projection = cam.CalculateObliqueMatrix(clipPlane);
+        reflectionCamera.projectionMatrix = projection;
+
+        reflectionCamera.cullingMask = ~(1 << 4) & m_ReflectLayers.value; // never render water layer
+        reflectionCamera.targetTexture = m_ReflectionTexture;
+        GL.invertCulling = true;
+        reflectionCamera.transform.position = newpos;
+        Vector3 euler = cam.transform.eulerAngles;
+        reflectionCamera.transform.eulerAngles = new Vector3(0, euler.y, euler.z);
+        reflectionCamera.Render();
+        reflectionCamera.transform.position = oldpos;
+        GL.invertCulling = false;
+        Material[] materials = rend.sharedMaterials;
+        foreach (Material mat in materials)
+        {
+            if (mat.HasProperty("_ReflectionTex"))
+                mat.SetTexture("_ReflectionTex", m_ReflectionTexture);
+        }
+
+        // Restore pixel light count
+        if (m_DisablePixelLights)
+            QualitySettings.pixelLightCount = oldPixelLightCount;
+
+        s_InsideRendering = false;
+    }
+
+
+    // Cleanup all the objects we possibly have created
+    void OnDisable()
 	{
 		if( m_ReflectionTexture ) {
 			DestroyImmediate( m_ReflectionTexture );

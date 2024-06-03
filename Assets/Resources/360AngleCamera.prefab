@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 991353175902637816}
   - component: {fileID: 2873128092077532385}
   - component: {fileID: 8703847941533241465}
+  - component: {fileID: 3762625781215962235}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -255,6 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 3500396774349815410}
+  lowmap: {fileID: 8400000, guid: 75b5328947d9f714ebe517d12fa5eb35, type: 2}
   map: {fileID: 8400000, guid: 90c24a445a3e28542bdac66e3bfad65f, type: 2}
   tex: {fileID: 8400000, guid: 80388f52f568d0048ac316f5902c3a40, type: 2}
 --- !u!114 &8703847941533241465
@@ -269,6 +271,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e71041e00e199c549ab9ef4942a59081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3762625781215962235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3869252406517566542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509c7dabc11d1426a919fbec441cefb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shader: {fileID: 4800000, guid: 8f4de6e9330b641579626ad7feb3b23e, type: 3}
+  mat: 0
+  _directionalLight: {fileID: 0}
+  _player: {fileID: 6114677759974462706}
+  _precision: 0.01
+  _globalGeometryTexture: {fileID: 0}
+  _globalGeometryTexture1: {fileID: 0}
+  _globalGeometryTexture2: {fileID: 0}
+  _globalGeometryTexture3: {fileID: 0}
+  _globalGeometryTexture4: {fileID: 0}
+  _globalGeometryTexture5: {fileID: 0}
+  _globalGeometryTexture6: {fileID: 0}
+  _globalGeometryTexture7: {fileID: 0}
+  _globalGeometryTexture8: {fileID: 0}
+  _globalGeometryTexture9: {fileID: 0}
+  _globalGeometryTexture10: {fileID: 0}
+  _globalGeometryTexture11: {fileID: 0}
+  _globalGeometryTexture12: {fileID: 0}
+  _globalGeometryTexture13: {fileID: 0}
+  _globalGeometryTexture14: {fileID: 0}
+  _max_iteration: 50
+  _wRotation: {x: 0, y: 0, z: 0}
+  _wPosition: 0
+  _useNormal: 1
+  _nrOfCascades: 0
+  _lightIntensity: 0.461
+  _useShadow: 1
+  _useSoftShadow: 1
+  _shadowSoftness: 0
+  _maxShadowDistance: 0
+  _shadowIntensity: 0.056
+  _aoIntensity: 1
+  _skyColor: {r: 0, g: 0, b: 0, a: 0}
+  hue: 0
+  _ChaosColor: {r: 1, g: 1, b: 1, a: 1}
+  _renderNr: 0
+  orderedShapes: []
 --- !u!1 &7699918648573748485
 GameObject:
   m_ObjectHideFlags: 0

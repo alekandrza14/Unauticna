@@ -382,7 +382,18 @@ public class complsave : MonoBehaviour
         Directory.CreateDirectory(name2 + @"/objects");
         itemName[] items = FindObjectsByType<itemName>(sortmode.main);
 
-
+        genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+        if (gm.Length != 0)
+        {
+            List<string> name = new List<string>();
+            List<Vector3> v3 = new List<Vector3>();
+            for (int i = 0; i < gm.Length; i++)
+            {
+                saveString1.idG.Add(gm[i].s);
+                saveString1.vector3G.Add(gm[i].transform.position);
+                saveString1.vector3G.Add(gm[i].transform.localScale);
+            }
+        }
         if (items.Length != 0)
         {
 
@@ -708,7 +719,19 @@ public class complsave : MonoBehaviour
 
 
 
+                genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+                for (int i = 0; i < gm.Length; i++)
+                {
+                    gm[i].gameObject.AddComponent<deleter1>();
+                }
+               
+                for (int i = 0; i < saveString1.vector3G.Count; i++)
+                {
+                    genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), saveString1.vector3G[i], Quaternion.identity).GetComponent<genmodel>();
+                    g.s = saveString1.idG[i];
+                    g.transform.localScale = saveString1.Scale3G[i];
 
+                }
 
 
                 if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera == null)
@@ -1111,7 +1134,22 @@ public class complsave : MonoBehaviour
                             }
                         }
                     }
-                   
+                    if (Random.Range(0, 7) >= 6)
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+
                     if (Random.Range(0, 24) == 1)
                     {
 
@@ -1222,6 +1260,9 @@ public class rsave
     public List<Vector3> vector3A = new List<Vector3>();
     public List<string> scriptA = new List<string>();
     public List<Vector3> vector3D = new List<Vector3>();
+    public List<Vector3> vector3G = new List<Vector3>();
+    public List<Vector3> Scale3G = new List<Vector3>();
+    public List<string> idG = new List<string>();
     public List<Vector3> Scale3A = new List<Vector3>();
     public List<Vector3> Scale3B = new List<Vector3>();
     public List<Vector3> vector3C = new List<Vector3>();

@@ -27,7 +27,7 @@ namespace Unity.Mathematics
         void Start()
         {
 
-            camScript = FindFirstObjectByType<RaymarchCam>();
+            camScript = mover.Get4DCam();
             Df = FindFirstObjectByType<DistanceFunctions>();
             if (!instance)
             {

@@ -23,7 +23,7 @@ public class show4D : MonoBehaviour
     void Start()
     {
         mr = GetComponent<MeshRenderer>();
-        r = FindFirstObjectByType<RaymarchCam>();
+        r = mover.Get4DCam();
     }
 
     void swap()
@@ -46,7 +46,7 @@ public class show4D : MonoBehaviour
     void Update()
     {
         swap();
-        r = FindFirstObjectByType<RaymarchCam>();
+        r = mover.Get4DCam();
         if (w-w_scale < r._wPosition && w + w_scale > r._wPosition)
         {
          float poectscale = w_scale - ( w  - r._wPosition);

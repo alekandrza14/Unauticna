@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public enum WorkType
 {
     Worker,director,CraftTable,DirectorTable
@@ -12,8 +13,13 @@ public class WorkOrganisation : MonoBehaviour
     bool isWorkOrganisation = false;
     public WorkTerritory workter;
     public int CashFlow;
+  public  bool IsTaking;
+    string TakingSpace;
     void Start()
     {
+        
+            TakingSpace = complsave.total_lif + SceneManager.GetActiveScene().buildIndex;
+        IsTaking = VarSave.GetFloat(TakingSpace + "TakingVin") == 2;
         if (workType == WorkType.DirectorTable)
         {
 
@@ -75,6 +81,16 @@ public class WorkOrganisation : MonoBehaviour
     }
         void Math()
     {
+        float UNUTaxMult = 1;
+        int nalogovaya = 0;
+        if (IsTaking)
+        {
+            UNUTaxMult = 0.1f;
+            if (workter.TaxHomes.Count>=1)
+            {
+                nalogovaya = 10;
+            }
+        }
         int workstanions = workter.Worckstatoins.Count;
         int workers = workter.Workers.Count;
         int workstanionsnotisbusy = workstanions - workers;
@@ -88,21 +104,30 @@ public class WorkOrganisation : MonoBehaviour
             CashFlow = 0;
         }
         CashFlow *= 10;
-        float workMultypy = CashFlow*((workter.Dupers.Count+ workter.Magia.Count+ workter.Programs.Count+ workter.EctroStations.Count)*.1f);
+        float workMultypy = CashFlow * ((workter.Dupers.Count + workter.Magia.Count + workter.Programs.Count + workter.EctroStations.Count + nalogovaya) * .1f) / UNUTaxMult;
         CashFlow += (int)workMultypy;
 
     }
     public decimal GetMath2()
     {
-        int workDetails = workter.Worckstatoins.Count + (workter.Workers.Count * 2 + (workter.Directors.Count * 4 + (100)));
+        int workDetails = workter.Worckstatoins.Count + (workter.Workers.Count * 2 + (workter.Directors.Count * 4 + (100))) + (IsTaking == true ? 400 : 2856);
 
        
        return VarSave.GetMoney("WorkTerritoryCashFlow" + workter.transform.position.x + workter.transform.position.y + workter.transform.position.z + workDetails);
     }
     public void Math2()
     {
-        int workDetails = workter.Worckstatoins.Count + (workter.Workers.Count * 2 + (workter.Directors.Count * 4 + (100)));
-
+        int workDetails = workter.Worckstatoins.Count + (workter.Workers.Count * 2 + (workter.Directors.Count * 4 + (100)))+ (IsTaking == true ? 400 : 2856);
+        float UNUTaxMult = 1;
+        int nalogovaya = 0;
+        if (IsTaking)
+        {
+            UNUTaxMult = 0.1f;
+            if (workter.TaxHomes.Count >= 1)
+            {
+                nalogovaya = 10;
+            }
+        }
         int workstanions = workter.Worckstatoins.Count;
         int workers = workter.Workers.Count;
         int workstanionsnotisbusy = workstanions - workers;
@@ -110,13 +135,13 @@ public class WorkOrganisation : MonoBehaviour
         {
             workstanionsnotisbusy = 0;
         }
-        int CashFlow = workstanions - workstanionsnotisbusy;
+        CashFlow = workstanions - workstanionsnotisbusy;
         if (workter.Directors.Count < 1)
         {
             CashFlow = 0;
         }
         CashFlow *= 10;
-        float workMultypy = CashFlow * ((workter.Dupers.Count + workter.Magia.Count + workter.Programs.Count + workter.EctroStations.Count) * .1f);
+        float workMultypy = CashFlow * ((workter.Dupers.Count + workter.Magia.Count + workter.Programs.Count + workter.EctroStations.Count + nalogovaya) * .1f) / UNUTaxMult;
         CashFlow += (int)workMultypy;
         VarSave.SetMoney("WorkTerritoryCashFlow" + workter.transform.position.x + workter.transform.position.y + workter.transform.position.z + workDetails, CashFlow);
         }

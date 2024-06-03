@@ -1761,6 +1761,93 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "Насос" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            mover.main().transform.localScale += mover.main().transform.localScale / 10;
+            mover.main().CamDistanceMult += mover.main().CamDistanceMult / 10;
+
+
+
+        }
+        decimal C_Fool = 1000000000;
+        decimal C_Position = VarSave.GetMoney("C_late") % C_Fool;
+
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "Удочка" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Поплывок"), mover.main().transform.position + mover.main().PlayerCamera.transform.forward, Quaternion.identity);
+
+            obj.GetComponent<Rigidbody>().AddForce(mover.main().PlayerCamera.transform.forward * 10, ForceMode.Impulse);
+
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && Cells[select].elementName == "Удочка" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            Поплывок[] pplv = FindObjectsByType<Поплывок>(sortmode.main);
+            foreach (Поплывок item in pplv)
+            {
+                if (item.povid == povidПоплывок.klyoet)
+                {
+                    item.gameObject.AddComponent<Poplovok>();
+                }
+            }
+           
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName == "ContinuumCloner" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            Directory.CreateDirectory("unsave/maps");
+
+            complsave.ObjectSaveManager.saveMap("unsave/maps/_Continuum" + (VarSave.LoadMoney("C_max", 0) % C_Fool));
+            VarSave.LoadMoney("C_max", 1);
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && Cells[select].elementName == "ContinuumCloner" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            complsave.ObjectSaveManager.saveMap("unsave/maps/_Continuum" + C_Position % C_Fool);
+            C_Position++; C_Position %= C_Fool;
+            Debug.Log(C_Position);
+            if (File.Exists("unsave/maps/_Continuum" + C_Position.ToString() + ".map"))
+            {
+                rsave r = new rsave();
+
+                r = JsonUtility.FromJson<rsave>(File.ReadAllText("unsave/maps/_Continuum" + C_Position.ToString() + ".map"));
+                complsave.mapLoad = "unsave/maps/_Continuum" + C_Position.ToString() + ".map";
+                VarSave.SetMoney("C_late", C_Position % C_Fool);
+                SceneManager.LoadSceneAsync(r.sceneName); 
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) && Cells[select].elementName == "ContinuumCloner" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            complsave.ObjectSaveManager.saveMap("unsave/maps/_Continuum" + C_Position % C_Fool);
+            C_Position--; C_Position %= C_Fool;
+            Debug.Log(C_Position);
+            if (File.Exists("unsave/maps/_Continuum" + C_Position.ToString()+".map"))
+            {
+                rsave r = new rsave();
+
+                r = JsonUtility.FromJson<rsave>(File.ReadAllText("unsave/maps/_Continuum" + C_Position.ToString() + ".map"));
+                complsave.mapLoad = "unsave/maps/_Continuum" + C_Position.ToString() + ".map"; 
+                VarSave.SetMoney("C_late", C_Position % C_Fool);
+                SceneManager.LoadSceneAsync(r.sceneName);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && Cells[select].elementName == "Насос" && Cells[select].elementCount != 0 && main() == this)
+        {
+
+            mover.main().transform.localScale -= mover.main().transform.localScale / 10;
+            mover.main().CamDistanceMult -= mover.main().CamDistanceMult / 10;
+
+
+
+
+        }
         if (Input.GetKeyDown(KeyCode.E) && Cells[select].elementName != "mathimatic_battery" && batteytype && priaritet(nameItem(Cells[select].elementName)) != 0 && Cells[select].elementCount != 0 && main() == this)
         {
 
@@ -3991,6 +4078,21 @@ public class ElementalInventory : MonoBehaviour {
 
 
                         setItem(fullnamesafe(hit2), 1, Color.red, hit2.collider.GetComponent<itemName>().ItemData, select);
+                        Cells[select].UpdateCellInterface();
+                        sh = true;
+
+                    }
+            }
+            if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
+            {
+
+                RaycastHit hit2 = MainRay.SecondHit; if (hit2.collider)
+                    if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey(Aktivator)" && hit2.collider.GetComponent<itemName>())
+                    {
+
+
+
+                        hit2.collider.GetComponent<InventoryEvent>().Invoke("OnSignal",0);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
