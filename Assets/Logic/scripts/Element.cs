@@ -44,6 +44,7 @@ public class Element : MonoBehaviour
                 Instantiate(element[i].item,transform.position,transform.rotation);
                 Destroy(gameObject);
                 Destroy(c.collider.gameObject);
+                return;
             }
         }
     }

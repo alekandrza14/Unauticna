@@ -35,7 +35,7 @@ public class fire : MonoBehaviour
     {
         timer = 0;
         GetComponent<Rigidbody>().AddForce(transform.up * 5f, ForceMode.Impulse);
-        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f))*2, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(new Vector3(Global.Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f))*2, ForceMode.Impulse);
         if (((int)Random.Range(0f,1f+1+i))>=1&&FindObjectsByType<fire>(sortmode.main).Length < 30)
         {
             if (o)

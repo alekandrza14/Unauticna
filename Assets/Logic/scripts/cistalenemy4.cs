@@ -45,7 +45,7 @@ public class cistalenemy4 : MonoBehaviour
             {
 
 
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
             }
 
         }
@@ -57,7 +57,7 @@ public class cistalenemy4 : MonoBehaviour
             {
 
 
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
             }
         } if (c.collider.GetComponent<Logic_tag_exploution>() && hp <= 0&& ionenergy.energy == 1)
         {
@@ -73,7 +73,7 @@ public class cistalenemy4 : MonoBehaviour
             {
 
 
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
             }
         }
         if (c.collider.GetComponent<Logic_tag_DamageObject>() && hp > 0 && tic3 > 0.1f)
@@ -83,7 +83,7 @@ public class cistalenemy4 : MonoBehaviour
             {
 
 
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
             }
             player = GameManager.isplayer(); povedenie = 4;
             hp--;
@@ -96,7 +96,7 @@ public class cistalenemy4 : MonoBehaviour
             {
 
 
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
             }
             player = GameManager.isplayer(); povedenie = 4;
             hp -= 10;
@@ -117,9 +117,9 @@ public class cistalenemy4 : MonoBehaviour
     void Update()
     {
         cn.CharactorHpInterface = "Hitpoint : "+ "50" + "/"+hp;
-        tic += Time.deltaTime * Random.Range(1, 3);
-        tic2 += Time.deltaTime * Random.Range(1, 3); 
-        tic3 += Time.deltaTime * Random.Range(1, 3);
+        tic += Time.deltaTime * Global.Random.Range(1, 3);
+        tic2 += Time.deltaTime * Global.Random.Range(1, 3); 
+        tic3 += Time.deltaTime * Global.Random.Range(1, 3);
         if (v3.y - 100 > transform.position.y)
         {
             dies();
@@ -128,7 +128,7 @@ public class cistalenemy4 : MonoBehaviour
         }
         if (tic >= time)
         {
-            povedenie = Random.Range(0, 8);
+            povedenie = (int)Global.Random.Range(0, 8);
             tic = 0;
         }
         if (povedenie == 0)
@@ -138,7 +138,7 @@ public class cistalenemy4 : MonoBehaviour
         }
         if (povedenie == 1)
         {
-            rot = Random.Range(-2.0f, 3f);
+            rot = Global.Random.Range(-2.0f, 3f);
             transform.rotation = new Quaternion(0, rot, 0, 1);
             povedenie = 3;
         }
@@ -148,7 +148,7 @@ public class cistalenemy4 : MonoBehaviour
         }
         if (povedenie == 3)
         {
-            tic += Time.deltaTime * Random.Range(1, 3);
+            tic += Time.deltaTime * Global.Random.Range(1, 3);
             transform.rotation = new Quaternion(0, rot, 0, 1);
             transform.Translate(0, 0, 8 * Time.deltaTime);
 
@@ -180,8 +180,8 @@ public class cistalenemy4 : MonoBehaviour
         {
 
 
-            Instantiate(Resources.Load<GameObject>("attaks/zt"), GameObject.FindGameObjectsWithTag("Player")[Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)].transform.position, Quaternion.identity); 
-            Instantiate(Resources.Load<GameObject>("attaks/zt1"), GameObject.FindGameObjectsWithTag("Player")[Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)].transform.position, Quaternion.identity);
+            Instantiate(Resources.Load<GameObject>("attaks/zt"), GameObject.FindGameObjectsWithTag("Player")[(int)Global.Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)].transform.position, Quaternion.identity); 
+            Instantiate(Resources.Load<GameObject>("attaks/zt1"), GameObject.FindGameObjectsWithTag("Player")[(int)Global.Random.Range(0, GameObject.FindGameObjectsWithTag("Player").Length)].transform.position, Quaternion.identity);
             player = GameManager.isplayer(); povedenie = 4;
 
 

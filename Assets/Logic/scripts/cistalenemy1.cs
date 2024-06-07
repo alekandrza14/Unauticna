@@ -33,11 +33,11 @@ public class cistalenemy1 : MonoBehaviour
         if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
         {
             Globalprefs.LoadTevroPrise(- 100);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
             Destroy(gameObject); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
@@ -46,9 +46,9 @@ public class cistalenemy1 : MonoBehaviour
         {
             Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); cistalenemy.dies++;
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
         }
@@ -56,11 +56,11 @@ public class cistalenemy1 : MonoBehaviour
         {
             Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); cistalenemy.dies++;
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position); cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
         }
@@ -79,11 +79,11 @@ public class cistalenemy1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tic += Time.deltaTime * Random.Range(1, 3);
-        tic2 += Time.deltaTime * Random.Range(1, 3);
+        tic += Time.deltaTime * Global.Random.Range(1, 3);
+        tic2 += Time.deltaTime * Global.Random.Range(1, 3);
         if (tic >= time)
         {
-            povedenie = Random.Range(0, 3);
+            povedenie = (int)Global.Random.Range(0, 3);
             tic = 0;
             anim.SetInteger("run", povedenie);
         }
@@ -94,7 +94,7 @@ public class cistalenemy1 : MonoBehaviour
         }
         if (povedenie == 1)
         {
-            rot = Random.Range(-2.0f, 3f);
+            rot = Global.Random.Range(-2.0f, 3f);
             transform.rotation = new Quaternion(0, rot, 0, 1);
             povedenie = 3;
 

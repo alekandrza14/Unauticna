@@ -11,6 +11,120 @@ using UnityEngine;
 
 namespace Global
 {
+    public class Random
+    {
+        static System.Random random = new System.Random();
+
+        public static float Range(float min, float max)
+        {
+            if (random == null)
+            {
+                random = new System.Random();
+            }
+            int x, y;
+            float z = 0;
+            float mmin = min;
+            float mmax = max; bool t = false;
+
+            if (mmin > mmax)
+            {
+
+                mmin = mmax;
+                t = true;
+            }
+
+
+            x = (int)(mmin * 1000f);
+            y = (int)(mmax * 1000f);
+
+            if (t) z = (random.Next(x, y)) / 1000f;
+
+            if (z > mmax)
+            {
+                return mmax;
+            }
+            if (z < -mmax)
+            {
+                return -mmax;
+            }
+
+            return z;
+
+        }
+        public static int Range(int min, int max)
+        {
+            if (random == null)
+            {
+                random = new System.Random();
+            }
+            int x, y;
+            int z = 0;
+            int mmin = min;
+            int mmax = max; bool t = false;
+
+            if (mmin > mmax)
+            {
+
+                mmin = mmax;
+                t = true;
+            }
+
+            x = mmin;
+            y = mmax;
+
+            if (t) z = random.Next(x, y);
+
+
+            if (z > mmax)
+            {
+                return mmax;
+            }
+            if (z < -mmax)
+            {
+                return -mmax;
+            }
+
+            return z;
+
+        }
+        public static float Range(float min, float max, float potencial)
+        {
+            if (random == null)
+            {
+                random = new System.Random();
+            }
+            int x, y;
+            float z = 0;
+            float mmin = min;
+            float mmax = max;
+            bool t = false;
+
+
+            if (mmin > mmax)
+            {
+
+                mmin = mmax;
+                t = true;
+            }
+
+            x = (int)(mmin * potencial);
+            y = (int)(mmax * potencial);
+
+            if (t) z = (random.Next(x, y)) / potencial;
+
+            if (z > mmax)
+            {
+                return mmax;
+            }
+            if (z < -mmax)
+            {
+                return -mmax;
+            }
+
+            return z;
+
+        }
+    }
     [System.Serializable]
     public class Nint
     {
@@ -322,7 +436,7 @@ namespace Global
     {
         static public Vector3 randomCube(int min, int max)
         {
-            return new Vector3(UnityEngine.Random.Range(min, max), UnityEngine.Random.Range(min, max), UnityEngine.Random.Range(min, max));
+            return new Vector3(Global.Random.Range(min, max), Global.Random.Range(min, max), Global.Random.Range(min, max));
         }
     }
 }

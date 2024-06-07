@@ -8,7 +8,9 @@ public class PlanetGravity : MonoBehaviour
 {
     public float gravity = -9;
     public bool inverse;
+    public float ploarRadius;
     public Transform body;
+    float timer; float dist;
     public static PlanetGravity Instance;
     public static PlanetGravity main()
     {
@@ -27,7 +29,14 @@ public class PlanetGravity : MonoBehaviour
     {
         Vector3 gravityUp = (body.position - Vector3.zero).normalized;
         if (inverse) gravityUp *= -1;
-        Vector3 bodyup = body.up;
+        timer += Time.deltaTime;
+        if (timer > 5)
+        {
+            dist = Vector3.Distance(transform.position, Vector3.zero);
+            timer = 0;
+        }
+        Vector3 bodyup = body.up * (dist > ploarRadius ? 1f : -1f);
+
         if (body.gameObject.GetComponent<mover>() && FindFirstObjectByType<PlayerRayMarchCollider>().GetCenterDist() < 0)
         {
 

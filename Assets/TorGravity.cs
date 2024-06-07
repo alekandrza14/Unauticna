@@ -6,6 +6,7 @@ public class TorGravity : MonoBehaviour
 {
     public Transform centerpoint;
     public Transform torpoint;
+    public float offset;
     public mover m;
     public float gravity = -9;
     public bool inverse;
@@ -30,6 +31,7 @@ public class TorGravity : MonoBehaviour
     // Start is called before the first frame update
     public void Arract()
     {
+        torpoint.position = centerpoint.position + (centerpoint.forward * offset);
         Transform body = m.transform;
         Vector3 gravityUp = (body.position - torpoint.position).normalized;
         if (inverse) gravityUp *= -1;

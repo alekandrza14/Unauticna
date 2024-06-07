@@ -19,10 +19,10 @@ public class tesseraktenemy4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tic += Time.deltaTime * Random.Range(1, 3);
+        tic += Time.deltaTime * Global.Random.Range(1, 3);
         if (tic >= time)
         {
-            povedenie = Random.Range(0, 3);
+            povedenie = (int)Global.Random.Range(0, 3);
             tic = 0;
 
         }
@@ -33,10 +33,10 @@ public class tesseraktenemy4 : MonoBehaviour
         }
         if (povedenie == 1)
         {
-            rot = Random.Range(-2.0f, 3f);
-            rotx = Random.Range(-2.0f, 3f);
-            roty = Random.Range(-2.0f, 3f);
-            rotz = Random.Range(-2.0f, 3f);
+            rot = Global.Random.Range(-2.0f, 3f);
+            rotx = Global.Random.Range(-2.0f, 3f);
+            roty = Global.Random.Range(-2.0f, 3f);
+            rotz = Global.Random.Range(-2.0f, 3f);
             player = GameManager.isplayer();
             transform.rotation = new Quaternion(rotx, roty, rotz, rot);
             povedenie = 3;
@@ -55,7 +55,7 @@ public class tesseraktenemy4 : MonoBehaviour
             transform.rotation = new Quaternion(rotx, roty, rotz, rot);
             
             transform.position = new Vector3(transform.position.x, player.position.y, transform.position.z);
-            transform.position += new Vector3(move_speed * Time.deltaTime * Random.Range(-1.0f, 1.001f),0, move_speed * Time.deltaTime * Random.Range(-1.0f, 1.001f));
+            transform.position += new Vector3(move_speed * Time.deltaTime * Global.Random.Range(-1.0f, 1.001f),0, move_speed * Time.deltaTime * Global.Random.Range(-1.0f, 1.001f));
 
             if (!GetComponent<AudioSource>().isPlaying)
             {

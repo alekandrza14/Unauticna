@@ -52,11 +52,11 @@ public class cistalenemy : MonoBehaviour
             }
             if (c.collider.GetComponent<Logic_tag_exploution>() && ionenergy.energy == 0)
             {
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
                 Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject); dies++;
 
@@ -66,11 +66,11 @@ public class cistalenemy : MonoBehaviour
             {
                 Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); dies++;
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position); dies++;
 
                 VarSave.SetInt("Agr", cistalenemy.dies);
             }
@@ -78,11 +78,11 @@ public class cistalenemy : MonoBehaviour
             {
                 Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
                 dies++;
 
                 VarSave.SetInt("Agr", cistalenemy.dies);
@@ -131,10 +131,10 @@ public class cistalenemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tic += Time.deltaTime * Random.Range(1, 3);
+        tic += Time.deltaTime * Global.Random.Range(1, 3);
         if (tic >= time)
         {
-            povedenie = Random.Range(0, 3);
+            povedenie = (int)Global.Random.Range(0, 3);
             tic = 0;
 
         }
@@ -145,7 +145,7 @@ public class cistalenemy : MonoBehaviour
         }
         if (povedenie == 1)
         {
-            rot = Random.Range(-2.0f, 3f);
+            rot = Global.Random.Range(-2.0f, 3f);
             transform.rotation = new Quaternion(0, rot, 0, 1);
             povedenie = 3;
             

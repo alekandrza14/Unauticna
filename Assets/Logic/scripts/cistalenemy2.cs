@@ -28,19 +28,19 @@ public class cistalenemy2 : MonoBehaviour
             {
                 Destroy(craft1.gameObject);
                 Destroy(c.collider.gameObject);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
                 Instantiate(Resources.Load<GameObject>("items/bomb"), gameObject.transform.position, Quaternion.identity);
             }
             if (craft2 != null)
             {
                 Destroy(craft2.gameObject);
                 Destroy(c.collider.gameObject);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity); Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position); DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position); DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
                 Instantiate(Resources.Load<GameObject>("items/bomb"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("items/ionic_cube"), gameObject.transform.position, Quaternion.identity);
             }
@@ -49,7 +49,7 @@ public class cistalenemy2 : MonoBehaviour
                 Globalprefs.LoadTevroPrise(- 100);
                 Destroy(gameObject);
             }
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+            DeadShit.Spawn(transform.position);
         }
         if (c.collider.tag == "box1")
         {
@@ -57,15 +57,15 @@ public class cistalenemy2 : MonoBehaviour
             {
                 Destroy(craft1.gameObject);
                 Destroy(c.collider.gameObject);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
+                DeadShit.Spawn(transform.position);
                 Instantiate(Resources.Load<GameObject>("items/belock"), gameObject.transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("items/belock"), gameObject.transform.position, Quaternion.identity);
             }
             Globalprefs.LoadTevroPrise(- 1);
             Destroy(gameObject);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+            DeadShit.Spawn(transform.position);
         }
         if (c.collider.tag == "bl")
         {

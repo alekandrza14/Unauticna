@@ -27,12 +27,12 @@ public class Chaos_cube : MonoBehaviour
         {
             _quadle = true;
         }
-        if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0 && !init)
+        if (Global.Random.Range(0, (int)Chance + 1) == 0 && !init)
         {
             ultra = true;
             init = true;
         }
-        if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0 && ultra && !init)
+        if (Global.Random.Range(0, (int)Chance + 1) == 0 && ultra && !init)
         {
             omega = true;
             init = true;
@@ -67,20 +67,20 @@ public class Chaos_cube : MonoBehaviour
     public static void ChaosFunction(Chaos_cube self)
     {
         VarSave.LoadFloat("luck",0.1f);
-        if (UnityEngine.Random.Range(0, 30) == 1)
+        if (Global.Random.Range(0, 30) == 1)
         {
             GameObject[] res = Resources.LoadAll<GameObject>("events");
-            Instantiate(res[Random.Range(0, res.Length)], self.transform.position, Quaternion.identity);
+            Instantiate(res[(int)Global.Random.Range(0, res.Length)], self.transform.position, Quaternion.identity);
         }
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
-        Instantiate(Resources.Load<GameObject>("deathparticles"), self.gameObject.transform.position, Quaternion.identity);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
+         DeadShit.Spawn(self.transform.position);
         if (!self.ultra) Rand(self);
         if (self.ultra)
         {
@@ -121,27 +121,27 @@ public class Chaos_cube : MonoBehaviour
 
         self.items = Resources.LoadAll<GameObject>("items");
         self.Obj = Resources.LoadAll<GameObject>("Primetives");
-        self.class_obj = Random.Range(0, 3);
+        self.class_obj = (int)Global.Random.Range(0, 3);
         if (self.class_obj == 0)
         {
-            int rand1 = Random.Range(0, self.items.Length);
+            int rand1 = (int)Global.Random.Range(0, self.items.Length);
             if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self.gameObject.transform.position, Quaternion.identity);
         }
         if (self.class_obj == 1)
         {
-            Instantiate(self.Obj[Random.Range(0, self.Obj.Length)], self.gameObject.transform.position, Quaternion.identity);
+            Instantiate(self.Obj[(int)Global.Random.Range(0, self.Obj.Length)], self.gameObject.transform.position, Quaternion.identity);
         }
         if (self.class_obj == 2)
         {
-            int rand1 = Random.Range(0, self.items.Length);
-            if (Random.Range(0, 2) == 0) { if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self.gameObject.transform.position, Quaternion.identity); }
+            int rand1 = (int)Global.Random.Range(0, self.items.Length);
+            if (Global.Random.Range(0, 2) == 0) { if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self.gameObject.transform.position, Quaternion.identity); }
             else
             {
                 DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
                 bool moneta= false;
                 while (!moneta) {
 
-                    string t = dif.GetFiles()[Random.Range(0, dif.GetFiles().Length)].Name.Replace(".txt", "");
+                    string t = dif.GetFiles()[(int)Global.Random.Range(0, dif.GetFiles().Length)].Name.Replace(".txt", "");
                     if (t.Remove(10,t.Length-1-9) != "Chaos_Item")
                     {
                         GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), self.gameObject.transform.position, Quaternion.identity);

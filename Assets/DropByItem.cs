@@ -18,7 +18,7 @@ public class DropByItem : MonoBehaviour
             {
                 if (hit.collider.gameObject == gameObject)
                 {
-                    Instantiate(DropItems[Random.Range(0, DropItems.Length)], transform.position, Quaternion.identity);
+                    Instantiate(DropItems[Global.Random.Range(0, DropItems.Length)], transform.position, Quaternion.identity);
                     gameObject.AddComponent<deleter1>();
                     GameManager.save();
                 }

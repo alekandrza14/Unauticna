@@ -55,7 +55,7 @@ public class EnemyePirat : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (Random.Range(1, 5) == 1 && attack)
+            if (Global.Random.Range(1, 5) == 1 && attack)
             {
                 c = GameManager.GetPlayer().gameObject.GetComponent<Collider>();
                 target = GameManager.GetPlayer().transform.position;
@@ -79,9 +79,9 @@ public class EnemyePirat : MonoBehaviour
             timer = 0;
         }
         Ray r = new Ray(transform.position, new Vector3(
-         Random.Range(-1f, 1f),
-         Random.Range(-1f, 1f),
-         Random.Range(-1f, 1f)));
+         Global.Random.Range(-1f, 1f),
+         Global.Random.Range(-1f, 1f),
+         Global.Random.Range(-1f, 1f)));
         Debug.DrawRay(transform.position, r.direction);
         RaycastHit hit;
         if (Physics.Raycast(r, out hit) && !c)
@@ -118,13 +118,13 @@ public class EnemyePirat : MonoBehaviour
         
         if (c) transform.Translate(new Vector3(0, 0, 3 * Time.deltaTime));
         transform.Translate(new Vector3(
-            Random.Range(-0.02f, 0.02f),
-            Random.Range(-0.02f, 0.02f),
-            Random.Range(-0.02f, 0.02f)));
+            Global.Random.Range(-0.02f, 0.02f),
+            Global.Random.Range(-0.02f, 0.02f),
+            Global.Random.Range(-0.02f, 0.02f)));
         if (Vector3.Distance(target, transform.position) < 3) 
         {
 
-            if (Random.Range(1, 2) == 1 && attack)
+            if (Global.Random.Range(1, 2) == 1 && attack)
             {
                 c = GameManager.GetPlayer().gameObject.GetComponent<Collider>();
                 target = GameManager.GetPlayer().transform.position;

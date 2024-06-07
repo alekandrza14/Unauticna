@@ -39,29 +39,29 @@ public class Попрашайка : MonoBehaviour
         }
         if (collision.collider.GetComponent<itemName>())
         {
-            randomAPovid += Random.Range(0, 0.01f);
-            randomBPovid += Random.Range(0, 0.1f);
+            randomAPovid += Global.Random.Range(0, 0.01f);
+            randomBPovid += Global.Random.Range(0, 0.1f);
             if (eat == null) eat = collision.collider.gameObject;
         }
         if (collision.collider.GetComponent<mover>())
         {
             if (eat == null) eat = collision.collider.gameObject;
-            randomAPovid += Random.Range(0, 0.1f);
-            randomBPovid += Random.Range(0, 0.05f);
+            randomAPovid += Global.Random.Range(0, 0.1f);
+            randomBPovid += Global.Random.Range(0, 0.05f);
         }
         if (collision.collider.GetComponent<Logic_tag_DamageObject>())
         {
-            randomAPovid += Random.Range(0, 0.1f);
+            randomAPovid += Global.Random.Range(0, 0.1f);
             eat = collision.collider.gameObject;
         }
         if (collision.collider.GetComponent<Logic_tag_exploution>())
         {
-            randomAPovid += Random.Range(0, 0.1f);
+            randomAPovid += Global.Random.Range(0, 0.1f);
             eat = collision.collider.gameObject;
         }
         if (collision.collider.GetComponent<Logic_tag_Equepment>())
         {
-            randomAPovid += Random.Range(0, 0.1f);
+            randomAPovid += Global.Random.Range(0, 0.1f);
             eat = collision.collider.gameObject;
         }
     }
@@ -70,14 +70,14 @@ public class Попрашайка : MonoBehaviour
         if (other.GetComponent<itemName>())
         {
             if (eat == null) eat = other.gameObject;
-            randomAPovid += Random.Range(0, 0.01f);
-            randomBPovid += Random.Range(0, 0.1f);
+            randomAPovid += Global.Random.Range(0, 0.01f);
+            randomBPovid += Global.Random.Range(0, 0.1f);
         }
     }
     private void OnMouseDrag()
     {
-        randomAPovid += Random.Range(0, 0.1f);
-        randomDPovid += Random.Range(0, 0.1f);
+        randomAPovid += Global.Random.Range(0, 0.1f);
+        randomDPovid += Global.Random.Range(0, 0.1f);
         eat = mover.main().PlayerBody;
     }
 
@@ -114,11 +114,11 @@ public class Попрашайка : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<Rigidbody>().AddForce(Vector3.up, ForceMode.Impulse);
         }
-        randomAPovid += Random.Range(0, 0.2f);
+        randomAPovid += Global.Random.Range(0, 0.2f);
         timer += Time.deltaTime;
-        if (randomCPovid > 1) randomCPovid += Random.Range(0, 0.001f);
-        if (randomBPovid > 3) randomBPovid += Random.Range(0, 0.01f);
-        if (lF != PovidLFT.RandomRun) randomDPovid += Random.Range(0, 0.01f);
+        if (randomCPovid > 1) randomCPovid += Global.Random.Range(0, 0.001f);
+        if (randomBPovid > 3) randomBPovid += Global.Random.Range(0, 0.01f);
+        if (lF != PovidLFT.RandomRun) randomDPovid += Global.Random.Range(0, 0.01f);
         if (lF != PovidLFT.safety) if (randomAPovid > 1)
             {
                 //   anim.SetBool("run", true);
@@ -143,12 +143,12 @@ public class Попрашайка : MonoBehaviour
         {
             if (eat != null)
             {
-                randomBPovid += Random.Range(0, 0.05f);
+                randomBPovid += Global.Random.Range(0, 0.05f);
             }
             if (eat == null)
             {
                 //  anim.SetBool("run", false);
-                lF = PovidLFT.spat; randomBPovid -= Random.Range(0, 0.2f);
+                lF = PovidLFT.spat; randomBPovid -= Global.Random.Range(0, 0.2f);
             }
             if (eat != null)
             {
@@ -156,7 +156,7 @@ public class Попрашайка : MonoBehaviour
                 transform.Translate(0, 0, 20 * Time.deltaTime);
 
             }
-            randomBPovid -= Random.Range(0, 0.2f);
+            randomBPovid -= Global.Random.Range(0, 0.2f);
         }
         if (lF == PovidLFT.safety)
         {
@@ -171,21 +171,21 @@ public class Попрашайка : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(eat.transform.position - transform.position, Vector3.up);
                 transform.Translate(0, 0, 20 * Time.deltaTime);
 
-                randomAPovid -= Random.Range(0, 0.2f);
+                randomAPovid -= Global.Random.Range(0, 0.2f);
             }
             if (eat == null)
             {
                 //   anim.SetBool("run", false);
-                randomAPovid -= Random.Range(0, 0.2f);
+                randomAPovid -= Global.Random.Range(0, 0.2f);
 
             }
-            randomAPovid -= Random.Range(0, 0.2f);
+            randomAPovid -= Global.Random.Range(0, 0.2f);
         }
         if (lF == PovidLFT.RandomRun)
         {
             if (randomDPovid < 0)
             {
-                if (Random.Range(0, 10.0f) < 0.5f)
+                if (Global.Random.Range(0, 10.0f) < 0.5f)
                 {
 
                     //   anim.SetBool("run", false);
@@ -195,13 +195,13 @@ public class Попрашайка : MonoBehaviour
                 else
                 {
                     transform.rotation = Random.rotationUniform;
-                    randomDPovid += Random.Range(0, 8f);
+                    randomDPovid += Global.Random.Range(0, 8f);
                 }
             }
             transform.Translate(0, 0, 5 * Time.deltaTime);
 
 
-            randomDPovid -= Random.Range(0, 0.2f);
+            randomDPovid -= Global.Random.Range(0, 0.2f);
         }
 
     }

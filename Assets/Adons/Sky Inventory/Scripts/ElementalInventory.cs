@@ -290,7 +290,7 @@ public class ElementalInventory : MonoBehaviour {
     GameObject elementrandom()
     {
         GameObject g = Resources.Load<GameObject>("items/Ti");
-        int i = Random.Range(0, 7);
+        int i = (int)Global.Random.Range(0, 7);
         if (i == 0)
         {
             g = Resources.Load<GameObject>("items/Ti");
@@ -787,7 +787,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 GameObject g = Instantiate(Resources.Load<GameObject>("ui/CraftPanel/CraftPanel"), Vector3.zero, Quaternion.identity);
                 Element e = hit.collider.GetComponent<Element>();
-                int c = Random.Range(0, e.element.Length);
+                int c = (int)Global.Random.Range(0, e.element.Length);
                 g.GetComponent<CargeText>().text.text = "this + " + e.element[c].element.name + " = " + e.element[c].item.name;
                 cistalenemy.dies++;
             }
@@ -881,7 +881,7 @@ public class ElementalInventory : MonoBehaviour {
             if (hit.collider != null)
             {
                 Globalprefs.bunkrot = false;
-                Instantiate(Resources.Load<GameObject>("deathparticles"), mover.main().transform.position, Quaternion.identity);
+                 DeadShit.Spawn(transform.position);
 
                 //deathparticles
             }
@@ -2050,7 +2050,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 3);
+            int i = (int)Global.Random.Range(0, 3);
             if (i == 0)
             {
                 Instantiate(Resources.Load("voices/belock"));
@@ -2186,6 +2186,27 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
             lowitem("Летун", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //Борщ
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Борщ") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            playerdata.Addeffect("Undyning", float.PositiveInfinity);
+            playerdata.Addeffect("Шизфрения", float.PositiveInfinity);
+            playerdata.Addeffect("mild hangover", float.PositiveInfinity);
+            playerdata.Addeffect("Trin", float.PositiveInfinity);
+            playerdata.Addeffect("Совиное Зрение", float.PositiveInfinity);
+            playerdata.Addeffect("Metabolism", float.PositiveInfinity);
+
+
+
+            VarSave.LoadFloat("mana", 100f);
+            lowitem("Борщ", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ДомТорт") != 0 && main() == this)
@@ -2429,7 +2450,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 6);
+            int i = (int)Global.Random.Range(0, 6);
             if (i == 0)
             {
                 //  Instantiate(Resources.Load("voices/belock"));
@@ -2491,7 +2512,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 2);
+            int i = (int)Global.Random.Range(0, 2);
             if (i == 0)
             {
                 playerdata.Addeffect("invisible", 60);
@@ -2507,7 +2528,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 2);
+            int i = (int)Global.Random.Range(0, 2);
             if (i == 0)
             {
                 playerdata.Addeffect("Axelerate", 60);
@@ -2523,7 +2544,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 2);
+            int i = (int)Global.Random.Range(0, 2);
             if (i == 0)
             {
                 playerdata.Addeffect("MetabolismUp", 60);
@@ -2539,7 +2560,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
-            int i = Random.Range(0, 20);
+            int i = (int)Global.Random.Range(0, 20);
             if (i == 0)
             {
                 playerdata.Addeffect("BigShot", 600);
@@ -2594,7 +2615,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Trip", 600);
             playerdata.Addeffect("Tripl2", 600);
             playerdata.Addeffect("KsenoMorfin", 600);
-            VarSave.SetInt("CurrentMorf", Random.Range(0, complsave.t5.Length));
+            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, complsave.t5.Length));
             playerdata.Addeffect("Regeneration", 600);
             playerdata.Addeffect("ImbalenceRegeneration", 600);
             playerdata.Addeffect("severe hangover", 600);
@@ -2613,7 +2634,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
             playerdata.Addeffect("KsenoMorfin", 600);
-            VarSave.SetInt("CurrentMorf", Random.Range(0, complsave.t5.Length));
+            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, complsave.t5.Length));
             VarSave.LoadFloat("mana", 1f);
 
             GameManager.saveandhill();
@@ -3081,7 +3102,7 @@ public class ElementalInventory : MonoBehaviour {
             if (hit.collider != null)
             {
                 GameObject g = Instantiate(Resources.Load<GameObject>("ui/compas/compas"), Vector3.zero, Quaternion.identity);
-                if (Random.Range(0,100)<=14)
+                if (Global.Random.Range(0,100)<=14)
                 {
                     hello.windowmesenge.Dialog_Radar();
                     Globalprefs.RadarOn = true;
@@ -3299,7 +3320,7 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<itemName>()._Name == "Cat")
                     {
-                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Global.Random.Range(-4, 4), Global.Random.Range(-4, 4), Global.Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("CatReplicatorCorm", "");
                     }
@@ -3319,7 +3340,7 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<itemName>()._Name == "Скалапендра")
                     {
-                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Global.Random.Range(-4, 4), Global.Random.Range(-4, 4), Global.Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("SkalapendraReplicatorCorm", "");
                     }
@@ -3381,7 +3402,7 @@ public class ElementalInventory : MonoBehaviour {
                     if (hit.collider.GetComponent<itemName>()._Name == "Скалапендра")
                     {
 
-                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Global.Random.Range(-4, 4), Global.Random.Range(-4, 4), Global.Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("Метанфитамин", "");
                     }
@@ -3401,7 +3422,7 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<itemName>()._Name == "Летун")
                     {
-                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Global.Random.Range(-4, 4), Global.Random.Range(-4, 4), Global.Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("Летунский корм", "");
                     }
@@ -3420,7 +3441,7 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<itemName>()._Name == "AnnoyingNextBot")
                     {
-                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Random.Range(-4, 4), Random.Range(-4, 4), Random.Range(-4, 4)), Quaternion.identity);
+                        GameObject obj = Instantiate(hit.collider.gameObject, hit.collider.transform.position + new Vector3(Global.Random.Range(-4, 4), Global.Random.Range(-4, 4), Global.Random.Range(-4, 4)), Quaternion.identity);
                         obj.name = obj.name.Remove(obj.name.Length - 7);
                         lowitem("КормДляNextBot\'ов", "");
                     }

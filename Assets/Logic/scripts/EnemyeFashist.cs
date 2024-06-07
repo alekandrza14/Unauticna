@@ -7,8 +7,9 @@ public class EnemyeFashist : MonoBehaviour
 {
     [SerializeField] AudioSource voise;
     [SerializeField] Rigidbody fashist;
-    [SerializeField] GameObject GunPoint;
+    [SerializeField] Transform GunPoint;
     public Collider c;
+    System.Random optirand;
     Vector3 target;
     bool attack;
     float timer;
@@ -23,11 +24,11 @@ public class EnemyeFashist : MonoBehaviour
         {
             Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
         }
         if (collision.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
         {
@@ -43,7 +44,25 @@ public class EnemyeFashist : MonoBehaviour
     void off()
     {
 
-        c = null;
+
+        if (!attack)
+        {
+            Debug.Log((float)optirand.Next(-1000, 1000) / 1000f);
+            Ray r = new Ray(transform.position, new Vector3(
+             (float)optirand.Next(-1000, 1000) / 1000f,
+             (float)optirand.Next(-1000, 1000) / 1000f,
+            (float)optirand.Next(-1000, 1000) / 1000f));
+            Debug.DrawRay(transform.position, r.direction);
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                  
+                    target = hit.point;
+                }
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -68,45 +87,46 @@ public class EnemyeFashist : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("off", 1, 10f );
+        InvokeRepeating("off", 1, 10f);
+        optirand = new System.Random(7);
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-       if(attack && timer >= 0.2)
+        if (attack && timer >= 0.2)
         {
-            Instantiate(Resources.Load<GameObject>("FashistOrb"),GunPoint.transform.position,transform.rotation);
-            timer = 0;
-        }
-        Ray r = new Ray(transform.position, new Vector3(
-         Random.Range(-1f, 1f),
-         Random.Range(-1f, 1f),
-         Random.Range(-1f, 1f)));
-        Debug.DrawRay(transform.position, r.direction);
-        RaycastHit hit;
-        if (Physics.Raycast(r, out hit) && !c)
-        {
-            if (hit.collider != null)
+            if (bullet.safeSpawn == null)
             {
-                c = hit.collider;
-                target = hit.point;
+                bullet.safeSpawn = new List<GameObject>();
             }
-        }
-        transform.rotation = Quaternion.LookRotation((target - transform.position), transform.up);
+            if (bullet.safeSpawn.Count < 100)
+            {
+                bullet.safeSpawn.Add(
+                Instantiate(Resources.Load<GameObject>("FashistOrb"), GunPoint.position, transform.rotation));
+                timer = 0;
+            }
+           
+                Transform obj = bullet.safeSpawn[optirand.Next(0, bullet.safeSpawn.Count)].transform;
+                obj.position = GunPoint.position;
+                obj.rotation = transform.rotation;
+                Rigidbody rb = obj.GetComponent<Rigidbody>();
+                rb.linearVelocity = Vector3.zero;
+                rb.MovePosition(obj.position);
+                rb.AddForce(transform.forward * obj.GetComponent<bullet>().speed*20, ForceMode.Force);
+            timer = 0;
 
-        transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
-        
-        if (c) transform.Translate(new Vector3(0, 0, 3 * Time.deltaTime));
-        transform.Translate(new Vector3(
-            Random.Range(-0.02f, 0.02f),
-            Random.Range(-0.02f, 0.02f),
-            Random.Range(-0.02f, 0.02f)));
-        if (Vector3.Distance(target, transform.position) < 3) 
+        }
+            transform.rotation = Quaternion.LookRotation((target - transform.position), transform.up);
+
+            transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+        transform.Translate(new Vector3(0, 0, 3 * Time.deltaTime));
+       
+        if (Vector3.Distance(target, transform.position) < 3)
         {
 
-            if (Random.Range(1, 2) == 1 && attack)
+            if (optirand.Next(0, 2) == 1 && attack)
             {
                 c = GameManager.GetPlayer().gameObject.GetComponent<Collider>();
                 target = GameManager.GetPlayer().transform.position;
@@ -119,5 +139,6 @@ public class EnemyeFashist : MonoBehaviour
                 c = null;
             }
         }
+
     }
 }

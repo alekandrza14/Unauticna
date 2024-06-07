@@ -415,7 +415,7 @@ public class mover : CustomSaveObject
     {
         if (other.tag == "lagi")
         {
-            PlayerCamera.GetComponent<Camera>().enabled = 1 ==UnityEngine.Random.Range(0, 3);
+            PlayerCamera.GetComponent<Camera>().enabled = 1 ==Global.Random.Range(0, 3);
 
         }
 
@@ -516,7 +516,7 @@ public class mover : CustomSaveObject
         Global.MEM.UE();
         InvokeRepeating("reasonUpdate",1,10);
 
-        Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
+      /*  Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
         Vector3[] allpos = new Vector3[allobj.Length];
         int i2 = 0;
         for (int i =0;i<allobj.Length;i++)
@@ -531,7 +531,7 @@ public class mover : CustomSaveObject
         Globalprefs.allTransphorms = allobj;
         Globalprefs.allpos = allpos;
       
-       
+       */
             GameObject g2 = new GameObject("init");
             gameInit.Init(g2); 
         if (gameInit.init != null)
@@ -606,29 +606,29 @@ public class mover : CustomSaveObject
             Instantiate(Resources.Load<GameObject>("audios/Шум"));
         }
         float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f+Globalprefs.GetRealiyChaos(50)));
-        if (UnityEngine.Random.Range(0, (int)Chance + 1) == 0)
+        if (UnityEngine.Random.Range(0, (float)Chance + 1) == 0)
         {
             Debug.Log("CahncePiratAttack" + (int)Chance);
             Instantiate(Resources.Load<GameObject>("events/Pirats"));
         }
         float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
-        if (UnityEngine.Random.Range(0, (int)Chance2 + 1) == 0)
+        if (UnityEngine.Random.Range(0, (float)Chance2 + 1) == 0)
         {
             cistalenemy.dies -= 2;
            Globalprefs. LoadTevroPrise(-100);
         }
         float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
-        if (UnityEngine.Random.Range(0, (int)Chance3 + 1) == 0)
+        if (UnityEngine.Random.Range(0, (float)Chance3 + 1) == 0)
         {
             DirectoryInfo di = new DirectoryInfo("unsave/var/researchs");
-            int random = UnityEngine.Random.Range(0,di.GetFiles().Length);
+            int random = (int)Global.Random.Range(0,di.GetFiles().Length);
            File.Delete( di.GetFiles()[random].FullName);
             VarSave.LoadMoney("research",-1);
         }
         if (timer7 != LastSesionHours)
         {
             
-          //      VarSave.LoadMoney("tevro", UnityEngine.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
+          //      VarSave.LoadMoney("tevro", Global.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
              
 
 
@@ -1159,7 +1159,7 @@ public class mover : CustomSaveObject
     }
     void bomjspawn()
     {
-        if (UnityEngine.Random.Range(0, 2) >= 1)
+        if (Global.Random.Range(0, 2) >= 1)
         {
             for (int i = 0; i < 6; i++)
             {
@@ -2133,7 +2133,7 @@ public class mover : CustomSaveObject
    public void Spawninitfire(Vector3 pos)
     {
 
-        StartCoroutine(SpawnFire(pos,UnityEngine.Random.Range(0f,.5f)));
+        StartCoroutine(SpawnFire(pos,Global.Random.Range(0f,.5f)));
       
     }
     float ftho;
@@ -2847,8 +2847,8 @@ public class mover : CustomSaveObject
             RaycastHit hit = MainRay.MainHit;
             if(hit.point.ToString()!= uniepos.ToString())
             {
-                rigidbody3d.mass = UnityEngine.Random.Range(0, 400);
-                rigidbody3d.linearDamping = UnityEngine.Random.Range(0, 400);
+                rigidbody3d.mass = Global.Random.Range(0, 400);
+                rigidbody3d.linearDamping = Global.Random.Range(0, 400);
                 rigidbody3d.linearVelocity += Global.math.randomCube(-1, 1);
                 uniepos = hit.point;
             }
@@ -2959,6 +2959,12 @@ public class mover : CustomSaveObject
             fireInk = 20;
             hpregen += 1;
             maxhp += 250;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Metabolism") != null)
+        {
+            // axelerate = 2;
+            Time.timeScale = 0.3f;
             //playermatinvisible
         }
         if (playerdata.Geteffect("Regeneration") != null)
@@ -3083,8 +3089,8 @@ public class mover : CustomSaveObject
         //playerdata.Addeffect("meat", 10);
         if (playerdata.Geteffect("meat") != null)
         {
-            PlayerCamera.transform.Rotate(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
-            transform.Rotate(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f));
+            PlayerCamera.transform.Rotate(Global.Random.Range(-1f, 1f), Global.Random.Range(-1f, 1f), Global.Random.Range(-1f, 1f));
+            transform.Rotate(Global.Random.Range(-1f, 1f), Global.Random.Range(-1f, 1f), Global.Random.Range(-1f, 1f));
             meat = 1;
             //  transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);
             //  HeadCameraSetup.transform.Rotate(UnityEngine.Mathf.PerlinNoise1D(timerTrip + .25f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip + .5f) / 3, UnityEngine.Mathf.PerlinNoise1D(timerTrip) / 3);

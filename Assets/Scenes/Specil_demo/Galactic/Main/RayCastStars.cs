@@ -182,6 +182,7 @@ public class RayCastStars : MonoBehaviour
                     {
                         SaveTargets();
                     }
+                    int galacticsystem = Mathf.Abs((int)((Globalprefs.Hash(new Vector2(-3, (float)Globalprefs.GetIdStars()))*7) % 2));
                     if (o == 0 && Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
@@ -222,11 +223,19 @@ public class RayCastStars : MonoBehaviour
                         VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
-                    else if (Input.GetKeyDown(KeyCode.Mouse0))
+                    else if (galacticsystem==0 &&Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
                         VarSave.SetInt("planet", o);
                         SceneManager.LoadScene("dark4");
+                        VarSave.SetBool("NoStop", false);
+                        VarSave.DeleteKey("scppos");
+                    }
+                    else if (galacticsystem >= 1 && Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                        VarSave.SetInt("planet", o);
+                        SceneManager.LoadScene("dark7");
                         VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }

@@ -49,7 +49,7 @@ public class MagicStick_seed : MonoBehaviour
             itemName item = hit.collider.GetComponent<itemName>();
             if (item._Name == "Anvil" && fr.Count >= 3)
             {
-                s = "MagicStick" + Random.Range(0, int.MaxValue) + Random.Range(0, int.MaxValue);
+                s = "MagicStick" + Global.Random.Range(0, int.MaxValue) + Global.Random.Range(0, int.MaxValue);
                 if (ElementalInventory.main().Getitem("Hummer"))
                 {
                     Model = new CustomObjectData();
@@ -58,18 +58,18 @@ public class MagicStick_seed : MonoBehaviour
                     Model.functional = Functional.user;
                     Model.scale = Vector3.one;
                     Model._Color = Color.gray;
-                    Model.RegenerateHp = Random.Range(-13, 6);
-                    if (Random.Range(0, 2) == 0) Model.itemSpawn = complsave.t3[Random.Range(-1, complsave.t3.Length)].name;
+                    Model.RegenerateHp = (int)Global.Random.Range(-13, 6);
+                    if (Global.Random.Range(0, 2) == 0) Model.itemSpawn = complsave.t3[(int)Global.Random.Range(-1, complsave.t3.Length)].name;
                     
                     bool monet = false;
 
-                    if (Random.Range(0, 2) == 0) while (!monet)
+                    if (Global.Random.Range(0, 2) == 0) while (!monet)
                     {
-                        Model.effect_no_use.Add(new useeffect(massiveEffect[Random.Range(0,massiveEffect.Length)], Random.Range(-600000, 6000000)));
-                        monet = Random.Range(0, 2) == 1;
+                        Model.effect_no_use.Add(new useeffect(massiveEffect[(int)Global.Random.Range(0,massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
+                        monet = Global.Random.Range(0, 2) == 1;
                     }
                     Model.DefultInfo = "Hello im MagicStick item";
-                    if (Random.Range(-4, 4) == 0) Model.playerMove = Global.math.randomCube(-2, 2);
+                    if (Global.Random.Range(-4, 4) == 0) Model.playerMove = Global.math.randomCube(-2, 2);
                     
                    
                     for (int j = 0; j < 3; j++)

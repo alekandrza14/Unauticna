@@ -38,7 +38,7 @@ public class cistalenemy5 : MonoBehaviour
         }
         if (c.collider.tag == "bl" && !player)
         {
-            GetComponent<Rigidbody>().linearVelocity = new Vector3(Random.Range(-10, 11), Random.Range(-10, 11), Random.Range(-10, 11));
+            GetComponent<Rigidbody>().linearVelocity = new Vector3(Global.Random.Range(-10, 11), Global.Random.Range(-10, 11), Global.Random.Range(-10, 11));
             player = c.collider.transform;
             povedenie = 5;
         }

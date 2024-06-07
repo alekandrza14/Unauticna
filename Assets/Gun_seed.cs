@@ -49,7 +49,7 @@ public class Gun_seed : MonoBehaviour
             itemName item = hit.collider.GetComponent<itemName>();
             if (item._Name == "Anvil" && fr.Count >= 2)
             {
-                s = "Gun" + Random.Range(0, int.MaxValue) + Random.Range(0, int.MaxValue);
+                s = "Gun" + Global.Random.Range(0, int.MaxValue) + Global.Random.Range(0, int.MaxValue);
                 if (ElementalInventory.main().Getitem("Hummer"))
                 {
                     Model = new CustomObjectData();
@@ -58,26 +58,26 @@ public class Gun_seed : MonoBehaviour
                     Model.functional = Functional.user;
                     Model.scale = Vector3.one;
                     Model._Color = Color.gray;
-                    Model.RegenerateHp = Random.Range(-6, 6);
-                    if (Random.Range(-8, 8) == 0) Model.itemSpawn = complsave.t3[Random.Range(-1, complsave.t3.Length)].name;
+                    Model.RegenerateHp = Global.Random.Range(-6, 6);
+                    if (Global.Random.Range(-8, 8) == 0) Model.itemSpawn = complsave.t3[Global.Random.Range(-1, complsave.t3.Length)].name;
                     
                     Model.ObjSpawn = "DamageObject";
                     bool monet = false;
 
                     while (!monet)
                     {
-                        Model.effect_no_use.Add(new useeffect(massiveEffect[Random.Range(0,massiveEffect.Length)], Random.Range(-600000, 6000000)));
-                        monet = Random.Range(0, 2) == 1;
+                        Model.effect_no_use.Add(new useeffect(massiveEffect[Global.Random.Range(0,massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
+                        monet = Global.Random.Range(0, 2) == 1;
                     }
                     Model.DefultInfo = "Hello im gun item";
-                    if (Random.Range(-4, 4) == 0) Model.playerMove = Global.math.randomCube(-2, 2);
+                    if (Global.Random.Range(-4, 4) == 0) Model.playerMove = Global.math.randomCube(-2, 2);
                     bool monet2 = false;
                     List<float> fn = new List<float>();
                     while (!monet2)
                     {
-                        fn.Add(Random.Range(1, 90));
+                        fn.Add(Global.Random.Range(1, 90));
                         
-                        monet2 = Random.Range(0, 2) == 1;
+                        monet2 = Global.Random.Range(0, 2) == 1;
                     }
                     for (int j = 0; j < 3; j++)
                     {

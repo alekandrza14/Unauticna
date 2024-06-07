@@ -28,7 +28,7 @@ public class MainRay : MonoBehaviour
            if(!hit.collider.isTrigger) MainHit = hit;
             else if (hit.collider.gameObject.layer == 3)
             {
-                hit.point = hit.collider.gameObject.transform.position + new Vector3(UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f), UnityEngine.Random.Range(-3f, 3f));
+                hit.point = hit.collider.gameObject.transform.position + new Vector3(Global.Random.Range(-3f, 3f), Global.Random.Range(-3f, 3f), Global.Random.Range(-3f, 3f));
                 MainHit = hit;
             }
             else if (hit.collider.gameObject.layer != 3)

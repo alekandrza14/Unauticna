@@ -20,11 +20,11 @@ public class enemyspider : MonoBehaviour
         {
             Globalprefs.LoadTevroPrise(- 100);
             Destroy(gameObject);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
-            Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
+             DeadShit.Spawn(transform.position);
             cistalenemy.dies++;
 
             VarSave.SetInt("Agr", cistalenemy.dies);
@@ -44,9 +44,9 @@ public class enemyspider : MonoBehaviour
     void Update()
     {
         Ray r= new Ray(transform.position,new Vector3(
-            Random.Range(-1f, 1f),
-            Random.Range(-1f, 1f),
-            Random.Range(-1f, 1f)));
+            Global.Random.Range(-1f, 1f),
+            Global.Random.Range(-1f, 1f),
+            Global.Random.Range(-1f, 1f)));
         Debug.DrawRay(transform.position,r.direction);
         RaycastHit hit;
         if (Physics.Raycast(r,out hit) && !c)
@@ -60,13 +60,13 @@ public class enemyspider : MonoBehaviour
         transform.rotation = Quaternion.LookRotation( -(target-transform.position),transform.up);
         if (c) transform.Translate(new Vector3(0, 0, -15 * Time.deltaTime));
         transform.Translate(new Vector3(
-            Random.Range(-0.02f, 0.02f),
-            Random.Range(-0.02f, 0.02f),
-            Random.Range(-0.02f, 0.02f)));
+            Global.Random.Range(-0.02f, 0.02f),
+            Global.Random.Range(-0.02f, 0.02f),
+            Global.Random.Range(-0.02f, 0.02f)));
         if (Vector3.Distance(target,transform.position) < 3 && cistalenemy.dies > 0)
         {
 
-            if (Random.Range(1, 4) == 1)
+            if (Global.Random.Range(1, 4) == 1)
             {
                 c = GameManager.GetPlayer().gameObject.GetComponent<Collider>();
                 target = GameManager.GetPlayer().transform.position;

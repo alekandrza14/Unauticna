@@ -153,7 +153,7 @@ public class terracat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(new Vector3(0, Random.Range(-1030, 1031) * Time.deltaTime *3, 0));
+        transform.Rotate(new Vector3(0, Global.Random.Range(-1030, 1031) * Time.deltaTime *3, 0));
         rb.linearVelocity = transform.right * -10000 * Time.deltaTime;
         if (s==null)
         {

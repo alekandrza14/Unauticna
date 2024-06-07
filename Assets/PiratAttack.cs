@@ -18,7 +18,7 @@ public class PiratAttack : MonoBehaviour
     {
         VarSave.SetString("Player_On_Pirat_Attack", "Please don't destroy this file be a man");
         Instantiate(piratSheap, mover.main().transform.position + randomCube(-500,500)+(Vector3.up*500), Quaternion.identity);
-        if (UnityEngine.Random.Range(0, 5) == 1)
+        if (Global.Random.Range(0, 5) == 1)
         {
             timer2 = 7 * 60;
         }

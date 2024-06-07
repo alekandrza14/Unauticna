@@ -641,7 +641,7 @@ public class complsave : MonoBehaviour
 
 
 
-          TransformObject to_save = new TransformObject();
+        /*  TransformObject to_save = new TransformObject();
            to_save.v3 = new Vector3[allobj2.Length];
            to_save.q4 = new Quaternion[allobj2.Length];
            to_save.s3 = new Vector3[allobj2.Length];
@@ -667,9 +667,9 @@ public class complsave : MonoBehaviour
 
                }
                if (true) i4 += 1;
-           }
+           }*/
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
-        saveString1.editpos = JsonUtility.ToJson(to_save);
+      //  saveString1.editpos = JsonUtility.ToJson(to_save);
        
         saveString1.sceneName = SceneManager.GetActiveScene().name;
     }
@@ -733,7 +733,7 @@ public class complsave : MonoBehaviour
 
                 }
 
-
+/*
                 if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera == null)
                 {
                     TransformObject to_save = JsonUtility.FromJson<TransformObject>(saveString1.editpos);
@@ -764,7 +764,7 @@ public class complsave : MonoBehaviour
 
 
 
-
+                */
 
                 itemName[] items = FindObjectsByType<itemName>(sortmode.main);
 
@@ -1042,6 +1042,7 @@ public class complsave : MonoBehaviour
 
 
             }
+            List<GameObject> objs = new List<GameObject>();
             if (c == 1)
             {
                 mover m = mover.main();
@@ -1050,9 +1051,9 @@ public class complsave : MonoBehaviour
                 {
                     i2.Load();
                 }
-                if (Random.Range(0, 4) >= 2 && VarSave.GetInt("Agr") > 1000)
+                if (Global.Random.Range(0, 4) >= 2 && VarSave.GetInt("Agr") > 1000)
                 {
-                    Instantiate(Resources.Load<GameObject>("events/Legal_mafia").gameObject, mover.main().transform.position, Quaternion.identity);
+                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/Legal_mafia").gameObject, mover.main().transform.position, Quaternion.identity));
 
                 }
                 if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
@@ -1060,25 +1061,25 @@ public class complsave : MonoBehaviour
 
                     Transform t = Instantiate(Resources.Load<GameObject>("items/Chaos_cube").gameObject, mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
                         Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
-                    if (Random.Range(0, 8) >= 7)
+                    if (Global.Random.Range(0, 8) >= 7)
                     {
-                        Instantiate(Resources.Load<GameObject>("events/аруа_момент2").gameObject, mover.main().transform.position, Quaternion.identity);
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент2").gameObject, mover.main().transform.position, Quaternion.identity));
 
                     }
-                    if (Random.Range(0, 10) >= 9)
+                    if (Global.Random.Range(0, 10) >= 9)
                     {
-                        Instantiate(Resources.Load<GameObject>("events/аруа_момент3").gameObject, mover.main().transform.position, Quaternion.identity);
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент3").gameObject, mover.main().transform.position, Quaternion.identity));
 
                     }
-                    if (Random.Range(0, 10) >= 9)
+                    if (Global.Random.Range(0, 10) >= 9)
                     {
-                        Instantiate(Resources.Load<GameObject>("events/аруа_момент4").gameObject, mover.main().transform.position, Quaternion.identity);
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент4").gameObject, mover.main().transform.position, Quaternion.identity));
 
                     }
                     //ВышийЛетун
-                    if (Random.Range(0, 2) >= 1)
+                    if (Global.Random.Range(0, 2) >= 1)
                     {
-                        Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун").gameObject, mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity);
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун").gameObject, mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity));
 
                     }
                     if (FirstSpawn)
@@ -1089,9 +1090,9 @@ public class complsave : MonoBehaviour
                         {
                             if (hit.collider != null)
                             {
-                                if (Random.Range(0, 6) >= 1)
+                                if (Global.Random.Range(0, 6) >= 1)
                                 {
-                                    Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов").gameObject, hit.point, Quaternion.identity);
+                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов").gameObject, hit.point, Quaternion.identity));
 
                                 }
                             }
@@ -1102,13 +1103,17 @@ public class complsave : MonoBehaviour
                 {
                     for (int i = 0; i < 6; i++)
                     {
+                        if (objs.Count > 100)
+                        {
+                            break;
+                        }
                         Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
                         RaycastHit hit;
                         if (Physics.Raycast(r, out hit))
                         {
                             if (hit.collider != null)
                             {
-                                Instantiate(Resources.Load<GameObject>("Items/Капуста"), hit.point, Quaternion.identity);
+                               if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Капуста"), hit.point, Quaternion.identity));
                             }
                         }
                     }
@@ -1119,75 +1124,91 @@ public class complsave : MonoBehaviour
                     {
                         i2.init();
                     }
-                    if (Random.Range(0, 2) >= 1)
+                    if (objs.Count < 100) if (Global.Random.Range(0, 2) >= 1)
                     {
                         for (int i = 0; i < 6; i++)
-                        {
-                            Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
                             RaycastHit hit;
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity);
+                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity));
                                 }
                             }
                         }
                     }
-                    if (Random.Range(0, 7) >= 6)
+                    if (objs.Count < 100) if (Global.Random.Range(0, 7) >= 6)
                     {
                         for (int i = 0; i < 6; i++)
-                        {
-                            Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
                             RaycastHit hit;
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity));
                                 }
                             }
                         }
                     }
 
-                    if (Random.Range(0, 24) == 1)
+                    if (objs.Count < 100) if (Global.Random.Range(0, 24) == 1)
                     {
 
                         GameObject[] g = Resources.LoadAll<GameObject>("danges");
 
-                        Instantiate(g[Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity);
+                       if(objs.Count<100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity));
 
 
 
                     }
-                    if (Random.Range(0, 3) == 1)
+                    if (objs.Count < 100) if (Global.Random.Range(0, 3) == 1)
                     {
-                        for (int i = 0; i < 3 + Random.Range(0, 7); i++)
-                        {
-                            GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
+                        for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
                             Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
                             RaycastHit hit;
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    Instantiate(g[Random.Range(0, g.Length)], hit.point, Quaternion.identity);
+                                   if(objs.Count<100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], hit.point, Quaternion.identity));
                                 }
                             }
                         }
                     }
-                    if (Random.Range(0, 3) == 1)
+                    if (objs.Count < 100) if (Global.Random.Range(0, 3) == 1)
                     {
-                        for (int i = 0; i < 0 + Random.Range(0, 28); i++)
+                        for (int i = 0; i < 0 + Global.Random.Range(0, 28); i++)
                         {
-                            GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                    GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
                             Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
                             RaycastHit hit;
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    Instantiate(g, hit.point, Quaternion.identity);
+                                   if(objs.Count<100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
                                 }
                             }
                         }

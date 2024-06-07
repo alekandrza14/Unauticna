@@ -33,7 +33,7 @@ public class spamton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Random.Range(0,20) == 0)
+        if (Global.Random.Range(0,20) == 0)
         {
 
             Instantiate(Resources.Load<GameObject>("items/Смачный_плевок_Спамтона"),transform.position,Quaternion.identity);
@@ -156,10 +156,10 @@ public class spamton : MonoBehaviour
 
             tho.transform.position = anim.transform.position;
 
-        } tic += Time.deltaTime * Random.Range(1,3);
+        } tic += Time.deltaTime * Global.Random.Range(1,3);
         if(tic >= time)
         {
-            povedenie = Random.Range(0, 2);
+            povedenie = (int)Global.Random.Range(0, 2);
             tic=0;
 
         }
@@ -228,7 +228,7 @@ public class spamton : MonoBehaviour
         }
         if (povedenie == 1)
         {
-            rot = Random.Range(-2.0f, 3f);
+            rot = Global.Random.Range(-2.0f, 3f);
             transform.Rotate(0, rot * 180, 0);
             povedenie = 2;
             anim.Play("spamton_stay");
