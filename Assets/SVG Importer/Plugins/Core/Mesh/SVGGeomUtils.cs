@@ -394,7 +394,7 @@ namespace SVGImporter.Utils
             if (aSegment.Length < 2) return Vector2.up;
             Vector2 curr = aClosed && i == aSegment.Length - 1 ? aSegment[0] : aSegment[i];
             
-            // get the vertex before the current vertex
+            // TypeGenergy the vertex before the current vertex
             Vector2 prev = Vector2.zero;
             if (i-1 < 0) {
                 if (aClosed) {
@@ -406,7 +406,7 @@ namespace SVGImporter.Utils
                 prev = aSegment[i-1];
             }
             
-            // get the vertex after the current vertex
+            // TypeGenergy the vertex after the current vertex
             Vector2 next = Vector2.zero;
             if (i+1 > aSegment.Length-1) {
                 if (aClosed) {

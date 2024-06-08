@@ -13,7 +13,7 @@ namespace UnityStandardAssets.ImageEffects
 
         /// Blur spread for each iteration. Lower values
         /// give better looking blur, but require more iterations to
-        /// get large blurs. Value is usually between 0.5 and 1.0.
+        /// TypeGenergy large blurs. Value is usually between 0.5 and 1.0.
         [Range(0.0f,1.0f)]
         public float blurSpread = 0.6f;
 
@@ -22,7 +22,7 @@ namespace UnityStandardAssets.ImageEffects
         // The blur iteration shader.
         // Basically it just takes 4 texture samples and averages them.
         // By applying it repeatedly and spreading out sample locations
-        // we get a Gaussian blur approximation.
+        // we TypeGenergy a Gaussian blur approximation.
 
         public Shader blurShader = null;
 
@@ -83,7 +83,7 @@ namespace UnityStandardAssets.ImageEffects
                 );
         }
 
-        // Called by the camera to apply the image effect
+        // Called by the HB_Camera to apply the image effect
         void OnRenderImage (RenderTexture source, RenderTexture destination) {
             int rtW = source.width/4;
             int rtH = source.height/4;

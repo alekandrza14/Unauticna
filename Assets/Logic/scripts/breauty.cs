@@ -36,13 +36,13 @@ public class breauty : MonoBehaviour
 
     private void Start()
     {
-        if (GetComponent<itemName>() && complsave.t3.Length > 0)
+        if (GetComponent<itemName>() && Map_saver.t3.Length > 0)
         {
             // integer = 10;
             float f = integer;
             float t = f / 10f;
             GameObject g = null;
-            foreach (GameObject item in complsave.t3)
+            foreach (GameObject item in Map_saver.t3)
             {
                 if (item.GetComponent<itemName>()._Name == GetComponent<itemName>()._Name)
                 {
@@ -70,7 +70,7 @@ public class breauty : MonoBehaviour
     }
     public void resset()
     {
-        if (GetComponent<itemName>() && complsave.t3.Length > 0)
+        if (GetComponent<itemName>() && Map_saver.t3.Length > 0)
         {
             float f = integer;
             float t = f / 10f;

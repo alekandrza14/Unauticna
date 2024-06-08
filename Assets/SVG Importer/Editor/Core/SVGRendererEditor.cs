@@ -17,20 +17,22 @@ namespace SVGImporter
     {
         SVGRenderer renderer;
         const string SVG_IMPORTER_SVGRENDERER_MATERIALSFOLDOUTKEY = "SVG_IMPORTER_SVGRENDERER_MATERIALSFOLDOUTKEY";
-        static bool materialsFoldout
+        static bool MaterialsFoldout
         {
             get {
                 if(EditorPrefs.HasKey(SVG_IMPORTER_SVGRENDERER_MATERIALSFOLDOUTKEY)) 
                     return EditorPrefs.GetBool(SVG_IMPORTER_SVGRENDERER_MATERIALSFOLDOUTKEY);
                 return false;
             }
-            set {
+            set
+            {
                 EditorPrefs.SetBool(SVG_IMPORTER_SVGRENDERER_MATERIALSFOLDOUTKEY, value);
             }
+            
         }
 
         const string SVG_IMPORTER_SVGRENDERER_SORTINGLAYERFOLDOUTKEY = "SVG_IMPORTER_SVGRENDERER_SORTINGLAYERFOLDOUTKEY"; 
-        static bool sortingLayerFoldout
+        static bool SortingLayerFoldout
         {
             get {
                 if(EditorPrefs.HasKey(SVG_IMPORTER_SVGRENDERER_SORTINGLAYERFOLDOUTKEY)) 
@@ -44,7 +46,6 @@ namespace SVGImporter
 
         SerializedProperty vectorGraphics;
         SerializedProperty color;
-        SerializedProperty materials;
         SerializedProperty transparentMaterial;
         SerializedProperty opaqueMaterial;
         SerializedProperty type;
@@ -70,8 +71,7 @@ namespace SVGImporter
             if (serializedObject.isEditingMultipleObjects)
             {
                 SVGRenderer renderer = (SVGRenderer)target;
-                Renderer meshRenderer = renderer.GetComponent<Renderer>();
-                if (meshRenderer != null)
+                if (renderer.TryGetComponent<Renderer>(out var meshRenderer))
                     EditorUtility.SetSelectedRenderState(meshRenderer, EditorSelectedRenderState.Hidden);
             } else
             {
@@ -84,8 +84,7 @@ namespace SVGImporter
                         renderer = renderers [i] as SVGRenderer;
                         if (renderer == null)
                             continue;
-                        MeshRenderer meshRenderer = renderer.GetComponent<MeshRenderer>();
-                        if (meshRenderer != null)
+                        if (renderer.TryGetComponent<MeshRenderer>(out var meshRenderer))
                             EditorUtility.SetSelectedRenderState(meshRenderer, EditorSelectedRenderState.Hidden);
                     }
                 }
@@ -161,15 +160,14 @@ namespace SVGImporter
             EditorGUILayout.PropertyField(type, new GUIContent("Image Type"));
             if(type.hasMultipleDifferentValues || (SVGRenderer.Type)type.enumValueIndex == SVGRenderer.Type.Sliced)
             {
-                RectTransform rectTransform = ((SVGRenderer)target).GetComponent<RectTransform>();
-                if(rectTransform == null)
+                if(!((SVGRenderer)target).GetComponent<RectTransform>())
                 {
                     EditorGUILayout.HelpBox("To use the sliced image type, you need to add RectTransform component first.", MessageType.Warning);
                 }
             }
 
-            materialsFoldout = EditorGUILayout.Foldout(materialsFoldout, "Advanced Materials");
-            if(materialsFoldout)
+            MaterialsFoldout = EditorGUILayout.Foldout(MaterialsFoldout, "Advanced Materials");
+            if(MaterialsFoldout)
             {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.PropertyField(transparentMaterial, new GUIContent("Transparent"));
@@ -181,8 +179,8 @@ namespace SVGImporter
                 EditorGUI.indentLevel--;
             }
 
-            sortingLayerFoldout = EditorGUILayout.Foldout(sortingLayerFoldout, "Sorting");
-            if (sortingLayerFoldout)
+            SortingLayerFoldout = EditorGUILayout.Foldout(SortingLayerFoldout, "Sorting");
+            if (SortingLayerFoldout)
             {
                 EditorGUI.indentLevel++;
                 EditorGUILayout.LabelField("Unity Sorter", EditorStyles.boldLabel);
@@ -192,10 +190,7 @@ namespace SVGImporter
                                                                                  new System.Type[] {typeof(GUIContent), typeof(SerializedProperty), typeof(GUIStyle), typeof(GUIStyle) },
                                                                                  null
                                                                                 );
-                if(sortingLayerField != null)
-                {
-                    sortingLayerField.Invoke(null, new System.Object[]{ new GUIContent("Sorting Layer"), sortingLayerID, EditorStyles.popup, EditorStyles.label });
-                }
+                sortingLayerField?.Invoke(null, new System.Object[] { new GUIContent("Sorting Layer"), sortingLayerID, EditorStyles.popup, EditorStyles.label });
                 EditorGUILayout.PropertyField(sortingOrder);
                 if(!HasSelectedTransparentAsset())
                 {

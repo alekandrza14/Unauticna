@@ -9,7 +9,7 @@ public class SpawnRinkarnation : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
-        if (complsave.t5.Length == 0)
+        if (Map_saver.t5.Length == 0)
         {
             if (t5.Length == 0)
             {
@@ -25,7 +25,7 @@ public class SpawnRinkarnation : MonoBehaviour
         else
         {
             t5 = new GameObject[0];
-            t5 = complsave.t5;
+            t5 = Map_saver.t5;
         }
 
        

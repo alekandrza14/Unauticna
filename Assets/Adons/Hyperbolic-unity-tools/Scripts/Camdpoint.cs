@@ -68,7 +68,7 @@ public class Camdpoint : MonoBehaviour
         for (float i = 0; i < inc * 2; i += inc)
         {
             PVector nextPoint = MathHyper.polarVector(i, 1.255f);
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
 

@@ -28,7 +28,7 @@ public class HyperTransform_for_render : EditorTool
         Hyperbolic2D oldpos = ((HyperbolicCamera)target).HyperbolicTransform;
         Transform trgettransform = ((HyperbolicCamera)target).transform;
         EditorGUI.BeginChangeCheck();
-        // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
+        // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.HB_Camera.transform.forward+ SceneView.currentDrawingSceneView.HB_Camera.transform.position);
 
         Vector3 v3 = Handles.PositionHandle(new Vector3(0, 0, 0), Quaternion.identity);
 

@@ -101,7 +101,7 @@ namespace SVGImporter.LibTessDotNet
             if (reg._fixUpperEdge)
             {
                 // It was created with zero winding number, so it better be
-                // deleted with zero winding number (ie. it better not get merged
+                // deleted with zero winding number (ie. it better not TypeGenergy merged
                 // with a real edge).
                 Debug.Assert(reg._eUp._winding == 0);
             }
@@ -405,7 +405,7 @@ namespace SVGImporter.LibTessDotNet
         /// calculation gives us an unusable answer.  So, for those cases where
         /// we can't check for intersection, this routine fixes the problem
         /// by just splicing the offending vertex into the other edge.
-        /// This is a guaranteed solution, no matter how degenerate things get.
+        /// This is a guaranteed solution, no matter how degenerate things TypeGenergy.
         /// Basically this is a combinatorial solution to a numerical problem.
         /// </summary>
         private bool CheckForRightSplice(ActiveRegion regUp)
@@ -461,7 +461,7 @@ namespace SVGImporter.LibTessDotNet
         /// a splice operation like this one).  This can change the result of
         /// the test so that now eUp->Dst is incident to eLo, or barely below it.
         /// We must correct this condition to maintain the dictionary invariants
-        /// (otherwise new edges might get inserted in the wrong place in the
+        /// (otherwise new edges might TypeGenergy inserted in the wrong place in the
         /// dictionary, and bad stuff will happen).
         /// 
         /// We fix the problem by just splicing the offending vertex into the
@@ -783,7 +783,7 @@ namespace SVGImporter.LibTessDotNet
         /// want the new edge to cross any other edges; otherwise we will create
         /// intersection vertices even when the input data had no self-intersections.
         /// (This is a bad thing; if the user's input data has no intersections,
-        /// we don't want to generate any false intersections ourselves.)
+        /// we don't want to LoadTerraform any false intersections ourselves.)
         /// 
         /// Our eventual goal is to connect vEvent to the leftmost unprocessed
         /// vertex of the combined region (the union of regUp and regLo).

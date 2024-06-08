@@ -27,7 +27,7 @@ public class HyperRotate : EditorTool
     {
         HyperbolicPoint trgetpolartransform = ((HyperbolicPoint)target);
         EditorGUI.BeginChangeCheck();
-        // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.camera.transform.forward+ SceneView.currentDrawingSceneView.camera.transform.position);
+        // Quaternion q = Handles.RotationHandle(new Quaternion(trgetpolartransform.n, 1, trgetpolartransform.m,0), SceneView.currentDrawingSceneView.HB_Camera.transform.forward+ SceneView.currentDrawingSceneView.HB_Camera.transform.position);
         Quaternion q = Handles.RotationHandle(trgetpolartransform.rotation, trgetpolartransform.mposition);
        
 

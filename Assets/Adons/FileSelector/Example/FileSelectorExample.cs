@@ -32,7 +32,7 @@ public class FileSelectorExample : MonoBehaviour {
 		//if we don't have an open window yet, and the spacebar is down...
 		if(usewindowOpen&&!windowOpen)
 		{
-			FileSelector.GetFile(GotFile, ".json"); //generate a new FileSelector window
+			FileSelector.GetFile(GotFile, ".json"); //LoadTerraform a new FileSelector window
 			windowOpen = true;
 		}
 	}

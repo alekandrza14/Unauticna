@@ -19,23 +19,23 @@ public class MultyObject : MonoBehaviour
     BoxCollider boxCollider;
     SphereCollider sphereCollider;
     [Header("Transform W")]
-    [SerializeField] public float W_Position;
-    [SerializeField] public float W_Count_Slice;
-    [SerializeField] public float W_Scale = 1;
+    public float W_Position;
+    public float W_Count_Slice;
+    public float W_Scale = 1;
     [Header("Transform H")]
-    [SerializeField] public float H_Position;
-    [SerializeField] public float H_Scale = 1;
+    public float H_Position;
+    public float H_Scale = 1;
     [Header("Transforms N")]
-    [SerializeField] public float[] N_Positions;
-    [SerializeField] public float[] N_Scales;
+    public float[] N_Positions;
+    public float[] N_Scales;
     [Header("Shape")]
-    [SerializeField] public Shape shape;
-    [SerializeField] public Mesh[] shapes3D;
+    public Shape shape;
+    public Mesh[] shapes3D;
     [SerializeField] Mesh[] shapes3Dcol;
-    [SerializeField] public shapeSettings shapeSettings;
+    public shapeSettings shapeSettings;
     [SerializeField] GameObject[] Slices;
     [Header("Save prametrs")]
-    [SerializeField] public Vector3 scale3D = Vector3.one;
+    public Vector3 scale3D = Vector3.one;
     GameObject[] childs;
     mover m;
    
@@ -47,7 +47,7 @@ public class MultyObject : MonoBehaviour
         {
 
 
-            GameObject g = new GameObject("4D Controler")
+            GameObject g = new("4D Controler")
             {
 
             };
@@ -58,7 +58,7 @@ public class MultyObject : MonoBehaviour
         if (scale3D.x == 0 || scale3D.y == 0 || scale3D.z == 0) scale3D = Vector3.one;
         startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, W_Position, H_Position, 0);
         startScale = new Vector6(scale3D.x, scale3D.y, scale3D.z, W_Scale, H_Scale, 0);
-        List<GameObject> countcild = new List<GameObject>();
+        List<GameObject> countcild = new();
         float c = transform.childCount;
         for (int i = 0; i < c; i++)
         {
@@ -71,12 +71,14 @@ public class MultyObject : MonoBehaviour
             shapes3Dcol = new Mesh[shapes3D.Length];
             for (int i = 0; i < shapes3D.Length; i++)
             {
-                shapes3Dcol[i] = new Mesh();
-                shapes3Dcol[i].vertices = shapes3D[i].vertices;
-                shapes3Dcol[i].triangles = shapes3D[i].triangles;
-                shapes3Dcol[i].normals = shapes3D[i].normals;
-                shapes3Dcol[i].uv = shapes3D[i].uv;
-                shapes3Dcol[i].name = i.ToString();
+                shapes3Dcol[i] = new()
+                {
+                    vertices = shapes3D[i].vertices,
+                    triangles = shapes3D[i].triangles,
+                    normals = shapes3D[i].normals,
+                    uv = shapes3D[i].uv,
+                    name = i.ToString()
+                };
 
             }
         }
@@ -89,7 +91,7 @@ public class MultyObject : MonoBehaviour
         meshRenderer = GetComponent<MeshRenderer>();
         boxCollider = GetComponent<BoxCollider>();
         sphereCollider = GetComponent<SphereCollider>();
-        InvokeRepeating("ProjectionUpdate", 0.001f, 0.02f + Random.Range(0.01f, 0.02f));
+        InvokeRepeating(nameof(ProjectionUpdate), 0.001f, 0.02f + Random.Range(0.01f, 0.02f));
         m = mover.main();
 
         //  if (mover.Get4DCam())   if (mover.Get4DCam()._wRotation.x != 0) Swap();
@@ -240,14 +242,14 @@ public class MultyObject : MonoBehaviour
                     }
                     if (childs.Length > 0) foreach (GameObject child in childs)
                     {
-                            if (child != null) child.gameObject.SetActive(true);
+                            if (child != null) child.SetActive(true);
                     }
                 }
                 else
                 {
                   if(childs.Length > 0)  foreach (GameObject child in childs)
                     {
-                       if(child!=null) if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
+                       if(child!=null) if (!child.GetComponent<Metka>()) child.SetActive(false);
                     }
                     if (meshRenderer)
                     {
@@ -341,15 +343,15 @@ public class MultyObject : MonoBehaviour
                         }
                         foreach (GameObject child in childs)
                         {
-                            child.gameObject.SetActive(true);
+                            child.SetActive(true);
                         }
                     }
-                    else if(complsave.LoadADone)
+                    else if(Map_saver.LoadADone)
                     {
 
                         foreach (GameObject child in childs)
                         {
-                            if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
+                            if (!child.GetComponent<Metka>()) child.SetActive(false);
                         }
                         if (meshRenderer)
                         {
@@ -560,7 +562,7 @@ public class MultyObject : MonoBehaviour
                     }
                 }
                 float h = h6 - Mathf.Abs(H_Position - instance.H_Position);
-                Vector3 v3 = testScale;
+             //   Vector3 v3 = testScale;
 
                 float w = w6 - Mathf.Abs(w5 - instance.W_Position);
                 float s = ((w / w6) + (h / h6)) / 2;
@@ -586,14 +588,14 @@ public class MultyObject : MonoBehaviour
                     }
                     foreach (GameObject child in childs)
                     {
-                        child.gameObject.SetActive(true);
+                        child.SetActive(true);
                     }
                 }
                 else
                 {
                     foreach (GameObject child in childs)
                     {
-                        if (!child.GetComponent<Metka>()) child.gameObject.SetActive(false);
+                        if (!child.GetComponent<Metka>()) child.SetActive(false);
                     }
                     if (meshRenderer)
                     {
@@ -637,7 +639,7 @@ public class MultyObject : MonoBehaviour
                     }
                 }
                 float h = h6 + Mathf.Abs(H_Position - instance.H_Position) * Mathf.Abs(H_Position - instance.H_Position);
-                Vector3 v3 = testScale;
+              //  Vector3 v3 = testScale;
 
                 float w = w6 + Mathf.Abs(w5 - instance.W_Position) * Mathf.Abs(W_Position - instance.W_Position);
                 float s = ((w / w6) + (h / h6)) / 2;
@@ -685,7 +687,7 @@ public class MultyObject : MonoBehaviour
             if (shape == Shape.hyperCurveCube5D && shapeSettings != null)
             {
                 float h = (h6 - Mathf.Abs(H_Position - instance.H_Position)) / h6;
-                Vector3 v3 = testScale;
+              //  Vector3 v3 = testScale;
 
                 float w = (w6 - Mathf.Abs(w5 - instance.W_Position)) / w6;
                 transform.localScale = new Vector3(

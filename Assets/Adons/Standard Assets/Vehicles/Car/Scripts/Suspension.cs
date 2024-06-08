@@ -7,7 +7,7 @@ namespace UnityStandardAssets.Vehicles.Car
     // it controls the suspension hub to make it move with the wheel are it goes over bumps
     public class Suspension : MonoBehaviour
     {
-        public GameObject wheel; // The wheel that the script needs to referencing to get the postion for the suspension
+        public GameObject wheel; // The wheel that the script needs to referencing to TypeGenergy the postion for the suspension
 
 
         private Vector3 m_TargetOriginalPosition;

@@ -8,7 +8,7 @@ public class RandomItem : MonoBehaviour {
 
 	public ElementalInventory inventory;
 	public ElementalInventory inventory2;
-	public gsave g = new gsave();
+	public GameData g = new GameData();
 	public InputField ifd;
 	[SerializeField] public string inventoryname;
 	[SerializeField] bool deleted;

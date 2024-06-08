@@ -11,10 +11,10 @@ public class GravityBoard : MonoBehaviour
     public bool sitplayer;
     public Slider slider;
     public Canvas canvas;
-    public HyperbolicCamera camera;
+    public HyperbolicCamera HB_Camera;
     private void Start()
     {
-        camera = HyperbolicCamera.Main();
+        HB_Camera = HyperbolicCamera.Main();
     }
 
     void LateUpdate()
@@ -27,49 +27,49 @@ public class GravityBoard : MonoBehaviour
         {
             Globalprefs.sit_player = player.gameObject;
             GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-          if(!camera)  player.position = cell.position;
+          if(!HB_Camera)  player.position = cell.position;
             else player.position = new Vector3(0, cell.position.y,0);
-            if (camera) cell.position = new Vector3(0, cell.position.y, 0);
+            if (HB_Camera) cell.position = new Vector3(0, cell.position.y, 0);
             if (GetComponent<HyperbolicPoint>())
             {
-                GetComponent<HyperbolicPoint>().HyperboilcPoistion = camera.RealtimeTransform.copy().inverse();
+                GetComponent<HyperbolicPoint>().HyperboilcPoistion = HB_Camera.RealtimeTransform.copy().inverse();
             }
-            if (!camera) player.rotation = cell.rotation;
+            if (!HB_Camera) player.rotation = cell.rotation;
             if (Input.GetKey(KeyCode.W))
             {
 
 
-                GetComponent<Rigidbody>().linearVelocity += transform.forward * 20f*speed;
+                GetComponent<Rigidbody>().linearVelocity +=   20f*speed * transform.forward;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
 
-                GetComponent<Rigidbody>().linearVelocity += -transform.forward * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity +=   20f * speed * -transform.forward;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
 
-                GetComponent<Rigidbody>().linearVelocity += transform.up * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity +=  20f * speed * transform.up;
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
 
 
-                GetComponent<Rigidbody>().linearVelocity += -transform.up * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity +=  20f * speed * -transform.up;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
 
-                GetComponent<Rigidbody>().linearVelocity += transform.right * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity +=  20f * speed * transform.right;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
 
-                GetComponent<Rigidbody>().linearVelocity += -transform.right * 20f * speed;
+                GetComponent<Rigidbody>().linearVelocity += 20f * speed * -transform.right;
             }
             if (Input.GetKey(KeyCode.Mouse1))
             {

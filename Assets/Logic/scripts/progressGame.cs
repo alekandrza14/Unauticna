@@ -20,7 +20,7 @@ public class progressGame : MonoBehaviour
         int i = 0;
         if (File.Exists("unsave/capterg/" + Globalprefs.GetTimeline()))
         {
-            gsave g = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
+            GameData g = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
             i = g.progressofthepassage;
         }
         if (logicEnum == LogicEnum.geater && Value < i)

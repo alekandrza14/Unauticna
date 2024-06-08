@@ -30,7 +30,7 @@ public class AudioPlay : MonoBehaviour
         FindFirstObjectByType<SaveMelody>().gameObject.AddComponent<DELETE>();
         var path = ifd.text;
         source = Instantiate(Resources.Load<GameObject>("audios/Nill"),transform.position,Quaternion.identity).GetComponent<AudioSource>();
-        // wait for the load and set your property
+        // wait for the LoadObjects and set your property
       AudioClip  CurrentClip = await LoadClip(path);
         source.clip = CurrentClip;
         source.Play();

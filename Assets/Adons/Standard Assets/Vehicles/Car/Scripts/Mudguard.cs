@@ -8,7 +8,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
     public class Mudguard : MonoBehaviour
     {
-        public CarController carController; // car controller to get the steering angle
+        public CarController carController; // car controller to TypeGenergy the steering angle
 
         private Quaternion m_OriginalRotation;
 

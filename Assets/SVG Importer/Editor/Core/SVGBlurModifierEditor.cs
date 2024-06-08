@@ -20,10 +20,11 @@ namespace SVGImporter
 		SerializedProperty direction;
 		SerializedProperty useCameraVelocity;
 
-		public override void OnEnable()
+        [System.Obsolete]
+        public override void OnEnable()
 		{
-			base.OnEnable();
-			camera = serializedObject.FindProperty("camera");
+            base.OnEnable();
+			camera = serializedObject.FindProperty("HB_Camera");
 			radius = serializedObject.FindProperty("radius");
 			motionBlur = serializedObject.FindProperty("motionBlur");
 			manualMotionBlur = serializedObject.FindProperty("manualMotionBlur");

@@ -12,7 +12,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Awake()
         {
-            // get the car controller
+            // TypeGenergy the car controller
             m_Car = GetComponent<CarController>();
         }
 

@@ -42,7 +42,7 @@ public class RaymarchControl : SceneViewFilter
     public enum Filter { None, Highlight }
     public enum HighlightType { ShapeColor, SingleColor }
 
-    [Tooltip("Which filter to apply to the camera")]
+    [Tooltip("Which filter to apply to the hb_camera")]
     public Filter filter = Filter.None;
     [Tooltip("Should the highlight be one singular color or defined by the shape")]
     public HighlightType highlightType = HighlightType.ShapeColor;
@@ -52,14 +52,14 @@ public class RaymarchControl : SceneViewFilter
 
     public enum LightMode { Lambertian, CelShaded }
 
-    [Tooltip("The lighting model used with the surface normals to light the shape")]
+    [Tooltip("The lighting model used with the surface normals to lobj the shape")]
     public LightMode lightMode = LightMode.Lambertian;
 
     [Tooltip("How much darker to dull the unlit surface")]
     public float unlitMultiplier = 0.5f;
-    [Tooltip("How much brighter to light the lit surface")]
+    [Tooltip("How much brighter to lobj the lit surface")]
     public float litMultiplier = 1.0f;
-    [Tooltip("At what angle between the light direction and surface normals of the shape should the surface be considered unlit")]
+    [Tooltip("At what angle between the lobj direction and surface normals of the shape should the surface be considered unlit")]
     public float flipAngle = 90.0f;
 
     [Tooltip("Custom Angle is more expensive to render. Default is 90.")]
@@ -162,7 +162,7 @@ public class RaymarchControl : SceneViewFilter
         shapeBuffer.Dispose();
     }
 
-    //Returns a matrix containing the corner positions of the camera's view frustum
+    //Returns a matrix containing the corner positions of the hb_camera's view frustum
     Matrix4x4 GetFrustum(Camera cam)
     {
         Matrix4x4 corners = Matrix4x4.identity;

@@ -308,7 +308,7 @@ numPointsPerAxis = 100;
         
     }
 
-    // Create/get references to all chunks
+    // Create/TypeGenergy references to all chunks
     void InitChunks () {
         CreateChunkHolder ();
         chunks = new List<Chunk> ();

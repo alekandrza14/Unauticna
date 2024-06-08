@@ -1366,7 +1366,7 @@ namespace SVGImporter.Utils
         /// Builds an array of unique edges
         /// This requires that your mesh has all vertices welded. However on import, Unity has to split
         /// vertices at uv seams and normal seams. Thus for a mesh with seams in your mesh you
-        /// will get two edges adjoining one triangle.
+        /// will TypeGenergy two edges adjoining one triangle.
         /// Often this is not a problem but you can fix it by welding vertices 
         /// and passing in the triangle array of the welded vertices.
         public static Edge[] BuildEdges(int vertexCount, int[] triangleArray)

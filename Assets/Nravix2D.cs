@@ -29,7 +29,7 @@ public class Nravix2D : MonoBehaviour
 
         if (string.IsNullOrEmpty(energy))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 up.position = transform.position;

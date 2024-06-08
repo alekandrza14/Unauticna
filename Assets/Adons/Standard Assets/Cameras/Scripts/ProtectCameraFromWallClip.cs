@@ -8,25 +8,25 @@ namespace UnityStandardAssets.Cameras
     {
         public float clipMoveTime = 0.05f;              // time taken to move when avoiding cliping (low value = fast, which it should be)
         public float returnTime = 0.4f;                 // time taken to move back towards desired position, when not clipping (typically should be a higher value than clipMoveTime)
-        public float sphereCastRadius = 0.1f;           // the radius of the sphere used to test for object between camera and target
+        public float sphereCastRadius = 0.1f;           // the radius of the sphere used to test for object between HB_Camera and target
         public bool visualiseInEditor;                  // toggle for visualising the algorithm through lines for the raycast in the editor
-        public float closestDistance = 0.5f;            // the closest distance the camera can be from the target
-        public bool protecting { get; private set; }    // used for determining if there is an object between the target and the camera
+        public float closestDistance = 0.5f;            // the closest distance the HB_Camera can be from the target
+        public bool protecting { get; private set; }    // used for determining if there is an object between the target and the HB_Camera
         public string dontClipTag = "Player";           // don't clip against objects with this tag (useful for not clipping against the targeted object)
 
-        private Transform m_Cam;                  // the transform of the camera
-        private Transform m_Pivot;                // the point at which the camera pivots around
-        private float m_OriginalDist;             // the original distance to the camera before any modification are made
-        private float m_MoveVelocity;             // the velocity at which the camera moved
-        private float m_CurrentDist;              // the current distance from the camera to the target
-        private Ray m_Ray = new Ray();                        // the ray used in the lateupdate for casting between the camera and the target
-        private RaycastHit[] m_Hits;              // the hits between the camera and the target
+        private Transform m_Cam;                  // the transform of the HB_Camera
+        private Transform m_Pivot;                // the point at which the HB_Camera pivots around
+        private float m_OriginalDist;             // the original distance to the HB_Camera before any modification are made
+        private float m_MoveVelocity;             // the velocity at which the HB_Camera moved
+        private float m_CurrentDist;              // the current distance from the HB_Camera to the target
+        private Ray m_Ray = new Ray();                        // the ray used in the lateupdate for casting between the HB_Camera and the target
+        private RaycastHit[] m_Hits;              // the hits between the HB_Camera and the target
         private RayHitComparer m_RayHitComparer;  // variable to compare raycast hit distances
 
 
         private void Start()
         {
-            // find the camera in the object hierarchy
+            // find the HB_Camera in the object hierarchy
             m_Cam = GetComponentInChildren<Camera>().transform;
             m_Pivot = m_Cam.parent;
             m_OriginalDist = m_Cam.localPosition.magnitude;
@@ -103,7 +103,7 @@ namespace UnityStandardAssets.Cameras
                 Debug.DrawRay(m_Ray.origin, -m_Pivot.forward*(targetDist + sphereCastRadius), Color.red);
             }
 
-            // hit something so move the camera to a better position
+            // hit something so move the HB_Camera to a better position
             protecting = hitSomething;
             m_CurrentDist = Mathf.SmoothDamp(m_CurrentDist, targetDist, ref m_MoveVelocity,
                                            m_CurrentDist > targetDist ? clipMoveTime : returnTime);

@@ -27,7 +27,7 @@ public class SceneViewFilter : MonoBehaviour
             return;
         if (!Camera.main)
             return;
-        // Get a list of everything on the main camera that should be synced.
+        // Get a list of everything on the main HB_Camera that should be synced.
         SceneViewFilter[] cameraFilters = Camera.main.GetComponents<SceneViewFilter>();
         SceneViewFilter[] sceneFilters = sv.camera.GetComponents<SceneViewFilter>();
 

@@ -27,9 +27,9 @@ public class SceneViewFilter : MonoBehaviour
             return;
         if (!Camera.main)
             return;
-        // Get a list of everything on the main camera that should be synced.
+        // Get a list of everything on the main hb_camera that should be synced.
         SceneViewFilter[] cameraFilters = Camera.main.GetComponents<SceneViewFilter>();
-        SceneViewFilter[] sceneFilters = sv.camera.GetComponents<SceneViewFilter>();
+        SceneViewFilter[] sceneFilters = sv.hb_camera.GetComponents<SceneViewFilter>();
 
         // Let's see if the lists are different lengths or something like that. 
         // If so, we simply destroy all scene filters and recreate from maincame
@@ -60,12 +60,12 @@ public class SceneViewFilter : MonoBehaviour
     static void Recreate(SceneView sv)
     {
         SceneViewFilter filter;
-        while (filter = sv.camera.GetComponent<SceneViewFilter>())
+        while (filter = sv.hb_camera.GetComponent<SceneViewFilter>())
             DestroyImmediate(filter);
 
         foreach (SceneViewFilter f in Camera.main.GetComponents<SceneViewFilter>())
         {
-            SceneViewFilter newFilter = sv.camera.gameObject.AddComponent(f.GetType()) as SceneViewFilter;
+            SceneViewFilter newFilter = sv.hb_camera.gameObject.AddComponent(f.GetType()) as SceneViewFilter;
             EditorUtility.CopySerialized(f, newFilter);
         }
     }

@@ -15,7 +15,7 @@ public class ItemMult : InventoryEvent
 
         if (string.IsNullOrEmpty(energy))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
 
@@ -51,6 +51,6 @@ public class ItemMult : InventoryEvent
         {
             energy = "0";
         }
-      if(complsave.LoadADone)  GetComponent<itemName>().ItemData = energy;
+      if(Map_saver.LoadADone)  GetComponent<itemName>().ItemData = energy;
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DeadShit : MonoBehaviour
 {
-    public static List<GameObject> obj = new List<GameObject> ();
+    public static List<GameObject> obj = new();
     private void Start()
     {
        if(!obj.Contains(gameObject))

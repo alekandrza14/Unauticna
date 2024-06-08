@@ -20,29 +20,29 @@ public class raycastcreate : MonoBehaviour
                     if (hit.collider.GetComponent<Terrain>() && Globalprefs.item == "showel")
                     {
                         Instantiate(pref, hit.point, Quaternion.identity);
-                        if (!hit.collider.GetComponent<generator_terrain>())
+                        if (!hit.collider.GetComponent<Generator_terrain>())
                         {
                             // hit.collider.gameObject.AddComponent<generator_terrain>().ter = hit.collider.GetComponent<Terrain>();
 
-                            // hit.collider.gameObject.GetComponent<generator_terrain>().generate();
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().LoadTerraform();
                         }
-                        if (hit.collider.GetComponent<generator_terrain>())
+                        if (hit.collider.GetComponent<Generator_terrain>())
                         {
-                            // hit.collider.gameObject.GetComponent<generator_terrain>().regenerate();
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().Terrafrom();
                         }
                     }
                     else if (hit.collider.GetComponent<Terrain>() && playerdata.Geteffect("Right_to_dig") != null)
                     {
                         Instantiate(pref, hit.point, Quaternion.identity);
-                        if (!hit.collider.GetComponent<generator_terrain>())
+                        if (!hit.collider.GetComponent<Generator_terrain>())
                         {
                             // hit.collider.gameObject.AddComponent<generator_terrain>().ter = hit.collider.GetComponent<Terrain>();
 
-                            // hit.collider.gameObject.GetComponent<generator_terrain>().generate();
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().LoadTerraform();
                         }
-                        if (hit.collider.GetComponent<generator_terrain>())
+                        if (hit.collider.GetComponent<Generator_terrain>())
                         {
-                            // hit.collider.gameObject.GetComponent<generator_terrain>().regenerate();
+                            // hit.collider.gameObject.GetComponent<generator_terrain>().Terrafrom();
                         }
                     }
                 }

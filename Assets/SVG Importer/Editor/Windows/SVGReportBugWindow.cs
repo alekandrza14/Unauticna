@@ -21,10 +21,10 @@ namespace SVGImporter
 {
     internal class SVGReportBugWindow : EditorWindow
     {
-        string mailPattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+        readonly string mailPattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 
         const string SVGReportBugWindow_LastEmailKey = "SVGReportBugWindow_LastEmailKey";
-        public string lastEmail
+        public string LastEmail
         {
             get {
                 string output = "@";
@@ -81,7 +81,7 @@ namespace SVGImporter
 
         public static PROBLEM_TYPE problemType;
         public static PROBLEM_OCCURRENCE problemOccurrence;
-        public static List<Attachment> attachments = new List<Attachment>();
+        public static List<Attachment> attachments = new();
 
         public static void ResetToDefault()
         {
@@ -94,8 +94,8 @@ namespace SVGImporter
 
         public static Stream GenerateStreamFromString(string s)
         {
-            MemoryStream stream = new MemoryStream();
-            StreamWriter writer = new StreamWriter(stream);
+            MemoryStream stream = new();
+            StreamWriter writer = new(stream);
             writer.Write(s);
             writer.Flush();
             stream.Position = 0;
@@ -104,16 +104,18 @@ namespace SVGImporter
 
         public static void AddSVGAttachment(string filename, string data)
         {
-            ContentType ct = new ContentType();
-            ct.MediaType = MediaTypeNames.Text.Plain;
-            ct.Name = filename + ".svg";
+            ContentType ct = new()
+            {
+                MediaType = MediaTypeNames.Text.Plain,
+                Name = filename + ".svg"
+            };
             attachments.Add(new Attachment(GenerateStreamFromString(data), ct));
         }
 
         void OnEnable()
         {
 			SVGImporterLaunchEditor.OpenReportBugWindow();
-            emailField = lastEmail;
+            emailField = LastEmail;
         }
         
         void OnDisable()
@@ -121,6 +123,7 @@ namespace SVGImporter
             ResetToDefault();
         }
 
+        [Obsolete]
         void OnGUI()
         {            
             GUILayout.Space(20);
@@ -180,9 +183,10 @@ namespace SVGImporter
             }
         }
 
+        [Obsolete]
         void SendEmail()
         {
-            Regex regex = new Regex(mailPattern);
+            Regex regex = new(mailPattern);
             if(!regex.IsMatch(emailField))
             {
                 EditorUtility.DisplayDialog("SVG Importer | Bug Report", "Email is not valid!", "Ok");
@@ -201,7 +205,7 @@ namespace SVGImporter
                 return;
             }
 
-            lastEmail = emailField;
+            LastEmail = emailField;
 
             string pluginVersion = "SVG Importer version: "+SVGImporterSettings.version+"\n\n";
 
@@ -231,19 +235,20 @@ namespace SVGImporter
                     "supports 3D Textures: "+SystemInfo.supports3DTextures+"\n" +
                     "supports Compute Shaders: "+SystemInfo.supportsComputeShaders+"\n" +
                     "supports Image Effects: "+SystemInfo.supportsImageEffects+"\n" +
-                    "supports Instancing: "+SystemInfo.supportsInstancing+"\n" +
+                    "supports Instancing: " + SystemInfo.supportsInstancing + "\n" +
                     "supports Render To Cubemap: "+SystemInfo.supportsRenderToCubemap+"\n" +
                     "supports Shadows: "+SystemInfo.supportsShadows+"\n" +
                     "supports Sparse Textures: "+SystemInfo.supportsSparseTextures+"\n";
 
-                    //"supportsLocationService: "+SystemInfo.supportsLocationService+"\n" +
-                    //"supportsAccelerometer: "+SystemInfo.supportsAccelerometer+"\n" +
-                    //"supportsGyroscope: "+SystemInfo.supportsGyroscope+"\n" +
+            //"supportsLocationService: "+SystemInfo.supportsLocationService+"\n" +
+            //"supportsAccelerometer: "+SystemInfo.supportsAccelerometer+"\n" +
+            //"supportsGyroscope: "+SystemInfo.supportsGyroscope+"\n" +
 
 
-            MailMessage mail = new MailMessage();
-            
-            mail.From = new MailAddress(emailField);
+            MailMessage mail = new()
+            {
+                From = new MailAddress(emailField)
+            };
             mail.To.Add("support@svgimporter.com");
             mail.Subject = "Bug Report | Sender: "+emailField+" | "+titleField;
 			mail.Body = "Problem Type: "+problemType.ToString()+"\n\n"+"Problem Occurrence: "+problemOccurrence.ToString()+"\n\n"+descriptionField+"\n\n\n\n\n"+pluginVersion+systemSpecs;
@@ -258,10 +263,12 @@ namespace SVGImporter
                 }
             }
 
-            SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-            smtpServer.Port = 587;
-            smtpServer.Credentials = new System.Net.NetworkCredential("noreply.junkmail.spam", "pAssWoRd123$") as ICredentialsByHost;
-            smtpServer.EnableSsl = true;
+            SmtpClient smtpServer = new("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new System.Net.NetworkCredential("noreply.junkmail.spam", "pAssWoRd123$") as ICredentialsByHost,
+                EnableSsl = true
+            };
             ServicePointManager.ServerCertificateValidationCallback = 
                 delegate(object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) 
             { return true; };

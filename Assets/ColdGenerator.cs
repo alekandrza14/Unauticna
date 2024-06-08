@@ -19,7 +19,7 @@ public class ColdGenerator : InventoryEvent
 
         if (string.IsNullOrEmpty(energy))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 energyData.time = days();

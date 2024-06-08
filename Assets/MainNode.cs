@@ -83,7 +83,7 @@ public class MainNode : MonoBehaviour
     public GameObject ItemNameToGameObject(string itemname)
     {
         GameObject item = null;
-        foreach (GameObject obj in complsave.t3)
+        foreach (GameObject obj in Map_saver.t3)
         {
             if(obj != null)
             {
@@ -138,7 +138,7 @@ public class MainNode : MonoBehaviour
 
         if (string.IsNullOrEmpty(energy))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
               

@@ -34,9 +34,9 @@ namespace UnityStandardAssets.Water
 
 
         // This is called when it's known that the object will be rendered by some
-        // camera. We render reflections / refractions and do other updates here.
+        // hb_camera. We render reflections / refractions and do other updates here.
         // Because the script executes in edit mode, reflections for the scene view
-        // camera will just work!
+        // hb_camera will just work!
         public void OnWillRenderObject()
         {
             if (!enabled || !GetComponent<Renderer>() || !GetComponent<Renderer>().sharedMaterial ||
@@ -84,7 +84,7 @@ namespace UnityStandardAssets.Water
             // Render reflection if needed
             if (mode >= WaterMode.Reflective)
             {
-                // Reflect camera around reflection plane
+                // Reflect hb_camera around reflection plane
                 float d = -Vector3.Dot(normal, pos) - clipPlaneOffset;
                 Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
 
@@ -99,7 +99,7 @@ namespace UnityStandardAssets.Water
                 Vector4 clipPlane = CameraSpacePlane(reflectionCamera, pos, normal, 1.0f);
                 reflectionCamera.projectionMatrix = cam.CalculateObliqueMatrix(clipPlane);
 
-				// Set custom culling matrix from the current camera
+				// Set custom culling matrix from the current hb_camera
 				reflectionCamera.cullingMatrix = cam.projectionMatrix * cam.worldToCameraMatrix;
 
 				reflectionCamera.cullingMask = ~(1 << 4) & reflectLayers.value; // never render water layer
@@ -125,7 +125,7 @@ namespace UnityStandardAssets.Water
                 Vector4 clipPlane = CameraSpacePlane(refractionCamera, pos, normal, -1.0f);
                 refractionCamera.projectionMatrix = cam.CalculateObliqueMatrix(clipPlane);
 
-				// Set custom culling matrix from the current camera
+				// Set custom culling matrix from the current hb_camera
 				refractionCamera.cullingMatrix = cam.projectionMatrix * cam.worldToCameraMatrix;
 
 				refractionCamera.cullingMask = ~(1 << 4) & refractLayers.value; // never render water layer
@@ -136,7 +136,7 @@ namespace UnityStandardAssets.Water
                 GetComponent<Renderer>().sharedMaterial.SetTexture("_RefractionTex", m_RefractionTexture);
             }
 
-            // Restore pixel light count
+            // Restore pixel lobj count
             if (disablePixelLights)
             {
                 QualitySettings.pixelLightCount = oldPixelLightCount;
@@ -210,7 +210,7 @@ namespace UnityStandardAssets.Water
             float waveScale = mat.GetFloat("_WaveScale");
             Vector4 waveScale4 = new Vector4(waveScale, waveScale, waveScale * 0.4f, waveScale * 0.45f);
 
-            // Time since level load, and do intermediate calculations with doubles
+            // Time since level LoadObjects, and do intermediate calculations with doubles
             double t = Time.timeSinceLevelLoad / 20.0;
             Vector4 offsetClamped = new Vector4(
                 (float)Math.IEEERemainder(waveSpeed.x * waveScale4.x * t, 1.0),
@@ -229,7 +229,7 @@ namespace UnityStandardAssets.Water
             {
                 return;
             }
-            // set water camera to clear the same way as current camera
+            // set water hb_camera to ClearObjects the same way as current hb_camera
             dest.clearFlags = src.clearFlags;
             dest.backgroundColor = src.backgroundColor;
             if (src.clearFlags == CameraClearFlags.Skybox)
@@ -246,8 +246,8 @@ namespace UnityStandardAssets.Water
                     mysky.material = sky.material;
                 }
             }
-            // update other values to match current camera.
-            // even if we are supplying custom camera&projection matrices,
+            // update other values to match current hb_camera.
+            // even if we are supplying custom hb_camera&projection matrices,
             // some of values are used elsewhere (e.g. skybox uses far plane)
             dest.farClipPlane = src.farClipPlane;
             dest.nearClipPlane = src.nearClipPlane;
@@ -366,7 +366,7 @@ namespace UnityStandardAssets.Water
             return WaterMode.Simple;
         }
 
-        // Given position/normal of the plane, calculates plane in camera space.
+        // Given position/normal of the plane, calculates plane in hb_camera space.
         Vector4 CameraSpacePlane(Camera cam, Vector3 pos, Vector3 normal, float sideSign)
         {
             Vector3 offsetPos = pos + normal * clipPlaneOffset;

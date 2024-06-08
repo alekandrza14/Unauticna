@@ -18,7 +18,7 @@ public class WorkOrganisation : MonoBehaviour
     void Start()
     {
         
-            TakingSpace = complsave.total_lif + SceneManager.GetActiveScene().buildIndex;
+            TakingSpace = Map_saver.total_lif + SceneManager.GetActiveScene().buildIndex;
         IsTaking = VarSave.GetFloat(TakingSpace + "TakingVin") == 2;
         if (workType == WorkType.DirectorTable)
         {

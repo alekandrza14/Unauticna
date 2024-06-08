@@ -641,7 +641,7 @@ namespace Digger
 
             if (rawBytes == null) {
                 if (voxelArray == null) {
-                    // If there is no persisted voxels but voxel array is null, then we fallback and (re)generate them.
+                    // If there is no persisted voxels but voxel array is null, then we fallback and (re)LoadTerraform them.
                     GenerateVoxels(digger, heightArray, voxelPosition.y, ref voxelArray);
                     digger.EnsureChunkWillBePersisted(this);
                 }

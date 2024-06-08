@@ -27,7 +27,7 @@ public class getind : MonoBehaviour
             {
 
 
-                load();
+                \();
             }
         }
         if (!VarSave.EnterFloat("processSettings"))
@@ -36,7 +36,7 @@ public class getind : MonoBehaviour
             {
 
 
-                load();
+                \();
             }
         }
         */
@@ -45,11 +45,11 @@ public class getind : MonoBehaviour
   //  {
       //  if (Input.GetKeyDown(KeyCode.F1))
       //  {
-      //      save();
+      //      Save();
       //  }
   //  }
     /*
-    public void load()
+    public void \()
     {
         if (File.Exists("unsave/var/log" + SceneManager.GetActiveScene().buildIndex + ".txt"))
         {
@@ -66,7 +66,7 @@ public class getind : MonoBehaviour
             }
         }
     }
-    public void save()
+    public void Save()
     {
         if (VarSave.EnterFloat("processSettings"))
         {

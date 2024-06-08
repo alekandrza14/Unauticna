@@ -36,7 +36,7 @@ public class Conseole_trigger : MonoBehaviour
         }
         if (console == "ClearObject")
         {
-            FindFirstObjectByType<complsave>().clear();
+            FindFirstObjectByType<Map_saver>().ClearObjects();
         }
         if (console == "MyPills")
         {
@@ -101,7 +101,7 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "26";
             }
-            if (s[0] == "saveMap")
+            if (s[0] == "SaveMap")
             {
                 a = "27";
             }
@@ -205,6 +205,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "44";
             }
+            if (s[0] == "Refletion")
+            {
+                a = "45";
+            }
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -286,7 +290,7 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "21")
             {
-                foreach (GameObject g in complsave.t3)
+                foreach (GameObject g in Map_saver.t3)
                 {
 
                     if (!VarSave.ExistenceVar("researchs/" + g.name))
@@ -302,7 +306,7 @@ public class Conseole_trigger : MonoBehaviour
                 }
                 Globalprefs.knowlages = 1000;
                 VarSave.SetMoney("research", decimal.MaxValue);
-                gsave gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
+                GameData gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
                 mover.main().gsave.progressofthepassage = int.MaxValue - 1000;
                 gsave.progressofthepassage = int.MaxValue-1000;
                 File.WriteAllText("unsave/capterg/" + Globalprefs.GetTimeline(), JsonUtility.ToJson(gsave));
@@ -761,65 +765,71 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "27")
             {
                 Directory.CreateDirectory("res/UserWorckspace/maps");
-                complsave.ObjectSaveManager.saveMap("res/UserWorckspace/maps/_" + s[1]);
+                Map_saver.ObjectSaveManager.SaveMap("res/UserWorckspace/maps/_" + s[1]);
             }
             if (i == 1 && a == "28")
             {
-                mover.main().transform.position = new Vector3(float.Parse(s[1])+mover.new_offset.x, float.Parse(s[2]) + mover.new_offset.y, float.Parse( s[3]) + mover.new_offset.z);
+                mover.main().transform.position = new Vector3(float.Parse(s[1]) + mover.new_offset.x, float.Parse(s[2]) + mover.new_offset.y, float.Parse(s[3]) + mover.new_offset.z);
+            }
+            if (i == 1 && a == "45")
+            {
+                GameObject g = Resources.Load<GameObject>("Reflection Probe");
+                Instantiate(g, Vector3.zero, Quaternion.identity);
+                //Reflection Probe
             }
             if (i == 1 && a == "2")
             {
-                mover.FindFirstObjectByType<mover>().transform.position += Vector3.right * int.Parse(s[1]);
+                mover.main().transform.position += Vector3.right * int.Parse(s[1]);
 
             }
             if (i == 1 && a == "3")
             {
-                mover.FindFirstObjectByType<mover>().transform.position += Vector3.up * int.Parse(s[1]);
+                mover.main().transform.position += Vector3.up * int.Parse(s[1]);
 
             }
             if (i == 1 && a == "4")
             {
-                mover.FindFirstObjectByType<mover>().transform.position += Vector3.forward * int.Parse(s[1]);
+                mover.main().transform.position += Vector3.forward * int.Parse(s[1]);
 
             }
             if (i == 1 && a == "5")
             {
-                mover.FindFirstObjectByType<mover>().W_position += int.Parse(s[1]);
+                mover.main().W_position += int.Parse(s[1]);
 
             }
             if (i == 1 && a == "14")
             {
-                mover.FindFirstObjectByType<mover>().H_position += int.Parse(s[1]);
+                mover.main().H_position += int.Parse(s[1]);
 
             }
             if (i == 1 && a == "6")
             {
                 GameObject[] g = Resources.LoadAll<GameObject>("Primetives");
-                Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                Instantiate(g[int.Parse(s[1])], mover.main().transform.position, Quaternion.identity);
 
             }
             if (i == 1 && a == "11")
             {
                 GameObject g = Resources.Load<GameObject>("Primetives/E1/" + s[1]);
-                Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                Instantiate(g, mover.main().transform.position, Quaternion.identity);
 
             }
             if (i == 1 && a == "12")
             {
                 GameObject g = Resources.Load<GameObject>("Primetives/E2/" + s[1]);
-                Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                Instantiate(g, mover.main().transform.position, Quaternion.identity);
 
             }
             if (i == 1 && a == "10")
             {
                 GameObject g = Resources.Load<GameObject>("items/" + s[1]);
-                Instantiate(g, mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                Instantiate(g, mover.main().transform.position, Quaternion.identity);
 
             }
             if (i == 1 && a == "15")
             {
 
-                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                GameObject g = Instantiate(Resources.Load<GameObject>("CustomObject"), mover.main().transform.position, Quaternion.identity);
                 g.GetComponent<CustomObject>().s = s[1];
                 // + s[1]
 
@@ -827,7 +837,7 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "9")
             {
                 GameObject[] g = Resources.LoadAll<GameObject>("items");
-                Instantiate(g[int.Parse(s[1])], mover.FindFirstObjectByType<mover>().transform.position, Quaternion.identity);
+                Instantiate(g[int.Parse(s[1])], mover.main().transform.position, Quaternion.identity);
 
             }
             if (i == 1 && a == "8")

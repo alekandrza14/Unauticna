@@ -43,7 +43,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             m_Rigidbody = GetComponent<Rigidbody>();
 
 
-            // Add the audiosources and get the references.
+            // Add the audiosources and TypeGenergy the references.
             m_EngineSoundSource = gameObject.AddComponent<AudioSource>();
             m_EngineSoundSource.playOnAwake = false;
             m_WindSoundSource = gameObject.AddComponent<AudioSource>();

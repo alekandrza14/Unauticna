@@ -16,7 +16,7 @@ public class SaveMelody : MonoBehaviour
         {
             var path = VarSave.GetString("MusickPatch");
             source = GetComponent<AudioSource>();
-            // wait for the load and set your property
+            // wait for the LoadObjects and set your property
             AudioClip CurrentClip = await LoadClip(path);
             source.clip = CurrentClip;
             source.time = VarSave.GetFloat("Musick");

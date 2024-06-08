@@ -12,9 +12,9 @@ public class Reincarnator : MonoBehaviour
         {
           useeffect effect = new useeffect("KsenoMorfin", float.PositiveInfinity);
             int index = 0;
-            for (int i = 0; i < complsave.t5.Length; i++)
+            for (int i = 0; i < Map_saver.t5.Length; i++)
             {
-                if (complsave.t5[i].name == ifd.text)
+                if (Map_saver.t5[i].name == ifd.text)
                 {
                     index = i; break;
                 }

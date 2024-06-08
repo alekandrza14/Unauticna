@@ -155,7 +155,7 @@ public class HyperbolicCamera : MonoBehaviour
        
 
             PVector nextPoint = MathHyper.polarVector(0.1f, 1.255f);
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
 

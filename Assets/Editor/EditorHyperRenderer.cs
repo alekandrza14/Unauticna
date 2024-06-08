@@ -104,7 +104,7 @@ public class EditorHyperRenderer : EditorWindow
 
 
 
-                    HyperObject2D.stoprender(GameObject.FindObjectsOfType<HyperObject2D>()[i].transform, GameObject.FindObjectsOfType<HyperObject2D>()[i], SceneView.lastActiveSceneView.camera.transform.position);
+                    HyperObject2D.stoprender(GameObject.FindObjectsOfType<HyperObject2D>()[i].transform, GameObject.FindObjectsOfType<HyperObject2D>()[i], SceneView.lastActiveSceneView.HB_Camera.transform.position);
 
                 }
 
@@ -138,7 +138,7 @@ public class EditorHyperRenderer : EditorWindow
 
 
 
-                    HyperObject2D.startrender(GameObject.FindObjectsOfType<HyperObject2D>()[i].transform, GameObject.FindObjectsOfType<HyperObject2D>()[i], SceneView.lastActiveSceneView.camera.transform.position);
+                    HyperObject2D.startrender(GameObject.FindObjectsOfType<HyperObject2D>()[i].transform, GameObject.FindObjectsOfType<HyperObject2D>()[i], SceneView.lastActiveSceneView.HB_Camera.transform.position);
 
 
                 }

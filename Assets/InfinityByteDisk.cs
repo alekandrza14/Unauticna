@@ -20,7 +20,7 @@ public class InfinityByteDisk : InventoryEvent
 
         if (string.IsNullOrEmpty(data))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 itemsinfo = new ItemsInfo();

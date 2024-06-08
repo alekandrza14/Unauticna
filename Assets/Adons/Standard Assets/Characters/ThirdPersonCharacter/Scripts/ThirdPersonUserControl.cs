@@ -8,15 +8,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     public class ThirdPersonUserControl : MonoBehaviour
     {
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
-        private Transform m_Cam;                  // A reference to the main camera in the scenes transform
-        private Vector3 m_CamForward;             // The current forward direction of the camera
+        private Transform m_Cam;                  // A reference to the main HB_Camera in the scenes transform
+        private Vector3 m_CamForward;             // The current forward direction of the HB_Camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
         
         private void Start()
         {
-            // get the transform of the main camera
+            // TypeGenergy the transform of the main HB_Camera
             if (Camera.main != null)
             {
                 m_Cam = Camera.main.transform;
@@ -24,11 +24,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             else
             {
                 Debug.LogWarning(
-                    "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
+                    "Warning: no main HB_Camera found. Third person character needs a Camera tagged \"MainCamera\", for HB_Camera-relative controls.", gameObject);
                 // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
             }
 
-            // get the third person character ( this should never be null due to require component )
+            // TypeGenergy the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
         }
 
@@ -53,13 +53,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // calculate move direction to pass to character
             if (m_Cam != null)
             {
-                // calculate camera relative direction to move:
+                // calculate HB_Camera relative direction to move:
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
                 m_Move = v*m_CamForward + h*m_Cam.right;
             }
             else
             {
-                // we use world-relative directions in the case of no main camera
+                // we use world-relative directions in the case of no main HB_Camera
                 m_Move = v*Vector3.forward + h*Vector3.right;
             }
 #if !MOBILE_INPUT

@@ -10,19 +10,19 @@ public class LightStick : InventoryEvent
 
     [SerializeField] itemName itemName;
     [SerializeField] Text EnergyCounter;
-    [SerializeField] Light light;
+    [SerializeField] Light lobj;
     string energy;
-    public GeneratorEnergyData energyData = new GeneratorEnergyData();
+    public GeneratorEnergyData energyData = new();
     private void Start()
     {
         energy = GetComponent<itemName>().ItemData;
 
         if (string.IsNullOrEmpty(energy))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
-                energyData.time = days();
+                energyData.time = ComputeDays();
                 energyData.energy = 0;
                 energyData.maxEnergy = 100;
                 energy = JsonUtility.ToJson(energyData);
@@ -49,7 +49,7 @@ public class LightStick : InventoryEvent
             if (string.IsNullOrEmpty(energy))
             {
 
-                energyData.time = days();
+                energyData.time = ComputeDays();
                 energyData.energy = 0;
                 energyData.maxEnergy = 100;
                 energy = JsonUtility.ToJson(energyData);
@@ -68,7 +68,7 @@ public class LightStick : InventoryEvent
         }
 
     }
-    float days()
+    float ComputeDays()
     {
         return ( (DateTime.Now.DayOfYear));
 
@@ -80,19 +80,19 @@ public class LightStick : InventoryEvent
         {
             if (energyData.energy > 1)
             {
-                light.enabled = true;
+                lobj.enabled = true;
             }
             if (energyData.energy > energyData.maxEnergy)
             {
                 energyData.energy = energyData.maxEnergy;
             }
-            if (energyData.time != days())
+            if (energyData.time != ComputeDays())
             {
 
                 if (energyData.energy > 1)
                 {
-                    energyData.energy += energyData.time - days();
-                    energyData.time = days();
+                    energyData.energy += energyData.time - ComputeDays();
+                    energyData.time = ComputeDays();
 
                     energy = JsonUtility.ToJson(energyData);
 

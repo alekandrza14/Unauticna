@@ -8,19 +8,16 @@ namespace SVGImporter.Utils
 	using Rendering;
 
 	public class SVGGUI
-	{		
-		public static GUIStyle helpBox
-		{
-			get {
+    {
+        public static GUIStyle HelpBox =>
 #if UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9
 				return typeof(EditorStyles).GetProperty("helpBox", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(null, null) as GUIStyle;
 #else
-				return EditorStyles.helpBox;
+                EditorStyles.helpBox;
 #endif
-			}
-		}
 
-		static Material _invertMaterial;
+
+        static Material _invertMaterial;
 		public static void ApplyInvertMaterial()
 		{
 			if(_invertMaterial == null)
@@ -82,9 +79,7 @@ namespace SVGImporter.Utils
 		public float itemHeight = 20;
 		public int hilightedLayer;
 
-		float scroll;
-
-		public void DoLayout(SVGLayer[] layers, LayerSelection layerSelection)
+        public void DoLayout(SVGLayer[] layers, LayerSelection layerSelection)
 		{
 			if(layers == null) return;
 
@@ -93,7 +88,7 @@ namespace SVGImporter.Utils
 
 			Rect rect = GUILayoutUtility.GetRect(width, height);
 			rect.width = width;
-			Rect finRect = new Rect(rect.position.x - rect.width * 0.5f, rect.position.y - itemHeight * 0.5f, rect.width, itemHeight);
+			Rect finRect = new(rect.position.x - rect.width * 0.5f, rect.position.y - itemHeight * 0.5f, rect.width, itemHeight);
 
 			int layersLength = scrollIndex + Mathf.Clamp(layers.Length - scrollIndex, 0, maxVisibleItems);
 			int index = 0;

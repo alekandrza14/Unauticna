@@ -77,18 +77,18 @@ public class GlobalGreadSpaseImage : MonoBehaviour
             anim.Play("panel");
         }
         string s = "";
-        save save = new save();
+        PlayerData save = new PlayerData();
         if (File.Exists("unsave/s"))
         {
             s = File.ReadAllText("unsave/s");
         }
         if (File.Exists("unsave/capter" + Globalprefs.idscene + "/" + s))
         {
-            save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + Globalprefs.idscene + "/" + s));
+            save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsave/capter" + Globalprefs.idscene + "/" + s));
         }
         if (File.Exists("unsave/capterg/" + s))
         {
-            m.SetViewFace(JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + s)).fv);
+            m.SetViewFace(JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + s)).fv);
         }
         m.PlayerBody.transform.rotation = save.q1;
         m.HeadCameraSetup.transform.rotation = save.q3;
@@ -123,14 +123,14 @@ public class GlobalGreadSpaseImage : MonoBehaviour
     private void Update()
     {
         string s = "";
-        save save = new save();
+        PlayerData save = new PlayerData();
         if (File.Exists("unsave/s"))
         {
             s = File.ReadAllText("unsave/s");
         }
         if (File.Exists("unsave/capter" + Globalprefs.idscene + "/" + s))
         {
-            save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + Globalprefs.idscene + "/" + s));
+            save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsave/capter" + Globalprefs.idscene + "/" + s));
         }
 
         if (Input.GetKeyDown(KeyCode.F1))

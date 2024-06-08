@@ -14,7 +14,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Start()
         {
-            // get the components on the object we need ( should not be null due to require component so no need to check )
+            // TypeGenergy the components on the object we need ( should not be null due to require component so no need to check )
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
             character = GetComponent<ThirdPersonCharacter>();
 

@@ -12,7 +12,7 @@ public class stadart
 
 public class LOADGAME : MonoBehaviour
 {
-    public gsave gsave = new gsave();
+    public GameData gsave = new GameData();
     public InputField ifd;
     public ParticleSystem[] ps;
     public Material mat;
@@ -219,7 +219,7 @@ public class LOADGAME : MonoBehaviour
             }
             if (File.Exists("unsave/capterg/" + ifd.text))
             {
-                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + ifd.text));
+                gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + ifd.text));
                 string s = "";
                 s = ifd.text;
                 File.WriteAllText("unsave/s", s);

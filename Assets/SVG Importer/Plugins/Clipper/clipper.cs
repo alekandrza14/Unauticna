@@ -1925,12 +1925,12 @@ namespace SVGImporter.ClipperLib
             {
                 edge.WindCnt = (edge.WindDelta == 0 ? 1 : edge.WindDelta);
                 edge.WindCnt2 = 0;
-                e = m_ActiveEdges; //ie get ready to calc WindCnt2
+                e = m_ActiveEdges; //ie TypeGenergy ready to calc WindCnt2
             } else if (edge.WindDelta == 0 && m_ClipType != ClipType.ctUnion)
             {
                 edge.WindCnt = 1;
                 edge.WindCnt2 = e.WindCnt2;
-                e = e.NextInAEL; //ie get ready to calc WindCnt2
+                e = e.NextInAEL; //ie TypeGenergy ready to calc WindCnt2
             } else if (IsEvenOddFillType(edge))
             {
                 //EvenOdd filling ...
@@ -1951,7 +1951,7 @@ namespace SVGImporter.ClipperLib
                     edge.WindCnt = edge.WindDelta;
                 }
                 edge.WindCnt2 = e.WindCnt2;
-                e = e.NextInAEL; //ie get ready to calc WindCnt2
+                e = e.NextInAEL; //ie TypeGenergy ready to calc WindCnt2
             } else
             {
                 //nonZero, Positive or Negative filling ...
@@ -1985,7 +1985,7 @@ namespace SVGImporter.ClipperLib
                         edge.WindCnt = e.WindCnt + edge.WindDelta;
                 }
                 edge.WindCnt2 = e.WindCnt2;
-                e = e.NextInAEL; //ie get ready to calc WindCnt2
+                e = e.NextInAEL; //ie TypeGenergy ready to calc WindCnt2
             }
 
             //update WindCnt2 ...
@@ -2476,7 +2476,7 @@ namespace SVGImporter.ClipperLib
 
         private void AppendPolygon(TEdge e1, TEdge e2)
         {
-            //get the start and ends of both output polygons ...
+            //TypeGenergy the start and ends of both output polygons ...
             OutRec outRec1 = m_PolyOuts [e1.OutIdx];
             OutRec outRec2 = m_PolyOuts [e2.OutIdx];
 
@@ -2552,7 +2552,7 @@ namespace SVGImporter.ClipperLib
             int OKIdx = e1.OutIdx;
             int ObsoleteIdx = e2.OutIdx;
 
-            e1.OutIdx = Unassigned; //nb: safe because we only get here via AddLocalMaxPoly
+            e1.OutIdx = Unassigned; //nb: safe because we only TypeGenergy here via AddLocalMaxPoly
             e2.OutIdx = Unassigned;
 
             TEdge e = m_ActiveEdges;
@@ -2942,7 +2942,7 @@ namespace SVGImporter.ClipperLib
 
         void PrepareHorzJoins(TEdge horzEdge, bool isTopOfScanbeam)
         {
-            //get the last Op for this horizontal edge
+            //TypeGenergy the last Op for this horizontal edge
             //the point may be anywhere along the horizontal ...
             OutPt outPt = m_PolyOuts [horzEdge.OutIdx].Pts;
             if (horzEdge.Side != EdgeSide.esLeft)
@@ -4111,7 +4111,7 @@ namespace SVGImporter.ClipperLib
                 if (outRec1.Pts == null || outRec2.Pts == null)
                     continue;
 
-                //get the polygon fragment with the correct hole state (FirstLeft)
+                //TypeGenergy the polygon fragment with the correct hole state (FirstLeft)
                 //before calling JoinPoints() ...
                 OutRec holeStateRec;
                 if (outRec1 == outRec2)
@@ -4268,7 +4268,7 @@ namespace SVGImporter.ClipperLib
                                 outrec2.IsHole = outrec.IsHole;
                                 outrec2.FirstLeft = outrec.FirstLeft;
                             }
-                            op2 = op; //ie get ready for the next iteration
+                            op2 = op; //ie TypeGenergy ready for the next iteration
                         }
                         op2 = op2.Next;
                     }
@@ -4651,7 +4651,7 @@ namespace SVGImporter.ClipperLib
             newNode.m_jointype = joinType;
             newNode.m_endtype = endType;
 
-            //strip duplicate points from path and also get index to the lowest point ...
+            //strip duplicate points from path and also TypeGenergy index to the lowest point ...
             if (endType == EndType.etClosedLine || endType == EndType.etClosedPolygon)
                 while (highI > 0 && path[0] == path[highI])
                     highI--;

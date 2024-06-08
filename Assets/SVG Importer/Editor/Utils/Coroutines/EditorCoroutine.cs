@@ -74,12 +74,16 @@ namespace SVGImporter
 
         class CoroutineWWW : ICoroutineYield
         {
+            
             public WWW Www;
 
+
+            
             public override bool IsDone(float deltaTime)
             {
-                return Www.isDone;
+                return true;
             }
+            
         }
 
         class CoroutineAsync : ICoroutineYield
@@ -94,13 +98,14 @@ namespace SVGImporter
         }
 
         static EditorCoroutine instance = null;
-        Dictionary<string, List<Coroutine>> coroutineDict = new Dictionary<string, List<Coroutine>>();
-        Dictionary<string, Dictionary<string, Coroutine>> coroutineOwnerDict = new Dictionary<string, Dictionary<string, Coroutine>>();
+        readonly Dictionary<string, List<Coroutine>> coroutineDict = new();
+        readonly Dictionary<string, Dictionary<string, Coroutine>> coroutineOwnerDict = new();
         DateTime previousTimeSinceStartup;
 
         /// <summary>Starts a coroutine.</summary>
         /// <param name="routine">The coroutine to start.</param>
         /// <param name="thisReference">Reference to the instance of the class containing the method.</param>
+        [Obsolete]
         public static void StartCoroutine(IEnumerator routine, object thisReference)
         {
             CreateInstanceIfNeeded();
@@ -110,6 +115,7 @@ namespace SVGImporter
         /// <summary>Starts a coroutine.</summary>
         /// <param name="methodName">The name of the coroutine method to start.</param>
         /// <param name="thisReference">Reference to the instance of the class containing the method.</param>
+        [Obsolete]
         public static void StartCoroutine(string methodName, object thisReference)
         {
             StartCoroutine(methodName, null, thisReference);
@@ -119,6 +125,7 @@ namespace SVGImporter
         /// <param name="methodName">The name of the coroutine method to start.</param>
         /// <param name="value">The parameter to pass to the coroutine.</param>
         /// <param name="thisReference">Reference to the instance of the class containing the method.</param>
+        [Obsolete]
         public static void StartCoroutine(string methodName, object value, object thisReference)
         {
             MethodInfo methodInfo = thisReference.GetType().GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
@@ -137,10 +144,10 @@ namespace SVGImporter
                 returnValue = methodInfo.Invoke(thisReference, new object[] { value });
             }
 
-            if (returnValue is IEnumerator)
+            if (returnValue is IEnumerator enumerator)
             {
                 CreateInstanceIfNeeded();
-                instance.GoStartCoroutine((IEnumerator)returnValue, thisReference);
+                instance.GoStartCoroutine(enumerator, thisReference);
             } else
             {
                 Debug.LogError("Coroutine '" + methodName + "' couldn't be started, the method doesn't return an IEnumerator!");
@@ -151,6 +158,7 @@ namespace SVGImporter
         /// <summary>Stops all coroutines being the routine running on the passed instance.</summary>
         /// <param name="routine"> The coroutine to stop.</param>
         /// <param name="thisReference">Reference to the instance of the class containing the method.</param>
+        
         public static void StopCoroutine(IEnumerator routine, object thisReference)
         {
             CreateInstanceIfNeeded();
@@ -161,6 +169,7 @@ namespace SVGImporter
         /// Stops all coroutines named methodName running on the passed instance.</summary>
         /// <param name="methodName"> The name of the coroutine method to stop.</param>
         /// <param name="thisReference">Reference to the instance of the class containing the method.</param>
+        
         public static void StopCoroutine(string methodName, object thisReference)
         {
             CreateInstanceIfNeeded();
@@ -170,12 +179,14 @@ namespace SVGImporter
         /// <summary>
         /// Stops all coroutines running on the passed instance.</summary>
         /// <param name="thisReference">Reference to the instance of the class containing the method.</param>
+        
         public static void StopAllCoroutines(object thisReference)
         {
             CreateInstanceIfNeeded();
             instance.GoStopAllCoroutines(thisReference);
         }
 
+        
         static void CreateInstanceIfNeeded()
         {
             if (instance == null)
@@ -185,6 +196,7 @@ namespace SVGImporter
             }
         }
 
+        
         void Initialize()
         {
             previousTimeSinceStartup = DateTime.Now;
@@ -224,6 +236,7 @@ namespace SVGImporter
             }
         }
 
+        
         void GoStartCoroutine(IEnumerator routine, object thisReference)
         {
             if (routine == null)
@@ -234,14 +247,14 @@ namespace SVGImporter
 
             if (!coroutineDict.ContainsKey(coroutine.RoutineUniqueHash))
             {
-                List<Coroutine> newCoroutineList = new List<Coroutine>();
+                List<Coroutine> newCoroutineList = new();
                 coroutineDict.Add(coroutine.RoutineUniqueHash, newCoroutineList);
             }
             coroutineDict [coroutine.RoutineUniqueHash].Add(coroutine);
 
             if (!coroutineOwnerDict.ContainsKey(coroutine.OwnerUniqueHash))
             {
-                Dictionary<string, Coroutine> newCoroutineDict = new Dictionary<string, Coroutine>();
+                Dictionary<string, Coroutine> newCoroutineDict = new();
                 coroutineOwnerDict.Add(coroutine.OwnerUniqueHash, newCoroutineDict);
             }
 
@@ -265,6 +278,7 @@ namespace SVGImporter
             return new Coroutine(methodName, thisReference.GetHashCode(), thisReference.GetType().ToString());
         }
 
+        
         void OnUpdate()
         {
             float deltaTime = (float)(DateTime.Now.Subtract(previousTimeSinceStartup).TotalMilliseconds / 1000.0f);
@@ -275,7 +289,7 @@ namespace SVGImporter
                 return;
             }
 
-            List<string> removals = new List<string>();
+            List<string> removals = new();
 
             foreach (var pair in coroutineDict)
             {
@@ -307,6 +321,7 @@ namespace SVGImporter
             }
         }
 
+        
         bool MoveNext(Coroutine coroutine)
         {
             if (coroutine.Routine.MoveNext())
@@ -316,8 +331,9 @@ namespace SVGImporter
 
             return false;
         }
-        
+
         // returns false if no next, returns true if OK
+       
         bool Process(Coroutine coroutine)
         {
             object current = coroutine.Routine.Current;
@@ -328,15 +344,17 @@ namespace SVGImporter
             {
                 float seconds = float.Parse(GetInstanceField(typeof(WaitForSeconds), current, "m_Seconds").ToString());
                 coroutine.CurrentYield = new CoroutineWaitForSeconds() { TimeLeft = (float)seconds };
-            } else if (current is WWW)
+            }
+            else if (current is WWW wWW)
             {
-                coroutine.CurrentYield = new CoroutineWWW() { Www = (WWW) current };
+                coroutine.CurrentYield = new CoroutineWWW() { Www = wWW };
             } else if (current is WaitForFixedUpdate)
             {
                 coroutine.CurrentYield = new CoroutineDefault();
-            } else if (current is AsyncOperation)
+            }
+            else if (current is AsyncOperation operation)
             {
-                coroutine.CurrentYield = new CoroutineAsync() { asyncOperation = (AsyncOperation)current };
+                coroutine.CurrentYield = new CoroutineAsync() { asyncOperation = operation };
             } else
             {
                 Debug.LogException(new Exception("<" + coroutine.MethodName + "> yielded an unknown or unsupported type! (" + current.GetType() + ")"), null);

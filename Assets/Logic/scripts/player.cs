@@ -399,7 +399,7 @@ public class GameManager : MonoBehaviour
     static public void loadoutReincarnation()
     {
        
-            gsave sr = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
+            GameData sr = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
             SceneManager.LoadSceneAsync(sr.sceneid);
 
       

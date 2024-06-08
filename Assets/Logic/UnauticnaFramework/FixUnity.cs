@@ -13,13 +13,13 @@ namespace Global
 {
     public class Random
     {
-        static System.Random random = new System.Random();
+        static System.Random random = new();
 
         public static float Range(float min, float max)
         {
             if (random == null)
             {
-                random = new System.Random();
+                random = new();
             }
             int x, y;
             float z = 0;
@@ -132,7 +132,7 @@ namespace Global
         public bool negative;
         public Nint Set(byte[] x)
         {
-            Nint _new = new Nint();
+            Nint _new = new();
             _new.bytes = x;
             this.bytes = _new.bytes;
             return _new;
@@ -151,7 +151,7 @@ namespace Global
         }
         public Nint Num(string x)
         {
-            Nint _new = new Nint();
+            Nint _new = new();
             string[] bitsbools = x.Split("N");
             string[] y = bitsbools[0].Split("-");
             byte[] z = new byte[y.Length];
@@ -166,7 +166,7 @@ namespace Global
         }
         public Nint Move(Nint x, Nint y)
         {
-            Nint _new = new Nint();
+            Nint _new = new();
             _new.negative = x.negative;
             if (x.negative)
             {
@@ -202,7 +202,7 @@ namespace Global
         }
         public Nint AAdd(Nint x, Nint y)
         {
-            Nint _new = new Nint();
+            Nint _new = new();
             _new.negative = x.negative;
             negative = x.negative;
             int x2 = x.bytes.Length;
@@ -279,8 +279,8 @@ namespace Global
         public Nint Mult(Nint x, int y)
         {
             byte[] z = x.bytes;
-            Nint _new = new Nint();
-            Nint _new2 = new Nint();
+            Nint _new = new();
+            Nint _new2 = new();
             _new.bytes = z;
 
             if (y < 0)
@@ -298,7 +298,7 @@ namespace Global
         }
         public Nint ASub(Nint x, Nint y)
         {
-            Nint _new = new Nint();
+            Nint _new = new();
             _new.negative = x.negative;
             int x2 = x.bytes.Length;
             int y2 = y.bytes.Length;

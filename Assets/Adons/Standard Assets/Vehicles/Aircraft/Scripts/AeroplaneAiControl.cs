@@ -27,7 +27,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         // setup script properties
         private void Awake()
         {
-            // get the reference to the aeroplane controller, so we can send move input to it and read its current state.
+            // TypeGenergy the reference to the aeroplane controller, so we can send move input to it and read its current state.
             m_AeroplaneController = GetComponent<AeroplaneController>();
 
             // pick a random perlin starting point for lateral wandering

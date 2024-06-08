@@ -21,14 +21,6 @@ namespace SVGImporter
         private const string kSpecialThanksNamesTesters = "Thanks to Anders Gallon for his exquisite bugreports.\nBig thanks to JaimeAL for his great forum support!";
         
         private static GUIContent s_ClipperLogo;
-        
-        //
-        // Fields
-        //
-        private double m_LastScrollUpdate;
-        
-        private bool m_ShowDetailedVersion;
-        
         private int m_InternalCodeProgress;
         
 //        private float m_TotalCreditsHeight = float.PositiveInfinity;
@@ -74,7 +66,8 @@ namespace SVGImporter
         }
 
 		[MenuItem("Window/SVG Importer/Help/Documentation")]
-		private static void ShowDocumentation()
+        [Obsolete]
+        private static void ShowDocumentation()
 		{
 			Analytics.TrackEvent("Show Documentation", "app/help/documentation");
 			string[] guids = AssetDatabase.FindAssets("SVG Importer - documentation");
@@ -85,28 +78,32 @@ namespace SVGImporter
 		}
 
 		[MenuItem("Window/SVG Importer/Help/Website")]
-		private static void ShowWebsite()
+        [Obsolete]
+        private static void ShowWebsite()
 		{
 			Analytics.TrackEvent("Click URL Website", "app/help/website");
 			Application.OpenURL("http://svgimporter.com/");
 		}
 
 		[MenuItem("Window/SVG Importer/Help/Youtube")]
-		private static void ShowYoutube()
+        [Obsolete]
+        private static void ShowYoutube()
 		{
 			Analytics.TrackEvent("Click URL Youtube", "app/help/youtube");
 			Application.OpenURL("https://www.youtube.com/channel/UCfS37PIF9fhUC-saiBHZE-g");
 		}
 
 		[MenuItem("Window/SVG Importer/Help/Facebook")]
-		private static void ShowFacebook()
+        [Obsolete]
+        private static void ShowFacebook()
 		{
 			Analytics.TrackEvent("Click URL Facebook", "app/help/facebook");
 			Application.OpenURL("https://www.facebook.com/svgimporter");
 		}
 
 		[MenuItem("Window/SVG Importer/Help/Twitter")]
-		private static void ShowTwitter()
+        [Obsolete]
+        private static void ShowTwitter()
 		{
 			Analytics.TrackEvent("Click URL Twitter", "app/help/twitter");
 			Application.OpenURL("https://twitter.com/svgimporter");
@@ -137,12 +134,8 @@ namespace SVGImporter
 			//this.m_LastScrollUpdate = EditorApplication.timeSinceStartup;
 		}
 
-        public void OnDisable()
-        {
-            //EditorApplication.update = (EditorApplication.CallbackFunction)Delegate.Remove(EditorApplication.update, new EditorApplication.CallbackFunction(this.UpdateScroll));
-        }
-        
-		static void OnLastRectClick(Action action)
+
+        static void OnLastRectClick(Action action)
 		{
 			Rect lastRect = GUILayoutUtility.GetLastRect();
 			if(Event.current.type == EventType.MouseDown && lastRect.Contains(Event.current.mousePosition))

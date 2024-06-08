@@ -20,7 +20,7 @@ public class RandomBioDNA : InventoryEvent
 
         if (string.IsNullOrEmpty(DNA))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 if (_dnaType == dnaType.muscules)

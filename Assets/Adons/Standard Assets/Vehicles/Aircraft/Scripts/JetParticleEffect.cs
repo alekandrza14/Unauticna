@@ -19,10 +19,10 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         // Use this for initialization
         private void Start()
         {
-            // get the aeroplane from the object hierarchy
+            // TypeGenergy the aeroplane from the object hierarchy
             m_Jet = FindAeroplaneParent();
 
-            // get the particle system ( it will be on the object as we have a require component set up
+            // TypeGenergy the particle system ( it will be on the object as we have a require component set up
             m_System = GetComponent<ParticleSystem>();
 
             // set the original properties from the particle system
@@ -45,7 +45,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 
         private AeroplaneController FindAeroplaneParent()
         {
-            // get reference to the object transform
+            // TypeGenergy reference to the object transform
             var t = transform;
 
             // traverse the object hierarchy upwards to find the AeroplaneController

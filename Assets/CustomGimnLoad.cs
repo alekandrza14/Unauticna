@@ -27,7 +27,7 @@ public class CustomGimnLoad : MonoBehaviour
         // build your absolute path
         var path = musicDir + ifd.text;
         Debug.Log(path);
-        // wait for the load and set your property
+        // wait for the LoadObjects and set your property
         AudioClip CurrentClip = await LoadClip(path);
         source.clip = CurrentClip;
         source.Play();

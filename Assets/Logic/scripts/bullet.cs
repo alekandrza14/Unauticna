@@ -11,12 +11,12 @@ public class bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        if (!buletdj) GetComponent<Rigidbody>().AddForce(transform.forward * speed*20, ForceMode.Force);
+        
+        if (!buletdj) GetComponent<Rigidbody>().AddForce(speed * 20*transform.forward , ForceMode.Force);
         if (buletdj)
         {
 
-            GetComponent<Rigidbody>().AddForce(transform.right * speed, ForceMode.VelocityChange);
+            GetComponent<Rigidbody>().AddForce(speed*transform.right, ForceMode.VelocityChange);
         }
         safedata();
     }
@@ -31,7 +31,7 @@ public class bullet : MonoBehaviour
         if (buletdj)
         {
            
-            GetComponent<Rigidbody>().AddForce(transform.right * speed, ForceMode.VelocityChange);
+            GetComponent<Rigidbody>().AddForce(speed*transform.right, ForceMode.VelocityChange);
         }
     }
 }

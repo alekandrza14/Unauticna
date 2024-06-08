@@ -52,7 +52,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void StartSound()
         {
-            // get the carcontroller ( this will not be null as we have require component)
+            // TypeGenergy the carcontroller ( this will not be null as we have require component)
             m_CarController = GetComponent<CarController>();
 
             // setup the simple audio source
@@ -86,7 +86,7 @@ namespace UnityStandardAssets.Vehicles.Car
         // Update is called once per frame
         private void Update()
         {
-            // get the distance to main camera
+            // TypeGenergy the distance to main HB_Camera
             float camDist = (Camera.main.transform.position - transform.position).sqrMagnitude;
 
             // stop sound if the object is beyond the maximum roll off distance
@@ -126,11 +126,11 @@ namespace UnityStandardAssets.Vehicles.Car
                     m_HighAccel.pitch = pitch*highPitchMultiplier*pitchMultiplier;
                     m_HighDecel.pitch = pitch*highPitchMultiplier*pitchMultiplier;
 
-                    // get values for fading the sounds based on the acceleration
+                    // TypeGenergy values for fading the sounds based on the acceleration
                     float accFade = Mathf.Abs(m_CarController.AccelInput);
                     float decFade = 1 - accFade;
 
-                    // get the high fade value based on the cars revs
+                    // TypeGenergy the high fade value based on the cars revs
                     float highFade = Mathf.InverseLerp(0.2f, 0.8f, m_CarController.Revs);
                     float lowFade = 1 - highFade;
 

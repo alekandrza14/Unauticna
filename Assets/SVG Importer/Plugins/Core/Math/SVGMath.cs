@@ -27,7 +27,7 @@ namespace SVGImporter.Utils
     	//increase or decrease the length of vector by size
     	public static Vector3 AddVectorLength(Vector3 vector, float size){
      
-    		//get the vector length
+    		//TypeGenergy the vector length
     		float magnitude = Vector3.Magnitude(vector);
      
     		//change the length
@@ -66,14 +66,14 @@ namespace SVGImporter.Utils
     		linePoint = Vector3.zero;
     		lineVec = Vector3.zero;
      
-    		//We can get the direction of the line of intersection of the two planes by calculating the 
+    		//We can TypeGenergy the direction of the line of intersection of the two planes by calculating the 
     		//cross product of the normals of the two planes. Note that this is just a direction and the line
     		//is not fixed in space yet. We need a point for that to go with the line vector.
     		lineVec = Vector3.Cross(plane1Normal, plane2Normal);
      
     		//Next is to calculate a point on the line to fix it's position in space. This is done by finding a vector from
     		//the plane2 location, moving parallel to it's plane, and intersecting plane1. To prevent rounding
-    		//errors, this vector also has to be perpendicular to lineDirection. To get this vector, calculate
+    		//errors, this vector also has to be perpendicular to lineDirection. To TypeGenergy this vector, calculate
     		//the cross product of the normal of plane2 and the lineDirection.		
     		Vector3 ldir = Vector3.Cross(plane2Normal, lineVec);		
      
@@ -116,7 +116,7 @@ namespace SVGImporter.Utils
     			//create a vector from the linePoint to the intersection point
     			vector = SetVectorLength(lineVec, length);
      
-    			//get the coordinates of the line-plane intersection point
+    			//TypeGenergy the coordinates of the line-plane intersection point
     			intersection = linePoint + vector;	
      
     			return true;	
@@ -421,7 +421,7 @@ namespace SVGImporter.Utils
     	//The line is regarded infinite. If the line is finite, use ProjectPointOnLineSegment() instead.
     	public static Vector3 ProjectPointOnLine(Vector3 linePoint, Vector3 lineVec, Vector3 point){		
      
-    		//get vector from point on line to point in space
+    		//TypeGenergy vector from point on line to point in space
     		Vector3 linePointToPoint = point - linePoint;
      
     		float t = Vector3.Dot(linePointToPoint, lineVec);
@@ -549,7 +549,7 @@ namespace SVGImporter.Utils
     		double dot;
     		double angle;
      
-    		//get the dot product
+    		//TypeGenergy the dot product
     		dot = Vector3.Dot(vec1, vec2);
      
     		//Clamp to prevent NaN error. Shouldn't need this in the first place, but there could be a rounding error issue.
@@ -755,7 +755,7 @@ namespace SVGImporter.Utils
     	}
      
      
-    	//Returns the pixel distance from the mouse pointer to a camera facing circle.
+    	//Returns the pixel distance from the mouse pointer to a HB_Camera facing circle.
     	//Alternative for HandleUtility.DistanceToCircle(). Works both in Editor mode and Play mode.
     	//Do not call this function from OnGUI() as the mouse position will be wrong.
     	//If you want the distance to a point instead of a circle, set the radius to 0.
@@ -841,7 +841,7 @@ namespace SVGImporter.Utils
     		Vector3 vector;
     		Vector3 linePoint;
      
-    		//get the center of the rectangle
+    		//TypeGenergy the center of the rectangle
     		vector = rectC - rectA;
     		float size = -(vector.magnitude / 2f);
     		vector = AddVectorLength(vector, size);

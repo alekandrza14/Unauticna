@@ -30,7 +30,7 @@ namespace SVGImporter.Utils
 			for(int i = 0; i < svgLayers.Length; i++)
 			{
 				string layerName = svgLayers[i].name;
-				GUILayout.Label(layerName, SVGGUI.helpBox);
+				GUILayout.Label(layerName, SVGGUI.HelpBox);
 				Rect lastRect = GUILayoutUtility.GetLastRect();
 				if(lastRect.Contains(Event.current.mousePosition))
 				{
@@ -41,7 +41,7 @@ namespace SVGImporter.Utils
 				{
 					for(int j = 0; j < svgLayers[i].shapes.Length; j++)
 					{
-						GUILayout.Label("	"+layerName + " "+svgLayers[i].shapes[j].type.ToString(), SVGGUI.helpBox);
+						GUILayout.Label("	"+layerName + " "+svgLayers[i].shapes[j].type.ToString(), SVGGUI.HelpBox);
 						lastRect = GUILayoutUtility.GetLastRect();
 						if(lastRect.Contains(Event.current.mousePosition))
 						{

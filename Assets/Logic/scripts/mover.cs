@@ -7,28 +7,15 @@ using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
 
-public class load1
-{
-    static public float tjump;
-    static public float jump;
-    static public float rjump;
-    static public bool islight;
-    static public bool isCamd;
-    static public bool isplanet;
-    static public bool stad;
-    public static Hyperbolic2D pt;
-    static public RawImage watermask;
-    static public float gr; static public float pl;
-    static public Color bg; static public CameraClearFlags bg2;
-}
-public class save
+
+public class PlayerData
 {
     public string idsave;
     public Vector3 pos, pos2, rotW;
     public Vector4 pos3;
     public string hpos_Polar3;
     public float wpos;
-    public List<float> npos = new List<float>();
+    public List<float> npos = new();
     public int cnpos = 0;
     public float hpos;
     public float hxrot;
@@ -36,7 +23,7 @@ public class save
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
 }
-public class tsave
+public class TimePlayerData
 {
 
     public string idsave;
@@ -45,7 +32,7 @@ public class tsave
     public Vector4 pos3;
     public string hpos_Polar3;
     public float wpos;
-    public List<float> npos = new List<float>();
+    public List<float> npos = new();
     public int cnpos = 0;
     public float hpos;
     public float hxrot;
@@ -53,7 +40,7 @@ public class tsave
     public Vector3 velosyty; public Vector3 angularvelosyty;
     public float vive;
 }
-public class gsave
+public class GameData
 {
     public int progressofthepassage = 0;
     public int hp;
@@ -65,8 +52,8 @@ public class gsave
     public string DateTimeJson;
     public string idsave;
     public int sceneid;
-    public List<string> inventory = new List<string>();
-    public List<string> inventoryname = new List<string>();
+    public List<string> inventory = new();
+    public List<string> inventoryname = new();
 }
 
 public enum faceView
@@ -92,13 +79,13 @@ public class mover : CustomSaveObject
     [SerializeField] float Speed;
     [SerializeField] public Animator animator;
     [SerializeField] Animator[] SkinedAnimators;
-    save save = new save();
-    tsave tsave = new tsave();
-  public  gsave gsave = new gsave();
+    PlayerData save = new();
+    TimePlayerData tsave = new();
+  public  GameData gsave = new();
     [SerializeField] GUISkin editor;
     [SerializeField] public float W_position;
     [SerializeField] public float H_position;
-    [SerializeField] public List<float> N_position = new List<float>()
+    [SerializeField] public List<float> N_position = new()
     {
         0
     };
@@ -128,7 +115,7 @@ public class mover : CustomSaveObject
     [SerializeField] GameObject PlayerModelObject;
     [SerializeField] GameObject[] PlayerModelObjects;
     [SerializeField] int[] PlayerModelTags;
-   public PlayerDNA DNA = new PlayerDNA();
+   public PlayerDNA DNA = new();
     public Material DebugMat;
  [HideInInspector] public  faceView faceViewi;
     bool Sprint;
@@ -140,7 +127,6 @@ public class mover : CustomSaveObject
 
     void swapHX3(Transform x, mover w)
     {
-        RaymarchCam m = Get4DCam();
         float save = x.localPosition.x;
         if (HX_Rotation == 0) x.localPosition = new Vector3(w.H_position, x.localPosition.y, x.localPosition.z);
         if (HX_Rotation == -90) x.localPosition = new Vector3(-w.H_position, x.localPosition.y, x.localPosition.z);
@@ -185,7 +171,7 @@ public class mover : CustomSaveObject
     }
     DateTime timeUnauticna()
     {
-        DateTime _new = new DateTime((int)6599, (int)7, (int)22, (int)3, (int)46, (int)23);
+        DateTime _new = new((int)6599, (int)7, (int)22, (int)3, (int)46, (int)23);
         return _new;
     }
     float fmod2(float a, float b)
@@ -214,8 +200,8 @@ public class mover : CustomSaveObject
     void Building()
     {
 
-        string vaule1 = "";
-        string vaule2 = "";
+        string vaule1;
+        string vaule2;
         lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
         if (GlobalInputMenager.KeyCode_build != "")
@@ -306,7 +292,7 @@ public class mover : CustomSaveObject
                 telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
                 g.nameCreature = vaule2;
                 g.gameObject.transform.position = hit.point;
-                vaule2 = "";
+                
                 GlobalInputMenager.KeyCode_Spawn = "";
                 GlobalInputMenager.build.text = "";
             }
@@ -335,29 +321,29 @@ public class mover : CustomSaveObject
     void OnCollisionStay(Collision collision)
     {
 
-        if (collision.collider.tag != "sc" && !Input.GetKey(KeyCode.G)) if (JumpTimer < -2)
+        if (!collision.collider.CompareTag("sc") && !Input.GetKey(KeyCode.G)) if (JumpTimer < -2)
         {
             Debug.Log(JumpTimer);
             hp += Mathf.FloorToInt(JumpTimer) / 3;
             }
-        if (collision.collider.tag != "sc" && Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
+        if (!collision.collider.CompareTag("sc") && Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
 
 
-        if (collision.collider.tag != "sc" && !Input.GetKey(KeyCode.Space)) JumpTimer = 0;
+        if (!collision.collider.CompareTag("sc") && !Input.GetKey(KeyCode.Space)) JumpTimer = 0;
         if (InWater)
         {
             IsGraund = false;
             JumpTimer = 0;
         }
         c = collision;
-        if (collision.collider.tag == "sc")
+        if (collision.collider.CompareTag("sc"))
         {
             
         //IsGraund = false;
 
         }
 
-        if (collision.collider.tag == "sc2")
+        if (collision.collider.CompareTag("sc2"))
         {
             
             
@@ -391,7 +377,7 @@ public class mover : CustomSaveObject
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "dead")
+        if (other.CompareTag("dead"))
         {
             VarSave.SetBool("обычный сельский бог гипер смерти урбил вас", true);
             VarSave.SetBool("cry", true);
@@ -399,7 +385,7 @@ public class mover : CustomSaveObject
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         }
-        if (other.tag == "airhole")
+        if (other.CompareTag("airhole"))
         {
             IsGraund = true;
 
@@ -413,7 +399,7 @@ public class mover : CustomSaveObject
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "lagi")
+        if (other.CompareTag("lagi"))
         {
             PlayerCamera.GetComponent<Camera>().enabled = 1 ==Global.Random.Range(0, 3);
 
@@ -430,7 +416,7 @@ public class mover : CustomSaveObject
             InWater = false;
 
         }
-        if (other.tag == "lagi")
+        if (other.CompareTag("lagi"))
         {
             PlayerCamera.GetComponent<Camera>().enabled = true;
 
@@ -451,7 +437,7 @@ public class mover : CustomSaveObject
         yield return new WaitForSeconds(1);
         Debug.Log("log");
     }
-    System.Random rand = new System.Random();
+    System.Random rand = new();
     void reasonUpdate()
     {
         var reason =
@@ -532,7 +518,7 @@ public class mover : CustomSaveObject
         Globalprefs.allpos = allpos;
       
        */
-            GameObject g2 = new GameObject("init");
+            GameObject g2 = new("init");
             gameInit.Init(g2); 
         if (gameInit.init != null)
         {
@@ -557,7 +543,7 @@ public class mover : CustomSaveObject
         {
 
 
-            GameObject g = new GameObject("4D Controler")
+            GameObject g = new("4D Controler")
             {
 
             };
@@ -620,7 +606,7 @@ public class mover : CustomSaveObject
         float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
         if (UnityEngine.Random.Range(0, (float)Chance3 + 1) == 0)
         {
-            DirectoryInfo di = new DirectoryInfo("unsave/var/researchs");
+            DirectoryInfo di = new("unsave/var/researchs");
             int random = (int)Global.Random.Range(0,di.GetFiles().Length);
            File.Delete( di.GetFiles()[random].FullName);
             VarSave.LoadMoney("research",-1);
@@ -660,11 +646,11 @@ public class mover : CustomSaveObject
 
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
         {
-            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
+            gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             planet_position = gsave.Spos;
             lepts = "-" + planet_position.ToString();
         }
-        stand_stay = load1.stad;
+        
 
              Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
           c.targetDisplay = 2;
@@ -719,7 +705,7 @@ public class mover : CustomSaveObject
             }
             if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
+                save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.linearVelocity = save.velosyty;
                
@@ -735,7 +721,7 @@ public class mover : CustomSaveObject
                 PlayerBody.transform.position = save.pos + Globalprefs.newv3;
                 Debug.Log(Globalprefs.newv3);
                 Globalprefs.newv3 = Vector3.zero;
-                //  sr.transform.position = save.pos2;
+                //  sr.transform.position = Save.pos2;
                 if (HyperbolicCamera.Main() != null)
                     {
                         HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
@@ -761,7 +747,7 @@ public class mover : CustomSaveObject
                         {
                             HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
-                        //  sr.transform.position = save.pos2;
+                        //  sr.transform.position = Save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
@@ -786,7 +772,7 @@ public class mover : CustomSaveObject
                         {
                             HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
-                        //  sr.transform.position = save.pos2;
+                        //  sr.transform.position = Save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
@@ -815,7 +801,7 @@ public class mover : CustomSaveObject
             }
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
             {
-                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text)); 
+                gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text)); 
                 CamDistanceMult = gsave.PlayerScale;
                 transform.localScale = Vector3.one * gsave.PlayerScale;
                 hp = gsave.hp;
@@ -848,7 +834,7 @@ public class mover : CustomSaveObject
 
             if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
             {
-                save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
+                save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.linearVelocity = save.velosyty;
 
@@ -862,7 +848,7 @@ public class mover : CustomSaveObject
                     PlayerBody.transform.position = save.pos+ Globalprefs.newv3;
                 Debug.Log(Globalprefs.newv3);
                 Globalprefs.newv3 = Vector3.zero;
-                //  sr.transform.position = save.pos2;
+                //  sr.transform.position = Save.pos2;
                 if (HyperbolicCamera.Main() != null)
                     {
                         HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
@@ -887,7 +873,7 @@ public class mover : CustomSaveObject
                         {
                             HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
-                        //  sr.transform.position = save.pos2;
+                        //  sr.transform.position = Save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
@@ -903,7 +889,7 @@ public class mover : CustomSaveObject
                         {
                             HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                         }
-                        //  sr.transform.position = save.pos2;
+                        //  sr.transform.position = Save.pos2;
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
@@ -922,7 +908,7 @@ public class mover : CustomSaveObject
             }
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
             {
-                gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
+                gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
                 CamDistanceMult = gsave.PlayerScale;
                 transform.localScale = Vector3.one * gsave.PlayerScale;
                 if (gsave.hp >= 20) hp = gsave.hp; else
@@ -1139,11 +1125,11 @@ public class mover : CustomSaveObject
                 g[i].GetComponent<AudioSource>().volume = VarSave.GetGlobalFloat("mus");
             }
         }
-        complsave.getallMorfs();
+        Map_saver.GetAllMorphs();
         if (playerdata.Geteffect("KsenoMorfin") != null)
         {
             GameObject morphmodel = null;
-            morphmodel = Instantiate(complsave.t5[VarSave.GetInt("CurrentMorf")], transform);
+            morphmodel = Instantiate(Map_saver.t5[VarSave.GetInt("CurrentMorf")], transform);
             if (morphmodel != null) if (morphmodel.GetComponent<MoveCamera>())  HeadCameraSetup.transform.position += PlayerBody.transform.up * morphmodel.GetComponent<MoveCamera>().yPos;
             DopPlayerModel = morphmodel;
             perMorphin = true;
@@ -1154,7 +1140,7 @@ public class mover : CustomSaveObject
     }
     Vector3 randommaze()
     {
-        Vector3 rand = new Vector3(UnityEngine.Random.rotation.x, UnityEngine.Random.rotation.y, UnityEngine.Random.rotation.z);
+        Vector3 rand = new(UnityEngine.Random.rotation.x, UnityEngine.Random.rotation.y, UnityEngine.Random.rotation.z);
         return rand;
     }
     void bomjspawn()
@@ -1163,7 +1149,7 @@ public class mover : CustomSaveObject
         {
             for (int i = 0; i < 6; i++)
             {
-                Ray r = new Ray(transform.position + (transform.up * 40), randommaze());
+                Ray r = new(transform.position + (transform.up * 40), randommaze());
                 RaycastHit hit;
                 if (Physics.Raycast(r, out hit))
                 {
@@ -1194,10 +1180,10 @@ public class mover : CustomSaveObject
                 playerdata.Loadeffect();
                 if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
+                    save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                     rigidbody3d.angularVelocity = save.angularvelosyty;
                     rigidbody3d.linearVelocity = save.velosyty;
-                    PlayerBody.transform.position = save.pos;// sr.transform.position = save.pos2;
+                    PlayerBody.transform.position = save.pos;// sr.transform.position = Save.pos2;
                     PlayerBody.transform.rotation = save.q1;
                     HeadCameraSetup.transform.rotation = save.q3;
                     PlayerCamera.transform.rotation = save.q2;
@@ -1224,7 +1210,7 @@ public class mover : CustomSaveObject
                 }
                 if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
                 {
-                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
+                    gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     CamDistanceMult = gsave.PlayerScale;
@@ -1250,10 +1236,10 @@ public class mover : CustomSaveObject
                 playerdata.Loadeffect();
                 if (File.Exists("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text))
                 {
-                    save = JsonUtility.FromJson<save>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
+                    save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                     rigidbody3d.angularVelocity = save.angularvelosyty;
                     rigidbody3d.linearVelocity = save.velosyty;
-                    PlayerBody.transform.position = save.pos; //sr.transform.position = save.pos2;
+                    PlayerBody.transform.position = save.pos; //sr.transform.position = Save.pos2;
                     PlayerBody.transform.rotation = save.q1;
                     HeadCameraSetup.transform.rotation = save.q3;
 
@@ -1281,7 +1267,7 @@ public class mover : CustomSaveObject
                 }
                 if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
                 {
-                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
+                    gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
                     hp = gsave.hp;
                     oxygen = gsave.oxygen;
                     CamDistanceMult = gsave.PlayerScale;
@@ -1306,7 +1292,7 @@ public class mover : CustomSaveObject
         {
 
             
-            DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + Globalprefs.GetTimeline());
+            DirectoryInfo di = new("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + Globalprefs.GetTimeline());
             if (Directory.Exists("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + Globalprefs.GetTimeline()))
             {
 
@@ -1326,10 +1312,10 @@ public class mover : CustomSaveObject
                     {
 
                        
-                        tsave = JsonUtility.FromJson<tsave>(File.ReadAllText(di.GetFiles()[di.GetFiles().Length - 1].FullName));
+                        tsave = JsonUtility.FromJson<TimePlayerData>(File.ReadAllText(di.GetFiles()[di.GetFiles().Length - 1].FullName));
                         rigidbody3d.angularVelocity = -tsave.angularvelosyty;
                         rigidbody3d.linearVelocity = -tsave.velosyty;
-                        PlayerBody.transform.position = tsave.pos;// sr.transform.position = save.pos2;
+                        PlayerBody.transform.position = tsave.pos;// sr.transform.position = Save.pos2;
                         PlayerBody.transform.rotation = tsave.q1;
                         HeadCameraSetup.transform.rotation = tsave.q3;
                         PlayerCamera.transform.rotation = tsave.q2;
@@ -1696,7 +1682,7 @@ public class mover : CustomSaveObject
        // IsGraund = true;
     }
     bool SuperMind;
-    List<Vector3> cc = new List<Vector3>();
+    List<Vector3> cc = new();
     Vector3 new_center;
    static public Vector3 new_offset;
     int indexpos;
@@ -1808,7 +1794,7 @@ public class mover : CustomSaveObject
        if(playerdata.counteffect()>0) if (!Globalprefs.Pause || _n1fps) EffectUpdate();
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text ) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
         {
-            gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
+            gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             string s = "";
             s = SaveFileInputField.text;
             File.WriteAllText("unsave/s", s);
@@ -2379,7 +2365,7 @@ public class mover : CustomSaveObject
                     }
             if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
-            Vector3 movement = new Vector3(deltaX * CamDistanceMult, 0, deltaZ * CamDistanceMult);
+            Vector3 movement = new(deltaX * CamDistanceMult, 0, deltaZ * CamDistanceMult);
             movement = Vector3.ClampMagnitude(movement, Speed);
             
             movement = transform.TransformDirection(movement);
@@ -2625,7 +2611,7 @@ public class mover : CustomSaveObject
             }
 
             SkinManager(); 
-            Ray r = new Ray(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
+            Ray r = new(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
             RaycastHit hit1;
             float distcam = 0;
             // CamDistanceMult
@@ -2872,9 +2858,9 @@ public class mover : CustomSaveObject
             {
                 playerdata.Addeffect("KsenoMorfin", 600);
                 int index = 0;
-                for (int i = 0; i < complsave.t5.Length; i++)
+                for (int i = 0; i < Map_saver.t5.Length; i++)
                 {
-                    if (complsave.t5[i].name == "FlyingMouse")
+                    if (Map_saver.t5[i].CompareTag("FlyingMouse"))
                     {
                         index = i; break;
                     }
@@ -2885,9 +2871,9 @@ public class mover : CustomSaveObject
             {
                 playerdata.Addeffect("KsenoMorfin", 600);
                 int index = 0;
-                for (int i = 0; i < complsave.t5.Length; i++)
+                for (int i = 0; i < Map_saver.t5.Length; i++)
                 {
-                    if (complsave.t5[i].name == "Ctulchu")
+                    if (Map_saver.t5[i].name == "Ctulchu")
                     {
                         index = i; break;
                     }
@@ -3146,7 +3132,7 @@ public class mover : CustomSaveObject
 
             tsave.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsave/captert" + SceneManager.GetActiveScene().buildIndex+"/" + Globalprefs.GetTimeline());
-            DirectoryInfo di = new DirectoryInfo("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + Globalprefs.GetTimeline());
+            DirectoryInfo di = new("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + Globalprefs.GetTimeline());
            
             File.WriteAllText("unsave/captert" + SceneManager.GetActiveScene().buildIndex + "/" + Globalprefs.GetTimeline() + "/" + SaveFileInputField.text + tsave.timesave, JsonUtility.ToJson(tsave));
 
@@ -3182,7 +3168,7 @@ public class mover : CustomSaveObject
 
          //   if (GameObject.Find("w2"))
          //   {
-              //  GameObject.Find("w2").GetComponent<pos4>().save();
+              //  GameObject.Find("w2").GetComponent<pos4>().Save();
          //   }
             save.angularvelosyty = rigidbody3d.angularVelocity;
             save.velosyty = rigidbody3d.linearVelocity;
@@ -3224,7 +3210,7 @@ public class mover : CustomSaveObject
         {
          //   if (GameObject.Find("w2"))
          //   {
-            //    GameObject.Find("w2").GetComponent<pos4>().save();
+            //    GameObject.Find("w2").GetComponent<pos4>().Save();
          //   }
             save.angularvelosyty = rigidbody3d.angularVelocity;
             save.velosyty = rigidbody3d.linearVelocity;

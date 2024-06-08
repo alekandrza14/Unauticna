@@ -21,9 +21,9 @@ public class MirrorReflection : MonoBehaviour
 	private static bool s_InsideRendering = false;
 
 	// This is called when it's known that the object will be rendered by some
-	// camera. We render reflections and do other updates here.
+	// HB_Camera. We render reflections and do other updates here.
 	// Because the script executes in edit mode, reflections for the scene view
-	// camera will just work!
+	// HB_Camera will just work!
 	int s;
 	public void OnWillRenderObject()
     {
@@ -71,7 +71,7 @@ public class MirrorReflection : MonoBehaviour
         UpdateCameraModes(cam, reflectionCamera);
 
         // Render reflection
-        // Reflect camera around reflection plane
+        // Reflect HB_Camera around reflection plane
         float d = -Vector3.Dot(normal, pos) - m_ClipPlaneOffset;
         Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
 
@@ -104,7 +104,7 @@ public class MirrorReflection : MonoBehaviour
                 mat.SetTexture("_ReflectionTex", m_ReflectionTexture);
         }
 
-        // Restore pixel light count
+        // Restore pixel lobj count
         if (m_DisablePixelLights)
             QualitySettings.pixelLightCount = oldPixelLightCount;
 
@@ -129,7 +129,7 @@ public class MirrorReflection : MonoBehaviour
 	{
 		if( dest == null )
 			return;
-		// set camera to clear the same way as current camera
+		// set HB_Camera to ClearObjects the same way as current HB_Camera
 		dest.clearFlags = src.clearFlags;
 		dest.backgroundColor = src.backgroundColor;        
 		if( src.clearFlags == CameraClearFlags.Skybox )
@@ -146,8 +146,8 @@ public class MirrorReflection : MonoBehaviour
 				mysky.material = sky.material;
 			}
 		}
-		// update other values to match current camera.
-		// even if we are supplying custom camera&projection matrices,
+		// update other values to match current HB_Camera.
+		// even if we are supplying custom HB_Camera&projection matrices,
 		// some of values are used elsewhere (e.g. skybox uses far plane)
 		dest.farClipPlane = src.farClipPlane;
 		dest.nearClipPlane = src.nearClipPlane;
@@ -197,7 +197,7 @@ public class MirrorReflection : MonoBehaviour
 		return 0.0f;
 	}
 	
-	// Given position/normal of the plane, calculates plane in camera space.
+	// Given position/normal of the plane, calculates plane in HB_Camera space.
 	private Vector4 CameraSpacePlane (Camera cam, Vector3 pos, Vector3 normal, float sideSign)
 	{
 		Vector3 offsetPos = pos + normal * m_ClipPlaneOffset;

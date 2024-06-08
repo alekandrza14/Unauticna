@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class SimpleMethods {
 
-	//Method to get child with tag
+	//Method to TypeGenergy child with tag
 	public static Transform getChildByTag (Transform obj, string tag) {
 		for (int i = 0; i < obj.childCount; i++) {
 			if (obj.GetChild (i).tag == tag) {

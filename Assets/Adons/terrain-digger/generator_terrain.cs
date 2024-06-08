@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class generator_terrain : MonoBehaviour
+public class Generator_terrain : MonoBehaviour
 {
     public Terrain ter;
     int width;
     int leng;
     int leng1;
-    float hend = 0.2f;
-    float conf = 1;
-    
-    List<Vector2> vectorsis = new List<Vector2>();
-    List<float> fs = new List<float>();
-    List<float> fn = new List<float>();
+    readonly float conf = 1;
+
+    readonly List<Vector2> vectorsis = new();
+    readonly List<float> fs = new();
+    readonly List<float> fn = new();
     int i7 = 0; int i8 = 0;
     void Start()
     {
-        generate();
+        LoadTerraform();
 
     }
     private void Update()
@@ -26,7 +25,7 @@ public class generator_terrain : MonoBehaviour
         i7 = FindObjectsByType<tearaformer>(sortmode.main).Length;
         if (i7 != i8)
         {
-            regenerate();
+            Terrafrom();
             i8 = i7;
 
         }
@@ -49,7 +48,7 @@ public class generator_terrain : MonoBehaviour
             }
         }
         }
-        public void generate()
+        public void LoadTerraform()
     {
 
         width = ter.terrainData.heightmapResolution;
@@ -62,7 +61,7 @@ public class generator_terrain : MonoBehaviour
         Debug.Log((r,r2));
         for (int i = 0; i < FindObjectsByType<tearaformer>(sortmode.main).Length; i++)
         {
-            Vector2 v2i = new Vector2(FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.x,
+            Vector2 v2i = new(FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.x,
 
         FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.z);
 
@@ -76,9 +75,9 @@ public class generator_terrain : MonoBehaviour
         Vector2[] v2is = vectorsis.ToArray();
         float[] f = fn.ToArray();
         float[] f2 = fs.ToArray();
-        Vector3 pr = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        lenghs = new float[(int)((float)width), (int)((float)width)];
-        slenghs = new float[(int)((float)width), (int)((float)width)];
+        Vector3 pr = new(transform.position.x, transform.position.y, transform.position.z);
+        lenghs = new float[width, width];
+        slenghs = new float[width, width];
         for (int i = 0; i < width - 1; i++)
         {
 
@@ -162,14 +161,13 @@ public class generator_terrain : MonoBehaviour
         ter.terrainData.heightmapResolution = ter.terrainData.heightmapResolution;
         ter.terrainData.SetHeights(0, 0, lenghs);
     }
-    public void regenerate()
+    public void Terrafrom()
     {
 
         float r = (float)width / (float)leng1;
-        float r2 = (float)leng1 / (float)width;
         for (int i = 0; i < FindObjectsByType<tearaformer>(sortmode.main).Length; i++)
         {
-            Vector2 v2i = new Vector2(FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.x,
+            Vector2 v2i = new(FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.x,
 
         FindObjectsByType<tearaformer>(sortmode.main)[i].transform.position.z);
 
@@ -183,7 +181,7 @@ public class generator_terrain : MonoBehaviour
         Vector2[] v2is = vectorsis.ToArray();
         float[] f = fn.ToArray();
         float[] f2 = fs.ToArray();
-        Vector3 pr = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Vector3 pr = new(transform.position.x, transform.position.y, transform.position.z);
 
         /*
 

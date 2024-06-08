@@ -402,7 +402,7 @@ namespace Digger
         public void OnInspectorGUIHelpTab()
         {
             EditorGUILayout.HelpBox("Thanks for using Digger!\n\n" +
-                                    "Need help? Checkout the documentation and join us on Discord to get support!\n\n" +
+                                    "Need help? Checkout the documentation and join us on Discord to TypeGenergy support!\n\n" +
                                     "Want to help the developer and support the project? Please write a review on the Asset Store!",
                                     MessageType.Info);
 
@@ -504,11 +504,11 @@ namespace Digger
             EditorGUILayout.HelpBox(
                 "Lowering the size of chunks improves real-time editing performance, but also creates more meshes.",
                 MessageType.Info);
-            if (newChunkSize != master.ChunkSize && EditorUtility.DisplayDialog("Change chunk size & clear everything",
+            if (newChunkSize != master.ChunkSize && EditorUtility.DisplayDialog("Change chunk size & ClearObjects everything",
                                                                                 "All modifications must be cleared for new chunk size to take effect.\n\n" +
                                                                                 "THIS WILL CLEAR ALL MODIFICATIONS MADE WITH DIGGER.\n" +
                                                                                 "This operation CANNOT BE UNDONE.\n\n" +
-                                                                                "Are you sure you want to proceed?", "Yes, clear it", "Cancel")) {
+                                                                                "Are you sure you want to proceed?", "Yes, ClearObjects it", "Cancel")) {
                 master.ChunkSize = newChunkSize;
                 DoClear();
             }
@@ -517,17 +517,17 @@ namespace Digger
             var newResolutionMult = EditorGUILayout.IntPopup("Resolution", master.ResolutionMult,
                                                              new[] {"x1", "x2", "x4", "x8"}, new[] {1, 2, 4, 8});
             if (newResolutionMult != master.ResolutionMult && EditorUtility.DisplayDialog(
-                "Change resolution & clear everything",
+                "Change resolution & ClearObjects everything",
                 "All modifications must be cleared for new resolution to take effect.\n\n" +
                 "THIS WILL CLEAR ALL MODIFICATIONS MADE WITH DIGGER.\n" +
                 "This operation CANNOT BE UNDONE.\n\n" +
-                "Are you sure you want to proceed?", "Yes, clear it", "Cancel")) {
+                "Are you sure you want to proceed?", "Yes, ClearObjects it", "Cancel")) {
                 master.ResolutionMult = newResolutionMult;
                 DoClear();
             }
 
             EditorGUILayout.HelpBox(
-                "If your heightmaps have a low resolution, you might want to set this to x2, x4 or x8 to generate " +
+                "If your heightmaps have a low resolution, you might want to set this to x2, x4 or x8 to LoadTerraform " +
                 "meshes with higher resolution and finer details. " +
                 "However, keep in mind that the higher the resolution is, the more performance will be impacted.",
                 MessageType.Info);
@@ -697,9 +697,9 @@ namespace Digger
 
             GUI.backgroundColor = new Color(1f, 0.55f, 0.57f);
             var doClear = GUILayout.Button("Clear") && EditorUtility.DisplayDialog("Clear",
-                                                                                   "This will clear all modifications made with Digger.\n" +
+                                                                                   "This will ClearObjects all modifications made with Digger.\n" +
                                                                                    "This operation CANNOT BE UNDONE.\n\n" +
-                                                                                   "Are you sure you want to proceed?", "Yes, clear it", "Cancel");
+                                                                                   "Are you sure you want to proceed?", "Yes, ClearObjects it", "Cancel");
             if (doClear) {
                 DoClear();
             }
@@ -967,7 +967,7 @@ namespace Digger
         public static void RemoveDiggerFromTerrains()
         {
             var confirm = EditorUtility.DisplayDialog("Remove Digger from the scene",
-                                                      "You are about to completely remove Digger from the scene and clear all related Digger data.\n\n" +
+                                                      "You are about to completely remove Digger from the scene and ClearObjects all related Digger data.\n\n" +
                                                       "This operation CANNOT BE UNDONE.\n\n" +
                                                       "Are you sure you want to proceed?", "Yes, remove Digger", "Cancel");
             if (!confirm)
@@ -1057,7 +1057,7 @@ namespace Digger
                         EditorUtility.DisplayDialog("Legacy Digger files detected",
                                                     "Digger found some files in DiggerData folder that need to be upgraded. " +
                                                     "Digger will attempt to upgrade them automatically. Current files will be backuped in {projectDir}/DiggerBackup\n\n" +
-                                                    "This may take a while.\n\nDon't forget to save your scene once this is done.",
+                                                    "This may take a while.\n\nDon't forget to Save your scene once this is done.",
                                                     "Ok");
                     }
 
@@ -1072,7 +1072,7 @@ namespace Digger
                         EditorUtility.DisplayDialog("Legacy Digger files detected",
                                                     "Digger found some files in DiggerData folder that need to be upgraded. " +
                                                     "Digger will attempt to upgrade them automatically. Current files will be backuped in {projectDir}/DiggerBackup\n\n" +
-                                                    "This may take a while.\n\nDon't forget to save your scene once this is done.",
+                                                    "This may take a while.\n\nDon't forget to Save your scene once this is done.",
                                                     "Ok");
                     }
 
@@ -1086,7 +1086,7 @@ namespace Digger
                         warned = true;
                         EditorUtility.DisplayDialog("New Digger version",
                                                     "Looks like Digger was updated. Digger is going to synchronize and reload all its data " +
-                                                    "to ensure compatibility. This may take a while.\n\nDon't forget to save your scene once this is done.",
+                                                    "to ensure compatibility. This may take a while.\n\nDon't forget to Save your scene once this is done.",
                                                     "Ok");
                     }
 

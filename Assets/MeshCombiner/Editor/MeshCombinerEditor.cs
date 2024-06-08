@@ -53,13 +53,13 @@ public class MeshCombinerEditor : Editor
 		}
 		meshCombiner.DestroyCombinedChildren = GUILayout.Toggle(meshCombiner.DestroyCombinedChildren,
 			new GUIContent("Destroy Combined Children", "In the editor this operation can NOT be undone!\n\n"+
-			"If you want to bring back destroyed GameObjects, you have to load again the scene without saving."), style);
+			"If you want to bring back destroyed GameObjects, you have to LoadObjects again the scene without saving."), style);
 		#endregion Button which combine Meshes into one Mesh & Toggles with combine options.
 
 		#region Path to the folder where combined Meshes will be saved:
 		// Create Labels:
 		GUILayout.Label("");
-		GUILayout.Label(new GUIContent("Folder path:", "Folder path to save combined Mesh."));
+		GUILayout.Label(new GUIContent("Folder path:", "Folder path to Save combined Mesh."));
 
 		// Create style wherein text color will be red if folder path is not valid:
 		style = new GUIStyle(EditorStyles.textField);

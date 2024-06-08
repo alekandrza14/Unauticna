@@ -119,8 +119,8 @@ public class World : MonoBehaviour {
         {
             if (File.Exists("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + File.ReadAllText("unsave/s")))
             {
-                save gs = new save();
-                gs = JsonUtility.FromJson<save>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + File.ReadAllText("unsave/s")));
+                PlayerData gs = new PlayerData();
+                gs = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + File.ReadAllText("unsave/s")));
                 player.position = gs.pos;
                 
 

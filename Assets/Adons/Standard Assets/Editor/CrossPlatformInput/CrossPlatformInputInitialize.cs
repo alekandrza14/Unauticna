@@ -13,6 +13,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
         // EDITOR_MOBILE_INPUT : denotes that mobile input should be used in editor, if a mobile build target is selected. (i.e. using Unity Remote app).
         // MOBILE_INPUT : denotes that mobile input should be used right now!
 
+        [Obsolete]
         static CrossPlatformInitialize()
         {
             var defines = GetDefinesList(buildTargetGroups[0]);
@@ -25,6 +26,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
 
 
         [MenuItem("Mobile Input/Enable")]
+        [Obsolete]
         private static void Enable()
         {
             SetEnabled("MOBILE_INPUT", true, true);
@@ -48,6 +50,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
 
 
         [MenuItem("Mobile Input/Enable", true)]
+        [Obsolete]
         private static bool EnableValidate()
         {
             var defines = GetDefinesList(mobileBuildTargetGroups[0]);
@@ -56,6 +59,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
 
 
         [MenuItem("Mobile Input/Disable")]
+        [Obsolete]
         private static void Disable()
         {
             SetEnabled("MOBILE_INPUT", false, true);
@@ -72,6 +76,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
 
 
         [MenuItem("Mobile Input/Disable", true)]
+        [Obsolete]
         private static bool DisableValidate()
         {
             var defines = GetDefinesList(mobileBuildTargetGroups[0]);
@@ -79,21 +84,21 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
         }
 
 
-        private static BuildTargetGroup[] buildTargetGroups = new BuildTargetGroup[]
+        private static readonly BuildTargetGroup[] buildTargetGroups = new BuildTargetGroup[]
             {
                 BuildTargetGroup.Standalone,
                 BuildTargetGroup.Android,
                 BuildTargetGroup.iOS
             };
 
-        private static BuildTargetGroup[] mobileBuildTargetGroups = new BuildTargetGroup[]
+        private static readonly BuildTargetGroup[] mobileBuildTargetGroups = new BuildTargetGroup[]
             {
                 BuildTargetGroup.Android,
                 BuildTargetGroup.iOS,
                 BuildTargetGroup.WSA
             };
 
-
+        [Obsolete]
         private static void SetEnabled(string defineName, bool enable, bool mobile)
         {
             //Debug.Log("setting "+defineName+" to "+enable);
@@ -124,7 +129,7 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
             }
         }
 
-
+        [Obsolete]
         private static List<string> GetDefinesList(BuildTargetGroup group)
         {
             return new List<string>(PlayerSettings.GetScriptingDefineSymbolsForGroup(group).Split(';'));

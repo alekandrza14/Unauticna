@@ -10,7 +10,7 @@ namespace UnityStandardAssets.Cameras
         {
             FixedUpdate, // Update in FixedUpdate (for tracking rigidbodies).
             LateUpdate, // Update in LateUpdate. (for tracking objects that are moved in Update)
-            ManualUpdate, // user must call to update camera
+            ManualUpdate, // user must call to update HB_Camera
         }
 
         [SerializeField] protected Transform m_Target;            // The target object to follow

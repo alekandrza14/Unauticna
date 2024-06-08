@@ -11,7 +11,7 @@ public class ED2 : Editor
     
     public override void OnInspectorGUI()
     {
-        /*"generate new point"*/
+        /*"LoadTerraform new point"*/
         
         HyperbolicPoint mp = (HyperbolicPoint)target;
        // for (int i = 0; i < GameObject.FindObjectsOfType<tringle>().Length; i++)
@@ -25,7 +25,7 @@ public class ED2 : Editor
 
         EditorGUILayout.LabelField("");
         EditorGUILayout.LabelField("=============");
-        if (EditorGUILayout.LinkButton("generate new point"))
+        if (EditorGUILayout.LinkButton("LoadTerraform new point"))
         {
             GameObject g = new GameObject("point" + GameObject.FindObjectsByType<HyperbolicPoint>(sortmode.main).Length.ToString());
             g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = ((HyperbolicPoint)target).HyperboilcPoistion.copy();

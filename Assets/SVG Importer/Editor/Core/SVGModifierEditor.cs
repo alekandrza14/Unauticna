@@ -22,7 +22,8 @@ namespace SVGImporter
 		SVGModifier modifier;
 		SVGLayerList layerList;
 
-		public virtual void OnEnable()
+        [System.Obsolete]
+        public virtual void OnEnable()
 		{
 			useSelection = serializedObject.FindProperty("useSelection");
 			manualUpdate = serializedObject.FindProperty("manualUpdate");
@@ -33,7 +34,8 @@ namespace SVGImporter
 			EditorApplication.update += Update;
 		}
 
-		public virtual void OnFocus()
+        [System.Obsolete]
+        public virtual void OnFocus()
 		{
 			// Remove and re-add the sceneGUI delegate
 			SceneView.onSceneGUIDelegate -= this.OnSceneView;
@@ -42,10 +44,11 @@ namespace SVGImporter
 			EditorApplication.update += Update;
 		}
 
-		public virtual void OnDisable()
+        [System.Obsolete]
+        public virtual void OnDisable()
 		{
             SVGModifier._internal_selectingModifier = null;
-            SceneView.onSceneGUIDelegate -= this.OnSceneView;
+            SceneView.onSceneGUIDelegate -= OnSceneView;
 			EditorApplication.update -= Update;
 		}
 
@@ -192,7 +195,7 @@ namespace SVGImporter
 				}
 				if(GUILayout.Button("Invert"))
 				{
-					HashSet<int> cache = new HashSet<int>(modifier.layerSelection.cache);
+					HashSet<int> cache = new(modifier.layerSelection.cache);
 					modifier.layerSelection.Clear();
 					for(int i = 0; i < layersLength; i++)
 					{
@@ -223,9 +226,9 @@ namespace SVGImporter
 			return modifier.svgRenderer.vectorGraphics;
 		}
 
-		static void DrawRect(Rect rect, Matrix4x4 matrix = default(Matrix4x4))
+        static void DrawRect(Rect rect, Matrix4x4 matrix = default)
 		{
-			if(matrix == default(Matrix4x4)) matrix = Matrix4x4.identity;
+			if(matrix == default) matrix = Matrix4x4.identity;
 
 			Vector3 min = rect.min;
 			Vector3 max = rect.max;
@@ -235,33 +238,8 @@ namespace SVGImporter
 			Handles.DrawLine(matrix.MultiplyPoint(new Vector3(min.x, max.y, 0f)), matrix.MultiplyPoint(new Vector3(min.x, min.y, 0f)));
 		}
 
-		static void DrawPath(Vector2[] path, Matrix4x4 matrix = default(Matrix4x4))
-		{
-			if(matrix == default(Matrix4x4)) matrix = Matrix4x4.identity;
-
-			Vector2 lastPoint = matrix.MultiplyPoint(path[path.Length - 1]);
-			Vector2 currentPoint;
-			for(int i = 0; i < path.Length; i++)
-			{
-				currentPoint = matrix.MultiplyPoint(path[i]);
-				Handles.DrawLine(lastPoint, currentPoint);
-				lastPoint = currentPoint;
-			}
-		}
-
-		static void DrawPath(Vector3[] path, Matrix4x4 matrix = default(Matrix4x4))
-		{
-			if(matrix == default(Matrix4x4)) matrix = Matrix4x4.identity;
-			
-			Vector3 lastPoint = matrix.MultiplyPoint(path[path.Length - 1]);
-			Vector3 currentPoint;
-			for(int i = 0; i < path.Length; i++)
-			{
-				currentPoint = matrix.MultiplyPoint(path[i]);
-				Handles.DrawLine(lastPoint, currentPoint);
-				lastPoint = currentPoint;
-			}
-		}
+       
+		
 
 		public static Vector2 GUIPointToWorld(Vector2 gui)
 		{
@@ -305,7 +283,7 @@ namespace SVGImporter
 		}
 
 		Vector2 clickGUIPosition;
-		int controlIDHash = "SVGImporter_SVGModifierEditor_Select".GetHashCode();
+        readonly int controlIDHash = "SVGImporter_SVGModifierEditor_Select".GetHashCode();
 		SceneView lastSceneView;
 		void OnSceneView(SceneView sceneView)
 		{
@@ -379,20 +357,20 @@ namespace SVGImporter
 						SVGLayer[] layers = svgAsset.layers;
 						if(layers != null)
 						{
-							int index = 0;
-							int layersLength = layers.Length;
-							for(index = 0; index < layersLength; index++)
-							{
-								if(modifier.layerSelection.Contains(index))
-								{
-									for(int j = 0; j < layers[index].shapes.Length; j++)
-									{
-										Rect bounds = layers[index].shapes[j].bounds;
-										DrawRect(bounds, transform);
-									}
-								}
-							}
-						}
+                            int layersLength = layers.Length;
+                            int index;
+                            for (index = 0; index < layersLength; index++)
+                            {
+                                if (modifier.layerSelection.Contains(index))
+                                {
+                                    for (int j = 0; j < layers[index].shapes.Length; j++)
+                                    {
+                                        Rect bounds = layers[index].shapes[j].bounds;
+                                        DrawRect(bounds, transform);
+                                    }
+                                }
+                            }
+                        }
 					}
 
 					Handles.color = handlesColor;

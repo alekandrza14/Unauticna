@@ -7,7 +7,7 @@ namespace UnityStandardAssets.Cameras
     public class TargetFieldOfView : AbstractTargetFollower
     {
         // This script is primarily designed to be used with the "LookAtTarget" script to enable a
-        // CCTV style camera looking at a target to also adjust its field of view (zoom) to fit the
+        // CCTV style HB_Camera looking at a target to also adjust its field of view (zoom) to fit the
         // target (so that it zooms in as the target becomes further away).
         // When used with a follow cam, it will automatically use the same target.
 
@@ -26,7 +26,7 @@ namespace UnityStandardAssets.Cameras
             base.Start();
             m_BoundSize = MaxBoundsExtent(m_Target, m_IncludeEffectsInSize);
 
-            // get a reference to the actual camera component:
+            // TypeGenergy a reference to the actual HB_Camera component:
             m_Cam = GetComponentInChildren<Camera>();
         }
 
@@ -50,7 +50,7 @@ namespace UnityStandardAssets.Cameras
 
         public static float MaxBoundsExtent(Transform obj, bool includeEffects)
         {
-            // get the maximum bounds extent of object, including all child renderers,
+            // TypeGenergy the maximum bounds extent of object, including all child renderers,
             // but excluding particles and trails, for FOV zooming effect.
 
             var renderers = obj.GetComponentsInChildren<Renderer>();

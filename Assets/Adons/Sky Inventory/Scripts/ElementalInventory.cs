@@ -67,7 +67,7 @@ public class ElementalInventory : MonoBehaviour {
     public void getallitems()
     {
         getallitemsroom();
-        GameObject[] g = complsave.t3;
+        GameObject[] g = Map_saver.t3;
 
         itemnames = new string[g.Length];
         itemtags = new string[g.Length];
@@ -77,7 +77,7 @@ public class ElementalInventory : MonoBehaviour {
             itemtags[i] = g[i].tag;
             if (g[i].GetComponent<breauty>()) g[i].GetComponent<breauty>().integer = 10;
         }
-        GameObject[] g2 = complsave.t4;
+        GameObject[] g2 = Map_saver.t4;
         itemPrimetive = new GameObject[g2.Length];
         itemPrimetiveInts = new string[g2.Length];
         for (int i = 0; i < g2.Length; i++)
@@ -1608,7 +1608,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider.GetComponent<GeneratorEnergy>())
                 {
-                    if (hit.collider.GetComponent<GeneratorEnergy>().get == GeneratorEnergyType.bio)
+                    if (hit.collider.GetComponent<GeneratorEnergy>().TypeGenergy == GeneratorEnergyType.bio)
                     {
 
                         lowitem(nameItem(Cells[select].elementName), "");
@@ -1682,7 +1682,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider.GetComponent<ComputerSave>())
                 {
-                    if (hit.collider.GetComponent<ComputerSave>().iteractive)
+                    if (hit.collider.GetComponent<ComputerSave>().SigIn)
                     {
 
                         hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem.Add(Cells[select].elementName);
@@ -1707,7 +1707,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider.GetComponent<ComputerSave>())
                 {
-                    if (hit.collider.GetComponent<ComputerSave>().iteractive)
+                    if (hit.collider.GetComponent<ComputerSave>().SigIn)
                     {
                         List<string> s = hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem;
                         List<string> s2 = hit.collider.GetComponent<ComputerSave>().itemsinfo.datasitem;
@@ -1799,7 +1799,7 @@ public class ElementalInventory : MonoBehaviour {
 
             Directory.CreateDirectory("unsave/maps");
 
-            complsave.ObjectSaveManager.saveMap("unsave/maps/_Continuum" + (VarSave.LoadMoney("C_max", 0) % C_Fool));
+            Map_saver.ObjectSaveManager.SaveMap("unsave/maps/_Continuum" + (VarSave.LoadMoney("C_max", 0) % C_Fool));
             VarSave.LoadMoney("C_max", 1);
 
 
@@ -1808,15 +1808,15 @@ public class ElementalInventory : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.UpArrow) && Cells[select].elementName == "ContinuumCloner" && Cells[select].elementCount != 0 && main() == this)
         {
 
-            complsave.ObjectSaveManager.saveMap("unsave/maps/_Continuum" + C_Position % C_Fool);
+            Map_saver.ObjectSaveManager.SaveMap("unsave/maps/_Continuum" + C_Position % C_Fool);
             C_Position++; C_Position %= C_Fool;
             Debug.Log(C_Position);
             if (File.Exists("unsave/maps/_Continuum" + C_Position.ToString() + ".map"))
             {
-                rsave r = new rsave();
+                MapData r = new MapData();
 
-                r = JsonUtility.FromJson<rsave>(File.ReadAllText("unsave/maps/_Continuum" + C_Position.ToString() + ".map"));
-                complsave.mapLoad = "unsave/maps/_Continuum" + C_Position.ToString() + ".map";
+                r = JsonUtility.FromJson<MapData>(File.ReadAllText("unsave/maps/_Continuum" + C_Position.ToString() + ".map"));
+                Map_saver.mapLoad = "unsave/maps/_Continuum" + C_Position.ToString() + ".map";
                 VarSave.SetMoney("C_late", C_Position % C_Fool);
                 SceneManager.LoadSceneAsync(r.sceneName); 
             }
@@ -1825,15 +1825,15 @@ public class ElementalInventory : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.DownArrow) && Cells[select].elementName == "ContinuumCloner" && Cells[select].elementCount != 0 && main() == this)
         {
 
-            complsave.ObjectSaveManager.saveMap("unsave/maps/_Continuum" + C_Position % C_Fool);
+            Map_saver.ObjectSaveManager.SaveMap("unsave/maps/_Continuum" + C_Position % C_Fool);
             C_Position--; C_Position %= C_Fool;
             Debug.Log(C_Position);
             if (File.Exists("unsave/maps/_Continuum" + C_Position.ToString()+".map"))
             {
-                rsave r = new rsave();
+                MapData r = new MapData();
 
-                r = JsonUtility.FromJson<rsave>(File.ReadAllText("unsave/maps/_Continuum" + C_Position.ToString() + ".map"));
-                complsave.mapLoad = "unsave/maps/_Continuum" + C_Position.ToString() + ".map"; 
+                r = JsonUtility.FromJson<MapData>(File.ReadAllText("unsave/maps/_Continuum" + C_Position.ToString() + ".map"));
+                Map_saver.mapLoad = "unsave/maps/_Continuum" + C_Position.ToString() + ".map"; 
                 VarSave.SetMoney("C_late", C_Position % C_Fool);
                 SceneManager.LoadSceneAsync(r.sceneName);
             }
@@ -2615,7 +2615,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Trip", 600);
             playerdata.Addeffect("Tripl2", 600);
             playerdata.Addeffect("KsenoMorfin", 600);
-            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, complsave.t5.Length));
+            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
             playerdata.Addeffect("Regeneration", 600);
             playerdata.Addeffect("ImbalenceRegeneration", 600);
             playerdata.Addeffect("severe hangover", 600);
@@ -2634,7 +2634,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
             playerdata.Addeffect("KsenoMorfin", 600);
-            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, complsave.t5.Length));
+            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
             VarSave.LoadFloat("mana", 1f);
 
             GameManager.saveandhill();
@@ -3833,8 +3833,8 @@ public class ElementalInventory : MonoBehaviour {
         }
         if (cod.functional == Functional.spawner || cod.functional == Functional.user || cod.functional == Functional.steyk)
         {
-            complsave cps = complsave.ObjectSaveManager;
-            if (cod.AnigilateItem) cps.clear();
+            Map_saver cps = Map_saver.ObjectSaveManager;
+            if (cod.AnigilateItem) cps.ClearObjects();
             if ((long)m.hp + (long)cod.RegenerateHp < int.MaxValue) m.hp += cod.RegenerateHp;
             m.W_position += cod.playerWHMove.x;
             m.H_position += cod.playerWHMove.y;
@@ -4749,7 +4749,7 @@ public class ElementalInventory : MonoBehaviour {
 		Cells [cellId].UpdateCellInterface ();
 	}
 
-	//Returns id of first clear cell
+	//Returns id of first ClearObjects cell
 	public int getFirst () {
 		for (int i = 0; i < Cells.Length; i++) {
 			if (Cells [i].elementCount == 0) {

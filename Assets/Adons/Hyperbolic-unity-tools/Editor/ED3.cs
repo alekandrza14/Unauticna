@@ -9,7 +9,7 @@ public class Create_4D
     [MenuItem("GameObject/4D Object/Hyperbolic geometry/Point", false,-1000)]
     public static void Create()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("Point")
         {
 
@@ -19,7 +19,7 @@ public class Create_4D
     [MenuItem("GameObject/4D Object/Hyperbolic geometry/Cube", false, -1000)]
     public static void CreateCube()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("Cube")
         {
 
@@ -33,7 +33,7 @@ public class Create_4D
     [MenuItem("GameObject/4D Object/Hyperbolic geometry/sphere", false, -1000)]
     public static void CreateSphere()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("sphere")
         {
 

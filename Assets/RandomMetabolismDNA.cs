@@ -16,7 +16,7 @@ public class RandomMetabolismDNA : InventoryEvent
 
         if (string.IsNullOrEmpty(DNA))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 playerDNA = new PlayerDNA();

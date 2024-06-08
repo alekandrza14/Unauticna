@@ -47,7 +47,7 @@ namespace TMPro.Examples
         IEnumerator Start()
         {
 
-            // Force and update of the mesh to get valid information.
+            // Force and update of the mesh to TypeGenergy valid information.
             m_textMeshPro.ForceMeshUpdate();
 
 

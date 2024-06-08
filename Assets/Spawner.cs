@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
 
         if (string.IsNullOrEmpty(mobData))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
 

@@ -105,7 +105,7 @@ public class HyperbolicPoint : MonoBehaviour
         //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
        
 
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
 
@@ -199,7 +199,7 @@ public class HyperbolicPoint : MonoBehaviour
         //json1.getFloat("n"),json1.getFloat("s"),json1.getFloat("m")
         
 
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
 

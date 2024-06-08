@@ -533,10 +533,10 @@ public class FileSelector : MonoBehaviour
         {
 
 
-            rsave r = new rsave();
+            MapData r = new MapData();
 
-            r = JsonUtility.FromJson<rsave>(File.ReadAllText(path + @"\" + file));
-			complsave.mapLoad = path + @"\" + file;
+            r = JsonUtility.FromJson<MapData>(File.ReadAllText(path + @"\" + file));
+			Map_saver.mapLoad = path + @"\" + file;
 			SceneManager.LoadSceneAsync(r.sceneName);
             // file;
 

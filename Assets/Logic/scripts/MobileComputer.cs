@@ -55,7 +55,7 @@ public class MobileComputer : MonoBehaviour
 
         shorta1();
         operations = ComputerOperations.Porducts;
-        txt.text = complsave.t3[CurrentProduct].name + " Const : " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f*(float)(Globalprefs.GetProcentInflitiuon()+1));
+        txt.text = Map_saver.t3[CurrentProduct].name + " Const : " + (Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f*(float)(Globalprefs.GetProcentInflitiuon()+1));
 
         Screen.texture = sprites[2];
     }
@@ -250,24 +250,24 @@ public class MobileComputer : MonoBehaviour
             operations = ComputerOperations.Porducts;
             if (!Directory.Exists("debug"))
             {
-                if (!VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                if (!VarSave.ExistenceVar("researchs/" + Map_saver.t3[CurrentProduct].name))
                 {
                     txt.text = "Unknown " + CurrentProduct + " Const : " + "NULL";
 
                 }
-                if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                if (VarSave.ExistenceVar("researchs/" + Map_saver.t3[CurrentProduct].name))
                 {
-                    if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    if (!Map_saver.t3[CurrentProduct].GetComponent<Запрещён>())
                     {
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + ((complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f  * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ) ;
+                        txt.text = Map_saver.t3[CurrentProduct].name + " Const : " + ((Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f  * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ) ;
                     }
-                    if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                    if (Map_saver.t3[CurrentProduct].GetComponent<Запрещён>())
                     {
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : " + ((complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f  * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ) ;
+                        txt.text = Map_saver.t3[CurrentProduct].name + " Const : " + ((Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f  * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ) ;
                     }
-                    if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
+                    if (Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                     {
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : ∞ * " + (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ;
+                        txt.text = Map_saver.t3[CurrentProduct].name + " Const : ∞ * " + (Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / (float)shorta ;
                     }
                 }
             }
@@ -275,15 +275,15 @@ public class MobileComputer : MonoBehaviour
             {
                
                  
-                        txt.text = complsave.t3[CurrentProduct].name + " Const : Халява";
+                        txt.text = Map_saver.t3[CurrentProduct].name + " Const : Халява";
                    
             }
-            if (complsave.t3[CurrentProduct].name == "AllAnyphingItems")
+            if (Map_saver.t3[CurrentProduct].name == "AllAnyphingItems")
             {
                 txt2.text = "если ты это купишь ты буквально сломаешь сохранения игры удачи";
                 txt2.color = Color.red;
             }
-            if (complsave.t3[CurrentProduct].name != "AllAnyphingItems")
+            if (Map_saver.t3[CurrentProduct].name != "AllAnyphingItems")
             {
                 txt2.text = "";
                 txt2.color = Color.black;
@@ -357,26 +357,26 @@ public class MobileComputer : MonoBehaviour
         {
             if (!Directory.Exists("debug"))
             {
-                if (Globalprefs.LoadTevroPrise(0) >= (decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)))
+                if (Globalprefs.LoadTevroPrise(0) >= (decimal)(Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)))
                 {
-                    if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                    if (VarSave.ExistenceVar("researchs/" + Map_saver.t3[CurrentProduct].name))
                     {
-                        if (!complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
+                        if (!Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                         {
-                            if (!complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                            if (!Map_saver.t3[CurrentProduct].GetComponent<Запрещён>())
                             {
-                                Globalprefs.LoadTevroPrise(-(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
-                                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                                Globalprefs.LoadTevroPrise(-(decimal)(Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                                Instantiate(Map_saver.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
                                 if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
                                 {
                                     VarSave.LoadFloat("reason", 1);
                                 }
                             }
-                            if (complsave.t3[CurrentProduct].GetComponent<Запрещён>())
+                            if (Map_saver.t3[CurrentProduct].GetComponent<Запрещён>())
                             {
-                                Globalprefs.LoadTevroPrise(-(decimal)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
-                                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity); if (VarSave.GetFloat(
+                                Globalprefs.LoadTevroPrise(-(decimal)(Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 101.5f * (float)(Globalprefs.GetProcentInflitiuon() + 1)) / shorta);
+                                Instantiate(Map_saver.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
                                 {
                                     VarSave.LoadFloat("reason", 1);
@@ -385,15 +385,15 @@ public class MobileComputer : MonoBehaviour
                         }
                     }
                 }
-                if (VarSave.LoadTrash("inftevro", 0) >= (double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta)
+                if (VarSave.LoadTrash("inftevro", 0) >= (double)(Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta)
                 {
-                    if (VarSave.ExistenceVar("researchs/" + complsave.t3[CurrentProduct].name))
+                    if (VarSave.ExistenceVar("researchs/" + Map_saver.t3[CurrentProduct].name))
                     {
 
-                        if (complsave.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
+                        if (Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemInfinitysPrise)
                         {
-                            VarSave.LoadTrash("inftevro", -(double)(complsave.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta);
-                            Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                            VarSave.LoadTrash("inftevro", -(double)(Map_saver.t3[CurrentProduct].GetComponent<itemName>().ItemPrise * 1.5f * (double)(Globalprefs.GetProcentInflitiuon() + 1)) / (double)shorta);
+                            Instantiate(Map_saver.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
                             Globalprefs.Infinitysteuvro = VarSave.LoadTrash("inftevro", 0); if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
                             {
@@ -405,7 +405,7 @@ public class MobileComputer : MonoBehaviour
             }
             if (Directory.Exists("debug"))
             {
-                Instantiate(complsave.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
+                Instantiate(Map_saver.t3[CurrentProduct], mover.main().transform.position, Quaternion.identity);
             }
         }
         if (operations == ComputerOperations.Servers)
@@ -438,7 +438,7 @@ public class MobileComputer : MonoBehaviour
                 decimal prise =0;
                 foreach (itemName item in FindObjectsByType<itemName>(sortmode.main))
                 {
-                    foreach (GameObject classitem in complsave.t3)
+                    foreach (GameObject classitem in Map_saver.t3)
                     {
                         if (item._Name == classitem.GetComponent<itemName>()._Name)
                         {
@@ -500,7 +500,7 @@ public class MobileComputer : MonoBehaviour
 
         if (operations == ComputerOperations.Porducts)
         {
-            if (complsave.t3.Length - 1 > CurrentProduct)
+            if (Map_saver.t3.Length - 1 > CurrentProduct)
             {
                 CurrentProduct++;
             }
@@ -562,7 +562,7 @@ public class MobileComputer : MonoBehaviour
             }
             else
             {
-                CurrentProduct = complsave.t3.Length - 1;
+                CurrentProduct = Map_saver.t3.Length - 1;
             }
         }
         if (operations == ComputerOperations.Stocks)

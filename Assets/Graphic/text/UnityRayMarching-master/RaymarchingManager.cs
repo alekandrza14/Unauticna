@@ -171,7 +171,7 @@ public class RaymarchingManager : MonoBehaviour
   }
 
   // Passes all the needed uniforms to the shader
-  // TODO: Add more light types and the possibility of multiple lights
+  // TODO: Add more lobj types and the possibility of multiple lights
   void SetupComputeShader(RenderTexture srcTex, RenderTexture outTex)
   {
     // Pass the shapes buffer
@@ -189,7 +189,7 @@ public class RaymarchingManager : MonoBehaviour
     m_raymarchingShader.SetTexture(0, "_srcTex", srcTex);
     m_raymarchingShader.SetTexture(0, "_outTex", outTex);
 
-    // Pass the ambient light information
+    // Pass the ambient lobj information
     m_raymarchingShader.SetFloat("_Ka", m_ambientIntensity);
     m_raymarchingShader.SetVector("_ambientColor", m_ambientColor);
 

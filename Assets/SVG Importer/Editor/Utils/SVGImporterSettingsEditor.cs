@@ -53,6 +53,7 @@ namespace SVGImporter {
             generateTangents = serializedObject.FindProperty("defaultGenerateTangents");
         }
 
+        
         public override void OnInspectorGUI()
         {
 			serializedObject.Update();
@@ -122,7 +123,7 @@ namespace SVGImporter {
 			}
 
             EditorGUILayout.BeginHorizontal();
-            if(SVGPostprocessor.active)
+            if(SVGPostprocessor.Active)
             {
                 EditorGUILayout.LabelField("Asset Postprocessor: On");
                 if(GUILayout.Button("Stop"))
@@ -139,7 +140,7 @@ namespace SVGImporter {
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
-            if(SVGImporterLaunchEditor.active)
+            if(SVGImporterLaunchEditor.Active)
             {
                 EditorGUILayout.LabelField("Support Service: On");
                 /*

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove,noRotate,MoveandRotate,palyerY
+    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5
 }
 
 public class NoscaleParent : MonoBehaviour
 {
-    [SerializeField] public Transform Obj;
+    public Transform Obj;
     [SerializeField] NoscaleParentSettings settings;
     
     void Update()
@@ -29,6 +29,14 @@ public class NoscaleParent : MonoBehaviour
         if (settings == NoscaleParentSettings.palyerY)
         {
             transform.position = new Vector3(transform.position.x, mover.main().transform.position.y, transform.position.z);
+        }
+        if (settings == NoscaleParentSettings.PlayerRayEnd)
+        {
+            transform.position = MainRay.MainHit.point;
+        }
+        if (settings == NoscaleParentSettings.PayerCamera)
+        {
+            transform.position = Globalprefs.camera.transform.position;
         }
     }
 }

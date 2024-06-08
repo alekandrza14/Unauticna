@@ -22,7 +22,7 @@ namespace UnityStandardAssets.Utility
 
         public IEnumerator DoBobCycle()
         {
-            // make the camera move down slightly
+            // make the hb_camera move down slightly
             float t = 0f;
             while (t < BobDuration)
             {

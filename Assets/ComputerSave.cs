@@ -10,23 +10,23 @@ public class ComputerSave : MonoBehaviour
 {
 
     [SerializeField] itemName itemName;
-    public ItemsInfo itemsinfo = new ItemsInfo();
+    public ItemsInfo itemsinfo = new();
     [SerializeField] Text itemView;
     public Acaunt aka;
-    public string acauntdata;
-    public bool iteractive { get; private set; }
+    public string Acaunt_data;
+    public bool SigIn{ get; private set; }
     private void Start()
     {
-        acauntdata = GetComponent<itemName>().ItemData;
+        Acaunt_data = GetComponent<itemName>().ItemData;
 
-        if (string.IsNullOrEmpty(acauntdata))
+        if (string.IsNullOrEmpty(Acaunt_data))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
 
-                acauntdata = aka.fullUserName + "√" + aka.loign.text + "√" + aka.ct.text + "√" + JsonUtility.ToJson(itemsinfo) + "√" + aka.Private;
-                GetComponent<itemName>().ItemData = acauntdata;
+                Acaunt_data = aka.fullUserName + "√" + aka.loign.text + "√" + aka.ct.text + "√" + JsonUtility.ToJson(itemsinfo) + "√" + aka.Private;
+                GetComponent<itemName>().ItemData = Acaunt_data;
             }
         }
         SetVaules();
@@ -34,12 +34,12 @@ public class ComputerSave : MonoBehaviour
 
     private void SetVaules()
     {
-        aka.fullUserName = acauntdata.Split('√')[0];
-        aka.loign.text = acauntdata.Split('√')[1];
-        aka.ct.text = acauntdata.Split('√')[2]; itemsinfo = new ItemsInfo();
-        int pageNum = acauntdata.Split('√').Length;
-        if (pageNum > 3) if (!string.IsNullOrEmpty(acauntdata.Split('√')[3])) { itemsinfo = JsonUtility.FromJson<ItemsInfo>(acauntdata.Split('√')[3]); } else itemsinfo = new ItemsInfo();
-        if (pageNum > 4) if (!string.IsNullOrEmpty(acauntdata.Split('√')[4])) { aka.Private = acauntdata.Split('√')[4]; }
+        aka.fullUserName = Acaunt_data.Split('√')[0];
+        aka.loign.text = Acaunt_data.Split('√')[1];
+        aka.ct.text = Acaunt_data.Split('√')[2]; itemsinfo = new();
+        int pageNum = Acaunt_data.Split('√').Length;
+        if (pageNum > 3) if (!string.IsNullOrEmpty(Acaunt_data.Split('√')[3])) { itemsinfo = JsonUtility.FromJson<ItemsInfo>(Acaunt_data.Split('√')[3]); } else itemsinfo = new();
+        if (pageNum > 4) if (!string.IsNullOrEmpty(Acaunt_data.Split('√')[4])) { aka.Private = Acaunt_data.Split('√')[4]; }
         aka.UpdateAcaunt();
     }
 
@@ -48,15 +48,15 @@ public class ComputerSave : MonoBehaviour
         if (GetComponent<itemName>())
         {
 
-            acauntdata = GetComponent<itemName>().ItemData;
-            if (string.IsNullOrEmpty(acauntdata))
+            Acaunt_data = GetComponent<itemName>().ItemData;
+            if (string.IsNullOrEmpty(Acaunt_data))
             {
-                if (complsave.LoadADone)
+                if (Map_saver.LoadADone)
                 {
                     // time = JsonUtility.ToJson(Random.ColorHSV());
 
-                    acauntdata = aka.fullUserName + "√" + aka.loign.text + "√" + aka.ct.text + "√" + JsonUtility.ToJson(itemsinfo) + "√" + aka.Private;
-                    GetComponent<itemName>().ItemData = acauntdata;
+                    Acaunt_data = aka.fullUserName + "√" + aka.loign.text + "√" + aka.ct.text + "√" + JsonUtility.ToJson(itemsinfo) + "√" + aka.Private;
+                    GetComponent<itemName>().ItemData = Acaunt_data;
                 }
             }
         }
@@ -79,14 +79,11 @@ public class ComputerSave : MonoBehaviour
     private void Update()
     {
       if(!string.IsNullOrEmpty(aka.Private)&&!aka.PrivateOn)  aka.UpdateAcaunt();
-        if (itemsinfo==null)
-        {
-            itemsinfo = new ItemsInfo();
-        }
-        iteractive = !string.IsNullOrEmpty(aka.fullUserName);
-        acauntdata = aka.fullUserName + "√" + aka.loign.text + "√" + aka.ct.text + "√" + JsonUtility.ToJson(itemsinfo)+"√"+aka.Private;
-        GetComponent<itemName>().ItemData = acauntdata;
-        if (itemsinfo.namesitem.Count > 0) itemView.text = "Late Object : " + itemsinfo.namesitem[itemsinfo.namesitem.Count - 1];
+        itemsinfo ??= new();
+        SigIn = !string.IsNullOrEmpty(aka.fullUserName);
+        Acaunt_data = aka.fullUserName + "√" + aka.loign.text + "√" + aka.ct.text + "√" + JsonUtility.ToJson(itemsinfo)+"√"+aka.Private;
+        GetComponent<itemName>().ItemData = Acaunt_data;
+        if (itemsinfo.namesitem.Count > 0) itemView.text = "Late Object : " + itemsinfo.namesitem[^1];
         if (itemsinfo.namesitem.Count <= 0) itemView.text = "Late Object : None";
 
 

@@ -18,7 +18,7 @@ namespace SVGImporter
     {
         const string SVG_IMPORTER_POSTPROCESSOR_KEY = "SVG_IMPORTER_POSTPROCESSOR_KEY";
         static bool _active = false;
-        public static bool active
+        public static bool Active
         {
             get {
                 if(!EditorPrefs.HasKey(SVG_IMPORTER_POSTPROCESSOR_KEY))
@@ -48,11 +48,11 @@ namespace SVGImporter
             }
         }
 
-        public static void Start() { active = true; }
-        public static void Stop() { active = false; }
+        public static void Start() { Active = true; }
+        public static void Stop() { Active = false; }
 
-        static string svgExtension = ".svg1";        // Our custom svgExtension
-        static string assetExtension = ".asset";        // svgExtension of newly created asset - it MUST be ".asset", nothing else is allowed...
+        static readonly string svgExtension = ".svg1";        // Our custom svgExtension
+        static readonly string assetExtension = ".asset";        // svgExtension of newly created asset - it MUST be ".asset", nothing else is allowed...
         private const uint _version = 1;
 
         public override uint GetVersion()
@@ -72,7 +72,7 @@ namespace SVGImporter
         
         public static string ConvertToInternalPath(string asset)
         {
-            string left = asset.Substring(0, asset.Length - svgExtension.Length);
+            string left = asset[..^svgExtension.Length];
             return left + assetExtension;
         }
         
@@ -85,7 +85,7 @@ namespace SVGImporter
                 string[] movedFromAssetPaths
             )
         {
-            if(!active)
+            if(!Active)
                 return;
 
 			// Hotfix: Joonas Nissinen 13.6.16 find all already imported assets and
@@ -100,8 +100,8 @@ namespace SVGImporter
             int importTotalAssets = 0;
             int reImportTotalAssets = 0;
 
-            List<string> importSVGAssets = new List<string>();
-            List<SVGAsset> reimportSVGAssets = new List<SVGAsset>();
+            List<string> importSVGAssets = new();
+            List<SVGAsset> reimportSVGAssets = new();
 
             foreach(string asset in importedAssets)
             {
@@ -186,6 +186,11 @@ namespace SVGImporter
 
         static void ReimportSVGAsset(SVGAsset svgAsset, string asset)
         {
+            if (asset is null)
+            {
+                throw new ArgumentNullException(nameof(asset));
+            }
+
             MethodInfo _editor_ApplyChanges = typeof(SVGAsset).GetMethod("_editor_ApplyChanges", BindingFlags.NonPublic | BindingFlags.Instance);
             _editor_ApplyChanges.Invoke(svgAsset, new object[]{true});
         }
@@ -198,7 +203,7 @@ namespace SVGImporter
             string outputFileName = directoryName+"/"+fileNameWithoutExtension+".asset";
 
             string svgText;
-            using (StreamReader sr = new StreamReader(asset))
+            using (StreamReader sr = new(asset))
             {
                 svgText = sr.ReadToEnd();
             }
@@ -275,6 +280,8 @@ namespace SVGImporter
         }
 
         const string assetIconPath = "Assets/Gizmos/SVGAsset icon.png";
+
+        [Obsolete]
         void OnPreprocessTexture() {
             if(assetPath != assetIconPath)
                 return;
@@ -289,19 +296,6 @@ namespace SVGImporter
             textureImporter.spriteImportMode = SpriteImportMode.None;
             textureImporter.textureFormat = TextureImporterFormat.ARGB32;
             textureImporter.wrapMode = TextureWrapMode.Clamp;
-        }
-
-        private static void ForcedImportFor(string newPath)
-        {
-            try
-            {
-                AssetDatabase.StartAssetEditing();
-                AssetDatabase.ImportAsset(newPath);
-            }
-            finally
-            {
-                AssetDatabase.StopAssetEditing();
-            }
         }
     }
 }

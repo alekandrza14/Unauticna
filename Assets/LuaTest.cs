@@ -17,7 +17,7 @@ public class LuaTest : InventoryEvent
     void Start()
     {
         //  code = File.ReadAllText("res/scripts/Jump.lua");
-      if(complsave.LoadADone)  if (itemName)
+      if(Map_saver.LoadADone)  if (itemName)
         {
 
             codepath = itemName.ItemData;

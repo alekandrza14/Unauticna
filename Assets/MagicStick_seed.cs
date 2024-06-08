@@ -59,7 +59,7 @@ public class MagicStick_seed : MonoBehaviour
                     Model.scale = Vector3.one;
                     Model._Color = Color.gray;
                     Model.RegenerateHp = (int)Global.Random.Range(-13, 6);
-                    if (Global.Random.Range(0, 2) == 0) Model.itemSpawn = complsave.t3[(int)Global.Random.Range(-1, complsave.t3.Length)].name;
+                    if (Global.Random.Range(0, 2) == 0) Model.itemSpawn = Map_saver.t3[(int)Global.Random.Range(-1, Map_saver.t3.Length)].name;
                     
                     bool monet = false;
 

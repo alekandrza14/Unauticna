@@ -24,7 +24,7 @@ namespace UnityStandardAssets.Utility
             get { return waypointList.items; }
         }
 
-        //this being here will save GC allocs
+        //this being here will Save GC allocs
         private int p0n;
         private int p1n;
         private int p2n;
@@ -74,7 +74,7 @@ namespace UnityStandardAssets.Utility
             }
 
 
-            // get nearest two points, ensuring points wrap-around start & end of circuit
+            // TypeGenergy nearest two points, ensuring points wrap-around start & end of circuit
             p1n = ((point - 1) + numPoints)%numPoints;
             p2n = point;
 
@@ -87,7 +87,7 @@ namespace UnityStandardAssets.Utility
                 // smooth catmull-rom calculation between the two relevant points
 
 
-                // get indices for the surrounding 2 points, because
+                // TypeGenergy indices for the surrounding 2 points, because
                 // four points are required by the catmull-rom function
                 p0n = ((point - 2) + numPoints)%numPoints;
                 p3n = (point + 1)%numPoints;

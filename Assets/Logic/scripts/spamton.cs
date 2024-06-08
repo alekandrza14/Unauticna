@@ -27,6 +27,7 @@ public class spamton : MonoBehaviour
     public string bol;
     public bool iznendial;
     public bool mage;
+    public bool scam;
 
     public bool fisttalk;
     public bool rayMarch;
@@ -66,6 +67,40 @@ public class spamton : MonoBehaviour
 
         }
     }
+    bool game;
+    private void OnMouseDown()
+    {
+        if (!game)
+        {
+            List<GameObject> red = new();
+            red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
+            red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
+            red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
+            red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
+            red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
+
+            List<GameObject> blue = new();
+            blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
+            blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
+            blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
+            blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
+            blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
+            foreach (GameObject item in blue)
+            {
+                Card pl_card = item.GetComponent<Card>();
+                pl_card.red_blue = false;
+                pl_card.pover = Random.Range(-1, 11);
+            }
+            foreach (GameObject item in red)
+            {
+
+                Card sc_card = item.GetComponent<Card>();
+                sc_card.red_blue = true;
+                sc_card.pover = Random.Range(-1, 11);
+            }
+            game = true;
+        }
+    }
 
     public void delete()
     {
@@ -79,6 +114,10 @@ public class spamton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FindObjectsByType<Card>(sortmode.main).Length<=0)
+        {
+            game = false;
+        }
         if (true)
         {
 

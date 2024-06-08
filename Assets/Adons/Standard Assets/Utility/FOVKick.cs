@@ -7,7 +7,7 @@ namespace UnityStandardAssets.Utility
     [Serializable]
     public class FOVKick
     {
-        public Camera Camera;                           // optional camera setup, if null the main camera will be used
+        public Camera Camera;                           // optional HB_Camera setup, if null the main HB_Camera will be used
         [HideInInspector] public float originalFov;     // the original fov
         public float FOVIncrease = 3f;                  // the amount the field of view increases when going into a run
         public float TimeToIncrease = 1f;               // the amount of time the field of view will increase over
@@ -28,7 +28,7 @@ namespace UnityStandardAssets.Utility
         {
             if (camera == null)
             {
-                throw new Exception("FOVKick camera is null, please supply the camera to the constructor");
+                throw new Exception("FOVKick HB_Camera is null, please supply the HB_Camera to the constructor");
             }
 
             if (IncreaseCurve == null)

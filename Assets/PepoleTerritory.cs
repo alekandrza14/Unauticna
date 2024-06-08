@@ -15,7 +15,7 @@ public class PepoleTerritory : MonoBehaviour
     public AnimationCurve detect4D;
     private void Start()
     {
-        TakingSpace = complsave.total_lif;
+        TakingSpace = Map_saver.total_lif;
         IsTaking = VarSave.GetFloat(TakingSpace + "TakingVin") == 2;
     }
     private void OnTriggerEnter(Collider other)

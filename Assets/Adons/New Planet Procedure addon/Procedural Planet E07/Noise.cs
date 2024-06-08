@@ -257,7 +257,7 @@ namespace na1
                 n3 = t3 * t3 * Dot(Grad3[gi3], x3, y3, z3);
             }
 
-            // Add contributions from each corner to get the final noise value.
+            // Add contributions from each corner to TypeGenergy the final noise value.
             // The result is scaled to stay just inside [-1,1]
             return (float)(n0 + n1 + n2 + n3) * 32;
         }

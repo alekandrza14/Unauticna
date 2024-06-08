@@ -102,7 +102,7 @@ namespace UnityStandardAssets.Utility
                                .direction);
 
 
-                // get our current progress along the route
+                // TypeGenergy our current progress along the route
                 progressPoint = circuit.GetRoutePoint(progressDistance);
                 Vector3 progressDelta = progressPoint.position - transform.position;
                 if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
@@ -126,7 +126,7 @@ namespace UnityStandardAssets.Utility
                 target.position = circuit.Waypoints[progressNum].position;
                 target.rotation = circuit.Waypoints[progressNum].rotation;
 
-                // get our current progress along the route
+                // TypeGenergy our current progress along the route
                 progressPoint = circuit.GetRoutePoint(progressDistance);
                 Vector3 progressDelta = progressPoint.position - transform.position;
                 if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)

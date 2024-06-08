@@ -169,7 +169,7 @@ namespace SVGImporter.LibTessDotNet
             var eDelSym = eDel._Sym;
 
             // First step: disconnect the origin vertex eDel->Org.  We make all
-            // changes to get a consistent mesh in this "intermediate" state.
+            // changes to TypeGenergy a consistent mesh in this "intermediate" state.
 
             bool joiningLoops = false;
             if (eDel._Lface != eDel._Rface)

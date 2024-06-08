@@ -11,7 +11,7 @@ public class TakingManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TakingSpace = complsave.total_lif+SceneManager.GetActiveScene().buildIndex;
+        TakingSpace = Map_saver.total_lif+SceneManager.GetActiveScene().buildIndex;
         TakingData = VarSave.GetFloat(TakingSpace + "TakingSpace");
         if (VarSave.GetFloat(TakingSpace + "TakingSpace")==0)
         {

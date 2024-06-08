@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 using Unity.Burst.CompilerServices;
 
 
-public class complsave : MonoBehaviour
+public class Map_saver : MonoBehaviour
 {
 
-    public rsave saveString1 = new rsave();
+    public MapData saveString1 = new();
     public string name2;
 
 
@@ -30,7 +30,7 @@ public class complsave : MonoBehaviour
     public static string total_lif;
 
     public static string[] nunames = new string[0];
-    public static complsave ObjectSaveManager;
+    public static Map_saver ObjectSaveManager;
 
     public static string[] info3 = new string[0];
 
@@ -61,7 +61,7 @@ public class complsave : MonoBehaviour
                 for (int i3 = 0; i3 < GameObject.FindGameObjectsWithTag(info3[i]).Length; i3++)
                 {
 
-                    GameObject.FindGameObjectsWithTag(info3[i])[i3].gameObject.AddComponent<deleter1>();
+                    GameObject.FindGameObjectsWithTag(info3[i])[i3].AddComponent<deleter1>();
 
 
                 }
@@ -76,7 +76,7 @@ public class complsave : MonoBehaviour
         File.Delete(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
     }
-    public void getallitemsroom()
+    public void Get_all_items_room()
     {
         GameObject[] g = Resources.LoadAll<GameObject>("itms/room" + lif + SceneManager.GetActiveScene().buildIndex);
         nunames = new string[g.Length];
@@ -103,7 +103,7 @@ public class complsave : MonoBehaviour
             }
         }
     }
-    public static void getallMorfs()
+    public static void GetAllMorphs()
     {
         if (t5.Length == 0)
         {
@@ -116,7 +116,7 @@ public class complsave : MonoBehaviour
             }
         }
     }
-    public void getallitems()
+    public void GetAllItems()
     {
         if (VarSave.GetString("Demake" + Globalprefs.Reality) != "") Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
 
@@ -155,7 +155,7 @@ public class complsave : MonoBehaviour
                 info4[i] = g2[i].GetComponent<StandartObject>().init;
 
             }
-            getallitemsroom();
+            Get_all_items_room();
         }
         //Передача потенциальных зачений пердметов в инвентарь. без неё нерабтает инвентарь с физическойфоромой предметов.
         if (t3.Length != 0) ElementalInventory.main().getallitems();
@@ -173,31 +173,35 @@ public class complsave : MonoBehaviour
         Directory.CreateDirectory(VarSave.Worldpath + @"/objects");
         LimMath();
       
-        getallitems();
-        load();
-        for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
+        GetAllItems();
+        LoadObjects();
+        itemspawn[] isn = FindObjectsByType<itemspawn>(sortmode.main);
+        for (int i = 0; i < isn.Length; i++)
         {
+
+
+
+            
             if (VarSave.GetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, SaveType.world) != true)
             {
 
 
-                GameObject.FindObjectsByType<itemspawn>(sortmode.main)[i].sp();
+                isn[i].sp();
                 VarSave.SetBool("/objects/item" + SceneManager.GetActiveScene().name + lif + i, true, SaveType.world);
 
-                if (GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length - 1 == i)
+                if (isn.Length - 1 == i)
                 {
-                    save();
+                    Save();
                 }
             }
 
         }
-
     }
 
     private void LimMath()
     {
         Directory.CreateDirectory(VarSave.path + "/datasurface");
-        DirectoryInfo di = new DirectoryInfo(VarSave.path + "/datasurface");
+        DirectoryInfo di = new(VarSave.path + "/datasurface");
         string str = "";
         foreach (FileInfo fi in di.GetFiles())
         {
@@ -225,23 +229,24 @@ public class complsave : MonoBehaviour
         {
 
 
-            save();
+            Save();
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            load();
+            LoadObjects();
         }
 
     }
 
-    public void clear()
+    public void ClearObjects()
     {
-        for (int i = 0; i < GameObject.FindObjectsByType<itemspawn>(sortmode.main).Length; i++)
+        itemspawn[] isn = FindObjectsByType<itemspawn>(sortmode.main);
+        for (int i = 0; i < isn.Length; i++)
         {
-            
 
 
-                GameObject.FindObjectsByType<itemspawn>(sortmode.main)[i].sp();
+
+            isn[i].sp();
                 VarSave.DeleteKey("/objects/item" + SceneManager.GetActiveScene().name + lif + i, SaveType.world);
 
 
@@ -252,7 +257,7 @@ public class complsave : MonoBehaviour
         File.Delete(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
 
 
-        saveString1 = new rsave();
+        saveString1 = new MapData();
         itemName[] items = FindObjectsByType<itemName>(sortmode.main);
 
 
@@ -303,7 +308,7 @@ public class complsave : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
-    public void save()
+    public void Save()
     {
 
         //  if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
@@ -336,11 +341,11 @@ public class complsave : MonoBehaviour
         if (t3.Length > 0) File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
 
 
-        saveString1 = new rsave();
+        saveString1 = new MapData();
 
 
     }
-    public void saveMap(string respath)
+    public void SaveMap(string respath)
     {
         //  if (GameObject.FindObjectsByType<itemName>(sortmode.main).Length != 0)
         //  {
@@ -370,14 +375,14 @@ public class complsave : MonoBehaviour
         if (t3.Length > 0) File.WriteAllText(respath+".map", JsonUtility.ToJson(saveString1));
 
 
-        saveString1 = new rsave();
+        saveString1 = new MapData();
 
 
     }
 
     private void KompObject()
     {
-        saveString1 = new rsave();
+        saveString1 = new MapData();
 
         Directory.CreateDirectory(name2 + @"/objects");
         itemName[] items = FindObjectsByType<itemName>(sortmode.main);
@@ -385,13 +390,11 @@ public class complsave : MonoBehaviour
         genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
         if (gm.Length != 0)
         {
-            List<string> name = new List<string>();
-            List<Vector3> v3 = new List<Vector3>();
             for (int i = 0; i < gm.Length; i++)
             {
                 saveString1.idG.Add(gm[i].s);
                 saveString1.vector3G.Add(gm[i].transform.position);
-                saveString1.vector3G.Add(gm[i].transform.localScale);
+                saveString1.Scale3G.Add(gm[i].transform.localScale);
             }
         }
         if (items.Length != 0)
@@ -637,7 +640,7 @@ public class complsave : MonoBehaviour
             }
 
         }
-        Collider[] allobj2 = Globalprefs.allTransphorms;
+      //  Collider[] allobj2 = Globalprefs.allTransphorms;
 
 
 
@@ -676,14 +679,14 @@ public class complsave : MonoBehaviour
 
     static public string mapLoad;
 
-    public void load()
+    public void LoadObjects()
     {
        
         Directory.CreateDirectory( name2 + @"/objects");
 
       
         
-        saveString1 = new rsave();
+        saveString1 = new MapData();
         if (string.IsNullOrEmpty(mapLoad))
         {
             saveString221 = Path.Combine("", name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name);
@@ -703,7 +706,7 @@ public class complsave : MonoBehaviour
                 LoadADone = false;
                 if (File.Exists(saveString221))
                 {
-                    saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
+                    saveString1 = JsonUtility.FromJson<MapData>(File.ReadAllText(saveString221));
 
                     Debug.Log("IU");
                 }
@@ -712,7 +715,7 @@ public class complsave : MonoBehaviour
                     Debug.Log("IU2");
                     if (VarSave.GetString("quest", SaveType.global) == "капуста") questtarget = true;
                     File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
-                    saveString1 = JsonUtility.FromJson<rsave>(File.ReadAllText(saveString221));
+                    saveString1 = JsonUtility.FromJson<MapData>(File.ReadAllText(saveString221));
                     FirstSpawn = true;
 
                 }
@@ -786,9 +789,9 @@ public class complsave : MonoBehaviour
 
 
                 }
-                List<float[]> nid = new List<float[]>();
-                List<float[]> nid2 = new List<float[]>();
-                List<float[]> nid3 = new List<float[]>();
+                List<float[]> nid = new();
+                List<float[]> nid2 = new();
+                List<float[]> nid3 = new();
 
                 if (saveString1.posN.Count > 0)
                 {
@@ -855,7 +858,7 @@ public class complsave : MonoBehaviour
                 for (int i = 0; i < saveString1.idB.Count; i++)
                 {
 
-                    GameObject g = Instantiate(t4[toTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
+                    GameObject g = Instantiate(t4[ToTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
                     if (saveString1.PvectorB.Count > i && hc != null)
                     {
                         if (!g.GetComponent<HyperbolicPoint>())
@@ -971,7 +974,7 @@ public class complsave : MonoBehaviour
                     {
 
                         Debug.Log("1");
-                        GameObject g = Instantiate(t3[toNameToID(saveString1.idA[i3])].gameObject, new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                        GameObject g = Instantiate(t3[ToNameToID(saveString1.idA[i3])], new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
                         g.transform.localScale = (saveString1.Scale3A[i3]);
                         if (!g.GetComponent<breauty>())
                         {
@@ -983,11 +986,12 @@ public class complsave : MonoBehaviour
                         {
                             g.GetComponent<breauty>().integer = saveString1.x[i3];
                         }
-                      if(saveString1.scriptA.Count!=0)  if (!g.GetComponent<unScript>())
-                        {
-                            UnsFormat info = new UnsFormat();
-                            info.script = saveString1.scriptA[i3];
-
+                        if (saveString1.scriptA.Count != 0) if (!g.GetComponent<unScript>())
+                            {
+                                UnsFormat info = new()
+                                {
+                                    script = saveString1.scriptA[i3]
+                                };
                             if (!string.IsNullOrEmpty(saveString1.scriptA[i3])) g.AddComponent<unScript>().ins = info;
                         }
                        
@@ -1042,9 +1046,10 @@ public class complsave : MonoBehaviour
 
 
             }
-            List<GameObject> objs = new List<GameObject>();
+            List<GameObject> objs = new();
             if (c == 1)
             {
+                RaycastHit hit;
                 mover m = mover.main();
                 LoadADone = true;
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
@@ -1053,46 +1058,46 @@ public class complsave : MonoBehaviour
                 }
                 if (Global.Random.Range(0, 4) >= 2 && VarSave.GetInt("Agr") > 1000)
                 {
-                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/Legal_mafia").gameObject, mover.main().transform.position, Quaternion.identity));
+                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/Legal_mafia"), mover.main().transform.position, Quaternion.identity));
 
                 }
                 if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
                 {
 
-                    Transform t = Instantiate(Resources.Load<GameObject>("items/Chaos_cube").gameObject, mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
+                    Transform t = Instantiate(Resources.Load<GameObject>("items/Chaos_cube"), mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
                         Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
                     if (Global.Random.Range(0, 8) >= 7)
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент2").gameObject, mover.main().transform.position, Quaternion.identity));
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент2"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     if (Global.Random.Range(0, 10) >= 9)
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент3").gameObject, mover.main().transform.position, Quaternion.identity));
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент3"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     if (Global.Random.Range(0, 10) >= 9)
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент4").gameObject, mover.main().transform.position, Quaternion.identity));
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент4"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     //ВышийЛетун
                     if (Global.Random.Range(0, 2) >= 1)
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун").gameObject, mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity));
+                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун"), mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity));
 
                     }
                     if (FirstSpawn)
                     {
-                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
-                        RaycastHit hit;
+                        Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+                        
                         if (Physics.Raycast(r, out hit))
                         {
                             if (hit.collider != null)
                             {
                                 if (Global.Random.Range(0, 6) >= 1)
                                 {
-                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов").gameObject, hit.point, Quaternion.identity));
+                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов"), hit.point, Quaternion.identity));
 
                                 }
                             }
@@ -1107,8 +1112,8 @@ public class complsave : MonoBehaviour
                         {
                             break;
                         }
-                        Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
-                        RaycastHit hit;
+                        Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+                        
                         if (Physics.Raycast(r, out hit))
                         {
                             if (hit.collider != null)
@@ -1132,8 +1137,8 @@ public class complsave : MonoBehaviour
                                 {
                                     break;
                                 }
-                                Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
-                            RaycastHit hit;
+                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+                          
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
@@ -1151,8 +1156,8 @@ public class complsave : MonoBehaviour
                                 {
                                     break;
                                 }
-                                Ray r = new Ray(m.transform.position + (m.transform.up * 40), randommaze());
-                            RaycastHit hit;
+                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+                            
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
@@ -1182,8 +1187,8 @@ public class complsave : MonoBehaviour
                                     break;
                                 }
                                 GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
-                            Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
-                            RaycastHit hit;
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+                         
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
@@ -1202,8 +1207,8 @@ public class complsave : MonoBehaviour
                                     break;
                                 }
                                     GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
-                            Ray r = new Ray(m.transform.position + (m.transform.up * 400), randommazedown());
-                            RaycastHit hit;
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+                           
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
@@ -1226,23 +1231,23 @@ public class complsave : MonoBehaviour
 
 
     }
-    Vector3 randommaze()
+    Vector3 Random_vector()
     {
-        Vector3 rand = new Vector3(Random.rotation.x, Random.rotation.y, Random.rotation.z);
+        Vector3 rand = new(Random.rotation.x, Random.rotation.y, Random.rotation.z);
         return rand;
     }
-    Vector3 randommazedown()
+    Vector3 Random_vector_down()
     {
-        Vector3 down = randommaze() - mover.main().transform.up * .5f;
+        Vector3 down = Random_vector() - mover.main().transform.up * .5f;
         return down;
     }
 
     public static bool LoadADone;
-    public int toNameToID(string name)
+    public int ToNameToID(string name)
     {
         int u = 0;
 
-        getallitems();
+        GetAllItems();
         for (int i = 0; i < info3.Length; i++)
         {
             if (name == info3[i])
@@ -1253,11 +1258,11 @@ public class complsave : MonoBehaviour
         return u;
 
     }
-    public int toTagToIDObject(string init)
+    public int ToTagToIDObject(string init)
     {
         int u = 0;
 
-        getallitems();
+        GetAllItems();
         for (int i = 0; i < info4.Length; i++)
         {
             if (init == info4[i])
@@ -1275,48 +1280,48 @@ public class complsave : MonoBehaviour
 
 
 [SerializeField]
-public class rsave
+public class MapData
 {
 
-    public List<Vector3> vector3A = new List<Vector3>();
-    public List<string> scriptA = new List<string>();
-    public List<Vector3> vector3D = new List<Vector3>();
-    public List<Vector3> vector3G = new List<Vector3>();
-    public List<Vector3> Scale3G = new List<Vector3>();
-    public List<string> idG = new List<string>();
-    public List<Vector3> Scale3A = new List<Vector3>();
-    public List<Vector3> Scale3B = new List<Vector3>();
-    public List<Vector3> vector3C = new List<Vector3>();
-    public List<Hyperbolic2D> PvectorA = new List<Hyperbolic2D>();
-    public List<Hyperbolic2D> PvectorB = new List<Hyperbolic2D>();
-    public List<Hyperbolic2D> PvectorC = new List<Hyperbolic2D>();
-    public List<Quaternion> qA = new List<Quaternion>();
-    public List<int> x = new List<int>();
-    public List<float> y = new List<float>();
-    public List<string> idA = new List<string>();
-    public List<string> idB = new List<string>();
-    public List<string> idC = new List<string>();
+    public List<Vector3> vector3A = new();
+    public List<string> scriptA = new();
+    public List<Vector3> vector3D = new();
+    public List<Vector3> vector3G = new();
+    public List<Vector3> Scale3G = new();
+    public List<string> idG = new();
+    public List<Vector3> Scale3A = new();
+    public List<Vector3> Scale3B = new();
+    public List<Vector3> vector3C = new();
+    public List<Hyperbolic2D> PvectorA = new();
+    public List<Hyperbolic2D> PvectorB = new();
+    public List<Hyperbolic2D> PvectorC = new();
+    public List<Quaternion> qA = new();
+    public List<int> x = new();
+    public List<float> y = new();
+    public List<string> idA = new();
+    public List<string> idB = new();
+    public List<string> idC = new();
     public string editpos;
-    public List<float> posW = new List<float>();
-    public List<float> posW2 = new List<float>();
-    public List<float> posN = new List<float>();
-    public List<int> curN = new List<int>();
-    public List<float> posN2 = new List<float>();
-    public List<int> curN2 = new List<int>();
-    public List<float> posN3 = new List<float>();
-    public List<int> curN3 = new List<int>();
-    public List<float> posH = new List<float>();
-    public List<float> posH2 = new List<float>();
-    public List<float> posW3 = new List<float>();
-    public List<float> posH3 = new List<float>();
-    public List<bool> SavedPlayer = new List<bool>();
+    public List<float> posW = new();
+    public List<float> posW2 = new();
+    public List<float> posN = new();
+    public List<int> curN = new();
+    public List<float> posN2 = new();
+    public List<int> curN2 = new();
+    public List<float> posN3 = new();
+    public List<int> curN3 = new();
+    public List<float> posH = new();
+    public List<float> posH2 = new();
+    public List<float> posW3 = new();
+    public List<float> posH3 = new();
+    public List<bool> SavedPlayer = new();
     public string sceneName;
-    public List<Vector3> vector3B = new List<Vector3>();
+    public List<Vector3> vector3B = new();
 
 
-    public List<string> NamesCreatures = new List<string>();
+    public List<string> NamesCreatures = new();
 
-    public List<string> DataItem = new List<string>();
+    public List<string> DataItem = new();
 
 
 

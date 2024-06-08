@@ -30,7 +30,7 @@ public class EnemyeFashist : MonoBehaviour
              DeadShit.Spawn(transform.position);
              DeadShit.Spawn(transform.position);
         }
-        if (collision.collider.tag == "Player" && !Input.GetKey(KeyCode.G))
+        if (collision.collider.CompareTag("Player") && !Input.GetKey(KeyCode.G))
         {
             VarSave.SetBool("cry", true);
             VarSave.SetBool("Фашист победил", true);
@@ -48,7 +48,7 @@ public class EnemyeFashist : MonoBehaviour
         if (!attack)
         {
             Debug.Log((float)optirand.Next(-1000, 1000) / 1000f);
-            Ray r = new Ray(transform.position, new Vector3(
+            Ray r = new(transform.position, new Vector3(
              (float)optirand.Next(-1000, 1000) / 1000f,
              (float)optirand.Next(-1000, 1000) / 1000f,
             (float)optirand.Next(-1000, 1000) / 1000f));
@@ -66,7 +66,7 @@ public class EnemyeFashist : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") 
+        if (other.CompareTag("Player")) 
         {
             attack = true;
             voise.Play();
@@ -74,7 +74,7 @@ public class EnemyeFashist : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             if (Random.Range(1, 5) == 1 && attack)
             {
@@ -87,7 +87,7 @@ public class EnemyeFashist : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("off", 1, 10f);
+        InvokeRepeating(nameof(off), 1, 10f);
         optirand = new System.Random(7);
     }
 

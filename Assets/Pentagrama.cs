@@ -7,7 +7,7 @@ public class Pentagrama : MonoBehaviour
 {
     [SerializeField] GameObject[] tragets;
     [SerializeField] string[] items;
-    gsave gsave = new gsave();
+    GameData gsave = new GameData();
 
     int _true;
     void OnCollisionEnter(Collision collision)
@@ -40,7 +40,7 @@ public class Pentagrama : MonoBehaviour
             {
                 if (playerdata.Geteffect("Trip") != null)
                 {
-                    gsave = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
+                    gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
                     if (gsave.progressofthepassage < 2)
                     {
                         playerdata.Addeffect("LevelUp", 60);

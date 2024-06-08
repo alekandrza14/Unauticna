@@ -6,12 +6,12 @@ public class Getstats
 {
     static public int GetPlayerLevel()
     {
-        gsave g = new gsave();
+        GameData g = new GameData();
         if (File.Exists("unsave/s"))
         {
 
 
-            g = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + File.ReadAllText("unsave/s")));
+            g = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + File.ReadAllText("unsave/s")));
             
 
         }
@@ -23,12 +23,12 @@ public class endlevel1 : MonoBehaviour
 {
     public void Awake()
     {
-        gsave g = new gsave();
+        GameData g = new GameData();
         if (File.Exists("unsave/s"))
         {
 
 
-            g = JsonUtility.FromJson<gsave>(File.ReadAllText("unsave/capterg/" + File.ReadAllText("unsave/s")));
+            g = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + File.ReadAllText("unsave/s")));
             if (g.progressofthepassage >= 1)
             {
                 Destroy(gameObject);

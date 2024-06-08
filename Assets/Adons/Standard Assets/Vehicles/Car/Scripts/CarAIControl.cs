@@ -49,7 +49,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private void Awake()
         {
-            // get the car controller reference
+            // TypeGenergy the car controller reference
             m_CarController = GetComponent<CarController>();
 
             // give the random perlin a random value
@@ -165,7 +165,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 // work out the local angle towards the target
                 float targetAngle = Mathf.Atan2(localTarget.x, localTarget.z)*Mathf.Rad2Deg;
 
-                // get the amount of steering needed to aim the car towards the target
+                // TypeGenergy the amount of steering needed to aim the car towards the target
                 float steer = Mathf.Clamp(targetAngle*m_SteerSensitivity, -1, 1)*Mathf.Sign(m_CarController.CurrentSpeed);
 
                 // feed input to the car controller.

@@ -57,7 +57,7 @@ public class MeatMaze : MonoBehaviour
             }
         }
 
-        // Recursive Backtracking algorithm to generate the maze
+        // Recursive Backtracking algorithm to LoadTerraform the maze
 
         // TODO: Implement Recursive Backtracking algorithm here
     }

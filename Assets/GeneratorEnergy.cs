@@ -20,51 +20,51 @@ public class GeneratorEnergy : InventoryEvent
     [SerializeField] itemName itemName;
     [SerializeField] Text EnergyCounter;
     string energy;
-    [SerializeField] public GeneratorEnergyType get;
-  public  GeneratorEnergyData energyData = new GeneratorEnergyData();
-    float getMaxenergyPluss()
+    public GeneratorEnergyType TypeGenergy;
+    public  GeneratorEnergyData energyData = new();
+    float Get_Maxenergy_Pluss()
     {
-        if (get == GeneratorEnergyType.button)
+        if (TypeGenergy == GeneratorEnergyType.button)
         {
             return -99;
         }
-        if (get == GeneratorEnergyType.termo)
+        if (TypeGenergy == GeneratorEnergyType.termo)
         {
             return 200;
         }
-        if (get == GeneratorEnergyType.bio)
+        if (TypeGenergy == GeneratorEnergyType.bio)
         {
             return 400;
         }
-        if (get == GeneratorEnergyType.atom)
+        if (TypeGenergy == GeneratorEnergyType.atom)
         {
             return 900;
         }
-        if (get == GeneratorEnergyType.sigular)
+        if (TypeGenergy == GeneratorEnergyType.sigular)
         {
             return 9999999900;
         }
         return 0;
     }
-    float getGenenergyMultyply()
+    float Get_Genenergy_Multyply()
     {
-        if (get == GeneratorEnergyType.button)
+        if (TypeGenergy == GeneratorEnergyType.button)
         {
             return 0;
         }
-        if (get == GeneratorEnergyType.termo)
+        if (TypeGenergy == GeneratorEnergyType.termo)
         {
             return 2;
         }
-        if (get == GeneratorEnergyType.bio)
+        if (TypeGenergy == GeneratorEnergyType.bio)
         {
             return 0;
         }
-        if (get == GeneratorEnergyType.atom)
+        if (TypeGenergy == GeneratorEnergyType.atom)
         {
             return 0;
         }
-        if (get == GeneratorEnergyType.sigular)
+        if (TypeGenergy == GeneratorEnergyType.sigular)
         {
             return 10;
         }
@@ -76,13 +76,13 @@ public class GeneratorEnergy : InventoryEvent
 
         if (string.IsNullOrEmpty(energy))
         {
-            if (complsave.LoadADone)
+            if (Map_saver.LoadADone)
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
-                energyData.time = minutes();
+                energyData.time = ComputeMinutes();
                 energyData.energy = 0;
                 energyData.maxEnergy = 100;
-                energyData.maxEnergy += getMaxenergyPluss();
+                energyData.maxEnergy += Get_Maxenergy_Pluss();
                 energy = JsonUtility.ToJson(energyData);
                 GetComponent<itemName>().ItemData = energy;
             }
@@ -107,7 +107,7 @@ public class GeneratorEnergy : InventoryEvent
             if (string.IsNullOrEmpty(energy))
             {
 
-                energyData.time = minutes();
+                energyData.time = ComputeMinutes();
                 energyData.energy = 0;
                 energyData.maxEnergy = 100;
                 energy = JsonUtility.ToJson(energyData);
@@ -126,27 +126,27 @@ public class GeneratorEnergy : InventoryEvent
         }
 
     }
-    float minutes()
+    float ComputeMinutes()
     {
         return (DateTime.Now.Minute + (DateTime.Now.Hour * 60) + (DateTime.Now.DayOfYear * 60 * 24));
             
     }
     void Update()
     {
-        if (get == GeneratorEnergyType.button)
+        if (TypeGenergy == GeneratorEnergyType.button)
         {
             energyData.energy = 1;
         }
         EnergyCounter.text = "Energy : " + energyData.energy + " / " + energyData.maxEnergy;
         if (!string.IsNullOrEmpty(energy))
         {
-            if (energyData.time != minutes())
+            if (energyData.time != ComputeMinutes())
             {
 
                 if (energyData.energy < energyData.maxEnergy)
                 {
-                    energyData.energy -= (energyData.time - minutes())* getGenenergyMultyply();
-                    energyData.time = minutes();
+                    energyData.energy -= (energyData.time - ComputeMinutes())* Get_Genenergy_Multyply();
+                    energyData.time = ComputeMinutes();
 
                     energy = JsonUtility.ToJson(energyData);
 

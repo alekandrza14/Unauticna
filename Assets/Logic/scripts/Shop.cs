@@ -43,15 +43,15 @@ public class Shop : MonoBehaviour
             if (produkt[i].name == "Random()")
             {
                 System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
-                int num = r.Next(0, complsave.t3.Length);
-                produkt[i].name = complsave.t3[num].name;
+                int num = r.Next(0, Map_saver.t3.Length);
+                produkt[i].name = Map_saver.t3[num].name;
                 if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
                 {
-                    produkt[i].price = (complsave.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                    produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
                 }
                 if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
                 {
-                    produkt[i].price = (complsave.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                    produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
                 }
                 produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
             }

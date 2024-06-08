@@ -300,7 +300,7 @@ namespace SVGImporter
             }
         }
 
-        // We have to clear editor data and load runtime data
+        // We have to ClearObjects editor data and LoadObjects runtime data
         // Also it handles duplicating game objects
         protected override void Awake()
         {
@@ -1006,7 +1006,7 @@ namespace SVGImporter
         }
 
         /// <summary>
-        /// Is this renderer visible in any camera? (Read Only)
+        /// Is this renderer visible in any HB_Camera? (Read Only)
         /// </summary>
         public bool isVisible
         {

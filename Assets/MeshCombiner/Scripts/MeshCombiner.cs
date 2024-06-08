@@ -73,7 +73,7 @@ public class MeshCombiner : MonoBehaviour
 	public void CombineMeshes(bool showCreatedMeshInfo)
 	{
 		#region Save our parent scale and our Transform and reset it temporarily:
-		// When we are unparenting and get parent again then sometimes scale is a little bit different so save scale before unparenting:
+		// When we are unparenting and TypeGenergy parent again then sometimes scale is a little bit different so Save scale before unparenting:
 		Vector3 oldScaleAsChild = transform.localScale;
 
 		// If we have parent then his scale will affect to our new combined Mesh scale so unparent us:

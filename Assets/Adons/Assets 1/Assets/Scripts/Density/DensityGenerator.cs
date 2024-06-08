@@ -37,7 +37,7 @@ public abstract class DensityGenerator : MonoBehaviour {
             }
         }
 
-        // Return voxel data buffer so it can be used to generate mesh
+        // Return voxel data buffer so it can be used to LoadTerraform mesh
         return pointsBuffer;
     }
 }

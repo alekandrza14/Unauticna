@@ -397,7 +397,7 @@ namespace SVGImporter.LibTessDotNet
 
             for (f = _mesh._fHead._next; f != _mesh._fHead; f = next)
             {
-                // Since f will be destroyed, save its next pointer.
+                // Since f will be destroyed, Save its next pointer.
                 next = f._next;
                 if (! f._inside)
                 {

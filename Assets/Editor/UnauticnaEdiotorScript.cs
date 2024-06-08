@@ -7,7 +7,7 @@ public class UnauticnaEdiotorScript {
     [MenuItem("GameObject/4D Object/Eucidian geometry/Raymarch Sphare Sphere", false, -1000)]
     public static void Create()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("Sphere 4D")
         {
 
@@ -18,7 +18,7 @@ public class UnauticnaEdiotorScript {
     [MenuItem("GameObject/4D Object/Eucidian geometry/Raymarch Sphare Cube", false, -1000)]
     public static void Create4()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("Sphere 4D")
         {
 
@@ -29,7 +29,7 @@ public class UnauticnaEdiotorScript {
     [MenuItem("GameObject/4D Object/Eucidian geometry/Poilgon Sphare(multyTransform need)", false, -1000)]
     public static void Create2()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("Cube 4D")
         {
 
@@ -44,7 +44,7 @@ public class UnauticnaEdiotorScript {
     [MenuItem("GameObject/4D System/Eucidian geometry/multyTransform", false, -1000)]
     public static void Create3()
     {
-        //Transform t=  SceneView.currentDrawingSceneView.camera.transform;
+        //Transform t=  SceneView.currentDrawingSceneView.HB_Camera.transform;
         GameObject g = new GameObject("4D Controler")
         {
 

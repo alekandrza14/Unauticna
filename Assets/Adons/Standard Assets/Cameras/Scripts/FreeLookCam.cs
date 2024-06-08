@@ -6,7 +6,7 @@ namespace UnityStandardAssets.Cameras
 {
     public class FreeLookCam : PivotBasedCameraRig
     {
-        // This script is designed to be placed on the root object of a camera rig,
+        // This script is designed to be placed on the root object of a HB_Camera rig,
         // comprising 3 gameobjects, each parented to the next:
 
         // 	Camera Rig

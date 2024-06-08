@@ -69,9 +69,9 @@ public class WorldSave : MonoBehaviour
     }
     public static void RemoveVector3()
     {
-        for (int i = 0; i < GameObject.FindObjectsByType<complsave>(sortmode.main).Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<Map_saver>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsByType<complsave>(sortmode.main)[i].ResetItem();
+            GameObject.FindObjectsByType<Map_saver>(sortmode.main)[i].ResetItem();
         }
     }
 
@@ -81,9 +81,9 @@ public class WorldSave : MonoBehaviour
         {
             GameObject.FindObjectsByType<RandomItem>(sortmode.main)[i].inv();
         }
-        for (int i = 0; i < GameObject.FindObjectsByType<complsave>(sortmode.main).Length; i++)
+        for (int i = 0; i < GameObject.FindObjectsByType<Map_saver>(sortmode.main).Length; i++)
         {
-            GameObject.FindObjectsByType<complsave>(sortmode.main)[i].save();
+            GameObject.FindObjectsByType<Map_saver>(sortmode.main)[i].Save();
         }
         Directory.CreateDirectory(path);
         for (int i = 0; i < GameObject.FindObjectsByType<modulyogir>(sortmode.main).Length; i++)

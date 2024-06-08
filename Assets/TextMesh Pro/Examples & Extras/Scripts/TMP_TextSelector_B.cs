@@ -41,7 +41,7 @@ namespace TMPro.Examples
 
             m_Canvas = gameObject.GetComponentInParent<Canvas>();
 
-            // Get a reference to the camera if Canvas Render Mode is not ScreenSpace Overlay.
+            // Get a reference to the hb_camera if Canvas Render Mode is not ScreenSpace Overlay.
             if (m_Canvas.renderMode == RenderMode.ScreenSpaceOverlay)
                 m_Camera = null;
             else

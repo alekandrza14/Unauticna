@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// A simple free camera to be added to a Unity game object.
+/// A simple free HB_Camera to be added to a Unity game object.
 /// 
 /// Keys:
 ///	wasd / arrows	- movement
@@ -22,12 +22,12 @@ namespace CaveDeco745FFABD821FCBD
     public class FreeCam : MonoBehaviour
     {
         /// <summary>
-        /// Normal speed of camera movement.
+        /// Normal speed of HB_Camera movement.
         /// </summary>
         public float movementSpeed = 10f;
 
         /// <summary>
-        /// Speed of camera movement when shift is held down,
+        /// Speed of HB_Camera movement when shift is held down,
         /// </summary>
         public float fastMovementSpeed = 100f;
 
@@ -37,12 +37,12 @@ namespace CaveDeco745FFABD821FCBD
         public float freeLookSensitivity = 3f;
 
         /// <summary>
-        /// Amount to zoom the camera when using the mouse wheel.
+        /// Amount to zoom the HB_Camera when using the mouse wheel.
         /// </summary>
         public float zoomSensitivity = 10f;
 
         /// <summary>
-        /// Amount to zoom the camera when using the mouse wheel (fast mode).
+        /// Amount to zoom the HB_Camera when using the mouse wheel (fast mode).
         /// </summary>
         public float fastZoomSensitivity = 50f;
 

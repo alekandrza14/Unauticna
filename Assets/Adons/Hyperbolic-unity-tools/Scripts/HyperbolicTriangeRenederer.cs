@@ -12,26 +12,23 @@ namespace un
 [ExecuteInEditMode]
 public class HyperbolicTriangeRenederer : MonoBehaviour
 {
-    readonly float speed1 = 1;
-    readonly float constspeed = 1;
-    readonly float constdist = 4;
     public static float speed = 10.0f; public static float speed2 = 10.0f;
     public static float rotationSpeed = 10.0f;
     [HideInInspector] public float v1 = 0;
     [HideInInspector] public float v2 = 0;
     [HideInInspector] public float v3 = 0;
     [HideInInspector] public bool w;
-    [HideInInspector] public Hyperbolic2D p2 = new Hyperbolic2D();
-    [HideInInspector] public Hyperbolic2D p3 = new Hyperbolic2D();
-    [HideInInspector] public Hyperbolic2D p4 = new Hyperbolic2D();
-    PMatrix3D fVertex = new PMatrix3D();
-    PMatrix3D sVertex = new PMatrix3D();
-    PMatrix3D tVertex = new PMatrix3D();
+    [HideInInspector] public Hyperbolic2D p2 = new();
+    [HideInInspector] public Hyperbolic2D p3 = new();
+    [HideInInspector] public Hyperbolic2D p4 = new();
+    readonly PMatrix3D fVertex = new();
+    readonly PMatrix3D sVertex = new();
+    readonly PMatrix3D tVertex = new();
     [Header("Polygon")]
     [Header("==============")]
-    [Header("MeshFiller")] [SerializeField] public MeshFilter mf;
-    [Header("MeshCollider")] [SerializeField] public MeshCollider mc;
-    [Header("Flip Normals")] [SerializeField] public bool v;
+    [Header("MeshFiller")] public MeshFilter mf;
+    [Header("MeshCollider")] public MeshCollider mc;
+    [Header("Flip Normals")] public bool v;
     //  [Header("==============")] [HideInInspector] [SerializeField] public bool byUnauticna;
 
     [HideInInspector] public Vector3 v31; [HideInInspector] public Vector3 v32; [HideInInspector] public Vector3 v33;
@@ -41,7 +38,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
         
         ProjectionUpdate();
 
-        InvokeRepeating("ProjectionUpdate", 1, 0.07f+UnityEngine.Random.Range(0f,0.02f));
+        InvokeRepeating(nameof(ProjectionUpdate), 1, 0.07f+UnityEngine.Random.Range(0f,0.02f));
     }
   
 
@@ -75,7 +72,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
             Vector3.up,Vector3.up,Vector3.up
        }; Vector2[] uv = new Vector2[3]
        {
-          new Vector2(0,1) , new Vector2(0,0), new Vector2(1,0)
+          new (0,1) , new (0,0), new (1,0)
        }; int[] tranglse = new int[3]
        {
             0,1,2
@@ -118,7 +115,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
     }
 
-    float ds1 = 1;
+   readonly float ds1 = 1;
     void Deplacement()
     {
 
@@ -126,7 +123,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
-        PMatrix3D CamMatrix = new PMatrix3D();
+        PMatrix3D CamMatrix = new();
         if (HyperbolicCamera.Main() != null) CamMatrix = HyperbolicCamera.Main().RealtimeTransform.getMatrix();
 
 
@@ -153,7 +150,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
             PVector nextPoint = MathHyper.polarVector(0f, 1.255f);
 
 
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
 
@@ -179,7 +176,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
                 PVector nextPoint2 = MathHyper.polarVector(0f, 1.255f);
 
 
-                //Apply currentTransform on nextPoint and save the result in nextPoint 
+                //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
 
@@ -203,7 +200,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
 
 
-                //Apply currentTransform on nextPoint and save the result in nextPoint 
+                //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
                 tVertex.mult(nextPoint3, nextPoint3);
@@ -219,7 +216,7 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
             }
 
-            //Apply currentTransform on nextPoint and save the result in nextPoint 
+            //Apply currentTransform on nextPoint and Save the result in nextPoint 
 
 
             if (new PVector().dist(nextPoint) < 20)
@@ -264,17 +261,5 @@ public class HyperbolicTriangeRenederer : MonoBehaviour
 
     
 
-    void LateUpdate()
-    {
-        
-    }
-
-    void Update()
-    {
-
-        
-        
-
-
-    }
+    
 }

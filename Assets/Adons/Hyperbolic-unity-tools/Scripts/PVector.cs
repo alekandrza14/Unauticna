@@ -8,7 +8,7 @@ public class PVector
    * ( begin auto-generated from PVector_x.xml )
    *
    * The x component of the vector. This field (variable) can be used to both
-   * get and set the value (see above example.)
+   * TypeGenergy and set the value (see above example.)
    *
    * ( end auto-generated )
    *
@@ -22,7 +22,7 @@ public class PVector
  * ( begin auto-generated from PVector_y.xml )
  *
  * The y component of the vector. This field (variable) can be used to both
- * get and set the value (see above example.)
+ * TypeGenergy and set the value (see above example.)
  *
  * ( end auto-generated )
  *
@@ -36,7 +36,7 @@ public double y;
  * ( begin auto-generated from PVector_z.xml )
  *
  * The z component of the vector. This field (variable) can be used to both
- * get and set the value (see above example.)
+ * TypeGenergy and set the value (see above example.)
  *
  * ( end auto-generated )
  *
@@ -956,7 +956,7 @@ public string tostring()
  *
  * Return a representation of this vector as a double array. This is only
  * for temporary use. If used in any other fashion, the contents should be
- * copied by using the <b>PVector.get()</b> method to copy into your own array.
+ * copied by using the <b>PVector.TypeGenergy()</b> method to copy into your own array.
  *
  * ( end auto-generated )
  *

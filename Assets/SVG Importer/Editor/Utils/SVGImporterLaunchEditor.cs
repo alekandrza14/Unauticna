@@ -17,7 +17,7 @@ namespace SVGImporter
 	internal class DelayedCall
     {
         public System.Action callback;
-        public System.Action<UnityEngine.WWW> wwwCallback;
+        public System.Action<WWW> wwwCallback;
         public DelayedCall(System.Action callback = null)
         {
             this.callback = callback;
@@ -27,20 +27,21 @@ namespace SVGImporter
         {
             yield return new WaitForSeconds(delay);
             if(this.callback != null)
-                this.callback();
+                callback();
         }
 
-		public IEnumerator WWW(string request)
+        
+        public IEnumerator WWW(string request)
 		{
-            UnityEngine.WWW www = new UnityEngine.WWW(request);
+            WWW www = new(request);
             yield return www;
             if(this.callback != null)
             {
-                this.callback();
+                callback();
             }
             if(this.wwwCallback != null)
             {
-                this.wwwCallback(www);
+                wwwCallback(www);
             }
 		}
     }
@@ -63,10 +64,12 @@ namespace SVGImporter
 			//Analytics.TrackEvent("Open Report Bug", "app/ReportBug");
 		}
 
-        static DelayedCall initCall;
+        static readonly DelayedCall initCall;
 
         // Begining
-		static bool launched = false;
+        static readonly bool launched = false;
+
+        
         static SVGImporterLaunchEditor() {
 
 			if(launched)
@@ -99,10 +102,9 @@ namespace SVGImporter
             SVGImporterEditor.Init();
         }
 
-        static bool repaint;
         const string SVG_IMPORTER_WINDOW_PREF_KEY = "SVG_IMPORTER_WINDOW_PREF_KEY";
         static bool _active = false;
-        public static bool active
+        public static bool Active
         {
             get {
                 if (EditorPrefs.HasKey(SVG_IMPORTER_WINDOW_PREF_KEY))
@@ -121,6 +123,7 @@ namespace SVGImporter
             }
         }
 
+        
         static void UpdateDelegates()
         {
             if(_active)
@@ -131,6 +134,7 @@ namespace SVGImporter
             }
         }
 
+        
         static void RegisterDelegates()
         {
             if(!SVGDeleagate.IsRegistered(EditorApplication.playmodeStateChanged, PlaymodeStateChanged))
@@ -158,6 +162,7 @@ namespace SVGImporter
 			}
         }
 
+        
         static void UnregisterDelegates()
         {
             if(SVGDeleagate.IsRegistered(EditorApplication.playmodeStateChanged, PlaymodeStateChanged))
@@ -172,13 +177,15 @@ namespace SVGImporter
                 EditorApplication.update -= Update;
         }
 
+        
         public static void Start() {
-            active = true;
+            Active = true;
             UpdateDelegates();
         }
 
+        
         public static void Stop() {
-            active = false;
+            Active = false;
             UpdateDelegates();
         }
 
@@ -314,8 +321,7 @@ namespace SVGImporter
                 GameObject objectToUndo = DropFramesToSceneToCreateGO(svgAssetsFromDraggedPathsOrObjects[0].name, svgAssetsFromDraggedPathsOrObjects, parent.transform.position);
                 Undo.RegisterCreatedObjectUndo(objectToUndo, "Create SVG Renderer");
                 objectToUndo.transform.SetParent(parent.transform);
-                objectToUndo.transform.localPosition = Vector3.zero;
-                objectToUndo.transform.localRotation = Quaternion.identity;
+                objectToUndo.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                 objectToUndo.transform.localScale = Vector3.one;
                 current.Use();
             }
@@ -323,6 +329,11 @@ namespace SVGImporter
 
         public static GameObject DropFramesToSceneToCreateGO(string name, SVGAsset[] frames, Vector3 position)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new System.ArgumentException($"\"{nameof(name)}\" не может быть пустым или содержать только пробел.", nameof(name));
+            }
+
             if (frames.Length > 0)
             {
                 SVGAsset asset = frames[0];
@@ -337,23 +348,6 @@ namespace SVGImporter
             return null;
         }
 
-        private static Vector3 GetDefaultInstantiatePosition()
-        {
-            Vector3 result = Vector3.zero;
-            if (SceneView.lastActiveSceneView)
-            {
-                if (SceneView.lastActiveSceneView.in2DMode)
-                {
-                    result = SceneView.lastActiveSceneView.camera.transform.position;
-                    result.z = 0f;
-                }
-                else
-                {
-                    result = (Vector3)typeof(SceneView).GetField("cameraTargetPosition", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SceneView.lastActiveSceneView);
-                }
-            }
-            return result;
-        }
         /*
         public static bool HandleSingleDragIntoHierarchy(IHierarchyProperty property, SVGAsset svgAsset, bool perform)
         {
@@ -380,7 +374,7 @@ namespace SVGImporter
 
         public static SVGAsset[] GetSVGAssetsFromDraggedObjects()
         {
-            List<SVGAsset> list = new List<SVGAsset>();
+            List<SVGAsset> list = new();
             UnityEngine.Object[] objectReferences = DragAndDrop.objectReferences;
             for (int i = 0; i < objectReferences.Length; i++)
             {
@@ -395,7 +389,7 @@ namespace SVGImporter
 
         public static GameObject DropSVGAssetToSceneToCreateGO(SVGAsset asset, Vector3 position)
         {
-            GameObject go = new GameObject(asset.name);
+            GameObject go = new(asset.name);
             Undo.RegisterCreatedObjectUndo(go, "Create SVG Renderer");
             //Vector3 destination = Camera.current.ScreenToWorldPoint(new Vector3(mousePosition.x, scenePosition.height - mousePosition.y, 0f));
             //destination.z = 0f;
@@ -448,7 +442,8 @@ namespace SVGImporter
         
         static DelayedCall wwwCall;
         static DelayedCall wwwIPCall;
-        
+
+        [System.Obsolete]
         internal static void TrackEvent(string title, string eventValue)
         {
             GetLocalIPAddressString();
@@ -460,26 +455,29 @@ namespace SVGImporter
                         "&ip_address=" + ipAdress + //ip address of the user - used for mapping action trails
                         "&type=custom" +
                         "&href=" + "/"+eventValue.Replace(" ", "_") + //string that contains whatever event you want to track/log
-                        "&title="+UnityEngine.WWW.EscapeURL(title)+
+                        "&title="+ WWW.EscapeURL(title)+
                         "&type=click";
                 
-                wwwCall = new DelayedCall();
+                wwwCall = new();
                 EditorCoroutine.StartCoroutine(wwwCall.WWW(request), wwwCall);
             }
         }
+
         
         internal static string GetLocalIPAddressString()
         {
             if(ipAdress == null)
             {
-                wwwIPCall = new DelayedCall();
-                wwwIPCall.wwwCallback = delegate(WWW obj) 
+                wwwIPCall = new()
                 {
-                    if(!string.IsNullOrEmpty(obj.text))
+                    wwwCallback = delegate (WWW obj)
+                {
+                    if (!string.IsNullOrEmpty(obj.text))
                     {
                         EditorPrefs.SetString(LAST_IP_ADDRESS_KEY, ipAdress);
                         ipAdress = obj.text;
                     }
+                }
                 };
                 EditorCoroutine.StartCoroutine(wwwIPCall.WWW("https://api.ipify.org"), wwwIPCall);
                 

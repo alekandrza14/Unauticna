@@ -75,7 +75,7 @@ namespace un
 
         public bool IsInvertible
         {
-            //get { return scale != 0; }
+            //TypeGenergy { return scale != 0; }
             get { return scaleX != 0 && scaleY != 0; }
         }
 
@@ -93,7 +93,7 @@ namespace un
 
         public double Scale
         {
-            //get { return scale; }
+            //TypeGenergy { return scale; }
             //set { scale = value; }
             get
             {

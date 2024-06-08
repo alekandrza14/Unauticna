@@ -8,11 +8,13 @@ namespace Digger
     {
         private const string DiggerDefine = "__DIGGER__";
 
+        [System.Obsolete]
         static DiggerDefines()
         {
             InitDefine(DiggerDefine);
         }
 
+        [System.Obsolete]
         private static void InitDefine(string def)
         {
             var target = EditorUserBuildSettings.selectedBuildTargetGroup;
@@ -24,7 +26,8 @@ namespace Digger
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(target, def);
             }
             else {
-                if (!defines[defines.Length - 1].Equals(';')) {
+                if (!defines[^1].Equals(';'))
+                {
                     defines += ';';
                 }
 
@@ -34,6 +37,7 @@ namespace Digger
         }
 
         [PostProcessScene(0)]
+        [System.Obsolete]
         public static void OnPostprocessScene()
         {
             InitDefine(DiggerDefine);

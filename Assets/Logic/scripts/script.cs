@@ -264,10 +264,10 @@ public class script : MonoBehaviour
                 Globalprefs.SelfFunctions.Add(_script.Replace("Self;", ""));
                 typedata = "end";
             }
-            if (words[i] == "#Save.it" && typedata != "save")
+            if (words[i] == "#Save.it" && typedata != "Save")
             {
 
-                typedata = "save";
+                typedata = "Save";
             }
             if (words[i] == "#Use.uns" && typedata != "uns")
             {
@@ -306,7 +306,7 @@ public class script : MonoBehaviour
             }
             if (words[i] == "UnlockOmniscience.item")
             {
-                typedata = "end"; foreach (GameObject g in complsave.t3)
+                typedata = "end"; foreach (GameObject g in Map_saver.t3)
                 {
 
                     if (!VarSave.ExistenceVar("researchs/" + g.name))
@@ -375,7 +375,7 @@ public class script : MonoBehaviour
                 typedata = "end";
             }
 
-            if (typedata == "save" && words[i] != "#Save.it")
+            if (typedata == "Save" && words[i] != "#Save.it")
             {
                 File.WriteAllText("res/scripts/script" + words[i] + ".s", _script);
                 typedata = "end";
@@ -391,7 +391,7 @@ public class script : MonoBehaviour
 
              
                 }
-                Debug.Log("get script");
+                Debug.Log("TypeGenergy script");
                 typedata = "end";
                
             }
@@ -411,7 +411,7 @@ public class script : MonoBehaviour
             }
             if (typedata == "morph")
             {
-                foreach (GameObject g in complsave.t3)
+                foreach (GameObject g in Map_saver.t3)
                 {
 
 
@@ -438,7 +438,7 @@ public class script : MonoBehaviour
             }
             if (typedata == "give")
             {
-                foreach (GameObject g in complsave.t3)
+                foreach (GameObject g in Map_saver.t3)
                 {
 
 

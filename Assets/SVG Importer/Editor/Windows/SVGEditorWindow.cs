@@ -47,22 +47,22 @@ namespace SVGImporter
 			s_Instance = EditorWindow.GetWindow<SVGEditorWindow>(false, "SVG Asset Editor", true);
 		}
 
-        Bounds assetBounds
+        private Bounds GetAssetBounds()
         {
-            get {
-                if(svgAsset.ignoreSVGCanvas)
-                {
-                    return svgAsset.bounds;
-                } else {
-                    Bounds bounds = svgAsset.bounds;
-                    Vector2 canvasSize = svgAsset.canvasRectangle.size;
-                    return new Bounds(new Vector3(-originalPivotPoint.x * canvasSize.x + canvasSize.x * 0.5f, originalPivotPoint.y * canvasSize.y - canvasSize.y * 0.5f, bounds.center.z), 
-                                      new Vector3(canvasSize.x, canvasSize.y, bounds.size.z));
-                }
+            if (svgAsset.ignoreSVGCanvas)
+            {
+                return svgAsset.bounds;
+            }
+            else
+            {
+                Bounds bounds = svgAsset.bounds;
+                Vector2 canvasSize = svgAsset.canvasRectangle.size;
+                return new Bounds(new Vector3(-originalPivotPoint.x * canvasSize.x + canvasSize.x * 0.5f, originalPivotPoint.y * canvasSize.y - canvasSize.y * 0.5f, bounds.center.z),
+                                  new Vector3(canvasSize.x, canvasSize.y, bounds.size.z));
             }
         }
 
-		Rect windowRect
+        Rect WindowRect
 		{
 			get {
 				return new Rect(0f, 0f, this.position.width, this.position.height);
@@ -97,8 +97,6 @@ namespace SVGImporter
             OnSelectionChange();
         }
 
-        long startRepaintTicks;
-
         void OnFocus()
         {
             UpdateEditorRendererPosition();
@@ -117,10 +115,7 @@ namespace SVGImporter
         void OnGUI () 
         {
             GetSVGAsset();
-            if(styles == null)
-            {
-                styles = new SVGEditorHandles.Styles();
-            }
+            styles ??= new SVGEditorHandles.Styles();
             
             bool selectedValidObject = svgAsset != null && Selection.objects.Length == 1;
 			if(selectedValidObject)
@@ -146,29 +141,27 @@ namespace SVGImporter
 
         void CreateCamera()
         {
-            _editorCamera = editorCamera;
+            _editorCamera = GetEditorCamera();
         }
 
-        Camera editorCamera
+        private Camera GetEditorCamera()
         {
-            get {
-                if(_editorCamera == null)
-                {
-                    GameObject go = EditorUtility.CreateGameObjectWithHideFlags("SVG Editor Camera", HideFlags.HideAndDontSave, typeof(Camera));
-                    _editorCamera = go.GetComponent<Camera>();
-                    _editorCamera.hideFlags = HideFlags.HideAndDontSave;
-                    _editorCamera.cullingMask = 1 << EMPTY_LAYER;
-                    _editorCamera.backgroundColor = new Color(0f, 0f, 0f, 0f);
-                    _editorCamera.clearFlags = CameraClearFlags.Color;
-                    _editorCamera.orthographic = true;
-                    _editorCamera.enabled = false;
-                    //Debug.Log("Create Camera");
-                }
-
-                return _editorCamera;
+            if (_editorCamera == null)
+            {
+                GameObject go = EditorUtility.CreateGameObjectWithHideFlags("SVG Editor Camera", HideFlags.HideAndDontSave, typeof(Camera));
+                _editorCamera = go.GetComponent<Camera>();
+                _editorCamera.hideFlags = HideFlags.HideAndDontSave;
+                _editorCamera.cullingMask = 1 << EMPTY_LAYER;
+                _editorCamera.backgroundColor = new Color(0f, 0f, 0f, 0f);
+                _editorCamera.clearFlags = CameraClearFlags.Color;
+                _editorCamera.orthographic = true;
+                _editorCamera.enabled = false;
+                //Debug.Log("Create Camera");
             }
+
+            return _editorCamera;
         }
-        
+
         void RemoveCamera()
         {
             if(_editorCamera != null)
@@ -183,8 +176,8 @@ namespace SVGImporter
         RenderTexture GetRenderTexture()
         {            
             float aspect = 1f;
-            if(svgAsset != null) aspect = assetBounds.size.x / assetBounds.size.y;
-            _previewResolution = Mathf.Clamp(Mathf.CeilToInt(windowRect.width), 0, 8192);
+            if(svgAsset != null) aspect = GetAssetBounds().size.x / GetAssetBounds().size.y;
+            _previewResolution = Mathf.Clamp(Mathf.CeilToInt(WindowRect.width), 0, 8192);
 			return RenderTexture.GetTemporary(_previewResolution,
                                               Mathf.Clamp(Mathf.CeilToInt(_previewResolution / aspect), 0, 8192), 
 			                                  24, 
@@ -195,20 +188,21 @@ namespace SVGImporter
         
         void CreateSVGRenderer()
         {
-            _editorRenderer = editorRenderer;
+            _editorRenderer = EditorRenderer;
         }
 
-        SVGRenderer editorRenderer
+        private SVGRenderer EditorRenderer
         {
-            get {
+            get
+            {
                 GetSVGAsset();
-                if(svgAsset == null)
+                if (svgAsset == null)
                 {
                     RemoveSVGRenderer();
                     return null;
                 }
 
-                if(_editorRenderer == null)
+                if (_editorRenderer == null)
                 {
                     GameObject go = EditorUtility.CreateGameObjectWithHideFlags("editor SVG Renderer", HideFlags.HideAndDontSave, typeof(SVGRenderer));
                     go.layer = EMPTY_LAYER;
@@ -225,9 +219,9 @@ namespace SVGImporter
 
         void UpdateEditorRendererPosition()
         {
-            if(svgAsset != null && _editorRenderer != null && editorCamera != null)
+            if(svgAsset != null && _editorRenderer != null && GetEditorCamera() != null)
             {
-                _editorRenderer.transform.position = editorCamera.transform.forward * (editorCamera.nearClipPlane + assetBounds.size.z + 1f) - assetBounds.center;
+                _editorRenderer.transform.position = GetEditorCamera().transform.forward * (GetEditorCamera().nearClipPlane + GetAssetBounds().size.z + 1f) - GetAssetBounds().center;
             }
         }
         
@@ -237,19 +231,19 @@ namespace SVGImporter
             if(svgAsset == null)
                 return;
 
-            editorRenderer.vectorGraphics = svgAsset;
+            EditorRenderer.vectorGraphics = svgAsset;
 
-            if(assetBounds.size.x > assetBounds.size.y)
+            if(GetAssetBounds().size.x > GetAssetBounds().size.y)
             {
-                editorCamera.orthographicSize = Mathf.Min(assetBounds.size.x, assetBounds.size.y) * 0.5f;
+                GetEditorCamera().orthographicSize = Mathf.Min(GetAssetBounds().size.x, GetAssetBounds().size.y) * 0.5f;
             } else {
-                editorCamera.orthographicSize = Mathf.Max(assetBounds.size.x, assetBounds.size.y) * 0.5f;
+                GetEditorCamera().orthographicSize = Mathf.Max(GetAssetBounds().size.x, GetAssetBounds().size.y) * 0.5f;
             }
 
             _editorRenderer.gameObject.SetActive(true);
-			editorCamera.targetTexture = GetRenderTexture();
+            GetEditorCamera().targetTexture = GetRenderTexture();
             SVGAtlas.Instance.OnPreRender();
-            editorCamera.Render();
+            GetEditorCamera().Render();
             _editorRenderer.gameObject.SetActive(false);
         }
         
@@ -279,13 +273,13 @@ namespace SVGImporter
             GetSVGAsset();
             UpdateEditorRendererPosition();
 
-            textureWindowRect = new Rect(windowRect.x, windowRect.y + 16f, windowRect.width - 16f, windowRect.height - 32f);
+            textureWindowRect = new Rect(WindowRect.x, WindowRect.y + 16f, WindowRect.width - 16f, WindowRect.height - 32f);
 
-            float widthScale = windowRect.width / assetBounds.size.x;
-            float heightScale = windowRect.height / assetBounds.size.y;
+            float widthScale = WindowRect.width / GetAssetBounds().size.x;
+            float heightScale = WindowRect.height / GetAssetBounds().size.y;
             float scale = Mathf.Min(widthScale, heightScale);
-            float finalWidth = assetBounds.size.x * scale;
-            float finalHeight = assetBounds.size.y * scale;
+            float finalWidth = GetAssetBounds().size.x * scale;
+            float finalHeight = GetAssetBounds().size.y * scale;
 
             textureOrigRect = new Rect(0f, 0f, finalWidth, finalHeight);
             textureRect = new Rect(textureWindowRect.width / 2f - finalWidth * viewZoom / 2f, textureWindowRect.height / 2f - finalHeight * viewZoom / 2f, finalWidth * viewZoom, finalHeight * viewZoom);
@@ -300,13 +294,13 @@ namespace SVGImporter
 				RenderSVGRenderer();
 				if (viewAlpha)
 				{
-					EditorGUI.DrawTextureAlpha(textureRect, editorCamera.targetTexture);
+					EditorGUI.DrawTextureAlpha(textureRect, GetEditorCamera().targetTexture);
 				} else {
-					EditorGUI.DrawTextureTransparent(textureRect, editorCamera.targetTexture);
+					EditorGUI.DrawTextureTransparent(textureRect, GetEditorCamera().targetTexture);
 				}
 
-				RenderTexture.ReleaseTemporary(editorCamera.targetTexture);
-				editorCamera.targetTexture = null;
+				RenderTexture.ReleaseTemporary(GetEditorCamera().targetTexture);
+                GetEditorCamera().targetTexture = null;
 				#if UNITY_4_6
 				SetTemporarilyAllowIndieRenderTexture.Invoke(null, new System.Object[]{(System.Object)false});
 				#endif
@@ -332,16 +326,16 @@ namespace SVGImporter
 
         protected void HandleScrollbars()
         {
-            Rect position = new Rect(textureWindowRect.xMin, textureWindowRect.yMax, textureWindowRect.width, 16f);
-            viewScrollPosition.x = GUI.HorizontalScrollbar(position, viewScrollPosition.x, textureWindowRect.width, maxScrollRect.xMin, maxScrollRect.xMax);
-            Rect position2 = new Rect(textureWindowRect.xMax, textureWindowRect.yMin, 16f, textureWindowRect.height);
-            viewScrollPosition.y = GUI.VerticalScrollbar(position2, viewScrollPosition.y, textureWindowRect.height, maxScrollRect.yMin, maxScrollRect.yMax);
+            Rect position = new(textureWindowRect.xMin, textureWindowRect.yMax, textureWindowRect.width, 16f);
+            viewScrollPosition.x = GUI.HorizontalScrollbar(position, viewScrollPosition.x, textureWindowRect.width, MaxScrollRect.xMin, MaxScrollRect.xMax);
+            Rect position2 = new(textureWindowRect.xMax, textureWindowRect.yMin, 16f, textureWindowRect.height);
+            viewScrollPosition.y = GUI.VerticalScrollbar(position2, viewScrollPosition.y, textureWindowRect.height, MaxScrollRect.yMin, MaxScrollRect.yMax);
         }
 
         protected void SetupHandlesMatrix()
         {
-            Vector3 pos = new Vector3(textureWindowRect.center.x - viewScrollPosition.x, textureWindowRect.center.y - viewScrollPosition.y - 16, 0f);
-            Vector3 s = new Vector3(viewZoom, viewZoom, 1f);
+            Vector3 pos = new(textureWindowRect.center.x - viewScrollPosition.x, textureWindowRect.center.y - viewScrollPosition.y - 16, 0f);
+            Vector3 s = new(viewZoom, viewZoom, 1f);
             Handles.matrix = Matrix4x4.TRS(pos, Quaternion.identity, s);
         }
 
@@ -403,8 +397,8 @@ namespace SVGImporter
             {
                 Vector4 border = svgAsset.border;
                 
-                Rect rect = new Rect(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
-                Rect drawRect = new Rect(
+                Rect rect = new(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
+                Rect drawRect = new(
                     rect.x + rect.size.x * border.x,
                     rect.y + rect.size.y * border.w,
                     rect.size.x * Mathf.Abs(border.z - (1f - border.x)),
@@ -443,8 +437,8 @@ namespace SVGImporter
 
             GUIStyle dragBorderdot = styles.dragBorderdot;
             GUIStyle dragBorderDotActive = styles.dragBorderDotActive;
-            Color color = new Color(0f, 1f, 0f);
-            Rect rect = new Rect(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
+            Color color = new(0f, 1f, 0f);
+            Rect rect = new(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
             Vector4 border = svgAsset.border;
             float num = rect.xMin + border.x * textureOrigRect.size.x;
             float num2 = rect.xMax - border.z * textureOrigRect.size.x;
@@ -452,10 +446,10 @@ namespace SVGImporter
             float num4 = rect.yMin + border.w * textureOrigRect.size.y;
 
             EditorGUI.BeginChangeCheck();
-            HandleBorderPointSlider(ref num, ref num3, MouseCursor.ResizeUpRight, border.x < 1f && border.w < 1f, dragBorderdot, dragBorderDotActive, color);
-            HandleBorderPointSlider(ref num2, ref num3, MouseCursor.ResizeUpLeft, border.z < 1f && border.w < 1f, dragBorderdot, dragBorderDotActive, color);
-            HandleBorderPointSlider(ref num, ref num4, MouseCursor.ResizeUpLeft, border.x < 1f && border.y < 1f, dragBorderdot, dragBorderDotActive, color);
-            HandleBorderPointSlider(ref num2, ref num4, MouseCursor.ResizeUpRight, border.z < 1f && border.y < 1f, dragBorderdot, dragBorderDotActive, color);
+            HandleBorderPointSlider(ref num, ref num3, MouseCursor.ResizeUpRight, dragBorderdot, dragBorderDotActive, color);
+            HandleBorderPointSlider(ref num2, ref num3, MouseCursor.ResizeUpLeft, dragBorderdot, dragBorderDotActive, color);
+            HandleBorderPointSlider(ref num, ref num4, MouseCursor.ResizeUpLeft, dragBorderdot, dragBorderDotActive, color);
+            HandleBorderPointSlider(ref num2, ref num4, MouseCursor.ResizeUpRight, dragBorderdot, dragBorderDotActive, color);
             if (EditorGUI.EndChangeCheck())
             {
                 border.x = (-rect.xMin + num) / textureOrigRect.size.x;
@@ -475,8 +469,8 @@ namespace SVGImporter
 
             GUIStyle dragBorderdot = styles.dragBorderdot;
             GUIStyle dragBorderDotActive = styles.dragBorderDotActive;
-            Color color = new Color(0f, 1f, 0f);
-            Rect rect = new Rect(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
+            Color color = new(0f, 1f, 0f);
+            Rect rect = new(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
             Vector4 border = svgAsset.border;
             float num = rect.xMin + border.x * textureOrigRect.size.x;
             float num2 = rect.xMax - border.z * textureOrigRect.size.x;
@@ -487,13 +481,13 @@ namespace SVGImporter
             float num5 = num4 - (num4 - num3) / 2f;
             float num6 = num - (num - num2) / 2f;
             float num7 = num5;
-            this.HandleBorderPointSlider(ref num, ref num7, MouseCursor.ResizeHorizontal, false, dragBorderdot, dragBorderDotActive, color);
+            this.HandleBorderPointSlider(ref num, ref num7, MouseCursor.ResizeHorizontal, dragBorderdot, dragBorderDotActive, color);
             num7 = num5;
-            this.HandleBorderPointSlider(ref num2, ref num7, MouseCursor.ResizeHorizontal, false, dragBorderdot, dragBorderDotActive, color);
+            this.HandleBorderPointSlider(ref num2, ref num7, MouseCursor.ResizeHorizontal, dragBorderdot, dragBorderDotActive, color);
             num7 = num6;
-            this.HandleBorderPointSlider(ref num7, ref num3, MouseCursor.ResizeVertical, false, dragBorderdot, dragBorderDotActive, color);
+            this.HandleBorderPointSlider(ref num7, ref num3, MouseCursor.ResizeVertical, dragBorderdot, dragBorderDotActive, color);
             num7 = num6;
-            this.HandleBorderPointSlider(ref num7, ref num4, MouseCursor.ResizeVertical, false, dragBorderdot, dragBorderDotActive, color);
+            this.HandleBorderPointSlider(ref num7, ref num4, MouseCursor.ResizeVertical, dragBorderdot, dragBorderDotActive, color);
             if (EditorGUI.EndChangeCheck())
             {
                 border.x = (-rect.xMin + num) / textureOrigRect.size.x;
@@ -511,7 +505,7 @@ namespace SVGImporter
         private void HandleBorderSideScalingHandles()
         {
             if (svgAsset == null){return;}
-            Rect rect = new Rect(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
+            Rect rect = new(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
             Vector4 border = svgAsset.border;
             float num = rect.xMin + border.x * textureOrigRect.size.x;
             float num2 = rect.xMax - border.z * textureOrigRect.size.x;
@@ -548,7 +542,7 @@ namespace SVGImporter
             if (svgAsset == null){return;}
             EditorGUI.BeginChangeCheck();
             //selected.m_Pivot = this.ApplySpriteAlignmentToPivot(selected.m_Pivot, selected.m_Rect, selected.m_Alignment);
-            Rect rect = new Rect(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
+            Rect rect = new(-textureOrigRect.size.x * 0.5f, -textureOrigRect.size.y * 0.5f, textureOrigRect.size.x, textureOrigRect.size.y);
             Vector2 pivotPoint = PivotSlider(rect, svgAsset.pivotPoint, styles.pivotdot, styles.pivotdotactive);
             if (EditorGUI.EndChangeCheck())
             {
@@ -565,7 +559,7 @@ namespace SVGImporter
                 }
             }
         }
-        private void HandleBorderPointSlider(ref float x, ref float y, MouseCursor mouseCursor, bool isHidden, GUIStyle dragDot, GUIStyle dragDotActive, Color color)
+        private void HandleBorderPointSlider(ref float x, ref float y, MouseCursor mouseCursor, GUIStyle dragDot, GUIStyle dragDotActive, Color color)
         {
             Color color2 = GUI.color;
             GUI.color = color;
@@ -585,15 +579,14 @@ namespace SVGImporter
             float fixedWidth = styles.dragBorderdot.fixedWidth;
             Vector2 pos = Handles.matrix.MultiplyPoint(new Vector2(x, y));
             EditorGUI.BeginChangeCheck();
-            float result = 0f;
-
+            float result;
             if (isHorizontal)
             {
-                Rect cursorRect = new Rect(pos.x - fixedWidth * 0.5f, pos.y, fixedWidth, height);
+                Rect cursorRect = new(pos.x - fixedWidth * 0.5f, pos.y, fixedWidth, height);
                 result = SVGEditorHandles.ScaleSlider(pos, MouseCursor.ResizeHorizontal, cursorRect).x;
             } else
             {
-                Rect cursorRect2 = new Rect(pos.x, pos.y - fixedWidth * 0.5f, width, fixedWidth);
+                Rect cursorRect2 = new(pos.x, pos.y - fixedWidth * 0.5f, width, fixedWidth);
                 result = SVGEditorHandles.ScaleSlider(pos, MouseCursor.ResizeVertical, cursorRect2).y;
             }
 
@@ -615,7 +608,7 @@ namespace SVGImporter
             int controlID = GUIUtility.GetControlID("Slider1D".GetHashCode(), FocusType.Keyboard);
             pos = new Vector2(sprite.xMin + sprite.width * pos.x, sprite.yMin + sprite.height * pos.y);
             Vector2 vector = Handles.matrix.MultiplyPoint(pos);
-            Rect position = new Rect(vector.x - pivotDot.fixedWidth * 0.5f, vector.y - pivotDot.fixedHeight * 0.5f, pivotDotActive.fixedWidth, pivotDotActive.fixedHeight);
+            Rect position = new(vector.x - pivotDot.fixedWidth * 0.5f, vector.y - pivotDot.fixedHeight * 0.5f, pivotDotActive.fixedWidth, pivotDotActive.fixedHeight);
             Event current = Event.current;
             switch (current.GetTypeForControl(controlID))
             {
@@ -648,7 +641,7 @@ namespace SVGImporter
                         currentMousePosition += current.delta;
                         Vector2 a = pos;
                         Vector3 vector2 = Handles.inverseMatrix.MultiplyPoint(currentMousePosition - dragScreenOffset);
-                        pos = new Vector2(vector2.x, vector2.y);
+                        pos = new(vector2.x, vector2.y);
                         if (!Mathf.Approximately((a - pos).magnitude, 0f))
                         {
                             GUI.changed = true;
@@ -693,13 +686,13 @@ namespace SVGImporter
             return Mathf.Min(textureWindowRect.width / textureOrigRect.width, textureWindowRect.height / textureOrigRect.height * 0.9f);
         }
 
-        protected Rect maxScrollRect
+        protected Rect MaxScrollRect
         {
             get
             {
                 float horizontal = textureOrigRect.width * 0.5f * viewZoom;
                 float vertical = textureOrigRect.height * 0.5f * viewZoom;
-                return new Rect(-horizontal, -vertical, textureWindowRect.width + horizontal * 2f, textureWindowRect.height + vertical * 2f);
+                return new(-horizontal, -vertical, textureWindowRect.width + horizontal * 2f, textureWindowRect.height + vertical * 2f);
             }
         }
 
@@ -738,10 +731,9 @@ namespace SVGImporter
                 EditorGUIUtility.wideMode = true;
                 float labelWidth = EditorGUIUtility.labelWidth;
                 EditorGUIUtility.labelWidth = 135f;
-                GUILayout.BeginArea(inspectorRect);
+                GUILayout.BeginArea(InspectorRect);
                 GUILayout.BeginVertical(new GUIContent("SVG Asset"), GUI.skin.window, new GUILayoutOption[0]);
-                Rect fieldLocation;
-                DoBorderFields(out fieldLocation);
+                DoBorderFields(out Rect fieldLocation);
                 DoPivotFields(fieldLocation);
                 GUILayout.EndVertical();
                 GUILayout.EndArea();
@@ -749,7 +741,7 @@ namespace SVGImporter
             }
         }
 
-        private Rect inspectorRect
+        private Rect InspectorRect
         {
             get
             {
@@ -856,9 +848,8 @@ namespace SVGImporter
 				if(targetObject.useLayers)
 				{
 					if(_tempMesh == null) _tempMesh = new Mesh();
-					Shader[] outputShaders;
-					SVGMesh.CombineMeshes(targetObject.layers, _tempMesh, out outputShaders, targetObject.useGradients, targetObject.format, targetObject.compressDepth, targetObject.antialiasing);
-					return _tempMesh;
+                    SVGMesh.CombineMeshes(targetObject.layers, _tempMesh, out Shader[] outputShaders, targetObject.useGradients, targetObject.format, targetObject.compressDepth, targetObject.antialiasing);
+                    return _tempMesh;
 				} else {
 					FieldInfo _sharedMesh = typeof(SVGAsset).GetField("_sharedMesh", BindingFlags.NonPublic | BindingFlags.Instance);
 					return _sharedMesh.GetValue(targetObject) as Mesh;
@@ -934,8 +925,7 @@ namespace SVGImporter
 			Bounds bounds = mesh.bounds;
 			float magnitude = bounds.extents.magnitude;
 			float num = 4f * magnitude;
-			previewUtility.camera.transform.position = -Vector3.forward * num;
-			previewUtility.camera.transform.rotation = Quaternion.identity;
+			previewUtility.camera.transform.SetPositionAndRotation(-Vector3.forward * num, Quaternion.identity);
 			previewUtility.camera.nearClipPlane = num - magnitude * 1.1f;
 			previewUtility.camera.farClipPlane = num + magnitude * 1.1f;
 			

@@ -58,7 +58,7 @@ public class Chaos_Item_seed : MonoBehaviour
                     Model.RegenerateHp = Random.Range(-6000, 6000);
                     Model.Recycler = Random.Range(-600000, 6000000);
                     Model.Redecycler = Random.Range(-600000, 6000000);
-                    Model.itemSpawn = complsave.t3[Random.Range(-1, complsave.t3.Length)].name;
+                    Model.itemSpawn = Map_saver.t3[Random.Range(-1, Map_saver.t3.Length)].name;
                     bool monet = false;
                     while(!monet){
                         Model.effect_no_use.Add(new useeffect(massiveEffect[Random.Range(0, massiveEffect.Length)], Random.Range(-600000, 6000000)));
