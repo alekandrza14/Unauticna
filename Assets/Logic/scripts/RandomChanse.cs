@@ -6,7 +6,7 @@ public class RandomChanse : MonoBehaviour
 {
     private void Start()
     {
-        if (Random.Range(0,2)==1)
+        if (Global.Random.Chance(2))
         {
             Destroy(gameObject);
         }

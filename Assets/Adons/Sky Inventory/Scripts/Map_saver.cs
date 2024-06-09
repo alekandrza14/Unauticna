@@ -1056,7 +1056,7 @@ public class Map_saver : MonoBehaviour
                 {
                     i2.Load();
                 }
-                if (Global.Random.Range(0, 4) >= 2 && VarSave.GetInt("Agr") > 1000)
+                if (Global.Random.Chance(2) && VarSave.GetInt("Agr") > 1000)
                 {
                    if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/Legal_mafia"), mover.main().transform.position, Quaternion.identity));
 
@@ -1066,23 +1066,23 @@ public class Map_saver : MonoBehaviour
 
                     Transform t = Instantiate(Resources.Load<GameObject>("items/Chaos_cube"), mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
                         Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
-                    if (Global.Random.Range(0, 8) >= 7)
+                    if (Global.Random.Chance(8))
                     {
                        if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент2"), mover.main().transform.position, Quaternion.identity));
 
                     }
-                    if (Global.Random.Range(0, 10) >= 9)
+                    if (Global.Random.Chance(10))
                     {
                        if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент3"), mover.main().transform.position, Quaternion.identity));
 
                     }
-                    if (Global.Random.Range(0, 10) >= 9)
+                    if (Global.Random.Chance(10))
                     {
                        if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент4"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     //ВышийЛетун
-                    if (Global.Random.Range(0, 2) >= 1)
+                    if (Global.Random.Chance(2))
                     {
                        if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун"), mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity));
 
@@ -1095,7 +1095,7 @@ public class Map_saver : MonoBehaviour
                         {
                             if (hit.collider != null)
                             {
-                                if (Global.Random.Range(0, 6) >= 1)
+                                if (!Global.Random.Chance(6))
                                 {
                                    if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов"), hit.point, Quaternion.identity));
 
@@ -1129,7 +1129,7 @@ public class Map_saver : MonoBehaviour
                     {
                         i2.init();
                     }
-                    if (objs.Count < 100) if (Global.Random.Range(0, 2) >= 1)
+                    if (objs.Count < 100) if (Global.Random.Chance(2))
                     {
                         for (int i = 0; i < 6; i++)
                             {
@@ -1148,7 +1148,7 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
-                    if (objs.Count < 100) if (Global.Random.Range(0, 7) >= 6)
+                    if (objs.Count < 100) if (Global.Random.Chance(7))
                     {
                         for (int i = 0; i < 6; i++)
                             {
@@ -1168,7 +1168,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
 
-                    if (objs.Count < 100) if (Global.Random.Range(0, 24) == 1)
+                    if (objs.Count < 100) if (Global.Random.Chance(24))
                     {
 
                         GameObject[] g = Resources.LoadAll<GameObject>("danges");
@@ -1178,7 +1178,7 @@ public class Map_saver : MonoBehaviour
 
 
                     }
-                    if (objs.Count < 100) if (Global.Random.Range(0, 3) == 1)
+                    if (objs.Count < 100) if (Global.Random.Chance(3))
                     {
                         for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
                             {
@@ -1198,7 +1198,7 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
-                    if (objs.Count < 100) if (Global.Random.Range(0, 3) == 1)
+                    if (objs.Count < 100) if (Global.Random.Chance(3))
                     {
                         for (int i = 0; i < 0 + Global.Random.Range(0, 28); i++)
                         {

@@ -107,29 +107,60 @@ public class Universe_poetry_seed : MonoBehaviour
     {
         string s ="";
         System.Random rand = new System.Random();
-        while (rand.Next(0,6538) > 2)
+        if (!Global.Random.determindAll) 
         {
-            if(rand.Next(0,2) == 1)
+            while (rand.Next(0, 6538) > 2)
             {
-                s += c_sgl[rand.Next(0, c_sgl.Length)];
-            }
-            else
-            {
-                s += c_gl[rand.Next(0, c_gl.Length)];
-            }
-            if (rand.Next(0, 6) == 1)
-            {
-                s += " ";
-            }
-            
+                if (rand.Next(0, 2) == 1)
+                {
+                    s += c_sgl[rand.Next(0, c_sgl.Length)];
+                }
+                else
+                {
+                    s += c_gl[rand.Next(0, c_gl.Length)];
+                }
+                if (rand.Next(0, 6) == 1)
+                {
+                    s += " ";
+                }
 
-            if (rand.Next(0, 21) == 1)
-            {
-                s += "█";
+
+                if (rand.Next(0, 21) == 1)
+                {
+                    s += "█";
+                }
+                if (rand.Next(0, 2) == 1)
+                {
+                    s += dr[rand.Next(0, dr.Length)];
+                }
             }
-            if (rand.Next(0, 2) == 1)
+        }
+        else
+        {
+            for (int i = 0; i < 3214; i++)
             {
-                s += dr[rand.Next(0, dr.Length)];
+                if (rand.Next(0, 2) == 1)
+                {
+                    s += c_sgl[rand.Next(0, c_sgl.Length)];
+                }
+                else
+                {
+                    s += c_gl[rand.Next(0, c_gl.Length)];
+                }
+                if (rand.Next(0, 6) == 1)
+                {
+                    s += " ";
+                }
+
+
+                if (rand.Next(0, 21) == 1)
+                {
+                    s += "█";
+                }
+                if (rand.Next(0, 2) == 1)
+                {
+                    s += dr[rand.Next(0, dr.Length)];
+                }
             }
         }
         return s;

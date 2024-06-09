@@ -43,7 +43,7 @@ public class itemspawn : MonoBehaviour
 
     private void Spawn()
     {
-        if (UnityEngine.Random.Range(0,17)==1&& !string.IsNullOrEmpty(prefabname2))
+        if (Global.Random.Chance(17)&& !string.IsNullOrEmpty(prefabname2))
         {
             prefabname = prefabname2;
         }

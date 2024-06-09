@@ -59,14 +59,25 @@ public class MagicStick_seed : MonoBehaviour
                     Model.scale = Vector3.one;
                     Model._Color = Color.gray;
                     Model.RegenerateHp = (int)Global.Random.Range(-13, 6);
-                    if (Global.Random.Range(0, 2) == 0) Model.itemSpawn = Map_saver.t3[(int)Global.Random.Range(-1, Map_saver.t3.Length)].name;
+                    if (Global.Random.Chance(2)) Model.itemSpawn = Map_saver.t3[(int)Global.Random.Range(-1, Map_saver.t3.Length)].name;
                     
                     bool monet = false;
 
-                    if (Global.Random.Range(0, 2) == 0) while (!monet)
+                    if (!Global.Random.determindAll)
                     {
-                        Model.effect_no_use.Add(new useeffect(massiveEffect[(int)Global.Random.Range(0,massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
-                        monet = Global.Random.Range(0, 2) == 1;
+                        if (Global.Random.Chance(2)) while (!monet)
+                            {
+                                Model.effect_no_use.Add(new useeffect(massiveEffect[(int)Global.Random.Range(0, massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
+                                monet = Global.Random.Range(0, 2) == 1;
+                            }
+                    }
+                    else
+                    {
+                        if (Global.Random.Chance(2)) for (int i = 0; i < 9; i++)
+                            {
+                                Model.effect_no_use.Add(new useeffect(massiveEffect[(int)Global.Random.Range(0, massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
+                                
+                            }
                     }
                     Model.DefultInfo = "Hello im MagicStick item";
                     if (Global.Random.Range(-4, 4) == 0) Model.playerMove = Global.math.randomCube(-2, 2);

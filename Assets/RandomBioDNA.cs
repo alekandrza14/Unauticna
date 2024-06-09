@@ -28,9 +28,18 @@ public class RandomBioDNA : InventoryEvent
 
 
                     playerDNA = new PlayerDNA();
-                    playerDNA.Jumping = Random.Range(0.005f, 10f);
-                    playerDNA.hp = Random.Range(0f, 1000f);
-                    playerDNA.regeneration = Random.Range(0f, 100f);
+                    if (!Global.Random.determindAll)
+                    {
+                        playerDNA.Jumping = Random.Range(0.005f, 10f);
+                        playerDNA.hp = Random.Range(0f, 1000f);
+                        playerDNA.regeneration = Random.Range(0f, 100f);
+                    }
+                    else
+                    {
+                        playerDNA.Jumping = 5;
+                        playerDNA.hp = 500;
+                        playerDNA.regeneration = 50;
+                    }
                     DNA = JsonUtility.ToJson(playerDNA);
                     GetComponent<itemName>().ItemData = DNA;
                 }
@@ -61,10 +70,19 @@ public class RandomBioDNA : InventoryEvent
                 {
 
 
-                    playerDNA = new PlayerDNA();
-                    playerDNA.Jumping = Random.Range(0.005f, 10f);
-                    playerDNA.hp = Random.Range(0f, 1000f);
-                    playerDNA.regeneration = Random.Range(0f, 100f);
+                    playerDNA = new PlayerDNA(); 
+                    if (!Global.Random.determindAll)
+                    {
+                        playerDNA.Jumping = Random.Range(0.005f, 10f);
+                        playerDNA.hp = Random.Range(0f, 1000f);
+                        playerDNA.regeneration = Random.Range(0f, 100f);
+                    }
+                    else
+                    {
+                        playerDNA.Jumping = 5;
+                        playerDNA.hp = 500;
+                        playerDNA.regeneration = 50;
+                    }
                     DNA = JsonUtility.ToJson(playerDNA);
                     GetComponent<itemName>().ItemData = DNA;
                 }

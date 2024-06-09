@@ -33,7 +33,7 @@ public class NullPoution : MonoBehaviour
                                 water.GetComponent<itemName>().ItemData = water.плевки.ToString();
                                 ElementalInventory ei = ElementalInventory.main();
                                 ei.setItem("", 0, Color.red, ei.select);
-                                if (Random.Range(0, 7) < 1)
+                                if (Global.Random.Chance(7))
                                 {
                                     Instantiate(item.instance, transform.position, Quaternion.identity);
                                     Destroy(gameObject);

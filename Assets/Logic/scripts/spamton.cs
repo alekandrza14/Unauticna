@@ -34,7 +34,7 @@ public class spamton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Global.Random.Range(0,20) == 0)
+        if (Global.Random.Chance(20))
         {
 
             Instantiate(Resources.Load<GameObject>("items/Смачный_плевок_Спамтона"),transform.position,Quaternion.identity);
@@ -85,18 +85,44 @@ public class spamton : MonoBehaviour
             blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
             blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
             blue.Add(Instantiate(Resources.Load<GameObject>("items/Card"), mover.main().transform.position, Quaternion.identity));
-            foreach (GameObject item in blue)
+            if (!Global.Random.determindAll)
             {
-                Card pl_card = item.GetComponent<Card>();
-                pl_card.red_blue = false;
-                pl_card.pover = Random.Range(-1, 11);
-            }
-            foreach (GameObject item in red)
-            {
+                foreach (GameObject item in blue)
+                {
+                    Card pl_card = item.GetComponent<Card>();
+                    pl_card.red_blue = false;
+                    pl_card.pover = Random.Range(-1, 11);
+                }
+                foreach (GameObject item in red)
+                {
 
-                Card sc_card = item.GetComponent<Card>();
-                sc_card.red_blue = true;
-                sc_card.pover = Random.Range(-1, 11);
+                    Card sc_card = item.GetComponent<Card>();
+                    sc_card.red_blue = true;
+                    sc_card.pover = Random.Range(-1, 11);
+                }
+            }
+            else
+            {
+                blue[0].GetComponent<Card>().red_blue = false;
+                blue[1].GetComponent<Card>().red_blue = false;
+                blue[2].GetComponent<Card>().red_blue = false;
+                blue[3].GetComponent<Card>().red_blue = false;
+                blue[4].GetComponent<Card>().red_blue = false;
+                blue[0].GetComponent<Card>().pover = -1;
+                blue[1].GetComponent<Card>().pover = 1;
+                blue[2].GetComponent<Card>().pover = 4;
+                blue[3].GetComponent<Card>().pover = 7;
+                blue[4].GetComponent<Card>().pover = 10;
+                red[0].GetComponent<Card>().red_blue = true;
+                red[1].GetComponent<Card>().red_blue = true;
+                red[2].GetComponent<Card>().red_blue = true;
+                red[3].GetComponent<Card>().red_blue = true;
+                red[4].GetComponent<Card>().red_blue = true;
+                red[0].GetComponent<Card>().pover = -1;
+                red[1].GetComponent<Card>().pover = 1;
+                red[2].GetComponent<Card>().pover = 4;
+                red[3].GetComponent<Card>().pover = 7;
+                red[4].GetComponent<Card>().pover = 10;
             }
             game = true;
         }

@@ -20,8 +20,16 @@ public class RandomMetabolismDNA : InventoryEvent
             {
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 playerDNA = new PlayerDNA();
-                playerDNA.colour = Random.ColorHSV();
-                playerDNA.metabolism = Random.Range(0.005f, 3f);
+                if (!Global.Random.determindAll)
+                {
+                    playerDNA.colour = Random.ColorHSV();
+                    playerDNA.metabolism = Random.Range(0.01f, 2f);
+                }
+                else
+                {
+                    playerDNA.colour = Color.gray;
+                    playerDNA.metabolism = 1;
+                }
                 DNA = JsonUtility.ToJson(playerDNA);
                 GetComponent<itemName>().ItemData = DNA;
             }
@@ -38,8 +46,16 @@ public class RandomMetabolismDNA : InventoryEvent
             {
                // time = JsonUtility.ToJson(Random.ColorHSV());
                playerDNA = new PlayerDNA();
-                playerDNA.colour = Random.ColorHSV();
-                playerDNA.metabolism = Random.Range(0.005f, 3f);
+                if (!Global.Random.determindAll)
+                {
+                    playerDNA.colour = Random.ColorHSV();
+                    playerDNA.metabolism = Random.Range(0.01f, 2f);
+                }
+                else
+                {
+                    playerDNA.colour = Color.gray;
+                    playerDNA.metabolism = 1;
+                }
                 DNA = JsonUtility.ToJson(playerDNA);
                 GetComponent<itemName>().ItemData = DNA;
             }

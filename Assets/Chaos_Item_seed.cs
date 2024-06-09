@@ -69,13 +69,26 @@ public class Chaos_Item_seed : MonoBehaviour
                     Model.playerMove = Global.math.randomCube(-300000, 300000);
                     Model.playerRotate = Global.math.randomCube(-300000, 300000);
                     Model.playerWHMove = new Vector2(Random.Range(-600, 600),Random.Range(-600, 600));
-                    bool monet2 = false;
-                    List<float> fn = new List<float>();
-                    while (!monet2)
+                   
+                        bool monet2 = false;
+                        List<float> fn = new List<float>();
+                    if (!Global.Random.determindAll)
                     {
-                        fn.Add(Random.Range(1, 90));
-                        
-                        monet2 = Random.Range(0, 2) == 1;
+                        while (!monet2)
+                        {
+                            fn.Add(Random.Range(1, 90));
+
+                            monet2 = Random.Range(0, 2) == 1;
+                        }
+                    }
+                    else
+                    {
+                        for(int I =0;I<9;I++)
+                        {
+                            fn.Add(Random.Range(1, 90));
+
+                           
+                        }
                     }
                     Model.ScaleN = fn.ToArray();
 

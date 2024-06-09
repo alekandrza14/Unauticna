@@ -27,12 +27,12 @@ public class Chaos_cube : MonoBehaviour
         {
             _quadle = true;
         }
-        if (Global.Random.Range(0, (int)Chance + 1) == 0 && !init)
+        if (Global.Random.Chance((int)Chance + 1)&& !init)
         {
             ultra = true;
             init = true;
         }
-        if (Global.Random.Range(0, (int)Chance + 1) == 0 && ultra && !init)
+        if (Global.Random.Chance((int)Chance + 1) && ultra && !init)
         {
             omega = true;
             init = true;
@@ -67,7 +67,7 @@ public class Chaos_cube : MonoBehaviour
     public static void ChaosFunction(Chaos_cube self)
     {
         VarSave.LoadFloat("luck",0.1f);
-        if (Global.Random.Range(0, 30) == 1)
+        if (Global.Random.Chance(30))
         {
             GameObject[] res = Resources.LoadAll<GameObject>("events");
             Instantiate(res[(int)Global.Random.Range(0, res.Length)], self.transform.position, Quaternion.identity);
@@ -134,7 +134,7 @@ public class Chaos_cube : MonoBehaviour
         if (self.class_obj == 2)
         {
             int rand1 = (int)Global.Random.Range(0, self.items.Length);
-            if (Global.Random.Range(0, 2) == 0) { if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self.gameObject.transform.position, Quaternion.identity); }
+            if (Global.Random.Chance(2)) { if (!self.items[rand1].GetComponent<Запрещён>()) Instantiate(self.items[rand1], self.gameObject.transform.position, Quaternion.identity); }
             else
             {
                 DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");

@@ -209,6 +209,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "45";
             }
+            if (s[0] == "NiChance")
+            {
+                a = "46";
+            }
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -776,6 +780,10 @@ public class Conseole_trigger : MonoBehaviour
                 GameObject g = Resources.Load<GameObject>("Reflection Probe");
                 Instantiate(g, Vector3.zero, Quaternion.identity);
                 //Reflection Probe
+            }
+            if (i == 1 && a == "46")
+            {
+                Global.Random.determindAll = true;
             }
             if (i == 1 && a == "2")
             {

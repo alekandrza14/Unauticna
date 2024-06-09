@@ -59,25 +59,47 @@ public class Gun_seed : MonoBehaviour
                     Model.scale = Vector3.one;
                     Model._Color = Color.gray;
                     Model.RegenerateHp = Global.Random.Range(-6, 6);
-                    if (Global.Random.Range(-8, 8) == 0) Model.itemSpawn = Map_saver.t3[Global.Random.Range(-1, Map_saver.t3.Length)].name;
+                    if (Global.Random.Chance(16)) Model.itemSpawn = Map_saver.t3[Global.Random.Range(-1, Map_saver.t3.Length)].name;
                     
                     Model.ObjSpawn = "DamageObject";
                     bool monet = false;
-
-                    while (!monet)
+                    if (!Global.Random.determindAll)
                     {
-                        Model.effect_no_use.Add(new useeffect(massiveEffect[Global.Random.Range(0,massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
-                        monet = Global.Random.Range(0, 2) == 1;
+                        while (!monet)
+                        {
+                            Model.effect_no_use.Add(new useeffect(massiveEffect[Global.Random.Range(0, massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
+                            monet = Global.Random.Range(0, 2) == 1;
+                        }
+                    }
+                    else
+                    {
+                        for(int i =0;i<9;i++)
+                        {
+                            Model.effect_no_use.Add(new useeffect(massiveEffect[Global.Random.Range(0, massiveEffect.Length)], Global.Random.Range(-600000, 6000000)));
+                            
+                        }
+
                     }
                     Model.DefultInfo = "Hello im gun item";
                     if (Global.Random.Range(-4, 4) == 0) Model.playerMove = Global.math.randomCube(-2, 2);
                     bool monet2 = false;
                     List<float> fn = new List<float>();
-                    while (!monet2)
+                    if (!Global.Random.determindAll)
                     {
-                        fn.Add(Global.Random.Range(1, 90));
-                        
-                        monet2 = Global.Random.Range(0, 2) == 1;
+                        while (!monet2)
+                        {
+                            fn.Add(Global.Random.Range(1, 90));
+
+                            monet2 = Global.Random.Range(0, 2) == 1;
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 9; i++)
+                        {
+                            fn.Add(Global.Random.Range(1, 90));
+                        }
+
                     }
                     for (int j = 0; j < 3; j++)
                     {

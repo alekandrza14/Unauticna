@@ -591,25 +591,39 @@ public class mover : CustomSaveObject
       
             Instantiate(Resources.Load<GameObject>("audios/Шум"));
         }
-        float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f+Globalprefs.GetRealiyChaos(50)));
-        if (UnityEngine.Random.Range(0, (float)Chance + 1) == 0)
+        if (!Global.Random.determindAll) 
         {
-            Debug.Log("CahncePiratAttack" + (int)Chance);
+            float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
+            if (UnityEngine.Random.Range(0, (float)Chance + 1) == 0)
+            {
+                Debug.Log("CahncePiratAttack" + (int)Chance);
+                Instantiate(Resources.Load<GameObject>("events/Pirats"));
+            }
+            float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
+            if (UnityEngine.Random.Range(0, (float)Chance2 + 1) == 0)
+            {
+                cistalenemy.dies -= 2;
+                Globalprefs.LoadTevroPrise(-100);
+            }
+            float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
+            if (UnityEngine.Random.Range(0, (float)Chance3 + 1) == 0)
+            {
+                DirectoryInfo di = new("unsave/var/researchs");
+                int random = (int)Global.Random.Range(0, di.GetFiles().Length);
+                File.Delete(di.GetFiles()[random].FullName);
+                VarSave.LoadMoney("research", -1);
+            }
+        }
+        else
+        {
+            
             Instantiate(Resources.Load<GameObject>("events/Pirats"));
-        }
-        float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
-        if (UnityEngine.Random.Range(0, (float)Chance2 + 1) == 0)
-        {
             cistalenemy.dies -= 2;
-           Globalprefs. LoadTevroPrise(-100);
-        }
-        float Chance3 = 100 / (VarSave.GetFloat("ChanceDegradation" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
-        if (UnityEngine.Random.Range(0, (float)Chance3 + 1) == 0)
-        {
+            Globalprefs.LoadTevroPrise(-100);
             DirectoryInfo di = new("unsave/var/researchs");
-            int random = (int)Global.Random.Range(0,di.GetFiles().Length);
-           File.Delete( di.GetFiles()[random].FullName);
-            VarSave.LoadMoney("research",-1);
+            int random = (int)Global.Random.Range(0, di.GetFiles().Length);
+            File.Delete(di.GetFiles()[random].FullName);
+            VarSave.LoadMoney("research", -1);
         }
         if (timer7 != LastSesionHours)
         {
@@ -1145,7 +1159,7 @@ public class mover : CustomSaveObject
     }
     void bomjspawn()
     {
-        if (Global.Random.Range(0, 2) >= 1)
+        if (Global.Random.Chance(2))
         {
             for (int i = 0; i < 6; i++)
             {

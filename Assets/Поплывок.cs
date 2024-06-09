@@ -16,8 +16,14 @@ public class Поплывок : MonoBehaviour
                 0,
                 .5f,
                 0);
-
-            rIBA += Random.Range(0, 0.1f);
+            if (!Global.Random.determindAll)
+            {
+                rIBA += Random.Range(0, 0.1f);
+            }
+            else
+            {
+                rIBA += 0.1f;
+            }
             if (rIBA>=100)
             {
                 povid = povidПоплывок.klyoet;

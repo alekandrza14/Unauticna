@@ -17,10 +17,7 @@ namespace Global
 
         public static float Range(float min, float max)
         {
-            if (random == null)
-            {
-                random = new();
-            }
+            
             int x, y;
             float z = 0;
             float mmin = min;
@@ -29,7 +26,14 @@ namespace Global
             if (mmin > mmax)
             {
 
+                float s = mmin;
                 mmin = mmax;
+                mmax = mmin;
+                Nope(s);
+                t = true;
+            }
+            else
+            {
                 t = true;
             }
 
@@ -53,10 +57,7 @@ namespace Global
         }
         public static int Range(int min, int max)
         {
-            if (random == null)
-            {
-                random = new System.Random();
-            }
+            
             int x, y;
             int z = 0;
             int mmin = min;
@@ -64,8 +65,14 @@ namespace Global
 
             if (mmin > mmax)
             {
-
+                int s = mmin;
                 mmin = mmax;
+                mmax = mmin;
+                Nope(s);
+                t = true;
+            }
+            else
+            {
                 t = true;
             }
 
@@ -87,12 +94,22 @@ namespace Global
             return z;
 
         }
+        static void Nope(object s)
+        {
+
+        }
+      public  static bool determindAll;
+        public static bool Chance(float komplex)
+        {
+            if (determindAll)
+            {
+               return true;
+            }
+           return Range(0,komplex) == 0;
+        }
         public static float Range(float min, float max, float potencial)
         {
-            if (random == null)
-            {
-                random = new System.Random();
-            }
+            
             int x, y;
             float z = 0;
             float mmin = min;
@@ -103,7 +120,14 @@ namespace Global
             if (mmin > mmax)
             {
 
+                float s = mmin;
                 mmin = mmax;
+                mmax = mmin; 
+                Nope(s);
+                t = true;
+            }
+            else
+            {
                 t = true;
             }
 
