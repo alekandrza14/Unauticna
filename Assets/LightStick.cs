@@ -82,6 +82,10 @@ public class LightStick : InventoryEvent
             {
                 lobj.enabled = true;
             }
+            else
+            {
+                lobj.enabled = false;
+            }
             if (energyData.energy > energyData.maxEnergy)
             {
                 energyData.energy = energyData.maxEnergy;

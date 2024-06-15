@@ -14,6 +14,7 @@ public class PlayerDNA
     public float Jumping = 0;
     public float regeneration = 0;
     public List<useeffect> bakeeffects;
+    public List<int> talant = new List<int>(2);
 }
 [System.Serializable]
 public class useeffect

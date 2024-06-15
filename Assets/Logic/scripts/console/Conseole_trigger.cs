@@ -209,9 +209,18 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "45";
             }
+            //OratographicCamera
             if (s[0] == "NiChance")
             {
                 a = "46";
+            }
+            if (s[0] == "OrtoCam")
+            {
+                a = "47";
+            }
+            if (s[0] == "Ranall")
+            {
+                a = "48";
             }
             if (s[0] == "Item_by_name")
             {
@@ -781,9 +790,20 @@ public class Conseole_trigger : MonoBehaviour
                 Instantiate(g, Vector3.zero, Quaternion.identity);
                 //Reflection Probe
             }
+            //OratographicCamera
             if (i == 1 && a == "46")
             {
                 Global.Random.determindAll = true;
+            }
+            if (i == 1 && a == "47")
+            {
+                GameObject g = Resources.Load<GameObject>("OratographicCamera");
+                Instantiate(g, Vector3.zero, Quaternion.identity);
+            }
+            if (i == 1 && a == "48")
+            {
+                GameObject g = Resources.Load<GameObject>("CameraRandomObject");
+                Instantiate(g, Vector3.zero, Quaternion.identity);
             }
             if (i == 1 && a == "2")
             {

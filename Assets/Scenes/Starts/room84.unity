@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!21 &251629
+--- !u!21 &138364353
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -129,7 +129,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
   m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -156,13 +156,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - P1: 3.03
-    - P2: 2.655
+    - P1: -0
+    - P2: -0.14499998
     - P3: 1.074
     - P4: 0
     - P5: 0
-    - Pos1: 3.03
-    - Pos2: 2.655
+    - Pos1: -0
+    - Pos2: -0.14499998
     - Pos3: 1.074
     - Pos4: 0
     - _AmbientOcclusion: 1
@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 246417988}
   - component: {fileID: 246417987}
   - component: {fileID: 246417986}
+  - component: {fileID: 246417992}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -226,7 +227,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -435,55 +436,55 @@ MonoBehaviour:
   - m_Vertices: 0b0000000e00000012000000
   m_SharedTextures: []
   m_Positions:
-  - {x: -11509.902, y: -7091.7466, z: 10968.633}
-  - {x: 0, y: -7091.7466, z: 10968.633}
-  - {x: -11509.902, y: 0.00048828125, z: 10968.633}
-  - {x: 0, y: 0.00048828125, z: 10968.633}
-  - {x: 0, y: -7091.7466, z: 10968.633}
-  - {x: 0, y: -7091.7466, z: 0}
-  - {x: 0, y: 0.00048828125, z: 10968.633}
-  - {x: 0, y: 0.00048828125, z: 0}
-  - {x: 0, y: -7091.7466, z: 0}
-  - {x: -11509.902, y: -7091.7466, z: 0}
-  - {x: 0, y: 0.00048828125, z: 0}
-  - {x: -11509.902, y: 0.00048828125, z: 0}
-  - {x: -11509.902, y: -7091.7466, z: 0}
-  - {x: -11509.902, y: -7091.7466, z: 10968.633}
-  - {x: -11509.902, y: 0.00048828125, z: 0}
-  - {x: -11509.902, y: 0.00048828125, z: 10968.633}
-  - {x: -11509.902, y: 0.00048828125, z: 10968.633}
-  - {x: 0, y: 0.00048828125, z: 10968.633}
-  - {x: -11509.902, y: 0.00048828125, z: 0}
-  - {x: 0, y: 0.00048828125, z: 0}
-  - {x: -11509.902, y: -7091.7466, z: 0}
-  - {x: 0, y: -7091.7466, z: 0}
-  - {x: -11509.902, y: -7091.7466, z: 10968.633}
-  - {x: 0, y: -7091.7466, z: 10968.633}
+  - {x: -5754.951, y: -3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: -3545.8735, z: 5484.3164}
+  - {x: -5754.951, y: 3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: 3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: -3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: -3545.8735, z: -5484.3164}
+  - {x: 5754.951, y: 3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: 3545.8735, z: -5484.3164}
+  - {x: 5754.951, y: -3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: -3545.8735, z: -5484.3164}
+  - {x: 5754.951, y: 3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: 3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: -3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: -3545.8735, z: 5484.3164}
+  - {x: -5754.951, y: 3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: 3545.8735, z: 5484.3164}
+  - {x: -5754.951, y: 3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: 3545.8735, z: 5484.3164}
+  - {x: -5754.951, y: 3545.8735, z: -5484.3164}
+  - {x: 5754.951, y: 3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: -3545.8735, z: -5484.3164}
+  - {x: 5754.951, y: -3545.8735, z: -5484.3164}
+  - {x: -5754.951, y: -3545.8735, z: 5484.3164}
+  - {x: 5754.951, y: -3545.8735, z: 5484.3164}
   m_Textures0:
-  - {x: 11509.902, y: -7091.7466}
-  - {x: 0, y: -7091.7466}
-  - {x: 11509.902, y: 0.00048828125}
-  - {x: 0, y: 0.00048828125}
-  - {x: 10968.633, y: -7091.7466}
-  - {x: 0, y: -7091.7466}
-  - {x: 10968.633, y: 0.00048828125}
-  - {x: 0, y: 0.00048828125}
-  - {x: 0, y: -7091.7466}
-  - {x: -11509.902, y: -7091.7466}
-  - {x: 0, y: 0.00048828125}
-  - {x: -11509.902, y: 0.00048828125}
-  - {x: -0, y: -7091.7466}
-  - {x: -10968.633, y: -7091.7466}
-  - {x: 0, y: 0.00048828125}
-  - {x: -10968.633, y: 0.00048828125}
-  - {x: -11509.902, y: 10968.633}
-  - {x: 0, y: 10968.633}
-  - {x: -11509.902, y: 0}
-  - {x: 0, y: 0}
-  - {x: 11509.902, y: 0}
-  - {x: 0, y: 0}
-  - {x: 11509.902, y: 10968.633}
-  - {x: 0, y: 10968.633}
+  - {x: 5754.951, y: -3545.8735}
+  - {x: -5754.951, y: -3545.8735}
+  - {x: 5754.951, y: 3545.8735}
+  - {x: -5754.951, y: 3545.8735}
+  - {x: 5484.3164, y: -3545.8735}
+  - {x: -5484.3164, y: -3545.8735}
+  - {x: 5484.3164, y: 3545.8735}
+  - {x: -5484.3164, y: 3545.8735}
+  - {x: 5754.951, y: -3545.8735}
+  - {x: -5754.951, y: -3545.8735}
+  - {x: 5754.951, y: 3545.8735}
+  - {x: -5754.951, y: 3545.8735}
+  - {x: 5484.3164, y: -3545.8735}
+  - {x: -5484.3164, y: -3545.8735}
+  - {x: 5484.3164, y: 3545.8735}
+  - {x: -5484.3164, y: 3545.8735}
+  - {x: -5754.951, y: 5484.3164}
+  - {x: 5754.951, y: 5484.3164}
+  - {x: -5754.951, y: -5484.3164}
+  - {x: 5754.951, y: -5484.3164}
+  - {x: 5754.951, y: -5484.3164}
+  - {x: -5754.951, y: -5484.3164}
+  - {x: 5754.951, y: 5484.3164}
+  - {x: -5754.951, y: 5484.3164}
   m_Textures2: []
   m_Textures3: []
   m_Tangents:
@@ -520,7 +521,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 1706086417}
-  m_VersionIndex: 2741
+  m_VersionIndex: 2744
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -534,12 +535,33 @@ Transform:
   m_GameObject: {fileID: 246417985}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5744, y: 0, z: -5166}
+  m_LocalPosition: {x: -10.951172, y: -3545.873, z: 318.3164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &246417992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246417985}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11509.902, y: 7091.747, z: 10968.633}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &283802898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -572,7 +594,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 251629}
+      objectReference: {fileID: 1280475036}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -815,7 +837,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1017261854}
+      objectReference: {fileID: 1575391259}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1410,7 +1432,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1153432438}
+      objectReference: {fileID: 1233583245}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1612,73 +1634,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1017261854
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: 1.46
-    - P2: 1.165
-    - P3: 1.074
-    - P4: 0
-    - P5: 0
-    - Pos1: 1.46
-    - Pos2: 1.165
-    - Pos3: 1.074
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2
-    - _Iterations: 10
-    - _MaxDistance: 1000
-    - _MaxSteps: 600
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 0.5
-    - _ShadowMode: 0
-    - _Smoothness: 0.5
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.001
-    m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &1036664064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1747,74 +1702,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b53cd52ba58a0be4ea1d62dc51ed0d06, type: 3}
---- !u!21 &1133333855
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _AMBIENTOCCLUSION_ON
-  - _NORMALAPPROXMODE_FORWARD
-  - _NORMALFILTERING_ON
-  - _RELATIVETOLERANCE_ON
-  - _SHADOWMODE_NONE
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - P1: -0
-    - P2: -0.14499998
-    - P3: 1.074
-    - P4: 0
-    - P5: 0
-    - Pos1: -0
-    - Pos2: -0.14499998
-    - Pos3: 1.074
-    - Pos4: 0
-    - _AmbientOcclusion: 1
-    - _AmbientOcclusionMultiplier: 1
-    - _AmbientOcclusionSamples: 5
-    - _AmbientOcclusionStep: 0.1
-    - _EscapeRadius: 2
-    - _Iterations: 10
-    - _MaxDistance: 1000
-    - _MaxSteps: 600
-    - _Metallic: 0
-    - _NormalApproxMode: 1
-    - _NormalApproxStep: 0.001
-    - _NormalFiltering: 1
-    - _Power: 8
-    - _RelativeTolerance: 1
-    - _Scale: 0.5
-    - _ShadowMode: 0
-    - _Smoothness: 0.5
-    - _SoftShadowFactor: 1
-    - _Tolerance: 0.001
-    m_Colors:
-    - _Tint: {r: 1, g: 1, b: 1, a: 1}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1153432438
+--- !u!21 &1233583245
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1822,7 +1710,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ray Marching_cube loop (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
   m_Shader: {fileID: 4800000, guid: 8a5c8ea7a79d0a24ea157e6ab1778a57, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -2046,6 +1934,73 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!21 &1280475036
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: 3.03
+    - P2: 2.655
+    - P3: 1.074
+    - P4: 0
+    - P5: 0
+    - Pos1: 3.03
+    - Pos2: 2.655
+    - Pos3: 1.074
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2
+    - _Iterations: 10
+    - _MaxDistance: 1000
+    - _MaxSteps: 600
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.5
+    - _ShadowMode: 0
+    - _Smoothness: 0.5
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.001
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1293514414
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,7 +2130,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 1133333855}
+      objectReference: {fileID: 138364353}
     - target: {fileID: 2569457065682725748, guid: 9f2587814b469864ebb68df6204dd403,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2283,6 +2238,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f2587814b469864ebb68df6204dd403, type: 3}
+--- !u!21 &1575391259
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ray Marching_Sphere 6 (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance) (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: 4800000, guid: de6b17e84f15a934d9010ccbc0d4c68f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _AMBIENTOCCLUSION_ON
+  - _NORMALAPPROXMODE_FORWARD
+  - _NORMALFILTERING_ON
+  - _RELATIVETOLERANCE_ON
+  - _SHADOWMODE_NONE
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - P1: 1.46
+    - P2: 1.165
+    - P3: 1.074
+    - P4: 0
+    - P5: 0
+    - Pos1: 1.46
+    - Pos2: 1.165
+    - Pos3: 1.074
+    - Pos4: 0
+    - _AmbientOcclusion: 1
+    - _AmbientOcclusionMultiplier: 1
+    - _AmbientOcclusionSamples: 5
+    - _AmbientOcclusionStep: 0.1
+    - _EscapeRadius: 2
+    - _Iterations: 10
+    - _MaxDistance: 1000
+    - _MaxSteps: 600
+    - _Metallic: 0
+    - _NormalApproxMode: 1
+    - _NormalApproxStep: 0.001
+    - _NormalFiltering: 1
+    - _Power: 8
+    - _RelativeTolerance: 1
+    - _Scale: 0.5
+    - _ShadowMode: 0
+    - _Smoothness: 0.5
+    - _SoftShadowFactor: 1
+    - _Tolerance: 0.001
+    m_Colors:
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1642664103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2378,7 +2400,7 @@ Mesh:
     firstVertex: 0
     vertexCount: 24
     localAABB:
-      m_Center: {x: -5754.951, y: -3545.873, z: 5484.3164}
+      m_Center: {x: 0, y: 0, z: 0}
       m_Extent: {x: 5754.951, y: 3545.8735, z: 5484.3164}
   m_Shapes:
     vertices: []
@@ -2458,7 +2480,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 1152
-    _typelessdata: 9cd733c6f99dddc588622b4600000000000000000000803f000080bf0000000000000000000080bf9cd73346f99dddc500000000f99dddc588622b4600000000000000000000803f000080bf0000000000000000000080bf00000000f99dddc59cd733c60000003a88622b4600000000000000000000803f000080bf0000000000000000000080bf9cd733460000003a000000000000003a88622b4600000000000000000000803f000080bf0000000000000000000080bf000000000000003a00000000f99dddc588622b460000803f000000000000000000000000000000000000803f000080bf88622b46f99dddc500000000f99dddc5000000000000803f000000000000000000000000000000000000803f000080bf00000000f99dddc5000000000000003a88622b460000803f000000000000000000000000000000000000803f000080bf88622b460000003a000000000000003a000000000000803f000000000000000000000000000000000000803f000080bf000000000000003a00000000f99dddc5000000000000000000000000000080bf0000803f0000000000000000000080bf00000000f99dddc59cd733c6f99dddc5000000000000000000000000000080bf0000803f0000000000000000000080bf9cd733c6f99dddc5000000000000003a000000000000000000000000000080bf0000803f0000000000000000000080bf000000000000003a9cd733c60000003a000000000000000000000000000080bf0000803f0000000000000000000080bf9cd733c60000003a9cd733c6f99dddc500000000000080bf00000000000000000000000000000000000080bf000080bf00000080f99dddc59cd733c6f99dddc588622b46000080bf00000000000000000000000000000000000080bf000080bf88622bc6f99dddc59cd733c60000003a00000000000080bf00000000000000000000000000000000000080bf000080bf000000000000003a9cd733c60000003a88622b46000080bf00000000000000000000000000000000000080bf000080bf88622bc60000003a9cd733c60000003a88622b46000000000000803f000000000000803f0000000000000000000080bf9cd733c688622b46000000000000003a88622b46000000000000803f000000000000803f0000000000000000000080bf0000000088622b469cd733c60000003a00000000000000000000803f000000000000803f0000000000000000000080bf9cd733c600000000000000000000003a00000000000000000000803f000000000000803f0000000000000000000080bf00000000000000009cd733c6f99dddc50000000000000000000080bf00000000000080bf0000000000000000000080bf9cd733460000000000000000f99dddc50000000000000000000080bf00000000000080bf0000000000000000000080bf00000000000000009cd733c6f99dddc588622b4600000000000080bf00000000000080bf0000000000000000000080bf9cd7334688622b4600000000f99dddc588622b4600000000000080bf00000000000080bf0000000000000000000080bf0000000088622b46
+    _typelessdata: 9cd7b3c5fa9d5dc58862ab4500000000000000000000803f000080bf0000000000000000000080bf9cd7b345fa9d5dc59cd7b345fa9d5dc58862ab4500000000000000000000803f000080bf0000000000000000000080bf9cd7b3c5fa9d5dc59cd7b3c5fa9d5d458862ab4500000000000000000000803f000080bf0000000000000000000080bf9cd7b345fa9d5d459cd7b345fa9d5d458862ab4500000000000000000000803f000080bf0000000000000000000080bf9cd7b3c5fa9d5d459cd7b345fa9d5dc58862ab450000803f000000000000000000000000000000000000803f000080bf8862ab45fa9d5dc59cd7b345fa9d5dc58862abc50000803f000000000000000000000000000000000000803f000080bf8862abc5fa9d5dc59cd7b345fa9d5d458862ab450000803f000000000000000000000000000000000000803f000080bf8862ab45fa9d5d459cd7b345fa9d5d458862abc50000803f000000000000000000000000000000000000803f000080bf8862abc5fa9d5d459cd7b345fa9d5dc58862abc50000000000000000000080bf0000803f0000000000000000000080bf9cd7b345fa9d5dc59cd7b3c5fa9d5dc58862abc50000000000000000000080bf0000803f0000000000000000000080bf9cd7b3c5fa9d5dc59cd7b345fa9d5d458862abc50000000000000000000080bf0000803f0000000000000000000080bf9cd7b345fa9d5d459cd7b3c5fa9d5d458862abc50000000000000000000080bf0000803f0000000000000000000080bf9cd7b3c5fa9d5d459cd7b3c5fa9d5dc58862abc5000080bf00000000000000000000000000000000000080bf000080bf8862ab45fa9d5dc59cd7b3c5fa9d5dc58862ab45000080bf00000000000000000000000000000000000080bf000080bf8862abc5fa9d5dc59cd7b3c5fa9d5d458862abc5000080bf00000000000000000000000000000000000080bf000080bf8862ab45fa9d5d459cd7b3c5fa9d5d458862ab45000080bf00000000000000000000000000000000000080bf000080bf8862abc5fa9d5d459cd7b3c5fa9d5d458862ab45000000000000803f000000000000803f0000000000000000000080bf9cd7b3c58862ab459cd7b345fa9d5d458862ab45000000000000803f000000000000803f0000000000000000000080bf9cd7b3458862ab459cd7b3c5fa9d5d458862abc5000000000000803f000000000000803f0000000000000000000080bf9cd7b3c58862abc59cd7b345fa9d5d458862abc5000000000000803f000000000000803f0000000000000000000080bf9cd7b3458862abc59cd7b3c5fa9d5dc58862abc500000000000080bf00000000000080bf0000000000000000000080bf9cd7b3458862abc59cd7b345fa9d5dc58862abc500000000000080bf00000000000080bf0000000000000000000080bf9cd7b3c58862abc59cd7b3c5fa9d5dc58862ab4500000000000080bf00000000000080bf0000000000000000000080bf9cd7b3458862ab459cd7b345fa9d5dc58862ab4500000000000080bf00000000000080bf0000000000000000000080bf9cd7b3c58862ab45
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -2512,7 +2534,7 @@ Mesh:
       m_BitSize: 0
     m_UVInfo: 0
   m_LocalAABB:
-    m_Center: {x: -5754.951, y: -3545.873, z: 5484.3164}
+    m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 5754.951, y: 3545.8735, z: 5484.3164}
   m_MeshUsageFlags: 0
   m_CookingOptions: 30

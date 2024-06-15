@@ -37,6 +37,7 @@ public class NoscaleParent : MonoBehaviour
         if (settings == NoscaleParentSettings.PayerCamera)
         {
             transform.position = Globalprefs.camera.transform.position;
+            transform.rotation = Globalprefs.camera.transform.rotation;
         }
     }
 }

@@ -25,7 +25,14 @@ public class MainRay : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(r, out hit))
         {
-           if(!hit.collider.isTrigger) MainHit = hit;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                foreach (MonoBehaviour item in hit.collider.GetComponents<MonoBehaviour>())
+                {
+                    item.Invoke("OnInteractive", 0);
+                }
+            }
+                if (!hit.collider.isTrigger) MainHit = hit;
             else if (hit.collider.gameObject.layer == 3)
             {
                 hit.point = hit.collider.gameObject.transform.position + new Vector3(Global.Random.Range(-3f, 3f), Global.Random.Range(-3f, 3f), Global.Random.Range(-3f, 3f));

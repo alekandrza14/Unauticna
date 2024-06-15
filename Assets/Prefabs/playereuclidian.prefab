@@ -541,6 +541,7 @@ MonoBehaviour:
   lif: 
   HX_Rotation: 0
   c1: {r: 0, g: 0, b: 0, a: 0}
+  CamDistanceMult: 1
   lt: []
   invisibeobject: 0
 --- !u!54 &4972998650662337214
@@ -818,6 +819,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 282830842249730424}
     m_Modifications:
     - target: {fileID: 3652775619910811, guid: 46f4f028df7979741a486527760079b1, type: 3}
+      propertyPath: m_AllowMSAA
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652775619910811, guid: 46f4f028df7979741a486527760079b1, type: 3}
       propertyPath: m_TargetTexture
       value: 
       objectReference: {fileID: 0}
@@ -838,6 +843,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5162722413785300609, guid: 46f4f028df7979741a486527760079b1,
         type: 3}
+      propertyPath: m_AllowMSAA
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162722413785300609, guid: 46f4f028df7979741a486527760079b1,
+        type: 3}
       propertyPath: near clip plane
       value: 0.15
       objectReference: {fileID: 0}
@@ -845,6 +855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 3199
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162722413785300609, guid: 46f4f028df7979741a486527760079b1,
+        type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5162722413785300611, guid: 46f4f028df7979741a486527760079b1,
         type: 3}
@@ -1047,6 +1062,11 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248102237298557457, guid: 89b52d23a55c1134eb01ec43ded1b25f,
+        type: 3}
+      propertyPath: m_AllowMSAA
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6208053626498252093, guid: 89b52d23a55c1134eb01ec43ded1b25f,
         type: 3}

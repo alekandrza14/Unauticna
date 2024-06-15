@@ -553,6 +553,7 @@ public class mover : CustomSaveObject
         }
         Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
         editor = Resources.Load<GUISkin>("ui/test");
+        List<TalantDNA> tals = new List<TalantDNA>();
         if (VarSave.ExistenceVar("DNA"))
         {
             DNA = JsonUtility.FromJson<PlayerDNA>(VarSave.GetString("DNA"));
@@ -561,6 +562,25 @@ public class mover : CustomSaveObject
             jumpPower += DNA.Jumping;
             maxhp2 = (int)DNA.hp;
             regen = (int)DNA.regeneration;
+            if (DNA.talant!=null)
+            {
+                if (DNA.talant.Count > 0)
+                {
+                    tals.Add((TalantDNA)DNA.talant[0]);
+                    tals.Add((TalantDNA)DNA.talant[1]);
+                    foreach (TalantDNA item in tals)
+                    {
+                        if (item == TalantDNA.fourLapka)
+                        {
+                            Globalprefs.fourlapka = true;
+                        }
+                        if (item == TalantDNA.born)
+                        {
+                            Globalprefs.born = true;
+                        }
+                    }
+                }
+            }
         }
         jumpPower += Globalprefs.GetRealiyChaos(4);
         cistalenemy.dies = VarSave.LoadInt("Agr",0);
@@ -2538,8 +2558,14 @@ public class mover : CustomSaveObject
 
     }
     GameObject mats;
+    float timer12;
     private void Inputnravix()
     {
+        if (Input.GetKey(KeyCode.LeftControl) && Globalprefs.born)
+        {
+            timer12 += Time.timeScale;
+            if (timer12 > 10) { Instantiate(Resources.Load<GameObject>("Items/PlushNarvix").gameObject, transform.position, Quaternion.identity); timer12 = 0; }
+        }
         if (Input.GetKeyDown("5"))
         {
           if(mats == null)  mats = Instantiate(Resources.Load<GameObject>("ui/mats/mats").gameObject, transform.position, Quaternion.identity);
@@ -2789,6 +2815,7 @@ public class mover : CustomSaveObject
     bool big;
     bool _n1fps;
     bool soveVision;
+    bool allVision;
     bool god;
     Vector3 uniepos;
     private void EffectUpdate()
@@ -2946,6 +2973,22 @@ public class mover : CustomSaveObject
         {
 
             soveVision = false;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Все Зрение") != null)
+        {
+
+            if (!allVision)
+            {
+                Instantiate(Resources.Load("CameraRandomObject"));
+                allVision = true;
+            }
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("Все Зрение") == null)
+        {
+
+            allVision = false;
             //playermatinvisible
         }
         //Совиное Зрение

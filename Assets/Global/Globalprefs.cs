@@ -83,6 +83,8 @@ public static class Globalprefs
     public static decimal research;
     public static decimal OverFlowteuvro;
     public static decimal ItemPrise;
+    public static bool born;
+    public static bool fourlapka;
     public static bool bunkrot;
     public static bool LockRotate;
 

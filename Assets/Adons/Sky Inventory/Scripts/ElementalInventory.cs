@@ -2923,6 +2923,20 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("ЗельеСовы", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеВсеЗрения") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            playerdata.Addeffect("Все Зрение", 600);
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("ЗельеВсеЗрения", "Колба");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье_-1FPS") != 0 && main() == this)
         {
 
@@ -3018,9 +3032,33 @@ public class ElementalInventory : MonoBehaviour {
                 GlobalInputMenager.KeyCode_eat = 0;
             }
             if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
-                && Cells[select].elementName == "DNAMetabolism" && Cells[select].elementCount > 0)
+                && Cells[select].elementName == "DNAColour" && Cells[select].elementCount > 0)
             {
-                mover.main().DNA.metabolism = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).metabolism;
+                mover.main().DNA.colour = JsonUtility.FromJson<PlayerDNA>(Cells[select].elementData).colour;
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+                VarSave.LoadFloat("mana", 1f);
+
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
+                && Cells[select].elementName == "DNAFourLapra" && Cells[select].elementCount > 0)
+            {
+                PoverkaDNA(); if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count > 0) if (Global.Random.Chance(2)) { mover.main().DNA.talant[0] = (int)TalantDNA.fourLapka; } else { mover.main().DNA.talant[1] = (int)TalantDNA.fourLapka; }
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                VarSave.LoadFloat("mana", 1f);
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
+                && Cells[select].elementName == "DNABorn" && Cells[select].elementCount > 0)
+            {
+                PoverkaDNA(); if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count > 0) if (Global.Random.Chance(2)) { mover.main().DNA.talant[0] = (int)TalantDNA.born; } else { mover.main().DNA.talant[0] = (int)TalantDNA.born; }
 
                 VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
 
@@ -3794,6 +3832,11 @@ public class ElementalInventory : MonoBehaviour {
         //Absolute_poison
         //sosisca
         VarSave.SetInt("Agr", cistalenemy.dies);
+    }
+
+    private static void PoverkaDNA()
+    {
+        if (mover.main().DNA.talant == null) mover.main().DNA.talant = new List<int>(2) { 0, 0 }; else if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count == 0) mover.main().DNA.talant = new List<int>(2) { 0, 0 };
     }
 
     private void CustomFunctionalItem(CustomObjectData cod)
