@@ -27,5 +27,14 @@ public class hello
                 p.Start();
             }
         }
+        public static void LoadApplication(string app)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\"+app+".exe";
+            if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\"+app+".exe"))
+            {
+                p.Start();
+            }
+        }
     }
 }

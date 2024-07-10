@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,7 +27,7 @@ public class World : MonoBehaviour {
     {
         if (editorcamera != null)
         {
-            Random.InitState(seed);
+            UnityEngine.Random.InitState(seed);
 
         spawnPosition = new Vector3(160f, 66f, 160f);
         GenerateWorld();
@@ -67,7 +68,7 @@ public class World : MonoBehaviour {
             DestroyImmediate(ObjectBonus1[i]);
         }
 
-        Random.InitState(seed);
+        UnityEngine.Random.InitState(seed);
 
         spawnPosition = new Vector3(160f, 66f, 160f);
         GenerateWorld();
@@ -191,7 +192,15 @@ public class World : MonoBehaviour {
             }
         }
     }
-
+    float fmod2(float a, float b)
+    {
+        float c = math.frac(math.abs(a / b)) * math.abs(b);
+        if (a < 0)
+        {
+            c = -c + b;
+        }
+        return c;
+    }
     public byte GetVoxel (Vector3 pos)
     {
 
@@ -206,7 +215,11 @@ public class World : MonoBehaviour {
         // If bottom block of chunk, return bedrock.
         if (yPos == 0)
             return 1;
-
+        int cX = 10;
+        int cY = 10;
+        int c = 60;
+       // Vector3 posX = new Vector3(fmod2(pos.x + 1f * cX, cX) - 5, 0, fmod2(pos.z + 1f * cY, cY) - 5);
+        Vector3 posn = new Vector3(fmod2(pos.x + 1f * c, c) - 20, 0, fmod2(pos.z + 1f * c, c) - 20);
         /* BASIC TERRAIN PASS */
 
         int terrainHeight = Mathf.FloorToInt(biome.terrainHeight * Noise.Get2DPerlin(new Vector2(pos.x, pos.z), 0, biome.terrainScale)) + biome.solidGroundHeight;
@@ -216,6 +229,13 @@ public class World : MonoBehaviour {
             voxelValue = 3;
         else if (yPos < terrainHeight && yPos > terrainHeight - 4)
             voxelValue = 5;
+        else if (biome.func == CubeMarchFunctions.RepeatCilindr) 
+        {
+            if (math.length(posn) < 18)
+                voxelValue = 6;
+            //    else if (math.length(posX) < 5)
+            //     return 0;
+        }
         else if (yPos > terrainHeight)
             return 0;
         else

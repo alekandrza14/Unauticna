@@ -59,7 +59,10 @@ public class Sutck : MonoBehaviour
     }
    static void UpdateSutck()
     {
-     
+        if(VarSave.GetBool("Day",SaveType.computer))
+        {
+            day = 1;
+        }
         day %= 3;
         if (day == 0)
         {

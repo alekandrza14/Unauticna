@@ -1123,7 +1123,109 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (FirstSpawn)
+                if (GameEditor.Opened.genFinish)
+                {
+                    bool Exit = false;
+                    while (!Exit)
+                    {
+
+
+
+                        Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector());
+
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Exit = true;
+                                objs.Add(Instantiate(Resources.Load<GameObject>("GameEditorProp/Exit"), hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+                if (GameEditor.Opened.genChaosCube)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if (objs.Count > 100)
+                        {
+                            break;
+                        }
+                        Ray r = new(m.transform.position + (m.transform.up * 200), Random_vector());
+
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Chaos_cube"), hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+                if (GameEditor.Opened.genFarm)
+                {
+                    for (int i = 0; i < 12; i++)
+                    {
+                        if (objs.Count > 100)
+                        {
+                            break;
+                        }
+                        Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector());
+
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/WaterFarm"), hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+                if (GameEditor.Opened.genLokation)
+                {
+                    for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
+                    {
+                        if (objs.Count > 100)
+                        {
+                            break;
+                        }
+                        GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
+                        Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (objs.Count < 100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+                if (GameEditor.Opened.genFashits)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if (objs.Count > 100)
+                        {
+                            break;
+                        }
+                        Ray r = new(m.transform.position + (m.transform.up * 200), Random_vector());
+
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/FashistEnemye"), hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+                if (Globalprefs.AutoSave)
+                {
+                    GameManager.saveandhill();
+                    Globalprefs.AutoSave = false;
+                }
+                    if (FirstSpawn)
                 {
                     foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                     {
@@ -1198,26 +1300,67 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
+                    //Nuclear_plant
                     if (objs.Count < 100) if (Global.Random.Chance(3))
-                    {
-                        for (int i = 0; i < 0 + Global.Random.Range(0, 28); i++)
                         {
+                            for (int i = 0; i < 0 + Global.Random.Range(0, 28); i++)
+                            {
                                 if (objs.Count > 100)
                                 {
                                     break;
                                 }
-                                    GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
-                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
-                           
-                            if (Physics.Raycast(r, out hit))
-                            {
-                                if (hit.collider != null)
+                                GameObject g = Resources.Load<GameObject>("Items/БлестящийКамень");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
                                 {
-                                   if(objs.Count<100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
                                 }
                             }
                         }
-                    }
+                    if (objs.Count < 100) if (Global.Random.Chance(12))
+                        {
+                            for (int i = 0; i < 0 + Global.Random.Range(5, 50); i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/Nuclear_plant");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                    if (objs.Count < 100) if (Global.Random.Chance(5))
+                        {
+                            for (int i = 0; i < 0 + Global.Random.Range(5, 10); i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/болотник");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
 
 
                 }

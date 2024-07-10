@@ -222,6 +222,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "48";
             }
+            if (s[0] == "3D_Glass")
+            {
+                a = "49";
+            }
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -318,7 +322,7 @@ public class Conseole_trigger : MonoBehaviour
                     }
                 }
                 Globalprefs.knowlages = 1000;
-                VarSave.SetMoney("research", decimal.MaxValue);
+                VarSave.SetMoney("research", decimal.MaxValue - 1000000);
                 GameData gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + Globalprefs.GetTimeline()));
                 mover.main().gsave.progressofthepassage = int.MaxValue - 1000;
                 gsave.progressofthepassage = int.MaxValue-1000;
@@ -803,6 +807,11 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "48")
             {
                 GameObject g = Resources.Load<GameObject>("CameraRandomObject");
+                Instantiate(g, Vector3.zero, Quaternion.identity);
+            }
+            if (i == 1 && a == "49")
+            {
+                GameObject g = Resources.Load<GameObject>("Glass3D");
                 Instantiate(g, Vector3.zero, Quaternion.identity);
             }
             if (i == 1 && a == "2")

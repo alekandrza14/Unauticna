@@ -166,7 +166,7 @@ public class mover : CustomSaveObject
     public static RaymarchCam maincam4;
     public static RaymarchCam Get4DCam()
     {
-     if(!maincam4)   maincam4 = (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam)); else return maincam4 = (RaymarchCam)FindAnyObjectByType(typeof(RaymarchCam));
+        if (!maincam4) maincam4 = mover.main().PlayerCamera.GetComponent<RaymarchCam>(); else return maincam4 = mover.main().PlayerCamera.GetComponent<RaymarchCam>();
         return maincam4;
     }
     DateTime timeUnauticna()
@@ -497,8 +497,55 @@ public class mover : CustomSaveObject
     bool swapWHaN;
     public float CamDistanceMult = 1;
     public Logic_tag_3[] lt;
+    public JsonGame file = new JsonGame();
     private void Init()
     {
+        if (File.Exists("res/UserWorckspace/games/" + VarSave.GetString("GameActive") + ".ugame"))
+        {
+            file = JsonUtility.FromJson<JsonGame>(File.ReadAllText("res/UserWorckspace/games/" + VarSave.GetString("GameActive") + ".ugame"));
+            GameEditor.Opened = file;
+        }
+            if (VarSave.GetMoney("Winks", SaveType.local)>0)
+        {
+            GameObject g = Resources.Load<GameObject>("WinksPM");
+            Instantiate(g, transform);
+        }
+        if (VarSave.GetBool("UnlockOmniscience", SaveType.computer))
+        {
+            foreach (GameObject g in Map_saver.t3)
+            {
+
+                if (!VarSave.ExistenceVar("researchs/" + g.name))
+                {
+                    Directory.CreateDirectory("unsave/var/researchs");
+
+
+                    VarSave.LoadMoney("research", 1);
+
+                    Globalprefs.research = VarSave.GetMoney("research");
+                    VarSave.SetInt("researchs/" + g.name, 0);
+
+                }
+            }
+        }
+        if (VarSave.GetBool("ClearEffect", SaveType.computer))
+        {
+            playerdata.Cleareffect();
+        }
+        if (VarSave.GetBool("iddqd", SaveType.computer))
+        {
+            playerdata.Addeffect("Undyning", float.PositiveInfinity);
+        }
+        if (VarSave.GetBool("OrtoCam", SaveType.computer))
+        {
+            GameObject g = Resources.Load<GameObject>("OratographicCamera");
+            Instantiate(g, Vector3.zero, Quaternion.identity);
+        }
+        if (VarSave.GetBool("Ranall", SaveType.computer))
+        {
+            GameObject g = Resources.Load<GameObject>("CameraRandomObject");
+            Instantiate(g, Vector3.zero, Quaternion.identity);
+        }
         Global.MEM.UE();
         InvokeRepeating("reasonUpdate",1,10);
 
@@ -687,7 +734,7 @@ public class mover : CustomSaveObject
         
 
              Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
-          c.targetDisplay = 2;
+          c.targetDisplay = 0;
            c.targetTexture = new RenderTexture(new RenderTextureDescriptor(Screen.width, Screen.height));
            c.renderingPath = RenderingPath.DeferredShading;
 
@@ -698,7 +745,7 @@ public class mover : CustomSaveObject
         {
             gameObject.AddComponent<PlanetGravity>().body = transform;
             gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
+            if (!Smuta) gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
         playerdata.Loadeffect();
 
@@ -1169,7 +1216,8 @@ public class mover : CustomSaveObject
             perMorphin = true;
         }
         InvokeRepeating("UpdateTargets", 0, 1);
-        InvokeRepeating("bomjspawn", 60*3, 60 * 3);
+        InvokeRepeating("bomjspawn", 60 * 3, 60 * 3); 
+        InvokeRepeating("kilspawn", 60 * 5, 60 * 2.5f);
 
     }
     Vector3 randommaze()
@@ -1195,7 +1243,25 @@ public class mover : CustomSaveObject
             }
         }
     }
-        float timer10;
+    void kilspawn()
+    {
+        if (Global.Random.Chance(2))
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                Ray r = new(transform.position + (transform.up * 40), randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(Resources.Load<GameObject>("Items/ПростоУбийца"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
+    }
+    float timer10;
     GenTest ingen;
     public void load()
     {
@@ -1409,6 +1475,11 @@ public class mover : CustomSaveObject
     }
     float CosProgress()
     {
+        if (playerdata.Geteffect("Тупость")!=null)
+        {
+            return 0;
+
+        }
         if (Globalprefs.alterversion < .1f)
         {
             if (Globalprefs.reasone < 30)
@@ -2009,9 +2080,9 @@ public class mover : CustomSaveObject
 
             timer = 0;
         }
-        /*
+        
           timer8 += (decimal)Time.deltaTime;
-          if (timer8 > 5 && cistalenemy.dies > 0)
+          if (timer8 > 5 && cistalenemy.dies > 0&& invisibeobject>0)
           {
 
 
@@ -2025,7 +2096,7 @@ public class mover : CustomSaveObject
               }
               timer8 = 0;
           }
-        */
+        
         if (Globalprefs.selectitemobj) if (!Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise)
             {
                 if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectitemobj)
@@ -2094,16 +2165,17 @@ public class mover : CustomSaveObject
     {
         if (faceViewi != faceView.fourd)
         {
-            
 
-           
-            
 
-            
-           
-                gameObject.GetComponent<Rigidbody>().useGravity = false;
+
+
+
+
+
+            if (!Smuta) gameObject.GetComponent<Rigidbody>().useGravity = false;
 
         }
+       
         timer3 += Time.deltaTime;
         timer4 += Time.deltaTime;
         if (timer3 >= 3f && fireInk > 10 && fireInk < 25)
@@ -2158,6 +2230,7 @@ public class mover : CustomSaveObject
     }
     float ftho;
     bool isKinematic;
+    bool Smuta;
     float movegrag;
     private void MoveUpdate()
     {
@@ -2180,6 +2253,25 @@ public class mover : CustomSaveObject
 
             movegrag = 5;
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (Smuta)
+            {
+                transform.rotation = Quaternion.identity;
+            }
+            Smuta = !Smuta;
+        }
+        if (Smuta)
+        {
+            rigidbody3d.freezeRotation = false;
+            rigidbody3d.useGravity = true;
+            rigidbody3d.linearDamping = 0.0f;
+        }
+        else
+        {
+            rigidbody3d.freezeRotation = true;
+            rigidbody3d.useGravity = false;
+        }
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null)
         {
@@ -2199,26 +2291,28 @@ public class mover : CustomSaveObject
         isKinematic = Input.GetKey(KeyCode.F);
 
 
-        if (IsGraund)
+        if (!Smuta)
         {
-            if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * CamDistanceMult;
-            if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
-         
-            rigidbody3d.linearDamping = 6 -( axelerate * CamDistanceMult);
-            jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * CamDistanceMult;
-        }
-        else
-        {
-            jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
-            if (jumpforse > 0.25f || jumpforse < -0.25f)
-            { movegrag = 5; }
+            if (IsGraund)
+            {
+                if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * CamDistanceMult;
+                if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
+
+                rigidbody3d.linearDamping = 6 - (axelerate * CamDistanceMult);
+                jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * CamDistanceMult;
+            }
             else
             {
-                movegrag = 1;
+                jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
+                if (jumpforse > 0.25f || jumpforse < -0.25f)
+                { movegrag = 5; }
+                else
+                {
+                    movegrag = 1;
+                }
+                rigidbody3d.linearDamping = 4.5f - (axelerate * CamDistanceMult);
             }
-            rigidbody3d.linearDamping = 4.5f- (axelerate * CamDistanceMult);
         }
-
         bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0 || god;
         if (!flyinng) JumpTimer -= Time.deltaTime*gravity;
         if (faceViewi != faceView.fourd )
@@ -2274,7 +2368,11 @@ public class mover : CustomSaveObject
             if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * CamDistanceMult;
             if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6;
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f);
-           
+            if (Sprint && VarSave.GetMoney("Winks", SaveType.local) > 0)
+            {
+                Vector3 v3 = PlayerCamera.transform.forward*15;
+                rigidbody3d.AddForce(v3, ForceMode.VelocityChange);
+            }
             float sprintCnficent = 1f;
             if (Input.GetKeyDown(KeyCode.Alpha4) && !Globalprefs.Pause)
             {
@@ -2829,12 +2927,12 @@ public class mover : CustomSaveObject
         }
         if (playerdata.Geteffect("No kapitalism") != null)
         {
-            VarSave.SetMoney("tevro", decimal.MaxValue);
+            VarSave.SetMoney("tevro", decimal.MaxValue-1000000);
             //playermatinvisible
         }
         if (playerdata.Geteffect("Unyverseium_money_cart") != null)
         {
-           if(Globalprefs.Infinitysteuvro>0) VarSave.SetMoney("tevro", decimal.MaxValue);
+           if(Globalprefs.Infinitysteuvro>0) VarSave.SetMoney("tevro", decimal.MaxValue - 1000000);
             //playermatinvisible
         }
      

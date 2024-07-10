@@ -1,3 +1,4 @@
+using MoonSharp.Interpreter;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -35,6 +36,8 @@ public class CustomObjectData
     public string CoSpawn;
     public string ObjSpawn;
     public string EventSpawn;
+    public string AppOpen;
+    public string LuaBuilding;
     public int RegenerateHp;
     public double Recycler;
     public double Redecycler;
@@ -220,5 +223,84 @@ public class CustomObject : CustomSaveObject
         mesh.uv = uv;
         mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
         return mesh;
+    }
+    List<float> v3 = new List<float>();
+    public List<Vector3> BuildPosition(List<float> vec)
+    {
+        List<Vector3> vec3 = new List<Vector3>();
+        for (int i = 0; i < vec.Count; i += 3)
+        {
+
+            vec3.Add(new(vec[i], vec[i + 1], vec[i + 2]));
+
+
+        }
+        return vec3;
+    }
+    public List<Vector3> Pos = new List<Vector3>();
+    public List<string> data = new List<string>();
+    int patrn = 0;
+    public void LuaLogic(string loadedCode)
+    {
+        //   string scriptCode = @"    
+        //	-- defines a Jump function
+        //	function Jump (time)
+        //		if (time>= 1) then
+        //			return 1
+        //       else
+        //           return 0
+        //		end
+        //	end";
+        UserData.RegisterType<Vector3>();
+        UserData.RegisterType<List<float>>();
+        UserData.RegisterType<List<string>>();
+        Script script = new Script();
+        script.Globals["vec3"] = v3;
+        script.Globals["ditem"] = data;
+        script.DoString(loadedCode);
+
+
+        DynValue luaFactFunction = script.Globals.Get("Build");
+
+        DynValue res = script.Call(luaFactFunction, new object[]
+        {
+            ((double)patrn)
+        }
+        );
+        DynValue luaFactFunction2 = script.Globals.Get("Item");
+
+        DynValue res2 = script.Call(luaFactFunction2, new object[]
+        {
+            ((double)patrn)
+        }
+        );
+
+
+
+        if (res.UserData.Object != null)
+        {
+            v3 = (List<float>)res.UserData.Object;
+        }
+        Pos = BuildPosition(v3);
+        if (res2.UserData.Object != null)
+        {
+            data = (List<string>)res2.UserData.Object;
+        }
+        patrn++;
+
+        for (int i = 0; i < Pos.Count; i++)
+        {
+            Instantiate(Resources.Load<GameObject>("items/" + data[i]), new Vector3(Pos[i].x, Pos[i].y, Pos[i].z) + transform.position, Quaternion.identity);
+        }
+
+
+    }
+
+    public void OnInteractive()
+    {
+        if (File.Exists(Model.LuaBuilding))
+        {
+            LuaLogic(File.ReadAllText(Model.LuaBuilding));
+        }
     }
 }

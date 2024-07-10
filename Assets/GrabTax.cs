@@ -14,9 +14,9 @@ public class GrabTax : MonoBehaviour
             {
                DateTime dateTime = DateTime.Now;
                 string time = (dateTime.Year * 12).ToString() + dateTime.Month.ToString();
-                if (!VarSave.ExistenceVar("TaxMonth"))
+                if (!VarSave.ExistenceVar("TaxMonth"+time))
                 {
-                    VarSave.LoadMoney("TaxMonth", VarSave.GetInt("pepole")*100);
+                    VarSave.LoadMoney("TaxMonth" + time, VarSave.GetInt("pepole")*100);
                     Globalprefs.LoadTevroPrise(VarSave.GetInt("pepole") * 100);
                 }
             }

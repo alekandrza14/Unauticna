@@ -10,9 +10,13 @@ public class BiomeAttributes : ScriptableObject {
     public int solidGroundHeight;
     public int terrainHeight;
     public float terrainScale;
-
+    public CubeMarchFunctions func;
     public Lode[] lodes;
 
+}
+public enum CubeMarchFunctions 
+{
+    none,RepeatCilindr
 }
 
 [System.Serializable]

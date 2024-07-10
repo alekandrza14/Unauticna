@@ -12,6 +12,7 @@ public class SaveMelody : MonoBehaviour
     async void Start()
     {
         // build your absolute path
+        Debug.Log(VarSave.GetString("MusickPatch"));
         if (File.Exists(VarSave.GetString("MusickPatch")))
         {
             var path = VarSave.GetString("MusickPatch");

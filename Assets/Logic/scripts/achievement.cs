@@ -14,6 +14,15 @@ public class achievement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (GameEditor.Opened.startSurvival)
+        {
+            VarSave.SetString("GameActive", "");
+            GameEditor.Opened = null;
+
+            VarSave.SetInt("MapUse", 0);
+            VarSave.SetString("CurrentSpace", "");
+            SceneManager.LoadSceneAsync(1);
+        }
         if (VarSave.GetFloat(
           "reynkarnatcia" + "_gameSettings", SaveType.global) >= .5f)
         {

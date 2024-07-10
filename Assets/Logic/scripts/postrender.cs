@@ -47,7 +47,7 @@ public class postrender : MonoBehaviour
         _camera.targetTexture = grafic_2;
         image.texture = grafic_2;
         image.color = color;
-        _camera.gameObject.tag = "HB_Camera";
+        _camera.gameObject.tag = "camera";
         new_camera.gameObject.tag = "MainCamera";
 
     }
@@ -69,7 +69,7 @@ public class postrender : MonoBehaviour
             _camera.targetDisplay = 0;
             new_camera.targetDisplay = 1;
             image.enabled = false;
-            new_camera.gameObject.tag = "HB_Camera";
+            new_camera.gameObject.tag = "camera";
             // Debug.Log("Disable");
             Camera.SetupCurrent(_camera);
             Swich = false;
@@ -87,7 +87,7 @@ public class postrender : MonoBehaviour
             _camera.targetDisplay = 1;
             new_camera.targetDisplay = 0;
             image.color = color;
-            _camera.gameObject.tag = "HB_Camera";
+            _camera.gameObject.tag = "camera";
             new_camera.transform.position = _camera.transform.position;
             new_camera.transform.rotation = _camera.transform.rotation;
             new_camera.fieldOfView = _camera.fieldOfView;
