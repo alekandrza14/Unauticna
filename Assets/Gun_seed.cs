@@ -59,7 +59,7 @@ public class Gun_seed : MonoBehaviour
                     Model.scale = Vector3.one;
                     Model._Color = Color.gray;
                     Model.RegenerateHp = Global.Random.Range(-6, 6);
-                    if (Global.Random.Chance(16)) Model.itemSpawn = Map_saver.t3[Global.Random.Range(-1, Map_saver.t3.Length)].name;
+                    if (Global.Random.Chance(3)) Model.itemSpawn = Map_saver.t3[Global.Random.Range(-1, Map_saver.t3.Length)].name;
                     
                     Model.ObjSpawn = "DamageObject";
                     bool monet = false;

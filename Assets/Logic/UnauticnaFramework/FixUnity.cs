@@ -105,7 +105,7 @@ namespace Global
             {
                return true;
             }
-           return Range(0,komplex) == 0;
+           return (int)Range(0,komplex) == 0;
         }
         public static float Range(float min, float max, float potencial)
         {

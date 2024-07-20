@@ -500,6 +500,10 @@ public class mover : CustomSaveObject
     public JsonGame file = new JsonGame();
     private void Init()
     {
+        if (VarSave.ExistenceVar("Ban non-Begin"))
+        {
+            SceneManager.LoadScene("Nervana");
+        }
         if (File.Exists("res/UserWorckspace/games/" + VarSave.GetString("GameActive") + ".ugame"))
         {
             file = JsonUtility.FromJson<JsonGame>(File.ReadAllText("res/UserWorckspace/games/" + VarSave.GetString("GameActive") + ".ugame"));
@@ -1216,8 +1220,9 @@ public class mover : CustomSaveObject
             perMorphin = true;
         }
         InvokeRepeating("UpdateTargets", 0, 1);
-        InvokeRepeating("bomjspawn", 60 * 3, 60 * 3); 
+        InvokeRepeating("bomjspawn", 60 * 3, 60 * 3);
         InvokeRepeating("kilspawn", 60 * 5, 60 * 2.5f);
+        InvokeRepeating("libspawn", 20, 20f);
 
     }
     Vector3 randommaze()
@@ -1256,6 +1261,27 @@ public class mover : CustomSaveObject
                     if (hit.collider != null)
                     {
                         Instantiate(Resources.Load<GameObject>("Items/ПростоУбийца"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
+    }
+    void libspawn()
+    {
+        if (VarSave.ExistenceVar("libirist"))
+        {
+            if (Global.Random.Chance(5))
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    Ray r = new(transform.position + (transform.up * 40), randommaze());
+                    RaycastHit hit;
+                    if (Physics.Raycast(r, out hit))
+                    {
+                        if (hit.collider != null)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Items/либирист"), hit.point, Quaternion.identity);
+                        }
                     }
                 }
             }
@@ -2682,15 +2708,22 @@ public class mover : CustomSaveObject
             }
         }
         RaycastHit hit = MainRay.MainHit;
-       
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
-            {
-                if (hit.collider.GetComponent<transport4>())
-                    hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
-                if (hit.collider.GetComponent<transport4>())
-                    hit.collider.GetComponent<transport4>().player = transform;
-            }
-            if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
+
+        if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
+        {
+            if (hit.collider.GetComponent<transport4>())
+                hit.collider.GetComponent<transport4>().sitplayer = !hit.collider.GetComponent<transport4>().sitplayer;
+            if (hit.collider.GetComponent<transport4>())
+                hit.collider.GetComponent<transport4>().player = transform;
+        }
+        if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
+        {
+            if (hit.collider.GetComponent<UMUITank>())
+                hit.collider.GetComponent<UMUITank>().sitplayer = !hit.collider.GetComponent<UMUITank>().sitplayer;
+            if (hit.collider.GetComponent<UMUITank>())
+                hit.collider.GetComponent<UMUITank>().player = transform;
+        }
+        if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
             {
                 if (hit.collider.GetComponent<GravityBoard>())
                     hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;

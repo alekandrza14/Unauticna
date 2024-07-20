@@ -226,6 +226,14 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "49";
             }
+            if (s[0] == "RespCam")
+            {
+                a = "50";
+            }
+            if (s[0] == "ActiveGaster")
+            {
+                a = "51";
+            }
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -813,6 +821,15 @@ public class Conseole_trigger : MonoBehaviour
             {
                 GameObject g = Resources.Load<GameObject>("Glass3D");
                 Instantiate(g, Vector3.zero, Quaternion.identity);
+            }
+            if (i == 1 && a == "50")
+            {
+                GameObject g = Resources.Load<GameObject>("Respcam");
+                Instantiate(g, Vector3.zero, Quaternion.identity);
+            }
+            if (i == 1 && a == "51")
+            {
+                FindAnyObjectByType<ActiveGaster>().Gas();
             }
             if (i == 1 && a == "2")
             {

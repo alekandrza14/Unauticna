@@ -32,6 +32,10 @@ public class LOADGAME : MonoBehaviour
         {
             SceneManager.LoadScene("Banned forever");
         }
+        if (VarSave.ExistenceVar("Ban non-Begin"))
+        {
+            SceneManager.LoadScene("Nervana");
+        }
         QualitySettings.SetQualityLevel(0);
         GameObject g = new GameObject("init");
         gameInit.Init(g);
