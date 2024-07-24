@@ -7,6 +7,7 @@ public class Realybutton : MonoBehaviour
 {
     [SerializeField] Transform point;
     [SerializeField] GameObject item;
+    [SerializeField] bool offOwerLoad;
     public static Realybutton instance;
     private void Update()
     {
@@ -57,7 +58,7 @@ public class Realybutton : MonoBehaviour
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
+       if(offOwerLoad) if (Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1))
         {
 
             RaycastHit hit = MainRay.MainHit;

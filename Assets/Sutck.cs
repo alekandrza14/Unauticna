@@ -11,6 +11,8 @@ public enum TimeOfGame
 
 public class Sutck : MonoBehaviour
 {
+   static Seson seson;
+    static UniverseSkyType skyType;
     public static bool antinight;
     public Light main;
     public static Sutck Instance;
@@ -19,11 +21,14 @@ public class Sutck : MonoBehaviour
     // Start is called before the first frame update
     public static void SetSutck(float x)
     {
+       
         day = x;
         UpdateSutck();
     }
     void Start()
     {
+        skyType = (UniverseSkyType)VarSave.GetInt("UST");
+        seson = (Seson)VarSave.GetInt("Seson");
         Instance = this;
         DateTime now = DateTime.Now;
         day = now.DayOfYear;
@@ -42,19 +47,64 @@ public class Sutck : MonoBehaviour
         float Temperature =0;
         if (day == 0)
         {
-            Temperature = 7;
+            Temperature += 7;
             Temperature += Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 3;
         }
         if (day == 1)
         {
-            Temperature = 25;
+            Temperature += 25;
             Temperature += Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 10;
         }
         if (day == 2)
         {
-            Temperature = 625;
+            Temperature += 625;
             Temperature += Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 60;
         }
+        if (seson == Seson.Лето)//1
+        {
+            Temperature += 7;
+        }
+        if (seson == Seson.Глён)//2
+        {
+            Temperature += 200;
+        }
+        if (seson == Seson.Осень)//3
+        {
+            Temperature -= 9;
+        }
+        if (seson == Seson.Зима)//4
+        {
+            Temperature -= 20;
+        }
+        if (seson == Seson.Мака)//5
+        {
+            Temperature -= 10;
+        }
+        if (seson == Seson.Весна)//6
+        {
+            Temperature -= 2;
+        }
+        if (skyType == UniverseSkyType.Default)
+        {
+            Temperature -= 2;
+        }
+        if (skyType == UniverseSkyType.Arua)
+        {
+            Temperature += 2000;
+        }
+        if (skyType == UniverseSkyType.Bright)
+        {
+            Temperature += 1500;
+        }
+        if (skyType == UniverseSkyType.Darck)
+        {
+            Temperature -= 200;
+        }
+        if (skyType == UniverseSkyType.Litch)
+        {
+            Temperature -= 9000;
+        }
+
         return Temperature;
     }
    static void UpdateSutck()
@@ -64,26 +114,99 @@ public class Sutck : MonoBehaviour
             day = 1;
         }
         day %= 3;
-        if (day == 0)
+        if (seson != Seson.Глён)//2
         {
-            foreach (Light light in FindObjectsByType<Light>(sortmode.main))
+            if (day == 0)
             {
-                if (light.type == LightType.Directional)
+                foreach (Light light in FindObjectsByType<Light>(sortmode.main))
                 {
-                    antinight = false;
-                    light.intensity = 0.1f;
-                    RenderSettings.ambientLight = new Color(0.2f, 0.2f, 0.2f, 0);
-                    RenderSettings.ambientMode = AmbientMode.Flat;
-                    RenderSettings.fog = true;
-                    RenderSettings.fogStartDistance = 1;
-                    RenderSettings.fogEndDistance = 120;
+                    if (light.type == LightType.Directional)
+                    {
+                        antinight = false;
+                        light.intensity = 0.1f;
+                        RenderSettings.ambientLight = new Color(0.2f, 0.2f, 0.2f, 0);
+                        RenderSettings.ambientMode = AmbientMode.Flat;
+                        RenderSettings.fog = true;
+                        RenderSettings.fogStartDistance = 1;
+                        RenderSettings.fogEndDistance = 120;
 
-                    RenderSettings.fogColor = Color.black;
-                    RenderSettings.fogMode = FogMode.Linear;
+                        RenderSettings.fogColor = Color.black;
+                        RenderSettings.fogMode = FogMode.Linear;
+                    }
                 }
             }
         }
-        if (day == 1)
+        else
+        {
+            if (day == 0)
+            {
+                foreach (Light light in FindObjectsByType<Light>(sortmode.main))
+                {
+                    if (light.type == LightType.Directional)
+                    {
+                        antinight = false;
+                        light.intensity = 1f;
+                        RenderSettings.ambientLight = new Color(0.1f, 0.1f, 0.1f, 0);
+                        RenderSettings.ambientMode = AmbientMode.Skybox;
+                        RenderSettings.fog = false;
+                    }
+                }
+            }
+        }
+        if (seson != Seson.Глён)//2
+        {
+            if (day == 1)
+            {
+                foreach (Light light in FindObjectsByType<Light>(sortmode.main))
+                {
+                    if (light.type == LightType.Directional)
+                    {
+                        antinight = false;
+                        light.intensity = 1f;
+                        RenderSettings.ambientLight = new Color(0.1f, 0.1f, 0.1f, 0);
+                        RenderSettings.ambientMode = AmbientMode.Skybox;
+                        RenderSettings.fog = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (day == 1)
+            {
+                foreach (Light light in FindObjectsByType<Light>(sortmode.main))
+                {
+                    if (light.type == LightType.Directional)
+                    {
+                        antinight = true;
+
+                        light.intensity = 50f;
+                        RenderSettings.ambientLight = new Color(0f, 0f, 0f, 0);
+                        RenderSettings.ambientMode = AmbientMode.Skybox;
+                        RenderSettings.fog = false;
+                    }
+                }
+            }
+        }
+        if (seson != Seson.Зима&& skyType == UniverseSkyType.Darck)
+        {
+            if (day == 2)
+            {
+                foreach (Light light in FindObjectsByType<Light>(sortmode.main))
+                {
+                    if (light.type == LightType.Directional)
+                    {
+                        antinight = true;
+
+                        light.intensity = 50f;
+                        RenderSettings.ambientLight = new Color(0f, 0f, 0f, 0);
+                        RenderSettings.ambientMode = AmbientMode.Skybox;
+                        RenderSettings.fog = false;
+                    }
+                }
+            }
+        }
+        else
         {
             foreach (Light light in FindObjectsByType<Light>(sortmode.main))
             {
@@ -92,21 +215,6 @@ public class Sutck : MonoBehaviour
                     antinight = false;
                     light.intensity = 1f;
                     RenderSettings.ambientLight = new Color(0.1f, 0.1f, 0.1f, 0);
-                    RenderSettings.ambientMode = AmbientMode.Skybox;
-                    RenderSettings.fog = false;
-                }
-            }
-        }
-        if (day == 2)
-        {
-            foreach (Light light in FindObjectsByType<Light>(sortmode.main))
-            {
-                if (light.type == LightType.Directional)
-                {
-                    antinight = true;
-
-                    light.intensity = 50f;
-                    RenderSettings.ambientLight = new Color(0f, 0f, 0f, 0);
                     RenderSettings.ambientMode = AmbientMode.Skybox;
                     RenderSettings.fog = false;
                 }

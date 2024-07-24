@@ -2016,7 +2016,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
             lowitem("file_рыбы", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2033,7 +2032,6 @@ public class ElementalInventory : MonoBehaviour {
             }
             VarSave.LoadFloat("mana", 1f);
 
-            VarSave.SetInt("libirist", 0);
             lowitem("belock", "seed");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2099,7 +2097,6 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
-            VarSave.SetInt("libirist", 0);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -2115,11 +2112,27 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
-            VarSave.SetInt("libirist", 0);
+            if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
 
 
             VarSave.LoadFloat("mana", 1f);
             lowitem("Мусор", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Мясо") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Мясо", "Ca");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Клевер") != 0 && main() == this)
@@ -2161,7 +2174,6 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
-            VarSave.SetInt("libirist", 0);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -2183,7 +2195,6 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Совиное Зрение", float.PositiveInfinity);
             playerdata.Addeffect("Metabolism", float.PositiveInfinity);
 
-            VarSave.SetInt("libirist", 0);
 
 
             VarSave.LoadFloat("mana", 100f);
@@ -2215,7 +2226,6 @@ public class ElementalInventory : MonoBehaviour {
             //  Instantiate(Resources.Load("voices/belock"));
 
 
-            VarSave.SetInt("libirist", 0);
 
             VarSave.LoadFloat("mana", 1f);
             lowitem("Взрыв", "");
@@ -2230,7 +2240,6 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
-            VarSave.SetInt("libirist", 0);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -2247,7 +2256,6 @@ public class ElementalInventory : MonoBehaviour {
             //  Instantiate(Resources.Load("voices/belock"));
 
 
-            VarSave.SetInt("libirist", 0);
 
             VarSave.LoadFloat("mana", 1f);
             lowitem("TreeMaodelbulb", "");
@@ -2373,7 +2381,6 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
-            VarSave.SetInt("libirist", 0);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -2392,7 +2399,6 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("BigShot", 100);
 
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
             lowitem("BlackGrib", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2435,7 +2441,6 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
 
             lowitem("jeltok", "");
@@ -2451,7 +2456,6 @@ public class ElementalInventory : MonoBehaviour {
             //  Instantiate(Resources.Load("voices/belock"));
 
             playerdata.Addeffect("Tripl2", 600);
-            VarSave.SetInt("libirist", 0);
 
             VarSave.LoadFloat("mana", 1f);
 
@@ -2469,7 +2473,6 @@ public class ElementalInventory : MonoBehaviour {
 
             cistalenemy.dies += 100;
             playerdata.Addeffect("Tripl2", 600);
-            VarSave.SetInt("libirist", 0);
 
             VarSave.LoadFloat("mana", 1f);
 
@@ -2490,7 +2493,6 @@ public class ElementalInventory : MonoBehaviour {
                 playerdata.Addeffect("Trip", 60);
             }
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
 
             lowitem("sosisca", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2601,7 +2603,6 @@ public class ElementalInventory : MonoBehaviour {
 
             }
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
 
             lowitem("Pipis", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2638,6 +2639,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("Trip", 600);
             playerdata.Addeffect("Tripl2", 600);
 
+            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
 
 
@@ -2663,6 +2665,7 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("severe hangover", 600);
             playerdata.Addeffect("InfaltionUp", 600);
 
+            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
             playerdata.FreezeAlleffect();
 
@@ -2678,7 +2681,6 @@ public class ElementalInventory : MonoBehaviour {
             playerdata.Addeffect("KsenoMorfin", 600);
             VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
             GameManager.saveandhill();
             lowitem("KsenoMorfin", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2694,7 +2696,6 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
 
-            VarSave.SetInt("libirist", 0);
 
             lowitem("StoneJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2707,7 +2708,6 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
 
-            VarSave.SetInt("libirist", 0);
             playerdata.Addeffect("Regeneration", 600);
 
 
@@ -2725,7 +2725,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
 
             lowitem("DamageJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2741,7 +2740,6 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("ImbalenceRegeneration", 600);
-            VarSave.SetInt("libirist", 0);
 
             lowitem("YourJuice", "");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2773,7 +2771,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
             VarSave.SetFloat("luck", 0f);
 
             lowitem("Зелье(Неудачи)", "Колба");
@@ -2788,7 +2785,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("luck", 0.1f);
 
             lowitem("Зелье(Удачи)", "Колба");
@@ -2830,7 +2826,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
             playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
 
 
@@ -2853,7 +2848,6 @@ public class ElementalInventory : MonoBehaviour {
                     playerdata.Addeffect("severe hangover", 400);
                 }
             }
-            VarSave.SetInt("libirist", 0);
             if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 100);
 
 
@@ -2886,7 +2880,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
 
 
             lowitem("Хлеб", "");
@@ -2946,7 +2939,6 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("Vampaire", 740);
-            VarSave.SetInt("libirist", 0);
             lowitem("ЗельеВамперизма", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -2960,7 +2952,6 @@ public class ElementalInventory : MonoBehaviour {
 
                 Transform t = Instantiate(inv2("Взрыв").gameObject, mover.main().transform.position, Quaternion.identity).transform;
             }
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
             lowitem("Nuclear_plant", "Взрыв");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -2989,7 +2980,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             playerdata.Addeffect("Совиное Зрение", 600);
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
             lowitem("ЗельеСовы", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -3005,7 +2995,6 @@ public class ElementalInventory : MonoBehaviour {
 
             playerdata.Addeffect("Тупость", 600);
             VarSave.LoadFloat("BGPU", -0.1f);
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
             lowitem("ЗельеТупости", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -3019,7 +3008,6 @@ public class ElementalInventory : MonoBehaviour {
 
 
             playerdata.Addeffect("Все Зрение", 600);
-            VarSave.SetInt("libirist", 0);
             VarSave.LoadFloat("mana", 1f);
             lowitem("ЗельеВсеЗрения", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
@@ -3049,7 +3037,6 @@ public class ElementalInventory : MonoBehaviour {
             VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("free", 300);
             cistalenemy.dies += 0;
-            VarSave.SetInt("libirist", 0);
             lowitem("БилетБезплано", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -3064,7 +3051,6 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
             cistalenemy.dies += 1;
-            VarSave.SetInt("libirist", 0);
             lowitem("IcyCube", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -3078,7 +3064,6 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("█_GodMode_█", float.PositiveInfinity);
-            VarSave.SetInt("libirist", 0);
             lowitem("Таблетки_для_GodMode", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
@@ -3192,7 +3177,6 @@ public class ElementalInventory : MonoBehaviour {
             {
                 if (hit.collider.GetComponent<CustomSaveObject>())
                 {
-                    VarSave.SetInt("libirist", 0);
                     GameObject g = Instantiate(Resources.Load<GameObject>("items/Мусор"), hit.point, Quaternion.identity);
                     Destroy(hit.collider.gameObject); 
                 }
@@ -3206,8 +3190,57 @@ public class ElementalInventory : MonoBehaviour {
 
             if (hit.collider != null)
             {
-                VarSave.SetInt("libirist", 0);
                 GameObject g = Instantiate(Resources.Load<GameObject>("ui/console/ПроигратьМузыку"), Vector3.zero, Quaternion.identity);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E) && main() == this
+         && Cells[selectr].elementName == "Чертёж" && Cells[selectr].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name != "Fundament")
+                    {
+                        GameObject g = Instantiate(Resources.Load<GameObject>("items/Fundament"), hit.point + (Vector3.up * 10), Quaternion.identity);
+                    }
+                    else
+                    {
+                        GameObject g = Instantiate(Resources.Load<GameObject>("items/Stena"), hit.collider.transform.position + (Vector3.up * 2.5f), Quaternion.identity);
+                    }
+                }
+                else
+                {
+
+                    GameObject g = Instantiate(Resources.Load<GameObject>("items/Fundament"), hit.point + (Vector3.up * 10), Quaternion.identity);
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
+         && Cells[selectr].elementName == "Чертёж" && Cells[selectr].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name != "WoodFundament")
+                    {
+                        GameObject g = Instantiate(Resources.Load<GameObject>("items/WoodFundament"), hit.point + (Vector3.up * 10), Quaternion.identity);
+                    }
+                    else
+                    {
+                        GameObject g = Instantiate(Resources.Load<GameObject>("items/WoodStena"), hit.collider.transform.position + (Vector3.up * 2.5f), Quaternion.identity);
+                    }
+                }
+                else
+                {
+
+                    GameObject g = Instantiate(Resources.Load<GameObject>("items/WoodFundament"), hit.point + (Vector3.up * 10), Quaternion.identity);
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this

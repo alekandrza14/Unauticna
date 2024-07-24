@@ -60,6 +60,7 @@ public class RayCastStars : MonoBehaviour
     {
         if (s == size.Universe) GUI.Label(new Rect(0f, 20, 300f, 100f), "Universe (*) : " + Globalprefs.GetIdUniverse());
         if (s == size.Multyverse) GUI.Label(new Rect(0f, 20, 300f, 100f), "Multiverse (*) : " + Globalprefs.GetIdMultiverse());
+        if (s == size.Anyverse) GUI.Label(new Rect(0f, 20, 300f, 100f), "Anyverse (*) : " + Globalprefs.GetIdAnyverse());
         if (s == size.Galaxy) GUI.Label(new Rect(0f, 20, 300f, 100f), "Galaxy (*) : " + Globalprefs.GetIdGalaxy());
         if (s == size.Stars) GUI.Label(new Rect(0f, 20, 300f, 100f), "Stars (*) : " + Globalprefs.GetIdStars());
         for (int i = 0; i < GameObject.FindObjectsByType<Metka>(sortmode.main).Length; i++)
@@ -78,6 +79,7 @@ public class RayCastStars : MonoBehaviour
     {
         if (s == size.Universe) return Globalprefs.GetIdUniverse();
         if (s == size.Multyverse) return Globalprefs.GetIdMultiverse();
+        if (s == size.Anyverse) return Globalprefs.GetIdAnyverse();
         if (s == size.Galaxy) return Globalprefs.GetIdGalaxy();
         if (s == size.Stars) return Globalprefs.GetIdStars(); 
         return 0;
@@ -136,10 +138,113 @@ public class RayCastStars : MonoBehaviour
 
             }
         }
+        if (Input.GetKeyDown("3"))
+        {
+            if (s == size.Universe)
+            {
+
+                Transform t = Instantiate(Resources.Load<GameObject>("SpaceItems/galacticStantion").gameObject, transform.position, Quaternion.identity).transform;
+
+
+
+
+            }
+        }
 
         if (HyperbolicCamera) scp.hyperbolic = HyperbolicCamera.RealtimeTransform;
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
+        Ray ray2 = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit2; if (Physics.Raycast(ray2, out hit2))
+        {
+            if (hit2.collider != null)
+            {
+                if (hit2.collider.tag == "Star" && s == size.Anyverse)
+                {
+                    if (hit2.collider.GetComponent<HyperbolicPoint>())
+                    {
+                        int o = (int)((hit2.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
+                       (hit2.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                        hit2.collider.transform.position.y) * 200;
+                        int o2 = (int)((hit2.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.s * 200f) +
+                           (hit2.collider.GetComponent<HyperbolicPoint>().HyperboilcPoistion.n * 200f) -
+                            hit2.collider.transform.position.y);
+                        o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
+
+                        text.text = "Multyverse : s" + o2.ToString(); if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            SaveTargets();
+                        }
+                        if (o2 == 0 && Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                            SceneManager.LoadScene("Multyverse");
+                            VarSave.SetInt("planetM", 0);
+                            VarSave.SetBool("NoStop", false);
+                            VarSave.DeleteKey("scppos");
+                        }
+                        else if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+
+
+                            VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+
+                            VarSave.SetInt("planetM", o2);
+                            SceneManager.LoadScene(scenename[o]);
+
+                            VarSave.SetBool("NoStop", false);
+                            VarSave.DeleteKey("scppos");
+                        }
+                    }
+                    else
+                    {
+                        int o = (int)(hit2.collider.transform.position.x - hit2.collider.transform.position.y - hit2.collider.transform.position.z);
+                        int o2 = (int)(hit2.collider.transform.position.x - hit2.collider.transform.position.y - hit2.collider.transform.position.z);
+                        o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
+                        text.text = "Multyverse : s" + o2.ToString(); if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            SaveTargets();
+                        }
+                        if (o2 == 0 && Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                            SceneManager.LoadScene("Multyverse");
+                            VarSave.SetInt("planetM", 0);
+                            VarSave.SetBool("NoStop", false);
+                            VarSave.DeleteKey("scppos");
+                        }
+                        else if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+
+
+                            VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+
+                            VarSave.SetInt("planetM", o2);
+                            SceneManager.LoadScene(scenename[o]);
+
+                            VarSave.SetBool("NoStop", false);
+                            VarSave.DeleteKey("scppos");
+                        }
+                    }
+
+                }
+                else
+                {
+
+                    if (s == size.Anyverse) text.text = "";
+                }
+            }
+            else
+            {
+
+                if (s == size.Anyverse) text.text = "";
+            }
+        }
+        else
+        {
+
+            if (s == size.Anyverse) text.text = "";
+        }
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider != null && hit.distance < 500)
@@ -280,7 +385,7 @@ public class RayCastStars : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
                         VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
-                        SceneManager.LoadScene("Multyverse");
+                        SceneManager.LoadScene("Multyverse Loader");
                         VarSave.SetBool("NoStop", false);
                         VarSave.DeleteKey("scppos");
                     }
@@ -412,16 +517,34 @@ public class RayCastStars : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.Mouse0))
                         {
                             SaveTargets();
-                        }
-
-                        if (Input.GetKeyDown(KeyCode.Mouse0))
-                        {
+                     
 
 
                             VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
 
                             VarSave.SetInt("planetG", o2);
                             SceneManager.LoadScene("Galactic full 8");
+                            VarSave.SetBool("NoStop", false);
+                            VarSave.DeleteKey("scppos");
+                        }
+                    }
+                    if (hit.collider.GetComponent<SpaceObject>()._Name == "galacticStantion")
+                    {
+                        int o = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
+                        int o2 = (int)(hit.collider.transform.position.x - hit.collider.transform.position.y - hit.collider.transform.position.z);
+                        o = (int)(((Hash(new Vector2(o, -o)) + 1) / 2) * scenename.Length);
+
+                        text.text = "Gallaxy Stantion : s" + o2.ToString();
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            SaveTargets();
+                       
+
+                            VarSave.SetString("scp" + SceneManager.GetActiveScene().name, JsonUtility.ToJson(scp));
+                            VarSave.SetInt("planet", 0);
+                            VarSave.SetInt("planetS", 0);
+                            VarSave.SetInt("planetG", o2);
+                            SceneManager.LoadScene("Void");
                             VarSave.SetBool("NoStop", false);
                             VarSave.DeleteKey("scppos");
                         }
@@ -464,19 +587,19 @@ public class RayCastStars : MonoBehaviour
                 }
                 else
                 {
-                    text.text = "";
+                   if( s != size.Anyverse) text.text = "";
                 }
             }
             else
             {
 
-                text.text = "";
+                if (s != size.Anyverse) text.text = "";
             }
         }
         else
         {
 
-            text.text = "";
+            if (s != size.Anyverse) text.text = "";
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {

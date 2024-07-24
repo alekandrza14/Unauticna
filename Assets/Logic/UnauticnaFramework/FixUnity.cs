@@ -17,15 +17,14 @@ namespace Global
 
         public static float Range(float min, float max)
         {
-            
-            int x, y;
+
+
             float z = 0;
             float mmin = min;
             float mmax = max; bool t = false;
 
             if (mmin > mmax)
             {
-
                 float s = mmin;
                 mmin = mmax;
                 mmax = mmin;
@@ -36,29 +35,26 @@ namespace Global
             {
                 t = true;
             }
+            float x = mmin*1000, y = mmax*1000;
+            if (t) z = random.Next((int)x, (int)y) / 1000;
 
-
-            x = (int)(mmin * 1000f);
-            y = (int)(mmax * 1000f);
-
-            if (t) z = (random.Next(x, y)) / 1000f;
-
-            if (z > mmax)
-            {
-                return mmax;
-            }
-            if (z < -mmax)
-            {
-                return -mmax;
-            }
-
+         
+                if (z > mmax)
+                {
+                    return mmax;
+                }
+                if (z < -mmax)
+                {
+                    return -mmax;
+                }
+          
+         
             return z;
 
         }
         public static int Range(int min, int max)
         {
             
-            int x, y;
             int z = 0;
             int mmin = min;
             int mmax = max; bool t = false;
@@ -75,22 +71,20 @@ namespace Global
             {
                 t = true;
             }
-
-            x = mmin;
-            y = mmax;
-
+            int x = mmin, y = mmax;
             if (t) z = random.Next(x, y);
 
-
-            if (z > mmax)
-            {
-                return mmax;
-            }
-            if (z < -mmax)
-            {
-                return -mmax;
-            }
-
+         
+                if (z > mmax)
+                {
+                    return mmax;
+                }
+                if (z < -mmax)
+                {
+                    return -mmax;
+                }
+          
+         
             return z;
 
         }
@@ -103,26 +97,31 @@ namespace Global
         {
             if (determindAll)
             {
-               return true;
+                return true;
             }
-           return (int)Range(0,komplex) == 0;
+            return (int)Range(0, komplex) == 0 || (int)Range(0, komplex) == 1;
+        }
+        public static bool Chance(int komplex)
+        {
+            if (determindAll)
+            {
+                return true;
+            }
+            return Range(0, komplex) == 0;
         }
         public static float Range(float min, float max, float potencial)
         {
-            
-            int x, y;
+
+
             float z = 0;
             float mmin = min;
-            float mmax = max;
-            bool t = false;
-
+            float mmax = max; bool t = false;
 
             if (mmin > mmax)
             {
-
                 float s = mmin;
                 mmin = mmax;
-                mmax = mmin; 
+                mmax = mmin;
                 Nope(s);
                 t = true;
             }
@@ -130,11 +129,9 @@ namespace Global
             {
                 t = true;
             }
+            float x = mmin * potencial, y = mmax * potencial;
+            if (t) z = random.Next((int)(x), (int)(y)) / potencial;
 
-            x = (int)(mmin * potencial);
-            y = (int)(mmax * potencial);
-
-            if (t) z = (random.Next(x, y)) / potencial;
 
             if (z > mmax)
             {
@@ -144,6 +141,7 @@ namespace Global
             {
                 return -mmax;
             }
+
 
             return z;
 

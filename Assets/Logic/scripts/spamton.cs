@@ -28,6 +28,8 @@ public class spamton : MonoBehaviour
     public bool iznendial;
     public bool mage;
     public bool scam;
+    public bool cum;
+    bool kidat;
 
     public bool fisttalk;
     public bool rayMarch;
@@ -47,10 +49,21 @@ public class spamton : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("camGameOver/worker"), other.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
         }
+        if (other.GetComponent<mover>() && cum)
+        {
+            kidat = true;
+        }
         if (other.GetComponent<CharacterName>() && mage)
         {
             Instantiate(Resources.Load<GameObject>("Morfs/worker"), other.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<mover>() && cum)
+        {
+            kidat = false;
         }
     }
     private void OnCollisionStay(Collision c)
@@ -137,9 +150,22 @@ public class spamton : MonoBehaviour
         higamer = false;
         VarSave.SetBool("spamton_contact",true);
     }
+    bool kid;
+    public void Kammen()
+    {
+        GameObject g = Resources.Load<GameObject>("Items/Каменьщикоый_камень");
+        Instantiate(g, mover.main().transform.position + (Vector3.up * 3), Quaternion.identity);
+        GameObject g3 = Resources.Load<GameObject>("voices/юха");
+        Instantiate(g3, (Vector3.up), Quaternion.identity); kid = false;
+    }
     // Update is called once per frame
     void Update()
     {
+        if (kidat&&!kid)
+        {
+            Invoke("Kammen", 3);
+            kid=true;
+        }
         if (FindObjectsByType<Card>(sortmode.main).Length<=0)
         {
             game = false;

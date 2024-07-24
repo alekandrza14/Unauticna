@@ -46,7 +46,7 @@ public class CustomObjectData
     public Vector3 playerMove;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate;
+    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -172,6 +172,10 @@ public class CustomObject : CustomSaveObject
                     if (Model.ScaleN.Length - 1 > i) mo.N_Scales[i] = Model.ScaleN[i]; else { mo.N_Scales[i] = 1; }
                 }
             }
+        }
+        if (Model.Meat)
+        {
+            gameObject.AddComponent<Ìÿסמ>();
         }
         if (Model.nDemention == NDemention._4D)
         {

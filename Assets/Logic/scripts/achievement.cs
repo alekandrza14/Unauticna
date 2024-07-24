@@ -37,6 +37,12 @@ public class achievement : MonoBehaviour
             GetComponent<Text>().text = "Вы мертвы от урона от воровства с вашей карточки";
             VarSave.SetBool("кража аруа урон", false);
         }
+        if (VarSave.GetBool("Пристрелен Спамтоном"))
+        {
+            hello.windowmesenge.Dialog_die();
+            GetComponent<Text>().text = "Вы сдоли вы не крутой! Снайпер спамтон крутой!";
+            VarSave.SetBool("Пристрелен Спамтоном", false);
+        }
         if (VarSave.GetBool("Фашист победил"))
         {
             hello.windowmesenge.Dialog_die();

@@ -126,7 +126,8 @@ public static class Globalprefs
             ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
-            VarSave.GetMoney("MultyverseW") * 5) * 100);
+            VarSave.GetMoney("MultyverseW") * 5) * 100) +
+            (VarSave.GetInt("planetM") * 100);
 
         return seed;
     }
@@ -139,7 +140,8 @@ public static class Globalprefs
             ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
-            VarSave.GetMoney("MultyverseW") * 5) * 100);
+            VarSave.GetMoney("MultyverseW") * 5) * 100) +
+            (VarSave.GetInt("planetM") * 100);
 
         return seed;
     }
@@ -152,7 +154,8 @@ public static class Globalprefs
             ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
-            VarSave.GetMoney("MultyverseW") * 5) * 100);
+            VarSave.GetMoney("MultyverseW") * 5) * 100) +
+            (VarSave.GetInt("planetM") * 100);
 
         return seed;
     }
@@ -164,7 +167,8 @@ public static class Globalprefs
             ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
-            VarSave.GetMoney("MultyverseW") * 5) * 100);
+            VarSave.GetMoney("MultyverseW") * 5) * 100) +
+            (VarSave.GetInt("planetM") * 100);
 
         return seed;
     }
@@ -175,7 +179,8 @@ public static class Globalprefs
             ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
-            VarSave.GetMoney("MultyverseW") * 5) * 100);
+            VarSave.GetMoney("MultyverseW") * 5) * 100) +
+            (VarSave.GetInt("planetM") * 100);
 
         return seed;
     }
@@ -185,7 +190,14 @@ public static class Globalprefs
             ((VarSave.GetMoney("MultyverseX") * 2 +
             VarSave.GetMoney("MultyverseY") * 3 +
             VarSave.GetMoney("MultyverseZ") * 4 +
-            VarSave.GetMoney("MultyverseW") * 5) * 100);
+            VarSave.GetMoney("MultyverseW") * 5) * 100) +
+            (VarSave.GetInt("planetM") * 100);
+
+        return seed;
+    }
+    public static decimal GetIdAnyverse()
+    {
+        decimal seed = (VarSave.GetInt("planetM") * 100);
 
         return seed;
     }

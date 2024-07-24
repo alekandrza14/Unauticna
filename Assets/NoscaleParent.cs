@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6
+    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8
 }
 
 public class NoscaleParent : MonoBehaviour
@@ -42,6 +42,15 @@ public class NoscaleParent : MonoBehaviour
         if (settings == NoscaleParentSettings.rotateCameraP)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Globalprefs.camera.transform.rotation, 0.1f);
+        }
+        if (settings == NoscaleParentSettings.PlayerPos)
+        {
+            transform.position = Globalprefs.camera.transform.position;
+        }
+        if (settings == NoscaleParentSettings.RotPlayer)
+        {
+            transform.rotation = mover.main().transform.rotation;
+            transform.Rotate(0,180,0);
         }
     }
 }

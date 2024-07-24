@@ -50,6 +50,20 @@ public class Galactic_loader : MonoBehaviour
             }
 
         }
+        if (s == size.Multyverse)
+        {
+
+
+            if (VarSave.GetString("Multyverse_Position") != "")
+            {
+                SceneManager.LoadScene(VarSave.GetString("Multyverse_Position"));
+            }
+            else
+            {
+                SceneManager.LoadScene("Multyverse");
+            }
+
+        }
     }
 
 

@@ -117,7 +117,8 @@ public class mover : CustomSaveObject
     [SerializeField] int[] PlayerModelTags;
    public PlayerDNA DNA = new();
     public Material DebugMat;
- [HideInInspector] public  faceView faceViewi;
+    Seson seson;
+    [HideInInspector] public  faceView faceViewi;
     bool Sprint;
     float fireInk;
     string lepts = "";
@@ -500,6 +501,17 @@ public class mover : CustomSaveObject
     public JsonGame file = new JsonGame();
     private void Init()
     {
+        seson = (Seson)VarSave.GetInt("Seson");
+        if (seson == Seson.Зима)
+        {
+            GameObject g = Resources.Load<GameObject>("Осатки/Зима");
+            Instantiate(g, transform);
+        }
+        if (seson == Seson.Мака)
+        {
+            GameObject g = Resources.Load<GameObject>("Осатки/Мака");
+            Instantiate(g, transform);
+        }
         if (VarSave.ExistenceVar("Ban non-Begin"))
         {
             SceneManager.LoadScene("Nervana");
@@ -1832,7 +1844,47 @@ public class mover : CustomSaveObject
         metka = UpdateTargets();
         E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);
         cc = new List<Vector3>();
-       
+        RaycastHit hit = MainRay.MainHit; 
+        if (Input.GetKeyDown(KeyCode.Q) && !Globalprefs.Pause)
+        {
+            GameObject g = Resources.Load<GameObject>("Items/Piss");
+            Instantiate(g, mover.main().transform.position, Quaternion.identity);
+        }
+        if (Input.GetKeyDown(KeyCode.C) && hit.collider != null&&!Globalprefs.Pause)
+        {
+            if (hit.collider.GetComponent<Мясо>())
+            {
+                if (hit.collider.GetComponent<itemName>())
+                {
+                    if (hit.collider.GetComponent<itemName>()._Name!= "Love&ChaosFungus")
+                    {
+                        GameObject g = Resources.Load<GameObject>("Items/Мясо");
+                        Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                        hit.collider.gameObject.AddComponent<DELETE>();
+                    }
+                    else if(hit.collider.GetComponent<itemName>()._Name != "Non-exist-colour-Grib")
+                    {
+
+                        GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
+                        Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                        hit.collider.gameObject.AddComponent<DELETE>();
+                    }  
+                    else
+                    {
+
+                        GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
+                        Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                        hit.collider.gameObject.AddComponent<DELETE>();
+                    }
+                }
+                else
+                {
+                    GameObject g = Resources.Load<GameObject>("Items/Мясо");
+                    Instantiate(g, mover.main().transform.position + (Vector3.up * 30), Quaternion.identity);
+                    hit.collider.gameObject.AddComponent<DELETE>();
+                }
+            }
+        }
         foreach (E3CustomCenter item in e3cc)
         {
             cc.Add(item.transform.position);
@@ -2683,12 +2735,20 @@ public class mover : CustomSaveObject
     }
     GameObject mats;
     float timer12;
+    public void DieFromSnayp()
+    {
+        VarSave.SetBool("Пристрелен Спамтоном", true);
+        VarSave.SetBool("cry", true);
+
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     private void Inputnravix()
     {
         if (Input.GetKey(KeyCode.LeftControl) && Globalprefs.born)
         {
             timer12 += Time.timeScale;
-            if (timer12 > 10) { Instantiate(Resources.Load<GameObject>("Items/PlushNarvix").gameObject, transform.position, Quaternion.identity); timer12 = 0; }
+            if (timer12 > 10) { Instantiate(Resources.Load<GameObject>("Items/Маленький_Терратик").gameObject, transform.position, Quaternion.identity); timer12 = 0; }
         }
         if (Input.GetKeyDown("5"))
         {
