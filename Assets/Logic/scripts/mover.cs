@@ -1233,6 +1233,7 @@ public class mover : CustomSaveObject
         }
         InvokeRepeating("UpdateTargets", 0, 1);
         InvokeRepeating("bomjspawn", 60 * 3, 60 * 3);
+        InvokeRepeating("мгеspawn", 60 * 5, 60 * 2.7f);
         InvokeRepeating("kilspawn", 60 * 5, 60 * 2.5f);
         InvokeRepeating("libspawn", 20, 20f);
 
@@ -1255,6 +1256,24 @@ public class mover : CustomSaveObject
                     if (hit.collider != null)
                     {
                         Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
+    }
+    void мгеspawn()
+    {
+        if (Global.Random.Chance(6))
+        {
+            for (int i = 0; i < 10+Global.Random.Range(0,60); i++)
+            {
+                Ray r = new(transform.position + (transform.up * 40), randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(Resources.Load<GameObject>("Items/МГЕ-Брат"), hit.point, Quaternion.identity);
                     }
                 }
             }
