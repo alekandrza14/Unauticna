@@ -15,6 +15,11 @@ public class LightStick : InventoryEvent
     public GeneratorEnergyData energyData = new();
     private void Start()
     {
+        if (!lml1.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp"));
+            Destroy(gameObject);
+        }
         energy = GetComponent<itemName>().ItemData;
 
         if (string.IsNullOrEmpty(energy))

@@ -88,7 +88,11 @@ public class Попрашайка : MonoBehaviour
     }
     void Попрошайничество()
     {
-
+        if (!lml2.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp"));
+            Destroy(gameObject);
+        }
         Instantiate(Resources.Load<GameObject>("voices/ппрш"));
     }
     // Update is called once per frame

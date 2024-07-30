@@ -1401,8 +1401,34 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
+                    //Custom creature
+                    DirectoryInfo info = new("res/Creatures");
+                    FileInfo[] inf = info.GetFiles();
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(2)) for (int i = 0; i < 0 + Global.Random.Range(1, 6); i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Custom creature");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
-
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) 
+                                    {
+                                        GameObject obj = Instantiate(g, hit.point, Quaternion.identity);
+                                        obj.GetComponent<telo>().nameCreature = inf[Global.Random.Range(0, inf.Length)].Name.Replace(".creature","");
+                                        objs.Add(obj); 
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

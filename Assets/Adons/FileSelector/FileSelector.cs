@@ -217,7 +217,7 @@ public class FileSelector : MonoBehaviour
             {
 
                 ss = selecttype.creature;
-                path = "C:/Unauticna Multiverse/Creatures";
+                path = "res/Creatures";
                 extension = ".creature";
             }
             if (dd.value == 2 && ss != selecttype.Object)

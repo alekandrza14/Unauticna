@@ -161,6 +161,11 @@ public class spamton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!lml2.Find()&&mage|| !lml2.Find() && cum)
+        {
+            Instantiate(Resources.Load("SEffect/Snayp"));
+            Destroy(gameObject);
+        }
         if (kidat&&!kid)
         {
             Invoke("Kammen", 3);

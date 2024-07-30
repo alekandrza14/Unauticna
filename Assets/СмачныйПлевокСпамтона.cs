@@ -15,6 +15,11 @@ public class СмачныйПлевокСпамтона : MonoBehaviour
     }
     void Update()
     {
+        if (!lml2.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp"));
+            Destroy(gameObject);
+        }
         if (sps) _text.text = "!! Вам не уйти растояние плевку до вас :" + Vector3.Distance(sps.transform.position, m.transform.position) + " !!";
         if (!sps)
         {

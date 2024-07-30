@@ -38,8 +38,8 @@ public class telo : CustomSaveObject
             c.positions.Add(obj.transform.position);
         }
         c.sc = sc;
-        Directory.CreateDirectory("C:/Unauticna Multiverse/Creatures");
-        File.WriteAllText("C:/Unauticna Multiverse/Creatures/" + ifd.text + ".creature", JsonUtility.ToJson(c));
+        Directory.CreateDirectory("res/Creatures");
+        File.WriteAllText("res/Creatures/" + ifd.text + ".creature", JsonUtility.ToJson(c));
     }
     public void load()
     {
@@ -51,9 +51,9 @@ public class telo : CustomSaveObject
             FindObjectsByType<Mainscript>(sortmode.main)[i].selfLeft();
         }
 
-        if (File.Exists("C:/Unauticna Multiverse/Creatures/"+ifd.text+".creature"))
+        if (File.Exists("res/Creatures/"+ifd.text+".creature"))
         {
-            Creature c = JsonUtility.FromJson<Creature>(File.ReadAllText("C:/Unauticna Multiverse/Creatures/" + ifd.text + ".creature"));
+            Creature c = JsonUtility.FromJson<Creature>(File.ReadAllText("res/Creatures/" + ifd.text + ".creature"));
             for (int i = 0; i < c.positions.Count; i++)
             {
                 sc = c.sc;
@@ -83,9 +83,9 @@ public class telo : CustomSaveObject
 
 
 
-            if (File.Exists("C:/Unauticna Multiverse/Creatures/" + nameCreature + ".creature"))
+            if (File.Exists("res/Creatures/" + nameCreature + ".creature"))
             {
-                Creature c = JsonUtility.FromJson<Creature>(File.ReadAllText("C:/Unauticna Multiverse/Creatures/" + nameCreature + ".creature"));
+                Creature c = JsonUtility.FromJson<Creature>(File.ReadAllText("res/Creatures/" + nameCreature + ".creature"));
                 for (int i = 0; i < c.positions.Count; i++)
                 {
                     GameObject g = Instantiate(obj, transform);

@@ -8,6 +8,11 @@ public class CumRain : MonoBehaviour
     }
     public void AddCumen()
     {
+        if (!lml1.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp"));
+            Destroy(gameObject);
+        }
         GameObject g = Resources.Load<GameObject>("Items/Каменьщикоый_камень");
         Instantiate(g, mover.main().transform.position + (Vector3.up * 30), Quaternion.identity);
         if (Global.Random.Chance(8))

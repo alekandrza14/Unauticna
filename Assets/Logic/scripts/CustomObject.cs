@@ -38,6 +38,7 @@ public class CustomObjectData
     public string EventSpawn;
     public string AppOpen;
     public string LuaBuilding;
+    public string ConvertTo;
     public int RegenerateHp;
     public double Recycler;
     public double Redecycler;
@@ -46,7 +47,7 @@ public class CustomObjectData
     public Vector3 playerMove;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat;
+    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -113,7 +114,11 @@ public class CustomObject : CustomSaveObject
         }
         if (Model.nDemention == NDemention._5D)
         {
-            gameObject.AddComponent<MultyObject>().shape = Shape.cube5D;
+            if (!GetComponent<MultyObject>()) { gameObject.AddComponent<MultyObject>().shape = Shape.cube5D; }
+            else
+            {
+                gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+            }
             mover m = mover.main();
             if (!saved)
             {
@@ -134,7 +139,10 @@ public class CustomObject : CustomSaveObject
         }
         if (Model.nDemention == NDemention._ND)
         {
-            gameObject.AddComponent<MultyObject>().shape = Shape.cubeND;
+            if (!GetComponent<MultyObject>()) { gameObject.AddComponent<MultyObject>().shape = Shape.cubeND; } else
+            {
+                gameObject.GetComponent<MultyObject>().shape = Shape.cubeND;
+            }
             mover m = mover.main();
             if (!saved)
             {
@@ -175,11 +183,19 @@ public class CustomObject : CustomSaveObject
         }
         if (Model.Meat)
         {
-            gameObject.AddComponent<Ìÿסמ>();
+            if (!GetComponent<Ìÿסמ>()) gameObject.AddComponent<Ìÿסמ>();
+        }
+        if (Model.RunToPlayer)
+        {
+            if (!GetComponent<RunToPlayer>()) gameObject.AddComponent<RunToPlayer>();
         }
         if (Model.nDemention == NDemention._4D)
         {
-            gameObject.AddComponent<MultyObject>().shape = Shape.cube5D;
+            if (!GetComponent<MultyObject>()) { gameObject.AddComponent<MultyObject>().shape = Shape.cube5D; }
+            else
+            {
+                gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+            }
             mover m = mover.main();
             GetComponent<MultyObject>().H_Scale = 500000;
             if (!saved)
@@ -305,6 +321,12 @@ public class CustomObject : CustomSaveObject
         if (File.Exists(Model.LuaBuilding))
         {
             LuaLogic(File.ReadAllText(Model.LuaBuilding));
+        }
+        if (File.Exists("res/UserWorckspace/Items/" + Model.ConvertTo+".txt"))
+        {
+          GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"),transform.position,Quaternion.identity);
+            obj.GetComponent<CustomObject>().s = Model.ConvertTo;
+            gameObject.AddComponent<DELETE>();
         }
     }
 }

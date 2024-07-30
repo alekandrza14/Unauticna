@@ -14,6 +14,11 @@ public class KillerEnemye : MonoBehaviour
     }
     void Update()
     {
+        if (!lml1.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp"));
+            Destroy(gameObject);
+        }
         timer += Time.deltaTime;
         if (timer > 20)
         {

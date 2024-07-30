@@ -1245,7 +1245,7 @@ public class mover : CustomSaveObject
     }
     void bomjspawn()
     {
-        if (Global.Random.Chance(2))
+        if (!lml2.Find()) if (Global.Random.Chance(2))
         {
             for (int i = 0; i < 6; i++)
             {
@@ -1263,7 +1263,7 @@ public class mover : CustomSaveObject
     }
     void мгеspawn()
     {
-        if (Global.Random.Chance(6))
+       if(!lml1.Find()) if (Global.Random.Chance(6))
         {
             for (int i = 0; i < 10+Global.Random.Range(0,60); i++)
             {
@@ -1281,7 +1281,7 @@ public class mover : CustomSaveObject
     }
     void kilspawn()
     {
-        if (Global.Random.Chance(2))
+        if (!lml1.Find()) if (Global.Random.Chance(2))
         {
             for (int i = 0; i < 6; i++)
             {
@@ -1299,7 +1299,7 @@ public class mover : CustomSaveObject
     }
     void libspawn()
     {
-        if (VarSave.ExistenceVar("libirist"))
+        if (!lml1.Find()) if (VarSave.ExistenceVar("libirist"))
         {
             if (Global.Random.Chance(5))
             {
