@@ -172,9 +172,9 @@ public class EnemyeFashist : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!lml2.Find())
+        if (lml2.Find())
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject); Drop();
             DeadShit.Spawn(transform.position);
             DeadShit.Spawn(transform.position);

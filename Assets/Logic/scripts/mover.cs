@@ -2803,6 +2803,13 @@ public class mover : CustomSaveObject
                 hit.collider.GetComponent<UMUITank>().player = transform;
         }
         if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
+        {
+            if (hit.collider.GetComponent<CustomTransport>())
+                hit.collider.GetComponent<CustomTransport>().sitplayer = !hit.collider.GetComponent<CustomTransport>().sitplayer;
+            if (hit.collider.GetComponent<CustomTransport>())
+                hit.collider.GetComponent<CustomTransport>().player = transform;
+        }
+        if (hit.collider != null && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
             {
                 if (hit.collider.GetComponent<GravityBoard>())
                     hit.collider.GetComponent<GravityBoard>().sitplayer = !hit.collider.GetComponent<GravityBoard>().sitplayer;

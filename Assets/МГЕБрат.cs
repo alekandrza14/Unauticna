@@ -14,9 +14,9 @@ public class МГЕБрат : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!lml1.Find())
+        if (lml1.Find())
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
         transform.rotation = Quaternion.LookRotation(m.transform.position - transform.position, transform.up);

@@ -47,7 +47,7 @@ public class CustomObjectData
     public Vector3 playerMove;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer;
+    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -189,6 +189,22 @@ public class CustomObject : CustomSaveObject
         {
             if (!GetComponent<RunToPlayer>()) gameObject.AddComponent<RunToPlayer>();
         }
+        if (Model.NoCollect)
+        {
+            gameObject.layer = 3;
+        }
+        if (Model.Transport)
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("CustomTransport"), transform.position, Quaternion.identity);
+            obj.GetComponent<CustomTransport>().item = transform;
+            obj.GetComponent<CustomTransport>().TransportNmae.text = s;
+        }
+        if (Model.car)
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("CustomCar"), transform.position, Quaternion.identity);
+            obj.GetComponent<CustomTransport>().item = transform;
+            obj.GetComponent<CustomTransport>().TransportNmae.text = s;
+        }
         if (Model.nDemention == NDemention._4D)
         {
             if (!GetComponent<MultyObject>()) { gameObject.AddComponent<MultyObject>().shape = Shape.cube5D; }
@@ -322,11 +338,14 @@ public class CustomObject : CustomSaveObject
         {
             LuaLogic(File.ReadAllText(Model.LuaBuilding));
         }
-        if (File.Exists("res/UserWorckspace/Items/" + Model.ConvertTo+".txt"))
+        if (!string.IsNullOrEmpty(Model.ConvertTo))
         {
-          GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"),transform.position,Quaternion.identity);
-            obj.GetComponent<CustomObject>().s = Model.ConvertTo;
-            gameObject.AddComponent<DELETE>();
+            if (File.Exists("res/UserWorckspace/Items/" + Model.ConvertTo + ".txt"))
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                obj.GetComponent<CustomObject>().s = Model.ConvertTo;
+                gameObject.AddComponent<DELETE>();
+            }
         }
     }
 }

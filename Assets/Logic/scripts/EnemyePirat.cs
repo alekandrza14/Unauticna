@@ -72,6 +72,16 @@ public class EnemyePirat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lml2.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp1"));
+            Destroy(gameObject);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+            DeadShit.Spawn(transform.position);
+        }
         timer += Time.deltaTime;
        if(attack && timer >= 0.2)
         {

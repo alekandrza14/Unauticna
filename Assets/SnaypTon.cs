@@ -8,9 +8,9 @@ public class SnaypTon : MonoBehaviour
     }
     void Update()
     {
-        if (!lml1.Find())
+        if (lml1.Find())
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
         transform.rotation = Quaternion.LookRotation(mover.main().transform.position - transform.position, Vector3.up);

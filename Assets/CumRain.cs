@@ -8,9 +8,9 @@ public class CumRain : MonoBehaviour
     }
     public void AddCumen()
     {
-        if (!lml1.Find())
+        if (lml2.Find())
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
         GameObject g = Resources.Load<GameObject>("Items/Каменьщикоый_камень");

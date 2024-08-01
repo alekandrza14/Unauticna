@@ -88,9 +88,9 @@ public class Попрашайка : MonoBehaviour
     }
     void Попрошайничество()
     {
-        if (!lml2.Find())
+        if (lml2.Find())
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
         Instantiate(Resources.Load<GameObject>("voices/ппрш"));
