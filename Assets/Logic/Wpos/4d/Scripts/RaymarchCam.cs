@@ -211,6 +211,9 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetVector("_player", _player ? _player.position : Vector3.zero);
         _raymarchMaterial.SetColor("_skyColor", _skyColor);
         _raymarchMaterial.SetColor("_ChaosColor", _ChaosColor);
+        if (FindObjectOfType<NegativeLight>()) _raymarchMaterial.SetInt("_useNegativeLight", FindObjectOfType<NegativeLight>().enabled == true ? 1 : 0); else { _raymarchMaterial.SetInt("_useNegativeLight", 0); }
+        if (Globalprefs.item == "НегативныеОчки") _raymarchMaterial.SetInt("_useNegative", Globalprefs.item == "НегативныеОчки" ? 1 : 0); else if(VarSave.GetInt("НегативныеОчки") <= 0) { _raymarchMaterial.SetInt("_useNegative", 0); }
+       else if (VarSave.GetInt("НегативныеОчки")>0) _raymarchMaterial.SetInt("_useNegative", VarSave.GetInt("НегативныеОчки") > 0 ? 1 : 0); else { _raymarchMaterial.SetInt("_useNegative", 0); }
 
 
         _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);

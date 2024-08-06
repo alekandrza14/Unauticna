@@ -16,7 +16,7 @@ public enum size
 }
 public enum UniverseSkyType
 {
-    Default,Bright,Arua,Darck,Litch
+    Default,Bright,Arua,Darck,Litch,AntyLight
 }
 public class Targets
 {

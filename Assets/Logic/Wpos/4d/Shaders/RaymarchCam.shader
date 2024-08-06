@@ -83,6 +83,8 @@ Shader "Raymarch/RaymarchCam"
 
             uniform int _useNormal;
             uniform int _useShadow;
+            uniform int _useNegativeLight;
+            uniform int _useNegative;
 
             static const float PI = 3.14159265f;
 
@@ -590,6 +592,25 @@ Shader "Raymarch/RaymarchCam"
                 if(_ChaosColor.a == 0)
                 {
                 _ChaosColor = float4(1,1,1,1);
+                }
+                if(_useNegativeLight)
+                { 
+                    float light = col2.xyz;
+                   light *= -2;
+                  // light +=1;
+                 
+               //  col2.rgb += light+0.5f;
+                 if( light<-0.5)
+                 {
+                       col2.rgb += light+0.5f;
+                 }
+                }if(_useNegative)
+                { 
+                    col2.xyz;
+                    col2.xyz *= -1;
+                    col2.xyz +=1;
+                 
+             
                 }
                 col2 *= _ChaosColor;
                return  fixed4( col2,1);

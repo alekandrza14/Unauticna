@@ -501,6 +501,11 @@ public class mover : CustomSaveObject
     public JsonGame file = new JsonGame();
     private void Init()
     {
+        if ((UniverseSkyType)VarSave.GetInt("UST")==UniverseSkyType.AntyLight)
+        {
+            GameObject g = Resources.Load<GameObject>("NLRule");
+            Instantiate(g, transform);
+        }
         seson = (Seson)VarSave.GetInt("Seson");
         if (seson == Seson.Зима)
         {
