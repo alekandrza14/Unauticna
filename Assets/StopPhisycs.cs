@@ -10,7 +10,14 @@ public class StopPhisycs : MonoBehaviour
     {
         for (int i =0;i<g.Count&& i < v3.Count;i++)
         {
-            g[i].transform.position = v3[i];
+            if (g[i] != null) 
+            {
+                g[i].transform.position = v3[i]; 
+            }
+            else
+            {
+                g.RemoveAt(i);
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -18,6 +25,15 @@ public class StopPhisycs : MonoBehaviour
         if (other.GetComponent<Rigidbody>())
         {
             other.GetComponent<Rigidbody>().isKinematic = true;
+            if (!other.GetComponent<StaticPoisition>())
+            {
+                g.Add(other.gameObject);
+                v3.Add(other.transform.position);
+                other.gameObject.AddComponent<StaticPoisition>();
+            }
+        }
+        else
+        {
             if (!other.GetComponent<StaticPoisition>())
             {
                 g.Add(other.gameObject);

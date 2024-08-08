@@ -62,47 +62,51 @@ public class Sutck : MonoBehaviour
         }
         if (seson == Seson.Ћето)//1
         {
-            Temperature += 7;
+            Temperature += 7 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (seson == Seson.√лЄн)//2
         {
-            Temperature += 200;
+            Temperature += 200 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (seson == Seson.ќсень)//3
         {
-            Temperature -= 9;
+            Temperature -= 9 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (seson == Seson.«има)//4
         {
-            Temperature -= 20;
+            Temperature -= 20 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (seson == Seson.ћака)//5
         {
-            Temperature -= 10;
+            Temperature -= 10 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (seson == Seson.¬есна)//6
         {
-            Temperature -= 2;
+            Temperature -= 2 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (skyType == UniverseSkyType.Default)
         {
-            Temperature -= 2;
+            Temperature -= 2 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (skyType == UniverseSkyType.Arua)
         {
-            Temperature += 2000;
+            Temperature += 2000 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (skyType == UniverseSkyType.Bright)
         {
-            Temperature += 1500;
+            Temperature += 1500 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (skyType == UniverseSkyType.Darck)
         {
-            Temperature -= 200;
+            Temperature -= 200 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
+        }
+        if (skyType == UniverseSkyType.AntyLight)
+        {
+            Temperature -= 2000* Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
         if (skyType == UniverseSkyType.Litch)
         {
-            Temperature -= 9000;
+            Temperature -= 9000 * Globalprefs.Hash(new Vector2(DateTime.Now.Hour, -DateTime.Now.Hour * 2)) * 2;
         }
 
         return Temperature;
@@ -114,7 +118,7 @@ public class Sutck : MonoBehaviour
             day = 1;
         }
         day %= 3;
-        if (seson != Seson.√лЄн)//2
+        if (seson != Seson.√лЄн)
         {
             if (day == 0)
             {
@@ -153,7 +157,7 @@ public class Sutck : MonoBehaviour
                 }
             }
         }
-        if (seson != Seson.√лЄн)//2
+        if (seson != Seson.√лЄн)
         {
             if (day == 1)
             {
@@ -188,7 +192,7 @@ public class Sutck : MonoBehaviour
                 }
             }
         }
-        if (seson != Seson.«има&& skyType == UniverseSkyType.Darck)
+        if (seson != Seson.«има|| skyType != UniverseSkyType.Darck)
         {
             if (day == 2)
             {

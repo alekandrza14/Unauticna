@@ -646,6 +646,11 @@ public class mover : CustomSaveObject
                         {
                             Globalprefs.born = true;
                         }
+                        if (item == TalantDNA.KillZone)
+                        {
+                            GameObject g = Resources.Load<GameObject>("KillZone");
+                            Instantiate(g, transform.position, quaternion.identity);
+                        }
                     }
                 }
             }
@@ -1857,6 +1862,27 @@ public class mover : CustomSaveObject
     GameObject waterscreen;
     void Update()
     {
+        List<TalantDNA> tals = new List<TalantDNA>();
+        if (DNA.talant != null)
+        {
+            if (DNA.talant.Count > 0)
+            {
+                tals.Add((TalantDNA)DNA.talant[0]);
+                tals.Add((TalantDNA)DNA.talant[1]);
+                foreach (TalantDNA item in tals)
+                {
+                  
+                    if (item == TalantDNA.KillGod)
+                    {
+                        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+                        foreach (CharacterName item2 in CharacterNames)
+                        {
+                            item2.gameObject.AddComponent<DELETE>();
+                        }
+                    }
+                }
+            }
+        }
         Globalprefs.UpdatePsiho();
         data_profstatus = VarSave.GetString("ProfStatus");
         data_BGPU = VarSave.GetFloat("BGPU", 0f);

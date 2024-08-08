@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public enum TalantDNA
 {
-    none,fourLapka,born
+    none,fourLapka,born,KillZone,KillGod
 }
 
 public class DeterTalantDNA : MonoBehaviour

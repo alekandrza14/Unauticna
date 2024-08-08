@@ -3128,6 +3128,30 @@ public class ElementalInventory : MonoBehaviour {
                 GlobalInputMenager.KeyCode_eat = 0;
             }
             if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
+                && Cells[selectr].elementName == "DNAKillZone" && Cells[selectr].elementCount > 0)
+            {
+                PoverkaDNA(); if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count > 0) if (Global.Random.Chance(2)) { mover.main().DNA.talant[0] = (int)TalantDNA.KillZone; } else { mover.main().DNA.talant[1] = (int)TalantDNA.KillZone; }
+
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                VarSave.LoadFloat("mana", 1f);
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
+                && Cells[selectr].elementName == "DNAKillGod" && Cells[selectr].elementCount > 0)
+            {
+                PoverkaDNA(); if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count > 0) if (Global.Random.Chance(2)) { mover.main().DNA.talant[0] = (int)TalantDNA.KillGod; } else { mover.main().DNA.talant[1] = (int)TalantDNA.KillGod; }
+                mover.main().DNA.colour = new Color(3,4,1f);
+                VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+
+
+                VarSave.LoadFloat("mana", 1f);
+                //  lowitem("DNAColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
+            if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
                 && Cells[selectr].elementName == "DNABorn" && Cells[selectr].elementCount > 0)
             {
                 PoverkaDNA(); if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count > 0) if (Global.Random.Chance(2)) { mover.main().DNA.talant[0] = (int)TalantDNA.born; } else { mover.main().DNA.talant[0] = (int)TalantDNA.born; }
@@ -3266,6 +3290,15 @@ public class ElementalInventory : MonoBehaviour {
             if (hit.collider != null)
             {
                 GameObject g = Instantiate(Resources.Load<GameObject>("items/infCilindr"), hit.point, Quaternion.identity);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
+         && Cells[selectr].elementName == "LifeCleaner" && Cells[selectr].elementCount > 0)
+        {
+            CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+            foreach (CharacterName item in CharacterNames)
+            {
+                item.gameObject.AddComponent<DELETE>();
             }
         }
         if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this

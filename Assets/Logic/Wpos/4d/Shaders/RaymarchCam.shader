@@ -608,7 +608,7 @@ Shader "Raymarch/RaymarchCam"
                 { 
                     col2.xyz;
                     col2.xyz *= -1;
-                    col2.xyz +=1;
+                    col2.xyz +=0.35f;
                  
              
                 }
