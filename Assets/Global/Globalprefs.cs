@@ -87,7 +87,8 @@ public static class Globalprefs
     public static bool born;
     public static bool fourlapka;
     public static bool bunkrot;
-    public static bool LockRotate;
+    public static bool LockRotate; 
+    public static bool TryBar;
 
     public static Vector3[] postes;
     public static Vector3[] postes2;

@@ -17,12 +17,16 @@ public class PiratAttack : MonoBehaviour
     void Start()
     {
         VarSave.SetString("Player_On_Pirat_Attack", "Please don't destroy this file be a man");
-        Instantiate(piratSheap, mover.main().transform.position + randomCube(-500,500)+(Vector3.up*500), Quaternion.identity);
+        Instantiate(piratSheap, mover.main().transform.position + randomCube(-500, 500) + (Vector3.up * 500), Quaternion.identity);
         if (Global.Random.Range(0, 5) == 1)
         {
             timer2 = 7 * 60;
         }
-
+        if (VarSave.GetFloat(
+         "Конец" + "_gameSettings", SaveType.global) >= 0.5f)
+        {
+            timer2 -= 2 * 60;
+        }
     }
     void Update()
     {

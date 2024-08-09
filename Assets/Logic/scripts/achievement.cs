@@ -14,6 +14,12 @@ public class achievement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (VarSave.GetFloat(
+         "Конец" + "_gameSettings", SaveType.global) >= 0.2f)
+        {
+            VarSave.SetBool("lol you Banned", true);
+            SceneManager.LoadSceneAsync("Banned forever");
+        }
         if (GameEditor.Opened.startSurvival)
         {
             VarSave.SetString("GameActive", "");

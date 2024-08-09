@@ -2707,9 +2707,10 @@ public class mover : CustomSaveObject
         }
     }
     int maxhp;
-    private void HpUpdate()
+    public void death()
     {
-        if (hp <= 0)
+        Globalprefs.TryBar = false;
+        if (!Globalprefs.TryBar) 
         {
             VarSave.SetBool("умерли от ран", true);
             VarSave.SetBool("cry", true);
@@ -2726,28 +2727,91 @@ public class mover : CustomSaveObject
             WorldSave.SetVector4("var");
             WorldSave.SetVector3("var1");
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex); 
+        }
+    }
+    bool hplow;
+    bool oxylow;
+    private void HpUpdate()
+    {
+        if (hp <= 0)
+        {
+            if (VarSave.GetFloat(
+          "встал_и_пошол" + "_gameSettings", SaveType.global) <= -1f)
+            {
+                VarSave.SetBool("lol you Banned", true);
+                SceneManager.LoadSceneAsync("Banned forever");
+            }
+           
+            if (VarSave.GetFloat(
+          "встал_и_пошол" + "_gameSettings", SaveType.global) < .5f)
+            {
+                VarSave.SetBool("умерли от ран", true);
+                VarSave.SetBool("cry", true);
 
+                gsave.hp = 20;
+
+
+                gsave.idsave = SaveFileInputField.text;
+                gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
+                File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
+                string s = "";
+                s = SaveFileInputField.text;
+                File.WriteAllText("unsave/s", s);
+                WorldSave.SetVector4("var");
+                WorldSave.SetVector3("var1");
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+               if(!hplow) Globalprefs.TryBar = true;
+                hplow = true;
+            }
+
+        }
+        else
+        {
+            hplow = false;
         }
         if (oxygen <= 0)
         {
-            VarSave.SetBool("oxygen", true);
-            VarSave.SetBool("cry", true);
+            if (VarSave.GetFloat(
+          "встал_и_пошол" + "_gameSettings", SaveType.global) <= -1f)
+            {
+                VarSave.SetBool("lol you Banned", true);
+                SceneManager.LoadSceneAsync("Banned forever");
+            }
+            if (VarSave.GetFloat(
+          "встал_и_пошол" + "_gameSettings", SaveType.global) < .5f)
+            {
+                VarSave.SetBool("oxygen", true);
+                VarSave.SetBool("cry", true);
 
-            gsave.oxygen = 20;
+                gsave.oxygen = 20;
 
 
-            gsave.idsave = SaveFileInputField.text;
-            gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
-            string s = "";
-            s = SaveFileInputField.text;
-            File.WriteAllText("unsave/s", s);
-            WorldSave.SetVector4("var");
-            WorldSave.SetVector3("var1");
+                gsave.idsave = SaveFileInputField.text;
+                gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
+                File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
+                string s = "";
+                s = SaveFileInputField.text;
+                File.WriteAllText("unsave/s", s);
+                WorldSave.SetVector4("var");
+                WorldSave.SetVector3("var1");
 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+            else
+            {
+                if (!oxylow) Globalprefs.TryBar = true;
+                oxylow = true;
+            }
 
+        }
+        else
+        {
+            oxylow = false;
         }
 
         GameObject g = GameObject.FindWithTag("blood");
@@ -2775,11 +2839,15 @@ public class mover : CustomSaveObject
             Instantiate(Resources.Load<GameObject>("ui/damage/blood1").gameObject, transform.position, Quaternion.identity);
         }
 
-        if (tic >= time && hp < 200 + maxhp + maxhp2)
+        if (VarSave.GetFloat(
+           "встал_и_пошол" + "_gameSettings", SaveType.global) > -0.5f)
         {
-            hp += 1 + hpregen + regen;
-            tic = 0;
+            if (tic >= time && hp < 200 + maxhp + maxhp2)
+            {
+                hp += 1 + hpregen + regen;
+                tic = 0;
 
+            }
         }
 
     }

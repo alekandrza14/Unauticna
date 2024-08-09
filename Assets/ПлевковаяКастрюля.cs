@@ -73,7 +73,24 @@ public class ПлевковаяКастрюля : InventoryEvent
             if (gameObject == hit.collider.gameObject)
             {
                 cooldown += 2;
-
+                if (VarSave.GetFloat(
+       "Конец" + "_gameSettings", SaveType.global) >= 0.5f)
+                {
+                    if (Random.Range(-1f,1f- VarSave.GetFloat(
+       "Конец" + "_gameSettings", SaveType.global))<=0)
+                    {
+                        плевки = 1000;
+                    }
+                }
+                if (VarSave.GetFloat(
+      "Конец" + "_gameSettings", SaveType.global) <= -0.5f)
+                {
+                    if (Random.Range(-1f, 1f - VarSave.GetFloat(
+       "Конец" + "_gameSettings", SaveType.global)) <= 0)
+                    {
+                        плевки = 0;
+                    }
+                }
                 плевки++;
                 GetComponent<itemName>().ItemData = плевки.ToString();
                 Instantiate(Resources.Load("voices/plevok_blad"));
@@ -85,7 +102,24 @@ public class ПлевковаяКастрюля : InventoryEvent
             {
                 if (Globalprefs.item == "Смачный_плевок_Спамтона")
                 {
-
+                    if (VarSave.GetFloat(
+      "Конец" + "_gameSettings", SaveType.global) >= 0.5f)
+                    {
+                        if (Random.Range(-1f, 1f - VarSave.GetFloat(
+           "Конец" + "_gameSettings", SaveType.global)) <= 0)
+                        {
+                            плевки = 1000;
+                        }
+                    }
+                    if (VarSave.GetFloat(
+      "Конец" + "_gameSettings", SaveType.global) <= -0.5f)
+                    {
+                        if (Random.Range(-1f, 1f - VarSave.GetFloat(
+           "Конец" + "_gameSettings", SaveType.global)) <= 0)
+                        {
+                            плевки = 0;
+                        }
+                    }
 
                     ElementalInventory ei = ElementalInventory.main();
                     ei.setItem("", 0, Color.red, ei.select);

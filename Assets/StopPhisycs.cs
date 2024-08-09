@@ -17,6 +17,7 @@ public class StopPhisycs : MonoBehaviour
             else
             {
                 g.RemoveAt(i);
+                v3.RemoveAt(i);
             }
         }
     }
