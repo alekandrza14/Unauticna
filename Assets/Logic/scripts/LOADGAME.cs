@@ -41,7 +41,7 @@ public class LOADGAME : MonoBehaviour
         gameInit.Init(g);
         DontDestroyOnLoad(g);
         Cursor.lockState = CursorLockMode.None;
-        if (VarSave.CreateEvent("Resolution", SaveType.global))
+        if (!VarSave.ExistenceVar("res1", SaveType.global))
         {
 
             VarSave.SetInt("res1", Screen.width / 4, SaveType.global);
