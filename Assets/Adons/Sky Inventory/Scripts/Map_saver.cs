@@ -448,7 +448,19 @@ public class Map_saver : MonoBehaviour
 
                     }
 
+                    if (items[i3].GetComponent<Slave>())
+                    {
+                        saveString1.isSlaveA.Add(true); 
+                        saveString1.SlaveA.Add(items[i3].GetComponent<Slave>().slaveData);
 
+                    }
+                    else
+                    {
+
+                        saveString1.isSlaveA.Add(false);
+                        saveString1.SlaveA.Add("");
+
+                    }
 
                     if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
 
@@ -508,7 +520,20 @@ public class Map_saver : MonoBehaviour
         {
             saveString1.vector3B.Add(t[i].transform.position);
             saveString1.NamesCreatures.Add(t[i].nameCreature);
+            if (t[i].GetComponent<Slave>())
+            {
+                saveString1.isSlaveB.Add(true);
 
+                saveString1.SlaveB.Add(t[i].GetComponent<Slave>().slaveData);
+            }
+            else
+            {
+
+                saveString1.isSlaveB.Add(false);
+
+                saveString1.SlaveB.Add("");
+
+            }
 
         }
         CustomObject[] co = FindObjectsByType<CustomObject>(sortmode.main);
@@ -516,6 +541,19 @@ public class Map_saver : MonoBehaviour
         int o = 0;
         for (int i = 0; i < co.Length; i++)
         {
+            if (co[i].GetComponent<Slave>())
+            {
+                saveString1.isSlaveD.Add(true);
+                saveString1.SlaveD.Add(co[i].GetComponent<Slave>().slaveData);
+
+            }
+            else
+            {
+
+                saveString1.isSlaveD.Add(false);
+
+                saveString1.SlaveD.Add("");
+            }
             if (co[i].GetComponent<MultyObject>())
             {
                 Vector6 v6 = co[i].GetComponent<MultyObject>().startPosition;
@@ -612,8 +650,10 @@ public class Map_saver : MonoBehaviour
                 saveString1.posH.Add(0);
             }
             saveString1.curN3.Add(o2);
+            
             if (so[i].GetComponent<MultyObject>())
             {
+                
                 MultyObject mo = so[i].GetComponent<MultyObject>(); if (mo.N_Positions != null)
                 {
 
@@ -849,12 +889,25 @@ public class Map_saver : MonoBehaviour
                 {
                     for (int i = 0; i < saveString1.vector3B.Count; i++)
                     {
-
+                        
                         telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), saveString1.vector3B[i], Quaternion.identity).GetComponent<telo>();
+                        if (saveString1.isSlaveB != null)
+                        {
+                            if (saveString1.isSlaveB.Count != 0)
+                            {
+                                if (saveString1.isSlaveB[i]) g.gameObject.AddComponent<Slave>();
+                                if (saveString1.SlaveB.Count != 0)
+                                {
+                                    if (saveString1.SlaveB.Count > i) if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveB[i];
+                                }
+                            }
+                        }
+                        
                         g.nameCreature = saveString1.NamesCreatures[i];
                         g.gameObject.transform.position = saveString1.vector3B[i];
                     }
                 }
+                //StandartObject
                 for (int i = 0; i < saveString1.idB.Count; i++)
                 {
 
@@ -900,6 +953,7 @@ public class Map_saver : MonoBehaviour
                 }
                 bool j1 = false;
                 GameObject co = Resources.Load<GameObject>("CustomObject");
+                
                 for (int i = 0; i < saveString1.idC.Count; i++)
                 {
 
@@ -916,7 +970,17 @@ public class Map_saver : MonoBehaviour
                     if (!j1)
                     {
                         GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
-
+                        if (saveString1.isSlaveD != null)
+                        {
+                            if (saveString1.isSlaveD.Count != 0)
+                            {
+                                if (saveString1.isSlaveD[i]) co.gameObject.AddComponent<Slave>();
+                                if (saveString1.SlaveD.Count > i) if (saveString1.SlaveD.Count != 0)
+                                    {
+                                     if (co.gameObject.GetComponent<Slave>())   co.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveD[i];
+                                    }
+                            }
+                        }
                         if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
                         if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
                         if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
@@ -972,9 +1036,22 @@ public class Map_saver : MonoBehaviour
                                 }
                     if (!j2)
                     {
-
+                       
                         Debug.Log("1");
                         GameObject g = Instantiate(t3[ToNameToID(saveString1.idA[i3])], new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                        if (saveString1.isSlaveA != null)
+                        {
+                            if (saveString1.isSlaveA.Count != 0)
+                            {
+                                if (saveString1.isSlaveA[i3]) g.gameObject.AddComponent<Slave>();
+                                if (saveString1.SlaveA.Count != 0)
+                                {
+
+                                    if (saveString1.SlaveA.Count > i3) if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveA[i3];
+                                }
+                            }
+                            
+                        }
                         g.transform.localScale = (saveString1.Scale3A[i3]);
                         if (!g.GetComponent<breauty>())
                         {
@@ -1050,6 +1127,7 @@ public class Map_saver : MonoBehaviour
             if (c == 1)
             {
                 RaycastHit hit;
+               
                 mover m = mover.main();
                 LoadADone = true;
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
@@ -1524,6 +1602,12 @@ public class MapData
     public List<float> posW3 = new();
     public List<float> posH3 = new();
     public List<bool> SavedPlayer = new();
+    public List<bool> isSlaveA = new();
+    public List<bool> isSlaveB = new();
+    public List<bool> isSlaveD = new();
+    public List<string> SlaveA = new();
+    public List<string> SlaveB = new();
+    public List<string> SlaveD = new();
     public string sceneName;
     public List<Vector3> vector3B = new();
 

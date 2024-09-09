@@ -234,6 +234,19 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "51";
             }
+            if (s[0] == "summon")
+            {
+                a = "52";
+            }
+            if (s[0] == "new_social")
+            {
+                a = "53";
+            }
+            if (s[0] == "get_materials")
+            {
+                a = "54";
+            }
+           if(s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -830,6 +843,28 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "51")
             {
                 FindAnyObjectByType<ActiveGaster>().Gas();
+            }
+            if (i == 1 && a == "52")
+            {
+                GameObject g = Resources.Load<GameObject>(s[1]);
+                Instantiate(g, mover.main().transform.position, Quaternion.identity);
+            }
+            if (i == 1 && a == "53")
+            {
+                Directory.CreateDirectory("res/UserWorckspace/Social");
+                File.WriteAllText("res/UserWorckspace/Social/" + s[1] + ".json", JsonUtility.ToJson(new SocialTriggerData()));
+            }
+            if (i == 1 && a == "54")
+            {
+                Material[] m = Resources.LoadAll<Material>("CO_MainMaterials");
+                string msg ="";
+                int numMaterial=0;
+                foreach (Material item in m)
+                {
+                    msg += "Материал "+ numMaterial.ToString()+" \"" + item.name+"\"\n";
+                    numMaterial++;
+                }
+                Loger.Sand(msg);
             }
             if (i == 1 && a == "2")
             {

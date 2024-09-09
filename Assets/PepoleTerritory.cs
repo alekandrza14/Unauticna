@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PepoleTerritory : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PepoleTerritory : MonoBehaviour
     public AnimationCurve detect4D;
     private void Start()
     {
-        TakingSpace = Map_saver.total_lif;
+        TakingSpace = Map_saver.total_lif + SceneManager.GetActiveScene().buildIndex;
         IsTaking = VarSave.GetFloat(TakingSpace + "TakingVin") == 2;
     }
     private void OnTriggerEnter(Collider other)

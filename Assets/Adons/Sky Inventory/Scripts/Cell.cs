@@ -6,6 +6,7 @@ public class Cell : MonoBehaviour {
 
     public string elementName; // Element Name
     public string elementData; // Element Data
+    public string elementSocial; // Element Social
     public int elementCount; // Element Count
 	public Color elementColor; // Element Color
 	public Transform elementTransform; //Transform Element
@@ -79,12 +80,21 @@ public class Cell : MonoBehaviour {
         elementColor = color;
         UpdateCellInterface();
     }
-    public void ChangeElement(string name, int count, Color color,string data)
+    public void ChangeElement(string name, int count, Color color, string data)
     {
         elementName = name;
         elementCount = count;
         elementColor = color;
         elementData = data;
+        UpdateCellInterface();
+    }
+    public void ChangeElement(string name, int count, Color color, string data, string social)
+    {
+        elementName = name;
+        elementCount = count;
+        elementColor = color;
+        elementData = data;
+        elementSocial = social;
         UpdateCellInterface();
     }
 

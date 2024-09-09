@@ -39,15 +39,18 @@ public class CustomObjectData
     public string AppOpen;
     public string LuaBuilding;
     public string ConvertTo;
+    public string LoadingMaterial;
     public int RegenerateHp;
     public double Recycler;
     public double Redecycler;
     public double InfinityRecycler;
     public Vector3 playerRotate;
     public Vector3 playerMove;
+    public Vector3[] LeftLeg;
+    public Vector3[] RightLeg;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car;
+    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car,social,home;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -61,6 +64,7 @@ public class CustomObject : CustomSaveObject
     public Vector2[] uvs;
     public string s;
     public bool saved;
+    public LayerMask Mashime;
     public CustomObjectData Model = new CustomObjectData();
     // Start is called before the first frame update
     void Start()
@@ -74,19 +78,22 @@ public class CustomObject : CustomSaveObject
             Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
             body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
         }
-        mf.mesh = generate();
-        GetComponent<MeshCollider>().sharedMesh = mf.mesh;
-        transform.localScale = Model.scale;
-        GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
-        GetComponent<MeshRenderer>().material.color = Model._Color;
-        name = s + "(Clone)";
+        rcs();
     }
     public void resetCurrentSettings()
     {
         mf.mesh = generate();
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         transform.localScale = Model.scale;
-        GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+        Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
+        if (!newMaterial) 
+        {
+            GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material = newMaterial;
+        }
         GetComponent<MeshRenderer>().material.color = Model._Color;
         name = s + "(Clone)";
     }
@@ -193,17 +200,53 @@ public class CustomObject : CustomSaveObject
         {
             gameObject.layer = 3;
         }
+        if (Model.social)
+        {
+            gameObject.AddComponent<SocialObject>();
+        }
+        foreach (Vector3 v3 in Model.LeftLeg)
+        {
+            Instantiate(Resources.Load<GameObject>("CO_Parts/Left leg"), transform.position + v3, Quaternion.identity, transform.parent);
+        }
+        foreach (Vector3 v3 in Model.RightLeg)
+        {
+            Instantiate(Resources.Load<GameObject>("CO_Parts/Right leg"), transform.position + v3, Quaternion.identity, transform.parent);
+        }
+        if (Model.home)
+        {
+            Instantiate(Resources.Load<GameObject>("HomeTag"), gameObject.transform);
+        }
         if (Model.Transport)
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("CustomTransport"), transform.position, Quaternion.identity);
             obj.GetComponent<CustomTransport>().item = transform;
             obj.GetComponent<CustomTransport>().TransportNmae.text = s;
+            if (GetComponent<BoxCollider>())
+            {
+                GetComponent<BoxCollider>().includeLayers = Mashime;
+                GetComponent<BoxCollider>().excludeLayers = Mashime;
+            }
+            if (GetComponent<MeshCollider>())
+            {
+                GetComponent<MeshCollider> ().includeLayers = Mashime;
+                GetComponent<MeshCollider> ().excludeLayers = Mashime;
+            }
         }
         if (Model.car)
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("CustomCar"), transform.position, Quaternion.identity);
             obj.GetComponent<CustomTransport>().item = transform;
-            obj.GetComponent<CustomTransport>().TransportNmae.text = s;
+            obj.GetComponent<CustomTransport>().TransportNmae.text = s; 
+            if (GetComponent<BoxCollider>())
+            {
+                GetComponent<BoxCollider>().includeLayers = Mashime;
+                GetComponent<BoxCollider>().excludeLayers = Mashime;
+            }
+            if (GetComponent<MeshCollider>())
+            {
+                GetComponent<MeshCollider>().includeLayers = Mashime;
+                GetComponent<MeshCollider>().excludeLayers = Mashime;
+            }
         }
         if (Model.nDemention == NDemention._4D)
         {
@@ -278,6 +321,9 @@ public class CustomObject : CustomSaveObject
     int patrn = 0;
     public void LuaLogic(string loadedCode)
     {
+        v3 = new();
+        data = new();
+        Pos = new();
         //   string scriptCode = @"    
         //	-- defines a Jump function
         //	function Jump (time)

@@ -507,6 +507,38 @@ public class mover : CustomSaveObject
             Instantiate(g, transform);
         }
         seson = (Seson)VarSave.GetInt("Seson");
+        if (VarSave.GetFloat("Можно игрока обзывать" + "_gameSettings", SaveType.global) > -0.1)
+        {
+           
+            if (UnityEngine.Random.Range(0, 12) == 0)
+            {
+                GameObject g = Resources.Load<GameObject>("voices/Metapov");
+                Instantiate(g, transform);
+            }
+        }
+        else if (VarSave.GetFloat("Можно игрока обзывать" + "_gameSettings", SaveType.global) < -0.1)
+        {
+            if (UnityEngine.Random.Range(0, 1000) == 0)
+            {
+                GameObject g = Resources.Load<GameObject>("voices/Metapov");
+                Instantiate(g, transform);
+            }
+        }
+        if (VarSave.GetFloat("Можно игрока обзывать" + "_gameSettings", SaveType.global) > 0.5)
+        {
+            if (UnityEngine.Random.Range(0, 5) == 0)
+            {
+                GameObject g = Resources.Load<GameObject>("voices/Metapov");
+                Instantiate(g, transform);
+            }
+        }
+        if (VarSave.GetFloat("Можно игрока обзывать" + "_gameSettings", SaveType.global) >= 1)
+        {
+           
+                GameObject g = Resources.Load<GameObject>("voices/Metapov");
+                Instantiate(g, transform);
+           
+        }
         if (seson == Seson.Зима)
         {
             GameObject g = Resources.Load<GameObject>("Осатки/Зима");
@@ -1862,6 +1894,11 @@ public class mover : CustomSaveObject
     GameObject waterscreen;
     void Update()
     {
+        if (FindAnyObjectByType<taktikpoint>() == null && FindAnyObjectByType<TeleportButton>() != null)
+        {
+            GameObject g6 = Resources.Load<GameObject>("items/StartegyInterface");
+            Instantiate(g6);
+        }
         List<TalantDNA> tals = new List<TalantDNA>();
         if (DNA.talant != null)
         {
@@ -1930,7 +1967,7 @@ public class mover : CustomSaveObject
                 else
                 {
                     GameObject g = Resources.Load<GameObject>("Items/Мясо");
-                    Instantiate(g, mover.main().transform.position + (Vector3.up * 30), Quaternion.identity);
+                    Instantiate(g, mover.main().transform.position, Quaternion.identity);
                     hit.collider.gameObject.AddComponent<DELETE>();
                 }
             }

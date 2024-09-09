@@ -10,13 +10,19 @@ public class gameunitselect
 public class Unit : MonoBehaviour
 {
     public GameObject metka;
+    Transform taktikpoint1;
+    Transform taktikpoint2()
+    {
+        if (taktikpoint1 == null) taktikpoint1 = FindFirstObjectByType<taktikpoint>().transform;
+        return taktikpoint1;
+    }
     public void onSelect()
     {
         gameunitselect._this = gameObject;
     }
     private void FixedUpdate()
     {
-        if (FindObjectsByType<taktikpoint>(sortmode.main).Length > 0) { Transform igrok = FindFirstObjectByType<taktikpoint>().transform;
+        if (taktikpoint2()) { Transform igrok = taktikpoint2();
             if (gameunitselect._this == gameObject) metka.SetActive(true); else { metka.SetActive(false); }
             if (Input.GetKeyDown(KeyCode.Return))
             {

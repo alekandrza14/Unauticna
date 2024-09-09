@@ -1,4 +1,4 @@
-Shader "Custom/randomBlockTexture"
+Shader "Custom/Psihodelic"
 {
     Properties
     {

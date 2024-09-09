@@ -20,6 +20,10 @@ public class taktikpoint : MonoBehaviour
                     {
                         hit.collider.GetComponent<Unit>().onSelect();
                     }
+                    if (hit.collider.GetComponent<Slave>())
+                    {
+                        hit.collider.GetComponent<Slave>().onSelect();
+                    }
                 }
             }
         }

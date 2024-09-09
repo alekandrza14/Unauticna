@@ -29,8 +29,15 @@ public class CustomTransport : MonoBehaviour
 
     void Update()
     {
-        item.position = transform.position;
-        item.rotation = transform.rotation;
+        if (!item)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            item.position = transform.position;
+            item.rotation = transform.rotation;
+        }
         if (canvas)
         {
 

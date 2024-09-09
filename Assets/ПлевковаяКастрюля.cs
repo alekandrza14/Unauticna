@@ -55,7 +55,7 @@ public class ПлевковаяКастрюля : InventoryEvent
           
                 cooldown += 2;
 
-                плевки++;
+                плевки+=1 * Slave.plevk.Count;
                 GetComponent<itemName>().ItemData = плевки.ToString();
                 Instantiate(Resources.Load("voices/plevok_blad"));
           

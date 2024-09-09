@@ -83,7 +83,7 @@ public class spamton : MonoBehaviour
     bool game;
     private void OnMouseDown()
     {
-        if (!game)
+        if (!game && scam)
         {
             List<GameObject> red = new();
             red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
@@ -161,9 +161,9 @@ public class spamton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!lml2.Find()&&mage|| !lml2.Find() && cum)
+        if ((lml2.Find()&&mage)|| (lml2.Find() && cum))
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
         if (kidat&&!kid)
