@@ -7,7 +7,7 @@ public enum ProceAnim
 public class ProcedurAnimation : MonoBehaviour
 {
 
-    public GameObject TeloPoint;
+    
     public GameObject DebugPoint;
     public GameObject ColLeg;
     public GameObject LahLeg;
@@ -35,13 +35,14 @@ public class ProcedurAnimation : MonoBehaviour
 
 
             timer += Time.deltaTime*speed;
-            cur %= Shag.Length;
+            
             if (timer > 1)
             {
-                cur++;
+                cur++; 
+               // cur %= Shag.Length;
                 timer = 0;
             }
-            FeetLeg.transform.position = DebugPoint.transform.position + (TeloPoint.transform.right * Vector3.Slerp(Shag[cur], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).x) + (TeloPoint.transform.up * Vector3.Slerp(Shag[cur], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).y) + (TeloPoint.transform.forward * Vector3.Slerp(Shag[cur], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).z);
+            FeetLeg.transform.position = DebugPoint.transform.position + (nerv.Brain.transform.right * Vector3.Slerp(Shag[cur % (Shag.Length)], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).x) + (nerv.Brain.transform.up * Vector3.Slerp(Shag[cur % (Shag.Length)], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).y) + (nerv.Brain.transform.forward * Vector3.Slerp(Shag[cur % (Shag.Length)], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).z);
             Ray ray = new Ray(RayPoint.transform.position, Gravity);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {

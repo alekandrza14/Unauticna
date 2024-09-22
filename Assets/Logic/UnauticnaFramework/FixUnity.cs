@@ -35,8 +35,8 @@ namespace Global
             {
                 t = true;
             }
-            float x = mmin*1000, y = mmax*1000;
-            if (t) z = random.Next((int)x, (int)y) / 1000;
+            decimal x = (decimal)mmin*1000, y = (decimal)mmax *1000;
+            if (t) z = (float)(random.Next((int)x, (int)y)) / 1000f;
 
          
                 if (z > mmax)
@@ -130,7 +130,7 @@ namespace Global
                 t = true;
             }
             float x = mmin * potencial, y = mmax * potencial;
-            if (t) z = random.Next((int)(x), (int)(y)) / potencial;
+            if (t) z = (float)(random.Next((int)x, (int)y)) / potencial;
 
 
             if (z > mmax)

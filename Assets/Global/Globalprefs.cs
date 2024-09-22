@@ -96,6 +96,7 @@ public static class Globalprefs
     public static string selectitem;
     public static string selectcharacter;
     public static itemName selectitemobj;
+    public static CustomObject selectcoobj;
     public static bool isnew;
     public static string item;
     public static bool signedgamejolt;

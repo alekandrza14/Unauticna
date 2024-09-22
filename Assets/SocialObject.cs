@@ -21,6 +21,7 @@ public class SocialTriggerData
     public int teuvroMine;
     public bool PriseSlave;
     public string SlaveCommnad;
+    public string dataCommnad;
     public SocialTrigger export()
     {
         SocialTrigger new_ST = new();
@@ -36,6 +37,7 @@ public class SocialTriggerData
         new_ST.teuvroMine = this.teuvroMine;
         new_ST.PriseSlave = this.PriseSlave;
         new_ST.SlaveCommnad = this.SlaveCommnad;
+        new_ST.dataCommnad = this.dataCommnad;
         return new_ST;
     }
 }

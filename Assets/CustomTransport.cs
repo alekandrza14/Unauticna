@@ -19,7 +19,7 @@ public class CustomTransport : MonoBehaviour
         TakingSpace = Map_saver.total_lif + SceneManager.GetActiveScene().buildIndex;
     }
 
-    public Vector3 feixedVelosity(Vector3 velosity, float maxvelosity)
+    public Vector3 fixedVelosity(Vector3 velosity, float maxvelosity)
     {
         velosity.x = Mathf.Clamp(velosity.x, -maxvelosity, maxvelosity);
         velosity.y = Mathf.Clamp(velosity.y, -maxvelosity, maxvelosity);
@@ -35,8 +35,17 @@ public class CustomTransport : MonoBehaviour
         }
         else
         {
-            item.position = transform.position;
-            item.rotation = transform.rotation;
+            if (!item.GetComponent<HyperbolicPoint>())
+            {
+                item.position = transform.position;
+                item.rotation = transform.rotation;
+            }
+            else
+            {
+                transform.position = item.position;
+                transform.rotation = item.rotation;
+
+            }
         }
         if (canvas)
         {
@@ -49,7 +58,7 @@ public class CustomTransport : MonoBehaviour
         if (sitplayer)
         {
             Globalprefs.sit_player = player.gameObject;
-            GetComponent<Rigidbody>().linearVelocity = feixedVelosity(GetComponent<Rigidbody>().linearVelocity, 2f * speed);
+            GetComponent<Rigidbody>().linearVelocity = fixedVelosity(GetComponent<Rigidbody>().linearVelocity, 2f * speed);
             player.position = cell.position;
             player.rotation = cell.rotation;
            

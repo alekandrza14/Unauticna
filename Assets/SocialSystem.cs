@@ -11,11 +11,47 @@ public class SocialSystem : MonoBehaviour
     public InputField OutputMsg;
     public Text respectCounter;
     string[] words;
-    public int respect; 
+    public int respect;
     public void Exit()
     {
         Global.PauseManager.Play();
         Destroy(gameObject);
+    }
+    public void KilAll()
+    {
+        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+        foreach (CharacterName item in CharacterNames)
+        {
+            item.gameObject.AddComponent<DELETE>();
+        }
+        SocialObject[] CharacterNames2 = FindObjectsByType<SocialObject>(sortmode.main);
+        foreach (SocialObject item in CharacterNames2)
+        {
+            item.gameObject.AddComponent<DELETE>();
+        }
+    }
+    public void raidUniverse()
+    {
+        itemName[] CharacterNames = FindObjectsByType<itemName>(sortmode.main);
+        foreach (itemName item in CharacterNames)
+        {
+            item.gameObject.AddComponent<DELETE>();
+        }
+        CustomObject[] CharacterNames2 = FindObjectsByType<CustomObject>(sortmode.main);
+        foreach (CustomObject item in CharacterNames2)
+        {
+            item.gameObject.AddComponent<DELETE>();
+        }
+        StandartObject[] CharacterNames3 = FindObjectsByType<StandartObject>(sortmode.main);
+        foreach (StandartObject item in CharacterNames3)
+        {
+            item.gameObject.AddComponent<DELETE>();
+        }
+        telo[] CharacterNames4 = FindObjectsByType<telo>(sortmode.main);
+        foreach (telo item in CharacterNames4)
+        {
+            item.gameObject.AddComponent<DELETE>();
+        }
     }
     public void EnterText()
     {
@@ -108,8 +144,10 @@ public class SocialSystem : MonoBehaviour
                                     {
                                        if(!self.GetComponent<Slave>()) self.AddComponent<Slave>();
                                     }
-                                    if(self.GetComponent<Slave>())  self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
+                                    if (self.GetComponent<Slave>()) self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
+                                    if (self.GetComponent<Slave>()) self.GetComponent<Slave>().WorkQualityTEVRO -= trigger.teuvroMine;
                                     Globalprefs.LoadTevroPrise(trigger.teuvroMine);
+                                    Invoke(trigger.dataCommnad,0);
                                 }
                                 else
                                 {

@@ -16,7 +16,11 @@ public enum Functional
 }
 public enum StandartKey
 {
-    leftmouse,E,Q,leftshift,notrequired
+    leftmouse, E, Q, leftshift, notrequired
+}
+public enum CustomObjectType
+{
+    Object,PlayerScin
 }
 
 public class CustomObjectData
@@ -44,10 +48,22 @@ public class CustomObjectData
     public double Recycler;
     public double Redecycler;
     public double InfinityRecycler;
+    public double ItemPrice = 157d;
     public Vector3 playerRotate;
     public Vector3 playerMove;
-    public Vector3[] LeftLeg;
-    public Vector3[] RightLeg;
+    public Vector3[] LeftLeg = new Vector3[] { };
+    public Vector3[] RightLeg = new Vector3[] { };
+    public Vector3[] LeftPovid = new[]
+    {new Vector3(0,0,0),
+    new Vector3(0,0,0),
+    new Vector3(0,0.5f,0.5f),
+    new Vector3(0,0.5f,0.5f)};
+    public Vector3[] RightPovid = new[]
+    {
+    new Vector3(0,0.5f,0.5f),
+    new Vector3(0,0.5f,0.5f),
+    new Vector3(0,0,0),
+    new Vector3(0,0,0)};
     public Vector2 playerWHMove;
     public StandartKey standartKey;
     public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car,social,home;
@@ -57,6 +73,7 @@ public class CustomObjectData
 
 public class CustomObject : CustomSaveObject
 {
+    
     public MeshFilter mf;
     public Vector3[] verti;
     public int[] tria;
@@ -64,11 +81,14 @@ public class CustomObject : CustomSaveObject
     public Vector2[] uvs;
     public string s;
     public bool saved;
+    public bool Imsaveble;
     public LayerMask Mashime;
     public CustomObjectData Model = new CustomObjectData();
     // Start is called before the first frame update
     void Start()
     {
+        
+        if (VarSave.GetString("Scin") != "" && Imsaveble) s = VarSave.GetString("Scin");
         if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
         {
             Transform body;
@@ -196,21 +216,42 @@ public class CustomObject : CustomSaveObject
         {
             if (!GetComponent<RunToPlayer>()) gameObject.AddComponent<RunToPlayer>();
         }
+       
         if (Model.NoCollect)
         {
             gameObject.layer = 3;
         }
+        
         if (Model.social)
         {
             gameObject.AddComponent<SocialObject>();
         }
+        
+        
         foreach (Vector3 v3 in Model.LeftLeg)
         {
-            Instantiate(Resources.Load<GameObject>("CO_Parts/Left leg"), transform.position + v3, Quaternion.identity, transform.parent);
-        }
+            Vector3 x = transform.right;
+            Vector3 y = transform.up;
+            Vector3 z = transform.forward;
+            Vector3 xyz = (x * v3.x) + (y * v3.y) + (z * v3.z);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("CO_Parts/Left leg"), transform);
+            obj.transform.position = xyz + transform.position;
+            Nerv nerv = obj.GetComponent<Nerv>();
+            nerv.Leg.Shag = Model.LeftPovid;
+            nerv.Brain = gameObject;
+        } 
+        
         foreach (Vector3 v3 in Model.RightLeg)
         {
-            Instantiate(Resources.Load<GameObject>("CO_Parts/Right leg"), transform.position + v3, Quaternion.identity, transform.parent);
+            Vector3 x = transform.right;
+            Vector3 y = transform.up;
+            Vector3 z = transform.forward;
+            Vector3 xyz = (x * v3.x) + (y * v3.y) + (z * v3.z);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("CO_Parts/Right leg"), transform);
+            obj.transform.position = xyz + transform.position;
+            Nerv nerv = obj.GetComponent<Nerv>();
+            nerv.Leg.Shag = Model.RightPovid;
+            nerv.Brain = gameObject;
         }
         if (Model.home)
         {

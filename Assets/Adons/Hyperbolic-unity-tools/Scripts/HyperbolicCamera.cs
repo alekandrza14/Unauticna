@@ -71,8 +71,9 @@ public class HyperbolicCamera : MonoBehaviour
     static HyperbolicCamera main_cam = null;
     public static HyperbolicCamera Main()
     {
+        
         if(main_cam==null) main_cam = FindFirstObjectByType<HyperbolicCamera>();
-
+       
         return main_cam;
     }
     private void LateUpdate()
@@ -184,13 +185,13 @@ public class HyperbolicCamera : MonoBehaviour
 
 
     }
-
+    float ftho;
 
     // Update is called once per frame
     public void Update()
     {
 
-        transform.rotation = Quaternion.identity;
+       if(Main().gameObject.activeSelf) transform.rotation = Quaternion.identity;
         transform.position = Vector3.zero + Vector3.up * transform.position.y;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -203,7 +204,15 @@ public class HyperbolicCamera : MonoBehaviour
         if (mover.main() != null)
         {
 
-
+            if (ftho > 0) ftho -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.F) && mover.main().CosProgress() > 0)
+            {
+                ftho += 1;
+                if (ftho > 1)
+                {
+                    RealtimeTransform.preApplyTranslationZ(-2); ftho = 0;
+                }
+            }
             if (mover.main().GetViewFace() != faceView.fourd)
             {
                 Vector3 v = Vector3.MoveTowards(Vector3.zero, new Vector3(-Input.GetAxis("Vertical") * Time.deltaTime, -Input.GetAxis("Horizontal") * Time.deltaTime), 2);

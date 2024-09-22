@@ -19,6 +19,7 @@ public class SocialTrigger : ScriptableObject
     public int respectMine;
     public int teuvroMine;
     public bool PriseSlave;
+    public string dataCommnad;
     public GameObject morph;
     public GameObject gift;
 }

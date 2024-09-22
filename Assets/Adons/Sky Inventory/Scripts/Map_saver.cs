@@ -409,6 +409,19 @@ public class Map_saver : MonoBehaviour
 
 
                     saveString1.idA.Add(items[i3]._Name);
+                    if (items[i3].GetComponent<CharacterStats>())
+                    {
+
+                        saveString1.Stats_B.Add(JsonUtility.ToJson(items[i3].GetComponent<CharacterStats>().data));
+
+                    }
+                    else
+                    {
+
+
+
+                        saveString1.Stats_B.Add("");
+                    }
                     if (items[i3].GetComponent<breauty>())
                     {
                         saveString1.x.Add(items[i3].GetComponent<breauty>().integer);
@@ -453,6 +466,7 @@ public class Map_saver : MonoBehaviour
                         saveString1.isSlaveA.Add(true); 
                         saveString1.SlaveA.Add(items[i3].GetComponent<Slave>().slaveData);
 
+                        saveString1.SlaveTevA.Add(items[i3].GetComponent<Slave>().WorkQualityTEVRO);
                     }
                     else
                     {
@@ -460,6 +474,7 @@ public class Map_saver : MonoBehaviour
                         saveString1.isSlaveA.Add(false);
                         saveString1.SlaveA.Add("");
 
+                        saveString1.SlaveTevA.Add(0);
                     }
 
                     if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
@@ -525,6 +540,7 @@ public class Map_saver : MonoBehaviour
                 saveString1.isSlaveB.Add(true);
 
                 saveString1.SlaveB.Add(t[i].GetComponent<Slave>().slaveData);
+                saveString1.SlaveTevB.Add(t[i].GetComponent<Slave>().WorkQualityTEVRO);
             }
             else
             {
@@ -532,85 +548,116 @@ public class Map_saver : MonoBehaviour
                 saveString1.isSlaveB.Add(false);
 
                 saveString1.SlaveB.Add("");
+                saveString1.SlaveTevB.Add(0);
 
             }
+            if (t[i].GetComponent<CharacterStats>())
+            {
 
+                saveString1.Stats_C.Add(JsonUtility.ToJson(t[i].GetComponent<CharacterStats>().data));
+
+            }
+            else
+            {
+
+
+
+                saveString1.Stats_C.Add("");
+            }
         }
         CustomObject[] co = FindObjectsByType<CustomObject>(sortmode.main);
 
         int o = 0;
         for (int i = 0; i < co.Length; i++)
         {
-            if (co[i].GetComponent<Slave>())
+            if (!co[i].Imsaveble) 
             {
-                saveString1.isSlaveD.Add(true);
-                saveString1.SlaveD.Add(co[i].GetComponent<Slave>().slaveData);
-
-            }
-            else
-            {
-
-                saveString1.isSlaveD.Add(false);
-
-                saveString1.SlaveD.Add("");
-            }
-            if (co[i].GetComponent<MultyObject>())
-            {
-                Vector6 v6 = co[i].GetComponent<MultyObject>().startPosition;
-                saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
-            }
-            if (!co[i].GetComponent<MultyObject>()) saveString1.vector3D.Add(co[i].transform.position);
-            saveString1.idC.Add(co[i].s);
-            saveString1.SavedPlayer.Add(true);
-            if (co[i].GetComponent<HyperbolicPoint>())
-            {
-                saveString1.PvectorC.Add(co[i].GetComponent<HyperbolicPoint>().HyperboilcPoistion);
-            }
-            else
-            {
-                saveString1.PvectorC.Add(new Hyperbolic2D());
-            }
-            if (co[i].GetComponent<MultyObject>())
-            {
-                saveString1.posW2.Add(co[i].GetComponent<MultyObject>().W_Position);
-                saveString1.posH2.Add(co[i].GetComponent<MultyObject>().H_Position);
-            }
-            else
-            {
-                saveString1.posW2.Add(0);
-                saveString1.posH2.Add(0);
-            }
-            saveString1.curN2.Add(o);
-            if (co[i].GetComponent<MultyObject>())
-            {
-                MultyObject mo = co[i].GetComponent<MultyObject>();
-                //   Debug.Log("Start masiive position " + i); 
-                //  Debug.Log("Start masiive position position " + o + " / " + mo.gameObject.name);
-                if (mo.N_Positions != null)
+                if (co[i].GetComponent<Slave>())
                 {
-
-                    for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
-                    {
-
-                        //    Debug.Log("Start masiive position position " + o + " / " + mo.N_Positions[i3] + " / " + i3 + " / " + mo.gameObject.name);
-                        o++;
-                        saveString1.posN2.Add(mo.N_Positions[i3]);
-                    }
+                    saveString1.isSlaveD.Add(true);
+                    saveString1.SlaveD.Add(co[i].GetComponent<Slave>().slaveData);
+                    saveString1.SlaveTevD.Add(co[i].GetComponent<Slave>().WorkQualityTEVRO);
 
                 }
                 else
                 {
 
-                    saveString1.posN2.Add(0);
+                    saveString1.isSlaveD.Add(false);
+
+                    saveString1.SlaveD.Add("");
+                    saveString1.SlaveTevD.Add(0);
                 }
-                //  Debug.Log("End masiive position " + i);
+                if (co[i].GetComponent<CharacterStats>())
+                {
+                    
+                    saveString1.Stats_A.Add(JsonUtility.ToJson(co[i].GetComponent<CharacterStats>().data));
+
+                }
+                else
+                {
+
+                    
+
+                    saveString1.Stats_A.Add("");
+                }
+                if (co[i].GetComponent<MultyObject>())
+                {
+                    Vector6 v6 = co[i].GetComponent<MultyObject>().startPosition;
+                    saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
+                }
+                if (!co[i].GetComponent<MultyObject>()) saveString1.vector3D.Add(co[i].transform.position);
+                saveString1.idC.Add(co[i].s);
+                saveString1.SavedPlayer.Add(true);
+                if (co[i].GetComponent<HyperbolicPoint>())
+                {
+                    saveString1.PvectorC.Add(co[i].GetComponent<HyperbolicPoint>().HyperboilcPoistion);
+                }
+                else
+                {
+                    saveString1.PvectorC.Add(new Hyperbolic2D());
+                }
+                if (co[i].GetComponent<MultyObject>())
+                {
+                    saveString1.posW2.Add(co[i].GetComponent<MultyObject>().W_Position);
+                    saveString1.posH2.Add(co[i].GetComponent<MultyObject>().H_Position);
+                }
+                else
+                {
+                    saveString1.posW2.Add(0);
+                    saveString1.posH2.Add(0);
+                }
                 saveString1.curN2.Add(o);
-            }
-            else
-            {
-                o++;
-                saveString1.posN2.Add(0);
-                saveString1.curN2.Add(o);
+                if (co[i].GetComponent<MultyObject>())
+                {
+                    MultyObject mo = co[i].GetComponent<MultyObject>();
+                    //   Debug.Log("Start masiive position " + i); 
+                    //  Debug.Log("Start masiive position position " + o + " / " + mo.gameObject.name);
+                    if (mo.N_Positions != null)
+                    {
+
+                        for (int i3 = 0; i3 < mo.N_Positions.Length; i3++)
+                        {
+
+                            //    Debug.Log("Start masiive position position " + o + " / " + mo.N_Positions[i3] + " / " + i3 + " / " + mo.gameObject.name);
+                            o++;
+                            saveString1.posN2.Add(mo.N_Positions[i3]);
+                        }
+
+                    }
+                    else
+                    {
+
+                        saveString1.posN2.Add(0);
+                    }
+                    //  Debug.Log("End masiive position " + i);
+                    saveString1.curN2.Add(o);
+                }
+                else
+                {
+                    o++;
+                    saveString1.posN2.Add(0);
+                    saveString1.curN2.Add(o);
+                }
             }
 
         }
@@ -721,11 +768,11 @@ public class Map_saver : MonoBehaviour
 
     public void LoadObjects()
     {
-       
-        Directory.CreateDirectory( name2 + @"/objects");
 
-      
-        
+        Directory.CreateDirectory(name2 + @"/objects");
+
+
+
         saveString1 = new MapData();
         if (string.IsNullOrEmpty(mapLoad))
         {
@@ -743,391 +790,13 @@ public class Map_saver : MonoBehaviour
         {
             if (c == 0)
             {
-                LoadADone = false;
-                if (File.Exists(saveString221))
-                {
-                    saveString1 = JsonUtility.FromJson<MapData>(File.ReadAllText(saveString221));
-
-                    Debug.Log("IU");
-                }
-                else
-                {
-                    Debug.Log("IU2");
-                    if (VarSave.GetString("quest", SaveType.global) == "капуста") questtarget = true;
-                    File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
-                    saveString1 = JsonUtility.FromJson<MapData>(File.ReadAllText(saveString221));
-                    FirstSpawn = true;
-
-                }
-
-
-
-                genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
-                for (int i = 0; i < gm.Length; i++)
-                {
-                    gm[i].gameObject.AddComponent<deleter1>();
-                }
-               
-                for (int i = 0; i < saveString1.vector3G.Count; i++)
-                {
-                    genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), saveString1.vector3G[i], Quaternion.identity).GetComponent<genmodel>();
-                    g.s = saveString1.idG[i];
-                    g.transform.localScale = saveString1.Scale3G[i];
-
-                }
-
-/*
-                if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera == null)
-                {
-                    TransformObject to_save = JsonUtility.FromJson<TransformObject>(saveString1.editpos);
-
-                    for (int i = 0; i < Globalprefs.allpos.Length; i++)
-                    {
-                        for (int i5 = 0; i5 < to_save.initpos.Length; i5++)
-                        {
-                           if(i>i5) if (Globalprefs.allTransphorms.Length > i)
-                            {
-                                if (Globalprefs.allTransphorms[i] != null) if (Vector3.negativeInfinity.ToString() == to_save.initpos[i5].ToString() &&
-                                      Globalprefs.allTransphorms[i].name == to_save.name[i5])
-                                    {
-
-                                    }
-                                    else if (Globalprefs.allpos[i].ToString() == to_save.initpos[i5].ToString() &&
-                                        Globalprefs.allTransphorms[i].name == to_save.name[i5])
-                                    {
-                                        Globalprefs.allTransphorms[i].transform.position = to_save.v3[i5];
-                                        Globalprefs.allTransphorms[i].transform.rotation = to_save.q4[i5];
-                                        Globalprefs.allTransphorms[i].transform.localScale = to_save.s3[i5];
-                                    }
-                            }
-                        }
-                    }
-
-                }
-
-
-
-                */
-
-                itemName[] items = FindObjectsByType<itemName>(sortmode.main);
-
-
-
-                if (items.Length != 0)
-                {
-
-
-
-                    for (int i3 = 0; i3 < items.Length; i3++)
-                    {
-
-                        items[i3].gameObject.AddComponent<deleter1>();
-
-
-                    }
-
-
-
-                }
-                List<float[]> nid = new();
-                List<float[]> nid2 = new();
-                List<float[]> nid3 = new();
-
-                if (saveString1.posN.Count > 0)
-                {
-                    for (int i = 0; i < saveString1.curN.Count - 1; i += 2)
-                    {
-                        nid.Add(saveString1.posN.GetRange(saveString1.curN[i], saveString1.curN[i + 1] - saveString1.curN[i]).ToArray());
-                    }
-                    Debug.Log(saveString1.curN.Count);
-                }
-                if (saveString1.posN2.Count > 0)
-                {
-                    //  nid.Add(saveString1.posN.GetRange(saveString1.curN[saveString1.curN.Count - 2], saveString1.curN[saveString1.curN.Count - 1]-1).ToArray());
-                    for (int i = 0; i < saveString1.curN2.Count - 1; i++)
-                    {
-                        nid2.Add(saveString1.posN2.GetRange(saveString1.curN2[i], saveString1.curN2[i + 1] - saveString1.curN2[i]).ToArray());
-                    }
-                }
-                if (saveString1.posN3.Count > 0)
-                {
-                    //  nid2.Add(saveString1.posN2.GetRange(saveString1.curN2[saveString1.curN2.Count - 2], saveString1.curN2[saveString1.curN2.Count - 1]-1).ToArray());
-
-                    for (int i = 0; i < saveString1.curN3.Count - 1; i++)
-                    {
-                        nid3.Add(saveString1.posN3.GetRange(saveString1.curN3[i], saveString1.curN3[i + 1] - saveString1.curN3[i]).ToArray());
-                    }
-                }
-                //  nid3.Add(saveString1.posN3.GetRange(saveString1.curN3[saveString1.curN3.Count - 2], saveString1.curN3[saveString1.curN3.Count - 1] - 1).ToArray());
-
-
-                telo[] t = FindObjectsByType<telo>(sortmode.main);
-
-
-                for (int i = 0; i < t.Length; i++)
-                {
-
-
-                    t[i].gameObject.AddComponent<deleter1>();
-                }
-                StandartObject[] so = FindObjectsByType<StandartObject>(sortmode.main);
-                for (int i = 0; i < so.Length; i++)
-                {
-
-
-                    so[i].gameObject.AddComponent<deleter1>();
-                }
-                CustomObject[] co2 = FindObjectsByType<CustomObject>(sortmode.main);
-                for (int i = 0; i < co2.Length; i++)
-                {
-
-
-                    co2[i].gameObject.AddComponent<deleter1>();
-                }
-
-                if (saveString1.vector3B.Count != 0)
-                {
-                    for (int i = 0; i < saveString1.vector3B.Count; i++)
-                    {
-                        
-                        telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), saveString1.vector3B[i], Quaternion.identity).GetComponent<telo>();
-                        if (saveString1.isSlaveB != null)
-                        {
-                            if (saveString1.isSlaveB.Count != 0)
-                            {
-                                if (saveString1.isSlaveB[i]) g.gameObject.AddComponent<Slave>();
-                                if (saveString1.SlaveB.Count != 0)
-                                {
-                                    if (saveString1.SlaveB.Count > i) if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveB[i];
-                                }
-                            }
-                        }
-                        
-                        g.nameCreature = saveString1.NamesCreatures[i];
-                        g.gameObject.transform.position = saveString1.vector3B[i];
-                    }
-                }
-                //StandartObject
-                for (int i = 0; i < saveString1.idB.Count; i++)
-                {
-
-                    GameObject g = Instantiate(t4[ToTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
-                    if (saveString1.PvectorB.Count > i && hc != null)
-                    {
-                        if (!g.GetComponent<HyperbolicPoint>())
-                        {
-
-
-                            g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorB[i];
-
-                            g.transform.position = new Vector3(
-                            g.transform.position.x,
-                            saveString1.vector3C[i].y,
-                            g.transform.position.z
-                                             );
-                        }
-                        else
-                        {
-                            g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorB[i];
-                            g.transform.position = new Vector3(
-                            g.transform.position.x,
-                            saveString1.vector3C[i].y,
-                            g.transform.position.z
-                                             );
-                        }
-                    }
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3C[i].x;
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3C[i].y;
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3C[i].z;
-
-                    if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
-                    if (saveString1.posH.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH[i];
-                    if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
-
-                    if (saveString1.Scale3B[i].x != 0) g.transform.localScale = saveString1.Scale3B[i];
-                    if (saveString1.posN3.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid3.Count; i2++)
-                            {
-                                g.GetComponent<MultyObject>().N_Positions = nid3[i];
-                            }
-
-                }
-                bool j1 = false;
-                GameObject co = Resources.Load<GameObject>("CustomObject");
-                
-                for (int i = 0; i < saveString1.idC.Count; i++)
-                {
-
-                    if (Demake != null)
-                        if (Demake.co != null)
-                            if (Demake.co.Count > 0)
-                                foreach (string s in Demake.co)
-                                {
-                                    if (saveString1.idC[i] == s)
-                                    {
-                                        j1 = true;
-                                    }
-                                }
-                    if (!j1)
-                    {
-                        GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
-                        if (saveString1.isSlaveD != null)
-                        {
-                            if (saveString1.isSlaveD.Count != 0)
-                            {
-                                if (saveString1.isSlaveD[i]) co.gameObject.AddComponent<Slave>();
-                                if (saveString1.SlaveD.Count > i) if (saveString1.SlaveD.Count != 0)
-                                    {
-                                     if (co.gameObject.GetComponent<Slave>())   co.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveD[i];
-                                    }
-                            }
-                        }
-                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
-                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
-                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
-                        if (saveString1.PvectorC.Count > i && hc != null)
-                        {
-                            if (!g.GetComponent<HyperbolicPoint>())
-                            {
-
-
-                                g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
-
-                                g.transform.position = new Vector3(
-                                g.transform.position.x,
-                                saveString1.vector3D[i].y,
-                                g.transform.position.z
-                                                 );
-                            }
-                            else
-                            {
-                                g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
-                                g.transform.position = new Vector3(
-                                g.transform.position.x,
-                                saveString1.vector3D[i].y,
-                                g.transform.position.z
-                                                 );
-                            }
-                        }
-                        g.GetComponent<CustomObject>().s = saveString1.idC[i];
-                        g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
-                        g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
-                        if (saveString1.posN2.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid2.Count; i2++)
-                                {
-                                    g.GetComponent<MultyObject>().N_Positions = nid2[i];
-                                }
-                    }
-                    else
-                    {
-                        j1 = false;
-                    }
-                }
-                bool j2 = false;
-                for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
-                {
-
-                    if (Demake != null)
-                        if (Demake.item != null)
-                            if (Demake.item.Count > 0) foreach (string s in Demake.item)
-                                {
-                                    if (saveString1.idA[i3] == s)
-                                    {
-                                        j2 = true;
-                                    }
-                                }
-                    if (!j2)
-                    {
-                       
-                        Debug.Log("1");
-                        GameObject g = Instantiate(t3[ToNameToID(saveString1.idA[i3])], new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
-                        if (saveString1.isSlaveA != null)
-                        {
-                            if (saveString1.isSlaveA.Count != 0)
-                            {
-                                if (saveString1.isSlaveA[i3]) g.gameObject.AddComponent<Slave>();
-                                if (saveString1.SlaveA.Count != 0)
-                                {
-
-                                    if (saveString1.SlaveA.Count > i3) if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveA[i3];
-                                }
-                            }
-                            
-                        }
-                        g.transform.localScale = (saveString1.Scale3A[i3]);
-                        if (!g.GetComponent<breauty>())
-                        {
-
-
-                            g.AddComponent<breauty>().integer = saveString1.x[i3];
-                        }
-                        else
-                        {
-                            g.GetComponent<breauty>().integer = saveString1.x[i3];
-                        }
-                        if (saveString1.scriptA.Count != 0) if (!g.GetComponent<unScript>())
-                            {
-                                UnsFormat info = new()
-                                {
-                                    script = saveString1.scriptA[i3]
-                                };
-                            if (!string.IsNullOrEmpty(saveString1.scriptA[i3])) g.AddComponent<unScript>().ins = info;
-                        }
-                       
-                        if (saveString1.PvectorA.Count > i3 && hc != null)
-                        {
-                            if (!g.GetComponent<HyperbolicPoint>())
-                            {
-
-
-                                g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
-
-                                g.transform.position = new Vector3(
-                                g.transform.position.x,
-                                saveString1.vector3A[i3].y,
-                                g.transform.position.z
-                                                 );
-                            }
-                            else
-                            {
-                                g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
-                                g.transform.position = new Vector3(
-                                g.transform.position.x,
-                                saveString1.vector3A[i3].y,
-                                g.transform.position.z
-                                                 );
-                            }
-                        }
-
-
-                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
-                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
-                        if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
-                        if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
-                        if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
-                        if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
-                        if (g.GetComponent<itemName>())
-                        {
-                            g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
-                        }
-                        if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
-                                {
-                                    g.GetComponent<MultyObject>().N_Positions = nid[i];
-                                }
-                    }
-                    else
-                    {
-                        j2 = false;
-                    }
-
-
-                }
-
-
+                SetObjects(hc, ref questtarget, ref FirstSpawn);
             }
             List<GameObject> objs = new();
             if (c == 1)
             {
                 RaycastHit hit;
-               
+
                 mover m = mover.main();
                 LoadADone = true;
                 foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
@@ -1136,7 +805,7 @@ public class Map_saver : MonoBehaviour
                 }
                 if (Global.Random.Chance(2) && VarSave.GetInt("Agr") > 1000)
                 {
-                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/Legal_mafia"), mover.main().transform.position, Quaternion.identity));
+                    if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("events/Legal_mafia"), mover.main().transform.position, Quaternion.identity));
 
                 }
                 if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
@@ -1146,36 +815,36 @@ public class Map_saver : MonoBehaviour
                         Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
                     if (Global.Random.Chance(8))
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент2"), mover.main().transform.position, Quaternion.identity));
+                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент2"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     if (Global.Random.Chance(10))
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент3"), mover.main().transform.position, Quaternion.identity));
+                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент3"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     if (Global.Random.Chance(10))
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент4"), mover.main().transform.position, Quaternion.identity));
+                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("events/аруа_момент4"), mover.main().transform.position, Quaternion.identity));
 
                     }
                     //ВышийЛетун
                     if (Global.Random.Chance(2))
                     {
-                       if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун"), mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity));
+                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/ВышийЛетун"), mover.main().transform.position + Global.math.randomCube(-100, 100), Quaternion.identity));
 
                     }
                     if (FirstSpawn)
                     {
                         Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
-                        
+
                         if (Physics.Raycast(r, out hit))
                         {
                             if (hit.collider != null)
                             {
                                 if (!Global.Random.Chance(6))
                                 {
-                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов"), hit.point, Quaternion.identity));
+                                    if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/РетуалКультяпистов"), hit.point, Quaternion.identity));
 
                                 }
                             }
@@ -1191,12 +860,12 @@ public class Map_saver : MonoBehaviour
                             break;
                         }
                         Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
-                        
+
                         if (Physics.Raycast(r, out hit))
                         {
                             if (hit.collider != null)
                             {
-                               if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Капуста"), hit.point, Quaternion.identity));
+                                if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Капуста"), hit.point, Quaternion.identity));
                             }
                         }
                     }
@@ -1303,81 +972,110 @@ public class Map_saver : MonoBehaviour
                     GameManager.saveandhill();
                     Globalprefs.AutoSave = false;
                 }
-                    if (FirstSpawn)
+                if (FirstSpawn)
                 {
+                    if (Global.Random.Chance(2)) AddObject(hc, ref questtarget, ref FirstSpawn, true);
+                    if (Global.Random.Chance(3)) AddObject(hc, ref questtarget, ref FirstSpawn, true);
+                    if (Global.Random.Chance(5)) AddObject(hc, ref questtarget, ref FirstSpawn, true);
+                    if (Global.Random.Chance(25)) AddObject(hc, ref questtarget, ref FirstSpawn, true);
+                    if (Global.Random.Chance(150)) AddObject(hc, ref questtarget, ref FirstSpawn, true);
                     foreach (InventoryEvent i2 in FindObjectsByType<InventoryEvent>(sortmode.main))
                     {
                         i2.init();
                     }
+
+                    //GameObject co = Resources.Load<GameObject>("CustomObject");
                     if (objs.Count < 100) if (Global.Random.Chance(2))
-                    {
-                        for (int i = 0; i < 6; i++)
+                        {
+                            for (int i = 0; i < 6; i++)
                             {
                                 if (objs.Count > 100)
                                 {
                                     break;
                                 }
                                 Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
-                          
-                            if (Physics.Raycast(r, out hit))
-                            {
-                                if (hit.collider != null)
+
+                                if (Physics.Raycast(r, out hit))
                                 {
-                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity));
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity));
+                                    }
                                 }
                             }
                         }
-                    }
+                    if (objs.Count < 100) if (Global.Random.Chance(2))
+                        {
+                            DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
+                            for (int i = 0; i < 6; i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("CustomObject"), hit.point, Quaternion.identity));
+                                        FileInfo fi = dif.GetFiles()[Random.Range(0, dif.GetFiles().Length)];
+                                        objs[objs.Count - 1].GetComponent<CustomObject>().s = fi.Name.Replace(".txt", "");
+                                    }
+                                }
+                            }
+                        }
                     if (objs.Count < 100) if (Global.Random.Chance(7))
-                    {
-                        for (int i = 0; i < 6; i++)
+                        {
+                            for (int i = 0; i < 6; i++)
                             {
                                 if (objs.Count > 100)
                                 {
                                     break;
                                 }
                                 Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
-                            
-                            if (Physics.Raycast(r, out hit))
-                            {
-                                if (hit.collider != null)
+
+                                if (Physics.Raycast(r, out hit))
                                 {
-                                   if(objs.Count<100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity));
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity));
+                                    }
                                 }
                             }
                         }
-                    }
 
                     if (objs.Count < 100) if (Global.Random.Chance(24))
-                    {
+                        {
 
-                        GameObject[] g = Resources.LoadAll<GameObject>("danges");
+                            GameObject[] g = Resources.LoadAll<GameObject>("danges");
 
-                       if(objs.Count<100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity));
+                            if (objs.Count < 100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], Global.math.randomCube(-1000, 1000), Quaternion.identity));
 
 
 
-                    }
+                        }
                     if (objs.Count < 100) if (Global.Random.Chance(3))
-                    {
-                        for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
+                        {
+                            for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
                             {
                                 if (objs.Count > 100)
                                 {
                                     break;
                                 }
                                 GameObject[] g = Resources.LoadAll<GameObject>("Ministructures");
-                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
-                         
-                            if (Physics.Raycast(r, out hit))
-                            {
-                                if (hit.collider != null)
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
                                 {
-                                   if(objs.Count<100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], hit.point, Quaternion.identity));
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g[Global.Random.Range(0, g.Length)], hit.point, Quaternion.identity));
+                                    }
                                 }
                             }
                         }
-                    }
                     //Nuclear_plant
                     if (objs.Count < 100) if (Global.Random.Chance(3))
                         {
@@ -1460,52 +1158,63 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     if (objs.Count < 100)
-                        {
-                            for (int i = 0; i < 0 + Global.Random.Range(25, 100); i++)
-                            {
-                                if (objs.Count > 100)
-                                {
-                                    break;
-                                }
-                                GameObject g = Resources.Load<GameObject>("Items/Каменьщикоый_камень");
-                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
-
-                                if (Physics.Raycast(r, out hit))
-                                {
-                                    if (hit.collider != null)
-                                    {
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
-                                    }
-                                }
-                            }
-                        }
-                    //Custom creature
-                    DirectoryInfo info = new("res/Creatures");
-                    FileInfo[] inf = info.GetFiles();
-                    if (objs.Count < 100)
                     {
-                        if (Global.Random.Chance(2)) for (int i = 0; i < 0 + Global.Random.Range(1, 6); i++)
+                        for (int i = 0; i < 0 + Global.Random.Range(25, 100); i++)
                         {
                             if (objs.Count > 100)
                             {
                                 break;
                             }
-                            GameObject g = Resources.Load<GameObject>("Custom creature");
+                            GameObject g = Resources.Load<GameObject>("Items/Каменьщикоый_камень");
                             Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    if (objs.Count < 100) 
-                                    {
-                                        GameObject obj = Instantiate(g, hit.point, Quaternion.identity);
-                                        obj.GetComponent<telo>().nameCreature = inf[Global.Random.Range(0, inf.Length)].Name.Replace(".creature","");
-                                        objs.Add(obj); 
-                                    }
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
                                 }
                             }
                         }
+                    }
+                    
+                    //Custom creature
+                    DirectoryInfo info = new("res/Creatures");
+                    FileInfo[] inf = info.GetFiles();
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(2)) for (int i = 0; i < 0 + Global.Random.Range(1, 6); i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Custom creature");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100)
+                                        {
+                                            GameObject obj = Instantiate(g, hit.point, Quaternion.identity);
+                                            FileInfo creacure = inf[Global.Random.Range(0, inf.Length)];
+                                            string screachure = creacure.Name.Replace(".creature", "");
+                                            Creature fileSafe = JsonUtility.FromJson<Creature>(File.ReadAllText(creacure.FullName));
+                                            //Запрещаю естесвеный спавн планетарных титанов. Причина : 0 FPS не хочю терпеть на протяжении долгих минут иза своей огромного хит бокса задивающи 1 000 000 физических объектов.
+                                            //Ты ж ведь тож не хочешь? или оптимизируй если хочешь но я вообще не знаю как ты это сделаешь...
+                                            if (fileSafe.sc!=SizeCreachure.planet)
+                                            {
+
+
+                                                obj.GetComponent<telo>().nameCreature = screachure;
+                                                objs.Add(obj);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                     }
                 }
             }
@@ -1518,6 +1227,491 @@ public class Map_saver : MonoBehaviour
 
 
     }
+
+    private void SetObjects(HyperbolicCamera hc, ref bool questtarget, ref bool FirstSpawn)
+    {
+        LoadADone = false;
+        
+
+
+
+        genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+        for (int i = 0; i < gm.Length; i++)
+        {
+            gm[i].gameObject.AddComponent<deleter1>();
+        }
+
+        for (int i = 0; i < saveString1.vector3G.Count; i++)
+        {
+            genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), saveString1.vector3G[i], Quaternion.identity).GetComponent<genmodel>();
+            g.s = saveString1.idG[i];
+            g.transform.localScale = saveString1.Scale3G[i];
+
+        }
+
+        /*
+                        if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera == null)
+                        {
+                            TransformObject to_save = JsonUtility.FromJson<TransformObject>(saveString1.editpos);
+
+                            for (int i = 0; i < Globalprefs.allpos.Length; i++)
+                            {
+                                for (int i5 = 0; i5 < to_save.initpos.Length; i5++)
+                                {
+                                   if(i>i5) if (Globalprefs.allTransphorms.Length > i)
+                                    {
+                                        if (Globalprefs.allTransphorms[i] != null) if (Vector3.negativeInfinity.ToString() == to_save.initpos[i5].ToString() &&
+                                              Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                                            {
+
+                                            }
+                                            else if (Globalprefs.allpos[i].ToString() == to_save.initpos[i5].ToString() &&
+                                                Globalprefs.allTransphorms[i].name == to_save.name[i5])
+                                            {
+                                                Globalprefs.allTransphorms[i].transform.position = to_save.v3[i5];
+                                                Globalprefs.allTransphorms[i].transform.rotation = to_save.q4[i5];
+                                                Globalprefs.allTransphorms[i].transform.localScale = to_save.s3[i5];
+                                            }
+                                    }
+                                }
+                            }
+
+                        }
+
+
+
+                        */
+
+        telo[] t = FindObjectsByType<telo>(sortmode.main);
+
+
+        for (int i = 0; i < t.Length; i++)
+        {
+
+
+            t[i].gameObject.AddComponent<deleter1>();
+        }
+        StandartObject[] so = FindObjectsByType<StandartObject>(sortmode.main);
+        for (int i = 0; i < so.Length; i++)
+        {
+
+
+            so[i].gameObject.AddComponent<deleter1>();
+        }
+        CustomObject[] co2 = FindObjectsByType<CustomObject>(sortmode.main);
+        for (int i = 0; i < co2.Length; i++)
+        {
+
+
+            if (!co2[i].Imsaveble) co2[i].gameObject.AddComponent<deleter1>();
+        }
+
+        itemName[] items = FindObjectsByType<itemName>(sortmode.main);
+
+
+
+        if (items.Length != 0)
+        {
+
+
+
+            for (int i3 = 0; i3 < items.Length; i3++)
+            {
+
+                items[i3].gameObject.AddComponent<deleter1>();
+
+
+            }
+
+
+
+        }
+        AddObject(hc, ref questtarget, ref FirstSpawn,false);
+
+    }
+
+    private void AddObject(HyperbolicCamera hc, ref bool questtarget, ref bool FirstSpawn,bool LoadMapPlus)
+    {
+        if (!LoadMapPlus) 
+        { if (File.Exists(saveString221))
+            {
+                saveString1 = JsonUtility.FromJson<MapData>(File.ReadAllText(saveString221));
+
+                Debug.Log("IU");
+            }
+            else
+            {
+                Debug.Log("IU2");
+                if (VarSave.GetString("quest", SaveType.global) == "капуста") questtarget = true;
+                File.WriteAllText(name2 + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+                saveString1 = JsonUtility.FromJson<MapData>(File.ReadAllText(saveString221));
+                FirstSpawn = true;
+
+            }
+        }
+        else
+        {
+            DirectoryInfo dif = new("res/UserWorckspace/maps");
+            MapData NewData = new();
+            FileInfo[] fis = dif.GetFiles();
+            for (int i = Random.Range(0,fis.Length); i<fis.Length; i++)
+            {
+
+                FileInfo fi = fis[i]; 
+                if (fi.FullName.Contains(".map"))
+                {
+                    if (File.Exists(fi.FullName))
+                    {
+
+                        if (File.ReadAllText(fi.FullName)[0] == '{')  NewData = JsonUtility.FromJson<MapData>(File.ReadAllText(fi.FullName));
+
+                        Debug.Log("IU");
+                    }
+                    else
+                    {
+                        Debug.Log("IU2");
+                        if (VarSave.GetString("quest", SaveType.global) == "капуста") questtarget = true;
+                        File.WriteAllText(fi.FullName, JsonUtility.ToJson(NewData));
+                        NewData = JsonUtility.FromJson<MapData>(File.ReadAllText(fi.FullName));
+                        FirstSpawn = true;
+
+                    }
+                    if (NewData.sceneName == SceneManager.GetActiveScene().name)
+                    {
+                        saveString1 = NewData;
+                        break;
+                    }
+                }
+            }
+            if (NewData.sceneName == "")
+            {
+                return;
+            }
+        }
+        
+        List<float[]> nid = new();
+        List<float[]> nid2 = new();
+        List<float[]> nid3 = new();
+
+        if (saveString1.posN.Count > 0)
+        {
+            for (int i = 0; i < saveString1.curN.Count - 1; i += 2)
+            {
+                nid.Add(saveString1.posN.GetRange(saveString1.curN[i], saveString1.curN[i + 1] - saveString1.curN[i]).ToArray());
+            }
+            Debug.Log(saveString1.curN.Count);
+        }
+        if (saveString1.posN2.Count > 0)
+        {
+            //  nid.Add(saveString1.posN.GetRange(saveString1.curN[saveString1.curN.Count - 2], saveString1.curN[saveString1.curN.Count - 1]-1).ToArray());
+            for (int i = 0; i < saveString1.curN2.Count - 1; i++)
+            {
+                nid2.Add(saveString1.posN2.GetRange(saveString1.curN2[i], saveString1.curN2[i + 1] - saveString1.curN2[i]).ToArray());
+            }
+        }
+        if (saveString1.posN3.Count > 0)
+        {
+            //  nid2.Add(saveString1.posN2.GetRange(saveString1.curN2[saveString1.curN2.Count - 2], saveString1.curN2[saveString1.curN2.Count - 1]-1).ToArray());
+
+            for (int i = 0; i < saveString1.curN3.Count - 1; i++)
+            {
+                nid3.Add(saveString1.posN3.GetRange(saveString1.curN3[i], saveString1.curN3[i + 1] - saveString1.curN3[i]).ToArray());
+            }
+        }
+        //  nid3.Add(saveString1.posN3.GetRange(saveString1.curN3[saveString1.curN3.Count - 2], saveString1.curN3[saveString1.curN3.Count - 1] - 1).ToArray());
+
+
+      
+        if (saveString1.vector3B.Count != 0)
+        {
+            for (int i = 0; i < saveString1.vector3B.Count; i++)
+            {
+
+                telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), saveString1.vector3B[i], Quaternion.identity).GetComponent<telo>();
+                if (saveString1.isSlaveB != null)
+                {
+                    if (saveString1.isSlaveB.Count != 0)
+                    {
+                        if (saveString1.isSlaveB[i]) g.gameObject.AddComponent<Slave>();
+                        if (saveString1.SlaveB.Count != 0)
+                        {
+                            if (saveString1.SlaveB.Count > i) if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveB[i];
+                        }
+                        if (saveString1.SlaveTevB.Count > i) if (saveString1.SlaveTevB.Count != 0)
+                            {
+                                if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevB[i];
+                            }
+                    }
+                }
+                if (saveString1.Stats_C != null)
+                {
+                    if (saveString1.Stats_C.Count != 0)
+                    {
+                        if (saveString1.Stats_C[i]!="") g.gameObject.AddComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_C[i]);
+                        if (saveString1.Stats_C.Count != 0)
+                        {
+                            if (saveString1.Stats_C.Count > i) if (g.gameObject.GetComponent<CharacterStats>()) g.gameObject.GetComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_C[i]);
+                        }
+                    }
+                }
+
+                g.nameCreature = saveString1.NamesCreatures[i];
+                g.gameObject.transform.position = saveString1.vector3B[i];
+            }
+        }
+        //StandartObject
+        for (int i = 0; i < saveString1.idB.Count; i++)
+        {
+
+            GameObject g = Instantiate(t4[ToTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
+            if (saveString1.PvectorB.Count > i && hc != null)
+            {
+                if (!g.GetComponent<HyperbolicPoint>())
+                {
+
+
+                    g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorB[i];
+
+                    g.transform.position = new Vector3(
+                    g.transform.position.x,
+                    saveString1.vector3C[i].y,
+                    g.transform.position.z
+                                     );
+                }
+                else
+                {
+                    g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorB[i];
+                    g.transform.position = new Vector3(
+                    g.transform.position.x,
+                    saveString1.vector3C[i].y,
+                    g.transform.position.z
+                                     );
+                }
+            }
+            if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3C[i].x;
+            if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3C[i].y;
+            if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3C[i].z;
+
+            if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW[i];
+            if (saveString1.posH.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH[i];
+            if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
+
+            if (saveString1.Scale3B[i].x != 0) g.transform.localScale = saveString1.Scale3B[i];
+            if (saveString1.posN3.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid3.Count; i2++)
+                    {
+                        g.GetComponent<MultyObject>().N_Positions = nid3[i];
+                    }
+
+        }
+        bool j1 = false;
+        GameObject co = Resources.Load<GameObject>("CustomObject");
+
+        for (int i = 0; i < saveString1.idC.Count; i++)
+        {
+
+            if (Demake != null)
+                if (Demake.co != null)
+                    if (Demake.co.Count > 0)
+                        foreach (string s in Demake.co)
+                        {
+                            if (saveString1.idC[i] == s)
+                            {
+                                j1 = true;
+                            }
+                        }
+            if (!j1)
+            {
+                GameObject g = Instantiate(co, saveString1.vector3D[i], Quaternion.identity);
+                if (saveString1.isSlaveD != null)
+                {
+                    if (saveString1.isSlaveD.Count != 0)
+                    {
+                        if (saveString1.isSlaveD[i]) co.gameObject.AddComponent<Slave>();
+                        if (saveString1.SlaveD.Count > i) if (saveString1.SlaveD.Count != 0)
+                            {
+                                if (co.gameObject.GetComponent<Slave>()) co.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveD[i];
+                            }
+                        if (saveString1.SlaveTevD.Count > i) if (saveString1.SlaveTevD.Count != 0)
+                            {
+                                if (co.gameObject.GetComponent<Slave>()) co.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevD[i];
+                            }
+                    }
+                }
+                if (saveString1.Stats_A != null)
+                {
+                    if (saveString1.Stats_A.Count != 0)
+                    {
+                        if (saveString1.Stats_A[i] != "") g.gameObject.AddComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_A[i]);
+                        if (saveString1.Stats_A.Count != 0)
+                        {
+                            if (saveString1.Stats_A.Count > i) if (g.gameObject.GetComponent<CharacterStats>()) g.gameObject.GetComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_A[i]);
+                        }
+                    }
+                }
+
+                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
+                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
+                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
+                if (saveString1.PvectorC.Count > i && hc != null)
+                {
+                    if (!g.GetComponent<HyperbolicPoint>())
+                    {
+
+
+                        g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
+
+                        g.transform.position = new Vector3(
+                        g.transform.position.x,
+                        saveString1.vector3D[i].y,
+                        g.transform.position.z
+                                         );
+                    }
+                    else
+                    {
+                        g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorC[i];
+                        g.transform.position = new Vector3(
+                        g.transform.position.x,
+                        saveString1.vector3D[i].y,
+                        g.transform.position.z
+                                         );
+                    }
+                }
+                g.GetComponent<CustomObject>().s = saveString1.idC[i];
+                g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
+                g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
+                if (saveString1.posN2.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid2.Count; i2++)
+                        {
+                            g.GetComponent<MultyObject>().N_Positions = nid2[i];
+                        }
+            }
+            else
+            {
+                j1 = false;
+            }
+        }
+        bool j2 = false;
+        for (int i3 = 0; i3 < saveString1.idA.Count; i3++)
+        {
+
+            if (Demake != null)
+                if (Demake.item != null)
+                    if (Demake.item.Count > 0) foreach (string s in Demake.item)
+                        {
+                            if (saveString1.idA[i3] == s)
+                            {
+                                j2 = true;
+                            }
+                        }
+            if (!j2)
+            {
+
+                Debug.Log("1");
+                GameObject g = Instantiate(t3[ToNameToID(saveString1.idA[i3])], new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                if (saveString1.isSlaveA != null)
+                {
+                    if (saveString1.isSlaveA.Count != 0)
+                    {
+                        if (saveString1.isSlaveA[i3]) g.gameObject.AddComponent<Slave>();
+                        if (saveString1.SlaveA.Count != 0)
+                        {
+
+                            if (saveString1.SlaveA.Count > i3) if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().slaveData = saveString1.SlaveA[i3];
+                        }
+                        if (saveString1.SlaveTevA.Count > i3) if (saveString1.SlaveTevA.Count != 0)
+                            {
+                                if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevA[i3];
+                            }
+                    }
+
+                }
+                if (saveString1.Stats_B != null)
+                {
+                    if (saveString1.Stats_B.Count != 0)
+                    {
+                        if (saveString1.Stats_B[i3] != "") g.gameObject.AddComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_B[i3]);
+                        if (saveString1.Stats_B.Count != 0)
+                        {
+                            if (saveString1.Stats_B.Count > i3) if (g.gameObject.GetComponent<CharacterStats>()) g.gameObject.GetComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_B[i3]);
+                        }
+                    }
+                }
+
+                g.transform.localScale = (saveString1.Scale3A[i3]);
+                if (!g.GetComponent<breauty>())
+                {
+
+
+                    g.AddComponent<breauty>().integer = saveString1.x[i3];
+                }
+                else
+                {
+                    g.GetComponent<breauty>().integer = saveString1.x[i3];
+                }
+                if (saveString1.scriptA.Count != 0) if (!g.GetComponent<unScript>())
+                    {
+                        UnsFormat info = new()
+                        {
+                            script = saveString1.scriptA[i3]
+                        };
+                        if (!string.IsNullOrEmpty(saveString1.scriptA[i3])) g.AddComponent<unScript>().ins = info;
+                    }
+
+                if (saveString1.PvectorA.Count > i3 && hc != null)
+                {
+                    if (!g.GetComponent<HyperbolicPoint>())
+                    {
+
+                        if (saveString1.PvectorA[i3].m + saveString1.PvectorA[i3].s + saveString1.PvectorA[i3].n != 0)
+                        {
+                            g.AddComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
+
+                            g.transform.position = new Vector3(
+                            g.transform.position.x,
+                            saveString1.vector3A[i3].y,
+                            g.transform.position.z
+                                             );
+                        }
+                    }
+                    else
+                    {
+                        if (saveString1.PvectorA[i3].m + saveString1.PvectorA[i3].s + saveString1.PvectorA[i3].n != 0)
+                        {
+                            g.GetComponent<HyperbolicPoint>().HyperboilcPoistion = saveString1.PvectorA[i3];
+                            g.transform.position = new Vector3(
+                            g.transform.position.x,
+                            saveString1.vector3A[i3].y,
+                            g.transform.position.z
+
+                                         );
+                        }
+                    }
+                }
+
+
+                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
+                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
+                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
+                if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
+                if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
+                if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
+                if (g.GetComponent<itemName>())
+                {
+                    g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
+                }
+                if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
+                        {
+                            g.GetComponent<MultyObject>().N_Positions = nid[i];
+                        }
+            }
+            else
+            {
+                j2 = false;
+            }
+
+
+        }
+    }
+
     Vector3 Random_vector()
     {
         Vector3 rand = new(Random.rotation.x, Random.rotation.y, Random.rotation.z);
@@ -1584,6 +1778,9 @@ public class MapData
     public List<Hyperbolic2D> PvectorC = new();
     public List<Quaternion> qA = new();
     public List<int> x = new();
+    public List<string> Stats_A = new();
+    public List<string> Stats_B = new();
+    public List<string> Stats_C = new();
     public List<float> y = new();
     public List<string> idA = new();
     public List<string> idB = new();
@@ -1608,6 +1805,9 @@ public class MapData
     public List<string> SlaveA = new();
     public List<string> SlaveB = new();
     public List<string> SlaveD = new();
+    public List<int> SlaveTevA = new();
+    public List<int> SlaveTevB = new();
+    public List<int> SlaveTevD = new();
     public string sceneName;
     public List<Vector3> vector3B = new();
 

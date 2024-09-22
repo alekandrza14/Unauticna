@@ -7,10 +7,16 @@ public class Slave : MonoBehaviour
     public static List<GameObject> plevk =new();
     public GameObject metka;
     public string slaveData;
+    public int WorkQualityTEVRO;
     public Vector3 slavePosition;
     Transform ПлевковаяКаст, taktikpoint1;
     private void Start()
     {
+        if (WorkQualityTEVRO < 5000)
+        {
+            InvokeRepeating("РабОтбираетДеньги", 60, 60);
+            InvokeRepeating("РабУвольняеться", 100, 100);
+        }
         if (gameObject.GetComponent<SocialObject>())
         {
             gameObject.GetComponent<SocialObject>().AddishonalLoad(new[] { "Slave" });
@@ -18,6 +24,21 @@ public class Slave : MonoBehaviour
         slavePosition = transform.position;
         metka = Instantiate(Resources.Load<GameObject>("selectUnit"),transform);
         metka.SetActive(false);
+    }
+    public void РабУвольняеться()
+    {
+        if (Global.Random.Chance(12))
+        {
+            Instantiate(Resources.Load<GameObject>("ui/Mats/РабУвольняеться"));
+            Destroy(GetComponent<Slave>());
+        }
+    }
+    public void РабОтбираетДеньги()
+    {
+        
+        
+            Instantiate(Resources.Load<GameObject>("ui/Mats/минкек"));
+        
     }
     public void onSelect()
     {

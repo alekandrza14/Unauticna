@@ -776,6 +776,59 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
+        if (Input.GetKeyDown(KeyCode.R) && Cells[selectr].elementName == "Диплом_о_минимальном_образовании" && main() == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (FindObjectsByType<script>(sortmode.main).Length < 1) if (hit.collider != null)
+                    {
+                        GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui"), Vector3.zero, Quaternion.identity);
+                        g.GetComponent<script>().Magic_obj = hit.collider.gameObject;
+                        g.GetComponent<script>().Magic_stick = true;
+                        //   setItem("", 0, Color.red, selectr);
+                        //  Cells[selectr].UpdateCellInterface();
+                        //  script.Use((Cells[selectr].elementData.Replace('_', ' ')).Replace('^', '\n'), hit.collider.gameObject);
+                        cistalenemy.dies++;
+                        Global.PauseManager.Pause();
+                    }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[selectr].elementName == "Диплом_о_минимальном_образовании" && main() == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (!hit.collider.GetComponent<CharacterStats>())
+                {
+                    hit.collider.gameObject.AddComponent<CharacterStats>().data.IQ += 10;
+                }
+                if (hit.collider.GetComponent<CharacterStats>())
+                {
+                    hit.collider.GetComponent<CharacterStats>().data.IQ += 10;
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && Cells[selectr].elementName == "Диплом_о_минимальном_образовании" && main() == this)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (!hit.collider.GetComponent<CharacterStats>())
+                {
+                    hit.collider.gameObject.AddComponent<CharacterStats>().data.IQ -= 10;
+                }
+                if (hit.collider.GetComponent<CharacterStats>())
+                {
+                    hit.collider.GetComponent<CharacterStats>().data.IQ -= 10;
+                }
+            }
+
+        }
         //Учебник_по_Всемогуществу
         if (Input.GetKeyDown(KeyCode.E) && Cells[selectr].elementName == "script.u" && main() == this)
         {
@@ -3222,9 +3275,18 @@ public class ElementalInventory : MonoBehaviour {
                 if (hit.collider.GetComponent<CustomSaveObject>())
                 {
                     GameObject g = Instantiate(Resources.Load<GameObject>("items/Мусор"), hit.point, Quaternion.identity);
-                    Destroy(hit.collider.gameObject); 
+                    Destroy(hit.collider.gameObject);
                 }
             }
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && main() == this
+          && Cells[selectr].elementName == "Marker" && Cells[selectr].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+            
+                    GameObject g = Instantiate(Resources.Load<GameObject>("items/ColorMarker"), hit.point, Quaternion.identity);
+           
         }
         //ПроигратьМузыку
         if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
@@ -3317,6 +3379,11 @@ public class ElementalInventory : MonoBehaviour {
         {
             CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
             foreach (CharacterName item in CharacterNames)
+            {
+                item.gameObject.AddComponent<DELETE>();
+            }
+            SocialObject[] CharacterNames2 = FindObjectsByType<SocialObject>(sortmode.main);
+            foreach (SocialObject item in CharacterNames2)
             {
                 item.gameObject.AddComponent<DELETE>();
             }
@@ -4335,7 +4402,10 @@ public class ElementalInventory : MonoBehaviour {
 
                         }
 
-                        setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, hit.collider.GetComponent<Slave>() == true ? "Slave" : "", select);
+                        setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
+                            + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : ""), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -4366,7 +4436,10 @@ public class ElementalInventory : MonoBehaviour {
                         CustomObject co = hit.collider.GetComponent<CustomObject>();
 
 
-                        setItem("co!" + co.s, 1, Color.red, "6", hit.collider.GetComponent<Slave>() == true ? "Slave" : "", select);
+                        setItem("co!" + co.s, 1, Color.red, "6", (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
+                            + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : ""), select);
                         Destroy(co.gameObject);
 
                         Cells[select].UpdateCellInterface();
@@ -4521,10 +4594,7 @@ public class ElementalInventory : MonoBehaviour {
         {
 
             Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + hit.normal * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                body.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(body);
             if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
             {
                 Vector3 gravityUp = (body.position - Vector3.zero).normalized;
@@ -4540,10 +4610,7 @@ public class ElementalInventory : MonoBehaviour {
         else if (hit.distance >= MainRay.RayMarhHit.distance && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
             Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point), Quaternion.identity).transform;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                body.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(body);
             if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
             {
                 Vector3 gravityUp = (body.position - Vector3.zero).normalized;
@@ -4558,10 +4625,7 @@ public class ElementalInventory : MonoBehaviour {
         else if (hit.collider == null && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
             Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point), Quaternion.identity).transform;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                body.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(body);
             if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
             {
                 Vector3 gravityUp = (body.position - Vector3.zero).normalized;
@@ -4576,10 +4640,7 @@ public class ElementalInventory : MonoBehaviour {
         else if (Cells[select].elementCount != 0 && Globalprefs.RaymarchHitError)
         {
             Transform body = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + hit.normal * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                body.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(body);
             if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
             {
                 Vector3 gravityUp = (body.position - Vector3.zero).normalized;
@@ -4596,6 +4657,31 @@ public class ElementalInventory : MonoBehaviour {
 
 
     }
+
+    private void LoadSocial(Transform body)
+    {
+        string[] SocialAspects = Cells[select].elementSocial.Split('♥');
+        if (SocialAspects.Length>0) if (SocialAspects[0] == "Slave")
+        {
+            body.gameObject.AddComponent<Slave>();
+                if (SocialAspects.Length > 2) if (SocialAspects[2] != "")
+                    {
+
+                        if (body.gameObject.GetComponent<Slave>()) body.gameObject.GetComponent<Slave>().slaveData = SocialAspects[2];
+                    }
+                if (SocialAspects.Length > 3) if (SocialAspects[3] != "")
+                    {
+
+                        if (body.gameObject.GetComponent<Slave>()) body.gameObject.GetComponent<Slave>().WorkQualityTEVRO = int.Parse(SocialAspects[3]);
+                    }
+            }
+        if (SocialAspects.Length > 1) if (SocialAspects[1] != "")
+            {
+                body.gameObject.AddComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(SocialAspects[1]);
+            }
+        
+    }
+
     public IEnumerator seteuclideanitem(RaycastHit hit)
     {
 
@@ -4606,41 +4692,29 @@ public class ElementalInventory : MonoBehaviour {
         {
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                t.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(t);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
 
         }
         else if (hit.distance >= MainRay.RayMarhHit.distance && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
-            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData; 
-            if (Cells[select].elementSocial == "Slave")
-            {
-                t.gameObject.AddComponent<Slave>();
-            }
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
+            LoadSocial(t);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
         else if (hit.collider == null && Cells[select].elementCount != 0 && !Globalprefs.RaymarchHitError)
         {
-            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData; 
-            if (Cells[select].elementSocial == "Slave")
-            {
-                t.gameObject.AddComponent<Slave>();
-            }
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, (MainRay.RayMarhHit.point) + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
+            LoadSocial(t);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
         else if (Cells[select].elementCount != 0 && Globalprefs.RaymarchHitError)
         {
-            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData; 
-            if (Cells[select].elementSocial == "Slave")
-            {
-                t.gameObject.AddComponent<Slave>();
-            }
+            Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, hit.point + Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform; if (t.GetComponent<itemName>()) t.GetComponent<itemName>().ItemData = Cells[select].elementData;
+            LoadSocial(t);
             setItem("", 0, Color.red, select);
             Cells[select].UpdateCellInterface();
         }
@@ -4702,10 +4776,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                t.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(t);
             t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
             t.transform.position = new Vector3(
 				t.transform.position.x, 
@@ -4733,10 +4804,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
             Transform t = Instantiate(inv2(Cells[select].elementName).gameObject, Vector3.up * inv2(Cells[select].elementName).gameObject.transform.localScale.y / 2, Quaternion.identity).transform;
-            if (Cells[select].elementSocial == "Slave")
-            {
-                t.gameObject.AddComponent<Slave>();
-            }
+            LoadSocial(t);
             t.gameObject.AddComponent<HyperbolicPoint>().HyperboilcPoistion = c.RealtimeTransform.inverse();
             t.transform.position = new Vector3(
                 t.transform.position.x,
@@ -4838,9 +4906,9 @@ public class ElementalInventory : MonoBehaviour {
 
                         if (hit.collider.gameObject.name[i] != '_')
                         {
-                            Globalprefs.ItemPrise = (decimal)100;
+                            Globalprefs.ItemPrise = (decimal)hit.collider.GetComponent<CustomObject>().Model.ItemPrice;
 
-
+                            Globalprefs.selectcoobj = hit.collider.GetComponent<CustomObject>();
                             Globalprefs.selectitem += hit.collider.gameObject.name[i];
 
                         }

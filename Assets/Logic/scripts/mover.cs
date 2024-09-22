@@ -816,7 +816,7 @@ public class mover : CustomSaveObject
 
 
         //four-Dimentional-Axis
-        Instantiate(Resources.Load<GameObject>("player inventory"));
+       if(GameObject.FindGameObjectsWithTag("i3").Length==0) Instantiate(Resources.Load<GameObject>("player inventory"));
         if (VarSave.ExistenceVar("Player_On_Pirat_Attack")) Instantiate(Resources.Load<GameObject>("events/Pirats"));
         if (VarSave.ExistenceGlobalVar("eventPlevraSpamtona"))
         {
@@ -1269,7 +1269,23 @@ public class mover : CustomSaveObject
         {
             GameObject morphmodel = null;
             morphmodel = Instantiate(Map_saver.t5[VarSave.GetInt("CurrentMorf")], transform);
-            if (morphmodel != null) if (morphmodel.GetComponent<MoveCamera>())  HeadCameraSetup.transform.position += PlayerBody.transform.up * morphmodel.GetComponent<MoveCamera>().yPos;
+            if (morphmodel != null) if (morphmodel.GetComponent<MoveCamera>()) HeadCameraSetup.transform.position += PlayerBody.transform.up * morphmodel.GetComponent<MoveCamera>().yPos;
+            DopPlayerModel = morphmodel;
+            perMorphin = true;
+        }
+        else if (VarSave.GetString("ActiveScin") != "")
+        {
+            GameObject morphmodel = null;
+            morphmodel = Instantiate(Resources.Load<GameObject>("Morfs/CustomObject"), transform);
+            Scin scin;
+            if (File.Exists("res/UserWorckspace/skins/" + VarSave.GetString("ActiveScin") + ".txt"))
+            {
+                scin = JsonUtility.FromJson<Scin>(File.ReadAllText("res/UserWorckspace/skins/" + VarSave.GetString("ActiveScin") + ".txt"));
+                VarSave.SetString("Scin", scin.CO_name);
+                morphmodel.transform.position += scin.pos;
+                HeadCameraSetup.transform.position = transform.position + scin.cum;
+            }
+            if (morphmodel != null) if (morphmodel.GetComponent<MoveCamera>()) HeadCameraSetup.transform.position += PlayerBody.transform.up * morphmodel.GetComponent<MoveCamera>().yPos;
             DopPlayerModel = morphmodel;
             perMorphin = true;
         }
@@ -1277,7 +1293,13 @@ public class mover : CustomSaveObject
         InvokeRepeating("bomjspawn", 60 * 3, 60 * 3);
         InvokeRepeating("мгеspawn", 60 * 5, 60 * 2.7f);
         InvokeRepeating("kilspawn", 60 * 5, 60 * 2.5f);
+        InvokeRepeating("Raydspawn", 60 * 5, 60 * 1.5f);
+        InvokeRepeating("hamspawn", 60 * 5, 60 * 1.5f);
         InvokeRepeating("libspawn", 20, 20f);
+        if (UnityEngine.Random.Range(0,35)<1)
+        {
+            SceneManager.LoadScene("Donat");
+        }
 
     }
     Vector3 randommaze()
@@ -1285,10 +1307,37 @@ public class mover : CustomSaveObject
         Vector3 rand = new(UnityEngine.Random.rotation.x, UnityEngine.Random.rotation.y, UnityEngine.Random.rotation.z);
         return rand;
     }
+    //РейдерГипопотам
     void bomjspawn()
     {
         if (!lml2.Find()) if (Global.Random.Chance(2))
+            {
+                if (UnityEngine.Random.Range(0, 35) < 1)
+                {
+                    SceneManager.LoadScene("Donat");
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    Ray r = new(transform.position + (transform.up * 40), randommaze());
+                    RaycastHit hit;
+                    if (Physics.Raycast(r, out hit))
+                    {
+                        if (hit.collider != null)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                        }
+                    }
+                }
+            }
+    }
+    void Raydspawn()
+    {
+        if (Global.Random.Chance(2))
         {
+            if (UnityEngine.Random.Range(0, 3) < 1)
+            {
+                SceneManager.LoadScene("Donat");
+            }
             for (int i = 0; i < 6; i++)
             {
                 Ray r = new(transform.position + (transform.up * 40), randommaze());
@@ -1297,7 +1346,29 @@ public class mover : CustomSaveObject
                 {
                     if (hit.collider != null)
                     {
-                        Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                        Instantiate(Resources.Load<GameObject>("Items/РейдерГипопотам"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
+    }
+    void hamspawn()
+    {
+        if (Global.Random.Chance(2))
+        {
+            if (UnityEngine.Random.Range(0, 35) < 1)
+            {
+                SceneManager.LoadScene("Donat");
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                Ray r = new(transform.position + (transform.up * 40), randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(Resources.Load<GameObject>("Items/БезКультурный"), hit.point, Quaternion.identity);
                     }
                 }
             }
@@ -1572,7 +1643,7 @@ public class mover : CustomSaveObject
         File.Delete("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    float CosProgress()
+    public float CosProgress()
     {
         if (playerdata.Geteffect("Тупость")!=null)
         {
@@ -2148,7 +2219,7 @@ public class mover : CustomSaveObject
         if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
 
         save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
-        if (hyperbolicCamera != null)
+        if (HyperbolicCamera.Main() != null)
         {
             save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
         }
@@ -2272,6 +2343,7 @@ public class mover : CustomSaveObject
                         cistalenemy.dies += 100;
                         VarSave.SetInt("Agr", cistalenemy.dies);
                     }
+                   
                     Globalprefs.LoadTevroPrise(Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
                     Destroy(Globalprefs.selectitemobj.gameObject);
                     Globalprefs.selectitem = "";
@@ -2292,6 +2364,23 @@ public class mover : CustomSaveObject
                     Globalprefs.Infinitysteuvro += (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1);
                     VarSave.SetTrash("inftevro", VarSave.GetTrash("inftevro") + (double)Globalprefs.ItemPrise * (double)(Globalprefs.GetProcentInflitiuon() + 1));
                     Destroy(Globalprefs.selectitemobj.gameObject);
+                    Globalprefs.selectitem = "";
+                    Globalprefs.ItemPrise = 0;
+                }
+            }
+        if (Globalprefs.selectcoobj) if (Globalprefs.selectcoobj.GetComponent<CustomObject>())
+            {
+                if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause && Globalprefs.selectcoobj)
+                {
+                    if (Globalprefs.selectcoobj.GetComponent<SocialObject>())
+                    {
+
+                        cistalenemy.dies += 100;
+                        VarSave.SetInt("Agr", cistalenemy.dies);
+                    }
+
+                    Globalprefs.LoadTevroPrise(Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
+                    Destroy(Globalprefs.selectcoobj.gameObject);
                     Globalprefs.selectitem = "";
                     Globalprefs.ItemPrise = 0;
                 }
@@ -2698,6 +2787,14 @@ public class mover : CustomSaveObject
                             HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
                         }
                         if (hyperbolicCamera == null)
+                        {
+                            if (faceViewi != faceView.fourd)
+                            {
+
+                                PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                            }
+                        }
+                        else if(!hyperbolicCamera.gameObject.activeSelf)
                         {
                             if (faceViewi != faceView.fourd)
                             {
@@ -3190,15 +3287,16 @@ public class mover : CustomSaveObject
            if(Globalprefs.Infinitysteuvro>0) VarSave.SetMoney("tevro", decimal.MaxValue - 1000000);
             //playermatinvisible
         }
-     
+
         //MetabolismUp
-        if (playerdata.Geteffect("KsenoMorfin") == null && perMorphin)
+        if (playerdata.Geteffect("KsenoMorfin") == null && perMorphin && VarSave.GetString("ActiveScin") == "")
         {
 
             playerdata.Addeffect("Trip", 5);
             GameManager.save();
             SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         }
+        
         //playerdata.Addeffect("Trip", 60)
         if (playerdata.Geteffect("Trip") != null)
         {
@@ -3532,7 +3630,7 @@ public class mover : CustomSaveObject
             tsave.npos = N_position;
             tsave.cnpos = cur_N_position;
             if (Get4DCam()) tsave.rotW = Get4DCam()._wRotation;
-            if (hyperbolicCamera != null)
+            if (HyperbolicCamera.Main() != null)
             {
 
 

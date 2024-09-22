@@ -20,7 +20,7 @@ public class SkinContoler : MonoBehaviour
     }
     private void SkinOff()
     {
-        bool e = playerdata.Geteffect("KsenoMorfin") != null;
+        bool e = playerdata.Geteffect("KsenoMorfin") != null || VarSave.GetString("ActiveScin")!="";
         Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
         foreach (Logic_tag_Skin i in ls)
         {
@@ -91,30 +91,32 @@ public class SkinContoler : MonoBehaviour
 
     private void SkinManager()
     {
+        bool e = playerdata.Geteffect("KsenoMorfin") != null || VarSave.GetString("ActiveScin") != "";
+        bool a = playerdata.Geteffect("KsenoMorfin") == null && VarSave.GetString("ActiveScin") == "";
         if (mover.DopPlayerModel)
         {
             Renderer[] renderers = mover.DopPlayerModel.GetComponentsInChildren<Renderer>();
             foreach (Renderer i in renderers)
             {
-                i.gameObject.layer = 0;
+                i.gameObject.layer = 2;
             }
         }
          Logic_tag_Skin[] ls = FindObjectsByType<Logic_tag_Skin>(sortmode.main);
         foreach (Logic_tag_Skin i in ls)
         {
-            if (playerdata.Geteffect("KsenoMorfin") != null)
+            if (e)
             {
                 i.gameObject.SetActive(false);
             }
-            if (playerdata.Geteffect("KsenoMorfin") == null)
+            if (a)
             {
                 i.gameObject.SetActive(true);
             }
-            if (playerdata.Geteffect("KsenoMorfin") == null)
+            if (a)
             {
-                i.gameObject.layer = 0;
+                i.gameObject.layer = 2;
             }
-            if (playerdata.Geteffect("KsenoMorfin") != null)
+            if (e)
             {
                 i.gameObject.layer = 8;
             }

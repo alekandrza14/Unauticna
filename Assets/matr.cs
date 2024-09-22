@@ -9,7 +9,18 @@ public class matr : MonoBehaviour
     [SerializeField] AudioClip clip;
     [SerializeField] AudioSource source;
     [SerializeField] string function;
+    [SerializeField] bool selfActivation;
+    [SerializeField] float time = 1f;
 
+    private void Start()
+    {
+        if (selfActivation)
+        {
+            source.clip = clip;
+            source.Play();
+            Invoke(function, 2.5f);
+        }
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -18,12 +29,14 @@ public class matr : MonoBehaviour
             source.Play();
             Invoke(function,2.5f);
         }
+        
     }
     IEnumerator end()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
+
     public void нту()
     {
         RaycastHit hit = MainRay.MainHit; if (hit.collider != null)
@@ -39,6 +52,12 @@ public class matr : MonoBehaviour
             cistalenemy.dies += 1;
             if (true) StartCoroutine(end());
         }
+    }
+    public void ру()
+    {
+       
+            if (true) StartCoroutine(end());
+      
     }
     public void fash()
     {
@@ -218,14 +237,20 @@ public class matr : MonoBehaviour
 
         if (VarSave.GetString("Demake" + Globalprefs.Reality) == "") StartCoroutine(end());
     }
+    public void минкек()
+    {
+
+        Globalprefs.LoadTevroPrise(-1000); 
+        StartCoroutine(end());
+    }
     public void evr()
     {
         RaycastHit hit = MainRay.MainHit;
-        if (hit.collider!=null)
+        if (hit.collider != null)
         {
             if (hit.collider.GetComponent<Rigidbody>())
             {
-                if (Random.Range(0, 4) ==1)
+                if (Random.Range(0, 4) == 1)
                 {
                     Globalprefs.LoadTevroPrise(5);
                     if (true) StartCoroutine(end());
