@@ -246,7 +246,19 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "54";
             }
-           if(s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
+            if (s[0] == "grid1_Item_by_name")
+            {
+                a = "55";
+            }
+            if (s[0] == "grid2_Item_by_name")
+            {
+                a = "56";
+            }
+            if (s[0] == "grid3_Item_by_name")
+            {
+                a = "57";
+            }
+            if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
                 a = "10";
@@ -857,14 +869,65 @@ public class Conseole_trigger : MonoBehaviour
             if (i == 1 && a == "54")
             {
                 Material[] m = Resources.LoadAll<Material>("CO_MainMaterials");
-                string msg ="";
-                int numMaterial=0;
+                string msg = "";
+                int numMaterial = 0;
                 foreach (Material item in m)
                 {
-                    msg += "Материал "+ numMaterial.ToString()+" \"" + item.name+"\"\n";
+                    msg += "Материал " + numMaterial.ToString() + " \"" + item.name + "\"\n";
                     numMaterial++;
                 }
                 Loger.Sand(msg);
+            }
+            if (i == 1 && a == "55")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    GameObject[] g = Resources.LoadAll<GameObject>("items");
+                    Instantiate(g[int.Parse(s[1])], mover.main().transform.position + new Vector3(x * float.Parse(s[3]), 0, 0), Quaternion.identity);
+                }
+            }
+            if (i == 1 && a == "56")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    for (int y = 0; y < float.Parse(s[3]); y++)
+                    {
+                        GameObject[] g = Resources.LoadAll<GameObject>("items");
+                        Instantiate(g[int.Parse(s[1])], mover.main().transform.position + new Vector3(x * float.Parse(s[4]), y * float.Parse(s[4]), 0), Quaternion.identity);
+                    }
+                }
+            }
+            if (i == 1 && a == "57")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    for (int y = 0; y < float.Parse(s[3]); y++)
+                    {
+                        for (int z = 0; z < float.Parse(s[4]); z++)
+                        {
+                            GameObject[] g = Resources.LoadAll<GameObject>("items");
+                            Instantiate(g[int.Parse(s[1])], mover.main().transform.position + new Vector3(x * float.Parse(s[5]), y * float.Parse(s[5]), z * float.Parse(s[5])), Quaternion.identity);
+                        }
+                    }
+                }
+            }
+            if (i == 1 && a == "58")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    for (int y = 0; y < float.Parse(s[3]); y++)
+                    {
+                        for (int z = 0; z < float.Parse(s[4]); z++)
+                        {
+                            for (int w = 0; w < float.Parse(s[5]); w++)
+                            {
+                                GameObject g = Resources.Load<GameObject>("items/"+ s[1]);
+                                GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6])), Quaternion.identity);
+                                obj.GetComponent<MultyObject>().W_Position = mover.main().W_position + (w * float.Parse(s[6]));
+                            }
+                        }
+                    }
+                }
             }
             if (i == 1 && a == "2")
             {
