@@ -325,75 +325,54 @@ public class GameManager : MonoBehaviour
     public static string saveid;
     public static void save()
     {
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
 
 
-            FindFirstObjectByType<mover>().saveing();
-        }
+
+        mover.main().saveing();
+
     }
     public static void Dest()
     {
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
 
 
-            FindFirstObjectByType<mover>().deleteing();
-        }
+        mover.main().deleteing();
+       
     }
     public static void saveandhill()
     {
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
-
-            FindFirstObjectByType<mover>().hp = 200;
-            FindFirstObjectByType<mover>().saveing();
-        }
+        
+            mover.main().hp = 200;
+            mover.main().saveing();
+       
 
 
     }
     public static void saveandDamage()
     {
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
 
-            FindFirstObjectByType<mover>().saveing();
 
-            FindFirstObjectByType<mover>().hp -= 100;
-        }
+        mover.main().saveing();
+
+        mover.main().hp -= 100;
+       
 
 
     }
     public static Transform GetPlayer()
     {
-        Transform t = FindFirstObjectByType<GameObject>().transform;
-        if (GameObject.FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
-
-
-            t = FindFirstObjectByType<mover>().transform;
-
-        }
-        if (GameObject.FindObjectsByType<RayCastStars>(sortmode.main).Length != 0)
-        {
-
-
-            t = FindFirstObjectByType<RayCastStars>().transform;
-
-        }
+        Transform t = mover.main().transform;
+        
 
         return t;
     }
     static public void load(Transform transform, HyperbolicPoint hyperbolicPoint)
     {
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
+       
 
 
             if (hyperbolicPoint == null) mover.main().transform.position = transform.position;
             else { HyperbolicCamera.Main().RealtimeTransform = hyperbolicPoint.HyperboilcPoistion.copy().inverse(); mover.main().transform.position = transform.position; }
 
-        }
 
 
     }
@@ -409,13 +388,12 @@ public class GameManager : MonoBehaviour
     }
     static public void load5(Hyperbolic2D pl,float i3)
     {
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
 
 
-            FindObjectsByType<mover>(sortmode.main)[0].hyperbolicCamera.RealtimeTransform = pl;
-            FindObjectsByType<mover>(sortmode.main)[0].transform.position = new Vector3(0,i3*2,0);
-        }
+
+        mover.main().hyperbolicCamera.RealtimeTransform = pl;
+        mover.main().transform.position = new Vector3(0,i3*2,0);
+       
    
 
     }
@@ -428,7 +406,7 @@ public class GameManager : MonoBehaviour
         Ray r = new Ray();
 
 
-        Globalprefs.camera = FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>();
+        Globalprefs.camera = Logic_tag_3.main().GetComponent<Camera>();
 
             r = Globalprefs.camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             //FindFirstObjectByType<Logic_tag_3>().GetComponent<Camera>().targetDisplay = 2;
@@ -464,13 +442,11 @@ public class GameManager : MonoBehaviour
     
     static public Transform isplayer()
     {
-        Transform t = GameObject.FindObjectsByType<GameObject>(sortmode.main)[0].transform;
-        if (FindObjectsByType<mover>(sortmode.main).Length != 0)
-        {
+        Transform t = mover.main().transform;
+        
 
 
-            t = FindObjectsByType<mover>(sortmode.main)[Random.Range(0, FindObjectsByType<mover>(sortmode.main).Length)].transform;
-        }
+        
        
             return t;
 

@@ -47,7 +47,7 @@ public class ScinEditor : MonoBehaviour
         if (File.Exists("res/UserWorckspace/skins/" + scin_name.text + ".txt"))
         {
             scin = JsonUtility.FromJson<Scin>(File.ReadAllText("res/UserWorckspace/skins/" + scin_name.text + ".txt"));
-            X.text = "" + scin.pos.y; Y.text = "" + scin.pos.y; Z.text = "" + scin.pos.z; 
+            X.text = "" + scin.pos.x; Y.text = "" + scin.pos.y; Z.text = "" + scin.pos.z; 
            X2.text = "" + scin.cum.x; Y2.text = "" + scin.cum.y; Z2.text = "" + scin.cum.z;
             CO_name.text = scin.CO_name; 
             LoadCO();

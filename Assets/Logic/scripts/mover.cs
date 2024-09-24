@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
+using System.Runtime.InteropServices;
 
 
 public class PlayerData
@@ -1240,11 +1241,13 @@ public class mover : CustomSaveObject
     }
     bool perMorphin;
     public static GameObject DopPlayerModel;
+    [DllImport("AssemblyCPP")]
+    public static extern long my_cpp_pluss(long a,long b);
 
     //Приметивный интерфейс
     void Start()
     {
-     
+        
             // InvokeRepeating("GameUpdate", 1, 0.07f);
             gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
@@ -1965,6 +1968,10 @@ public class mover : CustomSaveObject
     GameObject waterscreen;
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            Globalprefs.LoadTevroPrise(my_cpp_pluss((long)Globalprefs.LoadTevroPrise(0), (long)Globalprefs.LoadTevroPrise(0)));
+        }
         if (FindAnyObjectByType<taktikpoint>() == null && FindAnyObjectByType<TeleportButton>() != null)
         {
             GameObject g6 = Resources.Load<GameObject>("items/StartegyInterface");
