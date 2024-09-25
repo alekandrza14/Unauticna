@@ -3,8 +3,9 @@ function GetTexture (patrn)
 local c = 0.0;
 for i=0,512,1 do
 for j=0,512,1 do
-c = perlin:noise(i/20 + x+ 0.1242,j/20 + y+ 0.1242,1+ 0.1242);
-c = c / 200.0;
+c = c + 5;
+c = c + perlin:noise(i/20 + x+ 0.1242,j/20 + y+ 0.1242,1+ 0.1242);
+c = c / 100.0;
 
 out[i,j] = c;
 end

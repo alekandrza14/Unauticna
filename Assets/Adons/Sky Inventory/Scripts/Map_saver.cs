@@ -985,7 +985,9 @@ public class Map_saver : MonoBehaviour
                     }
 
                     //GameObject co = Resources.Load<GameObject>("CustomObject");
-                    if (objs.Count < 100) if (Global.Random.Chance(2))
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(2))
                         {
                             for (int i = 0; i < 6; i++)
                             {
@@ -1004,7 +1006,32 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
-                    if (objs.Count < 100) if (Global.Random.Chance(2))
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(2))
+                        {
+                            for (int i = 0; i < 12; i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Chaos_cube"), hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(2))
                         {
                             DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
                             for (int i = 0; i < 6; i++)
@@ -1026,7 +1053,10 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
-                    if (objs.Count < 100) if (Global.Random.Chance(7))
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(7))
                         {
                             for (int i = 0; i < 6; i++)
                             {
@@ -1045,8 +1075,11 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
+                    }
 
-                    if (objs.Count < 100) if (Global.Random.Chance(24))
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(24))
                         {
 
                             GameObject[] g = Resources.LoadAll<GameObject>("danges");
@@ -1056,7 +1089,10 @@ public class Map_saver : MonoBehaviour
 
 
                         }
-                    if (objs.Count < 100) if (Global.Random.Chance(3))
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(3))
                         {
                             for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
                             {
@@ -1076,8 +1112,11 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
+                    }
                     //Nuclear_plant
-                    if (objs.Count < 100) if (Global.Random.Chance(3))
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(3))
                         {
                             for (int i = 0; i < 0 + Global.Random.Range(0, 28); i++)
                             {
@@ -1097,7 +1136,10 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
-                    if (objs.Count < 100) if (Global.Random.Chance(12))
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(12))
                         {
                             for (int i = 0; i < 0 + Global.Random.Range(5, 50); i++)
                             {
@@ -1117,7 +1159,10 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
-                    if (objs.Count < 100) if (Global.Random.Chance(5))
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(5))
                         {
                             for (int i = 0; i < 0 + Global.Random.Range(5, 10); i++)
                             {
@@ -1137,7 +1182,10 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
-                    if (objs.Count < 100) if (Global.Random.Chance(5))
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(5))
                         {
                             for (int i = 0; i < 0 + Global.Random.Range(5, 10); i++)
                             {
@@ -1157,6 +1205,7 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
+                    }
                     if (objs.Count < 100)
                     {
                         for (int i = 0; i < 0 + Global.Random.Range(25, 100); i++)
@@ -1183,7 +1232,9 @@ public class Map_saver : MonoBehaviour
                     FileInfo[] inf = info.GetFiles();
                     if (objs.Count < 100)
                     {
-                        if (Global.Random.Chance(2)) for (int i = 0; i < 0 + Global.Random.Range(1, 6); i++)
+                        if (Global.Random.Chance(2))
+                        {
+                            for (int i = 0; i < 0 + Global.Random.Range(1, 6); i++)
                             {
                                 if (objs.Count > 100)
                                 {
@@ -1204,7 +1255,7 @@ public class Map_saver : MonoBehaviour
                                             Creature fileSafe = JsonUtility.FromJson<Creature>(File.ReadAllText(creacure.FullName));
                                             //Запрещаю естесвеный спавн планетарных титанов. Причина : 0 FPS не хочю терпеть на протяжении долгих минут иза своей огромного хит бокса задивающи 1 000 000 физических объектов.
                                             //Ты ж ведь тож не хочешь? или оптимизируй если хочешь но я вообще не знаю как ты это сделаешь...
-                                            if (fileSafe.sc!=SizeCreachure.planet)
+                                            if (fileSafe.sc != SizeCreachure.planet)
                                             {
 
 
@@ -1215,6 +1266,7 @@ public class Map_saver : MonoBehaviour
                                     }
                                 }
                             }
+                        }
                     }
                 }
             }

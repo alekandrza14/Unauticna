@@ -15,7 +15,7 @@ public class Generator_terrain : MonoBehaviour
     readonly List<float> fs = new();
     readonly List<float> fn = new();
     int i7 = 0; int i8 = 0;
-    void Start()
+    public void Start()
     {
         LoadTerraform();
 

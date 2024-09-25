@@ -149,15 +149,17 @@ public class CustomObject : CustomSaveObject
             mover m = mover.main();
             if (!saved)
             {
-                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
-                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
+                // GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
+                GetComponent<MultyObject>().saved = true;
+                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
-                GetComponent<MultyObject>().W_Position = m.W_position;
-                GetComponent<MultyObject>().H_Position = m.H_position;
+              // GetComponent<MultyObject>().W_Position = m.W_position;
+              //  GetComponent<MultyObject>().H_Position = m.H_position;
             }
             else
             {
-                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+                //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+                GetComponent<MultyObject>().saved = true;
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
                 GetComponent<MultyObject>().W_Position = WHPos.x;
@@ -173,11 +175,12 @@ public class CustomObject : CustomSaveObject
             mover m = mover.main();
             if (!saved)
             {
-                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
+                //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
+                GetComponent<MultyObject>().saved = true;
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
-                GetComponent<MultyObject>().W_Position = m.W_position;
-                GetComponent<MultyObject>().H_Position = m.H_position;
+              //  GetComponent<MultyObject>().W_Position = m.W_position;
+             //   GetComponent<MultyObject>().H_Position = m.H_position;
 
                 MultyObject mo = GetComponent<MultyObject>();
                 mo.N_Positions = new float[m.N_position.Count];
@@ -192,7 +195,8 @@ public class CustomObject : CustomSaveObject
             }
             else
             {
-                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+                //   GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+                GetComponent<MultyObject>().saved = true;
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
                 GetComponent<MultyObject>().W_Position = WHPos.x;
@@ -300,14 +304,17 @@ public class CustomObject : CustomSaveObject
             GetComponent<MultyObject>().H_Scale = 500000;
             if (!saved)
             {
-                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
+                //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
+                GetComponent<MultyObject>().saved = true;
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 500000, 0);
-                GetComponent<MultyObject>().W_Position = m.W_position;
+               // GetComponent<MultyObject>().W_Position = m.W_position;
             }
             else
             {
 
-                GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+                //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
+
+                GetComponent<MultyObject>().saved = true;
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 500000, 0);
                 GetComponent<MultyObject>().W_Position = WHPos.x;
             }

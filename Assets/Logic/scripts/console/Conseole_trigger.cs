@@ -258,6 +258,26 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "57";
             }
+            if (s[0] == "grid4_Item_by_name")
+            {
+                a = "58";
+            }
+            if (s[0] == "grid1_CustomObject_by_name")
+            {
+                a = "59";
+            }
+            if (s[0] == "grid2_CustomObject_by_name")
+            {
+                a = "60";
+            }
+            if (s[0] == "grid3_CustomObject_by_name")
+            {
+                a = "61";
+            }
+            if (s[0] == "grid4_CustomObject_by_name")
+            {
+                a = "62";
+            }
             if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
@@ -882,8 +902,8 @@ public class Conseole_trigger : MonoBehaviour
             {
                 for (int x = 0; x < float.Parse(s[2]); x++)
                 {
-                    GameObject[] g = Resources.LoadAll<GameObject>("items");
-                    Instantiate(g[int.Parse(s[1])], mover.main().transform.position + new Vector3(x * float.Parse(s[3]), 0, 0), Quaternion.identity);
+                    GameObject g = Resources.Load<GameObject>("items/" + s[1]);
+                    GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[3]), 0, 0), Quaternion.identity);
                 }
             }
             if (i == 1 && a == "56")
@@ -892,8 +912,8 @@ public class Conseole_trigger : MonoBehaviour
                 {
                     for (int y = 0; y < float.Parse(s[3]); y++)
                     {
-                        GameObject[] g = Resources.LoadAll<GameObject>("items");
-                        Instantiate(g[int.Parse(s[1])], mover.main().transform.position + new Vector3(x * float.Parse(s[4]), y * float.Parse(s[4]), 0), Quaternion.identity);
+                        GameObject g = Resources.Load<GameObject>("items/" + s[1]);
+                        GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[4]), y * float.Parse(s[4]), 0), Quaternion.identity);
                     }
                 }
             }
@@ -905,8 +925,8 @@ public class Conseole_trigger : MonoBehaviour
                     {
                         for (int z = 0; z < float.Parse(s[4]); z++)
                         {
-                            GameObject[] g = Resources.LoadAll<GameObject>("items");
-                            Instantiate(g[int.Parse(s[1])], mover.main().transform.position + new Vector3(x * float.Parse(s[5]), y * float.Parse(s[5]), z * float.Parse(s[5])), Quaternion.identity);
+                            GameObject g = Resources.Load<GameObject>("items/" + s[1]);
+                            GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[5]), y * float.Parse(s[5]), z * float.Parse(s[5])), Quaternion.identity);
                         }
                     }
                 }
@@ -921,9 +941,109 @@ public class Conseole_trigger : MonoBehaviour
                         {
                             for (int w = 0; w < float.Parse(s[5]); w++)
                             {
-                                GameObject g = Resources.Load<GameObject>("items/"+ s[1]);
+                                GameObject g = Resources.Load<GameObject>("items/" + s[1]);
                                 GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6])), Quaternion.identity);
-                                obj.GetComponent<MultyObject>().W_Position = mover.main().W_position + (w * float.Parse(s[6]));
+                                if (obj.GetComponent<MultyObject>())
+                                {
+                                    Vector3 v3 = mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6]));
+                                    obj.GetComponent<MultyObject>().saved = true;
+                                    obj.GetComponent<MultyObject>().shape = Shape.cube5D;
+                                    obj.GetComponent<MultyObject>().startPosition = new Vector6(v3.x, v3.y, v3.z,
+                                           mover.main().W_position + (w * float.Parse(s[6])),
+                                           mover.main().H_position, 0);
+                                    obj.GetComponent<MultyObject>().W_Position = mover.main().W_position + (w * float.Parse(s[6]));
+                                }
+                                else if (s.Count >= 7+1)
+                                {
+                                    if (s[7] == "1")
+                                    {
+                                        Vector3 v3 = mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6]));
+                                        obj.AddComponent<MultyObject>().saved = true;
+                                        obj.GetComponent<MultyObject>().shape = Shape.cube5D;
+                                        obj.GetComponent<MultyObject>().startPosition = new Vector6(v3.x, v3.y, v3.z,
+                                           mover.main().W_position + (w * float.Parse(s[6])),
+                                           mover.main().H_position, 0);
+                                        obj.GetComponent<MultyObject>().W_Position = mover.main().W_position + (w * float.Parse(s[6]));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (i == 1 && a == "59")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    GameObject g = Resources.Load<GameObject>("CustomObject");
+                    GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[3]), 0, 0), Quaternion.identity);
+                    obj.GetComponent<CustomObject>().s = s[1];
+                }
+            }
+            if (i == 1 && a == "60")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    for (int y = 0; y < float.Parse(s[3]); y++)
+                    {
+                        GameObject g = Resources.Load<GameObject>("CustomObject");
+                        GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[4]), y * float.Parse(s[4]), 0), Quaternion.identity);
+                        obj.GetComponent<CustomObject>().s = s[1];
+                    }
+                }
+            }
+            if (i == 1 && a == "61")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    for (int y = 0; y < float.Parse(s[3]); y++)
+                    {
+                        for (int z = 0; z < float.Parse(s[4]); z++)
+                        {
+                            GameObject g = Resources.Load<GameObject>("CustomObject");
+                            GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[5]), y * float.Parse(s[5]), z * float.Parse(s[5])), Quaternion.identity);
+                            obj.GetComponent<CustomObject>().s = s[1];
+                        }
+                    }
+                }
+            }
+            if (i == 1 && a == "62")
+            {
+                for (int x = 0; x < float.Parse(s[2]); x++)
+                {
+                    for (int y = 0; y < float.Parse(s[3]); y++)
+                    {
+                        for (int z = 0; z < float.Parse(s[4]); z++)
+                        {
+                            for (int w = 0; w < float.Parse(s[5]); w++)
+                            {
+                                GameObject g = Resources.Load<GameObject>("CustomObject");
+                                GameObject obj = Instantiate(g, mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6])), Quaternion.identity);
+                                obj.GetComponent<CustomObject>().s = s[1];
+                                if (obj.GetComponent<MultyObject>())
+                                {
+                                    Vector3 v3 = mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6]));
+                                    obj.GetComponent<MultyObject>().saved = true;
+                                    obj.GetComponent<MultyObject>().shape = Shape.cube5D; 
+                                    obj.GetComponent<MultyObject>().startPosition = new Vector6(v3.x, v3.y, v3.z,
+                                            mover.main().W_position + (w * float.Parse(s[6])),
+                                            mover.main().H_position, 0);
+                                    obj.GetComponent<MultyObject>().W_Position = mover.main().W_position + (w * float.Parse(s[6]));
+
+                                }
+                                else if (s.Count >= 7 + 1)
+                                {
+                                    if (s[7] == "1")
+                                    {
+                                        Vector3 v3 = mover.main().transform.position + new Vector3(x * float.Parse(s[6]), y * float.Parse(s[6]), z * float.Parse(s[6]));
+                                        obj.AddComponent<MultyObject>().saved = true;
+                                        obj.GetComponent<MultyObject>().shape = Shape.cube5D;
+                                        obj.GetComponent<MultyObject>().startPosition = new Vector6(v3.x, v3.y, v3.z,
+                                            mover.main().W_position + (w * float.Parse(s[6])),
+                                            mover.main().H_position,0);
+                                        obj.GetComponent<MultyObject>().W_Position = mover.main().W_position + (w * float.Parse(s[6]));
+                                    }
+                                }
                             }
                         }
                     }

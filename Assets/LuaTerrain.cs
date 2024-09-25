@@ -35,6 +35,7 @@ public class LuaTerrain : InventoryEvent
     Terrain terrain; TerrainCollider terrain2;
     public GameObject prefab;
     public TerrainLayer[] Paint;
+    public Generator_terrain test;
     int x, y;
     int cx, cy;
     float[,] CunckHeights;
@@ -67,7 +68,8 @@ public class LuaTerrain : InventoryEvent
             2000,
             (((int)viwer.position.z + (soffset.y * CunckSize)) / CunckSize) * CunckSize);
         Genarate();
-
+        test.enabled = true;
+        test.Start();
     }
 
     private void Genarate()
