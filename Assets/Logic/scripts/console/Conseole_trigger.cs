@@ -278,6 +278,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "62";
             }
+            if (s[0] == "Give_Effect")
+            {
+                a = "63";
+            }
             if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
@@ -1046,6 +1050,101 @@ public class Conseole_trigger : MonoBehaviour
                                 }
                             }
                         }
+                    }
+                }
+            }
+            if (i == 1 && a == "63")
+            {
+                if (s[1] == "@All")
+                {
+                    if (s[2] == "LSD")
+                    {
+                        playerdata.Addeffect("Tripl3", 120);
+                        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+                        foreach (CharacterName item in CharacterNames)
+                        {
+                            item.gameObject.AddComponent<LSDMob>();
+                        }
+                        SocialObject[] CharacterNames2 = FindObjectsByType<SocialObject>(sortmode.main);
+                        foreach (SocialObject item in CharacterNames2)
+                        {
+                            item.gameObject.AddComponent<LSDMob>();
+                        }
+                    }
+                    if (s[2] == "Sigas")
+                    {
+                        Instantiate(Resources.Load<GameObject>("Äûì"), mover.main().transform);
+                        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+                        foreach (CharacterName item in CharacterNames)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Äûì"), item.transform);
+                        }
+                        SocialObject[] CharacterNames2 = FindObjectsByType<SocialObject>(sortmode.main);
+                        foreach (SocialObject item in CharacterNames2)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Äûì"), item.transform);
+                        }
+                    }
+                }
+                if (s[1] == "@Others")
+                {
+                    if (s[2] == "LSD")
+                    {
+                        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+                        foreach (CharacterName item in CharacterNames)
+                        {
+                            item.gameObject.AddComponent<LSDMob>();
+                        }
+                        SocialObject[] CharacterNames2 = FindObjectsByType<SocialObject>(sortmode.main);
+                        foreach (SocialObject item in CharacterNames2)
+                        {
+                            item.gameObject.AddComponent<LSDMob>();
+                        }
+                    }
+                    if (s[2] == "Sigas")
+                    {
+                        
+                        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
+                        foreach (CharacterName item in CharacterNames)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Äûì"), item.transform);
+                        }
+                        SocialObject[] CharacterNames2 = FindObjectsByType<SocialObject>(sortmode.main);
+                        foreach (SocialObject item in CharacterNames2)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Äûì"), item.transform);
+                        }
+                    }
+                }
+                if (s[1] == "@Geniuses")
+                {
+                    if (s[2] == "LSD")
+                    {
+                        CharacterStats[] CharacterStatss = FindObjectsByType<CharacterStats>(sortmode.main);
+                        foreach (CharacterStats item in CharacterStatss)
+                        {
+                            item.gameObject.AddComponent<LSDMob>();
+                        }
+                    }
+                    if (s[2] == "Sigas")
+                    {
+                        CharacterStats[] CharacterStatss = FindObjectsByType<CharacterStats>(sortmode.main);
+                        foreach (CharacterStats item in CharacterStatss)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Äûì"), item.transform);
+                        }
+                      
+                    }
+                }
+                if (s[1] == "@Self")
+                {
+                    if (s[2] == "LSD")
+                    {
+                        playerdata.Addeffect("Tripl3", 120);
+                    }
+                    if (s[2] == "Sigas")
+                    {
+                        Instantiate(Resources.Load<GameObject>("Äûì"), mover.main().transform);
                     }
                 }
             }

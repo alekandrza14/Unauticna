@@ -1,6 +1,7 @@
 using NUnit.Framework.Constraints;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Slave : MonoBehaviour
 {
@@ -8,11 +9,20 @@ public class Slave : MonoBehaviour
     public static List<GameObject> resea = new();
     public GameObject metka;
     public string slaveData;
+    public int solarytime;
+    public int solarytimeold;
     public int WorkQualityTEVRO;
     public Vector3 slavePosition;
     Transform ПлевковаяКаст, taktikpoint1, Research;
     private void Start()
     {
+        solarytime += DateTime.Now.Year*46;
+        solarytime += DateTime.Now.DayOfYear/7;
+        if (solarytimeold!=solarytime)
+        {
+            WorkQualityTEVRO = 0;
+            solarytimeold = solarytime;
+        }
         if (WorkQualityTEVRO < 5000)
         {
             InvokeRepeating("РабОтбираетДеньги", 60, 60);

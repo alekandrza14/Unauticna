@@ -50,26 +50,40 @@ public class Shop : MonoBehaviour
                 if (r.Next(0, 2) == 1)
                 {
                     int num = r.Next(0, Map_saver.t3.Length);
+                    int num2 = r.Next(0, 3);
                     produkt[i].name = Map_saver.t3[num].name;
-                    if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                    if (num2 != 0) 
                     {
-                        produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                        if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                        {
+                            produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                        }
+                        if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                        {
+                            produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                        }
                     }
-                    if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                    else
                     {
-                        produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                        produkt[i].price = 0.ToString();
                     }
                     produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
                 }
                 else
                 {
+                    int num2 = r.Next(0, 3);
                     FileInfo fi = dif.GetFiles()[r.Next(0, dif.GetFiles().Length)];
 
                     produkt[i].name = "co!" + (fi.Name.Replace(".txt", ""));
                     CustomObjectData model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + fi.Name));
-                   
+                    if (num2 != 0)
+                    {
                         produkt[i].price = (model.ItemPrice * 2.3f).ToString();
-                    
+                    }
+                    else
+                    {
+                        produkt[i].price = 0.ToString();
+                    }
                     produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
                 }
             }

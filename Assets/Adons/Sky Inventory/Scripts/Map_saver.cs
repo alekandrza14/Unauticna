@@ -467,6 +467,7 @@ public class Map_saver : MonoBehaviour
                         saveString1.SlaveA.Add(items[i3].GetComponent<Slave>().slaveData);
 
                         saveString1.SlaveTevA.Add(items[i3].GetComponent<Slave>().WorkQualityTEVRO);
+                        saveString1.SlaveSTA.Add(items[i3].GetComponent<Slave>().solarytimeold);
                     }
                     else
                     {
@@ -475,6 +476,7 @@ public class Map_saver : MonoBehaviour
                         saveString1.SlaveA.Add("");
 
                         saveString1.SlaveTevA.Add(0);
+                        saveString1.SlaveSTA.Add(0);
                     }
 
                     if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
@@ -541,6 +543,7 @@ public class Map_saver : MonoBehaviour
 
                 saveString1.SlaveB.Add(t[i].GetComponent<Slave>().slaveData);
                 saveString1.SlaveTevB.Add(t[i].GetComponent<Slave>().WorkQualityTEVRO);
+                saveString1.SlaveSTB.Add(t[i].GetComponent<Slave>().solarytimeold);
             }
             else
             {
@@ -549,6 +552,7 @@ public class Map_saver : MonoBehaviour
 
                 saveString1.SlaveB.Add("");
                 saveString1.SlaveTevB.Add(0);
+                saveString1.SlaveSTB.Add(0);
 
             }
             if (t[i].GetComponent<CharacterStats>())
@@ -577,6 +581,7 @@ public class Map_saver : MonoBehaviour
                     saveString1.isSlaveD.Add(true);
                     saveString1.SlaveD.Add(co[i].GetComponent<Slave>().slaveData);
                     saveString1.SlaveTevD.Add(co[i].GetComponent<Slave>().WorkQualityTEVRO);
+                    saveString1.SlaveSTD.Add(co[i].GetComponent<Slave>().solarytimeold);
 
                 }
                 else
@@ -586,6 +591,7 @@ public class Map_saver : MonoBehaviour
 
                     saveString1.SlaveD.Add("");
                     saveString1.SlaveTevD.Add(0);
+                    saveString1.SlaveSTD.Add(0);
                 }
                 if (co[i].GetComponent<CharacterStats>())
                 {
@@ -1492,6 +1498,7 @@ public class Map_saver : MonoBehaviour
                         if (saveString1.SlaveTevB.Count > i) if (saveString1.SlaveTevB.Count != 0)
                             {
                                 if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevB[i];
+                                if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().solarytimeold = saveString1.SlaveSTB[i];
                             }
                     }
                 }
@@ -1585,7 +1592,8 @@ public class Map_saver : MonoBehaviour
                             }
                         if (saveString1.SlaveTevD.Count > i) if (saveString1.SlaveTevD.Count != 0)
                             {
-                                if (co.gameObject.GetComponent<Slave>()) co.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevD[i];
+                                if (co.gameObject.GetComponent<Slave>()) co.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevD[i]; 
+                                if (co.gameObject.GetComponent<Slave>()) co.gameObject.GetComponent<Slave>().solarytimeold = saveString1.SlaveSTD[i];
                             }
                     }
                 }
@@ -1672,6 +1680,7 @@ public class Map_saver : MonoBehaviour
                         if (saveString1.SlaveTevA.Count > i3) if (saveString1.SlaveTevA.Count != 0)
                             {
                                 if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().WorkQualityTEVRO = saveString1.SlaveTevA[i3];
+                                if (g.gameObject.GetComponent<Slave>()) g.gameObject.GetComponent<Slave>().solarytimeold = saveString1.SlaveSTA[i3];
                             }
                     }
 
@@ -1860,6 +1869,9 @@ public class MapData
     public List<int> SlaveTevA = new();
     public List<int> SlaveTevB = new();
     public List<int> SlaveTevD = new();
+    public List<int> SlaveSTA = new();
+    public List<int> SlaveSTB = new();
+    public List<int> SlaveSTD = new();
     public string sceneName;
     public List<Vector3> vector3B = new();
 

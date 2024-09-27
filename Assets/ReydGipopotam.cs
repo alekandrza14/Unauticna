@@ -110,7 +110,11 @@ public class ReydGipopotam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (lml2.Find())
+        {
+            Instantiate(Resources.Load("SEffect/Snayp1"));
+            Destroy(gameObject);
+        }
         if (randomCPovid > 1) randomCPovid += Global.Random.Range(0, 0.001f);
         if (randomBPovid > 3) randomBPovid += Global.Random.Range(0, 0.01f);
         if (lF != PovidLFT.RandomRun) randomDPovid += Global.Random.Range(0, 0.01f);

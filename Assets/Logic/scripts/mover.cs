@@ -1335,7 +1335,7 @@ public class mover : CustomSaveObject
     }
     void Raydspawn()
     {
-        if (Global.Random.Chance(2))
+        if (!lml2.Find()) if (Global.Random.Chance(2))
         {
             if (UnityEngine.Random.Range(0, 3) < 1)
             {
@@ -1357,7 +1357,7 @@ public class mover : CustomSaveObject
     }
     void hamspawn()
     {
-        if (Global.Random.Chance(2))
+        if (!lml1.Find()) if (Global.Random.Chance(2))
         {
             if (UnityEngine.Random.Range(0, 35) < 1)
             {

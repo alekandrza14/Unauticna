@@ -4405,7 +4405,8 @@ public class ElementalInventory : MonoBehaviour {
                         setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : ""), select);
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -4439,7 +4440,8 @@ public class ElementalInventory : MonoBehaviour {
                         setItem("co!" + co.s, 1, Color.red, "6", (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : ""), select);
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
                         Destroy(co.gameObject);
 
                         Cells[select].UpdateCellInterface();
@@ -4673,6 +4675,11 @@ public class ElementalInventory : MonoBehaviour {
                     {
 
                         if (body.gameObject.GetComponent<Slave>()) body.gameObject.GetComponent<Slave>().WorkQualityTEVRO = int.Parse(SocialAspects[3]);
+                    }
+                if (SocialAspects.Length > 4) if (SocialAspects[4] != "")
+                    {
+
+                        if (body.gameObject.GetComponent<Slave>()) body.gameObject.GetComponent<Slave>().solarytimeold = int.Parse(SocialAspects[4]);
                     }
             }
         if (SocialAspects.Length > 1) if (SocialAspects[1] != "")
