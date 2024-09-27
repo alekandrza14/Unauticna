@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Slave : MonoBehaviour
 {
-    public static List<GameObject> plevk =new();
+    public static List<GameObject> plevk = new();
+    public static List<GameObject> resea = new();
     public GameObject metka;
     public string slaveData;
     public int WorkQualityTEVRO;
     public Vector3 slavePosition;
-    Transform ПлевковаяКаст, taktikpoint1;
+    Transform ПлевковаяКаст, taktikpoint1, Research;
     private void Start()
     {
         if (WorkQualityTEVRO < 5000)
@@ -49,6 +50,11 @@ public class Slave : MonoBehaviour
         if (ПлевковаяКаст == null) ПлевковаяКаст = FindFirstObjectByType<ПлевковаяКастрюля>().transform;
         return ПлевковаяКаст;
     }
+    Transform ResearchTablet()
+    {
+        if (Research == null) Research = FindFirstObjectByType<GenScience>().transform;
+        return Research;
+    }
     Transform taktikpoint2()
     {
         if (taktikpoint1 == null) 
@@ -79,10 +85,10 @@ public class Slave : MonoBehaviour
         }
         if (slaveData == "spitting")
         {
-          if (!plevk.Contains(gameObject))  plevk.Add(gameObject);
+            if (!plevk.Contains(gameObject)) plevk.Add(gameObject);
             Transform igrok = spittinglull();
             igrok.GetComponent<ПлевковаяКастрюля>().OnSignal();
-            
+
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 gameunitselect._this = null;
@@ -103,6 +109,40 @@ public class Slave : MonoBehaviour
         {
 
             if (plevk.Contains(gameObject)) plevk.Remove(gameObject);
+        }
+        if (slaveData == "research")
+        {
+            if (!resea.Contains(gameObject)) resea.Add(gameObject);
+            Transform igrok = ResearchTablet();
+            if (GetComponent<CharacterStats>())
+            {
+                igrok.GetComponent<GenScience>().Research(GetComponent<CharacterStats>().data.IQ / 100);
+            }
+            if (!GetComponent<CharacterStats>())
+            {
+                igrok.GetComponent<GenScience>().Research(1);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                gameunitselect._this = null;
+            }
+            if (Vector3.Distance(igrok.position, transform.position) > 3)
+            {
+
+                Vector3 Rotation = igrok.position - transform.position;
+                transform.rotation = Quaternion.LookRotation(Rotation, transform.up);
+                transform.position += transform.forward * (6f * Time.deltaTime);
+                transform.Rotate(0, -90, 0);
+                transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+                //  transform.transform.localPosition = new Vector3(transform.position.x, 0.5f, transform.position.z);
+            }
+
+        }
+        else
+        {
+
+            if (resea.Contains(gameObject)) resea.Remove(gameObject);
         }
         if (taktikpoint2())
         {

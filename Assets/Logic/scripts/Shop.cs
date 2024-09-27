@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,7 @@ public class Shop : MonoBehaviour
     public produktid[] produkt;
     public void Start()
     {
+        DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Items");
         if (VarSave.GetFloat(
              "Creative" + "_gameSettings", SaveType.global) >= .1f)
         {
@@ -42,18 +44,34 @@ public class Shop : MonoBehaviour
         {
             if (produkt[i].name == "Random()")
             {
-                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
-                int num = r.Next(0, Map_saver.t3.Length);
-                produkt[i].name = Map_saver.t3[num].name;
-                if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+               
+                    System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
+
+                if (r.Next(0, 2) == 1)
                 {
-                    produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                    int num = r.Next(0, Map_saver.t3.Length);
+                    produkt[i].name = Map_saver.t3[num].name;
+                    if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                    {
+                        produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                    }
+                    if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                    {
+                        produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                    }
+                    produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
                 }
-                if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                else
                 {
-                    produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                    FileInfo fi = dif.GetFiles()[r.Next(0, dif.GetFiles().Length)];
+
+                    produkt[i].name = "co!" + (fi.Name.Replace(".txt", ""));
+                    CustomObjectData model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + fi.Name));
+                   
+                        produkt[i].price = (model.ItemPrice * 2.3f).ToString();
+                    
+                    produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
                 }
-                produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
             }
             if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
             {
@@ -151,9 +169,20 @@ public class Shop : MonoBehaviour
             if (produkt[product].Give_or_Minus == false && tevroint >= decimal.Parse(produkt[product].price))
             {
 
-                for (int i = 0; i < produkt[product].count; i++)
+                if (!produkt[product].name.Contains("co!"))
                 {
-                    Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), GameManager.GetPlayer().transform.position, Quaternion.identity);
+                    for (int i = 0; i < produkt[product].count; i++)
+                    {
+                        Instantiate(Resources.Load<GameObject>("items/" + produkt[product].name), GameManager.GetPlayer().transform.position, Quaternion.identity);
+                    }
+                }
+                if (produkt[product].name.Contains("co!"))
+                {
+                    for (int i = 0; i < produkt[product].count; i++)
+                    {
+                     GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), GameManager.GetPlayer().transform.position, Quaternion.identity);
+                        obj.GetComponent<CustomObject>().s = produkt[product].name.Replace("co!", "");
+                    }
                 }
                 tevroint -= decimal.Parse( produkt[product].price);
                 VarSave.LoadMoney("Inflaition", -tevroint/2000, SaveType.global);
