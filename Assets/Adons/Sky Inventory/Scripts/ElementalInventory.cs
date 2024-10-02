@@ -4401,6 +4401,10 @@ public class ElementalInventory : MonoBehaviour {
                             VarSave.SetInt("researchs/" + fullname(hit), 0);
 
                         }
+                        if (VarSave.GetString("Relic") == fullname(hit))
+                        {
+                            VarSave.LoadFloat("reason", 3);
+                        }
 
                         setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
@@ -4426,6 +4430,10 @@ public class ElementalInventory : MonoBehaviour {
                             VarSave.SetInt("researchs/" + fullname(hit), 0);
 
                         }
+                        if (VarSave.GetString("Relic") == fullname(hit))
+                        {
+                            VarSave.LoadFloat("reason", 3);
+                        }
                         setItem(fullname(hit), 1, Color.red, select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
@@ -4436,7 +4444,10 @@ public class ElementalInventory : MonoBehaviour {
 
                         CustomObject co = hit.collider.GetComponent<CustomObject>();
 
-
+                        if (VarSave.GetString("Relic") == fullname(hit))
+                        {
+                            VarSave.LoadFloat("reason", 3);
+                        }
                         setItem("co!" + co.s, 1, Color.red, "6", (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"

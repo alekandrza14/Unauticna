@@ -13,6 +13,7 @@ public class EnemyePirat : MonoBehaviour
     bool attack;
     float timer;
 
+    public Collider trigger;
     Vector3 v3;
     private void OnCollisionStay(Collision collision)
     {
@@ -72,6 +73,14 @@ public class EnemyePirat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (attack)
+        {
+            trigger.enabled = false;
+        }
+        else
+        {
+            trigger.enabled = true;
+        }
         if (lml2.Find())
         {
             Instantiate(Resources.Load("SEffect/Snayp1"));

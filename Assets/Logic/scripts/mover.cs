@@ -64,7 +64,7 @@ public enum faceView
 
 public class mover : CustomSaveObject
 {
-    
+
     public GameObject PlayerBody;
     public GameObject PlayerCamera;
     [SerializeField] bool isplanet;
@@ -74,7 +74,7 @@ public class mover : CustomSaveObject
     [SerializeField] bool inglobalspace;
     [SerializeField] float jumpforse;
     [SerializeField] float jumpPower;
-    [SerializeField] public float gravity; 
+    [SerializeField] public float gravity;
     [SerializeField] float ForseSwaem;
     [SerializeField] Rigidbody rigidbody3d;
     [SerializeField] float Speed;
@@ -82,7 +82,7 @@ public class mover : CustomSaveObject
     [SerializeField] Animator[] SkinedAnimators;
     PlayerData save = new();
     TimePlayerData tsave = new();
-  public  GameData gsave = new();
+    public GameData gsave = new();
     [SerializeField] GUISkin editor;
     [SerializeField] public float W_position;
     [SerializeField] public float H_position;
@@ -100,7 +100,7 @@ public class mover : CustomSaveObject
     Collision c;
     float ZoomConficent = 0.04f;
     [SerializeField] RawImage watermask;
-    float fog = 1000;  float fog2 = 1000;
+    float fog = 1000; float fog2 = 1000;
     Color fogonwater;
     [HideInInspector] public int hp = 200; float oxygen = 20;
     float tic, time = 4; float tic2, time2 = 4;
@@ -116,14 +116,15 @@ public class mover : CustomSaveObject
     [SerializeField] GameObject PlayerModelObject;
     [SerializeField] GameObject[] PlayerModelObjects;
     [SerializeField] int[] PlayerModelTags;
-   public PlayerDNA DNA = new();
+    public PlayerDNA DNA = new();
     public Material DebugMat;
     Seson seson;
-    [HideInInspector] public  faceView faceViewi;
+    [HideInInspector] public faceView faceViewi;
     bool Sprint;
     float fireInk;
     string lepts = "";
 
+    ItemDemake Demake = new ItemDemake();
     [HideInInspector] public string lif;
     [HideInInspector] public float HX_Rotation;
 
@@ -149,20 +150,20 @@ public class mover : CustomSaveObject
     {
         RaymarchCam m = Get4DCam();
         mover w = mover.main();
-       
+
         w.swapWX3(w.transform, w);
         if (m._wRotation.x == 0) m._wRotation.x = -90; else m._wRotation.x = 0;
-        
+
 
     }
     public static void swapHXALL()
     {
         mover w = mover.main();
-       
+
         w.swapHX3(w.transform, w);
-        
-        if (w.HX_Rotation == 0) w.HX_Rotation  =- 90; else w.HX_Rotation = 0;
-        
+
+        if (w.HX_Rotation == 0) w.HX_Rotation = -90; else w.HX_Rotation = 0;
+
 
     }
     public static RaymarchCam maincam4;
@@ -196,7 +197,7 @@ public class mover : CustomSaveObject
         int Day = (int)fmod2((float)(v.Day + (id.Day - id2.Day)), 30f);
         int Hour = (int)fmod2((float)(v.Hour + (id.Hour - id2.Hour)), 60f);
         int Minute = (int)fmod2((float)(v.Minute + (id.Minute - id2.Minute)), 60f);
-        _new = "30" + year + " г. " +Month+ " м. " + Day + " д. " +Hour + " ч. " +Minute + " м. ";
+        _new = "30" + year + " г. " + Month + " м. " + Day + " д. " + Hour + " ч. " + Minute + " м. ";
         return _new;
     }
     void Building()
@@ -226,7 +227,7 @@ public class mover : CustomSaveObject
                 genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), hit.point, Quaternion.identity).GetComponent<genmodel>();
                 g.s = vaule1;
                 g.gameObject.transform.position = hit.point;
-               
+
 
             }
 
@@ -236,7 +237,7 @@ public class mover : CustomSaveObject
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-          
+
 
         }
         if (Input.GetKeyDown(KeyCode.F2))
@@ -268,11 +269,11 @@ public class mover : CustomSaveObject
                 hit2.collider.gameObject.AddComponent<DELETE>();
 
             }
-        } 
-          
+        }
 
 
-        
+
+
         if (GlobalInputMenager.KeyCode_Spawn != "")
         {
             vaule2 = GlobalInputMenager.KeyCode_Spawn;
@@ -294,11 +295,11 @@ public class mover : CustomSaveObject
                 telo g = Instantiate(Resources.Load<GameObject>("Custom Creature"), hit.point, Quaternion.identity).GetComponent<telo>();
                 g.nameCreature = vaule2;
                 g.gameObject.transform.position = hit.point;
-                
+
                 GlobalInputMenager.KeyCode_Spawn = "";
                 GlobalInputMenager.build.text = "";
             }
-            
+
 
         }
     }
@@ -308,15 +309,15 @@ public class mover : CustomSaveObject
     }
     public void SetViewFace(faceView a)
     {
-       faceViewi =a;
+        faceViewi = a;
     }
-    
-    public void LoadHyperbolicVector(Vector4 v4,HyperbolicCamera c1)
+
+    public void LoadHyperbolicVector(Vector4 v4, HyperbolicCamera c1)
     {
         c1.RealtimeTransform.n = v4.x;
         c1.RealtimeTransform.s = v4.y;
         c1.RealtimeTransform.m = v4.z;
-        c1.transform.position = new Vector3(0,v4.w,0);
+        c1.transform.position = new Vector3(0, v4.w, 0);
 
     }
     //физика
@@ -324,9 +325,9 @@ public class mover : CustomSaveObject
     {
 
         if (!collision.collider.CompareTag("sc") && !Input.GetKey(KeyCode.G)) if (JumpTimer < -2)
-        {
-            Debug.Log(JumpTimer);
-            hp += Mathf.FloorToInt(JumpTimer) / 3;
+            {
+                Debug.Log(JumpTimer);
+                hp += Mathf.FloorToInt(JumpTimer) / 3;
             }
         if (!collision.collider.CompareTag("sc") && Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
 
@@ -340,21 +341,21 @@ public class mover : CustomSaveObject
         c = collision;
         if (collision.collider.CompareTag("sc"))
         {
-            
-        //IsGraund = false;
+
+            //IsGraund = false;
 
         }
 
         if (collision.collider.CompareTag("sc2"))
         {
-            
-            
-                JumpTimer = -jumpPower / 2;
-                s2 = false;
-             if(GravityConstant() > -0)   IsGraund = true;
 
-            
-           
+
+            JumpTimer = -jumpPower / 2;
+            s2 = false;
+            if (GravityConstant() > -0) IsGraund = true;
+
+
+
 
         }
     }
@@ -366,7 +367,7 @@ public class mover : CustomSaveObject
         }
         if (collision.collider.GetComponent<fire>())
         {
-            if (fireInk+10 < 100)
+            if (fireInk + 10 < 100)
             {
                 fireInk += 10;
 
@@ -394,16 +395,16 @@ public class mover : CustomSaveObject
         }
         if (other.GetComponent<notswiming>())
         {
-             InWater = true;
+            InWater = true;
 
         }
-       
+
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("lagi"))
         {
-            PlayerCamera.GetComponent<Camera>().enabled = 1 ==Global.Random.Range(0, 3);
+            PlayerCamera.GetComponent<Camera>().enabled = 1 == Global.Random.Range(0, 3);
 
         }
 
@@ -423,7 +424,7 @@ public class mover : CustomSaveObject
             PlayerCamera.GetComponent<Camera>().enabled = true;
 
         }
-        
+
     }
     void OnCollisionExit(Collision collision)
     {
@@ -444,31 +445,31 @@ public class mover : CustomSaveObject
     {
         var reason =
         VarSave.GetFloat("reason");
-       if(rand.Next(0,10)<1) reason -= 1;
+        if (rand.Next(0, 10) < 1) reason -= 1;
         int min = 0;
         int max = 100;
-        max += (int)(data_BGPU*10);
-        for (int i=0;i<2;i++) { if(i==0)if (Globalprefs.alterversion >= 0.1f)
-            {
+        max += (int)(data_BGPU * 10);
+        for (int i = 0; i < 2; i++) { if (i == 0) if (Globalprefs.alterversion >= 0.1f)
+                {
                     Debug.Log("Fork?");
-                min = 10;
+                    min = 10;
 
-            }
+                }
             if (i == 1) if (reason < 0 + min)
-            {
-                reason = 0 + min;
-            }
+                {
+                    reason = 0 + min;
+                }
         }
-         if (reason > 0 + max)
-            {
-                reason = 0 + max;
-            }
+        if (reason > 0 + max)
+        {
+            reason = 0 + max;
+        }
         if (VarSave.CreateEvent("reason"))
         {
             reason = 100;
 
         }
-      
+
         if (reason < 10)
         {
             Application.targetFrameRate = 7;
@@ -481,19 +482,19 @@ public class mover : CustomSaveObject
         {
             Application.targetFrameRate = 60;
         }
-        VarSave.SetFloat("reason",reason);
+        VarSave.SetFloat("reason", reason);
     }
 
     //Пробуждение кода
     private void Awake()
     {
         Init();
-      //  DNA = JsonUtility.FromJson
+        //  DNA = JsonUtility.FromJson
 #if !UNITY_EDITOR
         dnSpyModer.MainModData.LoadScene();
 #endif
     }
-  [HideInInspector] public Color c1;
+    [HideInInspector] public Color c1;
     int maxhp2;
     int regen;
     bool swapWHaN;
@@ -502,7 +503,7 @@ public class mover : CustomSaveObject
     public JsonGame file = new JsonGame();
     private void Init()
     {
-        if ((UniverseSkyType)VarSave.GetInt("UST")==UniverseSkyType.AntyLight)
+        if ((UniverseSkyType)VarSave.GetInt("UST") == UniverseSkyType.AntyLight)
         {
             GameObject g = Resources.Load<GameObject>("NLRule");
             Instantiate(g, transform);
@@ -510,7 +511,7 @@ public class mover : CustomSaveObject
         seson = (Seson)VarSave.GetInt("Seson");
         if (VarSave.GetFloat("Можно игрока обзывать" + "_gameSettings", SaveType.global) > -0.1)
         {
-           
+
             if (UnityEngine.Random.Range(0, 12) == 0)
             {
                 GameObject g = Resources.Load<GameObject>("voices/Metapov");
@@ -535,10 +536,10 @@ public class mover : CustomSaveObject
         }
         if (VarSave.GetFloat("Можно игрока обзывать" + "_gameSettings", SaveType.global) >= 1)
         {
-           
-                GameObject g = Resources.Load<GameObject>("voices/Metapov");
-                Instantiate(g, transform);
-           
+
+            GameObject g = Resources.Load<GameObject>("voices/Metapov");
+            Instantiate(g, transform);
+
         }
         if (seson == Seson.Зима)
         {
@@ -559,7 +560,7 @@ public class mover : CustomSaveObject
             file = JsonUtility.FromJson<JsonGame>(File.ReadAllText("res/UserWorckspace/games/" + VarSave.GetString("GameActive") + ".ugame"));
             GameEditor.Opened = file;
         }
-            if (VarSave.GetMoney("Winks", SaveType.local)>0)
+        if (VarSave.GetMoney("Winks", SaveType.local) > 0)
         {
             GameObject g = Resources.Load<GameObject>("WinksPM");
             Instantiate(g, transform);
@@ -601,29 +602,29 @@ public class mover : CustomSaveObject
             Instantiate(g, Vector3.zero, Quaternion.identity);
         }
         Global.MEM.UE();
-        InvokeRepeating("reasonUpdate",1,10);
+        InvokeRepeating("reasonUpdate", 1, 10);
 
-      /*  Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
-        Vector3[] allpos = new Vector3[allobj.Length];
-        int i2 = 0;
-        for (int i =0;i<allobj.Length;i++)
-        {
-            Collider obj = allobj[i];
-            if (!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
-            {
-                allpos[i2] = Vector3.negativeInfinity;
-            }
-            if (true) i2 += 1;
-        }
-        Globalprefs.allTransphorms = allobj;
-        Globalprefs.allpos = allpos;
-      
-       */
-            GameObject g2 = new("init");
-            gameInit.Init(g2); 
+        /*  Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
+          Vector3[] allpos = new Vector3[allobj.Length];
+          int i2 = 0;
+          for (int i =0;i<allobj.Length;i++)
+          {
+              Collider obj = allobj[i];
+              if (!obj.GetComponent<CustomSaveObject>())  allpos[i2] = obj.transform.position; else
+              {
+                  allpos[i2] = Vector3.negativeInfinity;
+              }
+              if (true) i2 += 1;
+          }
+          Globalprefs.allTransphorms = allobj;
+          Globalprefs.allpos = allpos;
+
+         */
+        GameObject g2 = new("init");
+        gameInit.Init(g2);
         if (gameInit.init != null)
         {
-                DontDestroyOnLoad(g2);
+            DontDestroyOnLoad(g2);
         }
         if ((UniverseSkyType)VarSave.GetInt("UST") == UniverseSkyType.Litch)
         {
@@ -663,7 +664,7 @@ public class mover : CustomSaveObject
             jumpPower += DNA.Jumping;
             maxhp2 = (int)DNA.hp;
             regen = (int)DNA.regeneration;
-            if (DNA.talant!=null)
+            if (DNA.talant != null)
             {
                 if (DNA.talant.Count > 0)
                 {
@@ -689,7 +690,7 @@ public class mover : CustomSaveObject
             }
         }
         jumpPower += Globalprefs.GetRealiyChaos(4);
-        cistalenemy.dies = VarSave.LoadInt("Agr",0);
+        cistalenemy.dies = VarSave.LoadInt("Agr", 0);
         Globalprefs.Chanse_fire = 0;
         if (RenderSettings.skybox.name == "Default-Skybox")
         {
@@ -713,11 +714,11 @@ public class mover : CustomSaveObject
         }
         if (VarSave.GetFloat("HorrorMode" + "_gameSettings", SaveType.global) > 0.5)
         {
-            
-      
+
+
             Instantiate(Resources.Load<GameObject>("audios/Шум"));
         }
-        if (!Global.Random.determindAll) 
+        if (!Global.Random.determindAll)
         {
             float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
             if (UnityEngine.Random.Range(0, (float)Chance + 1) == 0)
@@ -742,7 +743,7 @@ public class mover : CustomSaveObject
         }
         else
         {
-            
+
             Instantiate(Resources.Load<GameObject>("events/Pirats"));
             cistalenemy.dies -= 2;
             Globalprefs.LoadTevroPrise(-100);
@@ -753,35 +754,35 @@ public class mover : CustomSaveObject
         }
         if (timer7 != LastSesionHours)
         {
-            
-          //      VarSave.LoadMoney("tevro", Global.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
-             
+
+            //      VarSave.LoadMoney("tevro", Global.Random.Range(150,600) * VarSave.LoadMoney("Stocks", 0));
 
 
-              //      VarSave.SetMoney("Stocks", 0);
-            
-            
-            
-            
+
+            //      VarSave.SetMoney("Stocks", 0);
+
+
+
+
         }
         decimal cashFlow = ((timer5 - LastSesion) * VarSave.GetMoney("CashFlow"));
-      if ( Sutck.day!=0) VarSave.LoadMoney("tevro", cashFlow);
+        if (Sutck.day != 0) VarSave.LoadMoney("tevro", cashFlow);
         decimal overFlow = ((timer5 - LastSesion) * VarSave.GetMoney("OverFlow"));
         if (Sutck.day != 0) VarSave.LoadMoney("CashFlow", overFlow);
-        Globalprefs.MultTevro = VarSave.GetTrash("MOMU",0);
+        Globalprefs.MultTevro = VarSave.GetTrash("MOMU", 0);
         fireInk = VarSave.GetFloat("FireInk");
         hyperbolicCamera = HyperbolicCamera.Main();
         StartCoroutine(coroutine());
         Globalprefs.bunkrot = VarSave.GetBool("Bunkrot");
         Globalprefs.research = VarSave.GetMoney("research");
         Globalprefs.technologies = VarSave.GetMoney("_technologies");
-        Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow")+ ((decimal)Globalprefs.GetRealiyChaos(10f)/100);
+        Globalprefs.flowteuvro = VarSave.GetMoney("CashFlow") + ((decimal)Globalprefs.GetRealiyChaos(10f) / 100);
         Globalprefs.OverFlowteuvro = VarSave.GetMoney("OverFlow");
         Globalprefs.Infinitysteuvro = VarSave.GetTrash("inftevro");
-      //  Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
+        //  Globalprefs.OverFlowteuvro = VarSave.GetInt("uptevro");
         lif = Globalprefs.GetIdPlanet().ToString();
         lif += "_" + Globalprefs.GetTimeline();
-       
+
         SaveFileInputField.text = Globalprefs.GetTimeline();
 
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
@@ -790,12 +791,12 @@ public class mover : CustomSaveObject
             planet_position = gsave.Spos;
             lepts = "-" + planet_position.ToString();
         }
-        
 
-             Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
-          c.targetDisplay = 0;
-           c.targetTexture = new RenderTexture(new RenderTextureDescriptor(Screen.width, Screen.height));
-           c.renderingPath = RenderingPath.DeferredShading;
+
+        Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
+        c.targetDisplay = 0;
+        c.targetTexture = new RenderTexture(new RenderTextureDescriptor(Screen.width, Screen.height));
+        c.renderingPath = RenderingPath.DeferredShading;
 
         Globalprefs.camera = c;
         c.gameObject.AddComponent<Logic_tag_3>();
@@ -808,7 +809,7 @@ public class mover : CustomSaveObject
         }
         playerdata.Loadeffect();
 
-      if(DNA != null)  playerdata.LoadBakeeffect();
+        if (DNA != null) playerdata.LoadBakeeffect();
         ionenergy.energy = 0;
         vel = GetComponent<CapsuleCollider>().height;
 
@@ -817,12 +818,12 @@ public class mover : CustomSaveObject
 
 
         //four-Dimentional-Axis
-       if(GameObject.FindGameObjectsWithTag("i3").Length==0) Instantiate(Resources.Load<GameObject>("player inventory"));
+        if (GameObject.FindGameObjectsWithTag("i3").Length == 0) Instantiate(Resources.Load<GameObject>("player inventory"));
         if (VarSave.ExistenceVar("Player_On_Pirat_Attack")) Instantiate(Resources.Load<GameObject>("events/Pirats"));
         if (VarSave.ExistenceGlobalVar("eventPlevraSpamtona"))
         {
             Instantiate(Resources.Load<GameObject>("items/Смачный_плевок_Спамтона"));
-            Instantiate(Resources.Load<GameObject>("events/ПлевокСпамтона")); 
+            Instantiate(Resources.Load<GameObject>("events/ПлевокСпамтона"));
         }
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
@@ -848,7 +849,7 @@ public class mover : CustomSaveObject
                 save = JsonUtility.FromJson<PlayerData>(File.ReadAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text));
                 rigidbody3d.angularVelocity = save.angularvelosyty;
                 rigidbody3d.linearVelocity = save.velosyty;
-               
+
 
                 W_position = save.wpos;
                 H_position = save.hpos;
@@ -863,21 +864,21 @@ public class mover : CustomSaveObject
                 Globalprefs.newv3 = Vector3.zero;
                 //  sr.transform.position = Save.pos2;
                 if (HyperbolicCamera.Main() != null)
-                    {
-                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
-                    }
-                    if (Globalprefs.isnew)
-                    {
+                {
+                    HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                }
+                if (Globalprefs.isnew)
+                {
 
 
-                        PlayerBody.transform.position += Globalprefs.newv3;
-                        PlayerBody.transform.rotation = Globalprefs.q[0];
-                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
-                        PlayerCamera.transform.rotation = Globalprefs.q[1];
-                        Globalprefs.isnew = false;
-                    }
-              
-               if (portallNumer.Portal == "WMove+")
+                    PlayerBody.transform.position += Globalprefs.newv3;
+                    PlayerBody.transform.rotation = Globalprefs.q[0];
+                    HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                    PlayerCamera.transform.rotation = Globalprefs.q[1];
+                    Globalprefs.isnew = false;
+                }
+
+                if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -936,12 +937,12 @@ public class mover : CustomSaveObject
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (lt.Length != 0)
                 {
-                   lt[0].GetComponent<Camera>().fieldOfView = save.vive;
+                    lt[0].GetComponent<Camera>().fieldOfView = save.vive;
                 }
             }
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
             {
-                gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text)); 
+                gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
                 CamDistanceMult = gsave.PlayerScale;
                 transform.localScale = Vector3.one * gsave.PlayerScale;
                 hp = gsave.hp;
@@ -983,27 +984,27 @@ public class mover : CustomSaveObject
                 N_position = save.npos;
                 cur_N_position = save.cnpos;
                 HX_Rotation = save.hxrot;
-              
 
-                    PlayerBody.transform.position = save.pos+ Globalprefs.newv3;
+
+                PlayerBody.transform.position = save.pos + Globalprefs.newv3;
                 Debug.Log(Globalprefs.newv3);
                 Globalprefs.newv3 = Vector3.zero;
                 //  sr.transform.position = Save.pos2;
                 if (HyperbolicCamera.Main() != null)
-                    {
-                        HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
-                    }
-                    if (Globalprefs.isnew)
-                    {
+                {
+                    HyperbolicCamera.Main().RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
+                }
+                if (Globalprefs.isnew)
+                {
 
 
-                        PlayerBody.transform.position += Globalprefs.newv3;
-                        PlayerBody.transform.rotation = Globalprefs.q[0];
-                        HeadCameraSetup.transform.rotation = Globalprefs.q[2];
-                        PlayerCamera.transform.rotation = Globalprefs.q[1];
-                        Globalprefs.isnew = false;
-                    }
-               if (portallNumer.Portal == "WMove+")
+                    PlayerBody.transform.position += Globalprefs.newv3;
+                    PlayerBody.transform.rotation = Globalprefs.q[0];
+                    HeadCameraSetup.transform.rotation = Globalprefs.q[2];
+                    PlayerCamera.transform.rotation = Globalprefs.q[1];
+                    Globalprefs.isnew = false;
+                }
+                if (portallNumer.Portal == "WMove+")
                 {
                     if (true)
                     {
@@ -1017,9 +1018,9 @@ public class mover : CustomSaveObject
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
-                   
+
                 }
-             else   if (portallNumer.Portal == "WMove-")
+                else if (portallNumer.Portal == "WMove-")
                 {
                     if (true)
                     {
@@ -1033,7 +1034,7 @@ public class mover : CustomSaveObject
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position;
 
                     }
-                  
+
                 }
                 PlayerBody.transform.rotation = save.q1;
                 HeadCameraSetup.transform.rotation = save.q3;
@@ -1043,7 +1044,7 @@ public class mover : CustomSaveObject
                 PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
                 if (lt.Length != 0)
                 {
-                   lt[0].GetComponent<Camera>().fieldOfView = save.vive;
+                    lt[0].GetComponent<Camera>().fieldOfView = save.vive;
                 }
             }
             if (File.Exists("unsavet/capterg/" + SaveFileInputField.text))
@@ -1083,7 +1084,7 @@ public class mover : CustomSaveObject
 
     Metka[] UpdateTargets()
     {
-     return   metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
+        return metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
     }
     float data_BGPU;
     float data_mana;
@@ -1150,7 +1151,7 @@ public class mover : CustomSaveObject
                 }
                 else
                 {
-                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2)+"E"+Globalprefs.MultTevro);
+                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
                 }
             }
             int maxcollect = 0;
@@ -1163,9 +1164,9 @@ public class mover : CustomSaveObject
                 if (!Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise) GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
                 if (Globalprefs.selectitemobj.GetComponent<itemName>().ItemInfinitysPrise) GUI.Label(new Rect(0f, 80, 300f, 100f), "Item price : ∞ * " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1) + " По скидке");
             }
-            else 
+            else
             {
-                GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1)); 
+                GUI.Label(new Rect(0f, 80, 200f, 100f), "Item price : " + Globalprefs.ItemPrise * (Globalprefs.GetProcentInflitiuon() + 1));
             }
             GUI.Label(new Rect(0f, 100, 200f, 100f), "Scientific research (?) : " + Globalprefs.research);
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + (Globalprefs.knowlages + gsave.progressofthepassage).ToString());
@@ -1177,11 +1178,11 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + data_stocks);
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
             GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + data_inflation + "%");
-            if (data_profstatus !="")
-            { 
+            if (data_profstatus != "")
+            {
                 GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + data_profstatus);
             }
-            else 
+            else
             {
                 GUI.Label(new Rect(0f, 300, 200f, 100f), "ProfStatus : " + "Unknown");
             }
@@ -1189,7 +1190,7 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 340, 200f, 100f), "Intelect : " + (100 + (CosProgress()) * 10));
             GUI.Label(new Rect(0f, 360, 200f, 100f), "Mana : " + data_mana);
             GUI.Label(new Rect(0f, 380, 200f, 100f), "Luck : " + data_luck);
-            GUI.Label(new Rect(0f, 400, 200f, 100f), "Reason : " + Globalprefs.reasone+" / "+(100+ (data_BGPU * 10)));
+            GUI.Label(new Rect(0f, 400, 200f, 100f), "Reason : " + Globalprefs.reasone + " / " + (100 + (data_BGPU * 10)));
             GUI.Label(new Rect(0f, 420, 300f, 100f), "Flow Flow Teuvro on hour ($^^) : " + Math.Round(Globalprefs.OverFlowteuvro, 2) + "E" + Globalprefs.MultTevro);
 
             GUI.Label(new Rect(Screen.width - 200, 0, 200, 40), "TimeRegion : " + ((TimeOfGame)Sutck.day).ToString(), editor.label);
@@ -1222,7 +1223,7 @@ public class mover : CustomSaveObject
 
                 if (N_position.Count <= 0) N_position.Add(0);
                 GUI.Label(new Rect((Screen.width / 2) - 100, (Screen.height / 2) - 10, (Screen.width / 2) + 100, (Screen.height / 2) + 30), "4D move : " + Sprint.ToString());
-                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + new_center.x.ToString() + " y : " + new_center.y.ToString() + " z : " + new_center.z.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n ["+cur_N_position+"] : " + N_position[cur_N_position].ToString();
+                if (!hyperbolicCamera && gameObject.layer == 2) Globalprefs.PlayerPositionInfo = "Euclidian World Position x : " + new_center.x.ToString() + " y : " + new_center.y.ToString() + " z : " + new_center.z.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 else if (hyperbolicCamera) Globalprefs.PlayerPositionInfo = "Hyperbolic World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + new_center.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " w : " + W_position.ToString() + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 if (!hyperbolicCamera)
                 {
@@ -1235,21 +1236,21 @@ public class mover : CustomSaveObject
                     if (gameObject.layer == 12) Globalprefs.PlayerPositionInfo = "Hyperkomplex World Position x : " + hyperbolicCamera.RealtimeTransform.s.ToString() + " y : " + new_center.y.ToString() + " z : " + hyperbolicCamera.RealtimeTransform.m.ToString() + " s : " + "2" + " h : " + H_position.ToString() + " n [" + cur_N_position + "] : " + N_position[cur_N_position].ToString();
                 }
             }
-            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime()) + " z : re " + Globalprefs.Reality + " , muc " + "0" + " , li " + VarSave.GetString("CurrentSpace") +" "+ VarSave.GetMoney("datasurface/" + VarSave.GetString("CurrentSpace")) + " , gli " + "0";
+            Globalprefs.AnyversePlayerPositionInfo = "Freedom Anyverse Position x : " + Globalprefs.GetIdPlanet() + " y : " + Globalprefs.GetTimeline() + "," + (CurrentTime()) + " z : re " + Globalprefs.Reality + " , muc " + "0" + " , li " + VarSave.GetString("CurrentSpace") + " " + VarSave.GetMoney("datasurface/" + VarSave.GetString("CurrentSpace")) + " , gli " + "0";
 
         }
     }
     bool perMorphin;
     public static GameObject DopPlayerModel;
     [DllImport("AssemblyCPP")]
-    public static extern long my_cpp_pluss(long a,long b);
+    public static extern long my_cpp_pluss(long a, long b);
 
     //Приметивный интерфейс
     void Start()
     {
-        
-            // InvokeRepeating("GameUpdate", 1, 0.07f);
-            gameObject.AddComponent<Conseole_trigger>();
+
+        // InvokeRepeating("GameUpdate", 1, 0.07f);
+        gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
         if (VarSave.GetBool("cry"))
@@ -1292,14 +1293,18 @@ public class mover : CustomSaveObject
             DopPlayerModel = morphmodel;
             perMorphin = true;
         }
+        int Spawnrade = SpawnRadeBonus.m_SpawnRadeBonusList.Count + 1;
         InvokeRepeating("UpdateTargets", 0, 1);
-        InvokeRepeating("bomjspawn", 60 * 3, 60 * 3);
-        InvokeRepeating("мгеspawn", 60 * 5, 60 * 2.7f);
-        InvokeRepeating("kilspawn", 60 * 5, 60 * 2.5f);
-        InvokeRepeating("Raydspawn", 60 * 5, 60 * 1.5f);
-        InvokeRepeating("hamspawn", 60 * 5, 60 * 1.5f);
-        InvokeRepeating("libspawn", 20, 20f);
-        if (UnityEngine.Random.Range(0,35)<1)
+        InvokeRepeating("bomjspawn", (60 * 3)/ Spawnrade, (60 * 3) / Spawnrade);
+        InvokeRepeating("мгеspawn", (60 * 5) /  Spawnrade, (60 * 2.7f) / Spawnrade);
+        InvokeRepeating("kilspawn", (60 * 5) /  Spawnrade, (60 * 2.5f) / Spawnrade);
+        InvokeRepeating("Raydspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+        InvokeRepeating("pirspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+        InvokeRepeating("Rayhspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+        InvokeRepeating("spamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+        InvokeRepeating("hamspawn", (60 * 5)/ Spawnrade, (60 * 1.5f)/Spawnrade);
+        InvokeRepeating("libspawn", 20/ Spawnrade, 20f/ Spawnrade);
+        if (UnityEngine.Random.Range(0, 35) < 1)
         {
             SceneManager.LoadScene("Donat");
         }
@@ -1310,10 +1315,22 @@ public class mover : CustomSaveObject
         Vector3 rand = new(UnityEngine.Random.rotation.x, UnityEngine.Random.rotation.y, UnityEngine.Random.rotation.z);
         return rand;
     }
+    bool IfSpawn(string itemname)
+    {
+        Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
+      if(Demake != null)  if (Demake.item != null) if (Demake.item.Count != 0) foreach (string item in Demake.item)
+        {
+            if (item == itemname)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     //РейдерГипопотам
     void bomjspawn()
     {
-        if (!lml2.Find()) if (Global.Random.Chance(2))
+        if(IfSpawn("Попрашайка"))  if (!lml2.Find()) if (Global.Random.Chance(2))
             {
                 if (UnityEngine.Random.Range(0, 35) < 1)
                 {
@@ -1335,29 +1352,181 @@ public class mover : CustomSaveObject
     }
     void Raydspawn()
     {
-        if (!lml2.Find()) if (Global.Random.Chance(2))
-        {
-            if (UnityEngine.Random.Range(0, 3) < 1)
-            {
-                SceneManager.LoadScene("Donat");
-            }
-            for (int i = 0; i < 6; i++)
-            {
-                Ray r = new(transform.position + (transform.up * 40), randommaze());
-                RaycastHit hit;
-                if (Physics.Raycast(r, out hit))
+        if (IfSpawn("РейдерГипопотам")) if (!lml2.Find()) if (Global.Random.Chance(2))
                 {
-                    if (hit.collider != null)
+                    if (UnityEngine.Random.Range(0, 9) < 1)
                     {
-                        Instantiate(Resources.Load<GameObject>("Items/РейдерГипопотам"), hit.point, Quaternion.identity);
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/РейдерГипопотам"), hit.point, Quaternion.identity);
+                            }
+                        }
                     }
                 }
-            }
-        }
+    }
+    void Rayhspawn()
+    {
+        if (IfSpawn("FashistEnemye")) if (!lml2.Find()) if (Global.Random.Chance(2))
+                {
+                    
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/FashistEnemye"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+    }
+    void pirspawn()
+    {
+        if (IfSpawn("Pirat")) if (!lml2.Find()) if (Global.Random.Chance(2))
+                {
+                    
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/Pirat"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+    }
+    void spamspawn()
+    {
+        if (IfSpawn("spamton")) if (!lml2.Find()) if (Global.Random.Chance(4))
+                {
+                    if (UnityEngine.Random.Range(0, 22) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/spamton"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("scamton")) if (!lml2.Find()) if (Global.Random.Chance(4))
+                {
+                    if (UnityEngine.Random.Range(0, 22) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/scamton"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("spamtonСнайпер")) if (!lml2.Find()) if (Global.Random.Chance(4))
+                {
+                    if (UnityEngine.Random.Range(0, 22) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/spamtonСнайпер"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("spamtonкаменист")) if (!lml2.Find()) if (Global.Random.Chance(4))
+                {
+                    if (UnityEngine.Random.Range(0, 22) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/spamtonкаменист"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("spamtonмаг")) if (!lml2.Find()) if (Global.Random.Chance(4))
+                {
+                    if (UnityEngine.Random.Range(0, 22) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/spamtonмаг"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("terratist")) if (!lml2.Find()) if (Global.Random.Chance(4))
+                {
+                    
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/terratist"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
     }
     void hamspawn()
     {
-        if (!lml1.Find()) if (Global.Random.Chance(2))
+        if (IfSpawn("БезКультурный")) if (!lml1.Find()) if (Global.Random.Chance(2))
         {
             if (UnityEngine.Random.Range(0, 35) < 1)
             {
@@ -1379,7 +1548,7 @@ public class mover : CustomSaveObject
     }
     void мгеspawn()
     {
-       if(!lml1.Find()) if (Global.Random.Chance(6))
+        if (IfSpawn("МГЕ-Брат")) if (!lml1.Find()) if (Global.Random.Chance(6))
         {
             for (int i = 0; i < 10+Global.Random.Range(0,60); i++)
             {
@@ -1397,7 +1566,7 @@ public class mover : CustomSaveObject
     }
     void kilspawn()
     {
-        if (!lml1.Find()) if (Global.Random.Chance(2))
+        if (IfSpawn("ПростоУбийца")) if (!lml1.Find()) if (Global.Random.Chance(2))
         {
             for (int i = 0; i < 6; i++)
             {
@@ -1415,7 +1584,7 @@ public class mover : CustomSaveObject
     }
     void libspawn()
     {
-        if (!lml1.Find()) if (VarSave.ExistenceVar("libirist"))
+        if (IfSpawn("либирист")) if (!lml1.Find()) if (VarSave.ExistenceVar("libirist"))
         {
             if (Global.Random.Chance(5))
             {

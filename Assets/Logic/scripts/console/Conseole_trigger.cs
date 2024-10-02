@@ -413,10 +413,10 @@ public class Conseole_trigger : MonoBehaviour
                     Instantiate(Resources.Load<GameObject>("items/infinity_gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/infinity_gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
 
-                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/file_рыбы"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_    "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_    "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_    "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/file_    "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     VarSave.LoadMoney("tevro", 5000); VarSave.SetString("ProfStatus", "Pirat");
                 }
 
@@ -455,7 +455,7 @@ public class Conseole_trigger : MonoBehaviour
                 {
 
                     Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     //4D-Glasses
@@ -466,7 +466,7 @@ public class Conseole_trigger : MonoBehaviour
                 {
 
                     Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     //4D-Glasses
                     VarSave.SetString("ProfStatus", "Warior");
                     VarSave.LoadMoney("tevro", 100);
@@ -475,9 +475,9 @@ public class Conseole_trigger : MonoBehaviour
                 {
 
                     Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
@@ -494,9 +494,9 @@ public class Conseole_trigger : MonoBehaviour
                 if (s[1] == "Astronom")
                 {
 
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
@@ -517,7 +517,7 @@ public class Conseole_trigger : MonoBehaviour
                 if (s[1] == "Astronaft")
                 {
 
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/4D-Glasses"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
@@ -534,8 +534,8 @@ public class Conseole_trigger : MonoBehaviour
                 if (s[1] == "Economist")
                 {
 
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks2"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("Primetives/E2/stocks3"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
@@ -569,7 +569,7 @@ public class Conseole_trigger : MonoBehaviour
                 if (s[1] == "Fashist")
                 {
 
-                    Instantiate(Resources.Load<GameObject>("items/пильмени"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/        "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/Infinity_Gun"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
@@ -589,11 +589,11 @@ public class Conseole_trigger : MonoBehaviour
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/Duper"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/СамоучительПоНероазрушимымСтенам"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Портал_в_логово_читеров"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/                                "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/      _ _      _       "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/MltiverseMagicStick"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     VarSave.SetString("ProfStatus", "Cheter");
-                    //Портал_в_логово_читеров
+                    //      _ _      _       
                     //Gravity_board
 
                     VarSave.LoadMoney("tevro", 9999999);
@@ -602,11 +602,11 @@ public class Conseole_trigger : MonoBehaviour
                 if (s[1] == "Witch")
                 {
 
-                    Instantiate(Resources.Load<GameObject>("items/СамоучительПоНероазрушимымСтенам"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/                                "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/1infinityByteDisk"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/MltiverseMagicStick"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Портал_в_логово_читеров"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/      _ _      _       "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/BlueMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
@@ -617,7 +617,7 @@ public class Conseole_trigger : MonoBehaviour
                     Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/RedMetka"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Учебник_по_Всемогуществу"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/       _  _             "),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/KsenoMorfin"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/Absolute_poison"),mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0),Quaternion.identity);
                     VarSave.SetString("ProfStatus", "Witch");
@@ -661,15 +661,15 @@ public class Conseole_trigger : MonoBehaviour
                 {
 
                     Instantiate(Resources.Load<GameObject>("items/Worker"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/Каменьщикоый_камень"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/            _      "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
                     VarSave.SetString("ProfStatus", "StoneBraker");
                     //KsenoMorfin
                     //Absolute_poison
@@ -712,7 +712,7 @@ public class Conseole_trigger : MonoBehaviour
                     Instantiate(Resources.Load<GameObject>("items/Kley"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/builder"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
                     Instantiate(Resources.Load<GameObject>("items/ItemKey"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
-                    Instantiate(Resources.Load<GameObject>("items/СамоучительПоСтраительству"), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
+                    Instantiate(Resources.Load<GameObject>("items/                          "), mover.main().transform.position+ PiratAttack.randomCube(6,6)+new Vector3(0,6,0), Quaternion.identity);
                     VarSave.SetString("ProfStatus", "Builder");
                     //SampleCrown
                     //Absolute_poison
@@ -897,7 +897,7 @@ public class Conseole_trigger : MonoBehaviour
                 int numMaterial = 0;
                 foreach (Material item in m)
                 {
-                    msg += "Материал " + numMaterial.ToString() + " \"" + item.name + "\"\n";
+                    msg += "         " + numMaterial.ToString() + " \"" + item.name + "\"\n";
                     numMaterial++;
                 }
                 Loger.Sand(msg);
@@ -1138,6 +1138,12 @@ public class Conseole_trigger : MonoBehaviour
                 }
                 if (s[1] == "@Self")
                 {
+                    int дым = 0;
+                    дым += 1;
+                    if (дым == 1)
+                    {
+                        дым += 1;
+                    }
                     if (s[2] == "LSD")
                     {
                         playerdata.Addeffect("Tripl3", 120);

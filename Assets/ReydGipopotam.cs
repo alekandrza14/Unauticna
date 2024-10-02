@@ -10,6 +10,7 @@ public class ReydGipopotam : MonoBehaviour
     GameObject atak;
     public GameObject salut;
     public PovidLFT lF;
+    public Collider trigger;
 
     private void OnCollisionStay(Collision collision)
     {
@@ -110,6 +111,16 @@ public class ReydGipopotam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (eat == null)
+        {
+            trigger.enabled = true;
+        }
+        else
+        {
+            randomAPovid += Global.Random.Range(0, 0.01f);
+            randomBPovid += Global.Random.Range(0, 0.1f);
+            trigger.enabled = false;
+        }
         if (lml2.Find())
         {
             Instantiate(Resources.Load("SEffect/Snayp1"));

@@ -12,6 +12,7 @@ public class Попрашайка : MonoBehaviour
     public float timer;
     public PovidLFT lF;
 
+    public Collider trigger;
     private void OnCollisionStay(Collision collision)
     {
         if (lF == PovidLFT.Ploty)
@@ -98,6 +99,16 @@ public class Попрашайка : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (eat == null)
+        {
+            trigger.enabled = true;
+        }
+        else
+        {
+            randomAPovid += Global.Random.Range(0, 0.01f);
+            randomBPovid += Global.Random.Range(0, 0.1f);
+            trigger.enabled = false;
+        }
         Ray r2 = new Ray(transform.position, Vector3.down);
 
         RaycastHit hit2;

@@ -32,6 +32,7 @@ public class SGNCharacter : MonoBehaviour
     float timer;
     float timer2;
     public bool psiho;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,6 +43,7 @@ public class SGNCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (CraracterLable.gameObject.activeInHierarchy)
         {
             timer += Time.deltaTime;

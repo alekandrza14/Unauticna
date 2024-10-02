@@ -13,6 +13,8 @@ public class EnemyeFashist : MonoBehaviour
     System.Random optirand;
     Vector3 target;
     bool attack;
+
+    public Collider trigger;
     float timer; string[] massiveEffect = new string[]
     {
         "Undyning",
@@ -172,6 +174,14 @@ public class EnemyeFashist : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (attack)
+        {
+            trigger.enabled = false;
+        }
+        else
+        {
+            trigger.enabled = true;
+        }
         if (lml2.Find())
         {
             Instantiate(Resources.Load("SEffect/Snayp1"));

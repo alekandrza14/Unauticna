@@ -21,6 +21,7 @@ public class lIFE_file : MonoBehaviour
     public GameObject salut;
     public Animator anim;
     public PovidLFT lF;
+    public Collider trigger;
 
     private void OnCollisionStay(Collision collision)
     {
@@ -97,8 +98,17 @@ public class lIFE_file : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(randomCPovid > 1) randomCPovid += Global.Random.Range(0, 0.001f);
+        if (eat == null)
+        {
+            trigger.enabled = true;
+        }
+        else
+        {
+            randomAPovid += Global.Random.Range(0, 0.01f);
+            randomBPovid += Global.Random.Range(0, 0.1f);
+            trigger.enabled = false;
+        }
+        if (randomCPovid > 1) randomCPovid += Global.Random.Range(0, 0.001f);
         if (randomBPovid > 3) randomBPovid += Global.Random.Range(0, 0.01f);
         if (lF != PovidLFT.RandomRun) randomDPovid += Global.Random.Range(0, 0.01f);
         if (lF != PovidLFT.safety) if (randomAPovid > 5)

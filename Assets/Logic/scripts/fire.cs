@@ -52,9 +52,9 @@ public class fire : MonoBehaviour
     }
     private void Update()
     {
-        if (!lml2.Find())
+        if (lml2.Find())
         {
-            Instantiate(Resources.Load("SEffect/Snayp"));
+            Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
         timer += Time.deltaTime;
