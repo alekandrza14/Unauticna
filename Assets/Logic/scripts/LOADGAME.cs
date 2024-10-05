@@ -20,6 +20,7 @@ public class LOADGAME : MonoBehaviour
     public InputField data;
     public Toggle postrender;
     public Toggle isnotwindowed;
+    public Toggle full4D;
     public Color prc;
     public TMP_Dropdown dd;
     public Button[] buttons;
@@ -60,7 +61,7 @@ public class LOADGAME : MonoBehaviour
         postrender.isOn = VarSave.GetBool("postrender");
         Directory.CreateDirectory("unsave"); 
         Directory.CreateDirectory("unsavet");
-
+        full4D.isOn = VarSave.GetBool("full4D");
         if (!VarSave.ExistenceVar("color"))
         {
             VarSave.SetString("color", "gray");
@@ -301,7 +302,7 @@ public class LOADGAME : MonoBehaviour
     }
     public void voidupdate()
     {
-        
+        VarSave.SetBool("full4D", full4D.isOn);
         if (fse.usewindowOpen)
         {
             for (int i = 0;i < buttons.Length;i++)

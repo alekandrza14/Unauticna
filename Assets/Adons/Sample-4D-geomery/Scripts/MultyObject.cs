@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 public enum Shape
 {
-   shape3D, cube5D,clone5D, plane3D, shape4D, shapecube5D, hyperbola5D, hyperCurveCube5D, cubeND, slice4Dcube
+   shape3D, cube5D,clone5D, plane3D, shape4D, shapecube5D, hyperbola5D, hyperCurveCube5D, cubeND, slice4Dcube,free5D
 }
 [ExecuteAlways]
 [RequireComponent(typeof(MeshFilter))]
@@ -15,6 +15,8 @@ public class MultyObject : MonoBehaviour
 
     MultyTransform instance;
     MeshCollider meshCollider;
+    TerrainCollider terrainCollider;
+    Terrain terrain;
     MeshRenderer meshRenderer;
     BoxCollider boxCollider;
     SphereCollider sphereCollider;
@@ -55,7 +57,12 @@ public class MultyObject : MonoBehaviour
 
             g.AddComponent<MultyTransform>();
         }
-        if (scale3D.x == 0 || scale3D.y == 0 || scale3D.z == 0) scale3D = Vector3.one;
+
+        if (GetComponent<button6>()) shape = Shape.free5D;
+        if (GetComponent<button7>()) shape = Shape.free5D;
+        if (GetComponent<button8>()) shape = Shape.free5D;
+        if (GetComponent<button9>()) shape = Shape.free5D;
+        if (scale3D.x == 1 || scale3D.y == 1 || scale3D.z == 1) scale3D = transform.localScale;
         startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, W_Position, H_Position, 0);
         startScale = new Vector6(scale3D.x, scale3D.y, scale3D.z, W_Scale, H_Scale, 0);
         List<GameObject> countcild = new();
@@ -88,7 +95,10 @@ public class MultyObject : MonoBehaviour
 
         }
         meshCollider = GetComponent<MeshCollider>();
+        
         meshRenderer = GetComponent<MeshRenderer>();
+        terrainCollider = GetComponent<TerrainCollider>();
+        terrain = GetComponent<Terrain>();
         boxCollider = GetComponent<BoxCollider>();
         sphereCollider = GetComponent<SphereCollider>();
         InvokeRepeating(nameof(ProjectionUpdate), 0.001f, 0.02f + Random.Range(0.01f, 0.02f));
@@ -197,7 +207,7 @@ public class MultyObject : MonoBehaviour
 
                 if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
             }
-            if (shape == Shape.cube5D)
+            if (shape == Shape.cube5D|| shape == Shape.free5D)
             {
                 if (shapeSettings != null)
                 {
@@ -220,17 +230,27 @@ public class MultyObject : MonoBehaviour
                         }
                     }
                 }
-                if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
+              if(shape != Shape.free5D)  if (!GetComponent<HyperbolicPoint>()) transform.localScale = new Vector3(testScale.x, testScale.y, testScale.z);
                 if (instance.W_Position + w6 > w5 && instance.W_Position - w6 < w5 &&
                     instance.H_Position + h6 > h5 && instance.H_Position - h6 < h5)
                 {
                     if (meshRenderer)
                     {
-                        meshRenderer.enabled = true;
+                        if (shape != Shape.free5D) meshRenderer.enabled = true;
+                        if (shape == Shape.free5D) meshRenderer.enabled = false;
                     }
                     if (meshCollider)
                     {
-                        meshCollider.enabled = true;
+                        if (shape != Shape.free5D) meshCollider.enabled = true;
+                        if (shape == Shape.free5D) meshCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = true;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = true;
                     }
                     if (boxCollider)
                     {
@@ -266,6 +286,14 @@ public class MultyObject : MonoBehaviour
                     if (sphereCollider)
                     {
                         sphereCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = false;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = false;
                     }
                 }
 
@@ -333,6 +361,14 @@ public class MultyObject : MonoBehaviour
                         {
                             meshCollider.enabled = true;
                         }
+                        if (terrain)
+                        {
+                            terrain.enabled = true;
+                        }
+                        if (terrainCollider)
+                        {
+                            terrainCollider.enabled = true;
+                        }
                         if (boxCollider)
                         {
                             boxCollider.enabled = true;
@@ -368,6 +404,14 @@ public class MultyObject : MonoBehaviour
                         if (sphereCollider)
                         {
                             sphereCollider.enabled = false;
+                        }
+                        if (terrain)
+                        {
+                            terrain.enabled = false;
+                        }
+                        if (terrainCollider)
+                        {
+                            terrainCollider.enabled = false;
                         }
                         s1 = true;
                     }
@@ -434,6 +478,14 @@ public class MultyObject : MonoBehaviour
                     {
                         sphereCollider.enabled = true;
                     }
+                    if (terrain)
+                    {
+                        terrain.enabled = true;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = true;
+                    }
                 }
                 else
                 {
@@ -452,6 +504,14 @@ public class MultyObject : MonoBehaviour
                     if (sphereCollider)
                     {
                         sphereCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = false;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = false;
                     }
                 }
 
@@ -516,6 +576,14 @@ public class MultyObject : MonoBehaviour
                     {
                         sphereCollider.enabled = true;
                     }
+                    if (terrain)
+                    {
+                        terrain.enabled = true;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = true;
+                    }
                 }
                 else
                 {
@@ -534,6 +602,14 @@ public class MultyObject : MonoBehaviour
                     if (sphereCollider)
                     {
                         sphereCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = false;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = false;
                     }
                 }
 
@@ -586,6 +662,14 @@ public class MultyObject : MonoBehaviour
                     {
                         sphereCollider.enabled = true;
                     }
+                    if (terrain)
+                    {
+                        terrain.enabled = true;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = true;
+                    }
                     foreach (GameObject child in childs)
                     {
                         child.SetActive(true);
@@ -612,6 +696,14 @@ public class MultyObject : MonoBehaviour
                     if (sphereCollider)
                     {
                         sphereCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = false;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = false;
                     }
                 }
             }
@@ -663,6 +755,14 @@ public class MultyObject : MonoBehaviour
                     {
                         sphereCollider.enabled = true;
                     }
+                    if (terrain)
+                    {
+                        terrain.enabled = true;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = true;
+                    }
                 }
                 else
                 {
@@ -681,6 +781,14 @@ public class MultyObject : MonoBehaviour
                     if (sphereCollider)
                     {
                         sphereCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = false;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = false;
                     }
                 }
             }
@@ -713,6 +821,14 @@ public class MultyObject : MonoBehaviour
                     {
                         sphereCollider.enabled = true;
                     }
+                    if (terrain)
+                    {
+                        terrain.enabled = true;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = true;
+                    }
                 }
                 else
                 {
@@ -731,6 +847,14 @@ public class MultyObject : MonoBehaviour
                     if (sphereCollider)
                     {
                         sphereCollider.enabled = false;
+                    }
+                    if (terrain)
+                    {
+                        terrain.enabled = false;
+                    }
+                    if (terrainCollider)
+                    {
+                        terrainCollider.enabled = false;
                     }
                 }
             }

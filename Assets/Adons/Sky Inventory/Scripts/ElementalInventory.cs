@@ -4468,13 +4468,17 @@ public class ElementalInventory : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
             {
 
-                RaycastHit hit2 = MainRay.SecondHit; if (hit2.collider)
-                    if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey" && hit2.collider.GetComponent<itemName>())
+                RaycastHit hit = MainRay.SecondHit; if (hit.collider)
+                    if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey" && hit.collider.GetComponent<itemName>())
                     {
 
 
 
-                        setItem(fullname(hit2), 1, Color.red, hit2.collider.GetComponent<itemName>().ItemData, select);
+                        setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
+                            + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -4483,13 +4487,17 @@ public class ElementalInventory : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
             {
 
-                RaycastHit hit2 = MainRay.SecondHit; if (hit2.collider)
-                    if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey(Copy)" && hit2.collider.GetComponent<itemName>())
+                RaycastHit hit = MainRay.SecondHit; if (hit.collider)
+                    if (Cells[select].elementCount == 1 && Cells[select].elementName == "ItemKey(Copy)" && hit.collider.GetComponent<itemName>())
                     {
 
 
 
-                        setItem(fullnamesafe(hit2), 1, Color.red, hit2.collider.GetComponent<itemName>().ItemData, select);
+                        setItem(fullnamesafe(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
+                            + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -4697,7 +4705,13 @@ public class ElementalInventory : MonoBehaviour {
             {
                 body.gameObject.AddComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(SocialAspects[1]);
             }
-        
+        if (VarSave.GetBool("full4D"))
+        {
+            body.gameObject.AddComponent<MultyObject>();
+            body.gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+        }
+
+
     }
 
     public IEnumerator seteuclideanitem(RaycastHit hit)

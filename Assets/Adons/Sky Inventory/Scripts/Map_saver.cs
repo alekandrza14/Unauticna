@@ -479,7 +479,19 @@ public class Map_saver : MonoBehaviour
                         saveString1.SlaveSTA.Add(0);
                     }
 
-                    if (!items[i3].GetComponent<MultyObject>()) saveString1.vector3A.Add(items[i3].transform.position);
+                    if (!items[i3].GetComponent<MultyObject>())
+                    {
+                        saveString1.vector3A.Add(items[i3].transform.position);
+                        if (VarSave.GetBool("full4D"))
+                        {
+                            Vector6 v6 = items[i3].gameObject.AddComponent<MultyObject>().startPosition;
+                            saveString1.vector3A.Add(new Vector3(v6.x, v6.y, v6.z));
+
+                            items[i3].gameObject.GetComponent<MultyObject>().shape = Shape.cube5D; 
+                            saveString1.posW3.Add(items[i3].GetComponent<MultyObject>().W_Position);
+                            saveString1.posH3.Add(items[i3].GetComponent<MultyObject>().H_Position);
+                        }
+                    }
 
                     if (items[i3].GetComponent<MultyObject>())
                     {
@@ -611,7 +623,19 @@ public class Map_saver : MonoBehaviour
                     Vector6 v6 = co[i].GetComponent<MultyObject>().startPosition;
                     saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
                 }
-                if (!co[i].GetComponent<MultyObject>()) saveString1.vector3D.Add(co[i].transform.position);
+                if (!co[i].GetComponent<MultyObject>()) 
+                {
+                    saveString1.vector3D.Add(co[i].transform.position);
+                    if (VarSave.GetBool("full4D"))
+                    {
+                        Vector6 v6 = co[i].gameObject.AddComponent<MultyObject>().startPosition;
+                        saveString1.vector3D.Add(new Vector3(v6.x, v6.y, v6.z));
+
+                        co[i].gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+                        saveString1.posW2.Add(co[i].GetComponent<MultyObject>().W_Position);
+                        saveString1.posH2.Add(co[i].GetComponent<MultyObject>().H_Position);
+                    }
+                }
                 saveString1.idC.Add(co[i].s);
                 saveString1.SavedPlayer.Add(true);
                 if (co[i].GetComponent<HyperbolicPoint>())
@@ -684,7 +708,25 @@ public class Map_saver : MonoBehaviour
             {
                 saveString1.PvectorB.Add(new Hyperbolic2D());
             }
-            if (!so[i].GetComponent<MultyObject>()) saveString1.vector3C.Add(so[i].transform.position);
+            if (!so[i].GetComponent<MultyObject>()) 
+            {
+                saveString1.vector3C.Add(so[i].transform.position);
+                if (VarSave.GetBool("full4D"))
+                {
+                    so[i].gameObject.AddComponent<MultyObject>();
+                    if (so[i].
+              GetComponent<MultyObject>())
+                        saveString1.posW.Add(
+                            so[i].
+                            GetComponent<MultyObject>().W_Position);
+                    if (so[i].
+                        GetComponent<MultyObject>())
+                        saveString1.posH.Add(
+                            so[i].
+                            GetComponent<MultyObject>().H_Position);
+                    so[i].gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+                }
+            }
             saveString1.idB.Add(so[i].init);
             saveString1.Scale3B.Add(so[i].transform.localScale);
             if (so[i].
@@ -699,8 +741,10 @@ public class Map_saver : MonoBehaviour
                     GetComponent<MultyObject>().H_Position);
             else
             {
-                saveString1.posW.Add(0);
-                saveString1.posH.Add(0);
+               
+                    saveString1.posW.Add(0);
+                    saveString1.posH.Add(0);
+               
             }
             saveString1.curN3.Add(o2);
             
@@ -792,7 +836,7 @@ public class Map_saver : MonoBehaviour
         HyperbolicCamera hc = HyperbolicCamera.Main();
         bool questtarget = false;
         bool FirstSpawn = false;
-        for (int c = 0; c < 2; c++)
+        for (int c = 0; c < 3; c++)
         {
             if (c == 0)
             {
@@ -1232,7 +1276,7 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
-                    
+
                     //Custom creature
                     DirectoryInfo info = new("res/Creatures");
                     FileInfo[] inf = info.GetFiles();
@@ -1268,6 +1312,44 @@ public class Map_saver : MonoBehaviour
                                                 obj.GetComponent<telo>().nameCreature = screachure;
                                                 objs.Add(obj);
                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (c == 2)
+            {
+                if (VarSave.GetBool("full4D"))
+                {
+                    GameObject[] objs2 = FindObjectsByType<GameObject>(sortmode.main);
+                    foreach (GameObject item in objs2)
+                    {
+                        if (item.layer!=10)
+                        {
+                            if (!item.GetComponent<mover>())
+                            {
+                                if (!item.GetComponent<CustomObject>())
+                                {
+                                    if (item.GetComponent<Collider>())
+                                    {
+                                        if (!item.GetComponent<MultyObject>())
+                                        {
+                                            item.AddComponent<MultyObject>();
+
+                                            item.gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+                                        }
+                                    }
+                                    else if (item.GetComponent<itemName>())
+                                    {
+
+                                        if (!item.GetComponent<MultyObject>())
+                                        {
+                                            item.AddComponent<MultyObject>();
+
+                                            item.gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
                                         }
                                     }
                                 }
@@ -1547,6 +1629,7 @@ public class Map_saver : MonoBehaviour
                                      );
                 }
             }
+            if (VarSave.GetBool("full4D")) if (!g.GetComponent<MultyObject>()) g.AddComponent<MultyObject>().shape = Shape.cube5D;
             if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3C[i].x;
             if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3C[i].y;
             if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3C[i].z;
@@ -1609,9 +1692,10 @@ public class Map_saver : MonoBehaviour
                     }
                 }
 
-                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
-                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
-                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
+                if (VarSave.GetBool("full4D")) if (!g.GetComponent<MultyObject>()) g.AddComponent<MultyObject>().shape = Shape.cube5D;
+                if (saveString1.posW2.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3D[i].x;
+                if (saveString1.posW2.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3D[i].y;
+                if (saveString1.posW2.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3D[i].z;
                 if (saveString1.PvectorC.Count > i && hc != null)
                 {
                     if (!g.GetComponent<HyperbolicPoint>())
@@ -1749,9 +1833,10 @@ public class Map_saver : MonoBehaviour
                 }
 
 
-                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
-                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
-                if (saveString1.posW.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
+                if (VarSave.GetBool("full4D")) if (!g.GetComponent<MultyObject>()) g.AddComponent<MultyObject>().shape = Shape.cube5D;
+                if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.x = saveString1.vector3A[i3].x;
+                if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.y = saveString1.vector3A[i3].y;
+                if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().startPosition.z = saveString1.vector3A[i3].z;
                 if (saveString1.posW3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().W_Position = saveString1.posW3[i3];
                 if (saveString1.posH3.Count > 0) if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().H_Position = saveString1.posH3[i3];
                 if (g.GetComponent<MultyObject>()) g.GetComponent<MultyObject>().saved = true;
