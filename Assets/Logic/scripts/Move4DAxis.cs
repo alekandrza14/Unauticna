@@ -130,7 +130,14 @@ public class Move4DAxis : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Delete))
         {
-            Destroy(select);
+            if (select.GetComponent<itemName>()) 
+            {
+                if (select.GetComponent<itemName>()._Name != "MMA-Брат") Destroy(select);
+            }
+            else
+            {
+                Destroy(select);
+            }
         }
     }
 }

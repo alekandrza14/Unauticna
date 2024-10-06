@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class МГЕБрат : MonoBehaviour
 {
     mover m;
+    public bool chetirhui;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,7 @@ public class МГЕБрат : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lml1.Find())
+       if(!chetirhui) if (lml1.Find())
         {
             Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
@@ -29,9 +30,13 @@ public class МГЕБрат : MonoBehaviour
             for (int i = 0; i < 20; i++) Instantiate(Resources.Load<GameObject>("items/FashistEnemye"), gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-        if (col.gameObject.GetComponent<mover>())
-        {
-            SceneManager.LoadScene("МГЕ-ФАК");
-        }
+        if (!chetirhui) if (col.gameObject.GetComponent<mover>())
+            {
+                SceneManager.LoadScene("МГЕ-ФАК");
+            }
+        if (chetirhui) if (col.gameObject.GetComponent<mover>())
+            {
+                SceneManager.LoadScene("MMA-ФАК");
+            }
     }
 }

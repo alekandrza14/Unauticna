@@ -1549,20 +1549,35 @@ public class mover : CustomSaveObject
     void мгеspawn()
     {
         if (IfSpawn("МГЕ-Брат")) if (!lml1.Find()) if (Global.Random.Chance(6))
-        {
-            for (int i = 0; i < 10+Global.Random.Range(0,60); i++)
-            {
-                Ray r = new(transform.position + (transform.up * 40), randommaze());
-                RaycastHit hit;
-                if (Physics.Raycast(r, out hit))
                 {
-                    if (hit.collider != null)
+                    for (int i = 0; i < 10 + Global.Random.Range(0, 60); i++)
                     {
-                        Instantiate(Resources.Load<GameObject>("Items/МГЕ-Брат"), hit.point, Quaternion.identity);
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/МГЕ-Брат"), hit.point, Quaternion.identity);
+                            }
+                        }
                     }
                 }
-            }
-        }
+        if (IfSpawn("MMA-Брат")|| Global.Random.Chance(2)) if (!lml1.Find()) if (Global.Random.Chance(2))
+                {
+                    for (int i = 0; i < 10 + Global.Random.Range(20, 100); i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/MMA-Брат"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
     }
     void kilspawn()
     {
