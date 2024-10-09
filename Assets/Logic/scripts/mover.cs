@@ -1563,7 +1563,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (IfSpawn("MMA-Брат")|| Global.Random.Chance(2)) if (!lml1.Find()) if (Global.Random.Chance(2))
+        if (IfSpawn("MMA-Брат")) if (!lml1.Find()) if (Global.Random.Chance(2))
                 {
                     for (int i = 0; i < 10 + Global.Random.Range(20, 100); i++)
                     {
@@ -2154,7 +2154,7 @@ public class mover : CustomSaveObject
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Globalprefs.LoadTevroPrise(my_cpp_pluss((long)Globalprefs.LoadTevroPrise(0), (long)Globalprefs.LoadTevroPrise(0)));
+            VarSave.LoadFloat("luck", my_cpp_pluss((long)VarSave.LoadFloat("luck",0), (long)VarSave.LoadFloat("luck", 0)));
         }
         if (FindAnyObjectByType<taktikpoint>() == null && FindAnyObjectByType<TeleportButton>() != null)
         {
