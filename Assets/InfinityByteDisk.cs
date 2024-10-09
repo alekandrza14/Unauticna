@@ -7,6 +7,7 @@ public class ItemsInfo
 {
     public List<string> namesitem = new List<string>() { "1infinityByteDisk" };
     public List<string> datasitem = new List<string>() { "" };
+    public List<string> socialsitem = new List<string>() { "" };
 }
 
 public class InfinityByteDisk : InventoryEvent

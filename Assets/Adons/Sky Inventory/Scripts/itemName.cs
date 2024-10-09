@@ -8,6 +8,8 @@ public class itemName : CustomSaveObject
     public string ItemData = "";
     public bool isLife;
     public string _Name;
+    [Multiline(3)]
+    public string _Discription;
     public int titan = 4;
     public int carbon;
     public int calciy;

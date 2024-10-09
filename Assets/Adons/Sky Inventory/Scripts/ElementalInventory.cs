@@ -1015,7 +1015,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Getitem("builder") && Cells[selectr].elementName == "builder" && main() == this)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Mouse1) && Cells[selectr].elementName == "builder" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1110,7 +1110,7 @@ public class ElementalInventory : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("pistol") && priaritet("gold") != 0 && Cells[selectr].elementName == "pistol" && main() == this)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && priaritet("gold") != 0 && Cells[selectr].elementName == "pistol" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1137,7 +1137,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && Getitem("SunFireGen") && Cells[selectr].elementName == "SunFireGen" && main() == this)
+        if (Input.GetKey(KeyCode.Mouse0) && Cells[selectr].elementName == "SunFireGen" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1150,7 +1150,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && Getitem("Обосанная_зажига") && Cells[selectr].elementName == "Обосанная_зажига" && main() == this)
+        if (Input.GetKey(KeyCode.Mouse0) && Cells[selectr].elementName == "Обосанная_зажига" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1163,7 +1163,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && Getitem("Хлебапекрная_зажигалка") && Cells[selectr].elementName == "Хлебапекрная_зажигалка" && main() == this)
+        if (Input.GetKey(KeyCode.Mouse0) && Cells[selectr].elementName == "Хлебапекрная_зажигалка" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1175,7 +1175,7 @@ public class ElementalInventory : MonoBehaviour {
             }
 
         }
-        if (Input.GetKey(KeyCode.Mouse0) && Getitem("Поглтитель_душ") && Cells[selectr].elementName == "Поглтитель_душ" && main() == this)
+        if (Input.GetKey(KeyCode.Mouse0) && Cells[selectr].elementName == "Поглтитель_душ" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1191,7 +1191,8 @@ public class ElementalInventory : MonoBehaviour {
 
         }
         //Хлебапекрна_зажигалка
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("infinity_gun") && Cells[selectr].elementName == "infinity_gun" && main() == this)
+        //АвтоматКалашникорва
+        if (Input.GetKey(KeyCode.Mouse0) && Cells[selectr].elementName == "АвтоматКалашникорва" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1205,7 +1206,21 @@ public class ElementalInventory : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Getitem("Ban_gun") && Cells[selectr].elementName == "Ban_gun" && main() == this)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[selectr].elementName == "infinity_gun" && main() == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                Instantiate(Resources.Load<GameObject>("DamageObject").gameObject, hit.point + Vector3.up * Resources.Load<GameObject>("DamageObject").gameObject.transform.localScale.y / 2, Quaternion.identity);
+
+                cistalenemy.dies++;
+            }
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Cells[selectr].elementName == "Ban_gun" && main() == this)
         {
 
             RaycastHit hit = MainRay.MainHit;
@@ -1703,6 +1718,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.namesitem.Add(Cells[selectr].elementName);
                     hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.datasitem.Add(Cells[selectr].elementData);
+                    hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.socialsitem.Add(Cells[selectr].elementSocial);
                     hit.collider.GetComponent<InfinityByteDisk>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<InfinityByteDisk>().itemsinfo);
 
                     setItem("", 0, Color.red, selectr);
@@ -1726,14 +1742,16 @@ public class ElementalInventory : MonoBehaviour {
 
                     List<string> s = hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.namesitem;
                     List<string> s2 = hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.datasitem;
+                    List<string> s3 = hit.collider.GetComponent<InfinityByteDisk>().itemsinfo.socialsitem;
 
-                    setItem(s[s.Count - 1], 1, Color.red, s2[s2.Count - 1], selectr);
+                    setItem(s[s.Count - 1], 1, Color.red, s2[s2.Count - 1], s3[s3.Count - 1], selectr);
 
                     Cells[selectr].UpdateCellInterface();
 
 
                     s.RemoveAt(s.Count - 1);
                     s2.RemoveAt(s2.Count - 1);
+                    s3.RemoveAt(s3.Count - 1);
                     hit.collider.GetComponent<InfinityByteDisk>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<InfinityByteDisk>().itemsinfo);
 
                 }
@@ -1753,9 +1771,12 @@ public class ElementalInventory : MonoBehaviour {
                 {
                     if (hit.collider.GetComponent<ComputerSave>().SigIn)
                     {
+                        
+                    hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem.Add(Cells[selectr].elementName);
+                    hit.collider.GetComponent<ComputerSave>().itemsinfo.datasitem.Add(Cells[selectr].elementData);
+                    hit.collider.GetComponent<ComputerSave>().itemsinfo.socialsitem.Add(Cells[selectr].elementSocial);
 
-                        hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem.Add(Cells[selectr].elementName);
-                        hit.collider.GetComponent<ComputerSave>().itemsinfo.datasitem.Add(Cells[selectr].elementData);
+                        hit.collider.GetComponent<ComputerSave>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<ComputerSave>().itemsinfo);
 
                         setItem("", 0, Color.red, selectr);
 
@@ -1780,14 +1801,16 @@ public class ElementalInventory : MonoBehaviour {
                     {
                         List<string> s = hit.collider.GetComponent<ComputerSave>().itemsinfo.namesitem;
                         List<string> s2 = hit.collider.GetComponent<ComputerSave>().itemsinfo.datasitem;
+                        List<string> s3 = hit.collider.GetComponent<ComputerSave>().itemsinfo.socialsitem;
 
-                        setItem(s[s.Count - 1], 1, Color.red, s2[s2.Count - 1], selectr);
+                        setItem(s[s.Count - 1], 1, Color.red, s2[s2.Count - 1], s3[s3.Count - 1], selectr);
 
                         Cells[selectr].UpdateCellInterface();
 
 
                         s.RemoveAt(s.Count - 1);
                         s2.RemoveAt(s2.Count - 1);
+                        s3.RemoveAt(s3.Count - 1);
                     }
 
                 }
