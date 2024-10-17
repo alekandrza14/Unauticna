@@ -20,6 +20,7 @@ public class SocialTriggerData
     public int respectMine;
     public int teuvroMine;
     public bool PriseSlave;
+    public bool KommunistYou7;
     public string SlaveCommnad;
     public string dataCommnad;
     public SocialTrigger export()
@@ -36,6 +37,7 @@ public class SocialTriggerData
         new_ST.respectMine = this.respectMine;
         new_ST.teuvroMine = this.teuvroMine;
         new_ST.PriseSlave = this.PriseSlave;
+        new_ST.KrimBurocrat = false;
         new_ST.SlaveCommnad = this.SlaveCommnad;
         new_ST.dataCommnad = this.dataCommnad;
         return new_ST;

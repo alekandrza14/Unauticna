@@ -11,7 +11,7 @@ public class postrender : MonoBehaviour
     public Camera _camera;
     public Camera new_camera;
     public Vector2Int grafic_1;
-    RenderTexture grafic_2;
+    UnityEngine.RenderTexture grafic_2;
     bool Swich = true;
     public UnityEngine.Experimental.Rendering.GraphicsFormat format;
     public Camera getmain()
@@ -39,7 +39,7 @@ public class postrender : MonoBehaviour
         grafic_1.y = VarSave.GetInt("res2", SaveType.global);
         _camera = getmain();
 
-        grafic_2 = RenderTexture.GetTemporary(grafic_1.x, grafic_1.y);
+        grafic_2 = UnityEngine.RenderTexture.GetTemporary(grafic_1.x, grafic_1.y);
 
         grafic_2.filterMode = FilterMode.Point;
 

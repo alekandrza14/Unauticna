@@ -32,8 +32,8 @@ public class transform4d
 
 public class Uxill_Engine
 {
-   static public RenderTexture[] d3s;
-   static public RenderTexture[] rt;
+   static public UnityEngine.RenderTexture[] d3s;
+   static public UnityEngine.RenderTexture[] rt;
    static public Vector4[] v4;
    static public List<float> p4 = new List<float>();
    static public List<float> p42 = new List<float>();
@@ -68,8 +68,8 @@ public class Uxill_Engine
         pref4d18 = new List<GameObject>();
         pref4d28 = new List<GameObject>();
         pref4d38 = new List<GameObject>();
-         d3s = new RenderTexture[0]; 
-         rt = new RenderTexture[0];
+        d3s = new UnityEngine.RenderTexture[0];
+        rt = new UnityEngine.RenderTexture[0];
          v4 = new Vector4[0];
          p4 = new List<float>();
         p42 = new List<float>();
@@ -292,12 +292,12 @@ public class Uxill_Engine
 
 
             }
-            d3s = new RenderTexture[p4.Count];
+        d3s = new UnityEngine.RenderTexture[p4.Count];
 
             for (int i = 0; i < p4.Count; i++)
             {
 
-                d3s[i] = new RenderTexture(s);
+            d3s[i] = new UnityEngine.RenderTexture(s);
                 d3s[i].width = size.x;
                 d3s[i].height = size.y;
                 d3s[i].format = RenderTextureFormat.ARGB32;
@@ -339,7 +339,7 @@ public class Uxill_Engine
 
             }
 
-            rt = new RenderTexture[p4.Count];
+        rt = new UnityEngine.RenderTexture[p4.Count];
         
 
     }

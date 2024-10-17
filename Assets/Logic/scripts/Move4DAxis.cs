@@ -130,9 +130,40 @@ public class Move4DAxis : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Delete))
         {
+            if (select.GetComponent<SocialObject>())
+            {
+                Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
+            if (select.GetComponent<CharacterName>())
+            {
+                Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
+            if (select.GetComponent<CharacterStats>())
+            {
+                Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                VarSave.SetInt("Agr", cistalenemy.dies);
+            }
             if (select.GetComponent<itemName>()) 
             {
-                if (select.GetComponent<itemName>()._Name != "MMA-Брат") Destroy(select);
+
+                if (select.GetComponent<itemName>().isLife) 
+                {
+                    Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+
+                 
+                if (select.GetComponent<itemName>()._Name != "MMA-Брат") 
+                {
+                    Destroy(select); 
+                }
+
             }
             else
             {

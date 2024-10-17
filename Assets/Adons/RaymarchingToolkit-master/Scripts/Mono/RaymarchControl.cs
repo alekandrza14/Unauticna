@@ -111,9 +111,9 @@ public class RaymarchControl : SceneViewFilter
         }
     }
 
-    static void Blit(RenderTexture source, RenderTexture destination, Material mat, int pass)
+    static void Blit(UnityEngine.RenderTexture source, UnityEngine.RenderTexture destination, Material mat, int pass)
     {
-        RenderTexture.active = destination;
+        UnityEngine.RenderTexture.active = destination;
         mat.SetTexture("_MainTex", source);
 
         GL.PushMatrix();
@@ -144,7 +144,7 @@ public class RaymarchControl : SceneViewFilter
 
 
     [ImageEffectOpaque]
-    void OnRenderImage(RenderTexture source, RenderTexture destination)
+    void OnRenderImage(UnityEngine.RenderTexture source, UnityEngine.RenderTexture destination)
     {
         if (!Material)
         {

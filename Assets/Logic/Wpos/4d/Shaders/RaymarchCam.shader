@@ -19,7 +19,6 @@ Shader "Raymarch/RaymarchCam"
         _GeometryTex11("Texture11", 2D) = "white" {}
         _GeometryTex12("Texture12", 2D) = "white" {}
         _GeometryTex13("Texture13", 2D) = "white" {}
-        _GeometryTex14("Texture14", 2D) = "white" {}
         _distance("distance", Range(0,1000)) = 1 
         hue("hue", Range(0,1)) = 1 
     }
@@ -85,6 +84,7 @@ Shader "Raymarch/RaymarchCam"
             uniform int _useShadow;
             uniform int _useNegativeLight;
             uniform int _useNegative;
+            uniform int _use14texture;
 
             static const float PI = 3.14159265f;
 
@@ -613,6 +613,13 @@ Shader "Raymarch/RaymarchCam"
              
                 }
                 col2 *= _ChaosColor;
+
+              if(_use14texture == 1) 
+              {
+                 if(col2.z >= 0.98) col2 = tex2D(_GeometryTex13, float2(col2.x,col2.y));
+                 
+                    return  fixed4( col2,1);
+              }
                return  fixed4( col2,1);
 
             }

@@ -67,10 +67,10 @@ public class CloudManager : MonoBehaviour
 	Material compositeMaterial;
 	NoiseGenerator noiseGenerator;
 
-	RenderTexture cloudRender;
+    UnityEngine.RenderTexture cloudRender;
 	GaussianBlur blur;
 
-	void Init(RenderTexture src)
+	void Init(UnityEngine.RenderTexture src)
 	{
 		if (blur == null)
 		{
@@ -91,7 +91,7 @@ public class CloudManager : MonoBehaviour
 		}
 	}
 
-	public void Render(RenderTexture src, RenderTexture dest)
+	public void Render(UnityEngine.RenderTexture src, UnityEngine.RenderTexture dest)
 	{
 		if (!effectEnabled)
 		{

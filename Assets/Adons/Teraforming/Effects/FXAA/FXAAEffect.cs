@@ -32,7 +32,7 @@ public class FXAAEffect : MonoBehaviour {
 	[NonSerialized]
 	Material fxaaMaterial;
 
-	public void Render (RenderTexture source, RenderTexture destination) {
+	public void Render (UnityEngine.RenderTexture source, UnityEngine.RenderTexture destination) {
 		if (fxaaMaterial == null) {
 			fxaaMaterial = new Material(fxaaShader);
 			fxaaMaterial.hideFlags = HideFlags.HideAndDontSave;
@@ -58,12 +58,12 @@ public class FXAAEffect : MonoBehaviour {
 
 		if (luminanceSource == LuminanceMode.Calculate) {
 			fxaaMaterial.DisableKeyword("LUMINANCE_GREEN");
-			RenderTexture luminanceTex = RenderTexture.GetTemporary(
+            UnityEngine.RenderTexture luminanceTex = UnityEngine.RenderTexture.GetTemporary(
 				source.width, source.height, 0, source.format
 			);
 			Graphics.Blit(source, luminanceTex, fxaaMaterial, luminancePass);
 			Graphics.Blit(luminanceTex, destination, fxaaMaterial, fxaaPass);
-			RenderTexture.ReleaseTemporary(luminanceTex);
+            UnityEngine.RenderTexture.ReleaseTemporary(luminanceTex);
 		}
 		else {
 			if (luminanceSource == LuminanceMode.Green) {

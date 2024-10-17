@@ -26,7 +26,9 @@ public enum CustomObjectType
 public class CustomObjectData
 {
     public string NameModel;
+    public string[] Models = new string[] { };
     public Color _Color;
+    public Color[] m_Colors = new Color[] { };
     public Vector3 scale;
     public NDemention nDemention;
     public Functional functional;
@@ -102,7 +104,19 @@ public class CustomObject : CustomSaveObject
     }
     public void resetCurrentSettings()
     {
+        
         mf.mesh = generate();
+        for(int i = 0; i < Model.Models.Length; i++)
+        {
+            Mesh newMesh = generateAdd(i);
+            GameObject obj = new GameObject("dopmodels");
+            obj.transform.SetParent(transform.GetChild(0));
+            obj.transform.position = transform.position;
+            obj.transform.rotation = transform.rotation;
+            obj.AddComponent<MeshFilter>().sharedMesh = newMesh;
+            obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
+            obj.AddComponent<MeshCollider>().sharedMesh = newMesh;
+        }
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         transform.localScale = Model.scale;
         Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
@@ -120,6 +134,44 @@ public class CustomObject : CustomSaveObject
     public void rcs()
     {
         resetCurrentSettings();
+    }
+    private Mesh generateAdd(int model)
+    {
+        ObjParser.Obj newobj = new ObjParser.Obj();
+
+
+       
+        newobj.LoadObj("res/" + Model.Models[model] + ".obj");
+        var mesh = new Mesh();
+        mesh.name = Model.Models[model];
+        Vector3[] vertices = new Vector3[newobj.VertexList.Count];
+        Vector2[] uv = new Vector2[newobj.VertexList.Count]; // Создаем массив UV-координат такого же размера, как и вершины
+        List<int> triangles = new List<int>();
+
+        for (int i = 0; i < newobj.VertexList.Count; i++)
+        {
+            vertices[i] = new Vector3((float)newobj.VertexList[i].X, (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z);
+        }
+
+        for (int f = 0; f < newobj.FaceList.Count; f++)
+        {
+            for (int i = 0; i < newobj.FaceList[f].VertexIndexList.Length; i++)
+            {
+                int vertexIndex = newobj.FaceList[f].VertexIndexList[i] - 1;
+                triangles.Add(vertexIndex);
+            }
+        }
+
+
+        for (int i = 0; i < newobj.VertexList.Count; i++)
+        {
+            uv[i] = (new Vector2((float)newobj.VertexList[i].X - (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z - (float)newobj.VertexList[i].Y));
+        }
+        mesh.vertices = vertices;
+        mesh.triangles = triangles.ToArray();
+        mesh.uv = uv;
+        mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
+        return mesh;
     }
     private Mesh generate()
     {

@@ -29,10 +29,64 @@ public class Duper : MonoBehaviour
             }
             else if (inator == Inator.Deleter)
             {
+                if (hitupdown.collider.GetComponent<SocialObject>())
+                {
+                    Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                if (hitupdown.collider.GetComponent<CharacterName>())
+                {
+                    Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                if (hitupdown.collider.GetComponent<CharacterStats>())
+                {
+                    Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                if (hitupdown.collider.GetComponent<itemName>())
+                {
+                    if (hitupdown.collider.GetComponent<itemName>().isLife)
+                    {
+                        Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                        VarSave.SetInt("Agr", cistalenemy.dies);
+                    }
+                }
                 if (hitupdown.collider.gameObject != gameObject) Destroy(hitupdown.collider.gameObject);
             }
             else if (inator == Inator.Demeker)
             {
+                if (hitupdown.collider.GetComponent<SocialObject>())
+                {
+                    Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                if (hitupdown.collider.GetComponent<CharacterName>())
+                {
+                    Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                if (hitupdown.collider.GetComponent<CharacterStats>())
+                {
+                    Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies+=1000;
+
+                    VarSave.SetInt("Agr", cistalenemy.dies);
+                }
+                if (hitupdown.collider.GetComponent<itemName>())
+                {
+                    if (hitupdown.collider.GetComponent<itemName>().isLife)
+                    {
+                        Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                        VarSave.SetInt("Agr", cistalenemy.dies);
+                    }
+                }
                 if (hitupdown.collider.gameObject != gameObject)
                 {
                     //  Destroy(hitupdown.collider.gameObject);
@@ -93,10 +147,64 @@ public class Duper : MonoBehaviour
                     }
                     else if (inator == Inator.Deleter)
                     {
+                        if (hitupdown.collider.GetComponent<SocialObject>())
+                        {
+                            Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                            VarSave.SetInt("Agr", cistalenemy.dies);
+                        }
+                        if (hitupdown.collider.GetComponent<CharacterName>())
+                        {
+                            Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                            VarSave.SetInt("Agr", cistalenemy.dies);
+                        }
+                        if (hitupdown.collider.GetComponent<CharacterStats>())
+                        {
+                            Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                            VarSave.SetInt("Agr", cistalenemy.dies);
+                        }
+                        if (hitupdown.collider.GetComponent<itemName>())
+                        {
+                            if (hitupdown.collider.GetComponent<itemName>().isLife)
+                            {
+                                Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+                                VarSave.SetInt("Agr", cistalenemy.dies);
+                            }
+                        }
                         if (hitupdown.collider.gameObject != gameObject) Destroy(hitupdown.collider.gameObject);
                     }
                     else if (inator == Inator.Demeker)
                     {
+                        if (hitupdown.collider.GetComponent<SocialObject>())
+                        {
+                            Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                            VarSave.SetInt("Agr", cistalenemy.dies);
+                        }
+                        if (hitupdown.collider.GetComponent<CharacterName>())
+                        {
+                            Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                            VarSave.SetInt("Agr", cistalenemy.dies);
+                        }
+                        if (hitupdown.collider.GetComponent<CharacterStats>())
+                        {
+                            Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                            VarSave.SetInt("Agr", cistalenemy.dies);
+                        }
+                        if (hitupdown.collider.GetComponent<itemName>())
+                        {
+                            if (hitupdown.collider.GetComponent<itemName>().isLife)
+                            {
+                                Globalprefs.LoadTevroPrise(-1000); cistalenemy.dies += 1000;
+
+                                VarSave.SetInt("Agr", cistalenemy.dies);
+                            }
+                        }
                         if (hitupdown.collider.gameObject != gameObject)
                         {
                             //  Destroy(hitupdown.collider.gameObject);

@@ -46,7 +46,7 @@ public class RaymarchingManager : MonoBehaviour
   [SerializeField] private ComputeShader m_raymarchingShader;
 
   private Camera                 m_camera;
-  private RenderTexture          m_tmpRenderTex;
+  private UnityEngine.RenderTexture          m_tmpRenderTex;
   private ComputeBuffer          m_shapesBuffer, m_lightsBuffer;
   private LightStruct[]          m_lights;
   private ShapeDataStruct[]      m_shapesData;
@@ -58,7 +58,7 @@ public class RaymarchingManager : MonoBehaviour
         x = m_camera.pixelWidth / 8.0f;
         y = m_camera.pixelHeight / 8.0f;
     }
-    void OnRenderImage(RenderTexture srcRenderTex, RenderTexture outRenderTex)
+    void OnRenderImage(UnityEngine.RenderTexture srcRenderTex, UnityEngine.RenderTexture outRenderTex)
   {
     m_camera = Camera.current;
     CleanOrCreateRenderTexture();
@@ -140,8 +140,8 @@ public class RaymarchingManager : MonoBehaviour
         m_tmpRenderTex.width == m_camera.pixelWidth || m_tmpRenderTex.height == m_camera.pixelHeight)
     {
       if (m_tmpRenderTex != null) m_tmpRenderTex.Release();
- 
-      m_tmpRenderTex = new RenderTexture(m_camera.pixelWidth, m_camera.pixelHeight, 0,
+
+            m_tmpRenderTex = new UnityEngine.RenderTexture(m_camera.pixelWidth, m_camera.pixelHeight, 0,
                                          RenderTextureFormat.ARGBFloat,
                                          RenderTextureReadWrite.Linear);
       m_tmpRenderTex.enableRandomWrite = true;
@@ -172,7 +172,7 @@ public class RaymarchingManager : MonoBehaviour
 
   // Passes all the needed uniforms to the shader
   // TODO: Add more lobj types and the possibility of multiple lights
-  void SetupComputeShader(RenderTexture srcTex, RenderTexture outTex)
+  void SetupComputeShader(UnityEngine.RenderTexture srcTex, UnityEngine.RenderTexture outTex)
   {
     // Pass the shapes buffer
     m_raymarchingShader.SetBuffer(0, "_shapes", m_shapesBuffer);

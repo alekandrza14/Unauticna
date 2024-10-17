@@ -15,7 +15,7 @@ public class MirrorReflection : MonoBehaviour
 	
 	private Hashtable m_ReflectionCameras = new Hashtable(); // Camera -> Camera table
 	
-	private RenderTexture m_ReflectionTexture = null;
+	private UnityEngine.RenderTexture m_ReflectionTexture = null;
 	private int m_OldReflectionTextureSize = 0;
 	
 	private static bool s_InsideRendering = false;
@@ -167,7 +167,7 @@ public class MirrorReflection : MonoBehaviour
 		{
 			if( m_ReflectionTexture )
 				DestroyImmediate( m_ReflectionTexture );
-			m_ReflectionTexture = new RenderTexture( m_TextureSize, m_TextureSize, 16 );
+            m_ReflectionTexture = new UnityEngine.RenderTexture(m_TextureSize, m_TextureSize, 16 );
 			m_ReflectionTexture.name = "__MirrorReflection" + GetInstanceID();
 			m_ReflectionTexture.isPowerOfTwo = true;
 			m_ReflectionTexture.hideFlags = HideFlags.DontSave;

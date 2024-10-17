@@ -102,7 +102,9 @@ public class EnemyeFashist : MonoBehaviour
     {
         if (collision.collider.GetComponent<Logic_tag_DamageObject>())
         {
-            Globalprefs.LoadTevroPrise(- 100);
+            Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
+
+            VarSave.SetInt("Agr", cistalenemy.dies);
             Destroy(gameObject); Drop();
              DeadShit.Spawn(transform.position);
              DeadShit.Spawn(transform.position);

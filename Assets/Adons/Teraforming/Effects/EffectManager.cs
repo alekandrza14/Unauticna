@@ -18,12 +18,12 @@ public class EffectManager : MonoBehaviour
 
 	public Camera waterDepthCam;
 
-	RenderTexture waterDepthTex;
+    UnityEngine.RenderTexture waterDepthTex;
 	Material atmosphereMat;
 	Material underwaterMat;
 	Material hudMat;
 
-	RenderTexture blurredTexture;
+    UnityEngine.RenderTexture blurredTexture;
 	ComputeShaderUtility.GaussianBlur gaussianBlur;
 	CloudManager cloudManager;
 	FXAAEffect fxaa;
@@ -41,7 +41,7 @@ public class EffectManager : MonoBehaviour
 
 	}
 
-	void RenderAtmosphere(RenderTexture source, RenderTexture target)
+	void RenderAtmosphere(UnityEngine.RenderTexture source, UnityEngine.RenderTexture target)
 	{
 		if (atmosphereEnabled)
 		{
@@ -55,7 +55,7 @@ public class EffectManager : MonoBehaviour
 		}
 	}
 
-	void RenderClouds(RenderTexture source, RenderTexture target)
+	void RenderClouds(UnityEngine.RenderTexture source, UnityEngine.RenderTexture target)
 	{
 		if (cloudsEnabled)
 		{
@@ -67,7 +67,7 @@ public class EffectManager : MonoBehaviour
 		}
 	}
 
-	void RenderUnderwater(RenderTexture source, RenderTexture target)
+	void RenderUnderwater(UnityEngine.RenderTexture source, UnityEngine.RenderTexture target)
 	{
 		if (underwaterEnabled)
 		{
@@ -84,24 +84,24 @@ public class EffectManager : MonoBehaviour
 	}
 
 
-	public void HandleEffects(RenderTexture source, RenderTexture target)
+	public void HandleEffects(UnityEngine.RenderTexture source, UnityEngine.RenderTexture target)
 	{
 		Init();
 
-		// -------- Atmosphere --------
-		RenderTexture atmosphereComposite = RenderTexture.GetTemporary(source.descriptor);
+        // -------- Atmosphere --------
+        UnityEngine.RenderTexture atmosphereComposite = UnityEngine.RenderTexture.GetTemporary(source.descriptor);
 		RenderAtmosphere(source, atmosphereComposite);
 
-		// -------- Clouds ---------
-		RenderTexture cloudComposite = RenderTexture.GetTemporary(source.descriptor);
+        // -------- Clouds ---------
+        UnityEngine.RenderTexture cloudComposite = UnityEngine.RenderTexture.GetTemporary(source.descriptor);
 		RenderClouds(atmosphereComposite, cloudComposite);
 
-		// -------- Underwater --------
-		RenderTexture underwaterComposite = RenderTexture.GetTemporary(source.descriptor);
+        // -------- Underwater --------
+        UnityEngine.RenderTexture underwaterComposite = UnityEngine.RenderTexture.GetTemporary(source.descriptor);
 		RenderUnderwater(cloudComposite, underwaterComposite);
 
-		// -------- Anti-Aliasing --------
-		RenderTexture antiAliasedResult = RenderTexture.GetTemporary(source.descriptor);
+        // -------- Anti-Aliasing --------
+        UnityEngine.RenderTexture antiAliasedResult = UnityEngine.RenderTexture.GetTemporary(source.descriptor);
 		if (antiAliasingEnabled)
 		{
 			fxaa.Render(underwaterComposite, antiAliasedResult);
@@ -114,11 +114,11 @@ public class EffectManager : MonoBehaviour
 		// -------- HUD --------
 		Graphics.Blit(antiAliasedResult, target, hudMat);
 
-		// -------- Release --------
-		RenderTexture.ReleaseTemporary(atmosphereComposite);
-		RenderTexture.ReleaseTemporary(cloudComposite);
-		RenderTexture.ReleaseTemporary(underwaterComposite);
-		RenderTexture.ReleaseTemporary(antiAliasedResult);
+        // -------- Release --------
+        UnityEngine.RenderTexture.ReleaseTemporary(atmosphereComposite);
+        UnityEngine.RenderTexture.ReleaseTemporary(cloudComposite);
+        UnityEngine.RenderTexture.ReleaseTemporary(underwaterComposite);
+        UnityEngine.RenderTexture.ReleaseTemporary(antiAliasedResult);
 
 	}
 
@@ -134,7 +134,7 @@ public class EffectManager : MonoBehaviour
 			{
 				waterDepthTex.Release();
 			}
-			waterDepthTex = new RenderTexture(Screen.width, Screen.height, 32, UnityEngine.Experimental.Rendering.GraphicsFormat.R32G32B32A32_SFloat);
+            waterDepthTex = new UnityEngine.RenderTexture(Screen.width, Screen.height, 32, UnityEngine.Experimental.Rendering.GraphicsFormat.R32G32B32A32_SFloat);
 			waterDepthTex.Create();
 			waterDepthCam.targetTexture = waterDepthTex;
 		}

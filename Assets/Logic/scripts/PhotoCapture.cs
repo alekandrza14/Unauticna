@@ -68,7 +68,7 @@ public class PhotoCapture : MonoBehaviour
 
                 ScreenCapture.CaptureScreenshot(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\unsave\var\Screenshot.png", 1);
 
-                RenderTexture targetTexture = RenderTexture.GetTemporary(width, height);
+                UnityEngine.RenderTexture targetTexture = UnityEngine.RenderTexture.GetTemporary(width, height);
 
                 this.captureCamera.targetTexture = targetTexture;
                 this.captureCamera.Render();
@@ -83,7 +83,7 @@ public class PhotoCapture : MonoBehaviour
                     Globalprefs.postes2[i] = GameObject.FindGameObjectsWithTag("tesseract")[i].transform.position;
                 }
 
-                RenderTexture.active = targetTexture;
+                UnityEngine.RenderTexture.active = targetTexture;
 
                 Rect rect = new(0, 0, width, height);
                 texture.ReadPixels(rect, 0, 0);

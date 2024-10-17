@@ -44,15 +44,15 @@ public class Shop : MonoBehaviour
         {
             if (produkt[i].name == "Random()")
             {
-               
-                    System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
+
+                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
 
                 if (r.Next(0, 2) == 1)
                 {
                     int num = r.Next(0, Map_saver.t3.Length);
                     int num2 = r.Next(0, 3);
                     produkt[i].name = Map_saver.t3[num].name;
-                    if (num2 != 0) 
+                    if (num2 != 0)
                     {
                         if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
                         {
@@ -79,6 +79,51 @@ public class Shop : MonoBehaviour
                     if (num2 != 0)
                     {
                         produkt[i].price = (model.ItemPrice * 2.3f).ToString();
+                    }
+                    else
+                    {
+                        produkt[i].price = 0.ToString();
+                    }
+                    produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
+                }
+            }
+            if (produkt[i].name == "Cumdom()")
+            {
+
+                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
+
+                if (r.Next(0, 2) == 1)
+                {
+                    int num = r.Next(0, Map_saver.t3.Length);
+                    int num2 = r.Next(0, 3);
+                    produkt[i].name = Map_saver.t3[num].name;
+                    if (num2 != 0)
+                    {
+                        if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                        {
+                            produkt[i].price = 0.ToString();
+                        }
+                        if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                        {
+                            produkt[i].price = 0.ToString();
+                        }
+                    }
+                    else
+                    {
+                        produkt[i].price = 0.ToString();
+                    }
+                    produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
+                }
+                else
+                {
+                    int num2 = r.Next(0, 3);
+                    FileInfo fi = dif.GetFiles()[r.Next(0, dif.GetFiles().Length)];
+
+                    produkt[i].name = "co!" + (fi.Name.Replace(".txt", ""));
+                    CustomObjectData model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + fi.Name));
+                    if (num2 != 0)
+                    {
+                        produkt[i].price = 0.ToString();
                     }
                     else
                     {

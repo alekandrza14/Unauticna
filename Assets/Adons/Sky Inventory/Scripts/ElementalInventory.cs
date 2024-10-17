@@ -2148,6 +2148,19 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("4Dvkusnashka", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗлойМультик") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            SceneManager.LoadScene("Evil-Multik");
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("ЗлойМультик", "Пустота в сердце");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("СвитокПравды") != 0 && main() == this)
         {
             SceneManager.LoadSceneAsync("room90");

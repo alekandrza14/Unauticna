@@ -11,7 +11,7 @@ public class map : MonoBehaviour
     void Start()
     {
         s = new RenderTextureDescriptor(1000, 1000, RenderTextureFormat.ARGB32);
-        RenderTexture r = new RenderTexture(s);
+        UnityEngine.RenderTexture r = new UnityEngine.RenderTexture(s);
         cam.GetComponent<Camera>().targetTexture = r;
         texture.GetComponents<MeshRenderer>()[0].material.SetTexture("_MainTex",r);
     }

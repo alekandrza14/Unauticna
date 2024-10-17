@@ -1276,6 +1276,26 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
+                    if (objs.Count < 100)
+                    {
+                      if(Global.Random.Chance(9))  for (int i = 0; i < 0 + Global.Random.Range(1, 3); i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/Kamunist");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
 
                     //Custom creature
                     DirectoryInfo info = new("res/Creatures");

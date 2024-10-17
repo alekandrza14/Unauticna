@@ -6,7 +6,7 @@ public class CameraEffect : MonoBehaviour
 {
 	EffectManager effectManager;
 
-	void OnRenderImage(RenderTexture source, RenderTexture target)
+	void OnRenderImage(UnityEngine.RenderTexture source, UnityEngine.RenderTexture target)
 	{
 		Init();
 

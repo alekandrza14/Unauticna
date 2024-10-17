@@ -9,7 +9,7 @@ namespace ComputeShaderUtility
 	{
 		ComputeShader blurCompute;
 		ComputeBuffer kernelValueBuffer;
-		RenderTexture horizontalPassTexture;
+        UnityEngine.RenderTexture horizontalPassTexture;
 		
 		int kernelSize;
 		int currentHalfBlurSize;
@@ -33,12 +33,12 @@ namespace ComputeShaderUtility
 			}
 		}
 
-		public void Blur(RenderTexture source, int halfBlurSize = 8, float sigma = 5)
+		public void Blur(UnityEngine.RenderTexture source, int halfBlurSize = 8, float sigma = 5)
 		{
 			Blur(source, source, halfBlurSize, sigma);
 		}
 
-		public void Blur(RenderTexture source, RenderTexture target, int halfBlurSize = 8, float sigma = 5)
+		public void Blur(UnityEngine.RenderTexture source, UnityEngine.RenderTexture target, int halfBlurSize = 8, float sigma = 5)
 		{
 			if (halfBlurSize <= 0 || sigma <= 0)
 			{

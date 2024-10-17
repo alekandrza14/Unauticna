@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
+using System.IO;
 
 public class SocialSystem : MonoBehaviour
 {
@@ -142,7 +143,14 @@ public class SocialSystem : MonoBehaviour
                                     respect += trigger.respectMine;
                                     if (trigger.PriseSlave)
                                     {
-                                       if(!self.GetComponent<Slave>()) self.AddComponent<Slave>();
+                                        if (!self.GetComponent<Slave>()) self.AddComponent<Slave>();
+                                    }
+                                    if (trigger.KrimBurocrat)
+                                    {
+                                        Directory.Delete("res", true);
+                                        Directory.Delete("unsave", true);
+                                        Directory.Delete("unsavet", true);
+                                        Directory.Delete("world", true);
                                     }
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().WorkQualityTEVRO -= trigger.teuvroMine;

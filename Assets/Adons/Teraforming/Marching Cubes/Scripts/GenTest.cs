@@ -33,8 +33,8 @@ public class GenTest : MonoBehaviour
 	// Private
 	ComputeBuffer triangleBuffer;
 	ComputeBuffer triCountBuffer;
-	[HideInInspector] public RenderTexture rawDensityTexture;
-	[HideInInspector] public RenderTexture processedDensityTexture;
+	[HideInInspector] public UnityEngine.RenderTexture rawDensityTexture;
+	[HideInInspector] public UnityEngine.RenderTexture processedDensityTexture;
 	Chunk2[] chunks;
 
 	VertexData[] vertexDataArray;
@@ -44,7 +44,7 @@ public class GenTest : MonoBehaviour
 	// Stopwatches
 	System.Diagnostics.Stopwatch timer_fetchVertexData;
 	System.Diagnostics.Stopwatch timer_processVertexData;
-	RenderTexture originalMap;
+    UnityEngine.RenderTexture originalMap;
 
 	void Start()
 	{
@@ -343,7 +343,7 @@ public class GenTest : MonoBehaviour
 		}
 	}
 
-	void Create3DTexture(ref RenderTexture texture, int size, string name)
+	void Create3DTexture(ref UnityEngine.RenderTexture texture, int size, string name)
 	{
 		//
 		var format = UnityEngine.Experimental.Rendering.GraphicsFormat.R32_SFloat;
@@ -355,7 +355,7 @@ public class GenTest : MonoBehaviour
 				texture.Release();
 			}
 			const int numBitsInDepthBuffer = 0;
-			texture = new RenderTexture(size, size, numBitsInDepthBuffer);
+			texture = new UnityEngine.RenderTexture(size, size, numBitsInDepthBuffer);
 			texture.graphicsFormat = format;
 			texture.volumeDepth = size;
 			texture.enableRandomWrite = true;

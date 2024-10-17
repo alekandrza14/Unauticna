@@ -46,8 +46,8 @@ public class NoiseGenerator : MonoBehaviour
 	[HideInInspector]
 	public bool showSettingsEditor = true;
 
-	public RenderTexture shapeTexture;
-	public RenderTexture detailTexture;
+	public UnityEngine.RenderTexture shapeTexture;
+	public UnityEngine.RenderTexture detailTexture;
 
 	void Awake()
 	{
@@ -77,7 +77,7 @@ public class NoiseGenerator : MonoBehaviour
 
 	}
 
-	void UpdateSettings(WorleyNoiseSettings settings, RenderTexture texture, Vector3 channelMask)
+	void UpdateSettings(WorleyNoiseSettings settings, UnityEngine.RenderTexture texture, Vector3 channelMask)
 	{
 		if (settings == null)
 		{
@@ -200,7 +200,7 @@ public class NoiseGenerator : MonoBehaviour
 		}
 	}
 
-	void CreateTexture(ref RenderTexture texture, int resolution, string name)
+	void CreateTexture(ref UnityEngine.RenderTexture texture, int resolution, string name)
 	{
 		var format = UnityEngine.Experimental.Rendering.GraphicsFormat.R16G16B16A16_UNorm;
 		if (texture == null || !texture.IsCreated() || texture.width != resolution || texture.height != resolution || texture.volumeDepth != resolution || texture.graphicsFormat != format)
@@ -210,7 +210,7 @@ public class NoiseGenerator : MonoBehaviour
 			{
 				texture.Release();
 			}
-			texture = new RenderTexture(resolution, resolution, 0);
+			texture = new UnityEngine.RenderTexture(resolution, resolution, 0);
 			texture.graphicsFormat = format;
 			texture.volumeDepth = resolution;
 			texture.enableRandomWrite = true;

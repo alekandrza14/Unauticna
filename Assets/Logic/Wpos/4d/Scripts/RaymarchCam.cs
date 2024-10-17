@@ -67,7 +67,6 @@ public class RaymarchCam : SceneViewFilter
     public Texture2D _globalGeometryTexture11;
     public Texture2D _globalGeometryTexture12;
     public Texture2D _globalGeometryTexture13;
-    public Texture2D _globalGeometryTexture14;
     public float _max_iteration;
     [Header ("Global Transform Settings")]
     public Vector3 _wRotation;
@@ -83,6 +82,7 @@ public class RaymarchCam : SceneViewFilter
     [Space (10)]
     public bool _useShadow;
     public bool _useSoftShadow;
+    public bool _useCordinateTexture;
     public float _shadowSoftness;
     public float _maxShadowDistance;
     [Range(0, 1)]
@@ -196,7 +196,6 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetTexture("_GeometryTex11", _globalGeometryTexture11);
         _raymarchMaterial.SetTexture("_GeometryTex12", _globalGeometryTexture12);
         _raymarchMaterial.SetTexture("_GeometryTex13", _globalGeometryTexture13);
-        _raymarchMaterial.SetTexture("_GeometryTex14", _globalGeometryTexture14);
 
 
         _raymarchMaterial.SetFloat("_precision", _precision);
@@ -214,8 +213,8 @@ public class RaymarchCam : SceneViewFilter
         if (FindObjectOfType<NegativeLight>()) _raymarchMaterial.SetInt("_useNegativeLight", FindObjectOfType<NegativeLight>().enabled == true ? 1 : 0); else { _raymarchMaterial.SetInt("_useNegativeLight", 0); }
         if (Globalprefs.item == "НегативныеОчки") _raymarchMaterial.SetInt("_useNegative", Globalprefs.item == "НегативныеОчки" ? 1 : 0); else if(VarSave.GetInt("НегативныеОчки") <= 0) { _raymarchMaterial.SetInt("_useNegative", 0); }
        else if (VarSave.GetInt("НегативныеОчки")>0) _raymarchMaterial.SetInt("_useNegative", VarSave.GetInt("НегативныеОчки") > 0 ? 1 : 0); else { _raymarchMaterial.SetInt("_useNegative", 0); }
-
-
+        //_useCordinateTexture
+        _raymarchMaterial.SetInt("_use14texture", _useCordinateTexture ? 1 : 0);
         _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);
         _raymarchMaterial.SetFloat("w", _wPosition);
        if(instance) _raymarchMaterial.SetFloat("_hxRotation", instance.HX_Rotation);

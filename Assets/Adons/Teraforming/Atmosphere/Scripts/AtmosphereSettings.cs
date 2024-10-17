@@ -34,10 +34,10 @@ public class AtmosphereSettings : ScriptableObject
 	public float originalColourStrength = 180;
 	public float overlayStrength = 0.5f;
 
-	//public float atmosphereScale = 0.5f;
-	//public float bodyRadius = 100;
+    //public float atmosphereScale = 0.5f;
+    //public float bodyRadius = 100;
 
-	RenderTexture opticalDepthTexture;
+    UnityEngine.RenderTexture opticalDepthTexture;
 	bool settingsUpToDate;
 
 	public void FlagForUpdate()
