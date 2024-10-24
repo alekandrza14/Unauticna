@@ -23,7 +23,6 @@ public class NonSystemGameSettings : MonoBehaviour
         float vaule = slider.value * (max);
         if (vaule < min) vaule = min;
         text.text = Varible + " / " + (int)(vaule);
-
         VarSave.SetFloat(Varible + "_gameSettings", slider.value, SaveType.global);
     }
 }

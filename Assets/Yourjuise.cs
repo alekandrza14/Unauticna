@@ -12,13 +12,15 @@ public class Yourjuise : InventoryEvent
     [SerializeField] itemName itemName;
     [SerializeField] MeshRenderer[] mr;
     string pichure;
+    public string CO_VoxelModel;
     public bool Tex3d;
     string oldpichure;
     // Start is called before the first frame update
     public void Load1()
     {
 
-        if (GetComponent<itemName>())
+        if (CO_VoxelModel != "") pichure = CO_VoxelModel;
+        if (CO_VoxelModel == "") if (GetComponent<itemName>())
         {
 
             pichure = GetComponent<itemName>().ItemData;
@@ -119,8 +121,9 @@ public class Yourjuise : InventoryEvent
     bool i;
     private void Start()
     {
-         pichure = GetComponent<itemName>().ItemData;
-        if (!string.IsNullOrEmpty(pichure))
+        if (CO_VoxelModel == "") pichure = GetComponent<itemName>().ItemData;
+        if (CO_VoxelModel != "") pichure = CO_VoxelModel;
+            if (!string.IsNullOrEmpty(pichure))
         {
             if (pichure != oldpichure)
             {

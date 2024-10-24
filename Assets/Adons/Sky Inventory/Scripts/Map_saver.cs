@@ -1189,6 +1189,52 @@ public class Map_saver : MonoBehaviour
                     }
                     if (objs.Count < 100)
                     {
+                        if (Global.Random.Chance(6))
+                        {
+                            for (int i = 0; i < 1; i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/Мерисью");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(12))
+                        {
+                            for (int i = 0; i < 0 + Global.Random.Range(-5, 5); i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
                         if (Global.Random.Chance(12))
                         {
                             for (int i = 0; i < 0 + Global.Random.Range(5, 50); i++)

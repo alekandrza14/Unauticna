@@ -159,7 +159,7 @@ public class Move4DAxis : MonoBehaviour
                 }
 
                  
-                if (select.GetComponent<itemName>()._Name != "MMA-Брат") 
+                if (!select.GetComponent<itemName>().Undeleteble) 
                 {
                     Destroy(select); 
                 }

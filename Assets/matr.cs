@@ -219,7 +219,11 @@ public class matr : MonoBehaviour
 
             //  Destroy(hitupdown.collider.gameObject);
             if (VarSave.GetString("Demake" + Globalprefs.Reality) != "") Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
-            if (hit.collider.GetComponent<itemName>()) Demake.item.Add(hit.collider.GetComponents<itemName>()[0]._Name);
+            if (hit.collider.GetComponent<itemName>()) 
+                if (hit.collider.GetComponent<itemName>()._Name != "Мерисью") 
+                {
+                    Demake.item.Add(hit.collider.GetComponents<itemName>()[0]._Name); 
+                }
             if (hit.collider.GetComponent<CustomObject>()) Demake.co.Add(hit.collider.GetComponent<CustomObject>().s);
             VarSave.SetString("Demake" + Globalprefs.Reality, JsonUtility.ToJson(Demake));
 

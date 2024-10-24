@@ -46,13 +46,18 @@ public class CustomObjectData
     public string LuaBuilding;
     public string ConvertTo;
     public string LoadingMaterial;
+    public string[] LoadingMaterials;
     public int RegenerateHp;
     public double Recycler;
     public double Redecycler;
     public double InfinityRecycler;
+    public float speed = 1;
     public double ItemPrice = 157d;
     public Vector3 playerRotate;
     public Vector3 playerMove;
+    public Vector3[] VM_Pos = new Vector3[] { };
+    public Vector3[] VM_Scale = new Vector3[] { };
+    public string[] VoxelModels = new string[] { };
     public Vector3[] LeftLeg = new Vector3[] { };
     public Vector3[] RightLeg = new Vector3[] { };
     public Vector3[] LeftPovid = new[]
@@ -112,10 +117,23 @@ public class CustomObject : CustomSaveObject
             GameObject obj = new GameObject("dopmodels");
             obj.transform.SetParent(transform.GetChild(0));
             obj.transform.position = transform.position;
+            obj.transform.localScale = transform.localScale;
             obj.transform.rotation = transform.rotation;
             obj.AddComponent<MeshFilter>().sharedMesh = newMesh;
             obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
             obj.AddComponent<MeshCollider>().sharedMesh = newMesh;
+         if (obj.GetComponent<MeshRenderer>()) if(Model.LoadingMaterials!=null)  if (Model.LoadingMaterials.Length > 0) 
+            {
+                Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
+                obj.GetComponent<MeshRenderer>().material = newMaterial2;
+            }
+        }
+        for (int i = 0; i < Model.VoxelModels.Length; i++)
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("CO_VoxelModel"),transform);
+            obj.transform.position = transform.position + Model.VM_Pos[i];
+            obj.transform.localScale = Model.VM_Scale[i];
+            obj.GetComponent<Yourjuise>().CO_VoxelModel = Model.VoxelModels[i];
         }
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         transform.localScale = Model.scale;
@@ -270,7 +288,12 @@ public class CustomObject : CustomSaveObject
         }
         if (Model.RunToPlayer)
         {
-            if (!GetComponent<RunToPlayer>()) gameObject.AddComponent<RunToPlayer>();
+            if (!GetComponent<RunToPlayer>())
+            {
+                gameObject.AddComponent<RunToPlayer>();
+                GetComponent<RunToPlayer>().speed = Model.speed;
+            }
+          
         }
        
         if (Model.NoCollect)

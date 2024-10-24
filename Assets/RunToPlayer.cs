@@ -3,6 +3,7 @@ using UnityEngine;
 public class RunToPlayer : MonoBehaviour
 {
     mover m;
+    public float speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,6 @@ public class RunToPlayer : MonoBehaviour
     void Update()
     {
         transform.rotation = Quaternion.LookRotation(m.transform.position - transform.position, transform.up);
-        transform.Translate(0, 0, 1f * Time.deltaTime);
+        transform.Translate(0, 0, 1f * Time.deltaTime*speed);
     }
 }

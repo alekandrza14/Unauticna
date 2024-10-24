@@ -1330,11 +1330,30 @@ public class mover : CustomSaveObject
     //РейдерГипопотам
     void bomjspawn()
     {
-        if(IfSpawn("Попрашайка"))  if (!lml2.Find()) if (Global.Random.Chance(2))
+        if(IfSpawn("Попрашайка")) if (!lml2.Find()) if (Global.Random.Chance(2))
+                {
+                    if (UnityEngine.Random.Range(0, 35) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (Global.Random.Chance(2))
             {
                 if (UnityEngine.Random.Range(0, 35) < 1)
                 {
-                    SceneManager.LoadScene("Donat");
+                    SceneManager.LoadScene("Donat");//почини или похуй! я не знаю не уверен был полностью в полнонужности это го контента я больше хотел раздражать людей сложностью игры чем была аудитория готовая плотить деньги? ок понятно бюрократы просто приближаються и я не готов требовать деньги с игроков и не известная посанкция работаетли монитизация? ок если будет лучьше помогут незнаю правда настольты лучше? ладно спасибо спамтон! пожалуйста!
                 }
                 for (int i = 0; i < 6; i++)
                 {
@@ -1344,7 +1363,7 @@ public class mover : CustomSaveObject
                     {
                         if (hit.collider != null)
                         {
-                            Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                            Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
                         }
                     }
                 }
@@ -1526,58 +1545,64 @@ public class mover : CustomSaveObject
     }
     void hamspawn()
     {
-        if (IfSpawn("БезКультурный")) if (!lml1.Find()) if (Global.Random.Chance(2))
+        if (VarSave.GetFloat("Vorast" + "_gameSettings", SaveType.global) > 16)
         {
-            if (UnityEngine.Random.Range(0, 35) < 1)
-            {
-                SceneManager.LoadScene("Donat");
-            }
-            for (int i = 0; i < 6; i++)
-            {
-                Ray r = new(transform.position + (transform.up * 40), randommaze());
-                RaycastHit hit;
-                if (Physics.Raycast(r, out hit))
-                {
-                    if (hit.collider != null)
+            if (IfSpawn("БезКультурный")) if (!lml1.Find()) if (Global.Random.Chance(2))
                     {
-                        Instantiate(Resources.Load<GameObject>("Items/БезКультурный"), hit.point, Quaternion.identity);
+                        if (UnityEngine.Random.Range(0, 35) < 1)
+                        {
+                            SceneManager.LoadScene("Donat");
+                        }
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/БезКультурный"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
                     }
-                }
-            }
         }
     }
     void мгеspawn()
     {
-        if (IfSpawn("МГЕ-Брат")) if (!lml1.Find()) if (Global.Random.Chance(6))
-                {
-                    for (int i = 0; i < 10 + Global.Random.Range(0, 60); i++)
+        if (VarSave.GetFloat("Vorast" + "_gameSettings", SaveType.global) > 18)
+        {
+            if (IfSpawn("МГЕ-Брат")) if (!lml1.Find()) if (Global.Random.Chance(6))
                     {
-                        Ray r = new(transform.position + (transform.up * 40), randommaze());
-                        RaycastHit hit;
-                        if (Physics.Raycast(r, out hit))
+                        for (int i = 0; i < 10 + Global.Random.Range(0, 60); i++)
                         {
-                            if (hit.collider != null)
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
                             {
-                                Instantiate(Resources.Load<GameObject>("Items/МГЕ-Брат"), hit.point, Quaternion.identity);
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/МГЕ-Брат"), hit.point, Quaternion.identity);
+                                }
                             }
                         }
                     }
-                }
-        if (IfSpawn("MMA-Брат")) if (!lml1.Find()) if (Global.Random.Chance(2))
-                {
-                    for (int i = 0; i < 10 + Global.Random.Range(20, 100); i++)
+            if (IfSpawn("MMA-Брат")) if (!lml1.Find()) if (Global.Random.Chance(2))
                     {
-                        Ray r = new(transform.position + (transform.up * 40), randommaze());
-                        RaycastHit hit;
-                        if (Physics.Raycast(r, out hit))
+                        for (int i = 0; i < 10 + Global.Random.Range(20, 100); i++)
                         {
-                            if (hit.collider != null)
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
                             {
-                                Instantiate(Resources.Load<GameObject>("Items/MMA-Брат"), hit.point, Quaternion.identity);
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/MMA-Брат"), hit.point, Quaternion.identity);
+                                }
                             }
                         }
                     }
-                }
+        }
     }
     void kilspawn()
     {

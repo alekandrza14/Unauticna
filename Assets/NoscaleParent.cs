@@ -3,16 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8
+    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10
 }
 
 public class NoscaleParent : MonoBehaviour
 {
     public Transform Obj;
+    Vector3 target;
+    Vector3 diretional;
+    float timer;
     [SerializeField] NoscaleParentSettings settings;
-    
+    private void Start()
+    {
+        if (settings == NoscaleParentSettings.PatrulPlayer)
+        {
+            transform.SetParent(new GameObject().transform);
+        }
+    }
     void Update()
     {
+        timer += Time.deltaTime;
         if (settings == NoscaleParentSettings.noMove)
         {
             transform.rotation = Obj.rotation;
@@ -50,7 +60,22 @@ public class NoscaleParent : MonoBehaviour
         if (settings == NoscaleParentSettings.RotPlayer)
         {
             transform.rotation = mover.main().transform.rotation;
-            transform.Rotate(0,180,0);
+            transform.Rotate(0, 180, 0);
+        }
+        if (settings == NoscaleParentSettings.PatrulPlayer)
+        {
+            target = mover.main().transform.position + diretional;
+            if (timer > 5) 
+            {
+                diretional = Global.math.randomCube(-50, 50);
+                timer = 0;
+            }
+            transform.position = target;
+            transform.Rotate(0, 180, 0);
+        }
+        if (settings == NoscaleParentSettings.onlyScale)
+        {
+            transform.localScale = Obj.localScale;
         }
     }
 }

@@ -7,6 +7,7 @@ public class itemName : CustomSaveObject
     public bool ItemInfinitysPrise;
     public string ItemData = "";
     public bool isLife;
+    public bool Undeleteble;
     public string _Name;
     [Multiline(3)]
     public string _Discription;

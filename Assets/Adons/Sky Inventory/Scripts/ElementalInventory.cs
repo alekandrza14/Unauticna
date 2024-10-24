@@ -2980,6 +2980,21 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Дтine", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        //РекламаАрмии
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("РекламаАрмии") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+
+            VarSave.LoadFloat("mana", 1f);
+
+
+            lowitem("РекламаАрмии", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Хлеб") != 0 && main() == this)
         {
 
@@ -3320,9 +3335,18 @@ public class ElementalInventory : MonoBehaviour {
         {
             RaycastHit hit = MainRay.MainHit;
 
-            
-                    GameObject g = Instantiate(Resources.Load<GameObject>("items/ColorMarker"), hit.point, Quaternion.identity);
-           
+
+            GameObject g = Instantiate(Resources.Load<GameObject>("items/ColorMarker"), hit.point, Quaternion.identity);
+
+        }
+        if (Input.GetKey(KeyCode.Mouse0) && main() == this
+          && Cells[selectr].elementName == "UranMarker" && Cells[selectr].elementCount > 0)
+        {
+            RaycastHit hit = MainRay.MainHit;
+
+
+            GameObject g = Instantiate(Resources.Load<GameObject>("items/u"), hit.point, Quaternion.identity);
+
         }
         //ПроигратьМузыку
         if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
