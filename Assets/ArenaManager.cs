@@ -91,12 +91,14 @@ public class ArenaManager : MonoBehaviour
                         VarSave.SetFloat("arenaTimer", timer); 
                         VarSave.SetString("arenaTimerText", hours + ":" + minetes + ":" + seconds);
                     }
+                    VarSave.LoadMoney("Avtoritet", 4);
                 }
                 if (VarSave.GetFloat("arenaTimer") == 0)
                 {
                     VarSave.SetFloat("arenaTimer", timer);
                     VarSave.SetString("arenaTimerText", hours + ":" + minetes + ":" + seconds);
                 }
+                VarSave.LoadMoney("Avtoritet", 1);
                 Record.text = "Арена гладиаторская\r\nЛучший рекорд " + VarSave.GetString("arenaTimerText") + "\r\nна арене есть 3 волны\r\nпройдите как можно быстрее";
                 timer = 0;
                 Wave = 0;

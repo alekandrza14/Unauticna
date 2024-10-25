@@ -1197,6 +1197,8 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(Screen.width - 200, 0, 200, 40), "TimeRegion : " + ((TimeOfGame)Sutck.day).ToString(), editor.label);
             GUI.Label(new Rect(Screen.width - 200, 20, 200, 40), "Temperature : " + Sutck.Temperature() + "˚", editor.label);
             GUI.Label(new Rect(Screen.width - 200, 40, 200, 40), "Count pepole in your contry : " + VarSave.GetInt("pepole"), editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 60, 200, 40), "Avtoritet : " + VarSave.GetMoney("Avtoritet"), editor.label);
+            // VarSave.LoadMoney("Avtoritet", 1)
             //cistalenemy.dies
 
 
