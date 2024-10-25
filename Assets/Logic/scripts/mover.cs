@@ -68,8 +68,8 @@ public class mover : CustomSaveObject
     public GameObject PlayerBody;
     public GameObject PlayerCamera;
     [SerializeField] bool isplanet;
-    [SerializeField] bool tutorial;
-    [SerializeField] bool tutorialsave;
+    [SerializeField] public bool tutorial;
+    [SerializeField] public bool tutorialsave;
     [SerializeField] bool islight = false;
     [SerializeField] bool inglobalspace;
     [SerializeField] float jumpforse;
@@ -78,6 +78,7 @@ public class mover : CustomSaveObject
     [SerializeField] float ForseSwaem;
     [SerializeField] Rigidbody rigidbody3d;
     [SerializeField] float Speed;
+    public static bool DeadGod{ private set; get;}
     [SerializeField] public Animator animator;
     [SerializeField] Animator[] SkinedAnimators;
     PlayerData save = new();
@@ -2198,6 +2199,7 @@ public class mover : CustomSaveObject
                   
                     if (item == TalantDNA.KillGod)
                     {
+                        DeadGod = true;
                         CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
                         foreach (CharacterName item2 in CharacterNames)
                         {
