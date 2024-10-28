@@ -2228,6 +2228,7 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Мусор", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+      
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Мясо") != 0 && main() == this)
         {
 
@@ -3315,6 +3316,30 @@ public class ElementalInventory : MonoBehaviour {
                 GlobalInputMenager.KeyCode_eat = 0;
             }
         }
+        if (Input.GetKeyDown(KeyCode.E) && Cells[selectr].elementName == "Мусор" && main() == this && Cells[selectr].elementCount > 0)
+        {
+
+
+            string[] itemObject = Cells[selectr].elementData.Split('♥');
+            string itemname = "";
+            if (itemObject[0] == "item")
+            {
+                foreach (GameObject item in Map_saver.t3)
+                {
+                    if (item.GetComponent<itemName>()._Name == itemObject[1])
+                    {
+                        itemname = item.name;
+                    }
+                }
+                Cells[selectr].elementName = itemname;
+            }
+            if (itemObject[0] == "co")
+            {
+                
+                Cells[selectr].elementName = "co!" + itemObject[1];
+            }
+            Cells[selectr].UpdateCellInterface();
+        }
         //УпаковщикМусора
         if (Input.GetKeyDown(KeyCode.Mouse0) && main() == this
           && Cells[selectr].elementName == "УпаковщикМусора" && Cells[selectr].elementCount > 0)
@@ -3326,6 +3351,8 @@ public class ElementalInventory : MonoBehaviour {
                 if (hit.collider.GetComponent<CustomSaveObject>())
                 {
                     GameObject g = Instantiate(Resources.Load<GameObject>("items/Мусор"), hit.point, Quaternion.identity);
+                    if (hit.collider.GetComponent<itemName>()) g.GetComponent<itemName>().ItemData = "item♥" + hit.collider.GetComponent<itemName>()._Name;
+                    if (hit.collider.GetComponent<CustomObject>()) g.GetComponent<itemName>().ItemData = "co♥" + hit.collider.GetComponent<CustomObject>().s;
                     Destroy(hit.collider.gameObject);
                 }
             }

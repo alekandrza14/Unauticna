@@ -1198,6 +1198,7 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(Screen.width - 200, 20, 200, 40), "Temperature : " + Sutck.Temperature() + "˚", editor.label);
             GUI.Label(new Rect(Screen.width - 200, 40, 200, 40), "Count pepole in your contry : " + VarSave.GetInt("pepole"), editor.label);
             GUI.Label(new Rect(Screen.width - 200, 60, 200, 40), "Avtoritet : " + VarSave.GetMoney("Avtoritet"), editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 80, 200, 40), "Slave : " + VarSave.GetBool("Slave"), editor.label);
             // VarSave.LoadMoney("Avtoritet", 1)
             //cistalenemy.dies
 
@@ -1251,7 +1252,17 @@ public class mover : CustomSaveObject
     //Приметивный интерфейс
     void Start()
     {
-
+        if (VarSave.GetInt("SlaversNervs") > 15)
+        {
+            VarSave.SetBool("Slave",true);
+        }
+        if (VarSave.GetBool("Slave"))
+        {
+            if (SceneManager.GetActiveScene().name!="Slave")
+            {
+                SceneManager.LoadScene("Slave");
+            }
+        }
         // InvokeRepeating("GameUpdate", 1, 0.07f);
         gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
@@ -2176,7 +2187,7 @@ public class mover : CustomSaveObject
     Vector3 new_center;
    static public Vector3 new_offset;
     int indexpos;
-
+    bool d2d3;
     GameObject waterscreen;
     void Update()
     {
@@ -2313,12 +2324,30 @@ public class mover : CustomSaveObject
         {
             swapHXALL();
         }
-        
+        if (Input.GetKeyDown(KeyCode.Alpha6) && !Globalprefs.Pause)
+        {
+
+            if (!d2d3)
+            {
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z / 100);
+                GetComponent<CapsuleCollider>().enabled = false;
+                if (!GetComponent<BoxCollider>()) { gameObject.AddComponent<BoxCollider>().enabled = true; GetComponent<BoxCollider>().size = new Vector3(1, 2, 1); }
+                if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = true;
+            }
+            else
+            {
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z * 100);
+                GetComponent<CapsuleCollider>().enabled = true;
+                if (!GetComponent<BoxCollider>()) { gameObject.AddComponent<BoxCollider>().enabled = false; GetComponent<BoxCollider>().size = new Vector3(1, 2, 1); }
+                if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = false;
+            }
+            d2d3 = !d2d3;
+        }
         foreach (string _script in Globalprefs.SelfFunctions)
         {
             script.Use(_script,script.Lost_Magic_obj);
             Globalprefs.KomplexX++;
-            //Globalprefs.KomplexY*=2;
+            Globalprefs.KomplexY*=2;
         }
         TimeSave();
         //авто-Пост-Ренбер

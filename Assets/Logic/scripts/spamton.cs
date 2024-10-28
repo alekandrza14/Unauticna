@@ -27,6 +27,7 @@ public class spamton : MonoBehaviour
     public string bol;
     public bool iznendial;
     public bool mage;
+    public bool oman;
     public bool scam;
     public bool cum;
     bool kidat;
@@ -44,7 +45,7 @@ public class spamton : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<mover>() && mage)
+        if (other.GetComponent<mover>() && (mage||oman))
         {
             Instantiate(Resources.Load<GameObject>("camGameOver/worker"), other.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
@@ -53,7 +54,7 @@ public class spamton : MonoBehaviour
         {
             kidat = true;
         }
-        if (other.GetComponent<CharacterName>() && mage)
+        if (other.GetComponent<CharacterName>() && (mage || oman))
         {
             Instantiate(Resources.Load<GameObject>("Morfs/worker"), other.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
@@ -83,7 +84,7 @@ public class spamton : MonoBehaviour
     bool game;
     private void OnMouseDown()
     {
-        if (!game && scam)
+        if (!game && (scam||oman))
         {
             List<GameObject> red = new();
             red.Add(Instantiate(Resources.Load<GameObject>("items/Card"), transform.position, Quaternion.identity));
@@ -158,6 +159,13 @@ public class spamton : MonoBehaviour
         GameObject g3 = Resources.Load<GameObject>("voices/юха");
         Instantiate(g3, (Vector3.up), Quaternion.identity); kid = false;
     }
+    public void Admmen()
+    {
+        GameObject g = Resources.Load<GameObject>("Items/–екламајрмии");
+        Instantiate(g, mover.main().transform.position + (Vector3.up * 3), Quaternion.identity);
+        GameObject g3 = Resources.Load<GameObject>("voices/юха");
+        Instantiate(g3, (Vector3.up), Quaternion.identity); kid = false;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -166,10 +174,12 @@ public class spamton : MonoBehaviour
             Instantiate(Resources.Load("SEffect/Snayp1"));
             Destroy(gameObject);
         }
-        if (kidat&&!kid)
+       
+        if (oman && !kid)
         {
             Invoke("Kammen", 3);
-            kid=true;
+            Invoke("Admmen", 3);
+            kid = true;
         }
         if (FindObjectsByType<Card>(sortmode.main).Length<=0)
         {

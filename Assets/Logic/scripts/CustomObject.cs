@@ -223,8 +223,8 @@ public class CustomObject : CustomSaveObject
                 GetComponent<MultyObject>().saved = true;
                  GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
-              // GetComponent<MultyObject>().W_Position = m.W_position;
-              //  GetComponent<MultyObject>().H_Position = m.H_position;
+               GetComponent<MultyObject>().W_Position = m.W_position;
+                GetComponent<MultyObject>().H_Position = m.H_position;
             }
             else
             {
@@ -249,8 +249,8 @@ public class CustomObject : CustomSaveObject
                 GetComponent<MultyObject>().saved = true;
                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
                 GetComponent<MultyObject>().scale3D = Model.scale;
-              //  GetComponent<MultyObject>().W_Position = m.W_position;
-             //   GetComponent<MultyObject>().H_Position = m.H_position;
+                GetComponent<MultyObject>().W_Position = m.W_position;
+                GetComponent<MultyObject>().H_Position = m.H_position;
 
                 MultyObject mo = GetComponent<MultyObject>();
                 mo.N_Positions = new float[m.N_position.Count];

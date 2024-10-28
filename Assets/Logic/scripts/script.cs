@@ -468,6 +468,7 @@ public class script : MonoBehaviour
             if (typedata == "Money")
             {
 
+                VarSave.LoadInt("SlaversNervs", 1);
                 VarSave.LoadMoney("Inflation", (GetNumber(words[i], VarSave.LoadMoney("tevro", 0)))/2000, SaveType.global);
                 Globalprefs.LoadTevroPrise((GetNumber(words[i], VarSave.LoadMoney("tevro",0))));
                 typedata = "end";
