@@ -148,23 +148,118 @@ public class Move4DAxis : MonoBehaviour
 
                 VarSave.SetInt("Agr", cistalenemy.dies);
             }
-            if (select.GetComponent<itemName>()) 
+            if (select.GetComponent<itemName>())
             {
 
-                if (select.GetComponent<itemName>().isLife) 
+                if (select.GetComponent<itemName>().isLife)
                 {
                     Globalprefs.LoadTevroPrise(-100); cistalenemy.dies++;
 
                     VarSave.SetInt("Agr", cistalenemy.dies);
                 }
 
-                 
-                if (!select.GetComponent<itemName>().Undeleteble) 
+                if (select.GetComponent<itemName>().ItemDangerLiberty != "")
                 {
-                    Destroy(select); 
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty2 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty2, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty3 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty3, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty4 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty4, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty5 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty5, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty6 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty6, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty7 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty7, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty8 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty8, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty9 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty9, 1);
+
+                }
+                if (!select.GetComponent<itemName>().Undeleteble)
+                {
+                    Destroy(select);
                 }
 
             }
+            if (select.GetComponent<CustomObject>())
+            {
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty2 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty2, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty3 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty3, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty4 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty4, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty5 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty5, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty6 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty6, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty7 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty7, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty8 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty8, 1);
+
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty9 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
+
+                }
+            }
+
+
+
             else
             {
                 Destroy(select);

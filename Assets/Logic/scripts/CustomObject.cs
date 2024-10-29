@@ -55,6 +55,15 @@ public class CustomObjectData
     public double ItemPrice = 157d;
     public Vector3 playerRotate;
     public Vector3 playerMove;
+    public string ItemDangerLiberty = "";
+    public string ItemDangerLiberty2 = "";
+    public string ItemDangerLiberty3 = "";
+    public string ItemDangerLiberty4 = "";
+    public string ItemDangerLiberty5 = "";
+    public string ItemDangerLiberty6 = "";
+    public string ItemDangerLiberty7 = "";
+    public string ItemDangerLiberty8 = "";
+    public string ItemDangerLiberty9 = "";
     public Vector3[] VM_Pos = new Vector3[] { };
     public Vector3[] VM_Scale = new Vector3[] { };
     public string[] VoxelModels = new string[] { };

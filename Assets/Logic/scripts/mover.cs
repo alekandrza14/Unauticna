@@ -1317,7 +1317,9 @@ public class mover : CustomSaveObject
         InvokeRepeating("Rayhspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
         InvokeRepeating("spamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
         InvokeRepeating("hamspawn", (60 * 5)/ Spawnrade, (60 * 1.5f)/Spawnrade);
-        InvokeRepeating("libspawn", 20/ Spawnrade, 20f/ Spawnrade);
+        InvokeRepeating("libspawn", 20 / Spawnrade, 20f / Spawnrade);
+        InvokeRepeating("Ultralibspawn", 10 / Spawnrade, 10f / Spawnrade);
+        //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
         {
             SceneManager.LoadScene("Donat");
@@ -1639,23 +1641,98 @@ public class mover : CustomSaveObject
     void libspawn()
     {
         if (IfSpawn("либирист")) if (!lml1.Find()) if (VarSave.ExistenceVar("libirist"))
-        {
-            if (Global.Random.Chance(5))
-            {
-                for (int i = 0; i < 6; i++)
                 {
-                    Ray r = new(transform.position + (transform.up * 40), randommaze());
-                    RaycastHit hit;
-                    if (Physics.Raycast(r, out hit))
+                    if (Global.Random.Chance(5))
                     {
-                        if (hit.collider != null)
+                        for (int i = 0; i < 6; i++)
                         {
-                            Instantiate(Resources.Load<GameObject>("Items/либирист"), hit.point, Quaternion.identity);
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/либирист"), hit.point, Quaternion.identity);
+                                }
+                            }
                         }
                     }
                 }
-            }
-        }
+        if (IfSpawn("КрашащаяФиминистка")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВредФиминисткам"))
+                {
+                    if (Global.Random.Chance(5))
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/КрашащаяФиминистка"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("spamtonмаг")) if (!lml1.Find()) if (VarSave.ExistenceVar("Анархокапиталист"))
+                {
+                    if (Global.Random.Chance(5))
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/spamtonмаг"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+                }
+    }
+    void Ultralibspawn()
+    {
+        if (IfSpawn("spamtonСнайпер")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
+                {
+                    if (Global.Random.Chance(5))
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/spamtonСнайпер"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("spamtonAnarhyUMUVoencom")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
+                {
+                    if (Global.Random.Chance(5))
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+                }
     }
     float timer10;
     GenTest ingen;
@@ -2243,6 +2320,103 @@ public class mover : CustomSaveObject
         {
             if (hit.collider.GetComponent<Мясо>())
             {
+                GameObject select = hit.collider.gameObject; 
+                if (select.GetComponent<itemName>())
+                {
+                    if (select.GetComponent<itemName>().ItemDangerLiberty != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty2 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty2, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty3 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty3, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty4 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty4, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty5 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty5, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty6 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty6, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty7 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty7, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty8 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty8, 1);
+
+                    }
+                    if (select.GetComponent<itemName>().ItemDangerLiberty9 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty9, 1);
+
+                    }
+                }
+                if (select.GetComponent<CustomObject>())
+                {
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty2 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty2, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty3 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty3, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty4 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty4, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty5 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty5, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty6 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty6, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty7 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty7, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty8 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty8, 1);
+
+                    }
+                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty9 != "")
+                    {
+                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
+
+                    }
+                }
                 if (hit.collider.GetComponent<itemName>())
                 {
                     if (hit.collider.GetComponent<itemName>()._Name!= "Love&ChaosFungus")
@@ -2330,16 +2504,18 @@ public class mover : CustomSaveObject
             if (!d2d3)
             {
                 transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z / 100);
-                GetComponent<CapsuleCollider>().enabled = false;
-                if (!GetComponent<BoxCollider>()) { gameObject.AddComponent<BoxCollider>().enabled = true; GetComponent<BoxCollider>().size = new Vector3(1, 2, 1); }
-                if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = true;
+                this.GetComponent<CapsuleCollider>().radius = 0;
+                this.GetComponent<CapsuleCollider>().height = 0;
+                if (!this.GetComponent<BoxCollider>()) { this.gameObject.AddComponent<BoxCollider>(); this.GetComponent<BoxCollider>().size = new Vector3(1, 2, 0.001f); }
+                if (this.GetComponent<BoxCollider>()) this.GetComponent<BoxCollider>().size = new Vector3(1, 2, 0.001f);
             }
             else
             {
                 transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z * 100);
-                GetComponent<CapsuleCollider>().enabled = true;
-                if (!GetComponent<BoxCollider>()) { gameObject.AddComponent<BoxCollider>().enabled = false; GetComponent<BoxCollider>().size = new Vector3(1, 2, 1); }
-                if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = false;
+                this.GetComponent<CapsuleCollider>().radius = 0.5f;
+                this.GetComponent<CapsuleCollider>().height = 2;
+                if (!this.GetComponent<BoxCollider>()) { this.gameObject.AddComponent<BoxCollider>(); this.GetComponent<BoxCollider>().size = new Vector3(0.001f, 0.001f, 0.001f); }
+                if (this.GetComponent<BoxCollider>()) this.GetComponent<BoxCollider>().size = new Vector3(0.001f, 0.001f, 0.001f);
             }
             d2d3 = !d2d3;
         }
