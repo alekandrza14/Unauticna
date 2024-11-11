@@ -2151,15 +2151,17 @@ public class ElementalInventory : MonoBehaviour {
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗлойМультик") != 0 && main() == this)
         {
 
+            if (VarSave.GetFloat("Vorast" + "_gameSettings", SaveType.global) > 18)
+            {
+                GameManager.saveandhill();
 
-            GameManager.saveandhill();
-
-            SceneManager.LoadScene("Evil-Multik");
+                SceneManager.LoadScene("Disclamer");
 
 
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("ЗлойМультик", "Пустота в сердце");
-            GlobalInputMenager.KeyCode_eat = 0;
+                VarSave.LoadFloat("mana", 1f);
+                lowitem("ЗлойМультик", "Пустота в сердце");
+                GlobalInputMenager.KeyCode_eat = 0;
+            }
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("СвитокПравды") != 0 && main() == this)
         {

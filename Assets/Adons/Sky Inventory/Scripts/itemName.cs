@@ -8,6 +8,7 @@ public class itemName : CustomSaveObject
     public string ItemData = "";
     public bool isLife;
     public bool Undeleteble;
+    public bool Unprohibiteble;
     public string ItemDangerLiberty = "";
     public string ItemDangerLiberty2 = "";
     public string ItemDangerLiberty3 = "";

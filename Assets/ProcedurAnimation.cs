@@ -43,16 +43,19 @@ public class ProcedurAnimation : MonoBehaviour
                 timer = 0;
             }
             FeetLeg.transform.position = DebugPoint.transform.position + (nerv.Brain.transform.right * Vector3.Slerp(Shag[cur % (Shag.Length)], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).x) + (nerv.Brain.transform.up * Vector3.Slerp(Shag[cur % (Shag.Length)], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).y) + (nerv.Brain.transform.forward * Vector3.Slerp(Shag[cur % (Shag.Length)], Shag[(cur + 1) % (Shag.Length)], Liner.Evaluate(timer)).z);
-            Ray ray = new Ray(RayPoint.transform.position, Gravity);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (RayPoint)
             {
-                if (hit.distance < distLeg)
+                Ray ray = new Ray(RayPoint.transform.position, Gravity);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    DebugPoint.transform.position = hit.point;
-                }
-                else
-                {
-                    DebugPoint.transform.position = RayPoint.transform.position + (Gravity * distLeg);
+                    if (hit.distance < distLeg)
+                    {
+                        DebugPoint.transform.position = hit.point;
+                    }
+                    else
+                    {
+                        DebugPoint.transform.position = RayPoint.transform.position + (Gravity * distLeg);
+                    }
                 }
             }
         }

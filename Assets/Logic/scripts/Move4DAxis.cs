@@ -209,7 +209,7 @@ public class Move4DAxis : MonoBehaviour
                 }
 
             }
-            if (select.GetComponent<CustomObject>())
+            else if (select.GetComponent<CustomObject>())
             {
                 if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
                 {
@@ -256,10 +256,8 @@ public class Move4DAxis : MonoBehaviour
                     VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
 
                 }
+                Destroy(select);
             }
-
-
-
             else
             {
                 Destroy(select);

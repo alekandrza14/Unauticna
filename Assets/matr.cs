@@ -493,95 +493,106 @@ public class matr : MonoBehaviour
 
             //  Destroy(hitupdown.collider.gameObject);
             GameObject select = hit.collider.gameObject;
-            if (select.GetComponent<itemName>().ItemDangerLiberty != "")
+            if (select.GetComponent<itemName>())
             {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);
 
+                if (select.GetComponent<itemName>().Unprohibiteble)
+                {
+                    return;
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty2 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty2, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty3 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty3, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty4 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty4, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty5 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty5, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty6 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty6, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty7 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty7, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty8 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty8, 1);
+
+                }
+                if (select.GetComponent<itemName>().ItemDangerLiberty9 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty9, 1);
+
+                }
             }
-            if (select.GetComponent<itemName>().ItemDangerLiberty2 != "")
+            if (select.GetComponent<CustomObject>())
             {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty2, 1);
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty3 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty3, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty2 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty2, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty4 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty4, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty3 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty3, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty5 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty5, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty4 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty4, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty6 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty6, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty5 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty5, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty7 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty7, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty6 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty6, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty8 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty8, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty7 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty7, 1);
 
-            }
-            if (select.GetComponent<itemName>().ItemDangerLiberty9 != "")
-            {
-                VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty9, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty8 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty8, 1);
 
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty, 1);
+                }
+                if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty9 != "")
+                {
+                    VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
 
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty2 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty2, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty3 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty3, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty4 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty4, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty5 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty5, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty6 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty6, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty7 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty7, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty8 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty8, 1);
-
-            }
-            if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty9 != "")
-            {
-                VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
-
+                }
             }
             if (VarSave.GetString("Demake" + Globalprefs.Reality) != "") Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
             if (hit.collider.GetComponent<itemName>()) 

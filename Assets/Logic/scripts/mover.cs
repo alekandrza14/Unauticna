@@ -1346,7 +1346,7 @@ public class mover : CustomSaveObject
     //РейдерГипопотам
     void bomjspawn()
     {
-        if(IfSpawn("Попрашайка")) if (!lml2.Find()) if (Global.Random.Chance(2))
+        if (VarSave.LoadInt("одинСпамтонПопрошайка" + Map_saver.total_lif + SceneManager.GetActiveScene().name,1)>7) if (IfSpawn("Попрашайка")) if (Global.Random.Chance(2))
                 {
                     if (UnityEngine.Random.Range(0, 35) < 1)
                     {
@@ -1447,7 +1447,7 @@ public class mover : CustomSaveObject
     }
     void spamspawn()
     {
-        if (IfSpawn("spamton")) if (!lml2.Find()) if (Global.Random.Chance(4))
+        if (IfSpawn("spamton")) if (!lml2.Find()) if (Global.Random.Chance(12))
                 {
                     if (UnityEngine.Random.Range(0, 22) < 1)
                     {
@@ -1466,7 +1466,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (IfSpawn("scamton")) if (!lml2.Find()) if (Global.Random.Chance(4))
+        if (IfSpawn("scamton")) if (!lml2.Find()) if (Global.Random.Chance(14))
                 {
                     if (UnityEngine.Random.Range(0, 22) < 1)
                     {
@@ -1485,7 +1485,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (IfSpawn("spamtonСнайпер")) if (!lml2.Find()) if (Global.Random.Chance(4))
+        if (IfSpawn("spamtonСнайпер")) if (!lml2.Find()) if (Global.Random.Chance(14))
                 {
                     if (UnityEngine.Random.Range(0, 22) < 1)
                     {
@@ -1504,7 +1504,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (IfSpawn("spamtonкаменист")) if (!lml2.Find()) if (Global.Random.Chance(4))
+        if (IfSpawn("spamtonкаменист")) if (!lml2.Find()) if (Global.Random.Chance(14))
                 {
                     if (UnityEngine.Random.Range(0, 22) < 1)
                     {
@@ -1523,7 +1523,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (IfSpawn("spamtonмаг")) if (!lml2.Find()) if (Global.Random.Chance(4))
+        if (IfSpawn("spamtonмаг")) if (!lml2.Find()) if (Global.Random.Chance(14))
                 {
                     if (UnityEngine.Random.Range(0, 22) < 1)
                     {
@@ -1542,7 +1542,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (IfSpawn("terratist")) if (!lml2.Find()) if (Global.Random.Chance(4))
+        if (IfSpawn("terratist")) if (!lml2.Find()) if (Global.Random.Chance(14))
                 {
                     
                     for (int i = 0; i < 1; i++)
@@ -1563,7 +1563,7 @@ public class mover : CustomSaveObject
     {
         if (VarSave.GetFloat("Vorast" + "_gameSettings", SaveType.global) > 16)
         {
-            if (IfSpawn("БезКультурный")) if (!lml1.Find()) if (Global.Random.Chance(2))
+            if (IfSpawn("БезКультурный")) if (!lml1.Find()) if (Global.Random.Chance(12))
                     {
                         if (UnityEngine.Random.Range(0, 35) < 1)
                         {
@@ -1697,7 +1697,7 @@ public class mover : CustomSaveObject
     }
     void Ultralibspawn()
     {
-        if (IfSpawn("spamtonСнайпер")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
+        if (!VarSave.ExistenceVar("одинСпамтонСнайпер" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (IfSpawn("spamtonСнайпер")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
                 {
                     if (Global.Random.Chance(5))
                     {
@@ -1709,13 +1709,14 @@ public class mover : CustomSaveObject
                             {
                                 if (hit.collider != null)
                                 {
+                                        VarSave.LoadInt("одинСпамтонСнайпер" + Map_saver.total_lif + SceneManager.GetActiveScene().name, 1);
                                     Instantiate(Resources.Load<GameObject>("Items/spamtonСнайпер"), hit.point, Quaternion.identity);
                                 }
                             }
                         }
                     }
                 }
-        if (IfSpawn("spamtonAnarhyUMUVoencom")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
+     if(!VarSave.ExistenceVar("одинСпамтонРеламотр"+Map_saver.total_lif + SceneManager.GetActiveScene().name))  if(!VarSave.ExistenceVar("Служба выполнена!")) if (IfSpawn("spamtonAnarhyUMUVoencom")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
                 {
                     if (Global.Random.Chance(5))
                     {
@@ -1726,8 +1727,9 @@ public class mover : CustomSaveObject
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
-                                {
-                                    Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
+                                        {
+                                            VarSave.LoadInt("одинСпамтонРеламотр" + Map_saver.total_lif + SceneManager.GetActiveScene().name, 1);
+                                            Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
                                 }
                             }
                         }
@@ -4043,7 +4045,19 @@ public class mover : CustomSaveObject
 
         timer9 += Time.deltaTime;
         if (timer9 >= .1f && !Input.GetKey(KeyCode.G) && !_n1fps) {
-            tsave.timesave = VarSave.LoadMoney(SceneManager.GetActiveScene().buildIndex.ToString(),1).ToString();
+            VarSave.LoadMoney(SceneManager.GetActiveScene().buildIndex.ToString() + "_SceneTime", 1);
+            string patch = "";
+            int timeString = 10;
+            for (int i =0;i < VarSave.GetMoney(SceneManager.GetActiveScene().buildIndex.ToString() + "_SceneTime").ToString().Length;i++)
+            {
+                timeString -= 1;
+            }
+            for (int i = 0;i<timeString;i++)
+            {
+                patch += "0";
+            }
+            patch += VarSave.GetMoney(SceneManager.GetActiveScene().buildIndex.ToString() + "_SceneTime").ToString();
+            tsave.timesave = patch;
             tsave.angularvelosyty = rigidbody3d.angularVelocity;
             tsave.velosyty = rigidbody3d.linearVelocity;
             tsave.q1 = PlayerBody.transform.rotation;

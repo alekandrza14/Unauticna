@@ -152,6 +152,19 @@ public class SocialSystem : MonoBehaviour
                                         Directory.Delete("unsavet", true);
                                         Directory.Delete("world", true);
                                     }
+                                    if (trigger.Born7)
+                                    {
+                                        if (self.GetComponent<Fertilness>())
+                                        {
+                                            Globalprefs.flowteuvro += -10;
+                                            VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                                            Instantiate(self.GetComponent<Fertilness>().Child, self.transform.position, Quaternion.identity);
+                                        }
+                                        else
+                                        {
+                                            OutputMsg.text += " не откуда я не жешина или гермофродит";
+                                        }
+                                    }
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().WorkQualityTEVRO -= trigger.teuvroMine;
                                     Globalprefs.LoadTevroPrise(trigger.teuvroMine);

@@ -3,10 +3,18 @@ using System;
 using UnityEngine;
 
 
-        public class sortmode
-        {
-            static public FindObjectsSortMode main = FindObjectsSortMode.None;
-        }
+public class sortmode
+{
+    static public FindObjectsSortMode main = FindObjectsSortMode.None;
+}
+public class objFind : MonoBehaviour
+{
+    static public T[] ArrayByType<T>() where T : UnityEngine.Object
+    {
+        
+       return FindObjectsByType<T>(sortmode.main);
+    }
+}
 
 
 namespace Global

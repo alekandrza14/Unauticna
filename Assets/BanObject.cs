@@ -32,6 +32,11 @@ public class BanObject : MonoBehaviour
         GameObject select = collision.collider.gameObject;
         if (select.GetComponent<itemName>())
         {
+
+            if (select.GetComponent<itemName>().Unprohibiteble)
+            {
+                return;
+            }
             if (select.GetComponent<itemName>().ItemDangerLiberty != "")
             {
                 VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);

@@ -21,6 +21,7 @@ public class SocialTrigger : ScriptableObject
     public bool PriseSlave;
     public string dataCommnad;
     public bool KrimBurocrat;
+    public bool Born7;
     public GameObject morph;
     public GameObject gift;
 }

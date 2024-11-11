@@ -277,6 +277,13 @@ public class deldialog : MonoBehaviour
                     tir2 = 0;
                     tir = 0;
                 }
+                else if (sm == "s2-Pram()")
+                {
+                    stopPlayer = false;
+                    Instantiate(Resources.Load<GameObject>("ui/pram/" + delattack));
+                    tir2 = 0;
+                    tir = 0;
+                }
                 else if (sm == "s2-Stopkatscene()")
                 {
 
