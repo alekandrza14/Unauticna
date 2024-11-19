@@ -195,7 +195,7 @@ public class Slave : MonoBehaviour
         }
         return taktikpoint1;
     }
-    private void FixedUpdate()
+    private void Update()
     {
        
         

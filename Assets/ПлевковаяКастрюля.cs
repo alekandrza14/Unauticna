@@ -35,11 +35,10 @@ public class ПлевковаяКастрюля : InventoryEvent
 
         if (string.IsNullOrEmpty(плевки.ToString()))
         {
-            if (Map_saver.LoadADone)
-            {
+           
                 // time = JsonUtility.ToJson(Random.ColorHSV());
                 GetComponent<itemName>().ItemData = плевки.ToString();
-            }
+            
 
         }
     }

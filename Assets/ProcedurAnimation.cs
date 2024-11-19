@@ -46,7 +46,8 @@ public class ProcedurAnimation : MonoBehaviour
             if (RayPoint)
             {
                 Ray ray = new Ray(RayPoint.transform.position, Gravity);
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.distance < distLeg)
                     {

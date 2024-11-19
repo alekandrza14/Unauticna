@@ -953,7 +953,7 @@ public class mover : CustomSaveObject
                 else gsave.starttimepos = DateTime.Now;
                 if (gsave.starttimepos != null)
                 {
-                    if (gsave.starttimepos.Minute == DateTime.Now.Minute)
+                    if (gsave.starttimepos.ToString() == DateTime.Now.ToString())
                     {
 
                         gsave.starttimepos = DateTime.Now;
@@ -1064,7 +1064,7 @@ public class mover : CustomSaveObject
                 else gsave.starttimepos = DateTime.Now;
                 if (gsave.starttimepos != null)
                 {
-                    if (gsave.starttimepos.Minute == DateTime.Now.Minute)
+                    if (gsave.starttimepos.ToString() == DateTime.Now.ToString())
                     {
 
                         gsave.starttimepos = DateTime.Now;
@@ -1365,7 +1365,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-        if (Global.Random.Chance(2))
+        if (!VarSave.ExistenceVar("одинСпамтонРеламотр" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (!VarSave.ExistenceVar("Служба выполнена!")) if (IfSpawn("spamtonAnarhyUMUVoencom")) if (Global.Random.Chance(2))
             {
                 if (UnityEngine.Random.Range(0, 35) < 1)
                 {

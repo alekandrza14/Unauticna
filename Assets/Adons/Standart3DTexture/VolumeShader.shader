@@ -82,17 +82,17 @@ Shader "Unlit/VolumeShader"
             {
                 // Start raymarching at the front surface of the object
                 float3 rayOrigin2 = mul(unity_WorldToObject, float4( _WorldSpaceCameraPos,1));
-                   float3 rayOrigin = i.objectVertex;
-                   float3 trayOrigin = mul(rayOrigin, -rayOrigin2);
-                    rayOrigin;
+              //     float3 rayOrigin = i.objectVertex;
+                //   float3 trayOrigin = mul(rayOrigin, -rayOrigin2);
+               //     rayOrigin;
                
                 // Use vector from camera to object surface to get ray direction
                 
                 float3 rayDirection = mul(unity_WorldToObject, float4(i.vectorToSurface,0));
-                float3 rayDirection2 =  mul(unity_WorldToObject, float4(i.vectorToSurface, 0));;
+            //    float3 rayDirection2 =  mul(unity_WorldToObject, float4(i.vectorToSurface, 0));;
 
                 float4 color = float4(0, 0, 0, 0); float4 color2 = float4(0, 0, 0, 0);
-                float3 samplePosition = rayOrigin;
+             //   float3 samplePosition = rayOrigin;
                 float3 samplePosition2 = rayOrigin2;
                
                
@@ -100,18 +100,18 @@ Shader "Unlit/VolumeShader"
                 for (int i = 0; i < MAX_STEP_COUNT; i++)
                 { 
                    
-                        float4 sampledColor = tex3D(_MainTex, samplePosition + float3(0.5f, 0.5f, 0.5f));
+                     //   float4 sampledColor = tex3D(_MainTex, samplePosition + float3(0.5f, 0.5f, 0.5f));
                       
                       
                        float4 sampledColor2 = tex3D(_MainTex, samplePosition2 + float3(0.5f, 0.5f, 0.5f));
                          
-                          if(sampledColor.a > 0.01 && i3 != 1)
-                         {
+                      //    if(sampledColor.a > 0.01 && i3 != 1)
+                     //    {
                    
-                           outDepth =  Depth(samplePosition);
+                      //     outDepth =  Depth(samplePosition);
 
-                             i3 = 1;
-                         }
+                     //        i3 = 1;
+                     //    }
             
                       
 
@@ -126,15 +126,15 @@ Shader "Unlit/VolumeShader"
             
                        
                         
-                        sampledColor.a *= _Alpha;
+                    //    sampledColor.a *= _Alpha;
                         sampledColor2.a *= _Alpha;
                        
-                        color = BlendUnder(color,sampledColor);
+                     //   color = BlendUnder(color,sampledColor);
                        
                         color2 = BlendUnder(color2,sampledColor2);
                         
                         
-                        samplePosition += rayDirection * _StepSize;
+                   //     samplePosition += rayDirection * _StepSize;
                         samplePosition2 += rayDirection * _StepSize;
                     // Accumulate color only within unit cube bounds
                     
@@ -144,10 +144,10 @@ Shader "Unlit/VolumeShader"
                    
                   
                 }
-               if(color.a<=0){
-                  color  = color2;
-                   }
-                return color;
+             //  if(color.a<=0){
+             //     color  = color2;
+              //     }
+                return color2;
             }
             ENDCG
         }

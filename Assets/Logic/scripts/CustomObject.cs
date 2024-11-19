@@ -131,7 +131,8 @@ public class CustomObject : CustomSaveObject
             obj.AddComponent<MeshFilter>().sharedMesh = newMesh;
             obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
             obj.AddComponent<MeshCollider>().sharedMesh = newMesh;
-         if (obj.GetComponent<MeshRenderer>()) if(Model.LoadingMaterials!=null)  if (Model.LoadingMaterials.Length > 0) 
+            obj.GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
+            if (obj.GetComponent<MeshRenderer>()) if(Model.LoadingMaterials!=null)  if (Model.LoadingMaterials.Length > 0) 
             {
                 Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
                 obj.GetComponent<MeshRenderer>().material = newMaterial2;
@@ -145,6 +146,7 @@ public class CustomObject : CustomSaveObject
             obj.GetComponent<Yourjuise>().CO_VoxelModel = Model.VoxelModels[i];
         }
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
+        GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
         transform.localScale = Model.scale;
         Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
         if (!newMaterial) 
