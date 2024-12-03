@@ -504,6 +504,13 @@ public class mover : CustomSaveObject
     public JsonGame file = new JsonGame();
     private void Init()
     {
+       
+
+        if (VarSave.GetFloat("SevenSouls") > 0)
+        {
+            GameObject g = Resources.Load<GameObject>("UT.SevenSoulsScin");
+            Instantiate(g, transform);
+        }
         if ((UniverseSkyType)VarSave.GetInt("UST") == UniverseSkyType.AntyLight)
         {
             GameObject g = Resources.Load<GameObject>("NLRule");
@@ -1093,6 +1100,11 @@ public class mover : CustomSaveObject
     decimal data_stocks;
     string data_profstatus;
     decimal data_inflation;
+    decimal data_Cumbs;
+    decimal data_meats;
+    decimal data_relic;
+    decimal data_tears;
+    decimal data_shits;
     UniverseSkyType data_universetype;
     //Пробуждение кода
     //Приметивный интерфейс
@@ -1199,6 +1211,11 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(Screen.width - 200, 40, 200, 40), "Count pepole in your contry : " + VarSave.GetInt("pepole"), editor.label);
             GUI.Label(new Rect(Screen.width - 200, 60, 200, 40), "Avtoritet : " + VarSave.GetMoney("Avtoritet"), editor.label);
             GUI.Label(new Rect(Screen.width - 200, 80, 200, 40), "Slave : " + VarSave.GetBool("Slave"), editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 100, 200, 40), "Clumbs : " + data_Cumbs, editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 120, 200, 40), "Meats : " + data_meats, editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 140, 200, 40), "Relic : " + data_relic, editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 160, 200, 40), "Tears : " + data_tears, editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 180, 200, 40), "Shits : " + data_shits, editor.label);
             // VarSave.LoadMoney("Avtoritet", 1)
             //cistalenemy.dies
 
@@ -1252,13 +1269,23 @@ public class mover : CustomSaveObject
     //Приметивный интерфейс
     void Start()
     {
+        if (VarSave.GetFloat("PetDetermination") > 0)
+        {
+            for (int i = 0; i < VarSave.GetFloat("PetDetermination"); i++)
+            {
+
+
+                GameObject g = Resources.Load<GameObject>("Determination");
+                Instantiate(g, transform.position, Quaternion.identity);
+            }
+        }
         if (VarSave.GetInt("SlaversNervs") > 15)
         {
             VarSave.SetBool("Slave",true);
         }
         if (VarSave.GetBool("Slave"))
         {
-            if (SceneManager.GetActiveScene().name!="Slave")
+          if(VarSave.GetFloat("SevenSouls") == 0)  if (SceneManager.GetActiveScene().name!="Slave")
             {
                 SceneManager.LoadScene("Slave");
             }
@@ -1950,7 +1977,11 @@ public class mover : CustomSaveObject
     }
     public float CosProgress()
     {
-        if (playerdata.Geteffect("Тупость")!=null)
+        if (VarSave.GetFloat("SevenSouls") > 0)
+        {
+            return 999;
+        }
+        else if (playerdata.Geteffect("Тупость")!=null)
         {
             return 0;
 
@@ -2308,6 +2339,11 @@ public class mover : CustomSaveObject
         data_luck = VarSave.GetFloat("luck");
         data_universetype = (UniverseSkyType)VarSave.GetInt("UST");
         data_stocks = VarSave.LoadMoney("Stocks", 0);
+        data_Cumbs = VarSave.GetMoney("Clumbs");
+        data_meats = VarSave.GetMoney("Meats");
+        data_relic = VarSave.GetMoney("Relics");
+        data_tears = VarSave.GetMoney("Tears");
+        data_shits = VarSave.GetMoney("Shits");
         data_inflation = VarSave.GetMoney("Inflation", SaveType.global);
         metka = UpdateTargets();
         E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);
@@ -2316,7 +2352,7 @@ public class mover : CustomSaveObject
         if (Input.GetKeyDown(KeyCode.Q) && !Globalprefs.Pause)
         {
             GameObject g = Resources.Load<GameObject>("Items/Piss");
-            Instantiate(g, mover.main().transform.position, Quaternion.identity);
+            Instantiate(g, mover.main().transform.position, Quaternion.identity).GetComponent<Rigidbody>().linearVelocity = PlayerCamera.transform.forward * 50;
         }
         if (Input.GetKeyDown(KeyCode.C) && hit.collider != null&&!Globalprefs.Pause)
         {
@@ -3049,7 +3085,7 @@ public class mover : CustomSaveObject
             if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * CamDistanceMult;
             if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6;
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f);
-            if (Sprint && VarSave.GetMoney("Winks", SaveType.local) > 0)
+            if (Sprint && (VarSave.GetMoney("Winks", SaveType.local) > 0 || VarSave.GetFloat("SevenSouls") > 0))
             {
                 Vector3 v3 = PlayerCamera.transform.forward*15;
                 rigidbody3d.AddForce(v3, ForceMode.VelocityChange);
@@ -3806,6 +3842,17 @@ public class mover : CustomSaveObject
             }
 
         }
+        if (VarSave.GetFloat("SevenSouls") > 0)
+        {
+           if(Globalprefs.LoadTevroPrise(0)<1000000)
+            {
+                Globalprefs.LoadTevroPrise(1000000 - Globalprefs.LoadTevroPrise(0));
+            }
+
+            fireInk = 0;
+            Directory.CreateDirectory("debug");
+            Get4DCam().hue += 1f * Time.deltaTime;
+        }
         if (playerdata.Geteffect("BigShot") != null)
         {
             timerFlowUp += Time.deltaTime;
@@ -3843,7 +3890,7 @@ public class mover : CustomSaveObject
             if (!soveVision)
             {
                 Instantiate(Resources.Load("ui/info/backcamera"));
-                soveVision = true;
+                soveVision = true; 
             }
             //playermatinvisible
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10
+    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10, Rand1MCube = 11
 }
 
 public class NoscaleParent : MonoBehaviour
@@ -76,6 +76,10 @@ public class NoscaleParent : MonoBehaviour
         if (settings == NoscaleParentSettings.onlyScale)
         {
             transform.localScale = Obj.localScale;
+        }
+        if (settings == NoscaleParentSettings.Rand1MCube)
+        {
+            transform.position = Obj.position+ Global.math.randomCube(-100, 100)/80;
         }
     }
 }

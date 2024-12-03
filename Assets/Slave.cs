@@ -16,8 +16,10 @@ public class Slave : MonoBehaviour
     public int WorkQualityTEVRO;
     public Vector3 slavePosition;
     Transform ПлевковаяКаст, taktikpoint1, Research, sex;
+    FormationSwap formation;
     private void Start()
     {
+        formation ??= FindFirstObjectByType<FormationSwap>();
         solarytime += DateTime.Now.Year*46;
         solarytime += DateTime.Now.DayOfYear/7;
         if (solarytimeold!=solarytime)
@@ -27,8 +29,20 @@ public class Slave : MonoBehaviour
         }
         if (WorkQualityTEVRO < 5000)
         {
-            InvokeRepeating("РабОтбираетДеньги", 60, 60);
-            InvokeRepeating("РабУвольняеться", 100, 100);
+            if (formation == null)
+            {
+
+
+                InvokeRepeating("РабОтбираетДеньги", 60, 60);
+                InvokeRepeating("РабУвольняеться", 100, 100);
+            }
+            if (formation.formation == Formation.right)
+            {
+
+
+                InvokeRepeating("РабОтбираетДеньги", 60, 60);
+                InvokeRepeating("РабУвольняеться", 100, 100);
+            }
         }
         if (gameObject.GetComponent<SocialObject>())
         {

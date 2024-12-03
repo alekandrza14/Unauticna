@@ -1322,15 +1322,57 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
+                    //VideoStolb
+                    //БилетКазино
                     if (objs.Count < 100)
                     {
-                      if(Global.Random.Chance(9))  for (int i = 0; i < 0 + Global.Random.Range(1, 3); i++)
+                        for (int i = 0; i < 0 + Global.Random.Range(15, 20); i++)
                         {
                             if (objs.Count > 100)
                             {
                                 break;
                             }
-                            GameObject g = Resources.Load<GameObject>("Items/Kamunist");
+                            GameObject g = Resources.Load<GameObject>("Items/БилетКазино");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point + (Vector3.up * 0.5f), Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        for (int i = 0; i < 0 + Global.Random.Range(5, 10); i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/HotDog");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point + (Vector3.up * 0.5f), Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        for (int i = 0; i < 0 + Global.Random.Range(1, 3); i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/VideoStolb");
                             Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
                             if (Physics.Raycast(r, out hit))
@@ -1341,6 +1383,26 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(9)) for (int i = 0; i < 0 + Global.Random.Range(1, 3); i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/Kamunist");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
                     }
 
                     //Custom creature

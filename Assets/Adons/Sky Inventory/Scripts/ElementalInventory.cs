@@ -2110,6 +2110,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
 
             VarSave.LoadFloat("mana", 1f);
             lowitem("file_рыбы", "");
@@ -2121,6 +2122,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
             int i = (int)Global.Random.Range(0, 3);
             if (i == 0)
             {
@@ -2155,6 +2157,7 @@ public class ElementalInventory : MonoBehaviour {
             {
                 GameManager.saveandhill();
 
+                VarSave.LoadMoney("Meats", 1);
                 SceneManager.LoadScene("Disclamer");
 
 
@@ -2190,6 +2193,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
 
             //  Instantiate(Resources.Load("voices/belock"));
 
@@ -2205,6 +2209,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
 
             //  Instantiate(Resources.Load("voices/belock"));
 
@@ -2221,6 +2226,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadMoney("Meats", 1);
             //  Instantiate(Resources.Load("voices/belock"));
 
             if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
@@ -2236,7 +2242,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
-
+            VarSave.LoadMoney("Meats",1);
 
             //  Instantiate(Resources.Load("voices/belock"));
 
@@ -2286,6 +2292,7 @@ public class ElementalInventory : MonoBehaviour {
 
             //  Instantiate(Resources.Load("voices/belock"));
 
+            VarSave.LoadMoney("Meats", 1);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -2299,6 +2306,13 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
+            VarSave.LoadMoney("Shits", 1);
+
+            VarSave.LoadMoney("Tears", 1);
+            VarSave.LoadMoney("Relics", 1);
+
+            VarSave.LoadMoney("Meats", 1);
 
             playerdata.Addeffect("Undyning", float.PositiveInfinity);
             playerdata.Addeffect("Шизфрения", float.PositiveInfinity);
@@ -2320,6 +2334,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadMoney("Clumbs", 1);
             //  Instantiate(Resources.Load("voices/belock"));
 
 
@@ -2380,6 +2395,46 @@ public class ElementalInventory : MonoBehaviour {
 
             VarSave.LoadFloat("BGPU", 1f);
 
+            VarSave.LoadFloat("mana", 1f);
+            Cells[selectr].elementName = "";
+            Cells[selectr].elementCount = 0;
+            Cells[selectr].elementData = "";
+            Cells[selectr].UpdateCellInterface();
+
+            Global.MEM.UE();
+
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && Cells[selectr].elementName == "UT.SevenSouls"
+         && Cells[selectr].elementCount > 0 && main() == this)
+        {
+            GameManager.saveandhill();
+
+            VarSave.LoadFloat("SevenSouls", 1f);
+
+            VarSave.LoadMoney("Shits", 1000);
+            VarSave.LoadMoney("Clumbs", 14);
+            VarSave.LoadFloat("mana", 1f);
+            Cells[selectr].elementName = "";
+            Cells[selectr].elementCount = 0;
+            Cells[selectr].elementData = "";
+            Cells[selectr].UpdateCellInterface();
+
+            Global.MEM.UE();
+
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && Cells[selectr].elementName == "PetDetermination"
+         && Cells[selectr].elementCount > 0 && main() == this)
+        {
+            GameManager.saveandhill();
+
+            VarSave.LoadFloat("PetDetermination", 1f);
+
+            GameObject g = Resources.Load<GameObject>("Determination");
+            Instantiate(g, transform.position,Quaternion.identity);
+            VarSave.LoadMoney("Shits", 200);
+            VarSave.LoadMoney("Clumbs", 2);
             VarSave.LoadFloat("mana", 1f);
             Cells[selectr].elementName = "";
             Cells[selectr].elementCount = 0;
@@ -2550,6 +2605,8 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
+
 
             //  Instantiate(Resources.Load("voices/belock"));
 
@@ -2564,6 +2621,8 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+
+            VarSave.LoadMoney("Meats", 1);
 
             //  Instantiate(Resources.Load("voices/belock"));
 
@@ -2581,6 +2640,8 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadMoney("Meats", 1);
+
             //  Instantiate(Resources.Load("voices/belock"));
 
             cistalenemy.dies += 100;
@@ -2597,6 +2658,10 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+            VarSave.LoadMoney("Meats", 1);
+
+            VarSave.LoadMoney("Shits", 1);
+
 
             int i = (int)Global.Random.Range(0, 6);
             if (i == 0)
@@ -2631,6 +2696,16 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+
+            VarSave.LoadMoney("Clumbs", 1);
+
+            VarSave.LoadMoney("Meats", 1);
+
+            VarSave.LoadMoney("Relics", 1);
+
+            VarSave.LoadMoney("Tears", 1);
+
+            VarSave.LoadMoney("Shits", 1);
 
 
             Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
@@ -2708,6 +2783,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
             int i = (int)Global.Random.Range(0, 20);
             if (i == 0)
             {
@@ -2725,6 +2801,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Meats", 1);
             cistalenemy.dies += 100;
 
             VarSave.LoadFloat("mana", 1f);
@@ -2743,6 +2820,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+            VarSave.LoadMoney("Shits", 1);
+
 
             playerdata.Addeffect("BigShot", 600);
             playerdata.Addeffect("MetabolismUp", 600);
@@ -2763,6 +2842,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+            VarSave.LoadMoney("Shits", 1);
+
 
             playerdata.Addeffect("BigShot", 600);
             playerdata.Addeffect("MetabolismUp", 600);
@@ -2789,6 +2870,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+            VarSave.LoadMoney("Shits", 1);
+
 
             playerdata.Addeffect("KsenoMorfin", 600);
             VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
@@ -2804,6 +2887,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+
+            VarSave.LoadMoney("Shits", 1);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -2833,6 +2918,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandDamage();
+            VarSave.LoadMoney("Shits", 1);
+
 
 
 
@@ -2922,6 +3009,8 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
+
 
 
 
@@ -2949,6 +3038,9 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
+
+            VarSave.LoadMoney("Meats", 1);
 
             VarSave.LoadFloat("mana", 1f);
 
@@ -2973,7 +3065,9 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
 
+            VarSave.LoadMoney("Meats", 1);
 
             playerdata.Addeffect("Шизфрения", 600);
 
@@ -2990,12 +3084,64 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
+            VarSave.LoadMoney("Relics", 1);
 
 
             VarSave.LoadFloat("mana", 1f);
 
 
             lowitem("РекламаАрмии", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        //КамунийскийХлеб
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("HotDog") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            Instantiate(Resources.Load<GameObject>("Блювота"));
+            VarSave.LoadMoney("Clumbs", 1);
+            VarSave.LoadMoney("Meats", 1);
+            VarSave.LoadMoney("Shits", 1);
+
+            VarSave.LoadFloat("mana", 1f);
+
+
+            lowitem("HotDog", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Shaverma") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            VarSave.LoadMoney("Clumbs", 1);
+            VarSave.LoadMoney("Meats", 1);
+
+            VarSave.LoadFloat("mana", 1f);
+
+
+            lowitem("Shaverma", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("КамунийскийХлеб") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            VarSave.LoadMoney("Clumbs", 1);
+
+            VarSave.LoadFloat("mana", 1f);
+
+
+            lowitem("КамунийскийХлеб", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Хлеб") != 0 && main() == this)
@@ -3005,6 +3151,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadMoney("Clumbs", 1);
 
             VarSave.LoadFloat("mana", 1f);
 
@@ -3018,6 +3165,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
 
             VarSave.LoadFloat("mana", 1f);
 
@@ -3035,6 +3183,7 @@ public class ElementalInventory : MonoBehaviour {
             GameManager.saveandhill();
 
 
+            VarSave.LoadMoney("Shits", 1);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -3050,6 +3199,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
 
             VarSave.LoadFloat("mana", 1f);
 
@@ -3073,6 +3223,7 @@ public class ElementalInventory : MonoBehaviour {
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Nuclear_plant") != 0 && main() == this)
         {
             GameManager.saveandhill();
+            VarSave.LoadMoney("Shits", 1);
             for (int i = 0; i < 5; i++)
             {
 
@@ -3086,6 +3237,7 @@ public class ElementalInventory : MonoBehaviour {
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ChaosPoution") != 0 && main() == this)
         {
             GameManager.saveandhill();
+            VarSave.LoadMoney("Shits", 1);
             for (int i = 0; i < 5; i++)
             {
 
@@ -3174,6 +3326,9 @@ public class ElementalInventory : MonoBehaviour {
 
 
             GameManager.saveandhill();
+            VarSave.LoadMoney("Shits", 1);
+
+            VarSave.LoadMoney("Relics", 1);
 
 
             VarSave.LoadFloat("mana", 1f);
@@ -3188,6 +3343,7 @@ public class ElementalInventory : MonoBehaviour {
 
             GameManager.saveandhill();
 
+            VarSave.LoadMoney("Shits", 1);
 
             VarSave.LoadFloat("mana", 1f);
             playerdata.Addeffect("█_GodMode_█", float.PositiveInfinity);
@@ -3321,6 +3477,7 @@ public class ElementalInventory : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E) && Cells[selectr].elementName == "Мусор" && main() == this && Cells[selectr].elementCount > 0)
         {
 
+            VarSave.LoadMoney("Shits", 1);
 
             string[] itemObject = Cells[selectr].elementData.Split('♥');
             string itemname = "";
