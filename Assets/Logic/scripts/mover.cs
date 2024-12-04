@@ -2201,7 +2201,7 @@ public class mover : CustomSaveObject
             if (playerdata.Geteffect("AutoJump") != null)
             {
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity += PlayerBody.transform.up * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.up * 30 * transform.localScale.y;
             }
                 JumpTimer = 0;
             c = new Collision();
@@ -2209,37 +2209,37 @@ public class mover : CustomSaveObject
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity += PlayerBody.transform.forward * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.forward * 30 * transform.localScale.y;
             }
             if (Input.GetKey(KeyCode.S))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity += -PlayerBody.transform.forward * 30;
+                rigidbody3d.linearVelocity += -PlayerBody.transform.forward * 30 * transform.localScale.y;
             }
             if (Input.GetKey(KeyCode.D))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity += PlayerBody.transform.right * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.right * 30 * transform.localScale.y;
             }
             if (Input.GetKey(KeyCode.A))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity += -PlayerBody.transform.right * 30;
+                rigidbody3d.linearVelocity += -PlayerBody.transform.right * 30 * transform.localScale.y;
             }
             if (Input.GetKey(KeyCode.Space))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity += PlayerBody.transform.up * 30;
+                rigidbody3d.linearVelocity += PlayerBody.transform.up * 30 * transform.localScale.y;
             }
             if (Input.GetKey(KeyCode.LeftControl))
             {
 
                 animator.SetBool("swem", true);
-                rigidbody3d.linearVelocity -= PlayerBody.transform.up * 30;
+                rigidbody3d.linearVelocity -= PlayerBody.transform.up * 30 * transform.localScale.y;
             }
 
         }
@@ -2872,7 +2872,7 @@ public class mover : CustomSaveObject
 
     public float GravityConstant()
     {
-        float gravity1 = jumpforse * JumpTimer;
+        float gravity1 = jumpforse * JumpTimer * transform.localScale.y;
         gravity1 = Mathf.Clamp(gravity1,-5,18);
         return gravity1;
     }
@@ -2920,7 +2920,7 @@ public class mover : CustomSaveObject
         if (timer4 >= 1 && deltaX+deltaZ != 0)
         {
 
-            fireInk -= 10;
+            fireInk -= 15;
             timer4 = 0;
 
         }
@@ -2961,14 +2961,14 @@ public class mover : CustomSaveObject
             {
                 if (hit35.distance > 1.3f)
                 {
-                    movegrag = 5;
+                    movegrag = 5 / transform.localScale.y;
                 }
             }
         }
         else
         {
 
-            movegrag = 5;
+            movegrag = 5 / transform.localScale.y;
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -2995,7 +2995,7 @@ public class mover : CustomSaveObject
             if (ry.GetCenterDist() < 1.2f)
             {
 
-                movegrag = 1;
+                movegrag = 1 / transform.localScale.y;
                 IsGraund = true;
             }
             else
@@ -3012,26 +3012,26 @@ public class mover : CustomSaveObject
         {
             if (IsGraund)
             {
-                if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * CamDistanceMult;
+                if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * CamDistanceMult * transform.localScale.y;
                 if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
 
-                rigidbody3d.linearDamping = 6 - (axelerate * CamDistanceMult);
-                jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * CamDistanceMult;
+                rigidbody3d.linearDamping =( 6 - (axelerate * CamDistanceMult) );
+                jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * CamDistanceMult * transform.localScale.y;
             }
             else
             {
-                jumpforse = Mathf.Clamp(JumpTimer, -10, 1000);
+                jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * CamDistanceMult * transform.localScale.y;
                 if (jumpforse > 0.25f || jumpforse < -0.25f)
                 { movegrag = 5; }
                 else
                 {
                     movegrag = 1;
                 }
-                rigidbody3d.linearDamping = 4.5f - (axelerate * CamDistanceMult);
+                rigidbody3d.linearDamping = (4.5f - (axelerate * CamDistanceMult));
             }
         }
         bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0 || god;
-        if (!flyinng) JumpTimer -= Time.deltaTime*gravity;
+        if (!flyinng) JumpTimer -= Time.deltaTime* gravity;
         if (faceViewi != faceView.fourd )
         {
            if(ftho > 0) ftho -= Time.deltaTime;
@@ -3040,7 +3040,7 @@ public class mover : CustomSaveObject
                 ftho += 1;
                 if (ftho > 1)
                 {
-                    transform.Translate(Vector3.forward * 4); ftho = 0;
+                    transform.Translate(Vector3.forward * 4 * transform.localScale.y); ftho = 0;
                 }
             }
 
@@ -3050,15 +3050,15 @@ public class mover : CustomSaveObject
             //AutoRotate
             if (playerdata.Geteffect("AutoRun") != null)
             {
-                deltaZ += (Speed * (1f / movegrag));
+                deltaZ += (Speed * (1f / movegrag)) * transform.localScale.y;
             }
             if (playerdata.Geteffect("AutoRight") != null)
             {
-                deltaX += (Speed * (1f / movegrag));
+                deltaX += (Speed * (1f / movegrag)) * transform.localScale.y;
             }
             if (playerdata.Geteffect("AutoLeft") != null)
             {
-                deltaX += -(Speed * (1f / movegrag));
+                deltaX += -(Speed * (1f / movegrag)) * transform.localScale.y;
             }
             float Dimenshonal = VarSave.GetFloat("Dimenshonal");
             float deltaW = Input.GetAxis("HyperHorizontal") * 0.1f;
@@ -3076,18 +3076,18 @@ public class mover : CustomSaveObject
                 if (Dimenshonal > 5) N_position[(int)Dimenshonal - 6] += -(0.1f);
             }
             float deltaY = 0.0f;
-        //  if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
+             if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
             if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
                     {
-                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * CamDistanceMult;
+                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * CamDistanceMult * transform.localScale.y;
                     }
-            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * CamDistanceMult;
-            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * CamDistanceMult;
-            if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6;
-            if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f);
+            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * CamDistanceMult * transform.localScale.y;
+            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * CamDistanceMult * transform.localScale.y;
+            if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
+            if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f) * transform.localScale.y;
             if (Sprint && (VarSave.GetMoney("Winks", SaveType.local) > 0 || VarSave.GetFloat("SevenSouls") > 0))
             {
-                Vector3 v3 = PlayerCamera.transform.forward*15;
+                Vector3 v3 = PlayerCamera.transform.forward*15 * transform.localScale.y;
                 rigidbody3d.AddForce(v3, ForceMode.VelocityChange);
             }
             float sprintCnficent = 1f;
@@ -3187,20 +3187,20 @@ public class mover : CustomSaveObject
             if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoJump") != null)
                     {
                         deltaY = Speed * Time.deltaTime * 6 * CamDistanceMult;
-                        transform.Translate(0, 0.1f, 0);
-                        rigidbody3d.AddForce(transform.up * (deltaY * 3), ForceMode.Force);
+                        transform.Translate(0, 0.1f * transform.localScale.y, 0);
+                        rigidbody3d.AddForce(transform.up * (deltaY * 3) * transform.localScale.y, ForceMode.Force);
                     }
             if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
                     {
                         deltaY = -Speed * Time.deltaTime * 6 * CamDistanceMult;
-                        transform.Translate(0, 0.1f, 0);
-                        rigidbody3d.AddForce(transform.up * (deltaY * 1), ForceMode.Force);
+                        transform.Translate(0, 0.1f * transform.localScale.y, 0);
+                        rigidbody3d.AddForce(transform.up * (deltaY * 1) * transform.localScale.y, ForceMode.Force);
                     }
             if (!(flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
                     {
                         deltaY = -Speed * Time.deltaTime * 6 * CamDistanceMult;
-                        transform.Translate(0, 0.1f, 0);
-                        rigidbody3d.AddForce(transform.up * (deltaY * 1), ForceMode.Force);
+                        transform.Translate(0, 0.1f * transform.localScale.y, 0);
+                        rigidbody3d.AddForce(transform.up * (deltaY * 1) * transform.localScale.y, ForceMode.Force);
                         JumpTimer = 0;
                     }
             if (!(flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoJump") != null)
@@ -3208,26 +3208,26 @@ public class mover : CustomSaveObject
                         if (IsGraund)
                         {
                             deltaY = Speed * Time.deltaTime * 6 * CamDistanceMult;
-                            transform.Translate(0, 0.1f, 0);
-                            rigidbody3d.AddForce(transform.up * (deltaY * 3), ForceMode.Force);
+                            transform.Translate(0, 0.1f * transform.localScale.y, 0);
+                            rigidbody3d.AddForce(transform.up * (deltaY * 3) * transform.localScale.y, ForceMode.Force);
                         }
                     }
-            if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f, 0);
-            if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f, 0); JumpTimer = 0; }
+            if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f * transform.localScale.y, 0);
+            if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f * transform.localScale.y, 0); JumpTimer = 0; }
             Vector3 movement = new(deltaX * CamDistanceMult, 0, deltaZ * CamDistanceMult);
-            movement = Vector3.ClampMagnitude(movement, Speed);
+            movement = Vector3.ClampMagnitude(movement, Speed * transform.localScale.y);
             
             movement = transform.TransformDirection(movement);
 
-            if ((flyinng)) if (!isKinematic) rigidbody3d.AddForce((movement * sprintCnficent) + transform.up * (deltaY * 3), ForceMode.Force); 
-            if (!(flyinng)) if (!isKinematic) rigidbody3d.AddForce((movement * sprintCnficent) + transform.up * deltaY, ForceMode.Force); 
+            if ((flyinng)) if (!isKinematic) rigidbody3d.AddForce(((movement * sprintCnficent) + transform.up * (deltaY * 3)), ForceMode.Force); 
+            if (!(flyinng)) if (!isKinematic) rigidbody3d.AddForce(((movement * sprintCnficent) + transform.up * deltaY), ForceMode.Force); 
 
 
 
 
             if (tics >= 2)
             {
-                transform.Translate(0, 0, 5* CamDistanceMult);
+                transform.Translate(0, 0, 5* CamDistanceMult * transform.localScale.y);
                 tics = 0;
             }
             if (playerdata.Geteffect("AutoRotate") == null)
@@ -3568,7 +3568,7 @@ public class mover : CustomSaveObject
             RaycastHit hit1;
             float distcam = 0;
             // CamDistanceMult
-            float dist = (6 + distcam)* CamDistanceMult;
+            float dist = (6 + distcam)* CamDistanceMult*transform.localScale.y;
             if (Globalprefs.sit_player) distcam = 5; else distcam = 0;
             if (UnityEngine.Physics.Raycast(r, out hit1))
             {
