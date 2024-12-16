@@ -1216,7 +1216,29 @@ MonoBehaviour:
   ItemInfinitysPrise: 0
   ItemData: 
   isLife: 0
+  Undeleteble: 0
+  Unprohibiteble: 0
+  ItemDangerLiberty: 
+  ItemDangerLiberty2: 
+  ItemDangerLiberty3: 
+  ItemDangerLiberty4: 
+  ItemDangerLiberty5: 
+  ItemDangerLiberty6: 
+  ItemDangerLiberty7: 
+  ItemDangerLiberty8: 
+  ItemDangerLiberty9: 
   _Name: Computer
+  _Discription: 
+  titan: 4
+  carbon: 0
+  calciy: 0
+  copper: 0
+  aurum: 0
+  uoxil: 0
+  uran: 0
+  silicat: 0
+  farum: 0
+  helium: 0
 --- !u!65 &4774786897614594087
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1426,7 +1448,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7021535670545363220}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2928742888882139065}
+        m_TargetAssemblyTypeName: OmniNet, Assembly-CSharp
+        m_MethodName: Find
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3384107491041338685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1439,6 +1473,7 @@ GameObject:
   - component: {fileID: 9212900301632743112}
   - component: {fileID: 7034756819912574305}
   - component: {fileID: 9022435404758386362}
+  - component: {fileID: 2928742888882139065}
   m_Layer: 5
   m_Name: InputField (Legacy)
   m_TagString: Untagged
@@ -1454,7 +1489,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3384107491041338685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -58.8669}
+  m_LocalPosition: {x: 0, y: 0, z: -58.87}
   m_LocalScale: {x: 0.28921312, y: 0.28921315, z: 0.28921312}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1464,8 +1499,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 72.74019, y: 83.31288}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 63.96, y: 83.31288}
+  m_SizeDelta: {x: 220.69, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9212900301632743112
 CanvasRenderer:
@@ -1573,6 +1608,19 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!114 &2928742888882139065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3384107491041338685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e605b5e73133dc47a5638c7f9c1affa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SiteDomain: {fileID: 9022435404758386362}
 --- !u!1 &3695336405257341867
 GameObject:
   m_ObjectHideFlags: 0
@@ -3222,7 +3270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4132210222719630979
 RectTransform:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ public static class Globalprefs
         {
             if ((MultTevro * 2) > 64)
             {
-                return decimal.MaxValue;
+                return decimal.MaxValue-2000000;
 
             }
             VarSave.LoadMoney("tevro", prise / (decimal)Math.Exp(MultTevro * 2));
