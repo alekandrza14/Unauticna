@@ -379,7 +379,7 @@ public class Map_saver : MonoBehaviour
 
 
     }
-
+    static bool NewRunGame;
     private void KompObject()
     {
         saveString1 = new MapData();
@@ -836,7 +836,7 @@ public class Map_saver : MonoBehaviour
         HyperbolicCamera hc = HyperbolicCamera.Main();
         bool questtarget = false;
         bool FirstSpawn = false;
-        for (int c = 0; c < 3; c++)
+        for (int c = 0; c < 4; c++)
         {
             if (c == 0)
             {
@@ -1013,6 +1013,31 @@ public class Map_saver : MonoBehaviour
                             if (hit.collider != null)
                             {
                                 if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/FashistEnemye"), hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+                }
+                if (objs.Count < 100 && !NewRunGame)
+                {
+                    if (System.DateTime.Now.Month == 12 || System.DateTime.Now.Month == 1 || System.DateTime.Now.Month == 0)
+                    {
+
+
+                        for (int i = 0; i < 7; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/Bubenchick");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                }
                             }
                         }
                     }
@@ -1404,6 +1429,7 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                     }
+                    
 
                     //Custom creature
                     DirectoryInfo info = new("res/Creatures");
@@ -1485,6 +1511,10 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
+            }
+            if (c==3)
+            {
+                NewRunGame = true;
             }
 
 
