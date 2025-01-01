@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1283844834767518851}
   - component: {fileID: 2081777464657416812}
   - component: {fileID: -7230947647171235905}
+  - component: {fileID: -1286232127944185914}
   m_Layer: 0
   m_Name: Fireboll
   m_TagString: Untagged
@@ -4849,6 +4850,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   init: ht
   floderinit: 1
+--- !u!135 &-1286232127944185914
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162446616405954045}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8824628472303414922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4860,7 +4882,6 @@ GameObject:
   - component: {fileID: 602610389129618337}
   - component: {fileID: 1916691595865836609}
   - component: {fileID: 1630957626947220104}
-  - component: {fileID: 8261361697371124299}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -4936,24 +4957,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8261361697371124299
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8824628472303414922}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

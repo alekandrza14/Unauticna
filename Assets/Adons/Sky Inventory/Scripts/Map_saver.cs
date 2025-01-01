@@ -1042,6 +1042,86 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
+                if (objs.Count < 100)
+                {
+                    if (VarSave.GetInt("LastPrisved6BreadData") < System.DateTime.Now.DayOfYear)
+                    {
+
+
+                        for (int i = 0; i < 7; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/ПроизводительХлеба");
+                            Instantiate(Resources.Load<GameObject>("КамуИнтерфейс"));
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                }
+                if (objs.Count < 100)
+                {
+                    if (VarSave.GetInt("LastPrisved6BreadDataMobs"+SceneManager.GetActiveScene().buildIndex+lif) < System.DateTime.Now.DayOfYear)
+                    {
+
+
+                        for (int i = 0; i < 7; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/КамунийскийХлеб");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+                            CharacterName[] cn = objFind.ArrayByType<CharacterName>();
+                            foreach (CharacterName item in cn)
+                            {
+
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                    }
+                                }
+                            }
+                            SocialObject[] so = objFind.ArrayByType<SocialObject>();
+                            foreach (SocialObject item in so)
+                            {
+
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                        VarSave.SetInt("LastPrisved6BreadDataMobs" + SceneManager.GetActiveScene().buildIndex + lif, System.DateTime.Now.DayOfYear);
+                    }
+                }
                 if (Globalprefs.AutoSave)
                 {
                     GameManager.saveandhill();
