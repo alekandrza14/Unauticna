@@ -306,39 +306,47 @@ public class script : MonoBehaviour
             }
             if (words[i] == "UnlockOmniscience.item")
             {
-                typedata = "end"; foreach (GameObject g in Map_saver.t3)
+                typedata = "end";
+                if (!PolitDate.IsGood(politicfreedom.avtoritatian))
                 {
-
-                    if (!VarSave.ExistenceVar("researchs/" + g.name))
+                    foreach (GameObject g in Map_saver.t3)
                     {
-                        Directory.CreateDirectory("unsave/var/researchs");
+                        {
+
+                            if (!VarSave.ExistenceVar("researchs/" + g.name))
+                            {
+                                Directory.CreateDirectory("unsave/var/researchs");
 
 
-                        VarSave.LoadMoney("research", 1);
+                                VarSave.LoadMoney("research", 1);
 
-                        Globalprefs.research = VarSave.GetMoney("research");
-                        VarSave.SetInt("researchs/" + g.name, 0);
+                                Globalprefs.research = VarSave.GetMoney("research");
+                                VarSave.SetInt("researchs/" + g.name, 0);
 
+                            }
+
+                        }
                     }
+                    VarSave.LoadMoney("Inflation", 10, SaveType.global);
                 }
-                VarSave.LoadMoney("Inflation", 10, SaveType.global);
                 i++;
             }
             if (words[i] == "ResetScience.item")
             {
-                typedata = "end";
+               
+                    typedata = "end";
 
-                    
 
 
-                        VarSave.SetMoney("research", 0);
 
-                Globalprefs.research = VarSave.GetMoney("research");
+                    VarSave.SetMoney("research", 0);
 
-                Directory.Delete(VarSave.path+"/researchs",true);
+                    Globalprefs.research = VarSave.GetMoney("research");
+
+                    Directory.Delete(VarSave.path + "/researchs", true);
 
                     Directory.CreateDirectory(VarSave.path + "/researchs");
-
+                
                 
                 i++;
             }
@@ -462,15 +470,20 @@ public class script : MonoBehaviour
             }
             if (typedata == "agr")
             {
-                cistalenemy.dies += (int)(float)(GetNumber(words[i], cistalenemy.dies));
+                if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                {
+                    cistalenemy.dies += (int)(float)(GetNumber(words[i], cistalenemy.dies));
+                }
                 typedata = "end";
             }
             if (typedata == "Money")
             {
-
-                VarSave.LoadInt("SlaversNervs", 1);
-                VarSave.LoadMoney("Inflation", (GetNumber(words[i], VarSave.LoadMoney("tevro", 0)))/2000, SaveType.global);
-                Globalprefs.LoadTevroPrise((GetNumber(words[i], VarSave.LoadMoney("tevro",0))));
+                if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                {
+                    VarSave.LoadInt("SlaversNervs", 1);
+                    VarSave.LoadMoney("Inflation", (GetNumber(words[i], VarSave.LoadMoney("tevro", 0))) / 2000, SaveType.global);
+                    Globalprefs.LoadTevroPrise((GetNumber(words[i], VarSave.LoadMoney("tevro", 0))));
+                }
                 typedata = "end";
             }
             if (typedata == "operator" && words[i] == "del")

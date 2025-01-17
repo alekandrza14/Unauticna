@@ -9,6 +9,7 @@ public class GeneratorEnergyData
     public float energy;
     public float maxEnergy;
     public float time;
+    public float atomenergy;
 }
 public enum GeneratorEnergyType
 {
@@ -19,7 +20,9 @@ public class GeneratorEnergy : InventoryEvent
 {
     [SerializeField] itemName itemName;
     [SerializeField] Text EnergyCounter;
+    [SerializeField] Text AtomEnergyCounter;
     string energy;
+    string AtomMaterial;
     public GeneratorEnergyType TypeGenergy;
     public  GeneratorEnergyData energyData = new();
     float Get_Maxenergy_Pluss()
@@ -38,7 +41,7 @@ public class GeneratorEnergy : InventoryEvent
         }
         if (TypeGenergy == GeneratorEnergyType.atom)
         {
-            return 900;
+            return 50000;
         }
         if (TypeGenergy == GeneratorEnergyType.sigular)
         {
@@ -62,7 +65,7 @@ public class GeneratorEnergy : InventoryEvent
         }
         if (TypeGenergy == GeneratorEnergyType.atom)
         {
-            return 0;
+            return 200;
         }
         if (TypeGenergy == GeneratorEnergyType.sigular)
         {
@@ -73,58 +76,57 @@ public class GeneratorEnergy : InventoryEvent
     private void Start()
     {
         energy = GetComponent<itemName>().ItemData;
-
-        if (string.IsNullOrEmpty(energy))
-        {
-            if (Map_saver.LoadADone)
+            if (string.IsNullOrEmpty(energy))
             {
-                // time = JsonUtility.ToJson(Random.ColorHSV());
-                energyData.time = ComputeMinutes();
-                energyData.energy = 0;
-                energyData.maxEnergy = 100;
-                energyData.maxEnergy += Get_Maxenergy_Pluss();
-                energy = JsonUtility.ToJson(energyData);
-                GetComponent<itemName>().ItemData = energy;
+                if (Map_saver.LoadADone)
+                {
+                    // time = JsonUtility.ToJson(Random.ColorHSV());
+                    energyData.time = ComputeMinutes();
+                    energyData.energy = 0;
+                    energyData.maxEnergy = 100;
+                    energyData.maxEnergy += Get_Maxenergy_Pluss();
+                    energy = JsonUtility.ToJson(energyData);
+                    GetComponent<itemName>().ItemData = energy;
+                }
+                else
+                {
+                    energyData = JsonUtility.FromJson<GeneratorEnergyData>(energy);
+                }
             }
             else
             {
                 energyData = JsonUtility.FromJson<GeneratorEnergyData>(energy);
             }
-        }
-        else
-        {
-            energyData = JsonUtility.FromJson<GeneratorEnergyData>(energy);
-        }
 
     }
     public void Load1()
     {
-        if (GetComponent<itemName>())
-        {
-
-            energy = GetComponent<itemName>().ItemData;
-
-            if (string.IsNullOrEmpty(energy))
+      
+            if (GetComponent<itemName>())
             {
 
-                energyData.time = ComputeMinutes();
-                energyData.energy = 0;
-                energyData.maxEnergy = 100;
-                energy = JsonUtility.ToJson(energyData);
-                GetComponent<itemName>().ItemData = energy;
+                energy = GetComponent<itemName>().ItemData;
+
+                if (string.IsNullOrEmpty(energy))
+                {
+
+                    energyData.time = ComputeMinutes();
+                    energyData.energy = 0;
+                    energyData.maxEnergy = 100;
+                    energy = JsonUtility.ToJson(energyData);
+                    GetComponent<itemName>().ItemData = energy;
 
 
+                }
+                else
+                {
+                    energyData = JsonUtility.FromJson<GeneratorEnergyData>(energy);
+                }
             }
             else
             {
                 energyData = JsonUtility.FromJson<GeneratorEnergyData>(energy);
             }
-        }
-        else
-        {
-            energyData = JsonUtility.FromJson<GeneratorEnergyData>(energy);
-        }
-
     }
     float ComputeMinutes()
     {
@@ -138,6 +140,7 @@ public class GeneratorEnergy : InventoryEvent
             energyData.energy = 1;
         }
         EnergyCounter.text = "Energy : " + energyData.energy + " / " + energyData.maxEnergy;
+        if (AtomEnergyCounter) AtomEnergyCounter.text = energyData.atomenergy.ToString() + "%";
         if (!string.IsNullOrEmpty(energy))
         {
             if (energyData.time != ComputeMinutes())
@@ -145,7 +148,19 @@ public class GeneratorEnergy : InventoryEvent
 
                 if (energyData.energy < energyData.maxEnergy)
                 {
-                    energyData.energy -= (energyData.time - ComputeMinutes())* Get_Genenergy_Multyply();
+                    if (TypeGenergy != GeneratorEnergyType.atom)
+                    {
+                        energyData.energy -= (energyData.time - ComputeMinutes()) * Get_Genenergy_Multyply();
+                    }
+                    if (TypeGenergy == GeneratorEnergyType.atom)
+                    {
+                        if (energyData.atomenergy > 0)
+                        {
+                            energyData.atomenergy %= 100;
+                            energyData.atomenergy += (energyData.time - ComputeMinutes()) * 1;
+                            energyData.energy -= (energyData.time - ComputeMinutes()) * Get_Genenergy_Multyply(); 
+                        }
+                    }
                     energyData.time = ComputeMinutes();
 
                     energy = JsonUtility.ToJson(energyData);

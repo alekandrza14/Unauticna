@@ -183,8 +183,14 @@ public class Sutck : MonoBehaviour
                     if (light.type == LightType.Directional)
                     {
                         antinight = true;
-
-                        light.intensity = 50f;
+                        if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                        {
+                            light.intensity = 50f;
+                        }
+                        else
+                        {
+                            light.intensity = 5f;
+                        }
                         RenderSettings.ambientLight = new Color(0f, 0f, 0f, 0);
                         RenderSettings.ambientMode = AmbientMode.Skybox;
                         RenderSettings.fog = false;
@@ -202,7 +208,14 @@ public class Sutck : MonoBehaviour
                     {
                         antinight = true;
 
-                        light.intensity = 50f;
+                       if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                        {
+                            light.intensity = 50f;
+                        }
+                        else
+                        {
+                            light.intensity = 5f;
+                        }
                         RenderSettings.ambientLight = new Color(0f, 0f, 0f, 0);
                         RenderSettings.ambientMode = AmbientMode.Skybox;
                         RenderSettings.fog = false;
@@ -242,20 +255,29 @@ public class Sutck : MonoBehaviour
                     if (Physics.Raycast(r, out hit))
                     {
                         if (hit.collider == null)
-                        {
-                            m.hp -= 1;
-                        }
-                        if (hit.collider != null)
+                            {
+                                if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                                {
+                                    m.hp -= 1;
+                                }
+                                }
+                                if (hit.collider != null)
                         {
                             if (hit.distance > 60)
-                            {
-                                m.hp -= 1;
+                                {
+                                    if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                                    {
+                                        m.hp -= 1;
+                                    }
                             }
                         }
                     }
                     else
-                    {
-                        m.hp -= 1;
+                        {
+                            if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+                            {
+                                m.hp -= 1;
+                            }
                     }
                 }
             }

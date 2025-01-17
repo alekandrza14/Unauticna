@@ -11,8 +11,11 @@ public class SmachniyPlevokSpamton : MonoBehaviour
     void Start()
     {
         m = mover.main();
-        Instantiate(Resources.Load<GameObject>("events/ПлевокСпамтона"));
-        VarSave.SetInt("eventPlevraSpamtona", 1,SaveType.global);
+        if (!PolitDate.IsGood(politicfreedom.avtoritatian))
+        {
+            Instantiate(Resources.Load<GameObject>("events/ПлевокСпамтона"));
+            VarSave.SetInt("eventPlevraSpamtona", 1, SaveType.global);
+        }
         //ПлевокСпамтона
     }
 

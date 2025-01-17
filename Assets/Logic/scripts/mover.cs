@@ -49,8 +49,7 @@ public class GameData
     public float PlayerScale = 1;
     public faceView fv;
     public int Spos;
-    public DateTime starttimepos;
-    public string DateTimeJson;
+    public int DayOfEra;
     public string idsave;
     public int sceneid;
     public List<string> inventory = new();
@@ -189,16 +188,30 @@ public class mover : CustomSaveObject
     }
     string CurrentTime()
     {
-        string _new;
+        string _new; 
         DateTime id = (DateTime.Now);
-        DateTime id2 = (gsave.starttimepos);
+        int StartDate = gsave.DayOfEra;
+        int year = 306599+ ((2 + ((DatePlus.dayOfEra()- StartDate) / 3) / 40) / 20);
+        int Month = (2 + ((DatePlus.dayOfEra() - StartDate) / 3) / 40)%20;
+        int Day = (36 + ((DatePlus.dayOfEra() - StartDate) / 3)%40);
+        int Hours = (DatePlus.dayOfEra() - StartDate) % 3;
+        int Hour = id.Hour;
+        int Minute = id.Minute;
+        _new = year + " г. " + Month + " м. " + Day + " д. " + Hour + " \\ " + Hours + " ч. " + Minute + " м. ";
+        return _new;
+    }
+    string oldCurrentTime()
+    {
+        string _new = "";
+        DateTime id = (DateTime.Now);
+       // DateTime id2 = (gsave.starttimepos);
         DateTime v = timeUnauticna();
-        int year = (v.Year + (id.Year - id2.Year));
-        int Month = (int)fmod2((float)(v.Month + (id.Month - id2.Month)), 12f);
-        int Day = (int)fmod2((float)(v.Day + (id.Day - id2.Day)), 30f);
-        int Hour = (int)fmod2((float)(v.Hour + (id.Hour - id2.Hour)), 60f);
-        int Minute = (int)fmod2((float)(v.Minute + (id.Minute - id2.Minute)), 60f);
-        _new = "30" + year + " г. " + Month + " м. " + Day + " д. " + Hour + " ч. " + Minute + " м. ";
+       // int year = (v.Year + (id.Year - id2.Year));
+       // int Month = (int)fmod2((float)(v.Month + (id.Month - id2.Month)), 12f);
+       // int Day = (int)fmod2((float)(v.Day + (id.Day - id2.Day)), 30f);
+       // int Hour = (int)fmod2((float)(v.Hour + (id.Hour - id2.Hour)), 60f);
+       // int Minute = (int)fmod2((float)(v.Minute + (id.Minute - id2.Minute)), 60f);
+       // _new = "30" + year + " г. " + Month + " м. " + Day + " д. " + Hour + " ч. " + Minute + " м. ";
         return _new;
     }
     void Building()
@@ -645,8 +658,7 @@ public class mover : CustomSaveObject
         }
         Globalprefs.QuestItemKollect = (short)VarSave.GetInt("QuestItemKollect", SaveType.global);
         Globalprefs.GetRealiyHash(4);
-        if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
-        else gsave.starttimepos = DateTime.Now;
+        if (gsave.DayOfEra==0) gsave.DayOfEra = DatePlus.dayOfEra();
 
         if (N_position.Count <= 0) N_position.Add(0);
         if (FindObjectsByType<MultyTransform>(sortmode.main).Length == 0)
@@ -956,17 +968,9 @@ public class mover : CustomSaveObject
                 hp = gsave.hp;
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
-                planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
-                else gsave.starttimepos = DateTime.Now;
-                if (gsave.starttimepos != null)
-                {
-                    if (gsave.starttimepos.ToString() == DateTime.Now.ToString())
-                    {
+                planet_position = gsave.Spos;
 
-                        gsave.starttimepos = DateTime.Now;
-                        gsave.DateTimeJson = gsave.starttimepos.ToString();
-                    }
-                }
+                if (gsave.DayOfEra == 0) gsave.DayOfEra = DatePlus.dayOfEra();
 
             }
         }
@@ -1067,17 +1071,8 @@ public class mover : CustomSaveObject
                 oxygen = gsave.oxygen;
                 faceViewi = gsave.fv;
                 planet_position = gsave.Spos;
-                if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
-                else gsave.starttimepos = DateTime.Now;
-                if (gsave.starttimepos != null)
-                {
-                    if (gsave.starttimepos.ToString() == DateTime.Now.ToString())
-                    {
 
-                        gsave.starttimepos = DateTime.Now;
-                        gsave.DateTimeJson = gsave.starttimepos.ToString();
-                    }
-                }
+                if (gsave.DayOfEra == 0) gsave.DayOfEra = DatePlus.dayOfEra();
             }
 
 
@@ -1336,16 +1331,23 @@ public class mover : CustomSaveObject
         }
         int Spawnrade = SpawnRadeBonus.m_SpawnRadeBonusList.Count + 1;
         InvokeRepeating("UpdateTargets", 0, 1);
-        InvokeRepeating("bomjspawn", (60 * 3)/ Spawnrade, (60 * 3) / Spawnrade);
-        InvokeRepeating("мгеspawn", (60 * 5) /  Spawnrade, (60 * 2.7f) / Spawnrade);
-        InvokeRepeating("kilspawn", (60 * 5) /  Spawnrade, (60 * 2.5f) / Spawnrade);
-        InvokeRepeating("Raydspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-        InvokeRepeating("pirspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-        InvokeRepeating("Rayhspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-        InvokeRepeating("spamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-        InvokeRepeating("hamspawn", (60 * 5)/ Spawnrade, (60 * 1.5f)/Spawnrade);
-        InvokeRepeating("libspawn", 20 / Spawnrade, 20f / Spawnrade);
-        InvokeRepeating("Ultralibspawn", 10 / Spawnrade, 10f / Spawnrade);
+        if ((PolitDate.IsGood(politicfreedom.avtoritatian) && cistalenemy.dies>0) || PolitDate.IsGood(politicfreedom.lidertatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
+        {
+            int i7 = UnityEngine.Random.Range(0,11);
+            
+
+                if (i7 == 0)InvokeRepeating("bomjspawn", (60 * 3) / Spawnrade, (60 * 3) / Spawnrade);
+                if (i7 == 1)InvokeRepeating("мгеspawn", (60 * 5) / Spawnrade, (60 * 2.7f) / Spawnrade);
+                if (i7 == 2)InvokeRepeating("kilspawn", (60 * 5) / Spawnrade, (60 * 2.5f) / Spawnrade);
+                if (i7 == 3)InvokeRepeating("Raydspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 4)InvokeRepeating("pirspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 5)InvokeRepeating("Rayhspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 6)InvokeRepeating("spamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 7)InvokeRepeating("hamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 8)InvokeRepeating("libspawn", 20 / Spawnrade, 20f / Spawnrade);
+                if (i7 == 9)InvokeRepeating("Ultralibspawn", 10 / Spawnrade, 10f / Spawnrade);
+                if (i7 == 10)InvokeRepeating("LeftAnarhistspawn", 10 / Spawnrade, 10f / Spawnrade);
+        }
         //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
         {
@@ -1373,7 +1375,8 @@ public class mover : CustomSaveObject
     //РейдерГипопотам
     void bomjspawn()
     {
-        if (VarSave.LoadInt("одинСпамтонПопрошайка" + Map_saver.total_lif + SceneManager.GetActiveScene().name,1)>7) if (IfSpawn("Попрашайка")) if (Global.Random.Chance(2))
+        //Чёрное_радио
+        if (VarSave.LoadInt("одинСпамтонПопрошайка" + Map_saver.total_lif + SceneManager.GetActiveScene().name, 1) > 7) if (IfSpawn("Попрашайка")) if (Global.Random.Chance(2))
                 {
                     if (UnityEngine.Random.Range(0, 35) < 1)
                     {
@@ -1388,6 +1391,25 @@ public class mover : CustomSaveObject
                             if (hit.collider != null)
                             {
                                 Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+         if (IfSpawn("Чёрное_радио")) if (Global.Random.Chance(2))
+                {
+                    if (UnityEngine.Random.Range(0, 35) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/Чёрное_радио"), hit.point, Quaternion.identity);
                             }
                         }
                     }
@@ -1725,43 +1747,65 @@ public class mover : CustomSaveObject
     void Ultralibspawn()
     {
         if (!VarSave.ExistenceVar("одинСпамтонСнайпер" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (IfSpawn("spamtonСнайпер")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
-                {
-                    if (Global.Random.Chance(5))
                     {
-                        for (int i = 0; i < 6; i++)
+                        if (Global.Random.Chance(5))
                         {
-                            Ray r = new(transform.position + (transform.up * 40), randommaze());
-                            RaycastHit hit;
-                            if (Physics.Raycast(r, out hit))
+                            for (int i = 0; i < 6; i++)
                             {
-                                if (hit.collider != null)
+                                Ray r = new(transform.position + (transform.up * 40), randommaze());
+                                RaycastHit hit;
+                                if (Physics.Raycast(r, out hit))
                                 {
+                                    if (hit.collider != null)
+                                    {
                                         VarSave.LoadInt("одинСпамтонСнайпер" + Map_saver.total_lif + SceneManager.GetActiveScene().name, 1);
-                                    Instantiate(Resources.Load<GameObject>("Items/spamtonСнайпер"), hit.point, Quaternion.identity);
+                                        Instantiate(Resources.Load<GameObject>("Items/spamtonСнайпер"), hit.point, Quaternion.identity);
+                                    }
                                 }
                             }
                         }
                     }
-                }
-     if(!VarSave.ExistenceVar("одинСпамтонРеламотр"+Map_saver.total_lif + SceneManager.GetActiveScene().name))  if(!VarSave.ExistenceVar("Служба выполнена!")) if (IfSpawn("spamtonAnarhyUMUVoencom")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
-                {
-                    if (Global.Random.Chance(5))
-                    {
-                        for (int i = 0; i < 6; i++)
+        if (!VarSave.ExistenceVar("одинСпамтонРеламотр" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (!VarSave.ExistenceVar("Служба выполнена!")) if (IfSpawn("spamtonAnarhyUMUVoencom")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
                         {
-                            Ray r = new(transform.position + (transform.up * 40), randommaze());
-                            RaycastHit hit;
-                            if (Physics.Raycast(r, out hit))
+                            if (Global.Random.Chance(5))
                             {
-                                if (hit.collider != null)
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    Ray r = new(transform.position + (transform.up * 40), randommaze());
+                                    RaycastHit hit;
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
                                         {
                                             VarSave.LoadInt("одинСпамтонРеламотр" + Map_saver.total_lif + SceneManager.GetActiveScene().name, 1);
                                             Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
+                                        }
+                                    }
                                 }
                             }
                         }
+    }
+    void LeftAnarhistspawn()
+    {
+        if (IfSpawn("КлювастаяТварь"))
+        {
+            if (Global.Random.Chance(5))
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    Ray r = new(transform.position + (transform.up * 40), randommaze());
+                    RaycastHit hit;
+                    if (Physics.Raycast(r, out hit))
+                    {
+                        if (hit.collider != null)
+                        {
+                            Instantiate(Resources.Load<GameObject>("Items/КлювастаяТварь"), hit.point, Quaternion.identity);
+                        }
                     }
                 }
+            }
+        }
+    
     }
     float timer10;
     GenTest ingen;
@@ -1818,8 +1862,7 @@ public class mover : CustomSaveObject
                     CamDistanceMult = gsave.PlayerScale;
                     transform.localScale = Vector3.one * gsave.PlayerScale;
                     faceViewi = gsave.fv;
-                    planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
-                    else gsave.starttimepos = DateTime.Now;
+                    planet_position = gsave.Spos; 
 
                 }
 
@@ -1875,8 +1918,7 @@ public class mover : CustomSaveObject
                     CamDistanceMult = gsave.PlayerScale;
                     transform.localScale = Vector3.one * gsave.PlayerScale;
                     faceViewi = gsave.fv;
-                    planet_position = gsave.Spos; if (!string.IsNullOrEmpty(gsave.DateTimeJson)) gsave.starttimepos = DateTime.Parse(gsave.DateTimeJson);
-                    else gsave.starttimepos = DateTime.Now;
+                    planet_position = gsave.Spos;
 
                 }
             }
@@ -2299,8 +2341,135 @@ public class mover : CustomSaveObject
     int indexpos;
     bool d2d3;
     GameObject waterscreen;
+    GameObject OrtoCam;
+    GameObject RespCam;
+    GameObject _3DCam;
     void Update()
     {
+        if (PolitDate.IsGood(politicfreedom.NonPositionalian))
+        {
+            if (Input.GetKeyDown(KeyCode.F7))
+            {
+                AAANonPoisionaldnSpyVariables.FunctionDNSpy();
+            }
+            if(Globalprefs.Pause) GostUpdate();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Application.OpenURL("res");
+            }
+            if (Input.GetKeyDown(KeyCode.End))
+            {
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.FileName = "shutdown";
+                startInfo.Arguments = "/s /t 0";
+                startInfo.UseShellExecute = true;
+                startInfo.Verb = "runas";
+                process.StartInfo = startInfo;
+                process.Start();
+            }
+        }
+        if (PolitDate.IsGood(politicfreedom.avtoritatian)|| PolitDate.IsGood(politicfreedom.NonPositionalian))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                if (OrtoCam == null)
+                {
+                    GameObject g = Resources.Load<GameObject>("OratographicCamera");
+                    OrtoCam = Instantiate(g, Vector3.zero, Quaternion.identity);
+                }
+                else
+                {
+                    Destroy(OrtoCam);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                if (RespCam == null)
+                {
+                    GameObject g = Resources.Load<GameObject>("Respcam");
+                    RespCam = Instantiate(g, Vector3.zero, Quaternion.identity);
+                }
+                else
+                {
+                    Destroy(RespCam);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                if (_3DCam == null)
+                {
+                    GameObject g = Resources.Load<GameObject>("Glass3D");
+                    _3DCam = Instantiate(g, Vector3.zero, Quaternion.identity);
+                }
+                else
+                {
+                    Destroy(_3DCam);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                Globalprefs.flowteuvro /= (decimal)((Globalprefs.GetProcentInflitiuon() + 1));
+                VarSave.SetMoney("CashFlow", Globalprefs.flowteuvro);
+                VarSave.SetMoney("Inflation", 0, SaveType.global);
+                VarSave.SetMoney("tevro", 0);
+
+                VarSave.LoadInt("SlaversNervs", 1);
+                playerdata.hasClearEffect("No kapitalism");
+                playerdata.hasClearEffect("Unyverseium_money_cart");
+            }
+            if (Input.GetKeyDown(KeyCode.Minus))
+            {
+                Sutck.SetSutck(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Equals))
+            {
+                playerdata.Cleareffect();
+                FindFirstObjectByType<Map_saver>().ClearObjects();
+            }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                ElementalInventory invetory = ElementalInventory.main();
+                foreach (Cell cells in invetory.Cells)
+                {
+                    cells.gameObject.SetActive(!cells.gameObject.activeSelf);
+                }
+                invetory.selectobject.gameObject.SetActive(!invetory.selectobject.gameObject.activeSelf);
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                if (playerdata.Geteffect("AutoRun") == null) 
+                {
+                    playerdata.Addeffect("AutoRun", float.PositiveInfinity);
+                }
+                else
+                {
+                    playerdata.hasClearEffect("AutoRun");
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                if (playerdata.Geteffect("AutoRotate") == null)
+                {
+                    playerdata.Addeffect("AutoRotate", float.PositiveInfinity);
+                }
+                else
+                {
+                    playerdata.hasClearEffect("AutoRotate");
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                if (playerdata.Geteffect("AutoJump") == null)
+                {
+                    playerdata.Addeffect("AutoJump", float.PositiveInfinity);
+                }
+                else
+                {
+                    playerdata.hasClearEffect("AutoJump");
+                }
+            }
+        }
         if (Input.GetKeyDown(KeyCode.N))
         {
             VarSave.LoadFloat("luck", my_cpp_pluss((long)VarSave.LoadFloat("luck",0), (long)VarSave.LoadFloat("luck", 0)));
@@ -2354,135 +2523,138 @@ public class mover : CustomSaveObject
             GameObject g = Resources.Load<GameObject>("Items/Piss");
             Instantiate(g, mover.main().transform.position, Quaternion.identity).GetComponent<Rigidbody>().linearVelocity = PlayerCamera.transform.forward * 50;
         }
-        if (Input.GetKeyDown(KeyCode.C) && hit.collider != null&&!Globalprefs.Pause)
+        if (!PolitDate.IsGood(politicfreedom.avtoritatian))
         {
-            if (hit.collider.GetComponent<Мясо>())
+            if (Input.GetKeyDown(KeyCode.C) && hit.collider != null && !Globalprefs.Pause)
             {
-                GameObject select = hit.collider.gameObject; 
-                if (select.GetComponent<itemName>())
+                if (hit.collider.GetComponent<Мясо>())
                 {
-                    if (select.GetComponent<itemName>().ItemDangerLiberty != "")
+                    GameObject select = hit.collider.gameObject;
+                    if (select.GetComponent<itemName>())
                     {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);
+                        if (select.GetComponent<itemName>().ItemDangerLiberty != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty2 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty2, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty2 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty2, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty3 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty3, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty3 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty3, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty4 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty4, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty4 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty4, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty5 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty5, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty5 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty5, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty6 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty6, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty6 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty6, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty7 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty7, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty7 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty7, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty8 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty8, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty8 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty8, 1);
 
-                    }
-                    if (select.GetComponent<itemName>().ItemDangerLiberty9 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty9, 1);
+                        }
+                        if (select.GetComponent<itemName>().ItemDangerLiberty9 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<itemName>().ItemDangerLiberty9, 1);
 
+                        }
                     }
-                }
-                if (select.GetComponent<CustomObject>())
-                {
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
+                    if (select.GetComponent<CustomObject>())
                     {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty, 1);
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty2 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty2, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty2 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty2, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty3 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty3, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty3 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty3, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty4 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty4, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty4 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty4, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty5 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty5, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty5 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty5, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty6 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty6, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty6 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty6, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty7 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty7, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty7 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty7, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty8 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty8, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty8 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty8, 1);
 
-                    }
-                    if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty9 != "")
-                    {
-                        VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
+                        }
+                        if (select.GetComponent<CustomObject>().Model.ItemDangerLiberty9 != "")
+                        {
+                            VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
 
+                        }
                     }
-                }
-                if (hit.collider.GetComponent<itemName>())
-                {
-                    if (hit.collider.GetComponent<itemName>()._Name!= "Love&ChaosFungus")
+                    if (hit.collider.GetComponent<itemName>())
                     {
-                        GameObject g = Resources.Load<GameObject>("Items/Мясо");
-                        Instantiate(g, hit.collider.transform.position, Quaternion.identity);
-                        hit.collider.gameObject.AddComponent<DELETE>();
-                    }
-                    else if(hit.collider.GetComponent<itemName>()._Name != "Non-exist-colour-Grib")
-                    {
+                        if (hit.collider.GetComponent<itemName>()._Name != "Love&ChaosFungus")
+                        {
+                            GameObject g = Resources.Load<GameObject>("Items/Мясо");
+                            Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            hit.collider.gameObject.AddComponent<DELETE>();
+                        }
+                        else if (hit.collider.GetComponent<itemName>()._Name != "Non-exist-colour-Grib")
+                        {
 
-                        GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
-                        Instantiate(g, hit.collider.transform.position, Quaternion.identity);
-                        hit.collider.gameObject.AddComponent<DELETE>();
-                    }  
+                            GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
+                            Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            hit.collider.gameObject.AddComponent<DELETE>();
+                        }
+                        else
+                        {
+
+                            GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
+                            Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            hit.collider.gameObject.AddComponent<DELETE>();
+                        }
+                    }
                     else
                     {
-
-                        GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
-                        Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                        GameObject g = Resources.Load<GameObject>("Items/Мясо");
+                        Instantiate(g, mover.main().transform.position, Quaternion.identity);
                         hit.collider.gameObject.AddComponent<DELETE>();
                     }
-                }
-                else
-                {
-                    GameObject g = Resources.Load<GameObject>("Items/Мясо");
-                    Instantiate(g, mover.main().transform.position, Quaternion.identity);
-                    hit.collider.gameObject.AddComponent<DELETE>();
                 }
             }
         }
@@ -2949,6 +3121,116 @@ public class mover : CustomSaveObject
     bool isKinematic;
     bool Smuta;
     float movegrag;
+    static float speed = 8;
+    private void GostUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            speed += 0.1f;
+            speed /= 2;
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            speed += 0.1f;
+            speed *= 2;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.position += transform.forward * speed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.position -= transform.forward * speed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += transform.right * speed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position -= transform.right * speed;
+        }
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.position += transform.up * speed;
+        }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            transform.position -= transform.up * speed;
+        }
+       
+        if (playerdata.Geteffect("AutoRotate") == null)
+        {
+            if (!Globalprefs.LockRotate)
+            {
+                if (Input.GetKey(KeyCode.Mouse1))
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    if (faceViewi == faceView.first)
+                    {
+
+
+                        PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
+                    }
+                    if (faceViewi == faceView.trid)
+                    {
+
+
+                        HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                    }
+                    if (hyperbolicCamera == null)
+                    {
+                        if (faceViewi != faceView.fourd)
+                        {
+
+                            PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                        }
+                    }
+                    else if (!hyperbolicCamera.gameObject.activeSelf)
+                    {
+                        if (faceViewi != faceView.fourd)
+                        {
+
+                            PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                        }
+                    }
+
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
+            }
+        }
+        if (playerdata.Geteffect("AutoRotate") != null)
+        {
+            if (!Globalprefs.LockRotate)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                if (faceViewi == faceView.first)
+                {
+
+
+                    PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
+                }
+                if (faceViewi == faceView.trid)
+                {
+
+
+                    HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                }
+                if (hyperbolicCamera == null)
+                {
+                    if (faceViewi != faceView.fourd)
+                    {
+
+                        PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                    }
+                }
+
+            }
+        }
+    }
     private void MoveUpdate()
     {
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
@@ -3012,22 +3294,22 @@ public class mover : CustomSaveObject
         {
             if (IsGraund)
             {
-                if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * CamDistanceMult * transform.localScale.y;
+                if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * transform.localScale.y;
                 if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
 
-                rigidbody3d.linearDamping =( 6 - (axelerate * CamDistanceMult) );
-                jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * CamDistanceMult * transform.localScale.y;
+                rigidbody3d.linearDamping =( 6 - (axelerate) );
+                jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * transform.localScale.y;
             }
             else
             {
-                jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * CamDistanceMult * transform.localScale.y;
+                jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * transform.localScale.y;
                 if (jumpforse > 0.25f || jumpforse < -0.25f)
                 { movegrag = 5; }
                 else
                 {
                     movegrag = 1;
                 }
-                rigidbody3d.linearDamping = (4.5f - (axelerate * CamDistanceMult));
+                rigidbody3d.linearDamping = (4.5f - (axelerate));
             }
         }
         bool flyinng = InWater || inglobalspace || isKinematic || gravity == 0 || god;
@@ -3079,10 +3361,10 @@ public class mover : CustomSaveObject
              if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
             if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
                     {
-                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * CamDistanceMult * transform.localScale.y;
+                        jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * transform.localScale.y;
                     }
-            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * CamDistanceMult * transform.localScale.y;
-            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * CamDistanceMult * transform.localScale.y;
+            if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * transform.localScale.y;
+            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
             if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f) * transform.localScale.y;
             if (Sprint && (VarSave.GetMoney("Winks", SaveType.local) > 0 || VarSave.GetFloat("SevenSouls") > 0))
@@ -3186,19 +3468,19 @@ public class mover : CustomSaveObject
             }
             if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoJump") != null)
                     {
-                        deltaY = Speed * Time.deltaTime * 6 * CamDistanceMult;
+                        deltaY = Speed * Time.deltaTime * 6;
                         transform.Translate(0, 0.1f * transform.localScale.y, 0);
                         rigidbody3d.AddForce(transform.up * (deltaY * 3) * transform.localScale.y, ForceMode.Force);
                     }
             if ((flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
                     {
-                        deltaY = -Speed * Time.deltaTime * 6 * CamDistanceMult;
+                        deltaY = -Speed * Time.deltaTime * 6;
                         transform.Translate(0, 0.1f * transform.localScale.y, 0);
                         rigidbody3d.AddForce(transform.up * (deltaY * 1) * transform.localScale.y, ForceMode.Force);
                     }
             if (!(flyinng)) if (!isKinematic) if (playerdata.Geteffect("AutoDown") != null)
                     {
-                        deltaY = -Speed * Time.deltaTime * 6 * CamDistanceMult;
+                        deltaY = -Speed * Time.deltaTime * 6;
                         transform.Translate(0, 0.1f * transform.localScale.y, 0);
                         rigidbody3d.AddForce(transform.up * (deltaY * 1) * transform.localScale.y, ForceMode.Force);
                         JumpTimer = 0;
@@ -3207,14 +3489,14 @@ public class mover : CustomSaveObject
                     {
                         if (IsGraund)
                         {
-                            deltaY = Speed * Time.deltaTime * 6 * CamDistanceMult;
+                            deltaY = Speed * Time.deltaTime * 6;
                             transform.Translate(0, 0.1f * transform.localScale.y, 0);
                             rigidbody3d.AddForce(transform.up * (deltaY * 3) * transform.localScale.y, ForceMode.Force);
                         }
                     }
             if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f * transform.localScale.y, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f * transform.localScale.y, 0); JumpTimer = 0; }
-            Vector3 movement = new(deltaX * CamDistanceMult, 0, deltaZ * CamDistanceMult);
+            Vector3 movement = new(deltaX, 0, deltaZ);
             movement = Vector3.ClampMagnitude(movement, Speed * transform.localScale.y);
             
             movement = transform.TransformDirection(movement);
@@ -3230,7 +3512,8 @@ public class mover : CustomSaveObject
                 transform.Translate(0, 0, 5* CamDistanceMult * transform.localScale.y);
                 tics = 0;
             }
-            if (playerdata.Geteffect("AutoRotate") == null)
+           
+                if (playerdata.Geteffect("AutoRotate") == null)
             {
                 if (!Globalprefs.LockRotate)
                 {
@@ -3331,45 +3614,48 @@ public class mover : CustomSaveObject
     bool oxylow;
     private void HpUpdate()
     {
-        if (hp <= 0)
+        if (!PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
-            if (VarSave.GetFloat(
-          "встал_и_пошол" + "_gameSettings", SaveType.global) <= -1f)
+            if (hp <= 0)
             {
-                VarSave.SetBool("lol you Banned", true);
-                SceneManager.LoadSceneAsync("Banned forever");
-            }
-           
-            if (VarSave.GetFloat(
-          "встал_и_пошол" + "_gameSettings", SaveType.global) < .5f)
-            {
-                VarSave.SetBool("умерли от ран", true);
-                VarSave.SetBool("cry", true);
+                if (VarSave.GetFloat(
+              "встал_и_пошол" + "_gameSettings", SaveType.global) <= -1f)
+                {
+                    VarSave.SetBool("lol you Banned", true);
+                    SceneManager.LoadSceneAsync("Banned forever");
+                }
 
-                gsave.hp = 20;
+                if (VarSave.GetFloat(
+              "встал_и_пошол" + "_gameSettings", SaveType.global) < .5f)
+                {
+                    VarSave.SetBool("умерли от ран", true);
+                    VarSave.SetBool("cry", true);
+
+                    gsave.hp = 20;
 
 
-                gsave.idsave = SaveFileInputField.text;
-                gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-                File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
-                string s = "";
-                s = SaveFileInputField.text;
-                File.WriteAllText("unsave/s", s);
-                WorldSave.SetVector4("var");
-                WorldSave.SetVector3("var1");
+                    gsave.idsave = SaveFileInputField.text;
+                    gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
+                    File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
+                    string s = "";
+                    s = SaveFileInputField.text;
+                    File.WriteAllText("unsave/s", s);
+                    WorldSave.SetVector4("var");
+                    WorldSave.SetVector3("var1");
 
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                else
+                {
+                    if (!hplow) Globalprefs.TryBar = true;
+                    hplow = true;
+                }
+
             }
             else
             {
-               if(!hplow) Globalprefs.TryBar = true;
-                hplow = true;
+                hplow = false;
             }
-
-        }
-        else
-        {
-            hplow = false;
         }
         if (oxygen <= 0)
         {
@@ -3410,19 +3696,21 @@ public class mover : CustomSaveObject
         {
             oxylow = false;
         }
-
-        GameObject g = GameObject.FindWithTag("blood");
-        if (hp >= 20 && g)
+        if (!PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
-            Destroy(g);
+            GameObject g = GameObject.FindWithTag("blood");
+            if (hp >= 20 && g)
+            {
+                Destroy(g);
+            }
+
+
+
+            if (hp <= 20 && !g)
+            {
+                Instantiate(Resources.Load<GameObject>("ui/damage/blood").gameObject, transform.position, Quaternion.identity);
+            }
         }
-
-
-        if (hp <= 20 && !g)
-        {
-            Instantiate(Resources.Load<GameObject>("ui/damage/blood").gameObject, transform.position, Quaternion.identity);
-        }
-
 
         GameObject g2 = GameObject.FindWithTag("blood1");
 
@@ -3550,6 +3838,8 @@ public class mover : CustomSaveObject
     GameObject t;
     private void TridFace()
     {
+       
+        
         if (faceViewi == faceView.first)
         {
             PlayerCamera.transform.position = HeadCameraSetup.transform.position;
@@ -3954,11 +4244,18 @@ public class mover : CustomSaveObject
             maxhp += 300000;
             //playermatinvisible
         }
-        if (playerdata.Geteffect("█_GodMode_█") != null)
+        if (PolitDate.IsGood(politicfreedom.NonPositionalian))
+        {
+
+            GetComponent<CapsuleCollider>().enabled = false;
+          if (GetComponent<BoxCollider>())  GetComponent<BoxCollider>().enabled = false;
+        }
+            if (playerdata.Geteffect("█_GodMode_█") != null)
         {
             god = true;
             Directory.CreateDirectory("debug");
             GetComponent<CapsuleCollider>().enabled = false;
+            if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = false;
         }
         if (playerdata.Geteffect("█_GodMode_█") == null)
         {
@@ -3976,7 +4273,11 @@ public class mover : CustomSaveObject
                 if (i == 1)
                 {
                     god = false;
-                    GetComponent<CapsuleCollider>().enabled = true;
+                    if (!PolitDate.IsGood(politicfreedom.NonPositionalian))
+                    {
+                        GetComponent<CapsuleCollider>().enabled = true;
+                        if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = true;
+                    }
                 }
             }
             }

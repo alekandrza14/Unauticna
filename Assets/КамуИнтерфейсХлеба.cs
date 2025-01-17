@@ -9,7 +9,8 @@ public class КамуИнтерфейсХлеба : MonoBehaviour
     int Bread;
     void Update()
     {
-        Bread1.text = "Произведи 6 хлеба в день для камунистов "+ Bread + " \\ 6 хлеба камунизировано";
+        Bread1.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано";
+        Bread2.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано";
         RaycastHit hit = MainRay.MainHit;
         if (Input.GetKeyDown(KeyCode.U))
         {
@@ -22,17 +23,17 @@ public class КамуИнтерфейсХлеба : MonoBehaviour
         }
         if (Bread > 5)
         {
-            VarSave.SetInt("LastPrisved6BreadData", System.DateTime.Now.DayOfYear);
+            VarSave.SetInt("LastPrisved6BreadData", DatePlus.dayOfEra());
             Destroy(gameObject);
         }
-        if (VarSave.GetInt("LastPrisved6BreadData") < System.DateTime.Now.DayOfYear-1)
+        if (VarSave.GetInt("LastPrisved6BreadData") < DatePlus.dayOfEra() - 1)
         {
             VarSave.SetMoney("OwerFlow", 0);
             VarSave.SetMoney("CashFlow", 0);
             VarSave.SetMoney("Inflation", 0, SaveType.global);
             VarSave.SetMoney("tevro", 0);
 
-            VarSave.SetInt("LastPrisved6BreadData", System.DateTime.Now.DayOfYear - 1);
+            VarSave.SetInt("LastPrisved6BreadData", DatePlus.dayOfEra() - 1);
         }
     }
 }

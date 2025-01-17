@@ -816,6 +816,18 @@ public class Map_saver : MonoBehaviour
 
     static public string mapLoad;
 
+    bool IfSpawn(string itemname)
+    {
+        Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
+        if (Demake != null) if (Demake.item != null) if (Demake.item.Count != 0) foreach (string item in Demake.item)
+                    {
+                        if (item == itemname)
+                        {
+                            return false;
+                        }
+                    }
+        return true;
+    }
     public void LoadObjects()
     {
 
@@ -998,7 +1010,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (GameEditor.Opened.genFashits)
+                if (IfSpawn("FashistEnemye")) if (GameEditor.Opened.genFashits)
                 {
                     for (int i = 0; i < 6; i++)
                     {
@@ -1017,7 +1029,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (objs.Count < 100 && !NewRunGame)
+                if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100 && !NewRunGame)
                 {
                     if (System.DateTime.Now.Month == 12 || System.DateTime.Now.Month == 1 || System.DateTime.Now.Month == 0)
                     {
@@ -1042,13 +1054,14 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (objs.Count < 100)
+
+                if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100)
                 {
-                    if (VarSave.GetInt("LastPrisved6BreadData") < System.DateTime.Now.DayOfYear)
+                    if (VarSave.GetInt("LastPrisved6BreadData") < DatePlus.dayOfEra())
                     {
 
 
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < 1; i++)
                         {
                             if (objs.Count > 100)
                             {
@@ -1068,13 +1081,62 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (objs.Count < 100)
+                if (IfSpawn("Чёрное_радио")) if (objs.Count < 100)
                 {
-                    if (VarSave.GetInt("LastPrisved6BreadDataMobs"+SceneManager.GetActiveScene().buildIndex+lif) < System.DateTime.Now.DayOfYear)
+
+
+
+                    for (int i = 0; i < 1; i++)
+                    {
+                        if (objs.Count > 100)
+                        {
+                            break;
+                        }
+                        GameObject g = Resources.Load<GameObject>("Items/Чёрное_радио");
+                        Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                            }
+                        }
+                    }
+
+                }
+              if(IfSpawn("КлювастаяТварь"))  if (objs.Count < 100)
+                {
+
+
+                    if (Global.Random.Chance(2))
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/КлювастаяТварь");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                }
+               if(PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100)
+                {
+                    if (VarSave.GetInt("LastPrisved6BreadDataMobs"+SceneManager.GetActiveScene().buildIndex+lif) < DatePlus.dayOfEra())
                     {
 
 
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < 6; i++)
                         {
                             if (objs.Count > 100)
                             {
@@ -1119,7 +1181,7 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
-                        VarSave.SetInt("LastPrisved6BreadDataMobs" + SceneManager.GetActiveScene().buildIndex + lif, System.DateTime.Now.DayOfYear);
+                        VarSave.SetInt("LastPrisved6BreadDataMobs" + SceneManager.GetActiveScene().buildIndex + lif, DatePlus.dayOfEra());
                     }
                 }
                 if (Globalprefs.AutoSave)
@@ -1160,6 +1222,27 @@ public class Map_saver : MonoBehaviour
                                     }
                                 }
                             }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if (Global.Random.Chance(2))
+                        {
+                          
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/SpacesheapGrox"), hit.point, Quaternion.identity));
+                                    }
+                                }
+                           
                         }
                     }
                     if (objs.Count < 100)

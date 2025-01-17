@@ -36,7 +36,7 @@ public class Slave : MonoBehaviour
                 InvokeRepeating("РабОтбираетДеньги", 60, 60);
                 InvokeRepeating("РабУвольняеться", 100, 100);
             }
-            if (formation.formation == Formation.right)
+          if(formation != null)  if (formation.formation == Formation.right)
             {
 
 
@@ -242,11 +242,11 @@ public class Slave : MonoBehaviour
                 transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
                 //  transform.transform.localPosition = new Vector3(transform.position.x, 0.5f, transform.position.z);
             }
-            sexeffect.SetActive(true);
+            if (sexeffect) sexeffect.SetActive(true);
         }
         else
         {
-            sexeffect.SetActive(false);
+          if (sexeffect)  sexeffect.SetActive(false);
         }
         if (slaveData == "spitting")
         {

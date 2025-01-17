@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Logic.UnauticnaFramework
+
+
+public class DatePlus
 {
-    internal class DatePlus
+    static public int dayOfEra()
     {
+        return DateTime.Now.DayOfYear + (DateTime.Now.Year * 366);
     }
 }

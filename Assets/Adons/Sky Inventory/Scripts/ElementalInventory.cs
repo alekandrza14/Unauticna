@@ -690,7 +690,8 @@ public class ElementalInventory : MonoBehaviour {
     {
 
         bool batteytype = Cells[selectr].elementName == "battery" || Cells[selectr].elementName == "mathimatic_battery" || Cells[selectr].elementName == "Reload_battery";
-      
+        bool weitghtelemets = Cells[selectr].elementName == "U" || Cells[selectr].elementName == "Ṳx" || Cells[selectr].elementName == "Nuclear_plant" || Cells[selectr].elementName == "bomb" || Cells[selectr].elementName == "UranMarker";
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && !Globalprefs.Pause)
         {
             RaycastHit hit = MainRay.MainHit;
@@ -1697,6 +1698,32 @@ public class ElementalInventory : MonoBehaviour {
 
                         lowitem(nameItem(Cells[selectr].elementName), "");
                         hit.collider.GetComponent<GeneratorEnergy>().energyData.energy += 25;
+                        hit.collider.GetComponent<GeneratorEnergy>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<GeneratorEnergy>().energyData);
+
+                    }
+                }
+            }
+
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse0) && weitghtelemets && !batteytype && Cells[selectr].elementCount != 0 && main() == this)
+        {
+
+            RaycastHit hit = MainRay.MainHit;
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<GeneratorEnergy>())
+                {
+                    if (hit.collider.GetComponent<GeneratorEnergy>().TypeGenergy == GeneratorEnergyType.atom)
+                    {
+
+                        Cells[selectr].elementName = "";
+                        Cells[selectr].elementCount = 0;
+                        Cells[selectr].UpdateCellInterface();
+                        hit.collider.GetComponent<GeneratorEnergy>().energyData.atomenergy += 10;
+                        hit.collider.GetComponent<GeneratorEnergy>().energyData.atomenergy %= 100;
                         hit.collider.GetComponent<GeneratorEnergy>().GetComponent<itemName>().ItemData = JsonUtility.ToJson(hit.collider.GetComponent<GeneratorEnergy>().energyData);
 
                     }
