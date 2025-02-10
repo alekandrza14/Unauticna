@@ -35,6 +35,113 @@ public class Site : MonoBehaviour
     public RawImage texture2;
     public RawImage texture3;
     public float MinValue;
+    public void SendRealityEditor(InputField in_text)
+    {
+        if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            Directory.CreateDirectory("res/support");
+            DirectoryInfo info = new DirectoryInfo("res/support");
+            FileInfo[] files = info.GetFiles();
+            string text = in_text.text;
+            text = text.ToLower();
+            text = text.Replace("a","+1");
+            text = text.Replace("b","+2");
+            text = text.Replace("c","+3");
+            text = text.Replace("d","+4");
+            text = text.Replace("e","+5");
+            text = text.Replace("f","+6");
+            text = text.Replace("g","+7");
+            text = text.Replace("h","+8");
+            text = text.Replace("r","+9");
+            text = text.Replace("q","+10");
+            text = text.Replace("k","+11");
+            text = text.Replace("o","+12");
+            text = text.Replace("m","+13");
+            text = text.Replace("а","-14");
+            text = text.Replace("б","-15");
+            text = text.Replace("в","-16");
+            text = text.Replace("г","-18");
+            text = text.Replace("д","-19");
+            text = text.Replace("е","-20");
+            text = text.Replace("ё","-21");
+            text = text.Replace("ж","-22");
+            text = text.Replace("з","-23");
+            text = text.Replace("у","-24");
+            text = text.Replace("ф","-25");
+            text = text.Replace("х","-26");
+            text = text.Replace("ч","-27");
+            text = text.Replace("щ","-28");
+            text = text.Replace("о","-29");
+            text = text.Replace("п","-30");
+            text = text.Replace("р","-31");
+            text = text.Replace("с","-32");
+            text = text.Replace("т","-33");
+            text = text.Replace("ь","-34");
+            text = text.Replace("ы","-35");
+            text = text.Replace("ъ","-36");
+            text = text.Replace("э","-37");
+            text = text.Replace("ю","-38");
+            text = text.Replace("я","-39");
+            File.WriteAllText("res/support/file" + files.Length + ".data", text);
+            in_text.text = "файл " + files.Length + " записывайте окуратно шифровка данных не совершена";
+        }
+        else
+        {
+            if(File.Exists("res/support/file"+ in_text.text + ".data"))
+            {
+                string text = File.ReadAllText("res/support/file" + in_text.text+".data");
+                for (int i = 0; i < 2; i++)
+                {
+
+                    if (i == 0) 
+                    {
+                        text = text.Replace("+1",  "a");
+                        text = text.Replace("+2",  "b");
+                        text = text.Replace("+3",  "c");
+                        text = text.Replace("+4",  "d");
+                        text = text.Replace("+5",  "e");
+                        text = text.Replace("+6",  "f");
+                        text = text.Replace("+7",  "g");
+                        text = text.Replace("+8",  "h");
+                        text = text.Replace("+9",  "r");
+                        text = text.Replace("+10", "q");
+                        text = text.Replace("+11", "k");
+                        text = text.Replace("+12", "o");
+                        text = text.Replace("+13", "m");
+                        text = text.Replace("-14", "а");
+                        text = text.Replace("-15", "б");
+                        text = text.Replace("-16", "в");
+                        text = text.Replace("-18", "г");
+                        text = text.Replace("-19", "д");
+                        text = text.Replace("-20", "е");
+                        text = text.Replace("-21", "ё");
+                        text = text.Replace("-22", "ж");
+                        text = text.Replace("-23", "з");
+                        text = text.Replace("-24", "у");
+                        text = text.Replace("-25", "ф");
+                        text = text.Replace("-26", "х");
+                        text = text.Replace("-27", "ч");
+                        text = text.Replace("-28", "щ");
+                        text = text.Replace("-29", "о");
+                        text = text.Replace("-30", "п");
+                        text = text.Replace("-31", "р");
+                        text = text.Replace("-32", "с");
+                        text = text.Replace("-33", "т");
+                        text = text.Replace("-34", "ь");
+                        text = text.Replace("-35", "ы");
+                        text = text.Replace("-36", "ъ");
+                        text = text.Replace("-37", "э");
+                        text = text.Replace("-38", "ю");
+                        text = text.Replace("-39", "я");
+                    }
+                    if (i == 1)
+                    {
+                        in_text.text = text;
+                    }
+                }
+            }
+        }
+    }
     IEnumerator GetLogoCoin(string CoinLogo)
     {
 

@@ -1029,7 +1029,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100 && !NewRunGame)
+                 if (objs.Count < 100 && !NewRunGame)
                 {
                     if (System.DateTime.Now.Month == 12 || System.DateTime.Now.Month == 1 || System.DateTime.Now.Month == 0)
                     {
@@ -1055,7 +1055,7 @@ public class Map_saver : MonoBehaviour
                     }
                 }
 
-                if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100)
+                 if (objs.Count < 100)
                 {
                     if (VarSave.GetInt("LastPrisved6BreadData") < DatePlus.dayOfEra())
                     {
@@ -1075,37 +1075,60 @@ public class Map_saver : MonoBehaviour
                             {
                                 if (hit.collider != null)
                                 {
-                                    if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+                                    if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
                                 }
                             }
                         }
                     }
                 }
-                if (IfSpawn("Чёрное_радио")) if (objs.Count < 100)
-                {
-
-
-
-                    for (int i = 0; i < 1; i++)
+                if (IfSpawn("Чёрное радио")) if (objs.Count < 100)
                     {
-                        if (objs.Count > 100)
-                        {
-                            break;
-                        }
-                        GameObject g = Resources.Load<GameObject>("Items/Чёрное_радио");
-                        Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
-                        if (Physics.Raycast(r, out hit))
+
+
+                        for (int i = 0; i < 1; i++)
                         {
-                            if (hit.collider != null)
+                            if (objs.Count > 100)
                             {
-                                if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/Чёрное_радио");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                }
                             }
                         }
+
                     }
 
+
+                if (cistalenemy.dies > 1000) 
+                { 
+                    if (objs.Count < 100)
+                    {
+
+
+
+                        for (int i = 0; i < 1; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Клетка");
+
+                            if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+                          
+                        }
+
+                    } 
                 }
-              if(IfSpawn("КлювастаяТварь"))  if (objs.Count < 100)
+                if (IfSpawn("КлювастаяТварь"))  if (objs.Count < 100)
                 {
 
 
@@ -1130,7 +1153,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-               if(PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100)
+                if (objs.Count < 100)
                 {
                     if (VarSave.GetInt("LastPrisved6BreadDataMobs"+SceneManager.GetActiveScene().buildIndex+lif) < DatePlus.dayOfEra())
                     {
@@ -1328,11 +1351,9 @@ public class Map_saver : MonoBehaviour
 
                         }
                     }
-                    if (objs.Count < 100)
-                    {
-                        if (Global.Random.Chance(3))
-                        {
-                            for (int i = 0; i < 3 + Global.Random.Range(0, 7); i++)
+                   
+                       
+                            for (int i = 0; i < 3 + Global.Random.Range(0, 12); i++)
                             {
                                 if (objs.Count > 100)
                                 {
@@ -1349,8 +1370,7 @@ public class Map_saver : MonoBehaviour
                                     }
                                 }
                             }
-                        }
-                    }
+                   
                     //Nuclear_plant
                     if (objs.Count < 100)
                     {
