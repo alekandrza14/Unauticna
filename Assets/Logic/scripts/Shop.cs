@@ -87,6 +87,52 @@ public class Shop : MonoBehaviour
                     produkt[i].Give_or_Minus = (r.Next(0, 3) == 1);
                 }
             }
+            //Capdom()
+            if (produkt[i].name == "Capdom()")
+            {
+
+                System.Random r = new System.Random((int)(Globalprefs.GetIdPlanet() + VarSave.GetMoney("LastSesion") + (i + SceneManager.GetActiveScene().buildIndex * 526)));
+
+                if (r.Next(0, 2) == 1)
+                {
+                    int num = r.Next(0, Map_saver.t3.Length);
+                    int num2 = r.Next(0, 3);
+                    produkt[i].name = Map_saver.t3[num].name;
+                    if (num2 != 0)
+                    {
+                        if (!VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                        {
+                            produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 2.3f).ToString();
+                        }
+                        if (VarSave.ExistenceVar("researchs/" + produkt[i].name))
+                        {
+                            produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 1.3f).ToString();
+                        }
+                    }
+                    else
+                    {
+                        produkt[i].price = (Map_saver.t3[num].GetComponent<itemName>().ItemPrise * 0f).ToString();
+                    }
+                    produkt[i].Give_or_Minus = true;
+                }
+                else
+                {
+                    int num2 = r.Next(0, 3);
+                    FileInfo fi = dif.GetFiles()[r.Next(0, dif.GetFiles().Length)];
+
+                    produkt[i].name = "co!" + (fi.Name.Replace(".txt", ""));
+                    CustomObjectData model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + fi.Name));
+                    if (num2 != 0)
+                    {
+                        produkt[i].price = (model.ItemPrice * 2.3f).ToString();
+                    }
+                    else
+                    {
+                        produkt[i].price = (model.ItemPrice * 2.3f).ToString();
+                    }
+                    produkt[i].Give_or_Minus = true;
+                }
+            }
             if (produkt[i].name == "Cumdom()")
             {
 
