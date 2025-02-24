@@ -1055,7 +1055,7 @@ public class Map_saver : MonoBehaviour
                     }
                 }
 
-                 if (objs.Count < 100)
+                if (objs.Count < 100)
                 {
                     if (VarSave.GetInt("LastPrisved6BreadData") < DatePlus.dayOfEra())
                     {
@@ -1076,6 +1076,31 @@ public class Map_saver : MonoBehaviour
                                 if (hit.collider != null)
                                 {
                                     if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                }
+                if (objs.Count < 100)
+                {
+                    if (VarSave.GetMoney("Karma") < -100)
+                    {
+
+
+                        for (int i = 0; i < 1; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/КармическаяНалоговая");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
                                 }
                             }
                         }

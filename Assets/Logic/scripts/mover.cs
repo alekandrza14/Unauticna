@@ -1100,6 +1100,7 @@ public class mover : CustomSaveObject
     decimal data_relic;
     decimal data_tears;
     decimal data_shits;
+    decimal data_Karma;
     UniverseSkyType data_universetype;
     //Пробуждение кода
     //Приметивный интерфейс
@@ -1211,6 +1212,8 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(Screen.width - 200, 140, 200, 40), "Relic : " + data_relic, editor.label);
             GUI.Label(new Rect(Screen.width - 200, 160, 200, 40), "Tears : " + data_tears, editor.label);
             GUI.Label(new Rect(Screen.width - 200, 180, 200, 40), "Shits : " + data_shits, editor.label);
+            GUI.Label(new Rect(Screen.width - 200, 200, 200, 40), "Karma : " + data_Karma, editor.label);
+            //data_Karma
             // VarSave.LoadMoney("Avtoritet", 1)
             //cistalenemy.dies
 
@@ -2513,6 +2516,7 @@ public class mover : CustomSaveObject
         data_relic = VarSave.GetMoney("Relics");
         data_tears = VarSave.GetMoney("Tears");
         data_shits = VarSave.GetMoney("Shits");
+        data_Karma = VarSave.GetMoney("Karma");
         data_inflation = VarSave.GetMoney("Inflation", SaveType.global);
         metka = UpdateTargets();
         E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);

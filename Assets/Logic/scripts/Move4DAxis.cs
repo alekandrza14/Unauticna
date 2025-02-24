@@ -205,6 +205,7 @@ public class Move4DAxis : MonoBehaviour
                 }
                 if (!select.GetComponent<itemName>().Undeleteble)
                 {
+                    VarSave.LoadMoney("Karma", -1);
                     Destroy(select);
                 }
 
@@ -256,10 +257,12 @@ public class Move4DAxis : MonoBehaviour
                     VarSave.SetInt(select.GetComponent<CustomObject>().Model.ItemDangerLiberty9, 1);
 
                 }
+                VarSave.LoadMoney("Karma", -1);
                 Destroy(select);
             }
             else
             {
+                VarSave.LoadMoney("Karma", -1);
                 Destroy(select);
             }
         }
