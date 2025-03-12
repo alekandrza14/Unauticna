@@ -136,7 +136,7 @@ Shader "Unauticna Multiverse Customs/Low UnLit Shaders/Multyverse Chaos Material
             hash -= c4.b * 1.2;
             c4.rgb += (float3(uf  *(1 + hash), uf  *(1 + hash), (uf  *(1 + hash)) * 0.5)/2.14)*_ThoColor;
             c4.rgb += (float3(uf * _UltraViolet* (1 + hash),uf * _UltraViolet* (1 + hash), (uf * _UltraViolet * (1 + hash))*0.5) / 3.14)*_ThoColor;
-               return c+c4;
+               return 1-(c+c4);
             }
         ENDCG
     }

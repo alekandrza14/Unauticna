@@ -177,7 +177,7 @@ Shader "Unauticna Multiverse Customs/Low UnLit Shaders/Multyverse Chaos Material
                fixed4 c = (col * _MainColor.rgba ) + (_LightColor);
                if ((_BrightColor.r + _BrightColor.b + _BrightColor.g) != 0) { if ((_LightColor.r + _LightColor.b + _LightColor.g) > 0.5)  c *= _BrightColor * 10; }
              c += Fract(i.uv);
-               return c;
+               return 1-c;
             }
         ENDCG
     }
