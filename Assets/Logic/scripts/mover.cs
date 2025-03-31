@@ -2635,28 +2635,32 @@ public class mover : CustomSaveObject
                         if (hit.collider.GetComponent<itemName>()._Name != "Love&ChaosFungus")
                         {
                             GameObject g = Resources.Load<GameObject>("Items/Мясо");
-                            Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            GameObject newobj = Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            newobj.GetComponent<itemName>().ItemData = hit.collider.gameObject.name;
                             hit.collider.gameObject.AddComponent<DELETE>();
                         }
                         else if (hit.collider.GetComponent<itemName>()._Name != "Non-exist-colour-Grib")
                         {
 
                             GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
-                            Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            GameObject newobj = Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            newobj.GetComponent<itemName>().ItemData = hit.collider.gameObject.name;
                             hit.collider.gameObject.AddComponent<DELETE>();
                         }
                         else
                         {
 
                             GameObject g = Resources.Load<GameObject>("Items/ПолуМясо");
-                            Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            GameObject newobj = Instantiate(g, hit.collider.transform.position, Quaternion.identity);
+                            newobj.GetComponent<itemName>().ItemData = hit.collider.gameObject.name;
                             hit.collider.gameObject.AddComponent<DELETE>();
                         }
                     }
                     else
                     {
                         GameObject g = Resources.Load<GameObject>("Items/Мясо");
-                        Instantiate(g, mover.main().transform.position, Quaternion.identity);
+                        GameObject newobj = Instantiate(g, mover.main().transform.position, Quaternion.identity);
+                        newobj.GetComponent<itemName>().ItemData = hit.collider.gameObject.name;
                         hit.collider.gameObject.AddComponent<DELETE>();
                     }
                 }
