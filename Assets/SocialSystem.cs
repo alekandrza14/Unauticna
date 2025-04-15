@@ -139,7 +139,13 @@ public class SocialSystem : MonoBehaviour
                                         Instantiate(trigger.morph, self.transform.position, Quaternion.identity);
                                         Destroy(self);
                                     }
+                                    if (trigger.Itemsmorph != null)
+                                    {
+                                        Instantiate(Resources.Load("Items/"+trigger.Itemsmorph), self.transform.position, Quaternion.identity);
+                                        Destroy(self);
+                                    }
                                     if (trigger.gift != null) Instantiate(trigger.gift, self.transform.position, Quaternion.identity);
+                                    if (trigger.Itemsgift != null) Instantiate(Resources.Load("Items/" + trigger.Itemsgift), self.transform.position, Quaternion.identity);
                                     respect += trigger.respectMine;
                                     if (trigger.PriseSlave)
                                     {

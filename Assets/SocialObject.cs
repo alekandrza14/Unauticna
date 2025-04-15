@@ -23,6 +23,8 @@ public class SocialTriggerData
     public bool KommunistYou7;
     public string SlaveCommnad;
     public string dataCommnad;
+    public string Itemsmorph;
+    public string Itemsgift;
     public SocialTrigger export()
     {
         SocialTrigger new_ST = new();
@@ -40,6 +42,8 @@ public class SocialTriggerData
         new_ST.KrimBurocrat = false;
         new_ST.SlaveCommnad = this.SlaveCommnad;
         new_ST.dataCommnad = this.dataCommnad;
+        new_ST.Itemsmorph = this.Itemsmorph;
+        new_ST.Itemsgift = this.Itemsgift;
         return new_ST;
     }
 }

@@ -24,5 +24,7 @@ public class SocialTrigger : ScriptableObject
     public bool Born7;
     public GameObject morph;
     public GameObject gift;
+    public string Itemsmorph;
+    public string Itemsgift;
 }
 

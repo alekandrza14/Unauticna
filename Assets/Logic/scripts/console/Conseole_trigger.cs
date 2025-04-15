@@ -282,6 +282,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "63";
             }
+            if (s[0] == "Space")
+            {
+                a = "64";
+            }
             if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
@@ -1172,6 +1176,29 @@ public class Conseole_trigger : MonoBehaviour
                     {
                         Instantiate(Resources.Load<GameObject>("Äûì"), mover.main().transform);
                     }
+                }
+            }
+            if (i == 1 && a == "64")
+            {
+                if (s[1] == "0")
+                {
+                    SceneManager.LoadScene("Scenes/ClearScene/GeometyFlat/Null");
+                }
+                if (s[1] == "1")
+                {
+                    SceneManager.LoadScene("Scenes/ClearScene/GeometyHyperbolic/Null");
+                }
+                if (s[1] == "2")
+                {
+                    SceneManager.LoadScene("Scenes/ClearScene/GeometyPolar/Null");
+                }
+                if (s[1] == "3")
+                {
+                    SceneManager.LoadScene("Scenes/ClearScene/GeometySpherical/Null");
+                }
+                if (s[1] == "4")
+                {
+                    SceneManager.LoadScene("Scenes/ClearScene/GeometyTorian/Null");
                 }
             }
             if (i == 1 && a == "2")

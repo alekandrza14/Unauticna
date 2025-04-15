@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10, Rand1MCube = 11
+    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10, Rand1MCube = 11, palyerXZ = 12
 }
 
 public class NoscaleParent : MonoBehaviour
@@ -12,7 +12,7 @@ public class NoscaleParent : MonoBehaviour
     Vector3 target;
     Vector3 diretional;
     float timer;
-    [SerializeField] NoscaleParentSettings settings;
+    public NoscaleParentSettings settings;
     private void Start()
     {
         if (settings == NoscaleParentSettings.PatrulPlayer)
@@ -39,6 +39,10 @@ public class NoscaleParent : MonoBehaviour
         if (settings == NoscaleParentSettings.palyerY)
         {
             transform.position = new Vector3(transform.position.x, mover.main().transform.position.y, transform.position.z);
+        }
+        if (settings == NoscaleParentSettings.palyerXZ)
+        {
+            transform.position = new Vector3(mover.main().transform.position.x, transform.position.y, mover.main().transform.position.z);
         }
         if (settings == NoscaleParentSettings.PlayerRayEnd)
         {

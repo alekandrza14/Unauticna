@@ -82,7 +82,7 @@ public class CustomObjectData
     new Vector3(0,0,0)};
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car,social,home;
+    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car,social,home,PlayerPosPrivzka, PlayerPosXZPrivzka;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -129,7 +129,6 @@ public class CustomObject : CustomSaveObject
             obj.transform.localScale = transform.localScale;
             obj.transform.rotation = transform.rotation;
             obj.AddComponent<MeshFilter>().sharedMesh = newMesh;
-            obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
             obj.AddComponent<MeshCollider>().sharedMesh = newMesh;
             obj.GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
             if (obj.GetComponent<MeshRenderer>()) if(Model.LoadingMaterials!=null)  if (Model.LoadingMaterials.Length > 0) 
@@ -137,6 +136,7 @@ public class CustomObject : CustomSaveObject
                 Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
                 obj.GetComponent<MeshRenderer>().material = newMaterial2;
             }
+            obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
         }
         for (int i = 0; i < Model.VoxelModels.Length; i++)
         {
@@ -296,6 +296,14 @@ public class CustomObject : CustomSaveObject
         if (Model.Meat)
         {
             if (!GetComponent<Ìÿסמ>()) gameObject.AddComponent<Ìÿסמ>();
+        }
+        if (Model.PlayerPosPrivzka)
+        {
+            if (!GetComponent<NoscaleParent>()) gameObject.AddComponent<NoscaleParent>().settings = NoscaleParentSettings.PlayerPos;
+        }
+        if (Model.PlayerPosXZPrivzka)
+        {
+            if (!GetComponent<NoscaleParent>()) gameObject.AddComponent<NoscaleParent>().settings = NoscaleParentSettings.palyerXZ;
         }
         if (Model.RunToPlayer)
         {
