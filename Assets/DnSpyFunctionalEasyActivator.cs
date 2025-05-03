@@ -214,7 +214,7 @@ public class DnSpyFunctionalEasyActivator : MonoBehaviour
 
         return clip;
     }
-    public static System.Collections.IEnumerator GetTextResFolder(string pichure, Texture texture)
+    public static System.Collections.IEnumerator GetTextResFolder(string pichure, UnityEngine.UI.RawImage texture)
     {
         Debug.Log(System.IO.Path.GetDirectoryName(UnityEngine.Application.dataPath) + @"\res\" + pichure);
         Debug.Log(System.IO.Path.GetDirectoryName(@"res\" + pichure));
@@ -229,7 +229,7 @@ public class DnSpyFunctionalEasyActivator : MonoBehaviour
             else
             {
                 // Get downloaded asset bundle
-                texture = DownloadHandlerTexture.GetContent(uwr);
+                texture.texture = DownloadHandlerTexture.GetContent(uwr);
                 //   Texture t = Globalprefs.txt;
 
                 //   im.sprite = Sprite.Create((Texture2D)t, new Rect(0, 0, Globalprefs.txt.width, Globalprefs.txt.height), Vector2.zero);
@@ -251,7 +251,7 @@ public class DnSpyFunctionalEasyActivator : MonoBehaviour
             else
             {
                 // Get downloaded asset bundle
-                texture = DownloadHandlerTexture.GetContent(uwr);
+                texture.texture = DownloadHandlerTexture.GetContent(uwr);
                 //   Texture t = Globalprefs.txt;
 
                 //   im.sprite = Sprite.Create((Texture2D)t, new Rect(0, 0, Globalprefs.txt.width, Globalprefs.txt.height), Vector2.zero);

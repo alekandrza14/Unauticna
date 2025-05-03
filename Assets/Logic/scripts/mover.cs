@@ -517,8 +517,8 @@ public class mover : CustomSaveObject
     public JsonGame file = new JsonGame();
     private void Init()
     {
-       
 
+        if(VarSave.ExistenceVar("interface")) Acaunt.Spawn(VarSave.GetString("interface"));
         if (VarSave.GetFloat("SevenSouls") > 0)
         {
             GameObject g = Resources.Load<GameObject>("UT.SevenSoulsScin");
@@ -2685,6 +2685,7 @@ public class mover : CustomSaveObject
             }
         }
         if (cc.Count > 0) { new_center = pos - cc[indexpos]; new_offset = cc[indexpos]; } else { new_center = pos; new_offset = Vector3.zero; }
+        Globalprefs.customcenter = new_offset;
             Globalprefs.Reality = VarSave.GetTrash("RealityX");
         if (N_position.Count > 7)
         {

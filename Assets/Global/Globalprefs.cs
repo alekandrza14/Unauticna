@@ -13,6 +13,7 @@ public static class Globalprefs
     public static string AnyversePlayerPositionInfo;
     public static Vector3 newv3;
     public static Vector3 pos;
+    public static Vector3 customcenter;
     public static Vector3 WMovepos;
     public static bool RaymarchHitError;
     public static bool Scrensoting;

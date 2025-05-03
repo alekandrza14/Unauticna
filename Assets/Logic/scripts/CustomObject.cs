@@ -79,7 +79,11 @@ public class CustomObjectData
     new Vector3(0,0.5f,0.5f),
     new Vector3(0,0.5f,0.5f),
     new Vector3(0,0,0),
-    new Vector3(0,0,0)};
+    new Vector3(0,0,0)
+    };
+    public Vector3[] TelevizorPos = new Vector3[0];
+    public Vector3[] TelevizorScale = new Vector3[1];
+    public Quaternion[] TelevizorRot = new Quaternion[1];
     public Vector2 playerWHMove;
     public StandartKey standartKey;
     public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car,social,home,PlayerPosPrivzka, PlayerPosXZPrivzka;
@@ -319,13 +323,18 @@ public class CustomObject : CustomSaveObject
         {
             gameObject.layer = 3;
         }
-        
+
         if (Model.social)
         {
             gameObject.AddComponent<SocialObject>();
         }
-        
-        
+        for (int i = 0;i< Model.TelevizorPos.LongLength;i++)
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position+ Model.TelevizorPos[i], Model.TelevizorRot[i]);
+            obj.transform.localScale = Model.TelevizorScale[i];
+            Instantiate(Resources.Load<GameObject>("AdSocialism"), transform);
+        }
+
         foreach (Vector3 v3 in Model.LeftLeg)
         {
             Vector3 x = transform.right;

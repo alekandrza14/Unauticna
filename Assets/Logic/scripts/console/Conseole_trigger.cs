@@ -286,6 +286,10 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "64";
             }
+            if (s[0] == "Interface")
+            {
+                a = "65";
+            }
             if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
@@ -1200,6 +1204,10 @@ public class Conseole_trigger : MonoBehaviour
                 {
                     SceneManager.LoadScene("Scenes/ClearScene/GeometyTorian/Null");
                 }
+            }
+            if (i == 1 && a == "65")
+            {
+                File.WriteAllText("res/UserWorckspace/Iterface/"+ s[1]+".json",JsonUtility.ToJson(new Interface()));
             }
             if (i == 1 && a == "2")
             {
