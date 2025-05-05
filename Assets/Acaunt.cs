@@ -11,21 +11,21 @@ public class Interface
     public Vector2[] imagewh = new Vector2[] { new Vector2(100, 100) };
     public Vector4[] actors = new Vector4[] { new Vector4(1, 1, 1, 1) };
     public string[] texture = new string[] { "image\\customJuice.png" };
-    public Vector2[] image2pos = new Vector2[] { new Vector2(0, 0) };
-    public Vector2[] image2wh = new Vector2[] { new Vector2(100, 100) };
-    public Vector4[] image2actors = new Vector4[] { new Vector4(1, 1, 1, 1) };
-    public string[] image2texture = new string[] { "Video\\soside.avi" };
-    public Vector2[] buttonpos = new Vector2[] { };
-    public Vector2[] buttonwh = new Vector2[] { };
-    public Vector4[] buttonactors = new Vector4[] { };
-    public string[] buttontexture = new string[] { };
-    public Vector4[] buttonPosSpawn = new Vector4[] { };
-    public string[] buttonNameSpawn = new string[] { };
-    public Vector2[] button2pos = new Vector2[] { };
-    public Vector2[] button2wh = new Vector2[] { };
-    public Vector4[] button2actors = new Vector4[] { };
-    public string[] button2texture = new string[] { };
-    public string[] button2itemNameFind = new string[] { };
+    public Vector2[] image2pos = new Vector2[] {};
+    public Vector2[] image2wh = new Vector2[] {};
+    public Vector4[] image2actors = new Vector4[] {};
+    public string[] image2texture = new string[] {};
+    public Vector2[] buttonpos = new Vector2[] {};
+    public Vector2[] buttonwh = new Vector2[] {};
+    public Vector4[] buttonactors = new Vector4[] {};
+    public string[] buttontexture = new string[] {};
+    public Vector4[] buttonPosSpawn = new Vector4[] {};
+    public string[] buttonNameSpawn = new string[] {};
+    public Vector2[] button2pos = new Vector2[] {};
+    public Vector2[] button2wh = new Vector2[] {};
+    public Vector4[] button2actors = new Vector4[] {};
+    public string[] button2texture = new string[] {};
+    public string[] button2itemNameFind = new string[] {};
 }
 
 public class Acaunt : MonoBehaviour

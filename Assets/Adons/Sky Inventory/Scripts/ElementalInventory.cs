@@ -2214,6 +2214,25 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Grib", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Vodka(100 градусов)") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+            playerdata.Addeffect("Trip", 120); 
+            DirectoryInfo directory = new DirectoryInfo("res/UserWorckspace/Iterface");
+            FileInfo[] now = directory.GetFiles();
+            for (int i = 0; i < 1;i++) 
+            {
+                Acaunt.Spawn((now[Random.Range(0, now.Length)].Name).Replace(".json", ""));
+            }
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Vodka(100 градусов)", "Колба");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("U") != 0 && main() == this)
         {
 
