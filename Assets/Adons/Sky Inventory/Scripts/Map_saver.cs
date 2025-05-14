@@ -1106,6 +1106,29 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
+                if (objs.Count < 100)
+                {
+                    
+
+
+                        for (int i = 0; i < 20; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/MarketFukcer");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                }
                 if (IfSpawn("Чёрное радио")) if (objs.Count < 100)
                     {
 

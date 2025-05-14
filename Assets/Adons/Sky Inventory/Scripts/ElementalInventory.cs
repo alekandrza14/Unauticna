@@ -2255,6 +2255,21 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("СамагонДеда", "Колба");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Гашиш") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            playerdata.Addeffect("mild hangover", 120);
+            playerdata.Addeffect("Tripl3", 120);
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Гашиш", "Колба");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("U") != 0 && main() == this)
         {
 

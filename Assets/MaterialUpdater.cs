@@ -8,6 +8,7 @@ public class MaterialUpdater : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(mr==null) mr = GetComponent<MeshRenderer>();
         mr.material.color = Color.white;
     }
 }
