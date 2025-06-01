@@ -9,8 +9,16 @@ public class КамуИнтерфейсХлеба : MonoBehaviour
     int Bread;
     void Update()
     {
-        Bread1.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано";
-        Bread2.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано";
+        if (!(PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right)))
+        {
+            Bread1.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано";
+            Bread2.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано";
+        }
+        if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right)))
+        {
+            Bread1.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано" + " отказаться M";
+            Bread2.text = "Произведи 6 хлеба в день для камунистов " + Bread + " \\ 6 хлеба камунизировано" + " отказаться M";
+        }
         RaycastHit hit = MainRay.MainHit;
         if (Input.GetKeyDown(KeyCode.U))
         {
@@ -20,6 +28,10 @@ public class КамуИнтерфейсХлеба : MonoBehaviour
                 Instantiate(prefab, hit.collider.transform.position, Quaternion.identity);
                 Destroy(hit.collider.gameObject);
             } 
+        }
+        if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right)))
+        {
+            if (Input.GetKeyDown(KeyCode.M)) Bread = 6;
         }
         if (Bread > 5)
         {

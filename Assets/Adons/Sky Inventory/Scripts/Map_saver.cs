@@ -1010,7 +1010,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (IfSpawn("FashistEnemye")) if (GameEditor.Opened.genFashits)
+                if (PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.left))  if (IfSpawn("FashistEnemye")) if (GameEditor.Opened.genFashits)
                 {
                     for (int i = 0; i < 6; i++)
                     {
@@ -1029,7 +1029,8 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                 if (objs.Count < 100 && !NewRunGame)
+
+                if (objs.Count < 100 && !NewRunGame)
                 {
                     if (System.DateTime.Now.Month == 12 || System.DateTime.Now.Month == 1 || System.DateTime.Now.Month == 0)
                     {
@@ -1068,22 +1069,23 @@ public class Map_saver : MonoBehaviour
                                 break;
                             }
                             GameObject g = Resources.Load<GameObject>("Items/ПроизводительХлеба");
-                            Instantiate(Resources.Load<GameObject>("КамуИнтерфейс"));
+                            if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) Instantiate(Resources.Load<GameObject>("КамуИнтерфейс"));
                             Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
                             if (Physics.Raycast(r, out hit))
                             {
                                 if (hit.collider != null)
                                 {
-                                    if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+                                    if (PolitDate.IsVersionF(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+                                    if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
                                 }
                             }
                         }
                     }
                 }
-                if (objs.Count < 100)
+                if (!(PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) if (objs.Count < 100)
                 {
-                    if (VarSave.GetMoney("Karma") < -100)
+                    if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (VarSave.GetMoney("Karma") < -100)
                     {
 
 
@@ -1106,57 +1108,91 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (objs.Count < 100)
+                if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
                 {
-                    
-
-
-                        for (int i = 0; i < 20; i++)
+                    if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100)
                         {
-                            if (objs.Count > 100)
-                            {
-                                break;
-                            }
-                            GameObject g = Resources.Load<GameObject>("Items/MarketFukcer");
-                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
-                            if (Physics.Raycast(r, out hit))
+                            if (Global.Random.Chance(2))
                             {
-                                if (hit.collider != null)
+
+
+                                for (int i = 0; i < 20; i++)
                                 {
-                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    if (objs.Count > 100)
+                                    {
+                                        break;
+                                    }
+                                    GameObject g = Resources.Load<GameObject>("Items/MarketFukcer");
+                                    Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
+                                        {
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100)
+                        {
+
+                            if (Global.Random.Chance(4))
+                            {
+
+
+                                for (int i = 0; i < 20; i++)
+                                {
+                                    if (objs.Count > 100)
+                                    {
+                                        break;
+                                    }
+                                    GameObject g = Resources.Load<GameObject>("Items/MarketFukcer");
+                                    Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
+                                        {
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                        }
+                                    }
                                 }
                             }
                         }
                 }
-                if (IfSpawn("Чёрное радио")) if (objs.Count < 100)
-                    {
-
-
-
-                        for (int i = 0; i < 1; i++)
+                if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+                {
+                    if (IfSpawn("Чёрное радио")) if (objs.Count < 100)
                         {
-                            if (objs.Count > 100)
-                            {
-                                break;
-                            }
-                            GameObject g = Resources.Load<GameObject>("Items/Чёрное_радио");
-                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
 
-                            if (Physics.Raycast(r, out hit))
+
+
+                            for (int i = 0; i < 1; i++)
                             {
-                                if (hit.collider != null)
+                                if (objs.Count > 100)
                                 {
-                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/Чёрное_радио");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                    }
                                 }
                             }
+
                         }
+                }
 
-                    }
-
-
-                if (cistalenemy.dies > 1000) 
-                { 
+                if (cistalenemy.dies > 1000)
+                {
                     if (objs.Count < 100)
                     {
 
@@ -1170,11 +1206,32 @@ public class Map_saver : MonoBehaviour
                             }
                             GameObject g = Resources.Load<GameObject>("Клетка");
 
-                            if (PolitDate.IsGood(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
-                          
+                            if (PolitDate.IsVersionF(politicfreedom.avtoritatian)) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+
                         }
 
-                    } 
+                    }
+                }
+                if (cistalenemy.dies > 1000)
+                {
+                    if (objs.Count < 100)
+                    {
+
+
+
+                        for (int i = 0; i < 1; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Клетка");
+
+                            if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100) objs.Add(Instantiate(g, mover.main().transform.position, Quaternion.identity));
+
+                        }
+
+                    }
                 }
                 if (IfSpawn("КлювастаяТварь"))  if (objs.Count < 100)
                 {
@@ -1200,59 +1257,126 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
-                }
+                    }
                 if (objs.Count < 100)
                 {
-                    if (VarSave.GetInt("LastPrisved6BreadDataMobs"+SceneManager.GetActiveScene().buildIndex+lif) < DatePlus.dayOfEra())
+                    if (Global.Random.Chance(4))
                     {
-
-
-                        for (int i = 0; i < 6; i++)
+                        for (int i = 0; i < 1; i++)
                         {
                             if (objs.Count > 100)
                             {
                                 break;
                             }
-                            GameObject g = Resources.Load<GameObject>("Items/КамунийскийХлеб");
-                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
-                            CharacterName[] cn = objFind.ArrayByType<CharacterName>();
-                            foreach (CharacterName item in cn)
+                            Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                            if (Physics.Raycast(r, out hit))
                             {
-
-
-                                if (Physics.Raycast(r, out hit))
+                                if (hit.collider != null)
                                 {
-                                    if (hit.collider != null)
-                                    {
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                    }
-                                }
-                            }
-                            SocialObject[] so = objFind.ArrayByType<SocialObject>();
-                            foreach (SocialObject item in so)
-                            {
-
-
-                                if (Physics.Raycast(r, out hit))
-                                {
-                                    if (hit.collider != null)
-                                    {
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                        if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
-                                    }
+                                    if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity));
                                 }
                             }
                         }
-                        VarSave.SetInt("LastPrisved6BreadDataMobs" + SceneManager.GetActiveScene().buildIndex + lif, DatePlus.dayOfEra());
+                    }
+                }
+                if (objs.Count < 100)
+                {
+                    if (Global.Random.Chance(2))
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if ((PolitDate.IsVersionE(politiceconomic.right) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                }
+                if (objs.Count < 100)
+                {
+                    
+                        for (int i = 0; i < 15; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if ((PolitDate.IsVersionE(politiceconomic.mind) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Попрашайка"), hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                }
+                if (objs.Count < 100)
+                {
+                  if (VarSave.GetInt("LastPrisved6BreadDataMobs" + SceneManager.GetActiveScene().buildIndex + lif) < DatePlus.dayOfEra())
+                    {
+
+
+                        if (Global.Random.Chance(5))
+                        {
+                            for (int i = 0; i < 6; i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                GameObject g = Resources.Load<GameObject>("Items/КамунийскийХлеб");
+                                Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+                                CharacterName[] cn = objFind.ArrayByType<CharacterName>();
+                                foreach (CharacterName item in cn)
+                                {
+
+
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
+                                        {
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        }
+                                    }
+                                }
+                                SocialObject[] so = objFind.ArrayByType<SocialObject>();
+                                foreach (SocialObject item in so)
+                                {
+
+
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
+                                        {
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                            if (objs.Count < 100) objs.Add(Instantiate(g, item.transform.position, Quaternion.identity));
+                                        }
+                                    }
+                                }
+                            }
+                            VarSave.SetInt("LastPrisved6BreadDataMobs" + SceneManager.GetActiveScene().buildIndex + lif, DatePlus.dayOfEra());
+                        }
                     }
                 }
                 if (Globalprefs.AutoSave)
@@ -1275,25 +1399,47 @@ public class Map_saver : MonoBehaviour
                     //GameObject co = Resources.Load<GameObject>("CustomObject");
                     if (objs.Count < 100)
                     {
-                        if (Global.Random.Chance(2))
-                        {
-                            for (int i = 0; i < 6; i++)
+                        if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (Global.Random.Chance(2))
                             {
-                                if (objs.Count > 100)
+                                for (int i = 0; i < 6; i++)
                                 {
-                                    break;
-                                }
-                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
-
-                                if (Physics.Raycast(r, out hit))
-                                {
-                                    if (hit.collider != null)
+                                    if (objs.Count > 100)
                                     {
-                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity));
+                                        break;
+                                    }
+                                    Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
+                                        {
+                                            if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/AnyphingJuice"), hit.point, Quaternion.identity));
+                                        }
                                     }
                                 }
                             }
-                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+                        if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (Global.Random.Chance(2))
+                            {
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    if (objs.Count > 100)
+                                    {
+                                        break;
+                                    }
+                                    Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                                    if (Physics.Raycast(r, out hit))
+                                    {
+                                        if (hit.collider != null)
+                                        {
+                                            if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Гашиш"), hit.point, Quaternion.identity));
+                                        }
+                                    }
+                                }
+                            }
                     }
                     if (objs.Count < 100)
                     {
@@ -1338,7 +1484,29 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
-                    if (objs.Count < 100)
+                    if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+                    {
+                        if (Global.Random.Chance(50))
+                        {
+                            for (int i = 0; i < 400; i++)
+                            {
+                                if (objs.Count > 100)
+                                {
+                                    break;
+                                }
+                                Ray r = new(m.transform.position + (m.transform.up * 40), Random_vector());
+
+                                if (Physics.Raycast(r, out hit))
+                                {
+                                    if (hit.collider != null)
+                                    {
+                                        if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Chaos_cube"), hit.point, Quaternion.identity));
+                                    }
+                                }
+                            }
+                        }
+                        }
+                        if (objs.Count < 100)
                     {
                         if (Global.Random.Chance(2))
                         {

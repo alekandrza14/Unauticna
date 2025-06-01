@@ -515,10 +515,17 @@ public class mover : CustomSaveObject
     public float CamDistanceMult = 1;
     public Logic_tag_3[] lt;
     public JsonGame file = new JsonGame();
+    public AudioClip voiceResource; RawImage sas; bool sas1; Light[] all;
     private void Init()
     {
-
-        if(VarSave.ExistenceVar("interface")) Acaunt.Spawn(VarSave.GetString("interface"));
+        _san = new GameObject();
+        _san.transform.position = Vector3.left * float.PositiveInfinity;
+        _san.AddComponent<RawImage>();
+        
+        DirectoryInfo directory = new DirectoryInfo("res");
+        if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder("mick\\Light.png", _san.GetComponent<RawImage>()));
+        all = FindObjectsByType<Light>(sortmode.main);
+        if (VarSave.ExistenceVar("interface")) Acaunt.Spawn(VarSave.GetString("interface"));
         if (VarSave.GetFloat("SevenSouls") > 0)
         {
             GameObject g = Resources.Load<GameObject>("UT.SevenSoulsScin");
@@ -2347,8 +2354,21 @@ public class mover : CustomSaveObject
     GameObject OrtoCam;
     GameObject RespCam;
     GameObject _3DCam;
+    GameObject _san;
     void Update()
     {
+
+        if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") if (_san.GetComponent<RawImage>() != null)
+            {
+                if (_san.GetComponent<RawImage>().texture != null && !sas1)
+                {
+                    foreach (Light light in all)
+                    {
+                        light.cookie = _san.GetComponent<RawImage>().texture;
+                        sas1 = true;
+                    }
+                }
+            }
         if (PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
             if (Input.GetKeyDown(KeyCode.F7))

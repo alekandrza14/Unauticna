@@ -17,7 +17,18 @@ public class Conseole_trigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+        {
+            if (File.Exists("читы для сосунка"))
+            {
+                ifd.interactable = true;
+            }
+            else
+            {
+                ifd.interactable = false;
+                ifd.text = "prositi developera";
+            }
+        }
     }
     void run(string console)
     {
@@ -342,7 +353,7 @@ public class Conseole_trigger : MonoBehaviour
             {
                 playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
 
-                VarSave.LoadInt("SlaversNervs", 1);
+                if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) VarSave.LoadInt("SlaversNervs", 1);
                 VarSave.SetMoney("Inflation", 200000, SaveType.global);
 
             }
@@ -351,7 +362,7 @@ public class Conseole_trigger : MonoBehaviour
                 VarSave.SetMoney("Inflation", 200000, SaveType.global);
                 VarSave.SetMoney("tevro", 2000);
 
-                VarSave.LoadInt("SlaversNervs", 1);
+                if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) VarSave.LoadInt("SlaversNervs", 1);
                 playerdata.hasClearEffect("No kapitalism");
 
             }
@@ -362,14 +373,14 @@ public class Conseole_trigger : MonoBehaviour
                 VarSave.SetMoney("Inflation", 0, SaveType.global);
                 VarSave.SetMoney("tevro", 0);
 
-                VarSave.LoadInt("SlaversNervs", 1);
+                if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) VarSave.LoadInt("SlaversNervs", 1);
                 playerdata.hasClearEffect("No kapitalism");
                 playerdata.hasClearEffect("Unyverseium_money_cart");
             }
             if (i == 1 && a == "20")
             {
 
-                VarSave.LoadInt("SlaversNervs", 1);
+                if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) VarSave.LoadInt("SlaversNervs", 1);
                 playerdata.Addeffect("No kapitalism", float.PositiveInfinity);
                 VarSave.SetMoney("Inflation", 0, SaveType.global);
 
@@ -402,7 +413,7 @@ public class Conseole_trigger : MonoBehaviour
             //Unyverseium_money_cart
             if (i == 1 && a == "22")
             {
-                VarSave.LoadInt("SlaversNervs", 1);
+                if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) VarSave.LoadInt("SlaversNervs", 1);
                 playerdata.Addeffect("Unyverseium_money_cart", float.PositiveInfinity);
                 Globalprefs.Infinitysteuvro += double.Parse(s[1]);
                 VarSave.LoadTrash("inftevro", double.Parse(s[1]));
@@ -1274,7 +1285,7 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "8")
             {
-                VarSave.LoadInt("SlaversNervs",1);
+                if ((PolitDate.IsVersionF(politicfreedom.avtoritatian) && PolitDate.IsVersionE(politiceconomic.right))) VarSave.LoadInt("SlaversNervs",1);
                 VarSave.LoadMoney("Inflation", int.Parse(s[1]) / 2000, SaveType.global);
               VarSave.SetMoney("tevro", VarSave.GetMoney("tevro")+  int.Parse(s[1]));
             }
@@ -1300,13 +1311,26 @@ public class Conseole_trigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (ct == ConsoleType.Player) 
+        if (ct == ConsoleType.Player)
         {
-            if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
+            if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
             {
-                Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
-                Global.PauseManager.Pause();
-
+                if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
+                {
+                    Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
+                    Global.PauseManager.Pause();
+                }
+            }
+            if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+            {
+                if (FindAnyObjectByType<Chaos_cube>() == null)
+                {
+                    if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
+                    {
+                        Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
+                        Global.PauseManager.Pause();
+                    }
+                }
             }
             if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
             {

@@ -1,9 +1,11 @@
 using MoonSharp.Interpreter;
+using ObjParser;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Device;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public enum NDemention
@@ -40,6 +42,7 @@ public class CustomObjectData
     public float[] ScaleN = new float[1] { 1};
     public string itemSpawn;
     public string CoSpawn;
+    public string CoReSpawn;
     public string ObjSpawn;
     public string EventSpawn;
     public string AppOpen;
@@ -82,11 +85,15 @@ public class CustomObjectData
     new Vector3(0,0,0)
     };
     public Vector3[] TelevizorPos = new Vector3[0];
+    public Vector3[] SpawnerPosCO = new Vector3[0];
+    public string[] SpawnerNameCO = new string[0];
+    public float[] Timer = new float[0];
     public Vector3[] TelevizorScale = new Vector3[1];
     public Quaternion[] TelevizorRot = new Quaternion[1];
+    public string[] TelevizorVideo = new string[0];
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect,FreezeEffect,AnigilateItem,Dublicate,Meat,RunToPlayer,Transport,NoCollect,car,social,home,PlayerPosPrivzka, PlayerPosXZPrivzka;
+    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -104,6 +111,35 @@ public class CustomObject : CustomSaveObject
     public bool Imsaveble;
     public LayerMask Mashime;
     public CustomObjectData Model = new CustomObjectData();
+    float[] SpawnTimer;
+    public void SpawnInvoke()
+    {
+        for (int i = 0; i < Model.Timer.Length;i++) 
+        {
+            SpawnTimer[i] += 0.1f;
+            if (SpawnTimer[i] >= Model.Timer[i]) 
+            {
+                if (File.Exists("res/UserWorckspace/Items/" + Model.SpawnerNameCO[i] + ".txt"))
+                {
+                    GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position + Model.SpawnerPosCO[i], Quaternion.identity);
+                    obj.GetComponent<CustomObject>().s = Model.SpawnerNameCO[i];
+                    
+                }
+                SpawnTimer[i] = 0;
+            }
+        }
+    }
+    private void OnDestroy()
+    {
+       if(Model.CoReSpawn != null) if (Model.CoReSpawn != "") 
+        {
+            if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt"))
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
+            } 
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -141,6 +177,14 @@ public class CustomObject : CustomSaveObject
                 obj.GetComponent<MeshRenderer>().material = newMaterial2;
             }
             obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
+            if (Model.DamgeObject)
+            {
+                obj.AddComponent<Logic_tag_DamageObject>();
+            }
+            if (Model.BanObject)
+            {
+                obj.AddComponent<BanObject>();
+            }
         }
         for (int i = 0; i < Model.VoxelModels.Length; i++)
         {
@@ -148,6 +192,14 @@ public class CustomObject : CustomSaveObject
             obj.transform.position = transform.position + Model.VM_Pos[i];
             obj.transform.localScale = Model.VM_Scale[i];
             obj.GetComponent<Yourjuise>().CO_VoxelModel = Model.VoxelModels[i];
+        }
+        if (Model.DamgeObject)
+        {
+            gameObject.AddComponent<Logic_tag_DamageObject>();
+        }
+        if (Model.BanObject)
+        {
+            gameObject.AddComponent<BanObject>();
         }
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
@@ -316,9 +368,15 @@ public class CustomObject : CustomSaveObject
                 gameObject.AddComponent<RunToPlayer>();
                 GetComponent<RunToPlayer>().speed = Model.speed;
             }
-          
+
         }
-       
+
+        if (Model.Timer.Length != 0)
+        {
+            SpawnTimer = new float[Model.Timer.Length];
+            InvokeRepeating("sec10", 0, 0.1f);
+        }
+
         if (Model.NoCollect)
         {
             gameObject.layer = 3;
@@ -328,12 +386,27 @@ public class CustomObject : CustomSaveObject
         {
             gameObject.AddComponent<SocialObject>();
         }
-        for (int i = 0;i< Model.TelevizorPos.LongLength;i++)
+        for (int i = 0; i < Model.TelevizorPos.LongLength; i++)
         {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position+ Model.TelevizorPos[i], Model.TelevizorRot[i]);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position + Model.TelevizorPos[i], Model.TelevizorRot[i],transform);
             obj.transform.localScale = Model.TelevizorScale[i];
-            Instantiate(Resources.Load<GameObject>("AdSocialism"), transform);
+            if (Model.TelevizorVideo.Length != 0)
+            {
+                GameObject obj1 = Instantiate(Resources.Load<GameObject>("Video"), transform);
+                RenderTexture renderTexture = new RenderTexture(500, 500, UnityEngine.Experimental.Rendering.GraphicsFormat.R16G16B16A16_UNorm, UnityEngine.Experimental.Rendering.GraphicsFormat.R16G16B16A16_UNorm);
+
+
+                obj1.GetComponent<AdCocialism>().LOADVIDIO(Model.TelevizorVideo[i], out renderTexture);
+
+                obj.transform.GetChild(0).GetChild(0).gameObject.GetComponent<RawImage>().texture = renderTexture;
+            }
+            if (Model.TelevizorVideo.Length == 0)
+            {
+                GameObject obj1 = Instantiate(Resources.Load<GameObject>("AdSocialism"), transform);
+               
+            }
         }
+        
 
         foreach (Vector3 v3 in Model.LeftLeg)
         {
@@ -528,7 +601,10 @@ public class CustomObject : CustomSaveObject
 
 
     }
-
+    public void sec10()
+    {
+        SpawnInvoke();
+    }
     public void OnInteractive()
     {
         if (File.Exists(Model.LuaBuilding))

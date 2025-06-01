@@ -75,20 +75,42 @@ public class button6 : MonoBehaviour
 
         }
     }
-   
+
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            if (enter)
-            {
-                
-                    GameManager.save();
-                
-                portallNumer.Portal = Portal;
-                GameManager.chargescene(id);
 
+        if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (enter)
+                {
+
+                    GameManager.save();
+
+                    portallNumer.Portal = Portal;
+                    GameManager.chargescene(id);
+
+                }
+            }
+        }
+        if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+        {
+            if (FindAnyObjectByType<Chaos_cube>()==null)
+            {
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    if (enter)
+                    {
+
+                        GameManager.save();
+
+                        portallNumer.Portal = Portal;
+                        GameManager.chargescene(id);
+
+                    }
+                }
             }
         }
     }
