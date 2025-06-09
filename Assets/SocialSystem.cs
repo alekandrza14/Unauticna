@@ -13,6 +13,10 @@ public class SocialSystem : MonoBehaviour
     public Text respectCounter;
     string[] words;
     public int respect;
+    private void Start()
+    {
+        respect = 1;
+    }
     public void Exit()
     {
         Global.PauseManager.Play();
@@ -132,7 +136,7 @@ public class SocialSystem : MonoBehaviour
                                 }
                                 OutputMsg.text += trigger.OutputText;
                                 Globalprefs.LoadTevroPrise(trigger.teuvroMine);
-                                if (trigger.respectConst < respect || trigger.teuvroConst < Globalprefs.LoadTevroPrise(0))
+                                if (trigger.respectConst <= respect || trigger.teuvroConst <= Globalprefs.LoadTevroPrise(0))
                                 {
                                     if (trigger.morph != null)
                                     {
@@ -181,9 +185,9 @@ public class SocialSystem : MonoBehaviour
 
                                     OutputMsg.text += trigger.ErrorText;
                                 }
-                                if (trigger.teuvroConst < Globalprefs.LoadTevroPrise(0)) Globalprefs.LoadTevroPrise(-trigger.teuvroConst);
+                                if (trigger.teuvroConst <= Globalprefs.LoadTevroPrise(0)) Globalprefs.LoadTevroPrise(-trigger.teuvroConst);
 
-                                if (trigger.respectConst < respect) respect -= trigger.respectConst;
+                                if (trigger.respectConst <= respect) respect -= trigger.respectConst;
 
                             }
                     
