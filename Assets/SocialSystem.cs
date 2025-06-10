@@ -150,7 +150,7 @@ public class SocialSystem : MonoBehaviour
                                     }
                                     if (trigger.gift != null) Instantiate(trigger.gift, self.transform.position, Quaternion.identity);
                                     if (trigger.Itemsgift != null) Instantiate(Resources.Load("Items/" + trigger.Itemsgift), self.transform.position, Quaternion.identity);
-                                    respect += trigger.respectMine;
+                                    
                                     if (trigger.PriseSlave)
                                     {
                                         if (!self.GetComponent<Slave>()) self.AddComponent<Slave>();
@@ -177,7 +177,7 @@ public class SocialSystem : MonoBehaviour
                                     }
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().WorkQualityTEVRO -= trigger.teuvroMine;
-                                    Globalprefs.LoadTevroPrise(trigger.teuvroMine);
+                                    
                                     Invoke(trigger.dataCommnad,0);
                                 }
                                 else
@@ -188,7 +188,8 @@ public class SocialSystem : MonoBehaviour
                                 if (trigger.teuvroConst <= Globalprefs.LoadTevroPrise(0)) Globalprefs.LoadTevroPrise(-trigger.teuvroConst);
 
                                 if (trigger.respectConst <= respect) respect -= trigger.respectConst;
-
+                                Globalprefs.LoadTevroPrise(trigger.teuvroMine);
+                                respect += trigger.respectMine;
                             }
                     
                     }
