@@ -1161,19 +1161,19 @@ public class mover : CustomSaveObject
             {
                 if (playerdata.Geteffect("Unyverseium_money_cart") != null)
                 {
-                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : ∞ * " + Globalprefs.Infinitysteuvro + "E" + Globalprefs.MultTevro);
-                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
+                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : ∞ * " + Globalprefs.Infinitysteuvro + "E" + Globalprefs.MultTevro);
+                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
 
                 }
                 else
                 {
-                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
+                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
                 }
             }
             int maxcollect = 0;
             if (VarSave.GetString("quest", SaveType.global) == "капуста") maxcollect = 10;
-            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro ($) : " + "∞" + "E" + Globalprefs.MultTevro);
-            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour ($^) : " + Math.Round(Globalprefs.flowteuvro, 2) + "E" + Globalprefs.MultTevro);
+            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : " + "∞" + "E" + Globalprefs.MultTevro);
+            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour (T^) : " + Math.Round(Globalprefs.flowteuvro, 2) + "E" + Globalprefs.MultTevro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             if (Globalprefs.selectitemobj)
             {
@@ -1188,10 +1188,10 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 120, 200f, 100f), "Knowlages (!) : " + (Globalprefs.knowlages + gsave.progressofthepassage).ToString());
             GUI.Label(new Rect(0f, 140, 200f, 100f), "Technologies (!^) : " + Globalprefs.technologies);
             GUI.Label(new Rect(0f, 160, 200f, 100f), "Universe Type (*) : " + data_universetype);
-            if (playerdata.Geteffect("Undyning") == null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + hp);
-            if (playerdata.Geteffect("Undyning") != null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♥) : " + "∞ ok is this mean we don't dyeing?");
+            if (playerdata.Geteffect("Undyning") == null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (♦) : " + hp);
+            if (playerdata.Geteffect("Undyning") != null) GUI.Label(new Rect(0f, 180, 200f, 100f), "Healf Point (■) : " + "∞ ok is this mean we don't dyeing?");
             GUI.Label(new Rect(0f, 200, 200f, 100f), "Fire (▲) : " + fireInk);
-            GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks ($*) : " + data_stocks);
+            GUI.Label(new Rect(0f, 220, 200f, 100f), "Stocks (T*) : " + data_stocks);
             GUI.Label(new Rect(0f, 240, 200f, 100f), "violation of the pacific regime (V^V) : " + cistalenemy.dies);
             GUI.Label(new Rect(0f, 270, 200f, 100f), "Inflation : " + data_inflation + "%");
             if (data_profstatus != "")
@@ -1207,7 +1207,7 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(0f, 360, 200f, 100f), "Mana : " + data_mana);
             GUI.Label(new Rect(0f, 380, 200f, 100f), "Luck : " + data_luck);
             GUI.Label(new Rect(0f, 400, 200f, 100f), "Reason : " + Globalprefs.reasone + " / " + (100 + (data_BGPU * 10)));
-            GUI.Label(new Rect(0f, 420, 300f, 100f), "Flow Flow Teuvro on hour ($^^) : " + Math.Round(Globalprefs.OverFlowteuvro, 2) + "E" + Globalprefs.MultTevro);
+            GUI.Label(new Rect(0f, 420, 300f, 100f), "Flow Flow Teuvro on hour (T^^) : " + Math.Round(Globalprefs.OverFlowteuvro, 2) + "E" + Globalprefs.MultTevro);
 
             GUI.Label(new Rect(Screen.width - 200, 0, 200, 40), "TimeRegion : " + ((TimeOfGame)Sutck.day).ToString(), editor.label);
             GUI.Label(new Rect(Screen.width - 200, 20, 200, 40), "Temperature : " + Sutck.Temperature() + "˚", editor.label);

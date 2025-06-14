@@ -50,6 +50,7 @@ public class CustomObjectData
     public string ConvertTo;
     public string LoadingMaterial;
     public string[] LoadingMaterials;
+    public string[] TexutersDoomModel;
     public int RegenerateHp;
     public double Recycler;
     public double Redecycler;
@@ -114,30 +115,77 @@ public class CustomObject : CustomSaveObject
     float[] SpawnTimer;
     public void SpawnInvoke()
     {
-        for (int i = 0; i < Model.Timer.Length;i++) 
+        for (int i = 0; i < Model.Timer.Length; i++)
         {
             SpawnTimer[i] += 0.1f;
-            if (SpawnTimer[i] >= Model.Timer[i]) 
+            if (SpawnTimer[i] >= Model.Timer[i])
             {
                 if (File.Exists("res/UserWorckspace/Items/" + Model.SpawnerNameCO[i] + ".txt"))
                 {
                     GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position + Model.SpawnerPosCO[i], Quaternion.identity);
                     obj.GetComponent<CustomObject>().s = Model.SpawnerNameCO[i];
-                    
+
                 }
                 SpawnTimer[i] = 0;
             }
         }
     }
+    List<RawImage> test;
+    COModule coModule;
+    public void Void()
+    {
+        for (int i = 0; i < test.Count; i++)
+        {
+            coModule.tex[i] = (Texture2D)test[i].texture;
+            coModule.sesStart();
+        }
+    }
+    public bool politicConrol(string Polit)
+    {
+        bool Demokatia = false;
+        Debug.LogError("Freedom : " + (PolitDate.IsVersionF(politicfreedom.lidertatian) == (Polit == "LIB")).ToString() + " " + s);
+        Debug.LogError("Lyderty : " + (PolitDate.IsVersionF(politicfreedom.avtoritatian) == (Polit == "AV")).ToString() + " " + s);
+        Debug.LogError("Democraty : " + (Polit == "DEM") + " " + s);
+        Debug.LogError("Non-positionalism : " + (PolitDate.IsVersionF(politicfreedom.NonPositionalian) == (Polit == "ST")).ToString() + " " + s);
+        Debug.LogError("Non-political : " + (PolitDate.IsVersionE(politiceconomic.bipoly) == (Polit == "AP")).ToString() + " " + s);
+        Debug.LogError("Pohuy : " + PolitDate.IsVersionF(politicfreedom.NonPositionalian).ToString() + " " + s);
+       if (PolitDate.IsVersionF(politicfreedom.avtoritatian))  Demokatia = (PolitDate.IsVersionF(politicfreedom.avtoritatian) == (Polit == "AV"));
+      if(Demokatia == true)  return Demokatia;
+        if (PolitDate.IsVersionF(politicfreedom.lidertatian)) Demokatia = (PolitDate.IsVersionF(politicfreedom.lidertatian) == (Polit == "LIB"));
+        if (Demokatia == true) return Demokatia;
+        if (PolitDate.IsVersionF(politicfreedom.NonPositionalian)) Demokatia = (PolitDate.IsVersionF(politicfreedom.NonPositionalian) == (Polit == "ST"));
+        if (Demokatia == true) return Demokatia;
+        if (PolitDate.IsVersionE(politiceconomic.bipoly)) Demokatia = (PolitDate.IsVersionE(politiceconomic.bipoly) == (Polit == "AP"));
+        if (Demokatia == true) return Demokatia;
+        Demokatia = (Polit == "DEM");
+        if (Demokatia == true) return Demokatia;
+        Demokatia = PolitDate.IsVersionF(politicfreedom.NonPositionalian);
+        return Demokatia;
+    }
+    public PolitNode newPolitNode = new PolitNode();
     private void OnDestroy()
     {
        if(Model.CoReSpawn != null) if (Model.CoReSpawn != "") 
         {
-            if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt"))
-            {
-                GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
-                obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
-            } 
+                if (File.Exists("res/UserWorckspace/PolitNodesCO/" + Model.CoReSpawn + ".json"))
+                {
+                    newPolitNode = JsonUtility.FromJson<PolitNode>(File.ReadAllText("res/UserWorckspace/PolitNodesCO/" + Model.CoReSpawn + ".json"));
+
+
+                 if(politicConrol(newPolitNode.Rejime))   if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt") && (!GetComponent<deleter1>() || !GetComponent<DELETE>()))
+                    {
+                        GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                        obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
+                    }
+                }
+                else
+                {
+                    if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt") && (!GetComponent<deleter1>() || !GetComponent<DELETE>()))
+                    {
+                        GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                        obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
+                    }
+                }
         }
     }
     // Start is called before the first frame update
@@ -154,7 +202,19 @@ public class CustomObject : CustomSaveObject
             Quaternion targetrotation = Quaternion.FromToRotation(bodyup, gravityUp) * body.rotation;
             body.rotation = Quaternion.Slerp(body.rotation, targetrotation, 5000000 * Time.deltaTime);
         }
-        rcs();
+        Debug.Log("res/UserWorckspace/PolitNodesCO/" + s + ".json");
+        if (File.Exists("res/UserWorckspace/PolitNodesCO/" + s + ".json"))
+        {
+            newPolitNode = JsonUtility.FromJson<PolitNode>(File.ReadAllText("res/UserWorckspace/PolitNodesCO/" + s + ".json"));
+            Debug.Log(newPolitNode.Rejime);
+
+            if (!politicConrol(newPolitNode.Rejime))
+            {
+                s = "Пилон(Ошибка)";
+            }
+        }
+            
+                rcs();
     }
     public void resetCurrentSettings()
     {
@@ -388,7 +448,7 @@ public class CustomObject : CustomSaveObject
         }
         for (int i = 0; i < Model.TelevizorPos.LongLength; i++)
         {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position + Model.TelevizorPos[i], Model.TelevizorRot[i],transform);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position + Model.TelevizorPos[i], Model.TelevizorRot[i], transform);
             obj.transform.localScale = Model.TelevizorScale[i];
             if (Model.TelevizorVideo.Length != 0)
             {
@@ -403,10 +463,24 @@ public class CustomObject : CustomSaveObject
             if (Model.TelevizorVideo.Length == 0)
             {
                 GameObject obj1 = Instantiate(Resources.Load<GameObject>("AdSocialism"), transform);
-               
+
             }
         }
-        
+        if (Model.TexutersDoomModel != null) if (Model.TexutersDoomModel.LongLength > 0)
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("DoomCharactor"), transform.position, transform.rotation, transform);
+            coModule = obj.GetComponent<COModule>();
+            test = new List<RawImage>();
+            for (int i = 0; i < Model.TexutersDoomModel.LongLength; i++)
+            {
+                GameObject objact = Instantiate(Resources.Load<GameObject>("point"), transform);
+                RawImage s = objact.AddComponent<RawImage>();
+                test.Add(s);
+                StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder(Model.TexutersDoomModel[i], s));
+            }
+            Invoke("Void",5);
+        }
+
 
         foreach (Vector3 v3 in Model.LeftLeg)
         {
