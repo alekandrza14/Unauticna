@@ -1,4 +1,4 @@
-using MoonSharp.Interpreter;
+п»їusing MoonSharp.Interpreter;
 using ObjParser;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,6 +113,7 @@ public class CustomObject : CustomSaveObject
     public LayerMask Mashime;
     public CustomObjectData Model = new CustomObjectData();
     float[] SpawnTimer;
+    bool interact;
     public void SpawnInvoke()
     {
         for (int i = 0; i < Model.Timer.Length; i++)
@@ -129,6 +130,12 @@ public class CustomObject : CustomSaveObject
                 SpawnTimer[i] = 0;
             }
         }
+    }
+    public IEnumerator Interact() //в™Ј
+    {
+        interact = true;
+        yield return new WaitForSeconds(3);
+        interact = false;
     }
     List<RawImage> test;
     COModule coModule;
@@ -165,27 +172,33 @@ public class CustomObject : CustomSaveObject
     public PolitNode newPolitNode = new PolitNode();
     private void OnDestroy()
     {
-       if(Model.CoReSpawn != null) if (Model.CoReSpawn != "") 
+        if (interact)
         {
-                if (File.Exists("res/UserWorckspace/PolitNodesCO/" + Model.CoReSpawn + ".json"))
+            if (Model.CoReSpawn != null)
+            {
+                if (Model.CoReSpawn != "")
                 {
-                    newPolitNode = JsonUtility.FromJson<PolitNode>(File.ReadAllText("res/UserWorckspace/PolitNodesCO/" + Model.CoReSpawn + ".json"));
+                    if (File.Exists("res/UserWorckspace/PolitNodesCO/" + Model.CoReSpawn + ".json"))
+                    {
+                        newPolitNode = JsonUtility.FromJson<PolitNode>(File.ReadAllText("res/UserWorckspace/PolitNodesCO/" + Model.CoReSpawn + ".json"));
 
 
-                 if(politicConrol(newPolitNode.Rejime))   if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt") && (!GetComponent<deleter1>() || !GetComponent<DELETE>()))
+                        if (politicConrol(newPolitNode.Rejime)) if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt") && (!GetComponent<deleter1>() || !GetComponent<DELETE>()))
+                            {
+                                GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                                obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
+                            }
+                    }
+                    else
                     {
-                        GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
-                        obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
+                        if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt") && (!GetComponent<deleter1>() || !GetComponent<DELETE>()))
+                        {
+                            GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                            obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
+                        }
                     }
                 }
-                else
-                {
-                    if (File.Exists("res/UserWorckspace/Items/" + Model.CoReSpawn + ".txt") && (!GetComponent<deleter1>() || !GetComponent<DELETE>()))
-                    {
-                        GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
-                        obj.GetComponent<CustomObject>().s = Model.CoReSpawn;
-                    }
-                }
+            }
         }
     }
     // Start is called before the first frame update
@@ -210,7 +223,7 @@ public class CustomObject : CustomSaveObject
 
             if (!politicConrol(newPolitNode.Rejime))
             {
-                s = "Пилон(Ошибка)";
+                s = "РџРёР»РѕРЅ(РћС€РёР±РєР°)";
             }
         }
             
@@ -290,7 +303,7 @@ public class CustomObject : CustomSaveObject
         var mesh = new Mesh();
         mesh.name = Model.Models[model];
         Vector3[] vertices = new Vector3[newobj.VertexList.Count];
-        Vector2[] uv = new Vector2[newobj.VertexList.Count]; // Создаем массив UV-координат такого же размера, как и вершины
+        Vector2[] uv = new Vector2[newobj.VertexList.Count]; // РЎРѕР·РґР°РµРј РјР°СЃСЃРёРІ UV-РєРѕРѕСЂРґРёРЅР°С‚ С‚Р°РєРѕРіРѕ Р¶Рµ СЂР°Р·РјРµСЂР°, РєР°Рє Рё РІРµСЂС€РёРЅС‹
         List<int> triangles = new List<int>();
 
         for (int i = 0; i < newobj.VertexList.Count; i++)
@@ -411,7 +424,7 @@ public class CustomObject : CustomSaveObject
         }
         if (Model.Meat)
         {
-            if (!GetComponent<Мясо>()) gameObject.AddComponent<Мясо>();
+            if (!GetComponent<РњСЏСЃРѕ>()) gameObject.AddComponent<РњСЏСЃРѕ>();
         }
         if (Model.PlayerPosPrivzka)
         {
@@ -573,7 +586,7 @@ public class CustomObject : CustomSaveObject
         var mesh = new Mesh();
         mesh.name = Model.NameModel;
         Vector3[] vertices = new Vector3[newobj.VertexList.Count];
-        Vector2[] uv = new Vector2[newobj.VertexList.Count]; // Создаем массив UV-координат такого же размера, как и вершины
+        Vector2[] uv = new Vector2[newobj.VertexList.Count]; // РЎРѕР·РґР°РµРј РјР°СЃСЃРёРІ UV-РєРѕРѕСЂРґРёРЅР°С‚ С‚Р°РєРѕРіРѕ Р¶Рµ СЂР°Р·РјРµСЂР°, РєР°Рє Рё РІРµСЂС€РёРЅС‹
         List<int> triangles = new List<int>();
 
         for (int i = 0; i < newobj.VertexList.Count; i++)
@@ -681,6 +694,7 @@ public class CustomObject : CustomSaveObject
     }
     public void OnInteractive()
     {
+        StartCoroutine(Interact());
         if (File.Exists(Model.LuaBuilding))
         {
             LuaLogic(File.ReadAllText(Model.LuaBuilding));

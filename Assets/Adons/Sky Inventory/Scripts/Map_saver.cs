@@ -818,14 +818,10 @@ public class Map_saver : MonoBehaviour
 
     bool IfSpawn(string itemname)
     {
-        Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
-        if (Demake != null) if (Demake.item != null) if (Demake.item.Count != 0) foreach (string item in Demake.item)
-                    {
-                        if (item == itemname)
-                        {
-                            return false;
-                        }
-                    }
+        if (PolitDate.IsVersionF(politicfreedom.avtoritatian))
+        {
+            return false;
+        }
         return true;
     }
     public void LoadObjects()

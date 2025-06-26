@@ -58,7 +58,7 @@ public class GameData
 
 public enum faceView
 {
-    first ,trid,fourd
+    first ,trid,fourd,sims
 }
 
 public class mover : CustomSaveObject
@@ -507,6 +507,7 @@ public class mover : CustomSaveObject
 #if !UNITY_EDITOR
         dnSpyModer.MainModData.LoadScene();
 #endif
+        point = transform.position;
     }
     [HideInInspector] public Color c1;
     int maxhp2;
@@ -1372,13 +1373,9 @@ public class mover : CustomSaveObject
     }
     bool IfSpawn(string itemname)
     {
-        Demake = JsonUtility.FromJson<ItemDemake>(VarSave.GetString("Demake" + Globalprefs.Reality));
-      if(Demake != null)  if (Demake.item != null) if (Demake.item.Count != 0) foreach (string item in Demake.item)
+        if (PolitDate.IsVersionF(politicfreedom.avtoritatian))
         {
-            if (item == itemname)
-            {
-                return false;
-            }
+            return false;
         }
         return true;
     }
@@ -2350,6 +2347,7 @@ public class mover : CustomSaveObject
    static public Vector3 new_offset;
     int indexpos;
     bool d2d3;
+    Vector3 point;
     GameObject waterscreen;
     GameObject OrtoCam;
     GameObject RespCam;
@@ -2357,7 +2355,23 @@ public class mover : CustomSaveObject
     GameObject _san;
     void Update()
     {
-
+        if (FindFirstObjectByType<SimsMover>())
+        {
+            Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit Hit;
+            if (Physics.Raycast(r,out Hit))
+            {
+                if (Hit.collider!= null)
+                {
+                   if(Input.GetKeyDown(KeyCode.Mouse0)) point = Hit.point;
+                    Vector3 Rotation = point - transform.position;
+                    transform.rotation = Quaternion.LookRotation(Rotation, transform.up);
+                    transform.position += transform.forward * (6f * Time.deltaTime);
+                    transform.Rotate(0, 0, 0);
+                    transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+                }
+            }
+        }
         if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") if (_san.GetComponent<RawImage>() != null)
             {
                 if (_san.GetComponent<RawImage>().texture != null && !sas1)
@@ -2769,7 +2783,7 @@ public class mover : CustomSaveObject
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null) 
         {
-            if(!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
+       if(Camera.main)     if(!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
                 Globalprefs.camera.GetComponent<Camera>().transform.forward)||Globalprefs.Scrensoting)
             {
                 postrender.main().Disable();
@@ -2807,7 +2821,7 @@ public class mover : CustomSaveObject
         }
 
 
-        if (!Globalprefs.Pause) TridFace();
+        if (FindFirstObjectByType<PhotoCapture>()) if (!Globalprefs.Pause) TridFace();
         GameObject[] oxy = GameObject.FindGameObjectsWithTag("oxy");
 
         
@@ -3303,7 +3317,7 @@ public class mover : CustomSaveObject
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
         if (ry != null)
         {
-            if (ry.GetCenterDist() < 1.2f)
+          if(Camera.main)  if (ry.GetCenterDist() < 1.2f)
             {
 
                 movegrag = 1 / transform.localScale.y;
@@ -3596,13 +3610,14 @@ public class mover : CustomSaveObject
 
                             PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
                         }
-                        if (faceViewi == faceView.trid)
-                        {
+                    if (faceViewi == faceView.trid)
+                    {
 
 
-                            HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
-                        }
-                        if (hyperbolicCamera == null)
+                        HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                    }
+                   
+                    if (hyperbolicCamera == null)
                         {
                             if (faceViewi != faceView.fourd)
                             {
@@ -3615,6 +3630,7 @@ public class mover : CustomSaveObject
             }
         }
     }
+    GameObject sas4;
     int maxhp;
     public void death()
     {
@@ -3860,6 +3876,12 @@ public class mover : CustomSaveObject
             {
 
 
+                faceViewi = faceView.sims; Global.MEM.UE(); return;
+            }
+            if (faceViewi == faceView.sims)
+            {
+
+
                 faceViewi = faceView.first; Global.MEM.UE(); return;
             }
         }
@@ -3876,72 +3898,85 @@ public class mover : CustomSaveObject
         }
         if (faceViewi == faceView.trid)
         {
-
-            if (t == null)
-            {
-                t = FindFirstObjectByType<PhotoCapture>().gameObject;
-            }
-
-            SkinManager(); 
-            Ray r = new(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
-            RaycastHit hit1;
-            float distcam = 0;
-            // CamDistanceMult
-            float dist = (6 + distcam)* CamDistanceMult*transform.localScale.y;
-            if (Globalprefs.sit_player) distcam = 5; else distcam = 0;
-            if (UnityEngine.Physics.Raycast(r, out hit1))
-            {
-                if (hit1.collider != null)
+            if (FindFirstObjectByType<PhotoCapture>()) 
                 {
-                    if (hit1.distance < dist)
+                    if (t == null)
                     {
-
-                        PlayerCamera.transform.position = hit1.point;
+                        if (FindFirstObjectByType<PhotoCapture>()) t = FindFirstObjectByType<PhotoCapture>().gameObject;
                     }
-                    if (hit1.distance > dist)
-                    {
 
+                    SkinManager();
+                    Ray r = new(HeadCameraSetup.transform.position, -HeadCameraSetup.transform.forward);
+                    RaycastHit hit1;
+                    float distcam = 0;
+                    // CamDistanceMult
+                    float dist = (6 + distcam) * CamDistanceMult * transform.localScale.y;
+                    if (Globalprefs.sit_player) distcam = 5; else distcam = 0;
+                    if (UnityEngine.Physics.Raycast(r, out hit1))
+                    {
+                        if (hit1.collider != null)
+                        {
+                            if (hit1.distance < dist)
+                            {
+
+                                PlayerCamera.transform.position = hit1.point;
+                            }
+                            if (hit1.distance > dist)
+                            {
+
+                                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
+                            }
+                        }
+                        else
+                        {
+                            PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
+                        }
+                    }
+                    else
+                    {
                         PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
                     }
+
                 }
-                else
+        }
+        if (FindFirstObjectByType<PhotoCapture>()) if (faceViewi == faceView.fourd)
+            {
+                SkinManager();
+                if (t == null)
                 {
-                    PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
+                    t = FindFirstObjectByType<PhotoCapture>().gameObject;
+                }
+                if (t.GetComponent<FreeCam>())
+                {
+
+                }
+                if (!t.GetComponent<FreeCam>())
+                {
+                    if (FindFirstObjectByType<PhotoCapture>()) t.AddComponent<FreeCam>();
                 }
             }
             else
             {
-                PlayerCamera.transform.position = HeadCameraSetup.transform.position - HeadCameraSetup.transform.forward * (dist);
+                if (FindFirstObjectByType<PhotoCapture>())
+                {
+                    if (t == null)
+                    {
+                        if (FindFirstObjectByType<PhotoCapture>()) t = FindFirstObjectByType<PhotoCapture>().gameObject;
+                    }
+                    if (t.GetComponent<FreeCam>())
+                    {
+                        if (FindFirstObjectByType<PhotoCapture>()) Destroy(t.GetComponent<FreeCam>());
+                    }
+                }
+            }
+        if (FindFirstObjectByType<PhotoCapture>()) if (faceViewi == faceView.sims&&sas4==null)
+            {
+                SkinManager();
+
+                sas4 = Instantiate(Resources.Load<GameObject>("Items/SimsEditor"), transform.position, UnityEngine.Quaternion.identity);
+
             }
 
-        }
-        if (faceViewi == faceView.fourd)
-        {
-            SkinManager();
-            if (t == null)
-            {
-                t = FindFirstObjectByType<PhotoCapture>().gameObject;
-            }
-            if (t.GetComponent<FreeCam>())
-            {
-
-            }
-            if (!t.GetComponent<FreeCam>())
-            {
-                t.AddComponent<FreeCam>();
-            }
-        }
-        else
-        {
-            if (t == null)
-            {
-                t = FindFirstObjectByType<PhotoCapture>().gameObject;
-            }
-            if (t.GetComponent<FreeCam>())
-            {
-                Destroy(t.GetComponent<FreeCam>());
-            }
-        }
     }
 
     private void SkinOff()
@@ -4452,7 +4487,7 @@ public class mover : CustomSaveObject
 
                 tsave.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
             }
-            tsave.vive = Camera.main.fieldOfView;
+          if(Camera.main)  tsave.vive = Camera.main.fieldOfView;
 
             tsave.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsave/captert" + SceneManager.GetActiveScene().buildIndex+"/" + Globalprefs.GetTimeline());

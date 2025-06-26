@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum NoscaleParentSettings
 {
-    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10, Rand1MCube = 11, palyerXZ = 12
+    noMove = 0, noRotate = 1, MoveandRotate = 2, palyerY = 3, PlayerRayEnd = 4, PayerCamera = 5,rotateCameraP = 6, PlayerPos = 7, RotPlayer = 8, PatrulPlayer = 9, onlyScale = 10, Rand1MCube = 11, palyerXZ = 12, palyerV3 = 13
 }
 
 public class NoscaleParent : MonoBehaviour
@@ -44,21 +44,28 @@ public class NoscaleParent : MonoBehaviour
         {
             transform.position = new Vector3(mover.main().transform.position.x, transform.position.y, mover.main().transform.position.z);
         }
+        if (settings == NoscaleParentSettings.palyerV3)
+        {
+            transform.position = mover.main().transform.position;
+        }
         if (settings == NoscaleParentSettings.PlayerRayEnd)
         {
             transform.position = MainRay.MainHit.point;
         }
         if (settings == NoscaleParentSettings.PayerCamera)
         {
+            Globalprefs.camera = Camera.main;
             transform.position = Globalprefs.camera.transform.position;
             transform.rotation = Globalprefs.camera.transform.rotation;
         }
         if (settings == NoscaleParentSettings.rotateCameraP)
         {
+            Globalprefs.camera = Camera.main;
             transform.rotation = Quaternion.Lerp(transform.rotation, Globalprefs.camera.transform.rotation, 0.1f);
         }
         if (settings == NoscaleParentSettings.PlayerPos)
         {
+            Globalprefs.camera = Camera.main;
             transform.position = Globalprefs.camera.transform.position;
         }
         if (settings == NoscaleParentSettings.RotPlayer)
