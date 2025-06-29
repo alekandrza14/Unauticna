@@ -2347,12 +2347,38 @@ public class mover : CustomSaveObject
    static public Vector3 new_offset;
     int indexpos;
     bool d2d3;
+    bool waitingact;
+    public static string item;
     Vector3 point;
+    Vector3 apoint;
     GameObject waterscreen;
     GameObject OrtoCam;
     GameObject RespCam;
     GameObject _3DCam;
     GameObject _san;
+    public void moveChange()
+    {
+        point = apoint;
+        waitingact = false;
+    }
+    public void CUSTIOMOBJECTSET()
+    {
+        point = apoint;
+        Invoke("disttoputObject", 1);
+        waitingact = false;
+    }
+    public void disttoputObject()
+    {
+        if (Vector3.Distance(transform.position, point)<5)
+        {
+            CustomObject sensay = Instantiate(Resources.Load<GameObject>("CustomObject"), point, transform.rotation).GetComponent<CustomObject>();
+            sensay.s = item;
+        }
+        else
+        {
+            Invoke("disttoputObject", 1);
+        }
+    }
     void Update()
     {
         if (FindFirstObjectByType<SimsMover>())
@@ -2363,7 +2389,12 @@ public class mover : CustomSaveObject
             {
                 if (Hit.collider!= null)
                 {
-                   if(Input.GetKeyDown(KeyCode.Mouse0)) point = Hit.point;
+                    if (Input.GetKeyDown(KeyCode.Mouse0)&&!waitingact) 
+                    {
+                        Instantiate(Resources.Load<GameObject>("SimsInterfcae"),transform);
+                        apoint = Hit.point;
+                        waitingact = true;
+                    }
                     Vector3 Rotation = point - transform.position;
                     transform.rotation = Quaternion.LookRotation(Rotation, transform.up);
                     transform.position += transform.forward * (6f * Time.deltaTime);
@@ -3875,7 +3906,7 @@ public class mover : CustomSaveObject
             if (faceViewi == faceView.fourd)
             {
 
-
+                point = transform.position;
                 faceViewi = faceView.sims; Global.MEM.UE(); return;
             }
             if (faceViewi == faceView.sims)
