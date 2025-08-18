@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("UnauticnaConsole")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ddbd67b9168d84671e896781f69d5707d0743596")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5fd5ec398c65c14c3c3769a1a0f6a9ff871ec423")]
 [assembly: System.Reflection.AssemblyProductAttribute("UnauticnaConsole")]
 [assembly: System.Reflection.AssemblyTitleAttribute("UnauticnaConsole")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

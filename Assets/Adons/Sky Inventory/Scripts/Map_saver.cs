@@ -1233,7 +1233,7 @@ public class Map_saver : MonoBehaviour
                 {
 
 
-                    if (Global.Random.Chance(2))
+                    if (Global.Random.Chance(6))
                     {
                         for (int i = 0; i < 2; i++)
                         {
@@ -1548,6 +1548,44 @@ public class Map_saver : MonoBehaviour
                                 }
                             }
                         }
+                    }
+                    if (objs.Count < 100)
+                    {
+
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            Ray r = new(m.transform.position + (m.transform.up * 5), Random_vector());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Пуговка"), hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
+
+                        
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            Ray r = new(m.transform.position + (m.transform.up * 5), Random_vector());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(Resources.Load<GameObject>("Items/Grib"), hit.point, Quaternion.identity));
+                                }
+                            }
                     }
 
                     if (objs.Count < 100)

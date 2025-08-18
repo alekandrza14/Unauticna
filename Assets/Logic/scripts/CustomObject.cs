@@ -24,7 +24,7 @@ public enum CustomObjectType
 {
     Object,PlayerScin
 }
-
+[System.Serializable]
 public class CustomObjectData
 {
     public string NameModel;
@@ -94,7 +94,7 @@ public class CustomObjectData
     public string[] TelevizorVideo = new string[0];
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject;
+    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject, selfdup;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -159,6 +159,7 @@ public class CustomObject : CustomSaveObject
        if (PolitDate.IsVersionF(politicfreedom.avtoritatian))  Demokatia = (PolitDate.IsVersionF(politicfreedom.avtoritatian) == (Polit == "AV"));
       if(Demokatia == true)  return Demokatia;
         if (PolitDate.IsVersionF(politicfreedom.lidertatian)) Demokatia = (PolitDate.IsVersionF(politicfreedom.lidertatian) == (Polit == "LIB"));
+        if (PolitDate.IsVersionF(politicfreedom.lidertatian) && PolitDate.IsVersionE(politiceconomic.mind)) Demokatia = true;
         if (Demokatia == true) return Demokatia;
         if (PolitDate.IsVersionF(politicfreedom.NonPositionalian)) Demokatia = (PolitDate.IsVersionF(politicfreedom.NonPositionalian) == (Polit == "ST"));
         if (Demokatia == true) return Demokatia;
@@ -172,7 +173,7 @@ public class CustomObject : CustomSaveObject
     public PolitNode newPolitNode = new PolitNode();
     private void OnDestroy()
     {
-        if (interact)
+        if (interact|| Model.selfdup)
         {
             if (Model.CoReSpawn != null)
             {

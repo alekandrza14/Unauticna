@@ -182,7 +182,11 @@ public class playerdata
     }
     static public void BakeAlleffect()
     {
-        PlayerDNA dna = mover.main().DNA;
+        PlayerDNA dna = new PlayerDNA();
+       if (mover.main()) dna = mover.main().DNA; else
+        {
+            dna.bakeeffects = new();
+        }
         for (int i = 0; i < playerdata.effects.Length; i++)
         {
             if (playerdata.effects[i].effect != "")
@@ -205,7 +209,8 @@ public class playerdata
 
         }
 
-        VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+        if (mover.main()) VarSave.SetString("DNA", JsonUtility.ToJson(mover.main().DNA));
+        if (mover.main()) VarSave.SetString("DNA", JsonUtility.ToJson(dna));
     }
     static public void Addeffect(string name, float secoundstime)
     {
