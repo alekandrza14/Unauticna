@@ -140,7 +140,8 @@ public class GeneratorEnergy : InventoryEvent
             energyData.energy = 1;
         }
         EnergyCounter.text = "Energy : " + energyData.energy + " / " + energyData.maxEnergy;
-        if (AtomEnergyCounter) AtomEnergyCounter.text = energyData.atomenergy.ToString() + "%";
+        if (TypeGenergy == GeneratorEnergyType.atom) if (AtomEnergyCounter) AtomEnergyCounter.text = energyData.atomenergy.ToString() + "%";
+        if (TypeGenergy == GeneratorEnergyType.sigular) if (AtomEnergyCounter) AtomEnergyCounter.text =  "99.999999%";
         if (!string.IsNullOrEmpty(energy))
         {
             if (energyData.time != ComputeMinutes())
@@ -148,7 +149,7 @@ public class GeneratorEnergy : InventoryEvent
 
                 if (energyData.energy < energyData.maxEnergy)
                 {
-                    if (TypeGenergy != GeneratorEnergyType.atom)
+                    if (TypeGenergy != GeneratorEnergyType.sigular) if (TypeGenergy != GeneratorEnergyType.atom)
                     {
                         energyData.energy -= (energyData.time - ComputeMinutes()) * Get_Genenergy_Multyply();
                     }
@@ -158,8 +159,14 @@ public class GeneratorEnergy : InventoryEvent
                         {
                             energyData.atomenergy %= 100;
                             energyData.atomenergy += (energyData.time - ComputeMinutes()) * 1;
-                            energyData.energy -= (energyData.time - ComputeMinutes()) * Get_Genenergy_Multyply(); 
+                            energyData.energy -= (energyData.time - ComputeMinutes()) * Get_Genenergy_Multyply();
                         }
+                    }
+                    if (TypeGenergy == GeneratorEnergyType.sigular)
+                    {
+                        
+                            energyData.energy -= (energyData.time - ComputeMinutes()) * Get_Genenergy_Multyply();
+                        
                     }
                     energyData.time = ComputeMinutes();
 

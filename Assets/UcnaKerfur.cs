@@ -85,14 +85,20 @@ public class UcnaKerfur : MonoBehaviour
                 }
                 if (function == 3)
                 {
-                    Instantiate(Resources.Load("items/Хлеб"),transform.position,Quaternion.identity);
+                    Instantiate(Resources.Load("items/Хлеб"), transform.position, Quaternion.identity);
+                    Globalprefs.LoadTevroPrise(-20);
+                }
+                if (function == 4)
+                {
+                    Instantiate(Resources.Load("items/Ucna_kerfur_наруках"), transform.position, Quaternion.identity);
+                    Destroy(gameObject);
                     Globalprefs.LoadTevroPrise(-20);
                 }
             }
             if (!stat) if (hit.collider.gameObject == gameObject && Input.GetKeyDown(KeyCode.Q))
             {
                 function += 1;
-                if (function > 3)
+                if (function > 4)
                 {
                     function =0;
                 }

@@ -72,6 +72,10 @@ public class spamton : MonoBehaviour
         if (c.collider.GetComponent<Logic_tag_DamageObject>())
         {
             Globalprefs.LoadTevroPrise(- 100);
+            if (VarSave.ExistenceVar("CapiKill"))
+            {
+                VarSave.LoadInt("CapiKill", 1);
+            }
             Destroy(gameObject);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);
             Instantiate(Resources.Load<GameObject>("deathparticles"), gameObject.transform.position, Quaternion.identity);

@@ -517,8 +517,15 @@ public class mover : CustomSaveObject
     public Logic_tag_3[] lt;
     public JsonGame file = new JsonGame();
     public AudioClip voiceResource; RawImage sas; bool sas1; Light[] all;
+    bool Mobile;
+    float timermodile;
     private void Init()
     {
+        if (VarSave.ExistenceVar("CapiKill"))
+        {
+            GameObject g = Resources.Load<GameObject>("ui/quests/killKapitalism");
+            Instantiate(g, transform);
+        }
         _san = new GameObject();
         _san.transform.position = Vector3.left * float.PositiveInfinity;
         _san.AddComponent<RawImage>();
@@ -594,6 +601,8 @@ public class mover : CustomSaveObject
             GameObject g = Resources.Load<GameObject>("WinksPM");
             Instantiate(g, transform);
         }
+        GameObject g6 = Resources.Load<GameObject>("ExportGCPlanForCO");
+        Instantiate(g6, transform);
         if (VarSave.GetBool("UnlockOmniscience", SaveType.computer))
         {
             foreach (GameObject g in Map_saver.t3)
@@ -1341,24 +1350,29 @@ public class mover : CustomSaveObject
             perMorphin = true;
         }
         int Spawnrade = SpawnRadeBonus.m_SpawnRadeBonusList.Count + 1;
-        InvokeRepeating("UpdateTargets", 0, 1);
+        if (PolitDate.IsVersionF(politicfreedom.lidertatian) && PolitDate.IsVersionE(politiceconomic.mind)) Spawnrade += 1;
+            InvokeRepeating("UpdateTargets", 0, 1);
         if ((PolitDate.IsGood(politicfreedom.avtoritatian) && cistalenemy.dies>0) || PolitDate.IsGood(politicfreedom.lidertatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
-            int i7 = UnityEngine.Random.Range(0,11);
+            int i7 = UnityEngine.Random.Range(0,13);
             
 
-                if (i7 == 0)InvokeRepeating("bomjspawn", (60 * 3) / Spawnrade, (60 * 3) / Spawnrade);
-                if (i7 == 1)InvokeRepeating("мгеspawn", (60 * 5) / Spawnrade, (60 * 2.7f) / Spawnrade);
-                if (i7 == 2)InvokeRepeating("kilspawn", (60 * 5) / Spawnrade, (60 * 2.5f) / Spawnrade);
-                if (i7 == 3)InvokeRepeating("Raydspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 4)InvokeRepeating("pirspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 5)InvokeRepeating("Rayhspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 6)InvokeRepeating("spamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 7)InvokeRepeating("hamspawn", (60 * 5) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 8)InvokeRepeating("libspawn", 20 / Spawnrade, 20f / Spawnrade);
-                if (i7 == 9)InvokeRepeating("Ultralibspawn", 10 / Spawnrade, 10f / Spawnrade);
-                if (i7 == 10)InvokeRepeating("LeftAnarhistspawn", 10 / Spawnrade, 10f / Spawnrade);
+                if (i7 == 0)InvokeRepeating("bomjspawn", (60 * 3f) / Spawnrade, (60 * 3) / Spawnrade);
+                if (i7 == 1)InvokeRepeating("мгеspawn", (60 * 5f) / Spawnrade, (60 * 2.7f) / Spawnrade);
+                if (i7 == 2)InvokeRepeating("kilspawn", (60 * 5f) / Spawnrade, (60 * 2.5f) / Spawnrade);
+                if (i7 == 3)InvokeRepeating("Raydspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 4)InvokeRepeating("pirspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 5)InvokeRepeating("Rayhspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 6)InvokeRepeating("spamspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+            if (i7 == 7) InvokeRepeating("hamspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+            if (i7 == 8) InvokeRepeating("Karavanspawn", (10f) / Spawnrade, (60 * 2f) / Spawnrade);
+            if (i7 == 9)InvokeRepeating("libspawn", 20f / Spawnrade, 20f / Spawnrade);
+                if (i7 == 10)InvokeRepeating("Ultralibspawn", 10f / Spawnrade, 10f / Spawnrade);
+            if (i7 == 11) InvokeRepeating("LeftAnarhistspawn", 10f / Spawnrade, 10f / Spawnrade);
+            if (i7 == 12) InvokeRepeating("Plantspawn", 10f / Spawnrade, 10f / Spawnrade);
+            InvokeRepeating("NAKOMANightmares", 10f / Spawnrade, 10f / Spawnrade);
         }
+      //  Invoke("Karavanspawn", 10f / Spawnrade);
         //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
         {
@@ -1380,6 +1394,25 @@ public class mover : CustomSaveObject
         return true;
     }
     //РейдерГипопотам
+    void NAKOMANightmares()
+    {
+        //Чёрное_радио
+       
+                  
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/БоссАруаРастрахиватель"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+        
+    }
     void bomjspawn()
     {
         //Чёрное_радио
@@ -1402,30 +1435,11 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
-         if (IfSpawn("Чёрное_радио")) if (Global.Random.Chance(2))
-                {
-                    if (UnityEngine.Random.Range(0, 35) < 1)
-                    {
-                        SceneManager.LoadScene("Donat");
-                    }
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Ray r = new(transform.position + (transform.up * 40), randommaze());
-                        RaycastHit hit;
-                        if (Physics.Raycast(r, out hit))
-                        {
-                            if (hit.collider != null)
-                            {
-                                Instantiate(Resources.Load<GameObject>("Items/Чёрное_радио"), hit.point, Quaternion.identity);
-                            }
-                        }
-                    }
-                }
-        if (!VarSave.ExistenceVar("одинСпамтонРеламотр" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (!VarSave.ExistenceVar("Служба выполнена!")) if (IfSpawn("spamtonAnarhyUMUVoencom")) if (Global.Random.Chance(2))
+        if (IfSpawn("Чёрное_радио")) if (Global.Random.Chance(2))
             {
                 if (UnityEngine.Random.Range(0, 35) < 1)
                 {
-                    SceneManager.LoadScene("Donat");//почини или похуй! я не знаю не уверен был полностью в полнонужности это го контента я больше хотел раздражать людей сложностью игры чем была аудитория готовая плотить деньги? ок понятно бюрократы просто приближаються и я не готов требовать деньги с игроков и не известная посанкция работаетли монитизация? ок если будет лучьше помогут незнаю правда настольты лучше? ладно спасибо спамтон! пожалуйста!
+                    SceneManager.LoadScene("Donat");
                 }
                 for (int i = 0; i < 6; i++)
                 {
@@ -1435,11 +1449,30 @@ public class mover : CustomSaveObject
                     {
                         if (hit.collider != null)
                         {
-                            Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
+                            Instantiate(Resources.Load<GameObject>("Items/Чёрное_радио"), hit.point, Quaternion.identity);
                         }
                     }
                 }
             }
+        if (!VarSave.ExistenceVar("одинСпамтонРеламотр" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (!VarSave.ExistenceVar("Служба выполнена!")) if (IfSpawn("spamtonAnarhyUMUVoencom")) if (Global.Random.Chance(2))
+                    {
+                        if (UnityEngine.Random.Range(0, 35) < 1)
+                        {
+                            SceneManager.LoadScene("Donat");//почини или похуй! я не знаю не уверен был полностью в полнонужности это го контента я больше хотел раздражать людей сложностью игры чем была аудитория готовая плотить деньги? ок понятно бюрократы просто приближаються и я не готов требовать деньги с игроков и не известная посанкция работаетли монитизация? ок если будет лучьше помогут незнаю правда настольты лучше? ладно спасибо спамтон! пожалуйста!
+                        }
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/spamtonAnarhyUMUVoencom"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
     }
     void Raydspawn()
     {
@@ -1462,6 +1495,50 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
+    }
+    void Karavanspawn()
+    {
+
+        {
+            if (UnityEngine.Random.Range(0, 300) < 1)
+            {
+                SceneManager.LoadScene("Donat");
+            }
+            for (int i = 0; i < 6; i++)
+            {
+                Ray r = new(transform.position + (transform.up * 500), randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(Resources.Load<GameObject>("Items/Караван"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
+    }
+    void Plantspawn()
+    {
+
+        {
+            if (UnityEngine.Random.Range(0, 300) < 1)
+            {
+                SceneManager.LoadScene("Donat");
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                Ray r = new(transform.position + (transform.up * 500), randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        Instantiate(Resources.Load<GameObject>("Items/Grib"), hit.point, Quaternion.identity);
+                    }
+                }
+            }
+        }
     }
     void Rayhspawn()
     {
@@ -2379,8 +2456,23 @@ public class mover : CustomSaveObject
             Invoke("disttoputObject", 1);
         }
     }
+    Vector2 oldprivate;
+    Vector2 newprivate;
     void Update()
     {
+        if(!Mobile) timermodile += Time.deltaTime;
+        newprivate = Input.mousePosition;
+        if (oldprivate != newprivate)
+        {
+            oldprivate = newprivate;
+            timermodile = 0;
+        }
+        if (timermodile > 13)
+        {
+            Instantiate(Resources.Load<GameObject>("Items/Mobile"));
+            Mobile =true;
+            timermodile = 0;
+        }
         if (FindFirstObjectByType<SimsMover>())
         {
             Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -4114,6 +4206,8 @@ public class mover : CustomSaveObject
     bool _n1fps;
     bool soveVision;
     bool allVision;
+    bool noVision;
+    GameObject nov;
     bool god;
     Vector3 uniepos;
     private void EffectUpdate()
@@ -4283,6 +4377,22 @@ public class mover : CustomSaveObject
         {
 
             soveVision = false;
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("novision") != null)
+        {
+
+            if (!noVision)
+            {
+                nov = Instantiate(Resources.Load<GameObject>("NoVision"));
+                noVision = true;
+            }
+            //playermatinvisible
+        }
+        if (playerdata.Geteffect("novision") == null)
+        {
+            Destroy(nov);
+            noVision = false;
             //playermatinvisible
         }
         if (playerdata.Geteffect("Все Зрение") != null)

@@ -2382,6 +2382,54 @@ public class ElementalInventory : MonoBehaviour {
             lowitem("Летун", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Pizza") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            VarSave.LoadMoney("Meats", 1);
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Pizza", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Пиво") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            VarSave.LoadMoney("Meats", 1);
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Пиво", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Лепёха") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+
+            //  Instantiate(Resources.Load("voices/belock"));
+
+            VarSave.LoadMoney("Meats", 1);
+
+
+            VarSave.LoadFloat("mana", 1f);
+            lowitem("Лепёха", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
         //Борщ
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Борщ") != 0 && main() == this)
         {
@@ -2993,6 +3041,20 @@ public class ElementalInventory : MonoBehaviour {
 
 
             lowitem("AppleJuice", "");
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+        if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("WarQuest") != 0 && main() == this)
+        {
+
+
+            GameManager.saveandhill();
+
+            VarSave.LoadFloat("mana", 1f);
+            GameObject g = Resources.Load<GameObject>("ui/quests/killKapitalism");
+            Instantiate(g, g.transform); 
+            VarSave.LoadInt("CapiKill", 0);
+
+            lowitem("WarQuest", "");
             GlobalInputMenager.KeyCode_eat = 0;
         }
 
