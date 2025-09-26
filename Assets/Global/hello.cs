@@ -30,8 +30,17 @@ public class hello
         public static void LoadApplication(string app)
         {
             Process p = new Process();
-            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\"+app+".exe";
-            if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\"+app+".exe"))
+            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\" + app + ".exe";
+            if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\" + app + ".exe"))
+            {
+                p.Start();
+            }
+        }
+        public static void LoadAHKMacros(string app)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\res\scripts\" + app + ".exe";
+            if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\res\scripts\" + app + ".exe"))
             {
                 p.Start();
             }

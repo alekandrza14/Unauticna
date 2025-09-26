@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System;
 using System.Runtime.InteropServices;
+using Photon.Pun;
+using MoonSharp.Interpreter;
 
 
 public class PlayerData
@@ -499,16 +501,36 @@ public class mover : CustomSaveObject
         VarSave.SetFloat("reason", reason);
     }
 
+    public GameObject _player;
     //Пробуждение кода
     private void Awake()
     {
-        Init();
+        if (PhotonNetwork.IsConnected) 
+        {
+            if (!GetComponent<PhotonView>())
+            {
+
+                PhotonNetwork.Instantiate(_player.name, transform.position, Quaternion.identity);
+                Invoke("selfDest",0);
+            }
+            if (GetComponent<PhotonView>()) if (GetComponent<PhotonView>().IsMine) Init();
+        }
+        else
+        {
+            if (!GetComponent<PhotonView>()) Init();
+        }
         //  DNA = JsonUtility.FromJson
 #if !UNITY_EDITOR
         dnSpyModer.MainModData.LoadScene();
 #endif
         point = transform.position;
     }
+
+    public void selfDest()
+    {
+        Destroy(gameObject);
+    }
+
     [HideInInspector] public Color c1;
     int maxhp2;
     int regen;
@@ -519,6 +541,7 @@ public class mover : CustomSaveObject
     public AudioClip voiceResource; RawImage sas; bool sas1; Light[] all;
     bool Mobile;
     float timermodile;
+    GameObject unityedit;
     private void Init()
     {
         if (VarSave.ExistenceVar("CapiKill"))
@@ -1354,7 +1377,7 @@ public class mover : CustomSaveObject
             InvokeRepeating("UpdateTargets", 0, 1);
         if ((PolitDate.IsGood(politicfreedom.avtoritatian) && cistalenemy.dies>0) || PolitDate.IsGood(politicfreedom.lidertatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
-            int i7 = UnityEngine.Random.Range(0,13);
+            int i7 = UnityEngine.Random.Range(0,14);
             
 
                 if (i7 == 0)InvokeRepeating("bomjspawn", (60 * 3f) / Spawnrade, (60 * 3) / Spawnrade);
@@ -1370,15 +1393,108 @@ public class mover : CustomSaveObject
                 if (i7 == 10)InvokeRepeating("Ultralibspawn", 10f / Spawnrade, 10f / Spawnrade);
             if (i7 == 11) InvokeRepeating("LeftAnarhistspawn", 10f / Spawnrade, 10f / Spawnrade);
             if (i7 == 12) InvokeRepeating("Plantspawn", 10f / Spawnrade, 10f / Spawnrade);
+            if (i7 == 13) InvokeRepeating("libertaectspawn", 10f / Spawnrade, 10f / Spawnrade);
             InvokeRepeating("NAKOMANightmares", 10f / Spawnrade, 10f / Spawnrade);
+            //libertaectspawn()
         }
-      //  Invoke("Karavanspawn", 10f / Spawnrade);
+        //  Invoke("Karavanspawn", 10f / Spawnrade);
         //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
         {
             SceneManager.LoadScene("Donat");
         }
 
+    }
+    public static string curbutton;
+    List<float> TimeButtonMacros = new List<float>();
+    public List<string> Key = new List<string>();
+    int patrn = 0;
+    public void LoadLuaLogicMacros(string loadedCode)
+    {
+        TimeButtonMacros = new();
+        Key = new();
+        //   string scriptCode = @"    
+        //	-- defines a Jump function
+        //	function Jump (time)
+        //		if (time>= 1) then
+        //			return 1
+        //       else
+        //           return 0
+        //		end
+        //	end";
+        UserData.RegisterType<List<float>>();
+        UserData.RegisterType<List<string>>();
+        Script script = new Script();
+        script.Globals["_time"] = TimeButtonMacros;
+        script.Globals["_key"] = Key;
+        script.DoString(loadedCode);
+
+
+        DynValue luaFactFunction = script.Globals.Get("Time");
+
+        DynValue res = script.Call(luaFactFunction, new object[]
+        {
+            ((double)patrn)
+        }
+        );
+        DynValue luaFactFunction2 = script.Globals.Get("Key");
+
+        DynValue res2 = script.Call(luaFactFunction2, new object[]
+        {
+            ((double)patrn)
+        }
+        );
+
+
+
+        if (res.UserData.Object != null)
+        {
+            TimeButtonMacros = (List<float>)res.UserData.Object;
+        }
+        if (res2.UserData.Object != null)
+        {
+            Key = (List<string>)res2.UserData.Object;
+        }
+        patrn++;
+
+
+
+
+    }
+    float timer13;
+    public void IRMacros()
+    {
+        timer13 += 0.01f;
+        if (TimeButtonMacros.Count!= 0)
+        {
+            if (timer13 > TimeButtonMacros[0])
+            {
+                curbutton = Key[0];
+                TimeButtonMacros.Remove(TimeButtonMacros[0]);
+                Key.Remove(Key[0]);
+                timer13 = 0;
+            }
+        }
+        else
+        {
+            curbutton = "";
+        }
+    }
+    public static bool Input_GetKeyMacros(string key)
+    {
+        return key == curbutton;
+    }
+    public List<Vector3> BuildPosition(List<float> vec)
+    {
+        List<Vector3> vec3 = new List<Vector3>();
+        for (int i = 0; i < vec.Count; i += 3)
+        {
+
+            vec3.Add(new(vec[i], vec[i + 1], vec[i + 2]));
+
+
+        }
+        return vec3;
     }
     Vector3 randommaze()
     {
@@ -1491,6 +1607,25 @@ public class mover : CustomSaveObject
                             if (hit.collider != null)
                             {
                                 Instantiate(Resources.Load<GameObject>("Items/РейдерГипопотам"), hit.point, Quaternion.identity);
+                            }
+                        }
+                    }
+                }
+        if (IfSpawn("Литунка")) if (!lml2.Find()) if (Global.Random.Chance(2))
+                {
+                    if (UnityEngine.Random.Range(0, 9) < 1)
+                    {
+                        SceneManager.LoadScene("Donat");
+                    }
+                    for (int i = 0; i < 6; i++)
+                    {
+                        Ray r = new(transform.position + (transform.up * 40), randommaze());
+                        RaycastHit hit;
+                        if (Physics.Raycast(r, out hit))
+                        {
+                            if (hit.collider != null)
+                            {
+                                Instantiate(Resources.Load<GameObject>("Items/Литунка"), hit.point, Quaternion.identity);
                             }
                         }
                     }
@@ -1771,6 +1906,27 @@ public class mover : CustomSaveObject
             }
         }
     }
+    void libertaectspawn()
+    {
+        if (IfSpawn("LGBTTerorist")) if (!lml1.Find()) 
+                {
+                    if (Global.Random.Chance(5))
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            Ray r = new(transform.position + (transform.up * 40), randommaze());
+                            RaycastHit hit;
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    Instantiate(Resources.Load<GameObject>("Items/LGBTTerorist"), hit.point, Quaternion.identity);
+                                }
+                            }
+                        }
+                    }
+                }
+    }
     void libspawn()
     {
         if (IfSpawn("либирист")) if (!lml1.Find()) if (VarSave.ExistenceVar("libirist"))
@@ -1791,6 +1947,7 @@ public class mover : CustomSaveObject
                         }
                     }
                 }
+      
         if (IfSpawn("КрашащаяФиминистка")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВредФиминисткам"))
                 {
                     if (Global.Random.Chance(5))
@@ -2460,7 +2617,30 @@ public class mover : CustomSaveObject
     Vector2 newprivate;
     void Update()
     {
-        if(!Mobile) timermodile += Time.deltaTime;
+        if (PhotonNetwork.IsConnected)
+        {
+            if (GetComponent<PhotonView>())
+            {
+                if (GetComponent<PhotonView>().IsMine)
+                {
+                    Mulyp();
+                }
+                else
+                {
+                    HeadCameraSetup.AddComponent<DELETE>();
+                    Destroy(this);
+                }
+            }
+        }
+        if (!PhotonNetwork.IsConnected)
+        {
+            Mulyp();
+        }
+    }
+
+    private void Mulyp()
+    {
+        if (!Mobile) timermodile += Time.deltaTime;
         newprivate = Input.mousePosition;
         if (oldprivate != newprivate)
         {
@@ -2470,20 +2650,20 @@ public class mover : CustomSaveObject
         if (timermodile > 13)
         {
             Instantiate(Resources.Load<GameObject>("Items/Mobile"));
-            Mobile =true;
+            Mobile = true;
             timermodile = 0;
         }
         if (FindFirstObjectByType<SimsMover>())
         {
             Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit Hit;
-            if (Physics.Raycast(r,out Hit))
+            if (Physics.Raycast(r, out Hit))
             {
-                if (Hit.collider!= null)
+                if (Hit.collider != null)
                 {
-                    if (Input.GetKeyDown(KeyCode.Mouse0)&&!waitingact) 
+                    if (Input.GetKeyDown(KeyCode.Mouse0) && !waitingact)
                     {
-                        Instantiate(Resources.Load<GameObject>("SimsInterfcae"),transform);
+                        Instantiate(Resources.Load<GameObject>("SimsInterfcae"), transform);
                         apoint = Hit.point;
                         waitingact = true;
                     }
@@ -2495,24 +2675,28 @@ public class mover : CustomSaveObject
                 }
             }
         }
-        if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") if (_san.GetComponent<RawImage>() != null)
-            {
-                if (_san.GetComponent<RawImage>().texture != null && !sas1)
-                {
-                    foreach (Light light in all)
+        if (_san) if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") if (_san.GetComponent<RawImage>() != null)
                     {
-                        light.cookie = _san.GetComponent<RawImage>().texture;
-                        sas1 = true;
+                        if (_san.GetComponent<RawImage>().texture != null && !sas1)
+                        {
+                            foreach (Light light in all)
+                            {
+                                light.cookie = _san.GetComponent<RawImage>().texture;
+                                sas1 = true;
+                            }
+                        }
                     }
-                }
-            }
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+         if(!unityedit)  unityedit = Instantiate(Resources.Load<GameObject>("UnityEditor"), mover.main().transform); else Destroy(unityedit);
+        }
         if (PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
             if (Input.GetKeyDown(KeyCode.F7))
             {
                 AAANonPoisionaldnSpyVariables.FunctionDNSpy();
             }
-            if(Globalprefs.Pause) GostUpdate();
+            if (Globalprefs.Pause) GostUpdate();
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Application.OpenURL("res");
@@ -2529,7 +2713,7 @@ public class mover : CustomSaveObject
                 process.Start();
             }
         }
-        if (PolitDate.IsGood(politicfreedom.avtoritatian)|| PolitDate.IsGood(politicfreedom.NonPositionalian))
+        if (PolitDate.IsGood(politicfreedom.avtoritatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
@@ -2598,7 +2782,7 @@ public class mover : CustomSaveObject
             }
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                if (playerdata.Geteffect("AutoRun") == null) 
+                if (playerdata.Geteffect("AutoRun") == null)
                 {
                     playerdata.Addeffect("AutoRun", float.PositiveInfinity);
                 }
@@ -2632,7 +2816,23 @@ public class mover : CustomSaveObject
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            VarSave.LoadFloat("luck", my_cpp_pluss((long)VarSave.LoadFloat("luck",0), (long)VarSave.LoadFloat("luck", 0)));
+            VarSave.LoadFloat("luck", my_cpp_pluss((long)VarSave.LoadFloat("luck", 0), (long)VarSave.LoadFloat("luck", 0)));
+        }
+        if (PhotonNetwork.IsConnected)
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                itemName[] items = FindObjectsByType<itemName>(sortmode.main);
+                GameObject res = Resources.Load<GameObject>("MultyplayerItemLoader");
+                foreach (itemName item in items)
+                {
+                    LoadItemMultp lim = PhotonNetwork.Instantiate(res.name, item.transform.position, item.transform.rotation).GetComponent<LoadItemMultp>();
+                    if(lim.GetComponent<PhotonView>().IsMine)
+                    {
+                        lim.GetComponent<PhotonView>().RPC("ChangeObject", RpcTarget.All, "Items/"+ item.name.Replace("(Clone)",""));
+                    }
+                }
+            }
         }
         if (FindAnyObjectByType<taktikpoint>() == null && FindAnyObjectByType<TeleportButton>() != null)
         {
@@ -2648,7 +2848,7 @@ public class mover : CustomSaveObject
                 tals.Add((TalantDNA)DNA.talant[1]);
                 foreach (TalantDNA item in tals)
                 {
-                  
+
                     if (item == TalantDNA.KillGod)
                     {
                         DeadGod = true;
@@ -2678,7 +2878,7 @@ public class mover : CustomSaveObject
         metka = UpdateTargets();
         E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);
         cc = new List<Vector3>();
-        RaycastHit hit = MainRay.MainHit; 
+        RaycastHit hit = MainRay.MainHit;
         if (Input.GetKeyDown(KeyCode.Q) && !Globalprefs.Pause)
         {
             GameObject g = Resources.Load<GameObject>("Items/Piss");
@@ -2826,24 +3026,24 @@ public class mover : CustomSaveObject
         foreach (E3CustomCenter item in e3cc)
         {
             cc.Add(item.transform.position);
-           
+
         }
         Vector3 pos = transform.position;
 
         float dist = float.PositiveInfinity;
-        
-        for (int i =0;i<cc.Count; i++)
+
+        for (int i = 0; i < cc.Count; i++)
         {
             if (dist > Vector3.Distance(pos, cc[i]))
             {
                 dist = Vector3.Distance(pos, cc[i]);
                 indexpos = i;
-           //   ct = true;
+                //   ct = true;
             }
         }
         if (cc.Count > 0) { new_center = pos - cc[indexpos]; new_offset = cc[indexpos]; } else { new_center = pos; new_offset = Vector3.zero; }
         Globalprefs.customcenter = new_offset;
-            Globalprefs.Reality = VarSave.GetTrash("RealityX");
+        Globalprefs.Reality = VarSave.GetTrash("RealityX");
         if (N_position.Count > 7)
         {
             if (N_position[7] > 6.9f && N_position[7] < 7.9f && !SuperMind)
@@ -2897,27 +3097,27 @@ public class mover : CustomSaveObject
         }
         foreach (string _script in Globalprefs.SelfFunctions)
         {
-            script.Use(_script,script.Lost_Magic_obj);
+            script.Use(_script, script.Lost_Magic_obj);
             Globalprefs.KomplexX++;
-            Globalprefs.KomplexY*=2;
+            Globalprefs.KomplexY *= 2;
         }
         TimeSave();
         //авто-Пост-Ренбер
         PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
-        if (ry != null) 
+        if (ry != null)
         {
-       if(Camera.main)     if(!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
-                Globalprefs.camera.GetComponent<Camera>().transform.forward)||Globalprefs.Scrensoting)
-            {
-                postrender.main().Disable();
-                Globalprefs.RaymarchOn = false;
-            }
-            else
-            {
+            if (Camera.main) if (!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
+                     Globalprefs.camera.GetComponent<Camera>().transform.forward) || Globalprefs.Scrensoting)
+                {
+                    postrender.main().Disable();
+                    Globalprefs.RaymarchOn = false;
+                }
+                else
+                {
 
-                postrender.main().Enable();
-                Globalprefs.RaymarchOn = true;
-            }
+                    postrender.main().Enable();
+                    Globalprefs.RaymarchOn = true;
+                }
 
         }
         //авто-Пост-Ренбер
@@ -2933,8 +3133,8 @@ public class mover : CustomSaveObject
 
             gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
         }
-       if(playerdata.counteffect()>0) if (!Globalprefs.Pause || _n1fps) EffectUpdate();
-        if (File.Exists("unsave/capterg/" + SaveFileInputField.text ) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
+        if (playerdata.counteffect() > 0) if (!Globalprefs.Pause || _n1fps) EffectUpdate();
+        if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
         {
             gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             string s = "";
@@ -2947,7 +3147,7 @@ public class mover : CustomSaveObject
         if (FindFirstObjectByType<PhotoCapture>()) if (!Globalprefs.Pause) TridFace();
         GameObject[] oxy = GameObject.FindGameObjectsWithTag("oxy");
 
-        
+
         bool toxy = oxy.Length > 0;
         bool nonoxy = oxy.Length == 0;
         if (toxy)
@@ -2958,10 +3158,10 @@ public class mover : CustomSaveObject
         {
             if (nonoxy)
             {
-             if (!waterscreen)   waterscreen = Instantiate(Resources.Load<GameObject>("ui/Screens/Water").gameObject, transform.position, Quaternion.identity);
+                if (!waterscreen) waterscreen = Instantiate(Resources.Load<GameObject>("ui/Screens/Water").gameObject, transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
             }
-            
+
             oxygen -= Time.deltaTime;
         }
         if (InWater == false && oxygen <= 5)
@@ -2982,7 +3182,7 @@ public class mover : CustomSaveObject
 
             Destroy(waterscreen);
         }
-            ParticleSystem[] ps = GameObject.FindObjectsByType<ParticleSystem>(sortmode.main);
+        ParticleSystem[] ps = GameObject.FindObjectsByType<ParticleSystem>(sortmode.main);
         if (VarSave.GetBool("partic") && ps.Length > 0)
         {
             DestroyImmediate(ps[0].gameObject);
@@ -2991,7 +3191,7 @@ public class mover : CustomSaveObject
         if (!Globalprefs.Pause) HpUpdate();
 
         WorldSave.SetMusic(SceneManager.GetActiveScene().name);
-        
+
 
         if (!Globalprefs.Pause) MoveUpdate();
 
@@ -3000,9 +3200,9 @@ public class mover : CustomSaveObject
         //Mouse ScrollWheel
         if (lt.Length != 0)
         {
-           lt[0].GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
+            lt[0].GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
-     if (!Globalprefs.LockRotate)   PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
+        if (!Globalprefs.LockRotate) PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
         Globalprefs.camera.fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         Globalprefs.camera.fieldOfView *= 1;
         save.angularvelosyty = rigidbody3d.angularVelocity;
@@ -3090,6 +3290,7 @@ public class mover : CustomSaveObject
 
         if (!Globalprefs.Pause) Creaive();
     }
+
     decimal timer2 = 0; decimal timer5 = 0;
     decimal timer8 = 0;
     decimal timer6 = 0; decimal timer7 = 0;
@@ -3491,9 +3692,12 @@ public class mover : CustomSaveObject
                     transform.Translate(Vector3.forward * 4 * transform.localScale.y); ftho = 0;
                 }
             }
-
-            float deltaX = Input.GetAxis("Horizontal") * (Speed * (1f / movegrag));
-            float deltaZ = Input.GetAxis("Vertical") * (Speed * (1f / movegrag));
+            float macrosX = (Input_GetKeyMacros("a") ? 1 : 0) + (Input_GetKeyMacros("d") ? -1 : 0);
+            float macrosZ = (Input_GetKeyMacros("w") ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0);
+            float macrosMy = (Input_GetKeyMacros("MY+") ? 1 : 0) + (Input_GetKeyMacros("MY-") ? -1 : 0);
+            float macrosMx = (Input_GetKeyMacros("MX+") ? 1 : 0) + (Input_GetKeyMacros("MY-") ? -1 : 0);
+            float deltaX = (Input.GetAxis("Horizontal")+ macrosX) * (Speed * (1f / movegrag));
+            float deltaZ = (Input.GetAxis("Vertical") + macrosZ )* (Speed * (1f / movegrag));
             //AutoRun
             //AutoRotate
             if (playerdata.Geteffect("AutoRun") != null)
@@ -3623,7 +3827,13 @@ public class mover : CustomSaveObject
             float deltaSumXZ = deltaX + deltaZ;
 
             //  if(deltaSumXZ == 0) rigidbody3d.velocity = Vector3.zero;
-            
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                animator.SetTrigger("uhov");
+
+                GameObject g3 = Resources.Load<GameObject>("voices/мяу");
+                Instantiate(g3, (Vector3.up), Quaternion.identity); 
+            }
                 animator.SetFloat("MoveVelosity", deltaSumXZ + .5f);
             
             if (LateInWater != InWater)
@@ -3690,20 +3900,20 @@ public class mover : CustomSaveObject
                         {
 
 
-                            PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
+                            PlayerCamera.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")) * 2, 0, 0));
                         }
                         if (faceViewi == faceView.trid)
                         {
 
 
-                            HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                            HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") ) * 2, 0, 0);
                         }
                         if (hyperbolicCamera == null)
                         {
                             if (faceViewi != faceView.fourd)
                             {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") ) * 2, 0));
                             }
                         }
                         else if(!hyperbolicCamera.gameObject.activeSelf)
@@ -3711,7 +3921,7 @@ public class mover : CustomSaveObject
                             if (faceViewi != faceView.fourd)
                             {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
+                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") ) * 2, 0));
                             }
                         }
 
@@ -3726,31 +3936,53 @@ public class mover : CustomSaveObject
             {
                 if (!Globalprefs.LockRotate)
                 {
-                        Cursor.lockState = CursorLockMode.Locked;
-                        if (faceViewi == faceView.first)
-                        {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    if (faceViewi == faceView.first)
+                    {
 
 
-                            PlayerCamera.transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y") * 2, 0, 0));
-                        }
+                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") ) * 2, 0, 0);
+                    }
                     if (faceViewi == faceView.trid)
                     {
 
 
-                        HeadCameraSetup.transform.Rotate(-Input.GetAxis("Mouse Y") * 2, 0, 0);
+                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") ) * 2, 0, 0);
                     }
-                   
-                    if (hyperbolicCamera == null)
-                        {
-                            if (faceViewi != faceView.fourd)
-                            {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * 2, 0));
-                            }
+                    if (hyperbolicCamera == null)
+                    {
+                        if (faceViewi != faceView.fourd)
+                        {
+
+                            PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X")) * 2, 0));
                         }
+                    }
 
                 }
             }
+                    if (faceViewi == faceView.first)
+                    {
+
+
+                        HeadCameraSetup.transform.Rotate(macrosMy * 2, 0, 0);
+                    }
+                    if (faceViewi == faceView.trid)
+                    {
+
+
+                        HeadCameraSetup.transform.Rotate(macrosMy * 2, 0, 0);
+                    }
+
+                    if (hyperbolicCamera == null)
+                    {
+                        if (faceViewi != faceView.fourd)
+                        {
+
+                            PlayerBody.transform.Rotate(new Vector3(0, macrosMx * 2, 0));
+                        }
+                    }
+
         }
     }
     GameObject sas4;

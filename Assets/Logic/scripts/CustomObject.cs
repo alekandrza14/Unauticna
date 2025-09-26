@@ -92,6 +92,7 @@ public class CustomObjectData
     public Vector3[] TelevizorScale = new Vector3[1];
     public Quaternion[] TelevizorRot = new Quaternion[1];
     public string[] TelevizorVideo = new string[0];
+    public string TextureTarget;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
     public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject, selfdup;
@@ -109,6 +110,7 @@ public class CustomObject : CustomSaveObject
     public Vector2[] uvs;
     public string s;
     public bool saved;
+    public bool SaticForm;
     public bool Imsaveble;
     public LayerMask Mashime;
     public CustomObjectData Model = new CustomObjectData();
@@ -245,12 +247,14 @@ public class CustomObject : CustomSaveObject
             obj.AddComponent<MeshFilter>().sharedMesh = newMesh;
             obj.AddComponent<MeshCollider>().sharedMesh = newMesh;
             obj.GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
+            obj.AddComponent<MeshRenderer>();
+            obj.GetComponent<MeshRenderer>().material.color = Model.m_Colors[i];
             if (obj.GetComponent<MeshRenderer>()) if(Model.LoadingMaterials!=null)  if (Model.LoadingMaterials.Length > 0) 
             {
                 Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
-                obj.GetComponent<MeshRenderer>().material = newMaterial2;
+                        newMaterial2.color = Model.m_Colors[i];
+                        obj.GetComponent<MeshRenderer>().material = newMaterial2;
             }
-            obj.AddComponent<MeshRenderer>().material.color = Model.m_Colors[i];
             if (Model.DamgeObject)
             {
                 obj.AddComponent<Logic_tag_DamageObject>();
@@ -278,16 +282,20 @@ public class CustomObject : CustomSaveObject
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
         transform.localScale = Model.scale;
-        Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
-        if (!newMaterial) 
+        if (!SaticForm) 
         {
-            GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+            Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
+            if (!newMaterial)
+            {
+                GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material = newMaterial;
+            }
         }
-        else
-        {
-            GetComponent<MeshRenderer>().material = newMaterial;
-        }
-        GetComponent<MeshRenderer>().material.color = Model._Color;
+            GetComponent<MeshRenderer>().material.color = Model._Color;
+        
         name = s + "(Clone)";
     }
     public void rcs()
@@ -481,18 +489,23 @@ public class CustomObject : CustomSaveObject
             }
         }
         if (Model.TexutersDoomModel != null) if (Model.TexutersDoomModel.LongLength > 0)
-        {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("DoomCharactor"), transform.position, transform.rotation, transform);
-            coModule = obj.GetComponent<COModule>();
-            test = new List<RawImage>();
-            for (int i = 0; i < Model.TexutersDoomModel.LongLength; i++)
             {
-                GameObject objact = Instantiate(Resources.Load<GameObject>("point"), transform);
-                RawImage s = objact.AddComponent<RawImage>();
-                test.Add(s);
-                StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder(Model.TexutersDoomModel[i], s));
+                GameObject obj = Instantiate(Resources.Load<GameObject>("DoomCharactor"), transform.position, transform.rotation, transform);
+                coModule = obj.GetComponent<COModule>();
+                test = new List<RawImage>();
+                for (int i = 0; i < Model.TexutersDoomModel.LongLength; i++)
+                {
+                    GameObject objact = Instantiate(Resources.Load<GameObject>("point"), transform);
+                    RawImage s = objact.AddComponent<RawImage>();
+                    test.Add(s);
+                    StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder(Model.TexutersDoomModel[i], s));
+                }
+                Invoke("Void", 5);
             }
-            Invoke("Void",5);
+     if(!string.IsNullOrEmpty(Model.TextureTarget))   if (Model.TextureTarget != null) 
+        {
+            GameObject obj = Instantiate(Resources.Load<GameObject>("CustomMetka"), transform.position, transform.rotation, transform);
+            obj.GetComponent<CustomTextonMaterial>().CoTex = Model.TextureTarget;
         }
 
 

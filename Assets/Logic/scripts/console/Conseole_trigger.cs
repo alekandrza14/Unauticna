@@ -301,6 +301,18 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "65";
             }
+            if (s[0] == "UnityEditor")
+            {
+                a = "66";
+            }
+            if (s[0] == "ExeMacros")
+            {
+                a = "67";
+            }
+            if (s[0] == "LuaMacros")
+            {
+                a = "68";
+            }
             if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
             {
@@ -1218,7 +1230,21 @@ public class Conseole_trigger : MonoBehaviour
             }
             if (i == 1 && a == "65")
             {
-                File.WriteAllText("res/UserWorckspace/Iterface/"+ s[1]+".json",JsonUtility.ToJson(new Interface()));
+                File.WriteAllText("res/UserWorckspace/Iterface/" + s[1] + ".json", JsonUtility.ToJson(new Interface()));
+            }
+            if (i == 1 && a == "66")
+            {
+                Instantiate(Resources.Load<GameObject>("UnityEditor"), mover.main().transform);
+            }
+            if (i == 1 && a == "67")
+            {
+                hello.windowmesenge.LoadAHKMacros(s[1]);
+            }
+            if (i == 1 && a == "68")
+            {
+                string code = File.ReadAllText("res/scripts/" + s[1] + ".lua");
+                mover.main().LoadLuaLogicMacros(code);
+                mover.main().InvokeRepeating("IRMacros", 0, 0.01f);
             }
             if (i == 1 && a == "2")
             {

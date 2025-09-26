@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 using System.IO;
+using WebSocketSharp;
 
 public class SocialSystem : MonoBehaviour
 {
@@ -143,13 +144,13 @@ public class SocialSystem : MonoBehaviour
                                         Instantiate(trigger.morph, self.transform.position, Quaternion.identity);
                                         Destroy(self);
                                     }
-                                    if (trigger.Itemsmorph != null)
+                                    if (!string.IsNullOrEmpty(trigger.Itemsmorph))
                                     {
-                                        Instantiate(Resources.Load("Items/"+trigger.Itemsmorph), self.transform.position, Quaternion.identity);
+                                        Instantiate(Resources.Load<GameObject>("Items/"+trigger.Itemsmorph), self.transform.position, Quaternion.identity);
                                         Destroy(self);
                                     }
                                     if (trigger.gift != null) Instantiate(trigger.gift, self.transform.position, Quaternion.identity);
-                                    if (trigger.Itemsgift != null) Instantiate(Resources.Load("Items/" + trigger.Itemsgift), self.transform.position, Quaternion.identity);
+                                    if (!string.IsNullOrEmpty(trigger.Itemsgift)) Instantiate(Resources.Load<GameObject>("Items/" + trigger.Itemsgift), self.transform.position, Quaternion.identity);
                                     
                                     if (trigger.PriseSlave)
                                     {
@@ -178,7 +179,7 @@ public class SocialSystem : MonoBehaviour
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().WorkQualityTEVRO -= trigger.teuvroMine;
                                     
-                                    Invoke(trigger.dataCommnad,0);
+                                  if(!string.IsNullOrEmpty(trigger.dataCommnad))  Invoke(trigger.dataCommnad,0);
                                 }
                                 else
                                 {
@@ -190,12 +191,13 @@ public class SocialSystem : MonoBehaviour
                                 if (trigger.respectConst <= respect) respect -= trigger.respectConst;
                                 Globalprefs.LoadTevroPrise(trigger.teuvroMine);
                                 respect += trigger.respectMine;
+
+                                respectCounter.text = respect.ToString();
                             }
                     
                     }
                 }
             }
         }
-        respectCounter.text = respect.ToString();
     }
 }

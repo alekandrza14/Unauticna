@@ -283,8 +283,6 @@ public class Map_saver : MonoBehaviour
 
 
         telo[] t = FindObjectsByType<telo>(sortmode.main);
-
-
         for (int i = 0; i < t.Length; i++)
         {
 
@@ -1104,7 +1102,7 @@ public class Map_saver : MonoBehaviour
                         }
                     }
                 }
-                if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+                if (!(PolitDate.IsVersionE(politiceconomic.right)))  if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
                 {
                     if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.lidertatian))) if (objs.Count < 100)
                         {

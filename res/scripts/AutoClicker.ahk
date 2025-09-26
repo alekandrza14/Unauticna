@@ -1,0 +1,3 @@
+﻿m::
+SendInput {LButton}
+return

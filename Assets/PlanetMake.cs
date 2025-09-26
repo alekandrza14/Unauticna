@@ -6,8 +6,23 @@ using UnityEngine;
 public class PlanetMake : InventoryEvent
 {
     public GameObject Planet;
+    public GameObject CO;
+    public GameObject COTarget;
+    public CustomObject COPlanet;
     public NintResourse resourse;
     public GameObject safeMesh;
+    private void Load1()
+    {
+        if (VarSave.ExistenceVar("COP" + Map_saver.ObjectSaveManager.lif))
+        {
+            COPlanet = Instantiate(CO, COTarget.transform).GetComponent<CustomObject>();
+            Planet.GetComponent<MeshRenderer>().enabled = false;
+            COTarget.GetComponent<MeshRenderer>().enabled = false;
+            Planet.GetComponent<MeshCollider>().enabled = false;
+            Planet.GetComponentInChildren<SphereCollider>().enabled = false;
+            COPlanet.s = VarSave.GetString("COP" + Map_saver.ObjectSaveManager.lif);
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

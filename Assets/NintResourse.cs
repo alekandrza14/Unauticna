@@ -41,7 +41,7 @@ public class NintResourse : InventoryEvent
     }
     public void EndMake()
     {
-
+        VarSave.SetString("overdoh" + Map_saver.ObjectSaveManager.lif, res.Str(res));
         VarSave.SetString("YourPlanet" + Map_saver.ObjectSaveManager.lif, "1");
         text.text = null;
     }

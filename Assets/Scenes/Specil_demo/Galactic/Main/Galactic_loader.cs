@@ -38,17 +38,7 @@ public class Galactic_loader : MonoBehaviour
         }
         if (s == size.Universe)
         {
-
-
-            if (VarSave.GetString("Multyverse_Universe_Position") != "")
-            {
-                SceneManager.LoadScene(VarSave.GetString("Multyverse_Universe_Position"));
-            }
-            else
-            {
-                SceneManager.LoadScene("Universe");
-            }
-
+            Invoke("Animation",15);
         }
         if (s == size.Multyverse)
         {
@@ -66,5 +56,15 @@ public class Galactic_loader : MonoBehaviour
         }
     }
 
-
+    private void Animation()
+    {
+        if (VarSave.GetString("Multyverse_Universe_Position") != "")
+        {
+            SceneManager.LoadScene(VarSave.GetString("Multyverse_Universe_Position"));
+        }
+        else
+        {
+            SceneManager.LoadScene("Universe");
+        }
+    }
 }
