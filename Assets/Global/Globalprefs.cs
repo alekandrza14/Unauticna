@@ -11,6 +11,7 @@ public static class Globalprefs
     public static int Chanse_fire;
     public static string PlayerPositionInfo;
     public static string AnyversePlayerPositionInfo;
+    public static string SexObject = "SexKukla";
     public static Vector3 newv3;
     public static Vector3 pos;
     public static Vector3 customcenter;

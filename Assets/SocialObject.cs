@@ -21,6 +21,7 @@ public class SocialTriggerData
     public int teuvroMine;
     public bool PriseSlave;
     public bool KommunistYou7;
+    public bool sex;
     public string SlaveCommnad;
     public string dataCommnad;
     public string Itemsmorph;
@@ -39,6 +40,8 @@ public class SocialTriggerData
         new_ST.respectMine = this.respectMine;
         new_ST.teuvroMine = this.teuvroMine;
         new_ST.PriseSlave = this.PriseSlave;
+        new_ST.KommunistYou7 = this.KommunistYou7;
+        new_ST.sex = this.sex;
         new_ST.KrimBurocrat = false;
         new_ST.SlaveCommnad = this.SlaveCommnad;
         new_ST.dataCommnad = this.dataCommnad;

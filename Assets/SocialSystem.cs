@@ -4,6 +4,9 @@ using UnityEngine.UI;
 using System.Diagnostics;
 using System.IO;
 using WebSocketSharp;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 
 public class SocialSystem : MonoBehaviour
 {
@@ -122,8 +125,8 @@ public class SocialSystem : MonoBehaviour
                                     }
                                     catch (System.ComponentModel.Win32Exception noBrowser)
                                     {
-                                       
-                                         //   MessageBox.Show(noBrowser.Message);
+
+                                        //   MessageBox.Show(noBrowser.Message);
                                     }
                                     catch (System.Exception other)
                                     {
@@ -146,12 +149,12 @@ public class SocialSystem : MonoBehaviour
                                     }
                                     if (!string.IsNullOrEmpty(trigger.Itemsmorph))
                                     {
-                                        Instantiate(Resources.Load<GameObject>("Items/"+trigger.Itemsmorph), self.transform.position, Quaternion.identity);
+                                        Instantiate(Resources.Load<GameObject>("Items/" + trigger.Itemsmorph), self.transform.position, Quaternion.identity);
                                         Destroy(self);
                                     }
                                     if (trigger.gift != null) Instantiate(trigger.gift, self.transform.position, Quaternion.identity);
                                     if (!string.IsNullOrEmpty(trigger.Itemsgift)) Instantiate(Resources.Load<GameObject>("Items/" + trigger.Itemsgift), self.transform.position, Quaternion.identity);
-                                    
+
                                     if (trigger.PriseSlave)
                                     {
                                         if (!self.GetComponent<Slave>()) self.AddComponent<Slave>();
@@ -163,6 +166,25 @@ public class SocialSystem : MonoBehaviour
                                         Directory.Delete("unsavet", true);
                                         Directory.Delete("world", true);
                                     }
+                                   if(trigger.sex) { 
+                                    if (GetComponent<itemName>())
+                                    {
+                                        if (File.Exists("res/UserWorckspace/socialScene/in!" + GetComponent<itemName>()._Name + ".txt"))
+                                        {
+                                            Globalprefs.SexObject = JsonUtility.FromJson<SocialSystemSexEncounter>(File.ReadAllText("res/UserWorckspace/socialScene/in!" + GetComponent<itemName>()._Name + ".txt")).CoAnimation;
+                                            SceneManager.LoadSceneAsync("CSex");
+                                        }
+                                    }
+                                    if (GetComponent<CustomObject>())
+                                    {
+                                        if (File.Exists("res/UserWorckspace/socialScene/co!" + GetComponent<CustomObject>().s + ".txt"))
+                                        {
+                                            Globalprefs.SexObject = JsonUtility.FromJson<SocialSystemSexEncounter>(File.ReadAllText("res/UserWorckspace/socialScene/co!" + GetComponent<CustomObject>().s + ".txt")).CoAnimation;
+                                            SceneManager.LoadSceneAsync("CSex");
+                                        }
+                                    }
+                                }
+                            
                                     if (trigger.Born7)
                                     {
                                         if (self.GetComponent<Fertilness>())

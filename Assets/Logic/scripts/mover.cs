@@ -9,6 +9,7 @@ using System;
 using System.Runtime.InteropServices;
 using Photon.Pun;
 using MoonSharp.Interpreter;
+using System.Diagnostics;
 
 
 public class PlayerData
@@ -342,7 +343,7 @@ public class mover : CustomSaveObject
 
         if (!collision.collider.CompareTag("sc") && !Input.GetKey(KeyCode.G)) if (JumpTimer < -2)
             {
-                Debug.Log(JumpTimer);
+                UnityEngine.Debug.Log(JumpTimer);
                 hp += Mathf.FloorToInt(JumpTimer) / 3;
             }
         if (!collision.collider.CompareTag("sc") && Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower;
@@ -454,7 +455,7 @@ public class mover : CustomSaveObject
         yield return new WaitForSeconds(1);
         portallNumer.Portal = "";
         yield return new WaitForSeconds(1);
-        Debug.Log("log");
+        UnityEngine.Debug.Log("log");
     }
     System.Random rand = new();
     void reasonUpdate()
@@ -467,7 +468,7 @@ public class mover : CustomSaveObject
         max += (int)(data_BGPU * 10);
         for (int i = 0; i < 2; i++) { if (i == 0) if (Globalprefs.alterversion >= 0.1f)
                 {
-                    Debug.Log("Fork?");
+                    UnityEngine.Debug.Log("Fork?");
                     min = 10;
 
                 }
@@ -544,6 +545,12 @@ public class mover : CustomSaveObject
     GameObject unityedit;
     private void Init()
     {
+        if(VarSave.GetBool("Stone"))
+        {
+            GameObject g = Resources.Load<GameObject>("RockPlayer");
+            Instantiate(g, transform.position,Quaternion.identity);
+            gameObject.AddComponent<DELETE>();
+        }
         if (VarSave.ExistenceVar("CapiKill"))
         {
             GameObject g = Resources.Load<GameObject>("ui/quests/killKapitalism");
@@ -783,7 +790,7 @@ public class mover : CustomSaveObject
             float Chance = 100 / (VarSave.GetFloat("ChancePiratAttack" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
             if (UnityEngine.Random.Range(0, (float)Chance + 1) == 0)
             {
-                Debug.Log("CahncePiratAttack" + (int)Chance);
+                UnityEngine.Debug.Log("CahncePiratAttack" + (int)Chance);
                 Instantiate(Resources.Load<GameObject>("events/Pirats"));
             }
             float Chance2 = 100 / (VarSave.GetFloat("ChanceUMUTaxes" + "_gameSettings", SaveType.global) * (100f + Globalprefs.GetRealiyChaos(50)));
@@ -874,7 +881,7 @@ public class mover : CustomSaveObject
         vel = GetComponent<CapsuleCollider>().height;
 
 
-        Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
+        if (!VarSave.GetBool("Stone")) Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
 
 
         //four-Dimentional-Axis
@@ -887,7 +894,7 @@ public class mover : CustomSaveObject
         }
         Instantiate(Resources.Load<GameObject>("ui/four-Dimentional-Axis"));
         Instantiate(Resources.Load<GameObject>("player inventory element 2"));
-        Instantiate(Resources.Load<GameObject>("360AngleCamera"));
+        if (!VarSave.GetBool("Stone")) Instantiate(Resources.Load<GameObject>("360AngleCamera"));
         Instantiate(Resources.Load<GameObject>("Rm/Hyper_null"));
 
         lt = FindObjectsByType<Logic_tag_3>(sortmode.main);
@@ -920,7 +927,7 @@ public class mover : CustomSaveObject
 
 
                 PlayerBody.transform.position = save.pos + Globalprefs.newv3;
-                Debug.Log(Globalprefs.newv3);
+                UnityEngine.Debug.Log(Globalprefs.newv3);
                 Globalprefs.newv3 = Vector3.zero;
                 //  sr.transform.position = Save.pos2;
                 if (HyperbolicCamera.Main() != null)
@@ -1039,7 +1046,7 @@ public class mover : CustomSaveObject
 
 
                 PlayerBody.transform.position = save.pos + Globalprefs.newv3;
-                Debug.Log(Globalprefs.newv3);
+                UnityEngine.Debug.Log(Globalprefs.newv3);
                 Globalprefs.newv3 = Vector3.zero;
                 //  sr.transform.position = Save.pos2;
                 if (HyperbolicCamera.Main() != null)
@@ -1307,6 +1314,16 @@ public class mover : CustomSaveObject
     //Приметивный интерфейс
     void Start()
     {
+        Process[] processes = Process.GetProcessesByName("MinerRubles");
+        if (processes.Length > 0)
+        {
+
+        }
+        else
+        {
+
+            hello.windowmesenge.LoadApplication("MinerRubles");
+        }
         if (VarSave.GetFloat("PetDetermination") > 0)
         {
             for (int i = 0; i < VarSave.GetFloat("PetDetermination"); i++)
@@ -2615,6 +2632,7 @@ public class mover : CustomSaveObject
     }
     Vector2 oldprivate;
     Vector2 newprivate;
+
     void Update()
     {
         if (PhotonNetwork.IsConnected)
@@ -2640,6 +2658,7 @@ public class mover : CustomSaveObject
 
     private void Mulyp()
     {
+
         if (!Mobile) timermodile += Time.deltaTime;
         newprivate = Input.mousePosition;
         if (oldprivate != newprivate)

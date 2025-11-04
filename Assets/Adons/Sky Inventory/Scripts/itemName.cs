@@ -31,5 +31,6 @@ public class itemName : CustomSaveObject
     public int silicat;
     public int farum;
     public int helium;
+    public int itemtype;
 }
 

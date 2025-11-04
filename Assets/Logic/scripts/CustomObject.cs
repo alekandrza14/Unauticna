@@ -4,9 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Device;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public enum NDemention
 {
@@ -89,6 +87,7 @@ public class CustomObjectData
     public Vector3[] SpawnerPosCO = new Vector3[0];
     public string[] SpawnerNameCO = new string[0];
     public float[] Timer = new float[0];
+    public float Timer2;
     public Vector3[] TelevizorScale = new Vector3[1];
     public Quaternion[] TelevizorRot = new Quaternion[1];
     public string[] TelevizorVideo = new string[0];
@@ -458,6 +457,10 @@ public class CustomObject : CustomSaveObject
             SpawnTimer = new float[Model.Timer.Length];
             InvokeRepeating("sec10", 0, 0.1f);
         }
+        if (Model.Timer2 != 0)
+        {
+            InvokeRepeating("sec1", Model.Timer2, Model.Timer2);
+        }
 
         if (Model.NoCollect)
         {
@@ -705,6 +708,22 @@ public class CustomObject : CustomSaveObject
     public void sec10()
     {
         SpawnInvoke();
+    }
+    public void sec1()
+    {
+        AnimInvoke();
+    }
+    public void AnimInvoke()
+    {
+        if (!string.IsNullOrEmpty(Model.ConvertTo))
+        {
+            if (File.Exists("res/UserWorckspace/Items/" + Model.ConvertTo + ".txt"))
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                obj.GetComponent<CustomObject>().s = Model.ConvertTo;
+                gameObject.AddComponent<DELETE>();
+            }
+        }
     }
     public void OnInteractive()
     {

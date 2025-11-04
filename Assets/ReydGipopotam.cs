@@ -11,6 +11,7 @@ public class ReydGipopotam : MonoBehaviour
     public GameObject salut;
     public PovidLFT lF;
     public Collider trigger;
+    public bool lopa;
 
     private void OnCollisionStay(Collision collision)
     {
@@ -29,30 +30,43 @@ public class ReydGipopotam : MonoBehaviour
                 }
             }
         }
-        if (collision.collider.GetComponent<itemName>())
+        if (!lopa)
         {
-            randomAPovid += Global.Random.Range(0, 0.01f);
-            randomBPovid += Global.Random.Range(0, 0.1f);
-            if (eat == null) eat = collision.collider.gameObject;
+            if (collision.collider.GetComponent<itemName>())
+            {
+                randomAPovid += Global.Random.Range(0, 0.01f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+                if (eat == null) eat = collision.collider.gameObject;
+            }
+            if (collision.collider.GetComponent<CustomObject>())
+            {
+                randomAPovid += Global.Random.Range(0, 0.01f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+                if (eat == null) eat = collision.collider.gameObject;
+            }
+            if (collision.collider.GetComponent<StandartObject>())
+            {
+                randomAPovid += Global.Random.Range(0, 0.01f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+                if (eat == null) eat = collision.collider.gameObject;
+            }
+            if (collision.collider.GetComponent<mover>())
+            {
+                if (eat == null) eat = collision.collider.gameObject;
+                randomAPovid += Global.Random.Range(0, 0.1f);
+                randomBPovid += Global.Random.Range(0, 0.05f);
+                atak = collision.collider.gameObject;
+            }
         }
-        if (collision.collider.GetComponent<CustomObject>())
+        if (lopa)
         {
-            randomAPovid += Global.Random.Range(0, 0.01f);
-            randomBPovid += Global.Random.Range(0, 0.1f);
-            if (eat == null) eat = collision.collider.gameObject;
-        }
-        if (collision.collider.GetComponent<StandartObject>())
-        {
-            randomAPovid += Global.Random.Range(0, 0.01f);
-            randomBPovid += Global.Random.Range(0, 0.1f);
-            if (eat == null) eat = collision.collider.gameObject;
-        }
-        if (collision.collider.GetComponent<mover>())
-        {
-            if (eat == null) eat = collision.collider.gameObject;
-            randomAPovid += Global.Random.Range(0, 0.1f);
-            randomBPovid += Global.Random.Range(0, 0.05f);
-            atak = collision.collider.gameObject;
+            if (collision.collider.GetComponent<Cherv>())
+            {
+                if (eat == null) eat = collision.collider.gameObject;
+                randomAPovid += Global.Random.Range(0, 0.1f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+                atak = collision.collider.gameObject;
+            }
         }
         if (collision.collider.GetComponent<Logic_tag_DamageObject>())
         {
@@ -72,23 +86,35 @@ public class ReydGipopotam : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<itemName>())
+        if (lopa)
         {
-            if (eat == null) eat = other.gameObject;
-            randomAPovid += Global.Random.Range(0, 0.1f);
-            randomBPovid += Global.Random.Range(0, 0.1f);
+            if (other.GetComponent<Cherv>())
+            {
+                if (eat == null) eat = other.gameObject;
+                randomAPovid += Global.Random.Range(0, 0.1f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+            }
         }
-        if (other.GetComponent<CustomObject>())
+        if (!lopa)
         {
-            randomAPovid += Global.Random.Range(0, 0.1f);
-            randomBPovid += Global.Random.Range(0, 0.1f);
-            if (eat == null) eat = other.gameObject;
-        }
-        if (other.GetComponent<StandartObject>())
-        {
-            randomAPovid += Global.Random.Range(0, 0.1f);
-            randomBPovid += Global.Random.Range(0, 0.1f);
-            if (eat == null) eat = other.gameObject;
+            if (other.GetComponent<itemName>())
+            {
+                if (eat == null) eat = other.gameObject;
+                randomAPovid += Global.Random.Range(0, 0.1f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+            }
+            if (other.GetComponent<CustomObject>())
+            {
+                randomAPovid += Global.Random.Range(0, 0.1f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+                if (eat == null) eat = other.gameObject;
+            }
+            if (other.GetComponent<StandartObject>())
+            {
+                randomAPovid += Global.Random.Range(0, 0.1f);
+                randomBPovid += Global.Random.Range(0, 0.1f);
+                if (eat == null) eat = other.gameObject;
+            }
         }
     }
     private void OnMouseDrag()

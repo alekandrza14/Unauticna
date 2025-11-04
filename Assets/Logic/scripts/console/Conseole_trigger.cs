@@ -1320,13 +1320,19 @@ public class Conseole_trigger : MonoBehaviour
                 if (s[1] == "0" || s[1] == "Adventure")
                 {
                     Directory.Delete("debug");
-                
+                    VarSave.SetBool("Stone", false);
                 }
                 if (s[1] == "1" || s[1] == "Debug")
                 {
                     Directory.CreateDirectory("debug");
+                    VarSave.SetBool("Stone", false);
                 }
-                
+                if (s[1] == "2" || s[1] == "Stone")
+                {
+                    Directory.Delete("debug");
+                    VarSave.SetBool("Stone", true);
+                }
+
 
             }
 

@@ -6,6 +6,7 @@ public class Kisy : MonoBehaviour
     public static float alphaProze;
     public static float Hp = 100;
     public static Kisy main;
+    public bool blockregen;
     public Image Poze;
     public GameObject soundStones;
     public Text HpText;
@@ -28,8 +29,9 @@ public class Kisy : MonoBehaviour
         {
             Poze.color = new Color(1, 1, 1, alphaProze);
             HpText.text = "Hp " + Hp + " ≈нтер станать дл€ востановлени€ Hp";
-            alphaProze -= Time.deltaTime;
-           if(alphaProze>0.8f) if (Input.GetKeyDown(KeyCode.Return))
+            if (!blockregen) alphaProze -= Time.deltaTime;
+            if (blockregen) alphaProze -= Time.deltaTime/10;
+            if (!blockregen)  if(alphaProze>0.8f) if (Input.GetKeyDown(KeyCode.Return))
             {
                 Hp += 6;
                 if (Hp > 100)

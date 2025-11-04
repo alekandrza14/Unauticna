@@ -33,6 +33,10 @@ public class LOADGAME : MonoBehaviour
         {
             SceneManager.LoadScene("Banned forever");
         }
+        if (VarSave.GetString("Свадьба") == "начинаем")
+        {
+            SceneManager.LoadScene("SeXHome");
+        }
         if (VarSave.ExistenceVar("Ban non-Begin"))
         {
             SceneManager.LoadScene("Nervana");
@@ -236,7 +240,7 @@ public class LOADGAME : MonoBehaviour
 
 
            
-                SceneManager.LoadScene(VarSave.GetString("scppos"));
+            SceneManager.LoadScene(VarSave.GetString("scppos"));
 
           
         }

@@ -4716,7 +4716,54 @@ public class ElementalInventory : MonoBehaviour {
             Cells[select].UpdateCellInterface();
         }
     }
+    public string itemselect;
+    public string itemselectold;
+    public typeItem GetTypeItem()
+    {
+        typeItem item = typeItem.none;
+        if(Cells[select].elementName.Contains("co!"))
+        {
+            CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + Cells[select].elementName.Replace("co!", "") + ".txt"));
+            if (cod.functional == Functional.mgickStick)
+            {
+                item = typeItem.gun;
+            }
+            if (cod.functional == Functional.user)
+            {
+                item = typeItem.gun;
+            }
+            if (cod.functional == Functional.spawner)
+            {
+                item = typeItem.gun;
+            }
+            if (cod.RunToPlayer) 
+            {
+                item = typeItem.mobe;
+            }
+            if (cod.social)
+            {
+                item = typeItem.mobe;
+            }
+            if (cod.Timer2!=0)
+            {
+                item = typeItem.mobe;
+            }
+        }
+        else
+        {
+            if (Resources.Load<itemName>("items/" + Cells[select].elementName).itemtype == 1)
+            {
 
+                item = typeItem.gun;
+            }
+            if (Resources.Load<itemName>("items/" + Cells[select].elementName).itemtype == 2)
+            {
+
+                item = typeItem.mobe;
+            }
+        }
+        return item;
+    }
     private void Update()
     {
         if (main() == this)
@@ -4864,6 +4911,13 @@ public class ElementalInventory : MonoBehaviour {
                 }
 
 
+            ItemDetector.coutnitem = Cells[select].elementCount;
+            itemselect = Cells[select].elementName;
+            if (itemselect != itemselectold)
+            {
+                ItemDetector.type = GetTypeItem();
+                itemselect = itemselectold;
+            }
             if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
             {
 
