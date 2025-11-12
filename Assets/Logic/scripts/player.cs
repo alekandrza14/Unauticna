@@ -431,7 +431,7 @@ public class GameManager : MonoBehaviour
     {
         
 
-            SceneManager.LoadScene(scene);
+            SceneManager.LoadSceneAsync(scene);
             
       
 

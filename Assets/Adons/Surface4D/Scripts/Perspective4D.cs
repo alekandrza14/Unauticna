@@ -44,7 +44,7 @@ namespace Surface4D
             SetVariables(_camera4D);
         }
 
-
+        
         void SetVariables(Vector4 c)
         {
             Matrix4x4 _view4D = LookAt4D(c, Vector4.zero, new Vector4(0f, 1f, 0f, 0f), new Vector4(0f, 0f, 1f, 0f));
@@ -64,6 +64,7 @@ namespace Surface4D
         // Update is called once per frame
         void Update()
         {
+            _fieldOfView = 90 -(( Camera.main.fieldOfView - 0.001f)/3.14f);
             Vector4 c = _camera4D;
             if (_swing)
             {

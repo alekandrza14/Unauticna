@@ -131,6 +131,8 @@ public class mover : CustomSaveObject
     [HideInInspector] public string lif;
     [HideInInspector] public float HX_Rotation;
 
+    
+
     void swapHX3(Transform x, mover w)
     {
         float save = x.localPosition.x;
@@ -545,12 +547,7 @@ public class mover : CustomSaveObject
     GameObject unityedit;
     private void Init()
     {
-        if(VarSave.GetBool("Stone"))
-        {
-            GameObject g = Resources.Load<GameObject>("RockPlayer");
-            Instantiate(g, transform.position,Quaternion.identity);
-            gameObject.AddComponent<DELETE>();
-        }
+       
         if (VarSave.ExistenceVar("CapiKill"))
         {
             GameObject g = Resources.Load<GameObject>("ui/quests/killKapitalism");
@@ -925,7 +922,12 @@ public class mover : CustomSaveObject
                 HX_Rotation = save.hxrot;
 
 
-
+                if (VarSave.GetBool("Stone"))
+                {
+                    GameObject g = Resources.Load<GameObject>("RockPlayer");
+                    Instantiate(g, save.pos + Globalprefs.newv3, Quaternion.identity);
+                    gameObject.AddComponent<DELETE>();
+                }
                 PlayerBody.transform.position = save.pos + Globalprefs.newv3;
                 UnityEngine.Debug.Log(Globalprefs.newv3);
                 Globalprefs.newv3 = Vector3.zero;
@@ -1010,6 +1012,12 @@ public class mover : CustomSaveObject
             if (File.Exists("unsave/capterg/" + SaveFileInputField.text))
             {
                 gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
+                if (VarSave.GetBool("Stone"))
+                {
+                    GameObject g = Resources.Load<GameObject>("RockPlayer");
+                    Instantiate(g, transform.position, Quaternion.identity);
+                    gameObject.AddComponent<DELETE>();
+                }
                 CamDistanceMult = gsave.PlayerScale;
                 transform.localScale = Vector3.one * gsave.PlayerScale;
                 hp = gsave.hp;
@@ -1043,7 +1051,12 @@ public class mover : CustomSaveObject
                 N_position = save.npos;
                 cur_N_position = save.cnpos;
                 HX_Rotation = save.hxrot;
-
+                if (VarSave.GetBool("Stone"))
+                {
+                    GameObject g = Resources.Load<GameObject>("RockPlayer");
+                    Instantiate(g, save.pos + Globalprefs.newv3, Quaternion.identity);
+                    gameObject.AddComponent<DELETE>();
+                }
 
                 PlayerBody.transform.position = save.pos + Globalprefs.newv3;
                 UnityEngine.Debug.Log(Globalprefs.newv3);
@@ -1111,6 +1124,12 @@ public class mover : CustomSaveObject
                 gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsavet/capterg/" + SaveFileInputField.text));
                 CamDistanceMult = gsave.PlayerScale;
                 transform.localScale = Vector3.one * gsave.PlayerScale;
+                if (VarSave.GetBool("Stone"))
+                {
+                    GameObject g = Resources.Load<GameObject>("RockPlayer");
+                    Instantiate(g, transform.position, Quaternion.identity);
+                    gameObject.AddComponent<DELETE>();
+                }
                 if (gsave.hp >= 20) hp = gsave.hp; else
                 {
                     hp = 20;
@@ -1152,6 +1171,7 @@ public class mover : CustomSaveObject
     //Пробуждение кода
     //Приметивный интерфейс
     Metka[] metka;
+    FileInfo[] customVaribles;
     private void OnGUI()
     {
 
@@ -1260,6 +1280,12 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(Screen.width - 200, 160, 200, 40), "Tears : " + data_tears, editor.label);
             GUI.Label(new Rect(Screen.width - 200, 180, 200, 40), "Shits : " + data_shits, editor.label);
             GUI.Label(new Rect(Screen.width - 200, 200, 200, 40), "Karma : " + data_Karma, editor.label);
+            int i2 = 0;
+            foreach (FileInfo i in customVaribles)
+            {
+                GUI.Label(new Rect(Screen.width - 200, 220+(i2*20), 200, 40), i.Name + " : " + VarSave.GetMoney(i.Name), editor.label);
+                i2++;
+            }
             //data_Karma
             // VarSave.LoadMoney("Avtoritet", 1)
             //cistalenemy.dies
@@ -1412,14 +1438,18 @@ public class mover : CustomSaveObject
             if (i7 == 12) InvokeRepeating("Plantspawn", 10f / Spawnrade, 10f / Spawnrade);
             if (i7 == 13) InvokeRepeating("libertaectspawn", 10f / Spawnrade, 10f / Spawnrade);
             InvokeRepeating("NAKOMANightmares", 10f / Spawnrade, 10f / Spawnrade);
+            
             //libertaectspawn()
         }
+        InvokeRepeating("Portal", 0, 1);
         //  Invoke("Karavanspawn", 10f / Spawnrade);
         //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
         {
             SceneManager.LoadScene("Donat");
         }
+        DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Vars");
+        customVaribles = dif.GetFiles();
 
     }
     public static string curbutton;
@@ -1530,21 +1560,34 @@ public class mover : CustomSaveObject
     void NAKOMANightmares()
     {
         //Чёрное_радио
-       
-                  
-                    for (int i = 0; i < 6; i++)
-                    {
-                        Ray r = new(transform.position + (transform.up * 40), randommaze());
-                        RaycastHit hit;
-                        if (Physics.Raycast(r, out hit))
-                        {
-                            if (hit.collider != null)
-                            {
-                                Instantiate(Resources.Load<GameObject>("Items/БоссАруаРастрахиватель"), hit.point, Quaternion.identity);
-                            }
-                        }
-                    }
-        
+
+
+        for (int i = 0; i < 6; i++)
+        {
+            Ray r = new(transform.position + (transform.up * 40), randommaze());
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    Instantiate(Resources.Load<GameObject>("Items/БоссАруаРастрахиватель"), hit.point, Quaternion.identity);
+                }
+            }
+        }
+
+    }
+    void Portal()
+    {
+        //Чёрное_радио
+        if (button6.randomportal1)
+        {
+
+            transform.position += Vector3.up * 20;
+
+            Instantiate(Resources.Load<GameObject>("Items/(Rand)Portal"), transform.position, Quaternion.identity);
+            button6.randomportal1 = false;
+        }
+
     }
     void bomjspawn()
     {

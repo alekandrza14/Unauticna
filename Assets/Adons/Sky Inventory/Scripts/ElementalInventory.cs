@@ -4751,18 +4751,36 @@ public class ElementalInventory : MonoBehaviour {
         }
         else
         {
-            if (Resources.Load<itemName>("items/" + Cells[select].elementName).itemtype == 1)
+            if (isnotitem(Cells[select].elementName))
             {
+                if (Resources.Load<itemName>("items/" + Cells[select].elementName).itemtype == 1)
+                {
 
-                item = typeItem.gun;
+                    item = typeItem.gun;
+                }
+                if (Resources.Load<itemName>("items/" + Cells[select].elementName).itemtype == 2)
+                {
+
+                    item = typeItem.mobe;
+                }
             }
-            if (Resources.Load<itemName>("items/" + Cells[select].elementName).itemtype == 2)
+            else
             {
-
-                item = typeItem.mobe;
+                item = typeItem.none;
             }
         }
         return item;
+    }
+    bool isnotitem(string itemfind)
+    {
+        foreach (GameObject item in Map_saver.t3)
+        {
+            if (item.name.Replace("(Clone)","") == itemfind)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     private void Update()
     {

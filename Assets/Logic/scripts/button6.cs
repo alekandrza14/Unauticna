@@ -14,6 +14,8 @@ public class button6 : MonoBehaviour
     public bool notsave;
     public bool iaw;
     public string Portal;
+    public bool randomportal;
+    public static bool randomportal1;
     public bool p3;
     public bool p4;
     public bool p5;
@@ -86,7 +88,10 @@ public class button6 : MonoBehaviour
             {
                 if (enter)
                 {
-
+                    if (randomportal)
+                    {
+                        randomportal1 = true;
+                    }
                     GameManager.save();
 
                     portallNumer.Portal = Portal;
@@ -103,6 +108,10 @@ public class button6 : MonoBehaviour
                 {
                     if (enter)
                     {
+                        if (randomportal)
+                        {
+                            randomportal1 = true;
+                        }
 
                         GameManager.save();
 
