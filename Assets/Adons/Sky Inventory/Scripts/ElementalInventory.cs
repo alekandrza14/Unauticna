@@ -4786,6 +4786,7 @@ public class ElementalInventory : MonoBehaviour {
     {
         if (main() == this)
         {
+            bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
             if (!Globalprefs.Pause && main() == this) if (Cells[select].elementName.Length > 2 && Cells[select].elementName.Remove(3, Cells[select].elementName.Length - 3) == "co!") if (main() == this)
                     {
 
@@ -4936,7 +4937,8 @@ public class ElementalInventory : MonoBehaviour {
                 ItemDetector.type = GetTypeItem();
                 itemselect = itemselectold;
             }
-            if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
+         
+            if (resy && main() == this && !nosell)
             {
 
 
@@ -5024,7 +5026,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
             }
-            if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
+            if (resy && main() == this && !nosell)
             {
 
                 RaycastHit hit = MainRay.SecondHit; if (hit.collider)
@@ -5043,7 +5045,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     }
             }
-            if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
+            if (resy && main() == this && !nosell)
             {
 
                 RaycastHit hit = MainRay.SecondHit; if (hit.collider)
@@ -5062,7 +5064,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     }
             }
-            if (Input.GetKeyDown(KeyCode.Tab) && main() == this && !nosell)
+            if (resy && main() == this && !nosell)
             {
 
                 RaycastHit hit2 = MainRay.SecondHit; if (hit2.collider)
@@ -5112,9 +5114,9 @@ public class ElementalInventory : MonoBehaviour {
                 euclideanray();
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab) && main() == this)
+            if (resy && main() == this)
             {
-                if (Input.GetKeyDown(KeyCode.Tab) && Getitem("box_") && main() == this)
+                if (resy && Getitem("box_") && main() == this)
                 {
 
 
@@ -5122,7 +5124,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     cistalenemy.dies++;
                 }
-                if (Input.GetKeyDown(KeyCode.Tab) && Getitem("Ṳx") && main() == this)
+                if (resy && Getitem("Ṳx") && main() == this)
                 {
 
 
@@ -5130,7 +5132,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     cistalenemy.dies++;
                 }
-                if (Input.GetKeyDown(KeyCode.Tab) && Getitem("AntiMatter") && main() == this)
+                if (resy && Getitem("AntiMatter") && main() == this)
                 {
 
 
@@ -5138,7 +5140,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     cistalenemy.dies++;
                 }
-                if (Input.GetKeyDown(KeyCode.Tab) && Getitem("Fire") && main() == this)
+                if (resy && Getitem("Fire") && main() == this)
                 {
 
 
@@ -5146,7 +5148,7 @@ public class ElementalInventory : MonoBehaviour {
 
                     cistalenemy.dies++;
                 }
-                if (Input.GetKeyDown(KeyCode.Tab) && Getitem("ionic_cube") && main() == this)
+                if (resy && Getitem("ionic_cube") && main() == this)
                 {
 
 
@@ -5327,8 +5329,8 @@ public class ElementalInventory : MonoBehaviour {
     float mouseDoubele2;
     private void euclideanray()
     {
-
-        if (Input.GetKeyDown(KeyCode.Tab) && !sh && main() == this && !nosell)
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+        if (resy && !sh && main() == this && !nosell)
         {
             Globalprefs.selectitem = "";
             RaycastHit hit = MainRay.MainHit;
@@ -5344,8 +5346,8 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void Sphericalray()
     {
-
-        if (Input.GetKeyDown(KeyCode.Tab) && !sh && main() == this && !nosell)
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+        if (resy && !sh && main() == this && !nosell)
         {
             Globalprefs.selectitem = "";
             RaycastHit hit = MainRay.MainHit;
@@ -5430,8 +5432,8 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void hyperbolicray()
     {
-
-        if (Input.GetKeyDown(KeyCode.Tab) && !sh && main() == this && !nosell)
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+        if (resy && !sh && main() == this && !nosell)
         {
             Globalprefs.selectitem = "";
             RaycastHit hit = MainRay.MainHit;

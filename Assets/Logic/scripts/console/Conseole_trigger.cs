@@ -1321,16 +1321,25 @@ public class Conseole_trigger : MonoBehaviour
                 {
                     Directory.Delete("debug");
                     VarSave.SetBool("Stone", false);
+                    VarSave.SetBool("Xbox", false);
                 }
                 if (s[1] == "1" || s[1] == "Debug")
                 {
                     Directory.CreateDirectory("debug");
                     VarSave.SetBool("Stone", false);
+                    VarSave.SetBool("Xbox", false);
                 }
                 if (s[1] == "2" || s[1] == "Stone")
                 {
                     Directory.Delete("debug");
                     VarSave.SetBool("Stone", true);
+                    VarSave.SetBool("Xbox", false);
+                }
+                if (s[1] == "3" || s[1] == "Xbox")
+                {
+                    Directory.Delete("debug");
+                    VarSave.SetBool("Xbox", true);
+                    VarSave.SetBool("Stone", false);
                 }
 
 

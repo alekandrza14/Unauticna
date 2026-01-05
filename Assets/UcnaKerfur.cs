@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum Pviduk
@@ -67,6 +67,7 @@ public class UcnaKerfur : MonoBehaviour
                     if (povid != Pviduk.trahotsa) povid = Pviduk.trahotsa;
                     else
                         povid = Pviduk.spat; stat = !stat;
+                    VarSave.SetMoney("–õ–∏–±–∏–¥–æ‚ôÄAAA", 5);
                     Globalprefs.LoadTevroPrise(-10);
                 }
                 if (function == 1)
@@ -85,12 +86,12 @@ public class UcnaKerfur : MonoBehaviour
                 }
                 if (function == 3)
                 {
-                    Instantiate(Resources.Load("items/’ÎÂ·"), transform.position, Quaternion.identity);
+                    Instantiate(Resources.Load("items/–•–ª–µ–±"), transform.position, Quaternion.identity);
                     Globalprefs.LoadTevroPrise(-20);
                 }
                 if (function == 4)
                 {
-                    Instantiate(Resources.Load("items/Ucna_kerfur_Ì‡ÛÍ‡ı"), transform.position, Quaternion.identity);
+                    Instantiate(Resources.Load("items/Ucna_kerfur_–Ω–∞—Ä—É–∫–∞—Ö"), transform.position, Quaternion.identity);
                     Destroy(gameObject);
                     Globalprefs.LoadTevroPrise(-20);
                 }

@@ -36,6 +36,11 @@ public class hello
                 p.Start();
             }
         }
+        public static void LoadLink(string url)
+        {
+            Process.Start(url);
+            
+        }
         public static void LoadAHKMacros(string app)
         {
             Process p = new Process();

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -130,6 +130,8 @@ public class SGNCharacter : MonoBehaviour
             }
             if (povid == PvidSGN.trahotsa)
             {
+
+                VarSave.SetMoney("Либидо♀AAA", 5);
                 love.gameObject.SetActive(true);
             }
             else

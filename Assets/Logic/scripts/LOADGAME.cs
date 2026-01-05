@@ -31,15 +31,15 @@ public class LOADGAME : MonoBehaviour
     {
         if (VarSave.GetBool("lol you Banned"))
         {
-            SceneManager.LoadScene("Banned forever");
+            SceneLoad.loadbar("Banned forever");
         }
         if (VarSave.GetString("Свадьба") == "начинаем")
         {
-            SceneManager.LoadScene("SeXHome");
+            SceneLoad.loadbar("SeXHome");
         }
         if (VarSave.ExistenceVar("Ban non-Begin"))
         {
-            SceneManager.LoadScene("Nervana");
+            SceneLoad.loadbar("Nervana");
         }
         QualitySettings.SetQualityLevel(0);
         GameObject g = new GameObject("init");
@@ -107,52 +107,52 @@ public class LOADGAME : MonoBehaviour
     public void Tutorial1()
     {
 
-        SceneManager.LoadScene("tutorial0");
+        SceneLoad.loadbar("tutorial0");
     }
     public void Tutorial2()
     {
 
-        SceneManager.LoadScene("tutorial1");
+        SceneLoad.loadbar("tutorial1");
     }
     public void Tutorial3()
     {
 
-        SceneManager.LoadScene("tutorial2");
+        SceneLoad.loadbar("tutorial2");
     }
     public void Tutorial4()
     {
 
-        SceneManager.LoadScene("tutorial3");
+        SceneLoad.loadbar("tutorial3");
     }
     public void Tutorial5()
     {
 
-        SceneManager.LoadScene("tutorial4");
+        SceneLoad.loadbar("tutorial4");
     }
     public void GeometryStraight()
     {
 
-        SceneManager.LoadScene("StraightGeometry");
+        SceneLoad.loadbar("StraightGeometry");
     }
     public void GeometryCircle()
     {
 
-        SceneManager.LoadScene("CircleGeometry");
+        SceneLoad.loadbar("CircleGeometry");
     }
     public void GeometryHyperblic()
     {
 
-        SceneManager.LoadScene("HyperbolicGeometry");
+        SceneLoad.loadbar("HyperbolicGeometry");
     }
     public void GeometryLoop()
     {
 
-        SceneManager.LoadScene("LoopGeometry");
+        SceneLoad.loadbar("LoopGeometry");
     }
     public void GeometryLiminal()
     {
 
-        SceneManager.LoadScene("LiminalGeometry");
+        SceneLoad.loadbar("LiminalGeometry");
     }
     public void mainmenu_mini_Games()
     {
@@ -175,18 +175,18 @@ public class LOADGAME : MonoBehaviour
     public void GetEditorCeratures()
     {
 
-        SceneManager.LoadScene("EditorCeratures");
+        SceneLoad.loadbar("EditorCeratures");
     }
     public void CustomRsolutionSetup()
     {
 
-        SceneManager.LoadScene(129);
+        SceneLoad.loadbar(129);
     }
-    //SceneManager.LoadScene(0);
+    //SceneLoad.loadbar(0);
     public void GetGameLab()
     {
 
-        SceneManager.LoadScene("Lab");
+        SceneLoad.loadbar("Lab");
     }
 
     public void Update()
@@ -204,15 +204,15 @@ public class LOADGAME : MonoBehaviour
     {
         if (ifd.text == "022564")
         {
-            SceneManager.LoadScene(43);
+            SceneLoad.loadbar(43);
         }
         else if (ifd.text == "100024")
         {
-            SceneManager.LoadScene(60);
+            SceneLoad.loadbar(60);
         }
         else if (ifd.text == "-1")
         {
-            SceneManager.LoadScene(85);
+            SceneLoad.loadbar(85);
         }
         else if (!VarSave.ExistenceVar("scppos"))
         {
@@ -223,7 +223,7 @@ public class LOADGAME : MonoBehaviour
                 string s = "";
                 s = ifd.text;
                 File.WriteAllText("unsave/s", s);
-                SceneManager.LoadScene(1);
+                SceneLoad.loadbar(1);
 
             }
             if (File.Exists("unsave/capterg/" + ifd.text))
@@ -232,7 +232,7 @@ public class LOADGAME : MonoBehaviour
                 string s = "";
                 s = ifd.text;
                 File.WriteAllText("unsave/s", s);
-                SceneManager.LoadScene(gsave.sceneid);
+                SceneLoad.loadbar(gsave.sceneid);
             }
         }
         else if (VarSave.ExistenceVar("scppos"))
@@ -240,7 +240,7 @@ public class LOADGAME : MonoBehaviour
 
 
            
-            SceneManager.LoadScene(VarSave.GetString("scppos"));
+            SceneLoad.loadbar(VarSave.GetString("scppos"));
 
           
         }
@@ -252,7 +252,7 @@ public class LOADGAME : MonoBehaviour
     }
     public void SkinLobby()
     {
-        SceneManager.LoadScene("CharactorLobby");
+        SceneLoad.loadbar("CharactorLobby");
 
     }
     public void rusLENGUAGE()

@@ -91,10 +91,13 @@ public class CustomObjectData
     public Vector3[] TelevizorScale = new Vector3[1];
     public Quaternion[] TelevizorRot = new Quaternion[1];
     public string[] TelevizorVideo = new string[0];
+    public string skin;
+    public string interface_;
+    public string Dif_;
     public string TextureTarget;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject, selfdup;
+    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject, selfdup, physics;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
@@ -433,6 +436,18 @@ public class CustomObject : CustomSaveObject
         if (Model.Meat)
         {
             if (!GetComponent<Мясо>()) gameObject.AddComponent<Мясо>();
+        }
+        if (!string.IsNullOrEmpty(Model.skin))
+        {
+            if (!GetComponent<CotumeManager>()) gameObject.AddComponent<CotumeManager>().scin_name = Model.skin;
+            gameObject.GetComponent<CotumeManager>().Interfacetext = Model.interface_;
+            gameObject.GetComponent<CotumeManager>().Difficulttext = Model.Dif_;
+            if (!GetComponent<Rigidbody>()) gameObject.AddComponent<Rigidbody>().useGravity = false;
+        }
+        if (Model.physics)
+        {
+            
+            if (!GetComponent<Rigidbody>()) gameObject.AddComponent<Rigidbody>();
         }
         if (Model.PlayerPosPrivzka)
         {

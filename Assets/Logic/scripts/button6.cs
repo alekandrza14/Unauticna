@@ -84,7 +84,7 @@ public class button6 : MonoBehaviour
 
         if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
             {
                 if (enter)
                 {
@@ -99,12 +99,27 @@ public class button6 : MonoBehaviour
 
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Tab) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+            {
+                if (enter)
+                {
+                    if (randomportal)
+                    {
+                        randomportal1 = true;
+                    }
+                    GameManager.save();
+
+                    portallNumer.Portal = Portal;
+                    SceneLoad.loadbar(id);
+
+                }
+            }
         }
         if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
         {
             if (FindAnyObjectByType<Chaos_cube>()==null)
             {
-                if (Input.GetKeyDown(KeyCode.Tab))
+                if (Input.GetKeyDown(KeyCode.Tab) && !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
                 {
                     if (enter)
                     {
@@ -112,11 +127,25 @@ public class button6 : MonoBehaviour
                         {
                             randomportal1 = true;
                         }
-
                         GameManager.save();
 
                         portallNumer.Portal = Portal;
                         GameManager.chargescene(id);
+
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.Tab) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
+                {
+                    if (enter)
+                    {
+                        if (randomportal)
+                        {
+                            randomportal1 = true;
+                        }
+                        GameManager.save();
+
+                        portallNumer.Portal = Portal;
+                        SceneLoad.loadbar(id);
 
                     }
                 }

@@ -142,6 +142,28 @@ public class Site : MonoBehaviour
             }
         }
     }
+    private void Start()
+    {
+        hello.windowmesenge.LoadApplication("loaderAnyTubeVideo");
+        Application.OpenURL("c:/");
+    }
+    public void UploadVideo()
+    {
+        if (VarSave.GetString("uploadvideo.sing", SaveType.computer) != "")
+        {
+            Interface InterfaceFile = new Interface();
+            GameObject canvas = Instantiate(Resources.Load<GameObject>("DefaultCanvas"));
+            if (File.Exists("res/UserWorckspace/Iterface/AAA;AnyTube.un/video1.json"))
+            {
+                InterfaceFile = JsonUtility.FromJson<Interface>(File.ReadAllText("res/UserWorckspace/Iterface/AAA;AnyTube.un/video1.json"));
+                Path.GetFileName(VarSave.GetString("uploadvideo.sing", SaveType.computer));
+                File.Copy(VarSave.GetString("uploadvideo.sing", SaveType.computer), "res/Video/" + Path.GetFileName(VarSave.GetString("uploadvideo.sing", SaveType.computer)) + "",true);
+                InterfaceFile.image2texture[0] = "Video\\\\" + Path.GetFileName(VarSave.GetString("uploadvideo.sing", SaveType.computer));
+                File.WriteAllText("res/UserWorckspace/Iterface/AAA;AnyTube.un/" + Path.GetFileName(VarSave.GetString("uploadvideo.sing", SaveType.computer)) + ".json",JsonUtility.ToJson(InterfaceFile));
+                siteFinder.text = "AAA;AnyTube.un/" + Path.GetFileName(VarSave.GetString("uploadvideo.sing", SaveType.computer)+ "");
+            }
+        }
+    }
     IEnumerator GetLogoCoin(string CoinLogo)
     {
 

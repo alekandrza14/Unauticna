@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using Photon.Pun;
 using MoonSharp.Interpreter;
 using System.Diagnostics;
+using Unity.Burst.CompilerServices;
 
 
 public class PlayerData
@@ -378,8 +379,27 @@ public class mover : CustomSaveObject
 
         }
     }
+    public List<Collider> s45 = new();
+    public List<int> s45i = new();
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.GetComponent<Rigidbody>())
+        {
+            if (!s45.Contains(collision.collider))
+            {
+                s45.Add(collision.collider);
+                s45i.Add(0);
+            }
+            else
+            {
+
+                s45i[ s45.IndexOf(collision.collider)]+=1;
+                if (s45i[s45.IndexOf(collision.collider)]>6)
+                {
+                    VarSave.SetMoney("Либидо♀AAA", 5);
+                }
+            }
+        }
         if (collision.collider.GetComponent<Logic_tag_DamageObject>())
         {
             hp -= 2;
@@ -426,7 +446,15 @@ public class mover : CustomSaveObject
             PlayerCamera.GetComponent<Camera>().enabled = 1 == Global.Random.Range(0, 3);
 
         }
-
+        if (other.GetComponent<notswiming>())
+        {
+            if (VarSave.LoadMoney("Либидо♀AAA", 0.0m) < 1) VarSave.LoadMoney("Либидо♀", 0.5m); 
+            else
+            {
+                if (VarSave.LoadMoney("Либидо♀", 0.0m) < 100) VarSave.LoadMoney("Либидо♀", 0.5m);
+            }
+            
+        }
         if (other.GetComponent<FreedomOxygen>()) oxygen = 20;
     }
 
@@ -547,7 +575,12 @@ public class mover : CustomSaveObject
     GameObject unityedit;
     private void Init()
     {
-       
+        //Хбокс
+        if (VarSave.GetBool("Xbox"))
+        {
+            GameObject g = Resources.Load<GameObject>("Хбокс");
+            Instantiate(g, transform);
+        }
         if (VarSave.ExistenceVar("CapiKill"))
         {
             GameObject g = Resources.Load<GameObject>("ui/quests/killKapitalism");
@@ -1281,7 +1314,7 @@ public class mover : CustomSaveObject
             GUI.Label(new Rect(Screen.width - 200, 180, 200, 40), "Shits : " + data_shits, editor.label);
             GUI.Label(new Rect(Screen.width - 200, 200, 200, 40), "Karma : " + data_Karma, editor.label);
             int i2 = 0;
-            foreach (FileInfo i in customVaribles)
+          if(customVaribles.Length>0)  foreach (FileInfo i in customVaribles)
             {
                 GUI.Label(new Rect(Screen.width - 200, 220+(i2*20), 200, 40), i.Name + " : " + VarSave.GetMoney(i.Name), editor.label);
                 i2++;
@@ -1336,7 +1369,7 @@ public class mover : CustomSaveObject
     public static GameObject DopPlayerModel;
     [DllImport("AssemblyCPP")]
     public static extern long my_cpp_pluss(long a, long b);
-
+    public static FemLibido fl;
     //Приметивный интерфейс
     void Start()
     {
@@ -1408,6 +1441,18 @@ public class mover : CustomSaveObject
             {
                 scin = JsonUtility.FromJson<Scin>(File.ReadAllText("res/UserWorckspace/skins/" + VarSave.GetString("ActiveScin") + ".txt"));
                 VarSave.SetString("Scin", scin.CO_name);
+                if(scin.isfemale)
+                {
+
+                    fl = Instantiate(Resources.Load<GameObject>("FemLibido"), transform).GetComponent<FemLibido>(); 
+                    if (playerdata.Geteffect("BoreDomLibido") != null)
+                    {
+                        fl.minlibido = 6;
+                        fl.porogvozbujenia = 1;
+                        fl.porogvozbujeniamin = 1;
+                        fl.porogvozbujeniamax = 1;
+                    }
+                }
                 morphmodel.transform.position += scin.pos;
                 HeadCameraSetup.transform.position = transform.position + scin.cum;
             }
@@ -1438,10 +1483,11 @@ public class mover : CustomSaveObject
             if (i7 == 12) InvokeRepeating("Plantspawn", 10f / Spawnrade, 10f / Spawnrade);
             if (i7 == 13) InvokeRepeating("libertaectspawn", 10f / Spawnrade, 10f / Spawnrade);
             InvokeRepeating("NAKOMANightmares", 10f / Spawnrade, 10f / Spawnrade);
-            
+
             //libertaectspawn()
         }
         InvokeRepeating("Portal", 0, 1);
+        if(VarSave.GetInt("Virus")>=1) InvokeRepeating("Virus", 0, 5);
         //  Invoke("Karavanspawn", 10f / Spawnrade);
         //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
@@ -1586,6 +1632,29 @@ public class mover : CustomSaveObject
 
             Instantiate(Resources.Load<GameObject>("Items/(Rand)Portal"), transform.position, Quaternion.identity);
             button6.randomportal1 = false;
+        }
+
+    }
+    void Virus()
+    {
+        //Чёрное_радио
+        if (!lml1.Find())
+        {
+
+            for (int i = 0; i < 6; i++)
+            {
+                Ray r = new(transform.position, randommaze());
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
+                {
+                    if (hit.collider != null)
+                    {
+                        //ГлистБесконейнойДлины
+                        Instantiate(Resources.Load<GameObject>("Items/Infection"), hit.point, Quaternion.identity);
+                    }
+                }
+            } //ГлистБесконейнойДлины
+            if (UnityEngine.Random.Range(0, 4) < 1) Instantiate(Resources.Load<GameObject>("Items/ГлистБесконейнойДлины"), transform.position, Quaternion.identity);
         }
 
     }
@@ -3264,7 +3333,7 @@ public class mover : CustomSaveObject
         {
             lt[0].GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         }
-        if (!Globalprefs.LockRotate) PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
+        if (!Globalprefs.LockRotate && !VarSave.GetBool("Xbox")) PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
         Globalprefs.camera.fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
         Globalprefs.camera.fieldOfView *= 1;
         save.angularvelosyty = rigidbody3d.angularVelocity;
@@ -3660,6 +3729,10 @@ public class mover : CustomSaveObject
             }
         }
     }
+    private void OnDisable()
+    {
+        gameObject.SetActive(true);
+    }
     private void MoveUpdate()
     {
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
@@ -3755,9 +3828,10 @@ public class mover : CustomSaveObject
                 }
             }
             float macrosX = (Input_GetKeyMacros("a") ? 1 : 0) + (Input_GetKeyMacros("d") ? -1 : 0);
-            float macrosZ = (Input_GetKeyMacros("w") ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0);
-            float macrosMy = (Input_GetKeyMacros("MY+") ? 1 : 0) + (Input_GetKeyMacros("MY-") ? -1 : 0);
-            float macrosMx = (Input_GetKeyMacros("MX+") ? 1 : 0) + (Input_GetKeyMacros("MY-") ? -1 : 0);
+            float macrosZ = (Input_GetKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0);
+            float macrosMy = (Input_GetKeyMacros("MY+") || (Input.GetAxis("Mouse ScrollWheel")>0.1f && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetAxis("Mouse ScrollWheel") < -0.1f && VarSave.GetBool("Xbox")) ? -1 : 0);
+            float macrosMx = (Input_GetKeyMacros("MX+") || Input.GetKey(KeyCode.Period) || (Input.GetKey(KeyCode.Mouse1) && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetKey(KeyCode.Comma) || Input.GetKey(KeyCode.Mouse0) && VarSave.GetBool("Xbox")) ? -1 : 0);
+            macrosMx +=  (Input.GetKey(KeyCode.Period)  ? 5 : 0) + (Input.GetKey(KeyCode.Comma) ? -5 : 0);
             float deltaX = (Input.GetAxis("Horizontal")+ macrosX) * (Speed * (1f / movegrag));
             float deltaZ = (Input.GetAxis("Vertical") + macrosZ )* (Speed * (1f / movegrag));
             //AutoRun
@@ -3962,20 +4036,20 @@ public class mover : CustomSaveObject
                         {
 
 
-                            PlayerCamera.transform.Rotate(new Vector3(-(Input.GetAxis("Mouse Y")) * 2, 0, 0));
+                            PlayerCamera.transform.Rotate(new Vector3(-((Input.GetAxis("Mouse Y")* (VarSave.GetBool("Xbox")== true ? 0 : 1))) * 2, 0, 0));
                         }
                         if (faceViewi == faceView.trid)
                         {
 
 
-                            HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") ) * 2, 0, 0);
+                            HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0, 0);
                         }
                         if (hyperbolicCamera == null)
                         {
                             if (faceViewi != faceView.fourd)
                             {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") ) * 2, 0));
+                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0));
                             }
                         }
                         else if(!hyperbolicCamera.gameObject.activeSelf)
@@ -3983,7 +4057,7 @@ public class mover : CustomSaveObject
                             if (faceViewi != faceView.fourd)
                             {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") ) * 2, 0));
+                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0));
                             }
                         }
 
@@ -4003,13 +4077,13 @@ public class mover : CustomSaveObject
                     {
 
 
-                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") ) * 2, 0, 0);
+                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0, 0);
                     }
                     if (faceViewi == faceView.trid)
                     {
 
 
-                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") ) * 2, 0, 0);
+                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0, 0);
                     }
 
                     if (hyperbolicCamera == null)
@@ -4017,7 +4091,7 @@ public class mover : CustomSaveObject
                         if (faceViewi != faceView.fourd)
                         {
 
-                            PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X")) * 2, 0));
+                            PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0));
                         }
                     }
 
@@ -4555,6 +4629,17 @@ public class mover : CustomSaveObject
             axelerate += 2;
 
             //playermatinvisible
+        }
+        if (playerdata.Geteffect("BoreDomLibido") != null)
+        {
+            if (fl) 
+            {
+
+                fl.minlibido = 6;
+                fl.porogvozbujenia = 1;
+                fl.porogvozbujeniamin = 1;
+                fl.porogvozbujeniamax = 1;
+            }
         }
         if (playerdata.Geteffect("█_█__██") != null)
         {
