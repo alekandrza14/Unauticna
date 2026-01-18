@@ -24,6 +24,6 @@ public class SceneLoad
         if (VarSave.isNumber(scene.ToString())) LOADINGGAME.scene = (int)scene;
         else LOADINGGAME.scene = scene.ToString();
 
-        SceneManager.LoadScene(433);
+        SceneManager.LoadSceneAsync(433);
     }
 }

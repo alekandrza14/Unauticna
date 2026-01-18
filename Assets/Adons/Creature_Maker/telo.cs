@@ -25,7 +25,52 @@ public class telo : CustomSaveObject
     public Toggle tg;
     public InputField ifd;
     public string nameCreature;
-
+    public bool cellRandom;
+    public bool cellPlayer;
+    public bool creatureRandom;
+    public bool creaturePlayer;
+    public int food;
+    public int grass;
+    public int meat;
+    public int love;
+    public int agry;
+    public int social;
+    public int scene;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.GetComponent<telo>() && cellPlayer)
+        {
+            if (!collision.collider.GetComponent<telo>().cellPlayer)
+            {
+                food++;
+                meat++;
+                Destroy(collision.collider.gameObject);
+            }
+        }
+        if (collision.collider.GetComponent<telo>() && creaturePlayer)
+        {
+            if (!collision.collider.GetComponent<telo>().creaturePlayer && grass > 0)
+            {
+                GameObject obj = Instantiate(collision.collider.gameObject);
+                obj.GetComponent<telo>().creatureRandom = false;
+                love++;
+                social++; grass--;
+            }
+            if (!collision.collider.GetComponent<telo>().creaturePlayer && grass <= 0)
+            {
+                meat++;
+                Destroy(collision.collider.gameObject);
+                agry++;
+                social++; grass--;
+            }
+        }
+        if (collision.collider.GetComponent<Grass>())
+        {
+            food++;
+            grass++;
+            Destroy(collision.collider.gameObject);
+        }
+    }
     public void BackMenu()
     {
         SceneManager.LoadScene("menu");
@@ -40,6 +85,7 @@ public class telo : CustomSaveObject
         c.sc = sc;
         Directory.CreateDirectory("res/Creatures");
         File.WriteAllText("res/Creatures/" + ifd.text + ".creature", JsonUtility.ToJson(c));
+
     }
     public void load()
     {
@@ -51,7 +97,7 @@ public class telo : CustomSaveObject
             FindObjectsByType<Mainscript>(sortmode.main)[i].selfLeft();
         }
 
-        if (File.Exists("res/Creatures/"+ifd.text+".creature"))
+        if (File.Exists("res/Creatures/" + ifd.text + ".creature"))
         {
             Creature c = JsonUtility.FromJson<Creature>(File.ReadAllText("res/Creatures/" + ifd.text + ".creature"));
             for (int i = 0; i < c.positions.Count; i++)
@@ -74,10 +120,32 @@ public class telo : CustomSaveObject
         {
             FindObjectsByType<Mainscript>(sortmode.main)[i].selfLeft();
         }
-      
+
     }
+    bool Nondfaultcreutere()
+    {
+        if (!cellRandom)
+        {
+            if (!creatureRandom)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void Start()
     {
+        if (cellRandom||creatureRandom)
+        {
+            DirectoryInfo DaySutzhestv = new DirectoryInfo("res/Creatures");
+            FileInfo[] fileInfos = DaySutzhestv.GetFiles();
+
+            string Filename = fileInfos[Random.Range(0, fileInfos.Length)].Name;
+            nameCreature = Filename.Replace(".creature", "");
+               
+        }
+
         if (nameCreature != "")
         {
 
@@ -130,21 +198,21 @@ public class telo : CustomSaveObject
                 GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 4f;
             }
-            if (sc == SizeCreachure.giga)
+           if(Nondfaultcreutere()) if (sc == SizeCreachure.giga)
             {
                 transform.localScale *= 10;
                 GetComponent<Rigidbody>().mass = 10000f;
                 GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 30f;
             }
-            if (sc == SizeCreachure.titan)
+            if (Nondfaultcreutere()) if (sc == SizeCreachure.titan)
             {
                 transform.localScale *= 50;
                 GetComponent<Rigidbody>().mass = 200000f;
                 GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 100f;
             }
-            if (sc == SizeCreachure.planet)
+            if (Nondfaultcreutere()) if (sc == SizeCreachure.planet)
             {
                 transform.localScale *= 400;
                 GetComponent<Rigidbody>().mass = 16000000f;
@@ -176,27 +244,77 @@ public class telo : CustomSaveObject
     }
     private void Update()
     {
+        if (cellPlayer)
+        {
+            if (food >= 20)
+            {
+                float carma = (float)meat / (float)food;
+                Debug.Log("carma "+ carma);
+                if (carma >= 0.66)
+                {
+                    VarSave.SetInt("Еда", 1);
+                    SceneLoad.loadbar(scene);
+                }
+                else if (carma <= 0.33)
+                {
+                    VarSave.SetInt("Еда", 3);
+
+                    SceneLoad.loadbar(scene);
+                }
+                else
+                {
+                    VarSave.SetInt("Еда", 2);
+                    SceneLoad.loadbar(scene);
+                }
+            }
+        }
+        if (creaturePlayer)
+        {
+            if (social >= 20)
+            {
+                float carma = agry / social;
+                if (carma >= 0.66)
+                {
+                    VarSave.SetInt("Соц", 1);
+                    SceneLoad.loadbar(scene);
+                }
+                else if (carma <= 0.33)
+                {
+                    VarSave.SetInt("Соц", 3);
+
+                    SceneLoad.loadbar(scene);
+                }
+                else
+                {
+                    VarSave.SetInt("Соц", 2);
+                    SceneLoad.loadbar(scene);
+                }
+            }
+        }
         if (nameCreature != "")
         {
 
         }
         else
         {
-          sc =  (SizeCreachure)sizesCreachure.value;
-            if (VarSave.GetFloat(
-           "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
+            if (Nondfaultcreutere())
             {
-                VarSave.LoadFloat("reason", 1);
-            }
-            if (tg.isOn && !gameObject.GetComponent<Rigidbody>())
-            {
-                gameObject.AddComponent<Rigidbody>();
-            }
-            if (!tg.isOn && gameObject.GetComponent<Rigidbody>())
-            {
-                Destroy(gameObject.GetComponent<Rigidbody>());
-                transform.position = Vector3.zero;
-                transform.rotation = Quaternion.identity;
+                sc = (SizeCreachure)sizesCreachure.value;
+                if (VarSave.GetFloat(
+               "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                if (tg.isOn && !gameObject.GetComponent<Rigidbody>())
+                {
+                    gameObject.AddComponent<Rigidbody>();
+                }
+                if (!tg.isOn && gameObject.GetComponent<Rigidbody>())
+                {
+                    Destroy(gameObject.GetComponent<Rigidbody>());
+                    transform.position = Vector3.zero;
+                    transform.rotation = Quaternion.identity;
+                }
             }
         }
         if (nameCreature != "")
@@ -205,34 +323,37 @@ public class telo : CustomSaveObject
         }
         else
         {
-            if (VarSave.GetFloat(
+            if (Nondfaultcreutere())
+            {
+                if (VarSave.GetFloat(
            "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
-            {
-                VarSave.LoadFloat("reason", 1);
-            }
-            Ray r = ViewC.getMainView().ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(r, out hit))
-            {
-                if (hit.collider.GetComponent<telo>() && Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    GameObject g = Instantiate(obj, transform);
-                    g.transform.position = hit.point;
-                    g.GetComponent<Mainscript>().telo = gameObject;
-                    objs.Add(g);
+                    VarSave.LoadFloat("reason", 1);
                 }
-                if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Delete))
+                Ray r = ViewC.getMainView().ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(r, out hit))
                 {
-                    GameObject g = hit.collider.gameObject;
-                    objs.Remove(hit.collider.gameObject);
-                    Destroy(g);
-                }
-                else if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    GameObject g = Instantiate(obj, transform);
-                    g.transform.position = hit.point;
-                    g.GetComponent<Mainscript>().telo = gameObject;
-                    objs.Add(g);
+                    if (hit.collider.GetComponent<telo>() && Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        GameObject g = Instantiate(obj, transform);
+                        g.transform.position = hit.point;
+                        g.GetComponent<Mainscript>().telo = gameObject;
+                        objs.Add(g);
+                    }
+                    if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Delete))
+                    {
+                        GameObject g = hit.collider.gameObject;
+                        objs.Remove(hit.collider.gameObject);
+                        Destroy(g);
+                    }
+                    else if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Mouse0))
+                    {
+                        GameObject g = Instantiate(obj, transform);
+                        g.transform.position = hit.point;
+                        g.GetComponent<Mainscript>().telo = gameObject;
+                        objs.Add(g);
+                    }
                 }
             }
         }
