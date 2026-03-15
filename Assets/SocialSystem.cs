@@ -26,6 +26,15 @@ public class SocialSystem : MonoBehaviour
         Global.PauseManager.Play();
         Destroy(gameObject);
     }
+    public void OnInteractive()
+    {
+        if (Oce.main() != null)
+        {
+            Oce.main()._interface.SetActive(true);
+            ObjenieCreatureEtap.curcreature = gameObject;
+        }
+
+    }
     public void KilAll()
     {
         CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);

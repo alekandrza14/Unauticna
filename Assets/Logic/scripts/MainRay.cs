@@ -32,6 +32,10 @@ public class MainRay : MonoBehaviour
                 {
                     item.Invoke("OnInteractive", 0);
                 }
+                foreach (CustomSaveObject item in hit.collider.GetComponents<CustomSaveObject>())
+                {
+                    item.Invoke("OnInteractive", 0);
+                }
             }
             if (!hit.collider.isTrigger)
             {

@@ -35,9 +35,21 @@ public class RayCastStars : MonoBehaviour
     public HyperbolicCamera HyperbolicCamera;
     public string[] scenename;
     public size s;
+    public static bool nravixOverbunds;
+    List<GameObject> clone = new List<GameObject>();
     private void Start()
     {
+        for (int i =0;i< transform.childCount;i++)
+        {
+            if((transform.GetChild(i).name.Contains("Cone"))) clone.Add(transform.GetChild(i).gameObject);
+        }
+        if (nravixOverbunds)
+        {
+            clone[0].SetActive(false);
+            clone[1].SetActive(false);
 
+            Instantiate(Resources.Load<GameObject>("SpaceNravix"), transform);
+        }
         Instantiate(Resources.Load<GameObject>("audios/Nill"), transform.position, Quaternion.identity);
         VarSave.SetString("scppos", SceneManager.GetActiveScene().name);
         VarSave.SetString("Universe_Position", SceneManager.GetActiveScene().name);
@@ -94,8 +106,10 @@ public class RayCastStars : MonoBehaviour
         float d = Vector2.Dot(-p, new Vector2(12.9898f, 78.233f));
         return Frac(Mathf.Sin(d) * 43758.5453123f);
     }
+
     void Update()
     {
+        
         scp.pos = transform.position;
         scp.rot = transform.rotation;
 

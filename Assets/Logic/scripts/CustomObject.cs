@@ -3,6 +3,7 @@ using ObjParser;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ public enum CustomObjectType
 public class CustomObjectData
 {
     public string NameModel;
+    
     public string[] Models = new string[] { };
     public Color _Color;
     public Color[] m_Colors = new Color[] { };
@@ -104,7 +106,7 @@ public class CustomObjectData
 
 public class CustomObject : CustomSaveObject
 {
-    
+    public Vector3 scaled;
     public MeshFilter mf;
     public Vector3[] verti;
     public int[] tria;
@@ -319,7 +321,7 @@ public class CustomObject : CustomSaveObject
 
         for (int i = 0; i < newobj.VertexList.Count; i++)
         {
-            vertices[i] = new Vector3((float)newobj.VertexList[i].X, (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z);
+            vertices[i] = new Vector3((float)newobj.VertexList[i].X* scaled.x, (float)newobj.VertexList[i].Y * scaled.y, (float)newobj.VertexList[i].Z * scaled.z);
         }
 
         for (int f = 0; f < newobj.FaceList.Count; f++)
@@ -346,17 +348,59 @@ public class CustomObject : CustomSaveObject
     {
         ObjParser.Obj newobj = new ObjParser.Obj();
         Directory.CreateDirectory("res/UserWorckspace/Items");
+        List<string> ovewrite = Mod.res();
+        if (Mod.res().Count != 0)
+        {
 
-
-        if (!File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
+        }
+        else if (!File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
         {
             Model.nDemention = NDemention._3D;
-            Model.scale = Vector3.one;
+            Model.scale = Global.Mult.vector3(Vector3.one, scaled);
             Model._Color = Color.red;
             Model.NameModel = "cube";
             File.WriteAllText("res/UserWorckspace/Items/" + s + ".txt", JsonUtility.ToJson(Model));
         }
-        if (File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
+        if (Mod.res().Count != 0)
+        {
+            List<string> ovewrite12 = Mod.res();
+            string sas = "";
+            foreach (string res in ovewrite12)
+            {
+                if (File.Exists(res + "UserWorckspace/Items/" + s + ".txt"))
+                {
+                    Model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(res + "UserWorckspace/Items/" + s + ".txt"));
+                    sas = "b"; 
+                    if (!File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
+                    {
+                        Model.nDemention = NDemention._3D;
+                        Model.scale = Global.Mult.vector3(Vector3.one, scaled);
+                        Model._Color = Color.red;
+                        Model.NameModel = "cube";
+                        File.WriteAllText("res/UserWorckspace/Items/" + s + ".txt", JsonUtility.ToJson(Model));
+                    }
+                }
+              if(sas != "b")  sas = "a";
+            }
+            
+            if (sas == "a")
+            {
+                if (File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
+                {
+                    Model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + s + ".txt"));
+                }
+                else if (!File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
+                {
+                    Model.nDemention = NDemention._3D;
+                    Model.scale = Global.Mult.vector3(Vector3.one, scaled);
+                    Model._Color = Color.red;
+                    Model.NameModel = "cube";
+                    File.WriteAllText("res/UserWorckspace/Items/" + s + ".txt", JsonUtility.ToJson(Model));
+                    Model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + s + ".txt"));
+                }
+            }
+        }
+        else
         {
             Model = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + s + ".txt"));
         }
@@ -372,8 +416,8 @@ public class CustomObject : CustomSaveObject
             {
                 // GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
                 GetComponent<MultyObject>().saved = true;
-                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
-                GetComponent<MultyObject>().scale3D = Model.scale;
+                 GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x*scaled.x, Model.scale.y * scaled.y, Model.scale.z * scaled.z, 1, 1, 0);
+                GetComponent<MultyObject>().scale3D = Global.Mult.vector3(Model.scale , scaled);
                GetComponent<MultyObject>().W_Position = m.W_position;
                 GetComponent<MultyObject>().H_Position = m.H_position;
             }
@@ -381,8 +425,8 @@ public class CustomObject : CustomSaveObject
             {
                 //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
                 GetComponent<MultyObject>().saved = true;
-                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
-                GetComponent<MultyObject>().scale3D = Model.scale;
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x * scaled.x, Model.scale.y * scaled.y, Model.scale.z * scaled.z, 1, 1, 0);
+                GetComponent<MultyObject>().scale3D = Global.Mult.vector3(Model.scale, scaled);
                 GetComponent<MultyObject>().W_Position = WHPos.x;
                 GetComponent<MultyObject>().H_Position = WHPos.y;
             }
@@ -398,8 +442,8 @@ public class CustomObject : CustomSaveObject
             {
                 //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
                 GetComponent<MultyObject>().saved = true;
-                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
-                GetComponent<MultyObject>().scale3D = Model.scale;
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x * scaled.x, Model.scale.y * scaled.y, Model.scale.z * scaled.z, 1, 1, 0);
+                GetComponent<MultyObject>().scale3D = Global.Mult.vector3(Model.scale, scaled);
                 GetComponent<MultyObject>().W_Position = m.W_position;
                 GetComponent<MultyObject>().H_Position = m.H_position;
 
@@ -418,8 +462,8 @@ public class CustomObject : CustomSaveObject
             {
                 //   GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
                 GetComponent<MultyObject>().saved = true;
-                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 1, 0);
-                GetComponent<MultyObject>().scale3D = Model.scale;
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x * scaled.x, Model.scale.y * scaled.y, Model.scale.z * scaled.z, 1, 1, 0);
+                GetComponent<MultyObject>().scale3D = Global.Mult.vector3(Model.scale, scaled);
                 GetComponent<MultyObject>().W_Position = WHPos.x;
                 GetComponent<MultyObject>().H_Position = WHPos.y;
                 MultyObject mo = GetComponent<MultyObject>();
@@ -488,7 +532,7 @@ public class CustomObject : CustomSaveObject
         }
         for (int i = 0; i < Model.TelevizorPos.LongLength; i++)
         {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position + Model.TelevizorPos[i], Model.TelevizorRot[i], transform);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("WindowSocialismAd"), transform.position + (Model.TelevizorPos[i]* scaled.x), Model.TelevizorRot[i], transform);
             obj.transform.localScale = Model.TelevizorScale[i];
             if (Model.TelevizorVideo.Length != 0)
             {
@@ -509,6 +553,7 @@ public class CustomObject : CustomSaveObject
         if (Model.TexutersDoomModel != null) if (Model.TexutersDoomModel.LongLength > 0)
             {
                 GameObject obj = Instantiate(Resources.Load<GameObject>("DoomCharactor"), transform.position, transform.rotation, transform);
+                obj.transform.localScale *= scaled.x;
                 coModule = obj.GetComponent<COModule>();
                 test = new List<RawImage>();
                 for (int i = 0; i < Model.TexutersDoomModel.LongLength; i++)
@@ -524,17 +569,18 @@ public class CustomObject : CustomSaveObject
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("CustomMetka"), transform.position, transform.rotation, transform);
             obj.GetComponent<CustomTextonMaterial>().CoTex = Model.TextureTarget;
+                obj.transform.localScale *= scaled.x;
         }
 
 
         foreach (Vector3 v3 in Model.LeftLeg)
         {
-            Vector3 x = transform.right;
-            Vector3 y = transform.up;
-            Vector3 z = transform.forward;
+            Vector3 x = transform.right * scaled.x;
+            Vector3 y = transform.up * scaled.y;
+            Vector3 z = transform.forward * scaled.z;
             Vector3 xyz = (x * v3.x) + (y * v3.y) + (z * v3.z);
             GameObject obj = Instantiate(Resources.Load<GameObject>("CO_Parts/Left leg"), transform);
-            obj.transform.position = xyz + transform.position;
+            obj.transform.position = xyz + transform.position; obj.transform.localScale *= scaled.x;
             Nerv nerv = obj.GetComponent<Nerv>();
             nerv.Leg.Shag = Model.LeftPovid;
             nerv.Brain = gameObject;
@@ -542,24 +588,25 @@ public class CustomObject : CustomSaveObject
         
         foreach (Vector3 v3 in Model.RightLeg)
         {
-            Vector3 x = transform.right;
-            Vector3 y = transform.up;
-            Vector3 z = transform.forward;
+            Vector3 x = transform.right * scaled.x;
+            Vector3 y = transform.up * scaled.y;
+            Vector3 z = transform.forward * scaled.z;
             Vector3 xyz = (x * v3.x) + (y * v3.y) + (z * v3.z);
             GameObject obj = Instantiate(Resources.Load<GameObject>("CO_Parts/Right leg"), transform);
-            obj.transform.position = xyz + transform.position;
+            obj.transform.position = xyz + transform.position; obj.transform.localScale *= scaled.x;
             Nerv nerv = obj.GetComponent<Nerv>();
             nerv.Leg.Shag = Model.RightPovid;
             nerv.Brain = gameObject;
         }
         if (Model.home)
         {
-            Instantiate(Resources.Load<GameObject>("HomeTag"), gameObject.transform);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("HomeTag"), gameObject.transform);
+            obj.transform.localScale *= scaled.x;
         }
         if (Model.Transport)
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("CustomTransport"), transform.position, Quaternion.identity);
-            obj.GetComponent<CustomTransport>().item = transform;
+            obj.GetComponent<CustomTransport>().item = transform; obj.transform.localScale *= scaled.x;
             obj.GetComponent<CustomTransport>().TransportNmae.text = s;
             if (GetComponent<BoxCollider>())
             {
@@ -575,7 +622,7 @@ public class CustomObject : CustomSaveObject
         if (Model.car)
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("CustomCar"), transform.position, Quaternion.identity);
-            obj.GetComponent<CustomTransport>().item = transform;
+            obj.GetComponent<CustomTransport>().item = transform; obj.transform.localScale *= scaled.x;
             obj.GetComponent<CustomTransport>().TransportNmae.text = s; 
             if (GetComponent<BoxCollider>())
             {
@@ -601,7 +648,7 @@ public class CustomObject : CustomSaveObject
             {
                 //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, m.W_position, m.H_position, 0);
                 GetComponent<MultyObject>().saved = true;
-                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 500000, 0);
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x * scaled.x, Model.scale.y * scaled.y, Model.scale.z * scaled.z, 1, 500000, 0);
                // GetComponent<MultyObject>().W_Position = m.W_position;
             }
             else
@@ -610,11 +657,18 @@ public class CustomObject : CustomSaveObject
                 //  GetComponent<MultyObject>().startPosition = new Vector6(transform.position.x, transform.position.y, transform.position.z, WHPos.x, WHPos.y, 0);
 
                 GetComponent<MultyObject>().saved = true;
-                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x, Model.scale.y, Model.scale.z, 1, 500000, 0);
+                GetComponent<MultyObject>().startScale = new Vector6(Model.scale.x * scaled.x, Model.scale.y * scaled.y, Model.scale.z * scaled.z, 1, 500000, 0);
                 GetComponent<MultyObject>().W_Position = WHPos.x;
             }
         }
-        newobj.LoadObj("res/" + Model.NameModel + ".obj");
+
+        if (File.Exists("res/" + Model.NameModel + ".obj")) newobj.LoadObj("res/" + Model.NameModel + ".obj");
+        //Owerwrite
+        List<string> ovewrite1 = Mod.res();
+        foreach(string res in ovewrite1)
+        {
+          if(File.Exists(res + Model.NameModel + ".obj"))  newobj.LoadObj(res + Model.NameModel + ".obj");
+        }
         var mesh = new Mesh();
         mesh.name = Model.NameModel;
         Vector3[] vertices = new Vector3[newobj.VertexList.Count];
@@ -623,7 +677,7 @@ public class CustomObject : CustomSaveObject
 
         for (int i = 0; i < newobj.VertexList.Count; i++)
         {
-            vertices[i] = new Vector3((float)newobj.VertexList[i].X, (float)newobj.VertexList[i].Y, (float)newobj.VertexList[i].Z);
+            vertices[i] = new Vector3((float)newobj.VertexList[i].X * scaled.x, (float)newobj.VertexList[i].Y * scaled.y, (float)newobj.VertexList[i].Z * scaled.z);
         }
 
         for (int f = 0; f < newobj.FaceList.Count; f++)
@@ -738,6 +792,16 @@ public class CustomObject : CustomSaveObject
                 obj.GetComponent<CustomObject>().s = Model.ConvertTo;
                 gameObject.AddComponent<DELETE>();
             }
+            List<string> ovewrite = Mod.res();
+            foreach (string res in ovewrite)
+            {
+                if (File.Exists(res+"UserWorckspace/Items/" + Model.ConvertTo + ".txt"))
+                {
+                    GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                    obj.GetComponent<CustomObject>().s = Model.ConvertTo;
+                    gameObject.AddComponent<DELETE>();
+                }
+            }
         }
     }
     public void OnInteractive()
@@ -755,6 +819,92 @@ public class CustomObject : CustomSaveObject
                 obj.GetComponent<CustomObject>().s = Model.ConvertTo;
                 gameObject.AddComponent<DELETE>();
             }
+            List<string> ovewrite = Mod.res();
+            foreach (string res in ovewrite)
+            {
+                if (File.Exists(res + "UserWorckspace/Items/" + Model.ConvertTo + ".txt"))
+                {
+                    GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+                    obj.GetComponent<CustomObject>().s = Model.ConvertTo;
+                    gameObject.AddComponent<DELETE>();
+                }
+            }
         }
+    }
+}
+public class Mod
+{
+    public static List<string> enameledmods()
+    {
+        string[] EnabledMods = File.ReadAllText("Mods/EnabledMods.ini").Split('+');
+        
+        return EnabledMods.ToList();
+    }
+    public static List<string> res()
+    {
+        List<string> paths = new List<string>();
+        for (int i = 0; i < enameledmods().Count; i++)
+        {
+            DirectoryInfo dir = new DirectoryInfo("Mods/"+ enameledmods()[i]);
+            List<FileInfo> files;
+            files = dir.GetFiles().ToList();
+            foreach (FileInfo file1 in dir.GetFiles())
+            {
+                if (file1.Name != "Class.ini")
+                {
+                    files.Remove(file1);
+                }
+                else
+                {
+                    paths.Add(file1.FullName.Replace("Class.ini", "") + "res/");
+                }
+            }
+        }
+        return paths;
+    }
+    public static List<string> win()
+    {
+        List<string> paths = new List<string>();
+        for (int i = 0; i < enameledmods().Count; i++)
+        {
+            DirectoryInfo dir = new DirectoryInfo("Mods/" + enameledmods()[i]);
+            List<FileInfo> files;
+            files = dir.GetFiles().ToList();
+            foreach (FileInfo file1 in dir.GetFiles())
+            {
+                if (file1.Name != "Class.ini")
+                {
+                    files.Remove(file1);
+                }
+                else
+                {
+                    paths.Add(file1.FullName.Replace(@"Class.ini", "") + "windows/");
+                }
+            }
+        }
+        return paths;
+    }
+    public static List<string> Lb()
+    {
+        List<string> paths = new List<string>();
+        for (int i = 0; i < enameledmods().Count; i++)
+        {
+            DirectoryInfo dir = new DirectoryInfo("Mods/" + enameledmods()[i]);
+            List<FileInfo> files;
+            files = dir.GetFiles().ToList();
+            foreach (FileInfo file1 in dir.GetFiles())
+            {
+                if (file1.Name != "Class.ini")
+                {
+                    files.Remove(file1);
+                }
+                else
+                {
+                    paths.Add(file1.FullName.Replace(@"Class.ini", "") + "logic/");
+                }
+            }
+            
+        }
+        return paths;
     }
 }

@@ -94,9 +94,16 @@ public class SocialObject : MonoBehaviour
         
       
     }
-
+   
     public void OnInteractive()
     {
+
+        if (Oce.main() != null)
+        {
+            Oce.main()._interface.SetActive(true);
+            ObjenieCreatureEtap.curcreature = gameObject;
+        }
+
         Global.PauseManager.Pause();
         spawnedSocialSystem = Instantiate(Resources.Load<GameObject>("SocialSystem"));
         SocialSystem ss = spawnedSocialSystem.GetComponent<SocialSystem>();

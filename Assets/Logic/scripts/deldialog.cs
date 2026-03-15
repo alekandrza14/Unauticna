@@ -41,7 +41,15 @@ public class deldialog : MonoBehaviour
     }
     void Start()
     {
-       tir2 = VarSave.GetInt(del);
+        if (RayCastStars.nravixOverbunds && del == "SAS-456-65")
+        {
+            Instantiate(Resources.Load<GameObject>("BalckScreen"));
+            enter = true;
+
+            button.SetActive(true);
+            VarSave.SetInt("delbutton" + del, 1);
+        }
+        tir2 = VarSave.GetInt(del);
         if (s[0].Length ==0) {
             s[0] = text.text; 
         }
@@ -408,11 +416,9 @@ public class deldialog : MonoBehaviour
             Instantiate(Resources.Load<GameObject>("вопрос" + delattack));
             text.text = "";
         }
-        if (VarSave.GetInt("delbutton" + del) == 1)
+        if (VarSave.GetInt("delbutton" + del) == 1||(RayCastStars.nravixOverbunds && del == "SAS-456-65"))
         {
             button.SetActive(true);
-            
-            
         }
         else if(!startActivate)
         {
@@ -427,15 +433,23 @@ public class deldialog : MonoBehaviour
             Debug.Log(1);
             if (s.tag == "Player")
             {
-                if (s.GetComponent<mover>())
+                if (!RayCastStars.nravixOverbunds)
                 {
+                    if (s.GetComponent<mover>())
+                    {
 
+                    }
 
+                    enter = true; button.SetActive(true);
+                    Debug.Log(1);
+                    VarSave.SetInt("delbutton" + del, 1);
                 }
-               
-                enter = true;
-                Debug.Log(1);
-                VarSave.SetInt("delbutton" + del, 1);
+                else if (RayCastStars.nravixOverbunds && del == "SAS-456-65")
+                {
+                    Instantiate(Resources.Load<GameObject>("BalckScreen"));
+                    enter = true; button.SetActive(true);
+                    VarSave.SetInt("delbutton" + del, 1);
+                }
             }
         }
     }
@@ -443,12 +457,22 @@ public class deldialog : MonoBehaviour
     {
         if (s.tag == "Player")
         {
-            if (oneraz)
+            if (!RayCastStars.nravixOverbunds)
             {
-                oneraz1 = true;
+                //BalckScreen
+                if (oneraz)
+                {
+                    oneraz1 = true;
+                }
+                enter = false; button.SetActive(true);
+                VarSave.SetInt("delbutton" + del, 0);
             }
-            enter = false;
-            VarSave.SetInt("delbutton" + del, 0);
+            else if(RayCastStars.nravixOverbunds && del == "SAS-456-65")
+            {
+                Instantiate(Resources.Load<GameObject>("BalckScreen"));
+                enter = true; button.SetActive(true);
+                VarSave.SetInt("delbutton" + del, 1);
+            }
         }
     }
 }
