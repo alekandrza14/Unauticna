@@ -49,7 +49,15 @@ public class Acaunt : MonoBehaviour
         Spawn(Interface.text);
         VarSave.SetString("interface",Interface.text);
     }
+    public void OnInteractive()
+    {
+        if (Oce.main() != null)
+        {
+            Oce.main()._interface.SetActive(true);
+            ObjenieCreatureEtap.curcreature = gameObject;
+        }
 
+    }
     public static void Spawn(string text)
     {
         Interface InterfaceFile = new Interface();

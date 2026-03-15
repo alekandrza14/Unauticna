@@ -19,6 +19,14 @@ public class objFind : MonoBehaviour
 
 namespace Global
 {
+    public class Mult
+    {
+        static public Vector3 vector3(Vector3 v3 , Vector3 v32)
+        {
+            Vector3 v33 = new Vector3(v3.x * v32.x, v3.y * v32.y, v3.z * v32.z);
+            return v3;
+        }
+    }
     public class Random
     {
         static System.Random random = new();

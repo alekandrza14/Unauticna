@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using static UnityEngine.GraphicsBuffer;
 
 public class inputButton
 {
@@ -2041,8 +2039,8 @@ public class ElementalInventory : MonoBehaviour {
                             {
                                 CustomFunctionalItem(cod);
                             }
-                    
-                
+               
+
 
 
 
@@ -2059,9 +2057,9 @@ public class ElementalInventory : MonoBehaviour {
 
                                 CustomFunctionalItem(cod);
                             }
-                    
 
-                
+               
+
 
 
 
@@ -2080,8 +2078,7 @@ public class ElementalInventory : MonoBehaviour {
 
                                 CustomFunctionalItem(cod);
                             }
-                   
-                
+             
 
 
 
@@ -2100,8 +2097,8 @@ public class ElementalInventory : MonoBehaviour {
 
                                 CustomFunctionalItem(cod);
                             }
-                 
 
+             
 
 
             }
@@ -4799,8 +4796,8 @@ public class ElementalInventory : MonoBehaviour {
 
                                         CustomFunctionalItem(cod);
                                     }
-                       
 
+                       
 
 
                     }

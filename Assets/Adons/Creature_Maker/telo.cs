@@ -14,31 +14,59 @@ public class Creature
 {
     public List<Vector3> positions = new List<Vector3>();
     public SizeCreachure sc;
+    public List<Vector3> Vectorpositions = new List<Vector3>();
+    public List<Quaternion> Quaternionpositions = new List<Quaternion>();
+    public List<string> CONames = new List<string>();
 }
 
 public class telo : CustomSaveObject
 {
     public List<GameObject> objs = new List<GameObject>();
+    public List<GameObject> Cobjs = new List<GameObject>();
     public SizeCreachure sc;
     public Dropdown sizesCreachure;
     public GameObject obj;
+    public GameObject Cobj;
+    public GameObject Camer;
     public Toggle tg;
     public InputField ifd;
+    public InputField CO;
     public string nameCreature;
     public bool cellRandom;
     public bool cellPlayer;
     public bool creatureRandom;
     public bool creaturePlayer;
+    public bool PostFishRandom;
+    public bool PostFishPlayer;
     public int food;
     public int grass;
     public int meat;
     public int love;
     public int agry;
     public int social;
+    public int LiberMarket;
+    public int Chiberty;
+    public int EgoPolitic;
     public int scene;
+
+    public void OnInteractive()
+    {
+
+        if (Oce.main() != null)
+        {
+            Oce.main()._interface.SetActive(true);
+            ObjenieCreatureEtap.curcreature = gameObject;
+        }
+
+    }
+
+    void Awake()
+    {
+        Cobj = Resources.Load<GameObject>("CustomObjectNodeCrearure");
+    }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.GetComponent<telo>() && cellPlayer)
+        if(collision.collider.GetComponent<telo>() && cellPlayer)
         {
             if (!collision.collider.GetComponent<telo>().cellPlayer)
             {
@@ -53,15 +81,19 @@ public class telo : CustomSaveObject
             {
                 GameObject obj = Instantiate(collision.collider.gameObject);
                 obj.GetComponent<telo>().creatureRandom = false;
+                collision.collider.GetComponent<telo>().creatureRandom = false;
                 love++;
                 social++; grass--;
             }
             if (!collision.collider.GetComponent<telo>().creaturePlayer && grass <= 0)
             {
-                meat++;
-                Destroy(collision.collider.gameObject);
-                agry++;
-                social++; grass--;
+                if (collision.collider.GetComponent<telo>().creatureRandom) 
+                {
+                    meat++;
+                    Destroy(collision.collider.gameObject);
+                    agry++;
+                    social++; grass--; 
+                }
             }
         }
         if (collision.collider.GetComponent<Grass>())
@@ -81,6 +113,15 @@ public class telo : CustomSaveObject
         foreach (GameObject obj in objs)
         {
             c.positions.Add(obj.transform.position);
+        }
+        foreach (GameObject obj in Cobjs)
+        {
+            if (obj != null)
+            {
+                c.Vectorpositions.Add(obj.transform.position);
+                c.Quaternionpositions.Add(obj.transform.rotation);
+                c.CONames.Add(obj.GetComponent<CustomObject>().s);
+            }
         }
         c.sc = sc;
         Directory.CreateDirectory("res/Creatures");
@@ -109,6 +150,18 @@ public class telo : CustomSaveObject
                 g.GetComponent<Mainscript>().telo = gameObject;
                 objs.Add(g);
             }
+            for (int i = 0; i < c.Vectorpositions.Count; i++)
+            {
+                sc = c.sc;
+                sizesCreachure.value = (int)sc;
+                GameObject g = Instantiate(Cobj, transform);
+                g.transform.position = c.Vectorpositions[i];
+                g.transform.rotation = c.Quaternionpositions[i];
+                g.GetComponent<CustomObject>().s = c.CONames[i];
+                g.AddComponent<Mainscript>().telo = gameObject;
+                Cobjs.Add(g);
+            }
+
         }
     }
     public void clear()
@@ -136,7 +189,7 @@ public class telo : CustomSaveObject
 
     private void Start()
     {
-        if (cellRandom||creatureRandom)
+        if (cellRandom||creatureRandom||PostFishRandom)
         {
             DirectoryInfo DaySutzhestv = new DirectoryInfo("res/Creatures");
             FileInfo[] fileInfos = DaySutzhestv.GetFiles();
@@ -162,61 +215,71 @@ public class telo : CustomSaveObject
                     g.GetComponent<Mainscript>().telo = gameObject;
                     objs.Add(g);
                 }
+                for (int i = 0; i < c.Vectorpositions.Count; i++)
+                {
+                    GameObject g = Instantiate(Cobj, transform);
+                    sc = c.sc;
+                    g.transform.position = c.Vectorpositions[i] + transform.position;
+                    g.transform.rotation = c.Quaternionpositions[i];
+                    g.GetComponent<CustomObject>().s = c.CONames[i];
+                    g.AddComponent<Mainscript>().telo = gameObject;
+                    Cobjs.Add(g);
+                }
             }
             if (sc == SizeCreachure.nope)
             {
                 transform.localScale *= 1;
                 GetComponent<Rigidbody>().linearDamping = 1;
-                GetComponent<Rigidbody>().mass = 10;
+                if (!PostFishPlayer) GetComponent<Rigidbody>().mass = 10;
                 GetComponent<PlanetPhysics>().gravity *= 1;
             }
             if (sc == SizeCreachure.ant)
             {
                 transform.localScale *= 0.1f;
                 GetComponent<Rigidbody>().mass = 1f;
-                GetComponent<Rigidbody>().linearDamping = 10;
+                if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping = 10;
                 GetComponent<PlanetPhysics>().gravity *= 0.1f;
             }
             if (sc == SizeCreachure.small)
             {
                 transform.localScale *= 0.3f;
                 GetComponent<Rigidbody>().mass = 3f;
-                GetComponent<Rigidbody>().linearDamping = 2;
+                if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping = 2;
                 GetComponent<PlanetPhysics>().gravity *= 0.3f;
             }
             if (sc == SizeCreachure.medium)
             {
                 transform.localScale *= 1;
                 GetComponent<Rigidbody>().mass = 10f;
-                GetComponent<Rigidbody>().linearDamping =1;
+                if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping =1;
                 GetComponent<PlanetPhysics>().gravity *=1f;
             }
             if (sc == SizeCreachure.big)
             {
                 transform.localScale *= 2;
                 GetComponent<Rigidbody>().mass = 40f;
-                GetComponent<Rigidbody>().linearDamping = 1;
+                if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 4f;
             }
            if(Nondfaultcreutere()) if (sc == SizeCreachure.giga)
             {
                 transform.localScale *= 10;
                 GetComponent<Rigidbody>().mass = 10000f;
-                GetComponent<Rigidbody>().linearDamping = 1;
+                    if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 30f;
             }
             if (Nondfaultcreutere()) if (sc == SizeCreachure.titan)
             {
                 transform.localScale *= 50;
                 GetComponent<Rigidbody>().mass = 200000f;
-                GetComponent<Rigidbody>().linearDamping = 1;
+                    if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 100f;
             }
             if (Nondfaultcreutere()) if (sc == SizeCreachure.planet)
             {
                 transform.localScale *= 400;
                 GetComponent<Rigidbody>().mass = 16000000f;
-                GetComponent<Rigidbody>().linearDamping = 1;
+                    if (!PostFishPlayer) GetComponent<Rigidbody>().linearDamping = 1;
                 GetComponent<PlanetPhysics>().gravity *= 500f;
             }
         }
@@ -233,7 +296,15 @@ public class telo : CustomSaveObject
     }
     public void InverseCreature()
     {
-        foreach(GameObject obj in objs)
+        foreach (GameObject obj in objs)
+        {
+            if (obj != null)
+            {
+                obj.transform.position = new Vector3(obj.transform.position.x,
+                    obj.transform.position.y, -obj.transform.position.z);
+            }
+        }
+        foreach (GameObject obj in Cobjs)
         {
             if (obj != null)
             {
@@ -272,7 +343,30 @@ public class telo : CustomSaveObject
         {
             if (social >= 20)
             {
-                float carma = agry / social;
+                float carma = (float)agry / (float)social;
+                if (carma >= 0.66)
+                {
+                    VarSave.SetInt("Соц", 1);
+                    SceneLoad.loadbar(scene);
+                }
+                else if (carma <= 0.33)
+                {
+                    VarSave.SetInt("Соц", 3);
+
+                    SceneLoad.loadbar(scene);
+                }
+                else
+                {
+                    VarSave.SetInt("Соц", 2);
+                    SceneLoad.loadbar(scene);
+                }
+            }
+        }
+        if (PostFishPlayer)
+        {
+            if (social >= 20)
+            {
+                float carma = (float)agry / (float)social;
                 if (carma >= 0.66)
                 {
                     VarSave.SetInt("Соц", 1);
@@ -336,23 +430,56 @@ public class telo : CustomSaveObject
                 {
                     if (hit.collider.GetComponent<telo>() && Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        GameObject g = Instantiate(obj, transform);
-                        g.transform.position = hit.point;
-                        g.GetComponent<Mainscript>().telo = gameObject;
-                        objs.Add(g);
+                        if (string.IsNullOrEmpty(CO.text)) 
+                        {
+                            GameObject g = Instantiate(obj, transform);
+                            g.transform.position = hit.point;
+                            g.GetComponent<Mainscript>().telo = gameObject;
+                            objs.Add(g);
+                        }
+                        else
+                        {
+                            GameObject g = Instantiate(Cobj, transform.position, Camer.transform.rotation);
+                            g.transform.SetParent(transform, false);
+                            g.GetComponent<CustomObject>().s = CO.text;
+                            g.transform.position = hit.point;
+                            g.AddComponent<Mainscript>().telo = gameObject;
+                            Cobjs.Add(g);
+                        }
                     }
                     if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Delete))
                     {
-                        GameObject g = hit.collider.gameObject;
-                        objs.Remove(hit.collider.gameObject);
-                        Destroy(g);
+                        if (string.IsNullOrEmpty(CO.text))
+                        {
+                            GameObject g = hit.collider.gameObject;
+                            objs.Remove(hit.collider.gameObject);
+                            Destroy(g);
+                        }
+                        else
+                        {
+                            GameObject g = hit.collider.gameObject;
+                            Cobjs.Remove(hit.collider.gameObject);
+                            Destroy(g);
+                        }
                     }
                     else if (hit.collider.GetComponent<Mainscript>() && Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        GameObject g = Instantiate(obj, transform);
-                        g.transform.position = hit.point;
-                        g.GetComponent<Mainscript>().telo = gameObject;
-                        objs.Add(g);
+                        if (string.IsNullOrEmpty(CO.text))
+                        {
+                            GameObject g = Instantiate(obj, transform);
+                            g.transform.position = hit.point;
+                            g.GetComponent<Mainscript>().telo = gameObject;
+                            objs.Add(g);
+                        }
+                        else
+                        {
+                            GameObject g = Instantiate(Cobj, transform.position, Camer.transform.rotation);
+                            g.transform.SetParent(transform, false);
+                            g.GetComponent<CustomObject>().s = CO.text;
+                            g.transform.position = hit.point;
+                            g.AddComponent<Mainscript>().telo = gameObject;
+                            Cobjs.Add(g);
+                        }
                     }
                 }
             }

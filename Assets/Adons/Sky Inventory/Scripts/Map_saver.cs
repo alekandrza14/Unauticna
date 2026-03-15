@@ -2018,7 +2018,7 @@ public class Map_saver : MonoBehaviour
         {
 
 
-            t[i].gameObject.AddComponent<deleter1>();
+          if(!t[i].GetComponent<PreLoad>())  t[i].gameObject.AddComponent<deleter1>();
         }
         StandartObject[] so = FindObjectsByType<StandartObject>(sortmode.main);
         for (int i = 0; i < so.Length; i++)

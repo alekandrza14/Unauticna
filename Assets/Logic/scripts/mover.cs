@@ -10,7 +10,6 @@ using System.Runtime.InteropServices;
 using Photon.Pun;
 using MoonSharp.Interpreter;
 using System.Diagnostics;
-using Unity.Burst.CompilerServices;
 
 
 public class PlayerData
@@ -575,12 +574,23 @@ public class mover : CustomSaveObject
     GameObject unityedit;
     private void Init()
     {
+        //CharactorDebate
         //Хбокс
+        if (true)
+        {
+            GameObject g = Resources.Load<GameObject>("CharactorDebate");
+            Instantiate(g, transform);
+        }
         if (VarSave.GetBool("Xbox"))
         {
             GameObject g = Resources.Load<GameObject>("Хбокс");
             Instantiate(g, transform);
         }
+        GameObject g7 = Resources.Load<GameObject>("AcountIco");
+            Instantiate(g7, transform);
+        GameObject g5 = Resources.Load<GameObject>("SpaceBorder");
+            Instantiate(g5, transform.position,Quaternion.identity);
+
         if (VarSave.ExistenceVar("CapiKill"))
         {
             GameObject g = Resources.Load<GameObject>("ui/quests/killKapitalism");
@@ -1496,12 +1506,18 @@ public class mover : CustomSaveObject
         }
         DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Vars");
         customVaribles = dif.GetFiles();
+        //
+        InvokeRepeating("ResetSpace", 5, 1);
 
     }
     public static string curbutton;
     List<float> TimeButtonMacros = new List<float>();
     public List<string> Key = new List<string>();
     int patrn = 0;
+    public void ResetSpace()
+    {
+        RayCastStars.nravixOverbunds = false;
+    }
     public void LoadLuaLogicMacros(string loadedCode)
     {
         TimeButtonMacros = new();

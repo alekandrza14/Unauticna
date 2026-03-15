@@ -6,6 +6,14 @@ public class CharacterName : MonoBehaviour
 {
     public string CharactorName;
   [HideInInspector]  public string CharactorHpInterface = "Hitpoint : ~/~";
+    public void OnInteractive()
+    {
+        if (Oce.main() != null)
+        {
+            Oce.main()._interface.SetActive(true);
+            ObjenieCreatureEtap.curcreature = gameObject;
+        }
+    }
     void Update()
     {
         if (Input.GetKey(KeyCode.Mouse1))

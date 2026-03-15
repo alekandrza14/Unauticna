@@ -35,6 +35,16 @@ public class hello
             {
                 p.Start();
             }
+            List<string> ovewrite1 = Mod.win();
+            foreach (string res in ovewrite1)
+            {
+                Process p3 = new Process();
+                p3.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res + app + ".exe";
+                if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res + app + ".exe"))
+                {
+                    p3.Start();
+                }
+            }
         }
         public static void LoadLink(string url)
         {
@@ -48,6 +58,16 @@ public class hello
             if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\res\scripts\" + app + ".exe"))
             {
                 p.Start();
+            }
+            List<string> ovewrite1 = Mod.res();
+            foreach (string res in ovewrite1)
+            {
+                Process p3 = new Process();
+                p3.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res+@"scripts\" + app + ".exe";
+                if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res + @"scripts\" + app + ".exe"))
+                {
+                    p3.Start();
+                }
             }
         }
     }
