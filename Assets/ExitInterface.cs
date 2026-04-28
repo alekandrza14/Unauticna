@@ -30,5 +30,12 @@ public class ExitInterface : MonoBehaviour
                 child.SetActive(!child.activeSelf);
             }
         }
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+            foreach (GameObject child in childObject)
+            {
+                child.SetActive(false);
+            }
+        }
     }
 }

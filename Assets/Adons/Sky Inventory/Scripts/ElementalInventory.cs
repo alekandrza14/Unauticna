@@ -4968,7 +4968,8 @@ public class ElementalInventory : MonoBehaviour {
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
+                            + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats)), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -5010,7 +5011,8 @@ public class ElementalInventory : MonoBehaviour {
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
+                            + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats)), select);
                         Destroy(co.gameObject);
 
                         Cells[select].UpdateCellInterface();
@@ -5036,7 +5038,8 @@ public class ElementalInventory : MonoBehaviour {
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
+                            + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats)), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -5055,7 +5058,8 @@ public class ElementalInventory : MonoBehaviour {
                             + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : ""), select);
+                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
+                            + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats)), select);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -5241,9 +5245,9 @@ public class ElementalInventory : MonoBehaviour {
     {
         body.localScale *= mover.main().transform.localScale.y;
         string[] SocialAspects = Cells[select].elementSocial.Split('♥');
-        if (SocialAspects.Length>0) if (SocialAspects[0] == "Slave")
-        {
-            body.gameObject.AddComponent<Slave>();
+        if (SocialAspects.Length > 0) if (SocialAspects[0] == "Slave")
+            {
+                body.gameObject.AddComponent<Slave>();
                 if (SocialAspects.Length > 2) if (SocialAspects[2] != "")
                     {
 
@@ -5259,6 +5263,11 @@ public class ElementalInventory : MonoBehaviour {
 
                         if (body.gameObject.GetComponent<Slave>()) body.gameObject.GetComponent<Slave>().solarytimeold = int.Parse(SocialAspects[4]);
                     }
+                if (SocialAspects.Length > 5) if (SocialAspects[5] != "")
+                    {
+
+                        if (body.gameObject.GetComponent<itemName>()) body.gameObject.GetComponent<itemName>().modsStats = JsonUtility.FromJson<mods>(SocialAspects[5]);
+                    }
             }
         if (SocialAspects.Length > 1) if (SocialAspects[1] != "")
             {
@@ -5268,6 +5277,10 @@ public class ElementalInventory : MonoBehaviour {
         {
             body.gameObject.AddComponent<MultyObject>();
             body.gameObject.GetComponent<MultyObject>().shape = Shape.cube5D;
+        }
+        if (VarSave.GetInt("Эго") == 3)
+        {
+            body.gameObject.AddComponent<PsyhoSystem1>();
         }
 
 

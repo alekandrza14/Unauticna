@@ -581,6 +581,12 @@ public class mover : CustomSaveObject
             GameObject g = Resources.Load<GameObject>("CharactorDebate");
             Instantiate(g, transform);
         }
+        if (true)
+        {
+            FindObjectsByType<Light>(sortmode.main)[0].enabled = false;
+            GameObject g = Resources.Load<GameObject>("Политик стар");
+            Instantiate(g, transform.position,Quaternion.identity);
+        }
         if (VarSave.GetBool("Xbox"))
         {
             GameObject g = Resources.Load<GameObject>("Хбокс");

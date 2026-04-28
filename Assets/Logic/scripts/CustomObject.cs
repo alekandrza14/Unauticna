@@ -311,8 +311,12 @@ public class CustomObject : CustomSaveObject
         ObjParser.Obj newobj = new ObjParser.Obj();
 
 
-       
-        newobj.LoadObj("res/" + Model.Models[model] + ".obj");
+        if (File.Exists("res/" + Model.Models[model] + ".obj")) newobj.LoadObj("res/" + Model.Models[model] + ".obj");
+        List<string> ovewrite2 = Mod.res();
+        foreach (string res in ovewrite2)
+        {
+            if (File.Exists(res + Model.Models[model] + ".obj")) newobj.LoadObj(res + Model.Models[model] + ".obj");
+        }
         var mesh = new Mesh();
         mesh.name = Model.Models[model];
         Vector3[] vertices = new Vector3[newobj.VertexList.Count];

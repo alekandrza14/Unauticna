@@ -1,6 +1,11 @@
 ﻿
 using UnityEngine;
-
+[System.Serializable]
+public class mods
+{
+    public string[] modname;
+    public Vector3[] modposition;
+}
 public class itemName : CustomSaveObject
 {
     public float ItemPrise;
@@ -32,5 +37,14 @@ public class itemName : CustomSaveObject
     public int farum;
     public int helium;
     public int itemtype;
+    public mods modsStats = new();
+    public void modsLoad()
+    {
+        for (int i =0;i< modsStats.modname.Length;i++)
+        {
+            GameObject moda = Instantiate(Resources.Load<GameObject>("mods/"+modsStats.modname[i]),transform);
+            moda.transform.position += moda.transform.right * modsStats.modposition[i].x + moda.transform.up * modsStats.modposition[i].y+ moda.transform.forward * modsStats.modposition[i].z;
+        }
+    }
 }
 

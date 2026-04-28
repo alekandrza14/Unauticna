@@ -174,7 +174,7 @@ public class Map_saver : MonoBehaviour
         LimMath();
       
         GetAllItems();
-        LoadObjects();
+       if(SceneManager.GetActiveScene().buildIndex != 447) LoadObjects();
         itemspawn[] isn = FindObjectsByType<itemspawn>(sortmode.main);
         for (int i = 0; i < isn.Length; i++)
         {
@@ -419,6 +419,19 @@ public class Map_saver : MonoBehaviour
 
 
                         saveString1.Stats_B.Add("");
+                    }
+                    if (items[i3].GetComponent<itemName>())
+                    {
+
+                        saveString1.mods_A.Add(JsonUtility.ToJson(items[i3].GetComponent<itemName>().modsStats));
+
+                    }
+                    else
+                    {
+
+
+
+                        saveString1.mods_A.Add("");
                     }
                     if (items[i3].GetComponent<breauty>())
                     {
@@ -1842,6 +1855,26 @@ public class Map_saver : MonoBehaviour
                     }
                     if (objs.Count < 100)
                     {
+                        if (Global.Random.Chance(9)) for (int i = 0; i < 0 + Global.Random.Range(1, 1); i++)
+                        {
+                            if (objs.Count > 100)
+                            {
+                                break;
+                            }
+                            GameObject g = Resources.Load<GameObject>("Items/TrueNravix");
+                            Ray r = new(m.transform.position + (m.transform.up * 400), Random_vector_down());
+
+                            if (Physics.Raycast(r, out hit))
+                            {
+                                if (hit.collider != null)
+                                {
+                                    if (objs.Count < 100) objs.Add(Instantiate(g, hit.point, Quaternion.identity));
+                                }
+                            }
+                        }
+                    }
+                    if (objs.Count < 100)
+                    {
                         if (Global.Random.Chance(9)) for (int i = 0; i < 0 + Global.Random.Range(1, 3); i++)
                             {
                                 if (objs.Count > 100)
@@ -1903,6 +1936,10 @@ public class Map_saver : MonoBehaviour
                             }
                         }
                     }
+                }
+                foreach (GameObject item in objs)
+                {
+                    item.gameObject.AddComponent<PsyhoSystem1>();
                 }
             }
             if (c == 2)
@@ -1970,13 +2007,7 @@ public class Map_saver : MonoBehaviour
             gm[i].gameObject.AddComponent<deleter1>();
         }
 
-        for (int i = 0; i < saveString1.vector3G.Count; i++)
-        {
-            genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), saveString1.vector3G[i], Quaternion.identity).GetComponent<genmodel>();
-            g.s = saveString1.idG[i];
-            g.transform.localScale = saveString1.Scale3G[i];
-
-        }
+        
 
         /*
                         if (!string.IsNullOrEmpty(saveString1.editpos) && mover.main().hyperbolicCamera == null)
@@ -2117,7 +2148,13 @@ public class Map_saver : MonoBehaviour
                 return;
             }
         }
-        
+        for (int i = 0; i < saveString1.vector3G.Count; i++)
+        {
+            genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), saveString1.vector3G[i], Quaternion.identity).GetComponent<genmodel>();
+            g.s = saveString1.idG[i];
+            g.transform.localScale = saveString1.Scale3G[i];
+
+        }
         List<float[]> nid = new();
         List<float[]> nid2 = new();
         List<float[]> nid3 = new();
@@ -2340,6 +2377,7 @@ public class Map_saver : MonoBehaviour
 
                 Debug.Log("1");
                 GameObject g = Instantiate(t3[ToNameToID(saveString1.idA[i3])], new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
+                g.gameObject.AddComponent<PsyhoSystem1>();
                 if (saveString1.isSlaveA != null)
                 {
                     if (saveString1.isSlaveA.Count != 0)
@@ -2366,6 +2404,18 @@ public class Map_saver : MonoBehaviour
                         if (saveString1.Stats_B.Count != 0)
                         {
                             if (saveString1.Stats_B.Count > i3) if (g.gameObject.GetComponent<CharacterStats>()) g.gameObject.GetComponent<CharacterStats>().data = JsonUtility.FromJson<CharacterStatsData>(saveString1.Stats_B[i3]);
+                        }
+                    }
+                }
+                if (saveString1.mods_A != null)
+                {
+                    if (saveString1.mods_A.Count != 0)
+                    {
+                        if (saveString1.mods_A[i3] != "") g.gameObject.AddComponent<itemName>().modsStats = JsonUtility.FromJson<mods>(saveString1.mods_A[i3]);
+                        if (saveString1.mods_A.Count != 0)
+                        {
+                            if (saveString1.mods_A.Count > i3) if (g.gameObject.GetComponent<itemName>()) g.gameObject.GetComponent<itemName>().modsStats = JsonUtility.FromJson<mods>(saveString1.mods_A[i3]);
+                            g.gameObject.GetComponent<itemName>().modsLoad();
                         }
                     }
                 }
@@ -2516,6 +2566,7 @@ public class MapData
     public List<string> Stats_A = new();
     public List<string> Stats_B = new();
     public List<string> Stats_C = new();
+    public List<string> mods_A = new();
     public List<float> y = new();
     public List<string> idA = new();
     public List<string> idB = new();

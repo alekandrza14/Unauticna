@@ -163,6 +163,8 @@ public class ObjenieCreatureEtap : MonoBehaviour
         communicationValue = 0;
         Instantiate(Resources.Load<GameObject>("IcoFirend"),Vector3.zero,Quaternion.identity);
         SetHint();
+        curcreature.GetComponent<telo>().EgoPolitic += 1;
+        curcreature.GetComponent<telo>().Chiberty += 1;
         _interface.SetActive(false);
     }
     private void Fail()
@@ -172,6 +174,8 @@ public class ObjenieCreatureEtap : MonoBehaviour
         currentStep = 0;
         communicationValue = 0;
         SetHint();
+        curcreature.GetComponent<telo>().EgoPolitic += 1;
+        curcreature.GetComponent<telo>().LiberMarket += 1;
         _interface.SetActive(false);
     }
 }

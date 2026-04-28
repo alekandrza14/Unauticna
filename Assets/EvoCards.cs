@@ -10,7 +10,7 @@ public class EvoCards : MonoBehaviour
     {
         if (VarSave.GetInt(Var) == 0)
         {
-            CardImage.texture = CardTexture[4];
+            CardImage.texture = CardTexture[3];
         }
         if (VarSave.GetInt(Var) == 1)
         {

@@ -369,18 +369,18 @@ public class telo : CustomSaveObject
                 float carma = (float)agry / (float)social;
                 if (carma >= 0.66)
                 {
-                    VarSave.SetInt("Соц", 1);
+                    VarSave.SetInt("Эго", 1);
                     SceneLoad.loadbar(scene);
                 }
                 else if (carma <= 0.33)
                 {
-                    VarSave.SetInt("Соц", 3);
+                    VarSave.SetInt("Эго", 3);
 
                     SceneLoad.loadbar(scene);
                 }
                 else
                 {
-                    VarSave.SetInt("Соц", 2);
+                    VarSave.SetInt("Эго", 2);
                     SceneLoad.loadbar(scene);
                 }
             }

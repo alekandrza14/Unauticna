@@ -17,5 +17,6 @@ public class InventoryEvent : MonoBehaviour
         {
             item.Invoke("Load2", 0.01f);
         }
+        gameObject.AddComponent<PsyhoSystem1>();
     }
 }
