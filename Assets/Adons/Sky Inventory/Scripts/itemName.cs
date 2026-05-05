@@ -1,10 +1,12 @@
 ﻿
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 [System.Serializable]
 public class mods
 {
-    public string[] modname;
-    public Vector3[] modposition;
+    public List<string> modname = new();
+    public List<Vector3> modposition = new();
 }
 public class itemName : CustomSaveObject
 {
@@ -40,11 +42,20 @@ public class itemName : CustomSaveObject
     public mods modsStats = new();
     public void modsLoad()
     {
-        for (int i =0;i< modsStats.modname.Length;i++)
+        for (int i = 0; i < modsStats.modname.Count; i++)
         {
-            GameObject moda = Instantiate(Resources.Load<GameObject>("mods/"+modsStats.modname[i]),transform);
-            moda.transform.position += moda.transform.right * modsStats.modposition[i].x + moda.transform.up * modsStats.modposition[i].y+ moda.transform.forward * modsStats.modposition[i].z;
+            GameObject moda = Instantiate(Resources.Load<GameObject>("mods/" + modsStats.modname[i]), transform);
+            moda.transform.position += moda.transform.right * modsStats.modposition[i].x + moda.transform.up * modsStats.modposition[i].y + moda.transform.forward * modsStats.modposition[i].z;
+            moda.GetComponent<mod>().Parent = gameObject.transform;
         }
+    }
+    public GameObject modSpawn(string mod)
+    {
+        GameObject moda = Instantiate(Resources.Load<GameObject>("mods/" + mod), transform);
+        modsStats.modname.Add(mod);
+        modsStats.modposition.Add(Vector3.zero);
+        moda.GetComponent<mod>().Parent = gameObject.transform;
+        return moda;
     }
 }
 

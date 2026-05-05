@@ -222,8 +222,8 @@ public class Map_saver : MonoBehaviour
 
     private void Update()
     {
-       
-           
+
+
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
@@ -234,6 +234,20 @@ public class Map_saver : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
             LoadObjects();
+        }
+        if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.LeftControl))
+        {
+
+
+            Save();
+        }
+        if (Input.GetKeyDown(KeyCode.Z) && Input.GetKey(KeyCode.LeftControl))
+        {
+            LoadObjects();
+        }
+        if (Input.GetKeyDown(KeyCode.X) && Input.GetKey(KeyCode.LeftControl))
+        {
+            ClearObjects();
         }
 
     }
@@ -289,6 +303,13 @@ public class Map_saver : MonoBehaviour
 
             t[i].gameObject.AddComponent<deleter1>();
         }
+        genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
+        for (int i = 0; i < gm.Length; i++)
+        {
+
+
+            gm[i].gameObject.AddComponent<deleter1>();
+        }
         StandartObject[] so = FindObjectsByType<StandartObject>(sortmode.main);
         for (int i = 0; i < so.Length; i++)
         {
@@ -303,7 +324,7 @@ public class Map_saver : MonoBehaviour
 
             co[i].gameObject.AddComponent<deleter1>();
         }
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name); 
     }
 
     public void Save()

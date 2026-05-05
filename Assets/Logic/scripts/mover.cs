@@ -581,7 +581,7 @@ public class mover : CustomSaveObject
             GameObject g = Resources.Load<GameObject>("CharactorDebate");
             Instantiate(g, transform);
         }
-        if (true)
+        if (FindObjectsByType<Light>(sortmode.main).Length!=0)
         {
             FindObjectsByType<Light>(sortmode.main)[0].enabled = false;
             GameObject g = Resources.Load<GameObject>("Политик стар");
@@ -3849,8 +3849,8 @@ public class mover : CustomSaveObject
                     transform.Translate(Vector3.forward * 4 * transform.localScale.y); ftho = 0;
                 }
             }
-            float macrosX = (Input_GetKeyMacros("a") ? 1 : 0) + (Input_GetKeyMacros("d") ? -1 : 0);
-            float macrosZ = (Input_GetKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0);
+            float macrosX = (Input_GetKeyMacros("a") ? 1 : 0) + (Input_GetKeyMacros("d") ? -1 : 0) + ((Input.GetKey(KeyCode.Q)) ? -1 : 0);
+            float macrosZ = (Input_GetKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) +((Input.GetKey(KeyCode.Z)) ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0);
             float macrosMy = (Input_GetKeyMacros("MY+") || (Input.GetAxis("Mouse ScrollWheel")>0.1f && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetAxis("Mouse ScrollWheel") < -0.1f && VarSave.GetBool("Xbox")) ? -1 : 0);
             float macrosMx = (Input_GetKeyMacros("MX+") || Input.GetKey(KeyCode.Period) || (Input.GetKey(KeyCode.Mouse1) && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetKey(KeyCode.Comma) || Input.GetKey(KeyCode.Mouse0) && VarSave.GetBool("Xbox")) ? -1 : 0);
             macrosMx +=  (Input.GetKey(KeyCode.Period)  ? 5 : 0) + (Input.GetKey(KeyCode.Comma) ? -5 : 0);
