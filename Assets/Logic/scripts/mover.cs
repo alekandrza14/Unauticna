@@ -576,10 +576,21 @@ public class mover : CustomSaveObject
     {
         //CharactorDebate
         //Хбокс
+        //GeneratorPlakats
+        if (true)
+        {
+            GameObject g = Resources.Load<GameObject>("GeneratorPlakats");
+            Instantiate(g, transform);
+        }
         if (true)
         {
             GameObject g = Resources.Load<GameObject>("CharactorDebate");
             Instantiate(g, transform);
+        }
+        if (true)
+        {
+            GameObject g = Resources.Load<GameObject>("067");
+            Instantiate(g, transform.position, g.transform.rotation);
         }
         if (FindObjectsByType<Light>(sortmode.main).Length!=0)
         {
@@ -1514,6 +1525,7 @@ public class mover : CustomSaveObject
         customVaribles = dif.GetFiles();
         //
         InvokeRepeating("ResetSpace", 5, 1);
+        gameObject.AddComponent<JSPlayer>();
 
     }
     public static string curbutton;

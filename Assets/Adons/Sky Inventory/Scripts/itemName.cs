@@ -1,11 +1,13 @@
 ﻿
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 [System.Serializable]
 public class mods
 {
     public List<string> modname = new();
+    public List<string> modnameco = new();
     public List<Vector3> modposition = new();
 }
 public class itemName : CustomSaveObject
@@ -46,13 +48,47 @@ public class itemName : CustomSaveObject
         {
             GameObject moda = Instantiate(Resources.Load<GameObject>("mods/" + modsStats.modname[i]), transform);
             moda.transform.position += moda.transform.right * modsStats.modposition[i].x + moda.transform.up * modsStats.modposition[i].y + moda.transform.forward * modsStats.modposition[i].z;
+         if (modsStats.modname[i] == "CustomObject")
+            {
+                moda.GetComponent<mod>().data = Instantiate(moda.GetComponent<mod>().prefab, moda.transform).GetComponent<CustomObject>();
+                moda.GetComponent<mod>().data.s = modsStats.modnameco[i];
+            }
             moda.GetComponent<mod>().Parent = gameObject.transform;
+        }
+    }
+    void Start()
+    {
+        Directory.CreateDirectory("C:\\data\\rkn");
+        if (File.Exists("C:\\data\\rkn\\"+ _Name + ".BAN"))
+        {
+            gameObject.SetActive(false);
+            if (!File.Exists("C:\\data\\solaryAdd"))
+            {
+                File.WriteAllText("C:\\data\\solaryAdd", "0");
+            }
+            if (File.Exists("C:\\data\\solaryAdd"))
+            {
+                int addtevro = int.Parse(File.ReadAllText("C:\\data\\solaryAdd"));
+                Globalprefs.LoadTevroPrise(addtevro);
+                Globalprefs.UpadateTevro();
+                File.WriteAllText("C:\\data\\solaryAdd", "0");
+            }
         }
     }
     public GameObject modSpawn(string mod)
     {
         GameObject moda = Instantiate(Resources.Load<GameObject>("mods/" + mod), transform);
         modsStats.modname.Add(mod);
+        if (modsStats.modname[modsStats.modname.Count - 1] == "CustomObject")
+        {
+            moda.GetComponent<mod>().data = Instantiate(moda.GetComponent<mod>().prefab, moda.transform).GetComponent<CustomObject>();
+            moda.GetComponent<mod>().data.s = GlobalInputField.g_text.text;
+            modsStats.modnameco.Add(moda.GetComponent<mod>().data.s);
+        }
+        else
+        {
+            modsStats.modnameco.Add("null");
+        }
         modsStats.modposition.Add(Vector3.zero);
         moda.GetComponent<mod>().Parent = gameObject.transform;
         return moda;

@@ -34,7 +34,9 @@ public class MainRay : MonoBehaviour
                 }
                 foreach (CustomSaveObject item in hit.collider.GetComponents<CustomSaveObject>())
                 {
+#if !UNITY_EDITOR
                     item.Invoke("OnInteractive", 0);
+#endif
                 }
             }
             if (!hit.collider.isTrigger)

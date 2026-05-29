@@ -1,0 +1,135 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FPoseLink;
+#ifdef NATIVIZEDASSETS_ThirdPerson_AnimBP__pf2404374163_generated_h
+#error "ThirdPerson_AnimBP__pf2404374163.generated.h already included, missing '#pragma once' in ThirdPerson_AnimBP__pf2404374163.h"
+#endif
+#define NATIVIZEDASSETS_ThirdPerson_AnimBP__pf2404374163_generated_h
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_SPARSE_DATA
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execbpf__AnimGraph__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_BlendSpacePlayer_02DCCD344B15638E3A268A84A40F216E__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_EA982A1F4C5300ED41A13CAD26E05A19__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_F867B5374C7EFB9ED9010FA7431019DF__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_175FFF54400CA0EC412B7083B0989D7E__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_EB26C4B44509776D1C9FA6991E047C32__pf); \
+	DECLARE_FUNCTION(execbpf__BlueprintUpdateAnimation__pf);
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execbpf__AnimGraph__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_BlendSpacePlayer_02DCCD344B15638E3A268A84A40F216E__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_EA982A1F4C5300ED41A13CAD26E05A19__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_F867B5374C7EFB9ED9010FA7431019DF__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_175FFF54400CA0EC412B7083B0989D7E__pf); \
+	DECLARE_FUNCTION(execbpf__EvaluateGraphExposedInputs_ExecuteUbergraph_ThirdPerson_AnimBP_AnimGraphNode_TransitionResult_EB26C4B44509776D1C9FA6991E047C32__pf); \
+	DECLARE_FUNCTION(execbpf__BlueprintUpdateAnimation__pf);
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_EVENT_PARMS \
+	struct ThirdPerson_AnimBP_C__pf2404374163_eventbpf__BlueprintUpdateAnimation__pf_Parms \
+	{ \
+		float bpp__DeltaTimeX__pf; \
+	};
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_CALLBACK_WRAPPERS \
+	void eventbpf__BlueprintUpdateAnimation__pf(float bpp__DeltaTimeX__pf); \
+
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUThirdPerson_AnimBP_C__pf2404374163(); \
+	friend struct Z_Construct_UClass_UThirdPerson_AnimBP_C__pf2404374163_Statics; \
+public: \
+	DECLARE_CLASS(UThirdPerson_AnimBP_C__pf2404374163, UAnimInstance, COMPILED_IN_FLAGS(0 | CLASS_Transient), CASTCLASS_None, TEXT("/Game/Mannequin/Animations/ThirdPerson_AnimBP"), NO_API) \
+	DECLARE_SERIALIZER(UThirdPerson_AnimBP_C__pf2404374163) \
+	static const TCHAR* StaticConfigName() {return TEXT("Engine");} \
+
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_INCLASS \
+private: \
+	static void StaticRegisterNativesUThirdPerson_AnimBP_C__pf2404374163(); \
+	friend struct Z_Construct_UClass_UThirdPerson_AnimBP_C__pf2404374163_Statics; \
+public: \
+	DECLARE_CLASS(UThirdPerson_AnimBP_C__pf2404374163, UAnimInstance, COMPILED_IN_FLAGS(0 | CLASS_Transient), CASTCLASS_None, TEXT("/Game/Mannequin/Animations/ThirdPerson_AnimBP"), NO_API) \
+	DECLARE_SERIALIZER(UThirdPerson_AnimBP_C__pf2404374163) \
+	static const TCHAR* StaticConfigName() {return TEXT("Engine");} \
+
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_STANDARD_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API UThirdPerson_AnimBP_C__pf2404374163(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UThirdPerson_AnimBP_C__pf2404374163) \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UThirdPerson_AnimBP_C__pf2404374163); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UThirdPerson_AnimBP_C__pf2404374163); \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	NO_API UThirdPerson_AnimBP_C__pf2404374163(UThirdPerson_AnimBP_C__pf2404374163&&); \
+	NO_API UThirdPerson_AnimBP_C__pf2404374163(const UThirdPerson_AnimBP_C__pf2404374163&); \
+public:
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_ENHANCED_CONSTRUCTORS \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	NO_API UThirdPerson_AnimBP_C__pf2404374163(UThirdPerson_AnimBP_C__pf2404374163&&); \
+	NO_API UThirdPerson_AnimBP_C__pf2404374163(const UThirdPerson_AnimBP_C__pf2404374163&); \
+public: \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UThirdPerson_AnimBP_C__pf2404374163); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UThirdPerson_AnimBP_C__pf2404374163); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UThirdPerson_AnimBP_C__pf2404374163)
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_PRIVATE_PROPERTY_OFFSET
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_13_PROLOG \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_EVENT_PARMS
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_GENERATED_BODY_LEGACY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_PRIVATE_PROPERTY_OFFSET \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_SPARSE_DATA \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_RPC_WRAPPERS \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_CALLBACK_WRAPPERS \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_INCLASS \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_STANDARD_CONSTRUCTORS \
+public: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+#define UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_PRIVATE_PROPERTY_OFFSET \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_SPARSE_DATA \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_RPC_WRAPPERS_NO_PURE_DECLS \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_CALLBACK_WRAPPERS \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_INCLASS_NO_PURE_DECLS \
+	UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h_17_ENHANCED_CONSTRUCTORS \
+public: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+template<> NATIVIZEDASSETS_API UClass* StaticClass<class UThirdPerson_AnimBP_C__pf2404374163>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID UnauticnaCastle_Intermediate_Plugins_NativizedAssets_Windows_Game_Source_NativizedAssets_Public_ThirdPerson_AnimBP__pf2404374163_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS

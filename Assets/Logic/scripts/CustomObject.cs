@@ -27,7 +27,7 @@ public enum CustomObjectType
 public class CustomObjectData
 {
     public string NameModel;
-    
+
     public string[] Models = new string[] { };
     public Color _Color;
     public Color[] m_Colors = new Color[] { };
@@ -47,6 +47,7 @@ public class CustomObjectData
     public string EventSpawn;
     public string AppOpen;
     public string LuaBuilding;
+    public string JavaScript;
     public string ConvertTo;
     public string LoadingMaterial;
     public string[] LoadingMaterials;
@@ -99,13 +100,14 @@ public class CustomObjectData
     public string TextureTarget;
     public Vector2 playerWHMove;
     public StandartKey standartKey;
-    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject, selfdup, physics;
+    public bool ClearEffect, FreezeEffect, AnigilateItem, Dublicate, Meat, RunToPlayer, Transport, NoCollect, car, social, home, PlayerPosPrivzka, PlayerPosXZPrivzka, DamgeObject, BanObject, selfdup, physics, StartCommandBlock, EditCommandBlock;
     public string DefultInfo = "Hi This is item has Used a Json file format";
 
 }
 
 public class CustomObject : CustomSaveObject
 {
+    public mods modsStats = new();
     public Vector3 scaled;
     public MeshFilter mf;
     public Vector3[] verti;
@@ -211,7 +213,23 @@ public class CustomObject : CustomSaveObject
     // Start is called before the first frame update
     void Start()
     {
-        
+      
+            Directory.CreateDirectory("C:\\data\\rkn");
+            if (File.Exists("C:\\data\\rkn\\" + s + ".BAN"))
+            {
+                gameObject.SetActive(false);
+                if (!File.Exists("C:\\data\\solaryAdd"))
+                {
+                    File.WriteAllText("C:\\data\\solaryAdd", "0");
+                }
+                if (File.Exists("C:\\data\\solaryAdd"))
+                {
+                    int addtevro = int.Parse(File.ReadAllText("C:\\data\\solaryAdd"));
+                    Globalprefs.LoadTevroPrise(addtevro);
+                    Globalprefs.UpadateTevro();
+                    File.WriteAllText("C:\\data\\solaryAdd", "0");
+                }
+            }
         if (VarSave.GetString("Scin") != "" && Imsaveble) s = VarSave.GetString("Scin");
         if (GameObject.FindFirstObjectByType<PlanetGravity>() != null)
         {
@@ -235,6 +253,7 @@ public class CustomObject : CustomSaveObject
         }
             
                 rcs();
+        Start1();
     }
     public void resetCurrentSettings()
     {
@@ -350,7 +369,7 @@ public class CustomObject : CustomSaveObject
     }
     private Mesh generate()
     {
-        ObjParser.Obj newobj = new ObjParser.Obj();
+        Obj newobj = new Obj();
         Directory.CreateDirectory("res/UserWorckspace/Items");
         List<string> ovewrite = Mod.res();
         if (Mod.res().Count != 0)
@@ -569,12 +588,14 @@ public class CustomObject : CustomSaveObject
                 }
                 Invoke("Void", 5);
             }
-     if(!string.IsNullOrEmpty(Model.TextureTarget))   if (Model.TextureTarget != null) 
-        {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("CustomMetka"), transform.position, transform.rotation, transform);
-            obj.GetComponent<CustomTextonMaterial>().CoTex = Model.TextureTarget;
+        if (!string.IsNullOrEmpty(Model.TextureTarget)) if (Model.TextureTarget != null)
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("CustomMetka"), transform.position, transform.rotation, transform);
+                obj.GetComponent<CustomTextonMaterial>().CoTex = Model.TextureTarget;
                 obj.transform.localScale *= scaled.x;
-        }
+            }
+
+        if (!string.IsNullOrEmpty(Model.JavaScript)&& Model.StartCommandBlock) if (Model.JavaScript != null) gameObject.AddComponent<JSBehaviour>().js_File = Model.JavaScript;
 
 
         foreach (Vector3 v3 in Model.LeftLeg)
@@ -623,6 +644,7 @@ public class CustomObject : CustomSaveObject
                 GetComponent<MeshCollider> ().excludeLayers = Mashime;
             }
         }
+        //StartCommandBlock
         if (Model.car)
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("CustomCar"), transform.position, Quaternion.identity);
@@ -808,9 +830,20 @@ public class CustomObject : CustomSaveObject
             }
         }
     }
+    public void OnSignal()
+    {
+        if (!string.IsNullOrEmpty(Model.JavaScript)) gameObject.AddComponent<JSBehaviour>().js_File = Model.JavaScript;
+    }
     public void OnInteractive()
     {
+        if (Input.GetKey(KeyCode.LeftControl)&& Model.EditCommandBlock && Directory.Exists("debug"))
+        {
+            GameObject g = Instantiate(Resources.Load<GameObject>("ui/script/ui.js"), Vector3.zero, Quaternion.identity);
+            g.GetComponent<script>()._CustomObject = this;
+        }
         StartCoroutine(Interact());
+        if (!Input.GetKey(KeyCode.LeftControl)) if (!string.IsNullOrEmpty(Model.JavaScript)) gameObject.AddComponent<JSBehaviour>().js_File = Model.JavaScript;
+
         if (File.Exists(Model.LuaBuilding))
         {
             LuaLogic(File.ReadAllText(Model.LuaBuilding));
@@ -834,6 +867,53 @@ public class CustomObject : CustomSaveObject
                 }
             }
         }
+    }
+    public void modsLoad()
+    {
+        for (int i = 0; i < modsStats.modname.Count; i++)
+        {
+            GameObject moda = Instantiate(Resources.Load<GameObject>("mods/" + modsStats.modname[i]), transform);
+            moda.transform.position += moda.transform.right * modsStats.modposition[i].x + moda.transform.up * modsStats.modposition[i].y + moda.transform.forward * modsStats.modposition[i].z;
+            if (modsStats.modname[i] == "CustomObject")
+            {
+                moda.GetComponent<mod>().data = Instantiate(moda.GetComponent<mod>().prefab, moda.transform).GetComponent<CustomObject>();
+                moda.GetComponent<mod>().data.s = modsStats.modnameco[i];
+            }
+            moda.GetComponent<mod>().Parent = gameObject.transform;
+        }
+    }
+    void Start1()
+    {
+        Directory.CreateDirectory("C:\\data\\rkn");
+        if (File.Exists("C:\\data\\rkn\\" + s + ".BAN"))
+        {
+            gameObject.SetActive(false);
+            if (!File.Exists("C:\\data\\solaryAdd"))
+            {
+                File.WriteAllText("C:\\data\\solaryAdd", "0");
+            }
+            if (File.Exists("C:\\data\\solaryAdd"))
+            {
+                int addtevro = int.Parse(File.ReadAllText("C:\\data\\solaryAdd"));
+                Globalprefs.LoadTevroPrise(addtevro);
+                Globalprefs.UpadateTevro();
+                File.WriteAllText("C:\\data\\solaryAdd", "0");
+            }
+        }
+    }
+    public GameObject modSpawn(string mod)
+    {
+        GameObject moda = Instantiate(Resources.Load<GameObject>("mods/" + mod), transform);
+        modsStats.modname.Add(mod);
+        if (modsStats.modname[modsStats.modname.Count - 1] == "CustomObject")
+        {
+            moda.GetComponent<mod>().data = Instantiate(moda.GetComponent<mod>().prefab, moda.transform).GetComponent<CustomObject>();
+            moda.GetComponent<mod>().data.s = GlobalInputField.g_text.text;
+            modsStats.modnameco.Add(moda.GetComponent<mod>().data.s);
+        }
+        modsStats.modposition.Add(Vector3.zero);
+        moda.GetComponent<mod>().Parent = gameObject.transform;
+        return moda;
     }
 }
 public class Mod

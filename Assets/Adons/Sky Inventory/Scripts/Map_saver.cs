@@ -637,6 +637,19 @@ public class Map_saver : MonoBehaviour
                     saveString1.SlaveTevD.Add(0);
                     saveString1.SlaveSTD.Add(0);
                 }
+                if (co[i].GetComponent<CustomObject>())
+                {
+
+                    saveString1.mods_A.Add(JsonUtility.ToJson(co[i].GetComponent<CustomObject>().modsStats));
+
+                }
+                else
+                {
+
+
+
+                    saveString1.mods_A.Add("");
+                }
                 if (co[i].GetComponent<CharacterStats>())
                 {
                     
@@ -2367,6 +2380,18 @@ public class Map_saver : MonoBehaviour
                                          );
                     }
                 }
+                if (saveString1.mods_B != null)
+                {
+                    if (saveString1.mods_B.Count != 0)
+                    {
+                        if (saveString1.mods_B[i] != "") g.gameObject.AddComponent<CustomObject>().modsStats = JsonUtility.FromJson<mods>(saveString1.mods_B[i]);
+                        if (saveString1.mods_B.Count != 0)
+                        {
+                            if (saveString1.mods_B.Count > i) if (g.gameObject.GetComponent<CustomObject>()) g.gameObject.GetComponent<CustomObject>().modsStats = JsonUtility.FromJson<mods>(saveString1.mods_B[i]);
+                            g.gameObject.GetComponent<CustomObject>().modsLoad();
+                        }
+                    }
+                }
                 g.GetComponent<CustomObject>().s = saveString1.idC[i];
                 g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
                 g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
@@ -2588,6 +2613,7 @@ public class MapData
     public List<string> Stats_B = new();
     public List<string> Stats_C = new();
     public List<string> mods_A = new();
+    public List<string> mods_B = new();
     public List<float> y = new();
     public List<string> idA = new();
     public List<string> idB = new();

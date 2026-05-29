@@ -5,10 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using WebSocketSharp;
 
+[AddComponentMenu("Lua Script Behaviour")]
 public class LuaTest : InventoryEvent
 {
   public Rigidbody rb; string code;
+    public string lua_File;
     public InputField ifd;
     string codepath;
 
@@ -16,40 +19,39 @@ public class LuaTest : InventoryEvent
     // Start is called before the first frame update
     void Start()
     {
+	rb = GetComponent<Rigidbody>();
         //  code = File.ReadAllText("res/scripts/Jump.lua");
-      if(Map_saver.LoadADone)  if (itemName)
+      if(Map_saver.LoadADone)
         {
-
-            codepath = itemName.ItemData;
+                codepath = lua_File;
+               if (itemName) if (lua_File.IsNullOrEmpty()) codepath = itemName.ItemData;
 
             if (string.IsNullOrEmpty(codepath))
             {
 
                 codepath = "res/scripts/Jump.lua";
-                itemName.ItemData = codepath;
+               if (itemName) itemName.ItemData = codepath;
             }
             code = File.ReadAllText(codepath);
 
          }
-        ifd.text = codepath;
+       if(ifd) ifd.text = codepath;
     }
     public void Load1()
     {
-        if (itemName)
-        {
-
-            codepath = itemName.ItemData;
+        
+            codepath = lua_File;
+          if (itemName) if(lua_File.IsNullOrEmpty()) codepath = itemName.ItemData;
 
             if (string.IsNullOrEmpty(codepath))
             {
 
                 codepath = "res/scripts/Jump.lua";
-                itemName.ItemData = codepath;
+             if (itemName)   itemName.ItemData = codepath;
             }
             code = File.ReadAllText(codepath);
 
-        }
-        ifd.text = codepath;
+       if(ifd) ifd.text = codepath;
     }
     Vector3 v3 = new Vector3();
     private void Update()

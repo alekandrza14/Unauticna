@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-[AddComponentMenu("UnScript/Unauticna Script")]
-
+[AddComponentMenu("UnauticnaScript Behaviour")]
 public class unScript : MonoBehaviour
 {
 
@@ -29,6 +28,13 @@ public class unScript : MonoBehaviour
     [HideInInspector]
     public List<GameObject> outsg = new List<GameObject>();
     float tic;
+    public void deStart(string n1)
+    {
+        ins = new UnsFormat();
+     if(File.Exists(@"res\scripts\" + n1))   ins.script = File.ReadAllText(@"res\scripts\"+n1);
+
+        UnityEngine.Debug.Log(@"res\scripts\" + n1);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +88,11 @@ public class unScript : MonoBehaviour
                     if (outs[x] == "/done/+")
                     {
                         Debug.LogWarning("готово");
+                        i = pre.Length;
+                    }
+                    if (outs[x] == "/sendHello/+")
+                    {
+                        Loger.Sand("Hello Player");
                         i = pre.Length;
                     }
                     if (outs[x] == "/debug/+")

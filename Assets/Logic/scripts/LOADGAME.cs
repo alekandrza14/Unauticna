@@ -41,6 +41,11 @@ public class LOADGAME : MonoBehaviour
         {
             SceneLoad.loadbar("Nervana");
         }
+        if (!File.Exists("C:\\data\\solaryAdd"))
+        {
+            File.WriteAllText("C:\\data\\solaryAdd","0");
+            Directory.CreateDirectory("C:\\data\\rkn");
+        }
         QualitySettings.SetQualityLevel(0);
         GameObject g = new GameObject("init");
         gameInit.Init(g);

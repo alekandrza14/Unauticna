@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+[AddComponentMenu("Lua Script Behaviour")]
 public class LuaTerrain : InventoryEvent
 {
     string code;

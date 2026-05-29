@@ -15,7 +15,10 @@ public class vectors
 public class script : MonoBehaviour
 {
     public InputField ifd;
+    public InputField savejs;
+    public InputField co;
     public itemName itemName;
+    public CustomObject _CustomObject;
     public static List<string> words = new List<string>();
     public static List<string> postuse = new List<string>();
     public static string word;
@@ -23,6 +26,7 @@ public class script : MonoBehaviour
     public bool Magic_stick;
     public GameObject Magic_obj;
     public bool uns;
+    public bool js;
     public static GameObject Lost_Magic_obj;
 
     void Start()
@@ -41,7 +45,7 @@ public class script : MonoBehaviour
     }
     private void Update()
     {
-        if (!uns)
+        if (!uns && !js)
         {
             if (!Magic_stick)
             {
@@ -77,7 +81,7 @@ public class script : MonoBehaviour
 
             }
         }
-        if (uns)
+        if (uns && !js)
         {
             if (!Magic_stick)
             {
@@ -113,6 +117,32 @@ public class script : MonoBehaviour
                 }
 
             }
+        }
+        if (js)
+        {
+            if (!Magic_stick)
+            {
+
+
+                if (_CustomObject&& string.IsNullOrEmpty(ifd.text))
+                {
+                    if (File.Exists("res/scripts/" + _CustomObject.Model.JavaScript + ".js")) ifd.text = File.ReadAllText("res/scripts/" + _CustomObject.Model.JavaScript + ".js");
+                  if(string.IsNullOrEmpty(savejs.text))  savejs.text = _CustomObject.Model.JavaScript;
+                    if (string.IsNullOrEmpty(co.text)) co.text = _CustomObject.s;
+                }
+                if (Input.GetKeyDown(KeyCode.Return) && !Globalprefs.Iteract)
+                {
+                    _CustomObject.Model.JavaScript = savejs.text;
+                    File.WriteAllText("res/scripts/" + savejs.text + ".js", ifd.text);
+                    //co;
+                    _CustomObject.s = co.text;
+                    File.WriteAllText("res/UserWorckspace/Items/" + co.text + ".txt", JsonUtility.ToJson(_CustomObject.Model));
+
+                    Global.PauseManager.Play();
+                    Destroy(gameObject);
+                }
+            }
+           
         }
     }
     public static bool isNumber(string s)

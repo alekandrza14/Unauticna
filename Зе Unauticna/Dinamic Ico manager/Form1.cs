@@ -25,6 +25,13 @@ namespace Dinamic_Ico_manager
 
             // Добавить значение в реестр для запуска напару с ОС
             rkApp.SetValue("Dinamic Ico manager", Application.ExecutablePath.ToString());
+            RegistryKey rkApp2 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            // Добавить значение в реестр для запуска напару с ОС
+            rkApp2.SetValue("Unauticna E.G.O.S", Application.StartupPath + @"\UnityDemo\Unauticna E.G.O.S.exe");
+            RegistryKey rkApp3 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+            rkApp3.SetValue("Auto", Application.StartupPath + @"\UnityDemo\Auto.exe");
         }
 
         private void Form1_Click(object sender, EventArgs e)
@@ -37,6 +44,19 @@ namespace Dinamic_Ico_manager
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
             shortcut.IconLocation = IconPath;
             shortcut.TargetPath = targetPath;
+            shortcut.RelativePath = targetPath;
+            shortcut.WorkingDirectory = Path.GetDirectoryName(Application.StartupPath);
+            shortcut.Description = description;
+            shortcut.Save();
+        }
+        public void CreateShortcut2(string targetPath, string IconPath, string shortcutPath, string description = "")
+        {
+            WshShell shell = new WshShell();
+            IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
+            shortcut.IconLocation = IconPath;
+            shortcut.TargetPath = targetPath;
+            shortcut.RelativePath = targetPath;
+            shortcut.WorkingDirectory = Application.StartupPath;
             shortcut.Description = description;
             shortcut.Save();
         }
@@ -48,10 +68,15 @@ namespace Dinamic_Ico_manager
                 Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 CreateShortcut(Path.GetDirectoryName(Application.StartupPath) + @"\Launcher Unauticna.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", Path.GetDirectoryName(Application.StartupPath) + @"/Launcher Unauticna.lnk", "Блокнот");
                 CreateShortcut(Path.GetDirectoryName(Application.StartupPath) + @"\Launcher Unauticna.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"/Launcher Unauticna.lnk", "Блокнот");
+                CreateShortcut2(Application.StartupPath + @"\UnityDemo\Unauticna E.G.O.S.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"/Unauticna E.G.O.S.lnk", "Блокнот");
+                CreateShortcut2(Application.StartupPath + @"\UnityDemo\Auto.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"/Auto.lnk", "Блокнот");
+
                 string[] paths = System.IO.File.ReadAllText(Application.StartupPath + @"\пути.txt").Split(',');
                 foreach (string obj in paths)
                 {
-                    CreateShortcut(Path.GetDirectoryName(Application.StartupPath) + @"\Launcher Unauticna.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", obj + @"/Launcher Unauticna.lnk", "Блокнот");
+                    CreateShortcut2(Application.StartupPath + @"\UnityDemo\Unauticna E.G.O.S.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", obj + @"/Unauticna E.G.O.S.lnk", "Блокнот");
+
+                    CreateShortcut2(Application.StartupPath + @"\UnityDemo\Auto.exe", Application.StartupPath + @"\" + rans.Next(1, 7) + ".ico", obj + @"/Auto.lnk", "Блокнот");
 
                 }
             }

@@ -51,20 +51,58 @@ namespace Global
             {
                 t = true;
             }
-            decimal x = (decimal)mmin*1000, y = (decimal)mmax *1000;
+            decimal x = (decimal)mmin * 1000, y = (decimal)mmax * 1000;
             if (t) z = (float)(random.Next((int)x, (int)y)) / 1000f;
 
-         
-                if (z > mmax)
-                {
-                    return mmax;
-                }
-                if (z < -mmax)
-                {
-                    return -mmax;
-                }
-          
-         
+
+            if (z > mmax)
+            {
+                return mmax;
+            }
+            if (z < -mmax)
+            {
+                return -mmax;
+            }
+
+
+            return z;
+
+        }
+        public static System.Random rand;
+        public static float RangeDeterm(float min, float max, int determic, int index)
+        {
+           if(index == 0) rand = new System.Random(determic);
+
+            float z = 0;
+            float mmin = min;
+            float mmax = max; bool t = false;
+
+            if (mmin > mmax)
+            {
+                float s = mmin;
+                mmin = mmax;
+                mmax = mmin;
+                Nope(s);
+                t = true;
+            }
+            else
+            {
+                t = true;
+            }
+            decimal x = (decimal)mmin * 1000, y = (decimal)mmax * 1000;
+            if (t) z = (float)(rand.Next((int)x, (int)y)) / 1000f;
+
+
+            if (z > mmax)
+            {
+                return mmax;
+            }
+            if (z < -mmax)
+            {
+                return -mmax;
+            }
+
+           
             return z;
 
         }
@@ -475,6 +513,13 @@ namespace Global
         static public Vector3 randomCube(int min, int max)
         {
             return new Vector3(Global.Random.Range(min, max), Global.Random.Range(min, max), Global.Random.Range(min, max));
+        }
+        static public Vector3 randomCubeDeterminatic(int min, int max,int Determic,int index)
+        {
+            Debug.Log("<color=green>Bone X </color>" + Global.Random.RangeDeterm(min, max, Determic + 1, index) +
+                "<color=green> Bone Y </color>" + Global.Random.RangeDeterm(min, max, Determic + 2, index) +
+                "<color=green> Bone Z </color>" + Global.Random.RangeDeterm(min, max, Determic + 3, index));
+            return new Vector3(Global.Random.RangeDeterm(min, max, Determic+1, index), Global.Random.RangeDeterm(min, max, Determic+2, index), Global.Random.RangeDeterm(min, max, Determic+3, index));
         }
     }
 }

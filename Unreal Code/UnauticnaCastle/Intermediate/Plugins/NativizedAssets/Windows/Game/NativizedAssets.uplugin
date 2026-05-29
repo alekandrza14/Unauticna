@@ -1,0 +1,43 @@
+{
+	"FileVersion": 3,
+	"Version": 0,
+	"VersionName": "",
+	"FriendlyName": "NativizedAssets",
+	"Description": "A programatically generated plugin which contains source files produced from Blueprint assets. The aim of this is to help performance by eliminating script overhead for the converted assets (using the source files in place of thier coresponding assets).",
+	"Category": "Intermediate",
+	"CreatedBy": "Epic Games, Inc.",
+	"CreatedByURL": "http://epicgames.com",
+	"DocsURL": "@TODO",
+	"MarketplaceURL": "",
+	"SupportURL": "https://answers.unrealengine.com/",
+	"EnabledByDefault": true,
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "NativizedAssets",
+			"Type": "CookedOnly",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64"
+			],
+			"WhitelistTargets": [
+				"Game"
+			]
+		}
+	],
+	"Hidden": true,
+	"Plugins": [
+		{
+			"Name": "MagicLeapPassableWorld",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Lumin",
+				"Mac",
+				"Win64"
+			]
+		}
+	]
+}
