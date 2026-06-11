@@ -52,5 +52,11 @@ public class JSPlayer : MonoBehaviour
             if (var.Name.Contains(".ðêí"))
                 gameObject.AddComponent<RKNBehaviour>().deStart(var.Name.Replace(".ðêí", ""), @"\res\scripts\player.rosscomnadzor\");
         }
+        DirectoryInfo dir9 = new DirectoryInfo(@"res\scripts\player.C††");
+        foreach (FileInfo var in dir9.GetFiles())
+        {
+            if (var.Name.Contains(".C††"))
+                gameObject.AddComponent<CCrossCrossBehaviour>().deStart(var.Name.Replace(".C††", ""), @"\res\scripts\player.C††\");
+        }
     }
 }

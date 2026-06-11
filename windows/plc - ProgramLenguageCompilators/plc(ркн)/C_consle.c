@@ -49,14 +49,14 @@ SetConsoleOutputCP(65001);
     fclose(file);
 if(s==1)
 {
-FILE *f = _wfopen(L"C:\\data\\rkn\\Ucna_Kerfur.BAN", L"w");
+FILE *f = _wfopen(L"C:\\data\\rkn\\EvilFail.BAN", L"w");
 if (!f) return 1;
 fwprintf(f, L"RF st.#HZ\n");
 fclose(f);
  number += 100000;}
 if(s==1)
 {
-FILE *f = _wfopen(L"C:\\data\\rkn\\Говновоз.BAN", L"w");
+FILE *f = _wfopen(L"C:\\data\\rkn\\Cat.BAN", L"w");
 if (!f) return 1;
 fwprintf(f, L"RF st.#HZ\n");
 fclose(f);

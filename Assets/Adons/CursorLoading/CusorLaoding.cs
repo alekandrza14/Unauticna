@@ -14,6 +14,10 @@ public class CusorLaoding : MonoBehaviour
     public Texture2D rightdemocratian;
     public Texture2D rightavtoriarian;
     public Texture2D rightnonpositionalian;
+    public Texture2D overrightlidertatian;
+    public Texture2D overrightdemocratian;
+    public Texture2D overrightavtoriarian;
+    public Texture2D overrightnonpositionalian;
     public Texture2D biopylidertatian;
     public Texture2D biopydemocratian;
     public Texture2D biopyavtoriarian;
@@ -22,6 +26,10 @@ public class CusorLaoding : MonoBehaviour
     {
         if (PolitDate.IsVersionF() == politicfreedom.avtoritatian)
         {
+            if (PolitDate.IsVersionE() == politiceconomic.overright)
+            {
+                Cursor.SetCursor(overrightavtoriarian, new Vector2(1, 1), CursorMode.Auto);
+            }
             if (PolitDate.IsVersionE() == politiceconomic.right)
             {
                 Cursor.SetCursor(rightavtoriarian, new Vector2(1, 1), CursorMode.Auto);
@@ -41,6 +49,10 @@ public class CusorLaoding : MonoBehaviour
         }
         if (PolitDate.IsVersionF() == politicfreedom.democratian)
         {
+            if (PolitDate.IsVersionE() == politiceconomic.overright)
+            {
+                Cursor.SetCursor(overrightdemocratian, new Vector2(1, 1), CursorMode.Auto);
+            }
             if (PolitDate.IsVersionE() == politiceconomic.right)
             {
                 Cursor.SetCursor(rightdemocratian, new Vector2(1, 1), CursorMode.Auto);
@@ -64,6 +76,10 @@ public class CusorLaoding : MonoBehaviour
             {
                 Cursor.SetCursor(rightlidertatian, new Vector2(1, 1), CursorMode.Auto);
             }
+            if (PolitDate.IsVersionE() == politiceconomic.overright)
+            {
+                Cursor.SetCursor(overrightlidertatian, new Vector2(1, 1), CursorMode.Auto);
+            }
             if (PolitDate.IsVersionE() == politiceconomic.mind)
             {
                 Cursor.SetCursor(mindlidertatian, new Vector2(1, 1), CursorMode.Auto);
@@ -79,6 +95,10 @@ public class CusorLaoding : MonoBehaviour
         }
         if (PolitDate.IsVersionF() == politicfreedom.NonPositionalian)
         {
+            if (PolitDate.IsVersionE() == politiceconomic.overright)
+            {
+                Cursor.SetCursor(overrightnonpositionalian, new Vector2(1, 1), CursorMode.Auto);
+            }
             if (PolitDate.IsVersionE() == politiceconomic.right)
             {
                 Cursor.SetCursor(rightnonpositionalian, new Vector2(1, 1), CursorMode.Auto);

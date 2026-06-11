@@ -31,7 +31,8 @@ public class JSBehaviour : InventoryEvent
         engine.SetValue("AddAhkComponent", new Action<object, object>(this.AddAhkComponent));
         engine.SetValue("AddSharpComponent", new Action<object, object>(this.AddSharpComponent));
         engine.SetValue("AddCmmComponent", new Action<object, object>(this.AddCmmComponent));
-        engine.SetValue("AddRknComponent", new Action<object, object>(this.Add–ÍÌComponent));
+        engine.SetValue("AddCccComponent", new Action<object, object>(this.AddCccComponent));
+        engine.SetValue("AddRknComponent", new Action<object, object>(this.Add–†–ö–ùComponent));
         engine.SetValue("GameObjectAddComponent", new Action<object>(this.GameObjectAddJsComponent));
         engine.SetValue("GameObjectAddPyComponent", new Action<object>(this.GameObjectAddPyComponent));
         engine.SetValue("GameObjectAddAsmComponent", new Action<object>(this.GameObjectAddAsmComponent));
@@ -39,8 +40,8 @@ public class JSBehaviour : InventoryEvent
         engine.SetValue("GameObjectAddLuaComponent", new Action<object>(this.GameObjectAddLuaComponent));
         engine.SetValue("GameObjectAddAhkComponent", new Action<object>(this.GameObjectAddAhkComponent));
         engine.SetValue("GameObjectAddSharpComponent", new Action<object>(this.GameObjectAddSharpComponent));
-        engine.SetValue("GameObjectAddCmmComponent", new Action<object>(this.GameObjectAddCmmComponent));
-        engine.SetValue("GameObjectAddRknComponent", new Action<object>(this.GameObjectAdd–ÍÌComponent));
+        engine.SetValue("GameObjectAddCmmComponent", new Action<object>(this.GameObjectAddCmmComponent));                    	engine.SetValue("GameObjectAddCccComponent", new Action<object>(this.GameObjectAddCccComponent));
+        engine.SetValue("GameObjectAddRknComponent", new Action<object>(this.GameObjectAdd–†–ö–ùComponent));
         engine.SetValue("summonAddComponent", new Action<object, object>(this.summonAddJsComponent));
         engine.SetValue("summonAddPyComponent", new Action<object, object>(this.summonAddPyComponent));
         engine.SetValue("summonAddAsmComponent", new Action<object, object>(this.summonAddAsmComponent));
@@ -48,8 +49,8 @@ public class JSBehaviour : InventoryEvent
         engine.SetValue("summonAddLuaComponent", new Action<object, object>(this.summonAddLuaComponent));
         engine.SetValue("summonAddAhkComponent", new Action<object, object>(this.summonAddAhkComponent));
         engine.SetValue("summonAddSharpComponent", new Action<object, object>(this.summonAddSharpComponent));
-        engine.SetValue("summonAddCmmComponent", new Action<object, object>(this.summonAddCmmComponent));
-        engine.SetValue("summonAddRknComponent", new Action<object, object>(this.summonAdd–ÍÌComponent));
+        engine.SetValue("summonAddCmmComponent", new Action<object, object>(this.summonAddCmmComponent));        	engine.SetValue("summonAddCccComponent", new Action<object, object>(this.summonAddCccComponent));
+        engine.SetValue("summonAddRknComponent", new Action<object, object>(this.summonAdd–†–ö–ùComponent));
         engine.SetValue("Telep", new Action<object>(this.Teleport));
 
         engine.Execute(File.ReadAllText("res/scripts/" + js_File + ".js"));
@@ -72,7 +73,13 @@ public class JSBehaviour : InventoryEvent
         obj.GetComponent<CustomObject>().s = (string)co;
         gameObject.AddComponent<CmmBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }
-    public void summonAdd–ÍÌComponent(object co, object cmm_file)
+    public void summonAddCccComponent(object co, object cmm_file)
+    {
+        GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+        obj.GetComponent<CustomObject>().s = (string)co;
+        gameObject.AddComponent<CCrossCrossBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
+    }
+    public void summonAdd–†–ö–ùComponent(object co, object cmm_file)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
         obj.GetComponent<CustomObject>().s = (string)co;
@@ -99,7 +106,12 @@ public class JSBehaviour : InventoryEvent
         GameObject obj = GameObject.Find((string)name);
         obj.AddComponent<CmmBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }
-    public void Add–ÍÌComponent(object name, object cmm_file)
+    public void AddCccComponent(object name, object cmm_file)
+    {
+        GameObject obj = GameObject.Find((string)name);
+        obj.AddComponent<CCrossCrossBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
+    }
+    public void Add–†–ö–ùComponent(object name, object cmm_file)
     {
         GameObject obj = GameObject.Find((string)name);
         obj.AddComponent<RKNBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
@@ -141,7 +153,11 @@ public class JSBehaviour : InventoryEvent
     {
         gameObject.AddComponent<CmmBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }
-    public void GameObjectAdd–ÍÌComponent(object cmm_file)
+    public void GameObjectAddCccComponent(object cmm_file)
+    {
+        gameObject.AddComponent<CCrossCrossBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
+    }
+    public void GameObjectAdd–†–ö–ùComponent(object cmm_file)
     {
         gameObject.AddComponent<RKNBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }

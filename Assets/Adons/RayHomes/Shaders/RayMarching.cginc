@@ -43,6 +43,7 @@ struct VertexOutput
 };
 
 sampler2D _MainTexture;
+sampler2D _1DTexture;
 float3 _Tint;
 float _Metallic;
 float _Smoothness;
@@ -282,7 +283,8 @@ fixed4 fragBase(VertexOutput i, out float outDepth : SV_Depth) : SV_Target
     half3 specularTint;
     half oneMinusReflectivity;
     albedo = DiffuseAndSpecularFromMetallic(albedo, _Metallic, specularTint, oneMinusReflectivity);
-    albedo *= tex2D(_MainTexture,(hit.pos.xy-float2(Pos1,Pos2))-float2(hit.pos.z-Pos3,hit.pos.z-Pos3));
+    albedo *= tex2D(_MainTexture, (hit.pos.xy - float2(Pos1, Pos2)) - float2(hit.pos.z - Pos3, hit.pos.z - Pos3));
+    albedo *= tex2D(_1DTexture, float2(1, (hit.pos.y + _Time.y)));
     UnityLight light = MainLight();
     light.color *= shadow;
 

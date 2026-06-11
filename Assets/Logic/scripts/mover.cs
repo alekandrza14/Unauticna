@@ -535,6 +535,7 @@ public class mover : CustomSaveObject
     //Пробуждение кода
     private void Awake()
     {
+       
         if (PhotonNetwork.IsConnected) 
         {
             if (!GetComponent<PhotonView>())
@@ -3769,7 +3770,7 @@ public class mover : CustomSaveObject
     }
     private void MoveUpdate()
     {
-        Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)|| Input_Get.Xbox().Y;
 
         IsGraund = Physics.Raycast(transform.position, -transform.up, 1.3f, 0);
         RaycastHit hit35;
@@ -3830,8 +3831,8 @@ public class mover : CustomSaveObject
         {
             if (IsGraund)
             {
-                if (Input.GetKey(KeyCode.Space)) JumpTimer = jumpPower * transform.localScale.y;
-                if (!Input.GetKey(KeyCode.Space)) JumpTimer = 0;
+                if (Input.GetKey(KeyCode.Space) || Input_Get.Xbox().X) JumpTimer = jumpPower * transform.localScale.y;
+                if (!Input.GetKey(KeyCode.Space) || Input_Get.Xbox().X) JumpTimer = 0;
 
                 rigidbody3d.linearDamping =( 6 - (axelerate) );
                 jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * transform.localScale.y;
@@ -3862,9 +3863,9 @@ public class mover : CustomSaveObject
                 }
             }
             float macrosX = (Input_GetKeyMacros("a") ? 1 : 0) + (Input_GetKeyMacros("d") ? -1 : 0) + ((Input.GetKey(KeyCode.Q)) ? -1 : 0);
-            float macrosZ = (Input_GetKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) +((Input.GetKey(KeyCode.Z)) ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0);
-            float macrosMy = (Input_GetKeyMacros("MY+") || (Input.GetAxis("Mouse ScrollWheel")>0.1f && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetAxis("Mouse ScrollWheel") < -0.1f && VarSave.GetBool("Xbox")) ? -1 : 0);
-            float macrosMx = (Input_GetKeyMacros("MX+") || Input.GetKey(KeyCode.Period) || (Input.GetKey(KeyCode.Mouse1) && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetKey(KeyCode.Comma) || Input.GetKey(KeyCode.Mouse0) && VarSave.GetBool("Xbox")) ? -1 : 0);
+            float macrosZ = (Input_GetKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) +((Input.GetKey(KeyCode.Z)) ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0)+(Input_Get.Xbox().B ? 1 : 0);
+            float macrosMy = (Input_GetKeyMacros("MY+") || (Input.GetAxis("Mouse ScrollWheel")>0.1f && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetAxis("Mouse ScrollWheel") < -0.1f && VarSave.GetBool("Xbox")) ? -1 : 0) - (Input_Get.Xbox().stickY*2);
+            float macrosMx = (Input_GetKeyMacros("MX+") || Input.GetKey(KeyCode.Period) || (Input.GetKey(KeyCode.Mouse1) && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetKey(KeyCode.Comma) || Input.GetKey(KeyCode.Mouse0) && VarSave.GetBool("Xbox")) ? -1 : 0)+(Input_Get.Xbox().stickX * 2);
             macrosMx +=  (Input.GetKey(KeyCode.Period)  ? 5 : 0) + (Input.GetKey(KeyCode.Comma) ? -5 : 0);
             float deltaX = (Input.GetAxis("Horizontal")+ macrosX) * (Speed * (1f / movegrag));
             float deltaZ = (Input.GetAxis("Vertical") + macrosZ )* (Speed * (1f / movegrag));
@@ -3899,12 +3900,12 @@ public class mover : CustomSaveObject
             }
             float deltaY = 0.0f;
              if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
-            if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund)
+            if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund|| Input_Get.Xbox().X && IsGraund)
                     {
                         jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * transform.localScale.y;
                     }
             if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * transform.localScale.y;
-            if ((flyinng) && Input.GetKey(KeyCode.Space)) deltaY += 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
+            if ((flyinng) && Input.GetKey(KeyCode.Space)|| Input_Get.Xbox().X) deltaY += 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
             if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f) * transform.localScale.y;
             if (Sprint && (VarSave.GetMoney("Winks", SaveType.local) > 0 || VarSave.GetFloat("SevenSouls") > 0))
@@ -4040,7 +4041,7 @@ public class mover : CustomSaveObject
                             rigidbody3d.AddForce(transform.up * (deltaY * 3) * transform.localScale.y, ForceMode.Force);
                         }
                     }
-            if (!isKinematic) if (Input.GetKey(KeyCode.Space)) transform.Translate(0, 0.1f * transform.localScale.y, 0);
+            if (!isKinematic) if (Input.GetKey(KeyCode.Space)&& Input_Get.Xbox().X) transform.Translate(0, 0.1f * transform.localScale.y, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f * transform.localScale.y, 0); JumpTimer = 0; }
             Vector3 movement = new(deltaX, 0, deltaZ);
             movement = Vector3.ClampMagnitude(movement, Speed * transform.localScale.y);

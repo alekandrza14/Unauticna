@@ -27,6 +27,7 @@ public enum CustomObjectType
 public class CustomObjectData
 {
     public string NameModel;
+    public string NameModel4D;
 
     public string[] Models = new string[] { };
     public Color _Color;
@@ -593,6 +594,13 @@ public class CustomObject : CustomSaveObject
                 GameObject obj = Instantiate(Resources.Load<GameObject>("CustomMetka"), transform.position, transform.rotation, transform);
                 obj.GetComponent<CustomTextonMaterial>().CoTex = Model.TextureTarget;
                 obj.transform.localScale *= scaled.x;
+            }  
+			if (!string.IsNullOrEmpty(Model.NameModel4D)) if (Model.NameModel4D != null)
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("point"), transform);
+				obj.AddComponent<_4DObject>().s = Model.NameModel4D;
+				obj.AddComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().material;
+
             }
 
         if (!string.IsNullOrEmpty(Model.JavaScript)&& Model.StartCommandBlock) if (Model.JavaScript != null) gameObject.AddComponent<JSBehaviour>().js_File = Model.JavaScript;

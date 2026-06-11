@@ -56,7 +56,7 @@ public class CmmBehaviour : MonoBehaviour
         }
         Process p2 = new Process();
         p2.StartInfo.FileName = halfcmmFileOut;
-        p2.StartInfo.WorkingDirectory = wokingDir;
+        p2.StartInfo.WorkingDirectory = wokingDirUnity;
         if (File.Exists(halfcmmFileOut))
         {
             p2.Start();

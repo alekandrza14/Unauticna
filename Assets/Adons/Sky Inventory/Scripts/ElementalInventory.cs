@@ -4783,7 +4783,7 @@ public class ElementalInventory : MonoBehaviour {
     {
         if (main() == this)
         {
-            bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+            bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox")|| Input_Get.Xbox().A);
             if (!Globalprefs.Pause && main() == this) if (Cells[select].elementName.Length > 2 && Cells[select].elementName.Remove(3, Cells[select].elementName.Length - 3) == "co!") if (main() == this)
                     {
 
@@ -5341,7 +5341,8 @@ public class ElementalInventory : MonoBehaviour {
     float mouseDoubele2;
     private void euclideanray()
     {
-        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || Input_Get.Xbox().A);
+
         if (resy && !sh && main() == this && !nosell)
         {
             Globalprefs.selectitem = "";
@@ -5358,7 +5359,8 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void Sphericalray()
     {
-        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || Input_Get.Xbox().A);
+
         if (resy && !sh && main() == this && !nosell)
         {
             Globalprefs.selectitem = "";
@@ -5444,7 +5446,8 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void hyperbolicray()
     {
-        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox"));
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || Input_Get.Xbox().A);
+
         if (resy && !sh && main() == this && !nosell)
         {
             Globalprefs.selectitem = "";

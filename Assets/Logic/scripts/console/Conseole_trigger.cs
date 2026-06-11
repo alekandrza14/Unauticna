@@ -17,7 +17,7 @@ public class Conseole_trigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+        if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)) && !PolitDate.IsVersionE(politiceconomic.overright))
         {
             if (File.Exists("читы для сосунка"))
             {
@@ -27,6 +27,13 @@ public class Conseole_trigger : MonoBehaviour
             {
                 ifd.interactable = false;
                 ifd.text = "prositi developera";
+            }
+        }
+        if (PolitDate.IsVersionE(politiceconomic.overright))
+        {
+            if (!GameObject.FindWithTag("console"))
+            {
+                Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
             }
         }
     }
@@ -1349,12 +1356,13 @@ public class Conseole_trigger : MonoBehaviour
     }
     public ConsoleType ct;
     public InputField ifd;
+    
     // Update is called once per frame
     void Update()
     {
         if (ct == ConsoleType.Player)
         {
-            if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+            if (!(PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)) && !PolitDate.IsVersionE(politiceconomic.overright))
             {
                 if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console"))
                 {
@@ -1362,7 +1370,7 @@ public class Conseole_trigger : MonoBehaviour
                     Global.PauseManager.Pause();
                 }
             }
-            if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)))
+            if ((PolitDate.IsVersionE(politiceconomic.left) && PolitDate.IsVersionF(politicfreedom.avtoritatian)) && !PolitDate.IsVersionE(politiceconomic.overright))
             {
                 if (FindAnyObjectByType<Chaos_cube>() == null)
                 {
@@ -1373,7 +1381,12 @@ public class Conseole_trigger : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0)
+            if (Input.GetKeyDown(KeyCode.F9) && !GameObject.FindWithTag("console")&& PolitDate.IsVersionE(politiceconomic.overright))
+            {
+               // Instantiate(Resources.Load<GameObject>("ui/console/Console").gameObject, transform.position, Quaternion.identity);
+                Global.PauseManager.Pause();
+            }
+            if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0 && !PolitDate.IsVersionE(politiceconomic.overright))
             {
                 if (VarSave.GetFloat(
                 "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
@@ -1381,8 +1394,23 @@ public class Conseole_trigger : MonoBehaviour
                     VarSave.LoadFloat("reason", 1);
                 }
                 run(FindFirstObjectByType<Console_pointer>().text.text);
-              if(!string.IsNullOrEmpty(FindFirstObjectByType<Console_pointer>().text.text))  VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
+                if (!string.IsNullOrEmpty(FindFirstObjectByType<Console_pointer>().text.text)) VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
                 Destroy(GameObject.FindWithTag("console"));
+
+                Global.PauseManager.Play();
+
+
+            }
+            if (Input.GetKeyDown(KeyCode.Return) && FindObjectsByType<Console_pointer>(sortmode.main).Length > 0 && PolitDate.IsVersionE(politiceconomic.overright))
+            {
+                if (VarSave.GetFloat(
+                "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
+                {
+                    VarSave.LoadFloat("reason", 1);
+                }
+                run(FindFirstObjectByType<Console_pointer>().text.text);
+                if (!string.IsNullOrEmpty(FindFirstObjectByType<Console_pointer>().text.text)) VarSave.SetString("console", FindFirstObjectByType<Console_pointer>().text.text);
+              
 
                 Global.PauseManager.Play();
 

@@ -6,7 +6,7 @@ public enum politicfreedom
 }
 public enum politiceconomic
 {
-    NonPositionalian = 0, left = 1, mind = 2, right = 3, bipoly = 4
+    NonPositionalian = 0, left = 1, mind = 2, right = 3, bipoly = 4 , overright = 5
 }
 
 public class PolitDate
@@ -150,6 +150,29 @@ public class PolitDate
                 now = true;
             }
             else if (politic != politiceconomic.bipoly)
+            {
+                now = true;
+            }
+            else
+            {
+                now = false;
+            }
+        }
+        if (IsVersionE() == politiceconomic.overright)
+        {
+            if (politic != politiceconomic.left)
+            {
+                now = true;
+            }
+            else if (politic != politiceconomic.bipoly)
+            {
+                now = true;
+            }
+            else if (politic != politiceconomic.mind)
+            {
+                now = true;
+            }
+            else if (politic != politiceconomic.right)
             {
                 now = true;
             }
