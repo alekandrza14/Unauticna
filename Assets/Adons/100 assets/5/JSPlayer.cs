@@ -58,5 +58,11 @@ public class JSPlayer : MonoBehaviour
             if (var.Name.Contains(".C††"))
                 gameObject.AddComponent<CCrossCrossBehaviour>().deStart(var.Name.Replace(".C††", ""), @"\res\scripts\player.C††\");
         }
+        DirectoryInfo dir10 = new DirectoryInfo(@"res\scripts\player.bytecode");
+        foreach (FileInfo var in dir10.GetFiles())
+        {
+            if (var.Name.Contains(".bc"))
+                gameObject.AddComponent<BCBehaviour>().deStart(var.Name.Replace(".bc", ""), @"\res\scripts\player.bytecode\");
+        }
     }
 }

@@ -25,7 +25,8 @@ public class translate
         {
             edcurword.Add("");
             loadlenguage2 = File.ReadAllText("res/lenguage/" + loadlenguage);
-
+            loadlenguage2 += File.ReadAllText("res/lenguage/unaricicha words.txt");
+            loadlenguage2 += File.ReadAllText("res/lenguage/unaricicha words2.txt");
             for (int i = 0; i < loadlenguage2.Length; i++)
             {
 

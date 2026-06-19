@@ -4,7 +4,6 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.Burst.CompilerServices;
 
 
 public class Map_saver : MonoBehaviour

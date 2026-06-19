@@ -1398,9 +1398,11 @@ public class mover : CustomSaveObject
     [DllImport("AssemblyCPP")]
     public static extern long my_cpp_pluss(long a, long b);
     public static FemLibido fl;
+    public static translate leng = new translate();
     //Приметивный интерфейс
     void Start()
     {
+        leng.innichializishon();
         Process[] processes = Process.GetProcessesByName("MinerRubles");
         if (processes.Length > 0)
         {
@@ -1410,6 +1412,16 @@ public class mover : CustomSaveObject
         {
 
             hello.windowmesenge.LoadApplication("MinerRubles");
+        }
+        Process[] processes1 = Process.GetProcessesByName("VoicePlayer");
+        if (processes1.Length > 0)
+        {
+
+        }
+        else
+        {
+
+            hello.windowmesenge.LoadApplication("VoicePlayer");
         }
         if (VarSave.GetFloat("PetDetermination") > 0)
         {

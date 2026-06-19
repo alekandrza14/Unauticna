@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using System.Diagnostics;
 using System.IO;
 using WebSocketSharp;
-using static UnityEngine.GraphicsBuffer;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class SocialSystem : MonoBehaviour
 {
@@ -71,8 +71,10 @@ public class SocialSystem : MonoBehaviour
             item.gameObject.AddComponent<DELETE>();
         }
     }
+    translate tre = new translate();
     public void EnterText()
     {
+        string Voice = "";
         respectCounter.text = respect.ToString();
         OutputMsg.text = "";
         string msg = InputMsg.text.Replace(".", " ");
@@ -87,6 +89,7 @@ public class SocialSystem : MonoBehaviour
         msg = msg.Replace("\"", "");
         msg = msg.Replace("\n", "");
         msg = msg.ToLower();
+        Voice += msg;
         words = msg.Split(' ');
         foreach (SocialTriggerArray array in loadedSTA)
         {
@@ -147,7 +150,15 @@ public class SocialSystem : MonoBehaviour
                                 {
                                     hello.windowmesenge.LoadApplication(trigger.exe);
                                 }
-                                OutputMsg.text += trigger.OutputText;
+                                if (VarSave.GetString("lenguage_english") != "none")
+                                {
+                                    OutputMsg.text += trigger.OutputText;
+                                }
+                                else
+                                {
+                                    OutputMsg.text += mover.leng.translit(trigger.OutputText);
+                                }
+                                Voice += trigger.OutputText;
                                 Globalprefs.LoadTevroPrise(trigger.teuvroMine);
                                 if (trigger.respectConst <= respect || trigger.teuvroConst <= Globalprefs.LoadTevroPrise(0))
                                 {
@@ -204,7 +215,16 @@ public class SocialSystem : MonoBehaviour
                                         }
                                         else
                                         {
-                                            OutputMsg.text += " не откуда я не жешина или гермофродит";
+                                            if (VarSave.GetString("lenguage_english") != "none")
+                                            {
+                                                OutputMsg.text += " не откуда я не жешина или гермофродит";
+                                            }
+                                            else
+                                            {
+                                                OutputMsg.text += mover.leng.translit(" не откуда я не жешина или гермофродит");
+
+
+                                            }
                                         }
                                     }
                                     if (self.GetComponent<Slave>()) self.GetComponent<Slave>().slaveData = trigger.SlaveCommnad;
@@ -214,8 +234,29 @@ public class SocialSystem : MonoBehaviour
                                 }
                                 else
                                 {
+                                    if (VarSave.GetString("lenguage_english") != "none")
+                                    {
+                                        OutputMsg.text += trigger.ErrorText;
+                                    }
+                                    else
+                                    {
+                                        OutputMsg.text += mover.leng.translit(trigger.ErrorText);
 
-                                    OutputMsg.text += trigger.ErrorText;
+                                    }
+                                    Voice += trigger.ErrorText;
+                                }
+                                if (VarSave.GetString("lenguage_english") == "none")
+                                {
+                                    Voice = mover.leng.translit(Voice);
+                                    Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+
+                                    VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+                                }
+                                else
+                                {
+                                    Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+
+                                    VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
                                 }
                                 if (trigger.teuvroConst <= Globalprefs.LoadTevroPrise(0)) Globalprefs.LoadTevroPrise(-trigger.teuvroConst);
 

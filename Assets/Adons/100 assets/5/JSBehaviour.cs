@@ -32,6 +32,7 @@ public class JSBehaviour : InventoryEvent
         engine.SetValue("AddSharpComponent", new Action<object, object>(this.AddSharpComponent));
         engine.SetValue("AddCmmComponent", new Action<object, object>(this.AddCmmComponent));
         engine.SetValue("AddCccComponent", new Action<object, object>(this.AddCccComponent));
+        engine.SetValue("Add10Component", new Action<object, object>(this.AddBCComponent));
         engine.SetValue("AddRknComponent", new Action<object, object>(this.AddРКНComponent));
         engine.SetValue("GameObjectAddComponent", new Action<object>(this.GameObjectAddJsComponent));
         engine.SetValue("GameObjectAddPyComponent", new Action<object>(this.GameObjectAddPyComponent));
@@ -40,7 +41,9 @@ public class JSBehaviour : InventoryEvent
         engine.SetValue("GameObjectAddLuaComponent", new Action<object>(this.GameObjectAddLuaComponent));
         engine.SetValue("GameObjectAddAhkComponent", new Action<object>(this.GameObjectAddAhkComponent));
         engine.SetValue("GameObjectAddSharpComponent", new Action<object>(this.GameObjectAddSharpComponent));
-        engine.SetValue("GameObjectAddCmmComponent", new Action<object>(this.GameObjectAddCmmComponent));                    	engine.SetValue("GameObjectAddCccComponent", new Action<object>(this.GameObjectAddCccComponent));
+        engine.SetValue("GameObjectAddCmmComponent", new Action<object>(this.GameObjectAddCmmComponent));
+        engine.SetValue("GameObjectAddCccComponent", new Action<object>(this.GameObjectAddCccComponent));
+        engine.SetValue("GameObjectAdd10Component", new Action<object>(this.GameObjectAddBCComponent));
         engine.SetValue("GameObjectAddRknComponent", new Action<object>(this.GameObjectAddРКНComponent));
         engine.SetValue("summonAddComponent", new Action<object, object>(this.summonAddJsComponent));
         engine.SetValue("summonAddPyComponent", new Action<object, object>(this.summonAddPyComponent));
@@ -49,7 +52,9 @@ public class JSBehaviour : InventoryEvent
         engine.SetValue("summonAddLuaComponent", new Action<object, object>(this.summonAddLuaComponent));
         engine.SetValue("summonAddAhkComponent", new Action<object, object>(this.summonAddAhkComponent));
         engine.SetValue("summonAddSharpComponent", new Action<object, object>(this.summonAddSharpComponent));
-        engine.SetValue("summonAddCmmComponent", new Action<object, object>(this.summonAddCmmComponent));        	engine.SetValue("summonAddCccComponent", new Action<object, object>(this.summonAddCccComponent));
+        engine.SetValue("summonAddCmmComponent", new Action<object, object>(this.summonAddCmmComponent));
+        engine.SetValue("summonAddCccComponent", new Action<object, object>(this.summonAddCccComponent));
+        engine.SetValue("summonAdd10Component", new Action<object, object>(this.summonAddBCComponent));
         engine.SetValue("summonAddRknComponent", new Action<object, object>(this.summonAddРКНComponent));
         engine.SetValue("Telep", new Action<object>(this.Teleport));
 
@@ -78,6 +83,12 @@ public class JSBehaviour : InventoryEvent
         GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
         obj.GetComponent<CustomObject>().s = (string)co;
         gameObject.AddComponent<CCrossCrossBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
+    }
+    public void summonAddBCComponent(object co, object cmm_file)
+    {
+        GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
+        obj.GetComponent<CustomObject>().s = (string)co;
+        gameObject.AddComponent<BCBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }
     public void summonAddРКНComponent(object co, object cmm_file)
     {
@@ -110,6 +121,11 @@ public class JSBehaviour : InventoryEvent
     {
         GameObject obj = GameObject.Find((string)name);
         obj.AddComponent<CCrossCrossBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
+    }
+    public void AddBCComponent(object name, object cmm_file)
+    {
+        GameObject obj = GameObject.Find((string)name);
+        obj.AddComponent<BCBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }
     public void AddРКНComponent(object name, object cmm_file)
     {
@@ -156,6 +172,10 @@ public class JSBehaviour : InventoryEvent
     public void GameObjectAddCccComponent(object cmm_file)
     {
         gameObject.AddComponent<CCrossCrossBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
+    }
+    public void GameObjectAddBCComponent(object cmm_file)
+    {
+        gameObject.AddComponent<BCBehaviour>().deStart((string)cmm_file, @"\res\scripts\");
     }
     public void GameObjectAddРКНComponent(object cmm_file)
     {

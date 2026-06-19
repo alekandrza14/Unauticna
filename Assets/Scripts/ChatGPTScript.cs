@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
@@ -223,11 +224,12 @@ public class ChatGPTScript : MonoBehaviour
     }
 
 
+    translate tre = new translate();
     // Renamed for clarity, though keeping similar signature to previous structure if referenced elsewhere
     public void GenerateRandomResponse(InputField TextFieldForMeasange)
     {
-        Chat.text += $"<color=red>Юнаутикна 4Д художник:</color>" + TextFieldForMeasange.text + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
-
+        string Voice = "";
+        Voice += $"<color=red>Юнаутикна 4Д художник:</color>" + TextFieldForMeasange.text + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
         // Rule: "1 random word or 3"
         int wordsToPick = Random.value > 0.5f ? 1 : 3;
         List<string> resultWords = new List<string>();
@@ -280,10 +282,26 @@ public class ChatGPTScript : MonoBehaviour
             finalResponse += item;
         }
         lastGeneratedResponse = finalResponse;
-        Chat.text += $"<color=green>Лейфи:</color>" + lastGeneratedResponse + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
+        Voice += $"<color=green>Лейфи:</color>" + lastGeneratedResponse + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
+        if (VarSave.GetString("lenguage_english") == "none")
+        {
+            Chat.text += mover.leng.translit($"<color=red>Юнаутикна 4Д художник:</color>" + TextFieldForMeasange.text + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n");
+            Chat.text += mover.leng.translit($"<color=green>Лейфи:</color>" + lastGeneratedResponse + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n");
 
-        // Log like a bot response
-        Debug.Log($"<color=green>Лейфи:</color> " + lastGeneratedResponse + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n");
+            Voice = mover.leng.translit(Voice);
+            Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+        }
+        else
+        {
+            Chat.text += $"<color=red>Юнаутикна 4Д художник:</color>" + TextFieldForMeasange.text + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
+            Chat.text += $"<color=green>Лейфи:</color>" + lastGeneratedResponse + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n";
+
+            Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+        }
+            // Log like a bot response
+            Debug.Log($"<color=green>Лейфи:</color> " + lastGeneratedResponse + "\n" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + "\n");
     }
 
     // Helper to quickly fill standard data if list is empty

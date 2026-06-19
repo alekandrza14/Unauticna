@@ -4,6 +4,7 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 public class deldialog : MonoBehaviour
 {
@@ -77,7 +78,7 @@ public class deldialog : MonoBehaviour
         }
         if (act && enter)
         {
-
+            string Voice = "";
             tic += 1 * Time.deltaTime;
             if (tic >= 0.1f)
             {
@@ -87,7 +88,21 @@ public class deldialog : MonoBehaviour
 
                     if (s[tir2].Length > tir)
                     {
-                        text.text += s[tir2][tir];
+                        //tre.translit(
+                        if (VarSave.GetString("lenguage_english") != "none")
+                        {
+                            text.text += s[tir2][tir];
+                            Voice = s[tir2];
+                            Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+                            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+                        }
+                        else
+                        {
+                            text.text += mover.leng.translit(s[tir2])[tir];
+                            Voice = mover.leng.translit(s[tir2]);
+                          Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+                            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+                        }
                         Instantiate(Resources.Load<GameObject>("dial"));
                     }
                 }
@@ -104,6 +119,9 @@ public class deldialog : MonoBehaviour
 
 
                             text.text += sm[tir];
+                            Voice = sm;
+                            Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " новая строка");
+                            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
                             Instantiate(Resources.Load<GameObject>("dial"));
                         }
                     }
@@ -325,7 +343,7 @@ public class deldialog : MonoBehaviour
             }
         }
     }
-    
+    translate tre = new translate();
     void Update()
     {
         if (VarSave.GetString("lenguage_english")== "True")
@@ -342,7 +360,7 @@ public class deldialog : MonoBehaviour
         }
         if (VarSave.GetString("lenguage_english") == "none")
         {
-            nabor(smu, su);
+            nabor(mover.leng.translit(smu), su);
         }
         if (!enter && !startActivate)
         {

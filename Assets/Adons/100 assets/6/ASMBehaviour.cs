@@ -33,7 +33,7 @@ public class ASMBehaviour : InventoryEvent
         var p1 = Process.Start(new ProcessStartInfo
         {
             FileName = ml64,
-            Arguments = $"/c {asm}.asm",
+            Arguments = $"/c \"{asm}.asm\"",
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -57,7 +57,7 @@ public class ASMBehaviour : InventoryEvent
         {
             FileName = link,
             Arguments =
-                $"{asm}.obj " +
+                $"\"{asm}.obj\" " +
                 "\""+dif5.GetDirectories()[0]+"\\um\\x64\\user32.lib\" " +
 "\"" + dif5.GetDirectories()[0] + "\\um\\x64\\kernel32.lib\" " +
 "\"" + dif5.GetDirectories()[0] + "\\um\\x64\\winmm.lib\" " +

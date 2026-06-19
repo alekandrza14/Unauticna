@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using System.Text.RegularExpressions;
+
 public class Oce : MonoBehaviour
 {
     public static ObjenieCreatureEtap main()
@@ -84,24 +86,55 @@ public class ObjenieCreatureEtap : MonoBehaviour
         }
     }
 
+    translate tre = new translate();
     public void SetHint()
     {
+        string Voice = "";
         if (hintText == null)
             return;
 
         if (!isDebateActive)
         {
             hintText.text = "Нажмите кнопку, чтобы начать спор";
+            Voice += hintText.text;
+            if (VarSave.GetString("lenguage_english") == "none")
+            {
+                Voice = mover.leng.translit(Voice);
+                Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " ");
+
+                VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+            }
+            else
+            {
+                Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " ");
+
+                VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+            }
             return;
         }
 
         if (currentStep >= 0 && currentStep < expectedButtonSequence.Count)
         {
             hintText.text = $"Текущий ход: нажмите кнопку {expectedButtonSequence[currentStep]}";
+            Voice += hintText.text;
         }
         else
         {
             hintText.text = "Спор завершен";
+            Voice += hintText.text;
+        }
+        if (VarSave.GetString("lenguage_english") == "none")
+        {
+            Voice = tre.translit(Voice);
+            Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " ");
+
+            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
+        }
+        else
+        {
+            Voice = Regex.Replace(Voice.Replace("<color=red>", "").Replace("<color=green>", "").Replace("'", "").Replace("</color>", "").Replace("\"", ""), @"\r\n?|\n", " ");
+
+            VarSave.SetString("dialog.txt", Voice.ToLower(), SaveType.computer);
         }
     }
 
