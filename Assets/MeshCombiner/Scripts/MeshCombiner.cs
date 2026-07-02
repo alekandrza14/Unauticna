@@ -9,8 +9,8 @@ public class MeshCombiner : MonoBehaviour
 	private const int Mesh16BitBufferVertexLimit = 65535;
 
 	[SerializeField]
-	private bool createMultiMaterialMesh = false, combineInactiveChildren = false, deactivateCombinedChildren = true,
-		deactivateCombinedChildrenMeshRenderers = false, generateUVMap = false, destroyCombinedChildren = false;
+	public bool createMultiMaterialMesh = false, combineInactiveChildren = false, deactivateCombinedChildren = true,
+		deactivateCombinedChildrenMeshRenderers = false, generateUVMap = false, destroyCombinedChildren = false, destroyAllItems = false;
 	[SerializeField]
 	private string folderPath = "Prefabs/CombinedMeshes";
 	[SerializeField]
@@ -135,7 +135,7 @@ public class MeshCombiner : MonoBehaviour
 		return meshFilters;
 	}
 
-	private void CombineMeshesWithSingleMaterial(bool showCreatedMeshInfo)
+	public void CombineMeshesWithSingleMaterial(bool showCreatedMeshInfo)
 	{
 		// Get all MeshFilters belongs to this GameObject and its children:
 		MeshFilter[] meshFilters = GetMeshFiltersToCombine();
@@ -216,7 +216,7 @@ public class MeshCombiner : MonoBehaviour
 		#endif
 	}
 
-	private void CombineMeshesWithMutliMaterial(bool showCreatedMeshInfo)
+    public void CombineMeshesWithMutliMaterial(bool showCreatedMeshInfo)
 	{
 		#region Get MeshFilters, MeshRenderers and unique Materials from all children:
 		MeshFilter[] meshFilters = GetMeshFiltersToCombine();
@@ -278,21 +278,21 @@ public class MeshCombiner : MonoBehaviour
 			// Create new Mesh (submesh) from Meshes with the same Material:
 			Mesh submesh = new Mesh();
 
-			#if UNITY_2017_3_OR_NEWER
+		//	#if UNITY_2017_3_OR_NEWER
 			if(verticesLength > Mesh16BitBufferVertexLimit)
 			{
 				submesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // Only works on Unity 2017.3 or higher.
 			}
 
 			submesh.CombineMeshes(submeshCombineInstancesList.ToArray(), true);
-			#else
+		//	#else
 			// Below Unity 2017.3 if vertices count is above the limit then an error appears in the console when we use the below method.
 			// Anyway we don't stop the algorithm here beacuse we want to count the entire number of vertices in the children meshes:
-			if(verticesLength <= Mesh16BitBufferVertexLimit)
-			{
-				submesh.CombineMeshes(submeshCombineInstancesList.ToArray(), true);
-			}
-			#endif
+			//if(verticesLength <= Mesh16BitBufferVertexLimit)
+			//{
+			//	submesh.CombineMeshes(submeshCombineInstancesList.ToArray(), true);
+		//	}
+		//	#endif
 
 			CombineInstance finalCombineInstance = new CombineInstance();
 			finalCombineInstance.subMeshIndex = 0;
@@ -308,7 +308,7 @@ public class MeshCombiner : MonoBehaviour
 		Mesh combinedMesh = new Mesh();
 		combinedMesh.name = name;
 
-		#if UNITY_2017_3_OR_NEWER
+	//	#if UNITY_2017_3_OR_NEWER
 		if(verticesLength > Mesh16BitBufferVertexLimit)
 		{
 			combinedMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // Only works on Unity 2017.3 or higher.
@@ -333,27 +333,28 @@ public class MeshCombiner : MonoBehaviour
 					+" vertices. Some old devices, like Android with Mali-400 GPU, do not support over 65535 vertices.</b></color>");
 			}
 		}
-		#else
-		if(verticesLength <= Mesh16BitBufferVertexLimit)
-		{
-			combinedMesh.CombineMeshes(finalMeshCombineInstancesList.ToArray(), false);
-			GenerateUV(combinedMesh);
-			meshFilters[0].sharedMesh = combinedMesh;
-			DeactivateCombinedGameObjects(meshFilters);
+	//	#else
+	//	if(verticesLength <= Mesh16BitBufferVertexLimit)
+	//	{
+		//	combinedMesh.CombineMeshes(finalMeshCombineInstancesList.ToArray(), false);
+	//		GenerateUV(combinedMesh);
+		//	meshFilters[0].sharedMesh = combinedMesh;
+		//	DeactivateCombinedGameObjects(meshFilters);
 
-			if(showCreatedMeshInfo)
-			{
-				Debug.Log("<color=#00cc00><b>Mesh \""+name+"\" was created from "+(meshFilters.Length-1)+" children meshes and has "
-					+finalMeshCombineInstancesList.Count+" submeshes, and "+verticesLength+" vertices.</b></color>");
-			}
-		}
-		else if(showCreatedMeshInfo)
-		{
-			Debug.Log("<color=red><b>The mesh vertex limit is 65535! The created mesh had "+verticesLength+" vertices. Upgrade Unity version to"
-				+" 2017.3 or higher to avoid this limit (some old devices, like Android with Mali-400 GPU, do not support over 65535 vertices).</b></color>");
-		}
-		#endif
+		//	if(showCreatedMeshInfo)
+		//	{
+		//		Debug.Log("<color=#00cc00><b>Mesh \""+name+"\" was created from "+(meshFilters.Length-1)+" children meshes and has "
+		//			+finalMeshCombineInstancesList.Count+" submeshes, and "+verticesLength+" vertices.</b></color>");
+		//	}
+	//	}
+	//	else if(showCreatedMeshInfo)
+	//	{
+		//	Debug.Log("<color=red><b>The mesh vertex limit is 65535! The created mesh had "+verticesLength+" vertices. Upgrade Unity version to"
+	//			+" 2017.3 or higher to avoid this limit (some old devices, like Android with Mali-400 GPU, do not support over 65535 vertices).</b></color>");
+	//	}
+	//	#endif
 		#endregion Set Materials array & combine submeshes into one multimaterial Mesh.
+	
 	}
 
 	private void DeactivateCombinedGameObjects(MeshFilter[] meshFilters)

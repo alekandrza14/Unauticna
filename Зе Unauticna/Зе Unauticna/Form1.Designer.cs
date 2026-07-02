@@ -36,6 +36,7 @@ namespace Зе_Unauticna
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -93,6 +94,16 @@ namespace Зе_Unauticna
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(482, 259);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(155, 44);
+            this.button5.TabIndex = 5;
+            this.button5.Text = "Папка с зависимостями";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -101,6 +112,7 @@ namespace Зе_Unauticna
             this.BackgroundImage = global::UnauticnaLauncher.Properties.Resources.main_paras_;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
@@ -128,6 +140,7 @@ namespace Зе_Unauticna
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Button button5;
     }
 }
 

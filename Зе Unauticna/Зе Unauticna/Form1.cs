@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UnauticnaLauncher.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Зе_Unauticna
 {
@@ -153,5 +155,78 @@ namespace Зе_Unauticna
         {
 
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string installDir = Path.Combine(
+            Application.StartupPath,
+            "windows",
+            "install framework"
+        );
+
+            // --- ПРОВЕРКА PYTHON ---
+            string pythonPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Programs",
+                "Python",
+                "Python313",
+                "python.exe"
+            );
+
+            bool pythonInstalled = File.Exists(pythonPath);
+
+            // --- ПРОВЕРКА GIT ---
+            bool gitInstalled =
+                File.Exists(@"C:\Program Files\Git\bin\git.exe") ||
+                File.Exists(@"C:\Program Files\Git\cmd\git.exe");
+            bool ahkInstalled =
+              Directory.Exists(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\AutoHotkey");
+            bool Visual2022 =
+              Directory.Exists(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022");
+            bool Node_js =
+              Directory.Exists(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js");
+            bool olama =
+               File.Exists(@"C:\Users\User\AppData\Local\Programs\Ollama\ollama app.exe");
+
+            // --- СПИСОК ---
+            StringBuilder missing = new StringBuilder();
+
+            if (!gitInstalled)
+                missing.AppendLine("Git");
+            if (!ahkInstalled)
+                missing.AppendLine("AutoHotkey shortcuts folder \"AutoHotkey\"");
+            if (!Visual2022)
+                missing.AppendLine("Visual Studio 2022 конкретно пакеты c++ разработаигр и приожений и для net Framework");
+            if (!Node_js)
+                missing.AppendLine("Node.JS");
+            if (!pythonInstalled)
+                missing.AppendLine("Python 3.13"); 
+            if (!olama)
+                missing.AppendLine("ollama AI whis copilot");
+
+            if (missing.Length == 0)
+            {
+                MessageBox.Show(
+                    "Все необходимые компоненты установлены.",
+                    "Unauticna Launcher"
+                );
+                return;
+            }
+
+            // --- ОКНО ---
+            MessageBox.Show(
+                "Не установлены компоненты:\n\n" +
+                missing.ToString() +
+                "\n\nОткройте папку и установите их вручную.",
+                "Unauticna Launcher"
+            );
+
+            // --- ОТКРЫТЬ ПАПКУ ТОЛЬКО ЕСЛИ ОНА ЕСТЬ ---
+            if (Directory.Exists(installDir))
+            {
+                Process.Start("explorer.exe", installDir);
+            }
+        }
+       
     }
 }

@@ -62,7 +62,7 @@ public class JSPlayer : MonoBehaviour
         foreach (FileInfo var in dir10.GetFiles())
         {
             if (var.Name.Contains(".bc"))
-                gameObject.AddComponent<BCBehaviour>().deStart(var.Name.Replace(".bc", ""), @"\res\scripts\player.bytecode\");
+                gameObject.AddComponent<BCBehaviour>().deStart(var.Name.Replace(".bc", ""), @"res\scripts\player.bytecode\");
         }
     }
 }
