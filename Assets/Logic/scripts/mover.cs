@@ -1282,19 +1282,35 @@ public class mover : CustomSaveObject
             {
                 if (playerdata.Geteffect("Unyverseium_money_cart") != null)
                 {
-                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : ∞ * " + Globalprefs.Infinitysteuvro + "E" + Globalprefs.MultTevro);
-                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
+                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 440, 300f, 100f), "Teuvro (T) : ∞ * " + Globalprefs.Infinitysteuvro + "E" + Globalprefs.MultTevro);
+                    else GUI.Label(new Rect(0f, 460, 300f, 100f), "Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro1"), 2) + "E" + Globalprefs.MultTevro);
 
                 }
                 else
                 {
-                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
+                    GUI.Label(new Rect(0f, 480, 300f, 100f), "Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro1"), 2) + "E" + Globalprefs.MultTevro);
                 }
             }
             int maxcollect = 0;
             if (VarSave.GetString("quest", SaveType.global) == "капуста") maxcollect = 10;
-            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Teuvro (T) : " + "∞" + "E" + Globalprefs.MultTevro);
-            GUI.Label(new Rect(0f, 40, 300f, 100f), "Flow Teuvro on hour (T^) : " + Math.Round(Globalprefs.flowteuvro, 2) + "E" + Globalprefs.MultTevro);
+            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 500, 300f, 100f), "Teuvro (T) : " + "∞" + "E" + Globalprefs.MultTevro);
+            
+            if (playerdata.Geteffect("No kapitalism") == null)
+            {
+                if (playerdata.Geteffect("Unyverseium_money_cart") != null)
+                {
+                    if (Globalprefs.Infinitysteuvro > 0) GUI.Label(new Rect(0f, 20, 300f, 100f), "Non-verify Teuvro (T) : ∞ * " + Globalprefs.Infinitysteuvro + "E" + Globalprefs.MultTevro);
+                    else GUI.Label(new Rect(0f, 20, 300f, 100f), "Non-verify Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
+
+                }
+                else
+                {
+                    GUI.Label(new Rect(0f, 20, 300f, 100f), "Non-verify Teuvro (T) : " + Math.Round(VarSave.GetMoney("tevro"), 2) + "E" + Globalprefs.MultTevro);
+                }
+            }
+            if (VarSave.GetString("quest", SaveType.global) == "капуста") maxcollect = 10;
+            if (playerdata.Geteffect("No kapitalism") != null) GUI.Label(new Rect(0f, 20, 300f, 100f), "Non-verify Teuvro (T) : " + "∞" + "E" + Globalprefs.MultTevro);
+            GUI.Label(new Rect(0f, 40, 300f, 100f), "Non-verify Flow Teuvro on hour (T^) : " + Math.Round(Globalprefs.flowteuvro, 2) + "E" + Globalprefs.MultTevro);
             GUI.Label(new Rect(0f, 60, 200f, 100f), "Bunkrot : " + Globalprefs.bunkrot);
             if (Globalprefs.selectitemobj)
             {

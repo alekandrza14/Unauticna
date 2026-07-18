@@ -1,0 +1,395 @@
+Использовать lua
+Для исполнения файла фомата ai надо пречеть
+#уточнение
+#конкретики
+Глава ошибок прочесть преде главынм реализцией
+Файл создать "C:\data\ai.slop2.lua"
+идея:
+это замок из 15 случайно сгенерированых комнат и 3 башни
+для скрипта следуешего примера
+пример начат
+-- defines a Jump function
+function Build (patrn)
+for i=0,6,1 do
+
+
+        vec3.Add(5)
+        vec3.Add(i)
+        vec3.Add(5)
+   
+end
+for i=0,6,1 do
+
+
+        vec3.Add(-5)
+        vec3.Add(i)
+        vec3.Add(-5)
+   
+end
+for i=0,6,1 do
+
+
+        vec3.Add(-5)
+        vec3.Add(i)
+        vec3.Add(5)
+   
+end
+for i=0,6,1 do
+
+
+        vec3.Add(5)
+        vec3.Add(i)
+        vec3.Add(-5)
+   
+end
+	vec3.Add(0)
+        vec3.Add(0)
+        vec3.Add(1)
+
+	vec3.Add(2)
+        vec3.Add(0)
+        vec3.Add(0)
+
+	vec3.Add(-2)
+        vec3.Add(0)
+        vec3.Add(0)
+return vec3;
+end
+
+
+function Item (patrn)
+
+for i=0,6,1 do
+
+
+ditem.Add("пена");
+   
+end
+for i=0,6,1 do
+
+
+ditem.Add("пена");
+   
+end
+for i=0,6,1 do
+
+
+ditem.Add("пена");
+   
+end
+for i=0,6,1 do
+
+
+ditem.Add("пена");
+   
+end
+
+   ditem.Add("СветойМаналит(1)");
+
+   ditem.Add("like");
+
+   ditem.Add("like");
+
+return ditem;
+end
+пример закончен
+ditem.Add("пена"); - кмень
+vec3.Add(5)
+vec3.Add(i)
+vec3.Add(5)
+а это у нас вектор 3
+на одина камень идет 3 кординаты каждая 1 из 3 это х
+каждая 2 из 3 это y
+каждая 3 из 3 это z
+Build и Item - симетричные функции они обязательно должны быть через них движок понимает запускает скрипт
+ UserData.RegisterType<List<float>>();
+        UserData.RegisterType<List<string>>();
+        
+        script.Globals["vec3"] = v3;
+        script.Globals["ditem"] = data;
+минимальный пример 
+navie logic start
+local = Class vec3
+local = num{}
+fuction Add(a)--float  UserData.RegisterType<List<float>>(); script.Globals["vec3"] = v3;
+num[#num3+1] = a
+end
+end
+local = Class ditem
+local = stre{}
+fuction Add(a)--string        UserData.RegisterType<List<string>>();  script.Globals["ditem"] = data;
+scre[#sctre+1] = a
+end
+end
+navie logic end
+lua script start
+function Build (patrn)
+	vec3.Add(0);
+    vec3.Add(0);
+    vec3.Add(0);
+	return vec3;
+end
+function Item (patrn)
+ditem.Add("пена");
+return ditem;
+end
+lua script end
+Важно нативная логика нативно добавляеться движком
+предметы движок получает только как return ditem; иначе назавть нельзя иначе будет конфликт с нативной логикой
+кодинаты движок получает только как return vec3; иначе назавть нельзя иначе будет конфликт с нативной логикой
+движок входит в скрипт через фунцию
+Build (patrn) - только через фунцию сэтимназванем
+получает
+float[]
+0,0,0
+Item (patrn) - только через фунцию сэтимназванем
+получает
+string[]
+"пена"
+добавляют в позиции и камни это читает движок
+движок читает это этим скриптом
+кнопка вызывает LuaLogic()
+а он работает на moonsharp и unity 3D
+скрипт что файл читает
+начало
+using MoonSharp.Interpreter;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
+
+[AddComponentMenu("Lua Script Behaviour")]
+public class LuaConstructer : InventoryEvent
+{
+    [Multiline]
+    public string code;
+    public InputField ifd;
+    string codepath;
+    public bool unity;
+    public bool trigger;
+    public bool is_static;
+    public itemName itemName;
+    // Start is called before the first frame update
+    void Start()
+    {
+        //  code = File.ReadAllText("res/scripts/Jump.lua");
+        if (Map_saver.LoadADone) if (itemName)
+            {
+
+                codepath = itemName.ItemData;
+
+                if (string.IsNullOrEmpty(codepath))
+                {
+
+                    codepath = "res/scripts/Build.lua";
+                    itemName.ItemData = codepath;
+                }
+                code = File.ReadAllText(codepath);
+                if (unity)
+                {
+                    LuaLogic();
+                }
+
+            }
+        if (!unity) ifd.text = codepath;
+    }
+    public void Load1()
+    {
+        if (itemName)
+        {
+
+            codepath = itemName.ItemData;
+
+            if (string.IsNullOrEmpty(codepath))
+            {
+
+                codepath = "res/scripts/Build.lua";
+                itemName.ItemData = codepath;
+            }
+            code = File.ReadAllText(codepath);
+
+        }
+        if (!unity) ifd.text = codepath;
+    }
+    List<float> v3 = new List<float>();
+    public List<Vector3> BuildPosition(List<float> vec)
+    {
+        List<Vector3> vec3 = new List<Vector3>();
+        for (int i=0; i < vec.Count;i+=3)
+        {
+           
+                vec3.Add(new(vec[i],vec[i+1],vec[i+2]));
+           
+          
+        }
+        return vec3;
+    }
+    public List<Vector3> Pos = new List<Vector3>();
+    public List<string> data = new List<string>();
+    private void Update()
+    {
+        
+      //  if (!string.IsNullOrEmpty(code)) rb.AddForce(v3 * 1 * (JumpLogic(code)), ForceMode.Impulse);
+        if (itemName) itemName.ItemData = ifd.text;
+        if (trigger)
+        {
+            Map_saver.LoadADone = true;
+            Start();
+            trigger = !trigger;
+        }
+    }
+    float timer = 0;
+    int maxpatrn = 0;
+    int patrn = 0;
+    static public List<GameObject> deletePost;
+    public void LuaLogic()
+    {
+        timer += Time.deltaTime;
+        //   string scriptCode = @"    
+        //	-- defines a Jump function
+        //	function Jump (time)
+        //		if (time>= 1) then
+        //			return 1
+        //       else
+        //           return 0
+        //		end
+        //	end";
+        UserData.RegisterType<Vector3>();
+        UserData.RegisterType<List<float>>();
+        UserData.RegisterType<List<string>>();
+        Script script = new Script();
+        script.Globals["vec3"] = v3;
+        script.Globals["ditem"] = data;
+        script.DoString(code);
+
+
+        DynValue luaFactFunction = script.Globals.Get("Build");
+    
+        DynValue res = script.Call(luaFactFunction, new object[]
+        {
+            ((double)patrn)
+        }
+        );
+        DynValue luaFactFunction2 = script.Globals.Get("Item");
+
+        DynValue res2 = script.Call(luaFactFunction2, new object[]
+        {
+            ((double)patrn)
+        }
+        );
+        if (code.Contains("Big_constuction"))
+        {
+            DynValue luaFactFunction3 = script.Globals.Get("Big_constuction");
+
+            DynValue res3 = script.Call(luaFactFunction3, new object[]
+            {
+            ((double)patrn)
+           
+        }
+            );
+            if (res3.UserData.Object != null)
+            {
+                is_static = (bool)res3.UserData.Object;
+            }
+        }
+
+
+       if (res.UserData.Object != null)
+       {
+           v3 = (List<float>)res.UserData.Object;
+       }
+        Pos = BuildPosition(v3);
+        if (res2.UserData.Object != null)
+        {
+            data = (List<string>)res2.UserData.Object;
+        }
+        patrn++;
+
+        if (is_static) for (int i = 0; i < Pos.Count; i++)
+            {
+                GameObject superoptimize = new GameObject("Telo");
+                GameObject superoptimize2 = Instantiate(Resources.Load<GameObject>("items/" + data[i]), new Vector3(Pos[i].x, Pos[i].y, Pos[i].z) + transform.position, Quaternion.identity, superoptimize.transform);
+                deletePost.Add(superoptimize2);
+                superoptimize.AddComponent<MeshCombiner>();
+                superoptimize.GetComponent<MeshCombiner>().CreateMultiMaterialMesh = true;
+                superoptimize.GetComponent<MeshCombiner>().DeactivateCombinedChildren = true;
+                superoptimize.GetComponent<MeshCombiner>().destroyAllItems = true;
+                superoptimize.GetComponent<MeshCombiner>().combineInactiveChildren = true;
+                superoptimize.GetComponent<MeshCombiner>().CombineMeshesWithMutliMaterial(false);
+            }
+        if (!is_static) for (int i = 0; i < Pos.Count; i++)
+            {
+             Instantiate(Resources.Load<GameObject>("items/" + data[i]), new Vector3(Pos[i].x, Pos[i].y, Pos[i].z) + transform.position, Quaternion.identity);
+            
+              }
+
+
+    }
+
+
+
+}
+конец
+И глава ошибок прочесть пррвым #уточнение
+vec3 - приер это list<float> v3 C# пример Unity MoonSharp
+1 vec3 ={} - удалили нативный класс заменив постым масивом
+2 local vec3 - создаёте переменую которая ужеесть
+3 return s - в перременую s должен входить vec3 как о был обявлен нативно класс script.Globals["vec3"] = v3; мы его обявили
+4 vec3[#vec3+1] увас нет доступа к масиву используйте фукцию vec3.Add(0) vec3.RemoveAt(0) vec3.Clear() local = num;num = vec3[0]
+vec3.Add(0)
+до
+{}
+после
+{0}
+vec3.RemoveAt(0)
+до
+{1,2,3}
+после
+{2,3} 
+vec3.Clear()
+до
+{6,6,6,6}
+после
+{}
+local = num;num = vec3[0]
+до
+num = null
+до
+num = 7 -- vec3[0]-- это vec3{7,4,3,2,1}
+ditem - приер это list<string> data C# пример Unity MoonSharp
+1 ditem = {} - удалили нативный класс заменив постым масивом
+2 local ditem - создаёте переменую которая уже есть
+3 return s - в перременую s должен входить ditem как о был обявлен нативно класс  script.Globals["ditem"] = data; мы его обявили
+4 ditem[#ditem+1] увас нет доступа к масиву используйте фукцию ditem.Add("пена") ditem.RemoveAt(0) ditem.Clear() local = stre; stre = ditem[0]
+ditem.Add("пена")
+до
+{}
+после
+{"пена"}
+vec3.RemoveAt(3)
+до
+{"СветойМаналит(1)","like","пена"}
+после
+{"СветойМаналит(1)","like"} 
+vec3.Clear()
+до
+{"СветойМаналит(1)","like","пена"}
+после
+{}
+Глава два - ошибки автора #конкретики
+vec3[0] это - может непрй в лу счтаеться иногда нумераци я неот нуля а от одново
+function Build(patrn) эта функция должна имено так назвться так как движок в ходит вскрипт через неё потом все забвает нативный код кроме тогочто экпортировал и function Item(patrn) уже не занет про vec3
+function Item(patrn) эта функция должна имено так назвться так как движок в ходит вскрипт через неё потом все забвает нативный код кроме тогочто экпортировал и function Build(patrn) уже не занет про ditem
+Что надо с файллом сделать не спрашивать пользовалеля сгенерировать скрипт конечно
+вамнужно сделать это
+Файл создать "C:\data\ai.slop2.lua"
+идея:
+это замок из 15 случайно сгенерированых комнат и 3 башни
+сгенерировать скрипт
+вольно читай остальной файл
+да не забудь ты делаешь огромную локацию ну жно дать игре понять что это один обект а не сепстилион
+добавть в конце скрипта
+function Big_constuction (patrn) -- это абсолютно важно игрок не будет в 1 кадр в 4 секунды и унего нет супер научного оборудования перемещаться по этой мегаструктуре!
+	stat.Add(true);
+	return stat;
+end -- важно также всавь не изменяя если обектов будет генерироваться больше 100 шт!

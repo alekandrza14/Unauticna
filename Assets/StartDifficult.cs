@@ -44,10 +44,10 @@ public class StartDifficult : MonoBehaviour
         {
            if(Directory.Exists("debug")) Directory.Delete("debug",true);
         }
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(455);
     }
     public void TeleportScene()
     {
-        SceneManager.LoadSceneAsync(0);
+        SceneManager.LoadSceneAsync(455);
     }
 }

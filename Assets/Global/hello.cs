@@ -12,6 +12,8 @@ public class hello
         public static void Dialog_die()
         {
             Process p = new Process();
+            p.StartInfo.Verb = "runas";
+            p.StartInfo.UseShellExecute = true;
             p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\window die.exe";
             if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\window die.exe"))
             {
@@ -21,6 +23,8 @@ public class hello
         public static void Dialog_Radar()
         {
             Process p = new Process();
+            p.StartInfo.Verb = "runas";
+            p.StartInfo.UseShellExecute = true;
             p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\StrangeRadar.exe";
             if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\StrangeRadar.exe"))
             {
@@ -31,6 +35,8 @@ public class hello
         {
             Process p = new Process();
             p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\" + app + ".exe";
+            p.StartInfo.Verb = "runas";
+            p.StartInfo.UseShellExecute = true;
             if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\windows\" + app + ".exe"))
             {
                 p.Start();
@@ -39,6 +45,8 @@ public class hello
             foreach (string res in ovewrite1)
             {
                 Process p3 = new Process();
+                p3.StartInfo.Verb = "runas";
+                p3.StartInfo.UseShellExecute = true;
                 p3.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res + app + ".exe";
                 if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res + app + ".exe"))
                 {
@@ -55,6 +63,8 @@ public class hello
         {
             Process p = new Process();
             p.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\res\scripts\" + app + ".exe";
+            p.StartInfo.Verb = "runas";
+            p.StartInfo.UseShellExecute = true;
             if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + @"\res\scripts\" + app + ".exe"))
             {
                 p.Start();
@@ -64,6 +74,8 @@ public class hello
             {
                 Process p3 = new Process();
                 p3.StartInfo.FileName = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res+@"scripts\" + app + ".exe";
+                p3.StartInfo.Verb = "runas";
+                p3.StartInfo.UseShellExecute = true;
                 if (File.Exists(Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath)) + res + @"scripts\" + app + ".exe"))
                 {
                     p3.Start();

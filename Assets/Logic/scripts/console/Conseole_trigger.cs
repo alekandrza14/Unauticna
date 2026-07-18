@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -75,6 +76,24 @@ public class Conseole_trigger : MonoBehaviour
                 pre += console[i];
             }
         }
+        /* Process process = new Process();
+
+        process.StartInfo.FileName = "java";
+
+        process.StartInfo.Arguments =
+            "-jar \"" + Application.dataPath + "/Program.jar\" Hello";
+
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardOutput = true;
+        process.StartInfo.CreateNoWindow = true;
+
+        process.Start();
+
+        string output = process.StandardOutput.ReadToEnd();
+
+        process.WaitForExit();
+
+        UnityEngine.Debug.Log(output);*/
         s.Add(pre);
         string a = "";
         for (int i = 0; i < 2; i++)
@@ -319,6 +338,14 @@ public class Conseole_trigger : MonoBehaviour
             if (s[0] == "LuaMacros")
             {
                 a = "68";
+            }
+            if (s[0] == "jar-")
+            {
+                a = "69";
+            }
+            if (s[0] == "modificaton")
+            {
+                a = "70";
             }
             if (s[0].Length>0) if (s[0][0] =='/') a = s[0].Replace("/","");
             if (s[0] == "Item_by_name")
@@ -1252,6 +1279,62 @@ public class Conseole_trigger : MonoBehaviour
                 string code = File.ReadAllText("res/scripts/" + s[1] + ".lua");
                 mover.main().LoadLuaLogicMacros(code);
                 mover.main().InvokeRepeating("IRMacros", 0, 0.01f);
+            }
+            if (i == 1 && a == "69")
+            {
+                // string code = File.ReadAllText("res/scripts/" + s[1] + ".lua"); 
+                Process process = new Process();
+
+                process.StartInfo.FileName = "cmd.exe";
+
+                process.StartInfo.Arguments =
+                  $"chcp 65001 && /C cd /d \"{Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath))}\" && java -jar \"" + $"res\\UserWorckspace\\javacheats\\{s[1]}.jar\" {s[2]}";
+
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.WorkingDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath));
+
+                process.Start();
+
+                string output = process.StandardOutput.ReadToEnd();
+
+                process.WaitForExit();
+                
+                //jar- Generate Mouse
+                if (output.Contains("RunJS:"))
+                {
+                  //  Regex.Replace($"file://C:/data/{output}", @"\r\n?|\n", "");
+                    output = Regex.Replace(output, @"\r\n?|\n", "");
+                    output.Replace("RunJS:","");
+                    GameObject obj = new GameObject("point");
+                    obj.transform.position = mover.main().transform.position;
+                    obj.AddComponent<JSBehaviour>().js_File = output;
+                }
+                Loger.Sand(output);
+                UnityEngine.Debug.Log(output);
+            }
+            if (i == 1 && a == "70")
+            {
+                // string code = File.ReadAllText("res/scripts/" + s[1] + ".lua"); 
+                Process process = new Process();
+
+
+                process.StartInfo.FileName = "cmd.exe";
+                process.StartInfo.Arguments =
+                    $"chcp 65001 && /C cd /d \"{Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath))}\" && java -jar \"javaMods\\{s[1]}.jar\" ReInstall";
+
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.CreateNoWindow = true;
+                process.Start();
+
+                string output = process.StandardOutput.ReadToEnd();
+
+                process.WaitForExit();
+                
+				Loger.Sand(output);
+                UnityEngine.Debug.Log(output);
             }
             if (i == 1 && a == "2")
             {

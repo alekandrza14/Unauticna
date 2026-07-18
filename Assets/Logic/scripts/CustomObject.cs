@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnauticnaMods;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,10 @@ public class CustomObjectData
     public string JavaScript;
     public string ConvertTo;
     public string LoadingMaterial;
+    public string LoadingShader;
+    public string Realtime;
     public string[] LoadingMaterials;
+    public string[] LoadingShaders;
     public string[] TexutersDoomModel;
     public int RegenerateHp;
     public double Recycler;
@@ -87,6 +91,7 @@ public class CustomObjectData
     new Vector3(0,0,0),
     new Vector3(0,0,0)
     };
+    public Vector3[] ModelsPos = new Vector3[0];
     public Vector3[] TelevizorPos = new Vector3[0];
     public Vector3[] SpawnerPosCO = new Vector3[0];
     public string[] SpawnerNameCO = new string[0];
@@ -256,6 +261,7 @@ public class CustomObject : CustomSaveObject
                 rcs();
         Start1();
     }
+    public List<Material> allMats;
     public void resetCurrentSettings()
     {
         
@@ -273,12 +279,23 @@ public class CustomObject : CustomSaveObject
             obj.GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
             obj.AddComponent<MeshRenderer>();
             obj.GetComponent<MeshRenderer>().material.color = Model.m_Colors[i];
-            if (obj.GetComponent<MeshRenderer>()) if(Model.LoadingMaterials!=null)  if (Model.LoadingMaterials.Length > 0) 
-            {
-                Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
-                        newMaterial2.color = Model.m_Colors[i];
-                        obj.GetComponent<MeshRenderer>().material = newMaterial2;
-            }
+            if (Model.LoadingShaders.Length == 0) if (Model.LoadingShaders == null) if (obj.GetComponent<MeshRenderer>()) if (Model.LoadingMaterials != null) if (Model.LoadingMaterials.Length > 0)
+                        {
+                            Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
+                            newMaterial2.color = Model.m_Colors[i];
+                            obj.GetComponent<MeshRenderer>().material = newMaterial2;
+                            allMats.Add(newMaterial2);
+                        }
+            if (Model.LoadingShaders != null) if (obj.GetComponent<MeshRenderer>()) if (Model.LoadingShaders.Length > 0)
+                        {
+
+                        obj.AddComponent<SuperShaderJS>().ShaderLoad(Model.LoadingShaders[i]);
+                        obj.GetComponent<MeshRenderer>().material.color = Model.m_Colors[i];
+                    }
+            if (Model.ModelsPos != null)  if (Model.ModelsPos.Length > 0)
+                {
+                    obj.transform.position = Model.ModelsPos[i];
+                }
             if (Model.DamgeObject)
             {
                 obj.AddComponent<Logic_tag_DamageObject>();
@@ -306,19 +323,24 @@ public class CustomObject : CustomSaveObject
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
         transform.localScale = Model.scale;
-        if (!SaticForm) 
-        {
-            Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
-            if (!newMaterial)
-            {
-                GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
-            }
-            else
-            {
-                GetComponent<MeshRenderer>().material = newMaterial;
-            }
-        }
-            GetComponent<MeshRenderer>().material.color = Model._Color;
+        if (Model.LoadingShader.Length == 0) if (Model.LoadingShader == null) if (!SaticForm)
+                {
+                    Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
+                    if (!newMaterial)
+                    {
+                        GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+                    }
+                    else
+                    {
+                        GetComponent<MeshRenderer>().material = newMaterial;
+                    }
+                }
+        if (Model.LoadingShader != null)  if (Model.LoadingShader.Length > 0) if (!SaticForm)
+                {
+                  
+                        gameObject.AddComponent<SuperShaderJS>().ShaderLoad(Model.LoadingShader);
+                }
+        GetComponent<MeshRenderer>().material.color = Model._Color;
         
         name = s + "(Clone)";
     }
@@ -367,6 +389,17 @@ public class CustomObject : CustomSaveObject
         mesh.uv = uv;
         mesh.RecalculateNormals(UnityEngine.Rendering.MeshUpdateFlags.Default);
         return mesh;
+    }
+    public void datagen()
+    {
+        if (!File.Exists("res/UserWorckspace/Items/" + s + ".txt"))
+        {
+            Model.nDemention = NDemention._3D;
+            Model.scale = Global.Mult.vector3(Vector3.one, scaled);
+            Model._Color = Color.red;
+            Model.NameModel = "cube";
+            File.WriteAllText("res/UserWorckspace/Items/" + s + ".txt", JsonUtility.ToJson(Model));
+        }
     }
     private Mesh generate()
     {
@@ -504,6 +537,11 @@ public class CustomObject : CustomSaveObject
         if (Model.Meat)
         {
             if (!GetComponent<Мясо>()) gameObject.AddComponent<Мясо>();
+        }
+        if (!string.IsNullOrEmpty(Model.Realtime))
+        {
+            Realtime code = gameObject.AddComponent<Realtime>();
+            code.ScriptFile = Model.Realtime;
         }
         if (!string.IsNullOrEmpty(Model.skin))
         {

@@ -3,6 +3,7 @@ using Jint;
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Reflection;
 public class Telepotaion
 {
     public Vector3 PosXYZ;
@@ -100,12 +101,30 @@ public class JSBehaviour : InventoryEvent
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("CustomObject"), transform.position, Quaternion.identity);
         obj.GetComponent<CustomObject>().s = (string)co;
-        obj.AddComponent(System.Type.GetType((string)cs_file));
+        foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (asm.GetName().Name.Contains("Unity"))
+            {
+                foreach (Type t in asm.GetExportedTypes())
+                {
+                    if (t.FullName.Contains((string)cs_file)) obj.AddComponent(t);
+                }
+            }
+        }
     }
     public void AddSharpComponent(object name, object cs_file)
     {
         GameObject obj = GameObject.Find((string)name);
-        obj.AddComponent(System.Type.GetType((string)cs_file));
+        foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (asm.GetName().Name.Contains("Unity"))
+            {
+                foreach (Type t in asm.GetExportedTypes())
+                {
+                    if (t.FullName.Contains((string)cs_file)) obj.AddComponent(t);
+                }
+            }
+        }
     }
     public void AddJsComponent(object name, object js_file)
     {
@@ -159,7 +178,16 @@ public class JSBehaviour : InventoryEvent
     }
     public void GameObjectAddSharpComponent(object cs_file)
     {
-        gameObject.AddComponent(System.Type.GetType((string)cs_file));
+        foreach (Assembly asm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (asm.GetName().Name.Contains("Unity"))
+            {
+                foreach (Type t in asm.GetExportedTypes())
+                {
+                    if (t.FullName.Contains((string)cs_file)) gameObject.AddComponent(t);
+                }
+            }
+        }
     }
     public void GameObjectAddJsComponent(object js_file)
     {
