@@ -3,6 +3,30 @@ using UnityEngine;
 using System.IO;
 using System.Reflection;
 using System;
+using System.Runtime.InteropServices;
+
+public static class Wallpaper
+{
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+    private static extern bool SystemParametersInfo(
+        int uiAction,
+        int uiParam,
+        string pvParam,
+        int fWinIni);
+
+    private const int SPI_SETDESKWALLPAPER = 20;
+    private const int SPIF_UPDATEINIFILE = 0x01;
+    private const int SPIF_SENDCHANGE = 0x02;
+
+    public static void Set(string imagePath)
+    {
+        SystemParametersInfo(
+            SPI_SETDESKWALLPAPER,
+            0,
+            imagePath,
+            SPIF_UPDATEINIFILE | SPIF_SENDCHANGE);
+    }
+}
 
 public class Realtime : MonoBehaviour
 {
@@ -37,6 +61,8 @@ public class Realtime : MonoBehaviour
         engine.SetValue("Debug", new DebugAPI());
         engine.SetValue("TransformAPI", new TransformAPI());
         engine.SetValue("AddSharpComponent", new Action<object, object>(this.AddSharpComponent));
+        engine.SetValue("PlayerActive", new Action<bool>(this.PlayerActive));
+        engine.SetValue("DesktopImage", new Action<string>(this.DesktopImage));
         engine.SetValue("AddJSComponent", new Action<object, object>(this.AddJSComponent));
         //engine.SetValue("Mathf", new MathfAPI());
 
@@ -52,6 +78,16 @@ public class Realtime : MonoBehaviour
     {
         GameObject obj = (GameObject)name;
         gameObject.AddComponent<JSBehaviour>().js_File = (string)cs_file;
+    }
+    public static mover you;
+    public void PlayerActive(bool a)
+    {
+        if (you == null) you = mover.main();
+        you.gameObject.SetActive(a);
+    }
+    public void DesktopImage(string path)
+    {
+        Wallpaper.Set(path);
     }
     public void AddSharpComponent(object name, object cs_file)
     {

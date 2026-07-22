@@ -58,6 +58,7 @@ public class itemName : CustomSaveObject
     }
     void Start()
     {
+		gameObject.AddComponent<SelectObjectTag>();
         Directory.CreateDirectory("C:\\data\\rkn");
         if (File.Exists("C:\\data\\rkn\\"+ _Name + ".BAN"))
         {

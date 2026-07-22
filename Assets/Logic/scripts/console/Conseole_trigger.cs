@@ -339,7 +339,7 @@ public class Conseole_trigger : MonoBehaviour
             {
                 a = "68";
             }
-            if (s[0] == "jar-")
+            if (s[0] == "jar")
             {
                 a = "69";
             }
@@ -1306,7 +1306,7 @@ public class Conseole_trigger : MonoBehaviour
                 {
                   //  Regex.Replace($"file://C:/data/{output}", @"\r\n?|\n", "");
                     output = Regex.Replace(output, @"\r\n?|\n", "");
-                    output.Replace("RunJS:","");
+                    output = output.Replace("RunJS:","");
                     GameObject obj = new GameObject("point");
                     obj.transform.position = mover.main().transform.position;
                     obj.AddComponent<JSBehaviour>().js_File = output;

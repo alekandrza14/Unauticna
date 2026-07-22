@@ -279,7 +279,7 @@ public class CustomObject : CustomSaveObject
             obj.GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
             obj.AddComponent<MeshRenderer>();
             obj.GetComponent<MeshRenderer>().material.color = Model.m_Colors[i];
-            if (Model.LoadingShaders.Length == 0) if (Model.LoadingShaders == null) if (obj.GetComponent<MeshRenderer>()) if (Model.LoadingMaterials != null) if (Model.LoadingMaterials.Length > 0)
+            if (Model.LoadingShaders == null) if (obj.GetComponent<MeshRenderer>()) if (Model.LoadingMaterials != null) if (Model.LoadingMaterials.Length > 0)
                         {
                             Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
                             newMaterial2.color = Model.m_Colors[i];
@@ -323,7 +323,7 @@ public class CustomObject : CustomSaveObject
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
         transform.localScale = Model.scale;
-        if (Model.LoadingShader.Length == 0) if (Model.LoadingShader == null) if (!SaticForm)
+        if (Model.LoadingShader == null) if (!SaticForm)
                 {
                     Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
                     if (!newMaterial)

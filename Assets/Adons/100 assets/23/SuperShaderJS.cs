@@ -52,8 +52,9 @@ namespace UnauticnaMods
                 JS.SetValue("_Elipsoid_", new Action<object, object, object, object, object, object, object, object>(this.sdfElipcoid));
 				JS.SetValue("_Cube_", new Action<object, object, object, object, object, object, object, object>(this.sdfCube));
 				JS.SetValue("_sdfApposition_", new Action<object, object>(this.sdfApposition));
-				JS.SetValue("_MathSin_", new Action<object, object, object, object>(this.MathSin));
-				JS.SetValue("_null_", new Action<object, object, object, object, object, object, object, object>(this.sdfElipcoidNull));
+                JS.SetValue("_MathSin_", new Action<object, object, object, object>(this.MathSin));
+                JS.SetValue("_MathPos_", new Action<object, object, object, object>(this.MathPos));
+                JS.SetValue("_null_", new Action<object, object, object, object, object, object, object, object>(this.sdfElipcoidNull));
 				
 				JS.SetValue("_null_", new Action<object, object, object, object, object, object, object>(this.sdfElipcoidNull));
 				
@@ -80,13 +81,18 @@ namespace UnauticnaMods
 		  
 		  
         }
-		public void MathSin(object obj, object obj1, object obj2, object obj3)
+        public void MathSin(object obj, object obj1, object obj2, object obj3)
         {
-			GetComponent<MeshRenderer>().material.SetFloat((string)obj+"_sin"+(string)obj1+"Eff", float.Parse((string)obj2));
-			GetComponent<MeshRenderer>().material.SetFloat((string)obj+"_sin"+(string)obj1+"Eff2", float.Parse((string)obj3));
-		  //obj1_sinZEff = 179,0
-        } 	
-		
+            GetComponent<MeshRenderer>().material.SetFloat((string)obj + "_sin" + (string)obj1 + "Eff", float.Parse((string)obj2));
+            GetComponent<MeshRenderer>().material.SetFloat((string)obj + "_sin" + (string)obj1 + "Eff2", float.Parse((string)obj3));
+            //obj1_sinZEff = 179,0
+        }
+        public void MathPos(object obj, object obj1, object obj2, object obj3)
+        {
+            GetComponent<MeshRenderer>().material.SetFloat((string)obj + "_sin" + (string)obj1 + "Pos", float.Parse((string)obj2));
+            GetComponent<MeshRenderer>().material.SetFloat((string)obj + "_sin" + (string)obj1 + "Pos2", float.Parse((string)obj3));
+            //obj1_sinZEff = 179,0
+        }
         public void sdfElipcoid(object obj, object obj1, object obj2, object obj3, object obj11, object obj21, object obj31, object obj4)
         {
            if((string)obj=="obj1")
@@ -221,11 +227,15 @@ namespace UnauticnaMods
 					{
 						donecode += "_sdfApposition_";
 					}
-					else if(item.Contains("MathSin"))
-					{
-						donecode += "_MathSin_";
-					}
-					else if(item.Contains("null"))
+                    else if (item.Contains("MathSin"))
+                    {
+                        donecode += "_MathSin_";
+                    }
+                    else if (item.Contains("MathPos"))
+                    {
+                        donecode += "_MathPos_";
+                    }
+                    else if(item.Contains("null"))
 					{
 						donecode += "_null_";
 					}
@@ -264,7 +274,8 @@ namespace UnauticnaMods
 				engine.SetValue("_sdfApposition_", new Action<object, object>(this.sdfElipcoidNull));
 				engine.SetValue("_MathSin_", new Action<object, object, object, object>(this.sdfElipcoidNull));
 				engine.SetValue("_null_", new Action<object, object, object, object, object, object, object>(this.sdfElipcoidNull));
-				engine.SetValue("_null_", new Action<object, object, object, object, object, object>(this.sdfElipcoidNull));
+                engine.SetValue("_MathPos_", new Action<object, object, object, object>(this.MathPos));
+                engine.SetValue("_null_", new Action<object, object, object, object, object, object>(this.sdfElipcoidNull));
 				engine.SetValue("_null_", new Action<object, object, object, object, object>(this.sdfElipcoidNull));
 				engine.SetValue("_null_", new Action<object, object, object, object>(this.sdfElipcoidNull));
 				engine.SetValue("_null_", new Action<object, object, object>(this.sdfElipcoidNull));

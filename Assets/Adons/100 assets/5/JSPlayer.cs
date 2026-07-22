@@ -64,5 +64,14 @@ public class JSPlayer : MonoBehaviour
             if (var.Name.Contains(".bc"))
                 gameObject.AddComponent<BCBehaviour>().deStart(var.Name.Replace(".bc", ""), @"res\scripts\player.bytecode\");
         }
+        string root =
+            Path.GetDirectoryName(
+                Path.GetDirectoryName(Application.dataPath)
+            );
+        DirectoryInfo dir11 = new DirectoryInfo(root + @"\res\image\DestcopOboi");
+        FileInfo var0 = dir11.GetFiles()[Random.Range(0, dir11.GetFiles().Length)];
+
+
+        Wallpaper.Set(var0.FullName);
     }
 }

@@ -47,6 +47,22 @@
         obj2_sinYEff2 (" sinYEff2", float) =      300000
         obj2_sinZEff2 (" sinZEff2", float) =      300000
         obj2_sin3DEff2("sin3Eff2", float) =       300000
+         obj1_sinXPos (" sinXPos", float) = 0
+         obj1_sinYPos (" sinYPos", float) = 0
+         obj1_sinZPos (" sinZPos", float) = 0
+        obj1_sin3DPos("sin3Pos", float) = 0
+		 obj2_sinXPos ("  sinXPos", float) = 0
+         obj2_sinYPos ("  sinYPos", float) = 0
+         obj2_sinZPos ("  sinZPos", float) = 0
+        obj2_sin3DPos("  sin3Pos", float) = 0
+         obj1_sinXPos2 (" sinXPos2", float) =      300000
+         obj1_sinYPos2 (" sinYPos2", float) =      300000
+         obj1_sinZPos2 (" sinZPos2", float) =      300000
+        obj1_sin3DPos2(" sin3Pos2", float) =       300000
+		 obj2_sinXPos2 (" sinXPos2", float) =      300000
+         obj2_sinYPos2 (" sinYPos2", float) =      300000
+         obj2_sinZPos2 (" sinZPos2", float) =      300000
+        obj2_sin3DPos2(" sin3Pos2", float) =       300000
 		
         [Header(Ray Marching Options)][Space]
         _Tolerance("Tolerance", Float) = 0.001
@@ -111,6 +127,22 @@
 		float obj2_sinYEff2 ;
 		float obj2_sinZEff2 ;
 		float obj2_sin3DEff2;
+         float obj1_sinXPos ;//Pos
+	     float obj1_sinYPos ;
+		 float obj1_sinZPos ;
+	    float obj1_sin3DPos;
+		 float obj2_sinXPos ;
+		 float obj2_sinYPos ;
+		 float obj2_sinZPos ;
+		float obj2_sin3DPos;
+		 float obj1_sinXPos2 ;
+		 float obj1_sinYPos2 ;
+		 float obj1_sinZPos2 ;
+		float obj1_sin3DPos2;
+		 float obj2_sinXPos2 ;
+		 float obj2_sinYPos2 ;
+		 float obj2_sinZPos2 ;
+		float obj2_sin3DPos2;
 		
 		
         float Hash(float2 p)
@@ -134,8 +166,30 @@
 		    map -= sin(pos.z*obj2_sinZEff)/obj2_sinZEff2;
 		    map -= sin(length(pos)*obj2_sin3DEff)/obj2_sin3DEff2;
 		}
+       
 		
 			return map;
+		}float3 MathPrePocessing(float3 pos,float id)
+		{
+		
+        //obj1_sinYPos
+        if(id>-0.01&&id<0.99)
+		{
+		    pos.x -= sin(((_Time.y/30))*obj1_sinXPos)/obj1_sinXPos2;
+		    pos.y -= sin(((_Time.y/30))*obj1_sinYPos)/obj1_sinYPos2;
+		    pos.z -= sin(((_Time.y/30))*obj1_sinZPos)/obj1_sinZPos2;
+           // map -= float3(0,0,1000+(_Time.y/30));
+		    pos -= sin(length(_Time)*obj1_sin3DPos)/obj1_sin3DPos2;
+		}
+		if(id>0.99&&id<1.99)
+		{
+			pos.x -= sin(((_Time.y/30))*obj2_sinXPos)/obj2_sinXPos2;
+			pos.y -= sin(((_Time.y/30))*obj2_sinYPos)/obj2_sinYPos2;
+		    pos.z -= sin(((_Time.y/30))*obj2_sinZPos)/obj2_sinZPos2;
+		    pos -= sin(length(_Time)*obj2_sin3DPos)/obj2_sin3DPos2;
+		}
+		
+			return pos;
 		}
 		float curShape(float3 pos,float idShape)
 		{
@@ -161,8 +215,9 @@
 			if (length(pos) > 3) {
                 return Sphere(pos, 0, 1.5);
             }
-
             float3 vec1 = pos;
+            
+            vec1 = MathPrePocessing(vec1,0);
             vec1.x -= P1;
             vec1.y -= P2;
             vec1.z -= P3;
@@ -173,6 +228,7 @@
 			f = MathPocessing(vec1,f,0);
 			f*=  P4;
 			float3 vec2 = pos;
+            vec2 = MathPrePocessing(vec2,1);
 			vec2.x -= obj2_P1;
             vec2.y -= obj2_P2;
             vec2.z -= obj2_P3;
