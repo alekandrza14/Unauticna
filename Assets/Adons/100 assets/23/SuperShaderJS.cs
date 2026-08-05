@@ -45,10 +45,13 @@ namespace UnauticnaMods
         Engine JS;
         string file;
         public void WaitCode()
-        {
+        {   JS = new Engine();
+			JS.SetValue("_SetFloat_", new Action<object, object>(this.SETFLOAT));
+			JS.SetValue("_SetColor_", new Action<object, object>(this.SETCOLOR));
             if (file.Contains("function SDF()"))
             {
-                JS = new Engine();
+                
+				
                 JS.SetValue("_Elipsoid_", new Action<object, object, object, object, object, object, object, object>(this.sdfElipcoid));
 				JS.SetValue("_Cube_", new Action<object, object, object, object, object, object, object, object>(this.sdfCube));
 				JS.SetValue("_sdfApposition_", new Action<object, object>(this.sdfApposition));
@@ -85,6 +88,15 @@ namespace UnauticnaMods
         {
             GetComponent<MeshRenderer>().material.SetFloat((string)obj + "_sin" + (string)obj1 + "Eff", float.Parse((string)obj2));
             GetComponent<MeshRenderer>().material.SetFloat((string)obj + "_sin" + (string)obj1 + "Eff2", float.Parse((string)obj3));
+            //obj1_sinZEff = 179,0
+        } 
+		public void SETFLOAT(object obj, object obj1)
+        {
+            GetComponent<MeshRenderer>().material.SetFloat((string)obj, float.Parse((string)obj1));
+            //obj1_sinZEff = 179,0
+        }public void SETCOLOR(object obj, object obj1)
+        {
+            GetComponent<MeshRenderer>().material.SetColor((string)obj, new Color( float.Parse(((string)obj1).Split(" "[0])[0]),float.Parse(((string)obj1).Split(" "[0])[1]),float.Parse(((string)obj1).Split(" "[0])[2])));
             //obj1_sinZEff = 179,0
         }
         public void MathPos(object obj, object obj1, object obj2, object obj3)
@@ -215,6 +227,14 @@ namespace UnauticnaMods
 					{
 						donecode += "_usingTexture_";
 					}
+					else if(item.Contains("SetFloat"))
+					{
+						donecode += "_SetFloat_";
+					}
+					else if(item.Contains("SetColor"))
+					{
+						donecode += "_SetColor_";
+					}
 					else if(item.Contains("Elipsoid"))
 					{
 						donecode += "_Elipsoid_";
@@ -267,7 +287,11 @@ namespace UnauticnaMods
             {
                 _selectedTexturePath = p != null ? p.ToString() : null;
                 Debug.Log("[SuperShaderJS] usingTexture: " + _selectedTexturePath);
-            })); if (code.Contains("function SDF()"))
+            })); 
+			 engine.SetValue("_SetFloat_", new Action<object, object>(this.SETFLOAT));
+			 engine.SetValue("_SetColor_", new Action<object, object>(this.SETCOLOR));
+			
+			if (code.Contains("function SDF()"))
             {
                 engine.SetValue("_Elipsoid_", new Action<object, object, object, object, object, object, object, object>(this.sdfElipcoidNull));
 				engine.SetValue("_Cube_", new Action<object, object, object, object, object, object, object, object>(this.sdfElipcoidNull));

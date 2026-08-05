@@ -64,19 +64,16 @@ public class GitInit : MonoBehaviour
     static public string githubLogin = "";
 	static public string githubMail = "";
     static public string githubToken = "";
-    public void Button(bool los)
+    public void Button(string los)
     {
         loadDate(los,new InputField[] {log,toc,mal });
     }
    
-    public static void loadDate(bool los, InputField[] ifds)
+    public static void loadDate(string los, InputField[] ifds)
     {
-        githubLogin = ifds[0].text;
-        githubToken = ifds[1].text;
-        githubMail = ifds[2].text;
-        Date(los);//true save / false load
+        Date(los,ifds);//true save / false load
     }
-    public static void Date(bool load_or_save)
+    public static void Date(string Atrib, InputField[] ifds)
     {
         //  githubLogin = PlayerPrefs.GetString("log");- не сохран€ю беру сразу из инпут филда
         //   githubToken = PlayerPrefs.GetString("toc");- не сохран€ю беру сразу из инпут филда
@@ -88,62 +85,86 @@ public class GitInit : MonoBehaviour
 
         string saveDir =
             Path.Combine(rootDir, "unsave");
-        string saveDir2 =
-                  Path.Combine(appDir, "unsave");
+        string PubDir =
+                  Path.Combine(rootDir, "OurWorkspace");
 
         string gitExe = "C:\\Program Files\\Git\\bin\\git.exe";
 
         Directory.CreateDirectory(saveDir);
         UnityEngine.Debug.Log(saveDir); 
-        UnityEngine.Debug.Log(saveDir2);
+        UnityEngine.Debug.Log(PubDir);
         string gitFolder =
             Path.Combine(saveDir, ".git"); 
         string gitFolder2 =
-            Path.Combine(saveDir2, ".git");
-        if (load_or_save) {
+            Path.Combine(PubDir, ".git");
+        if (Atrib == "Create") {
             if (!Directory.Exists(gitFolder))
             {
                 RunGit(gitExe, saveDir, "init");
-
-                RunGit(gitExe, saveDir, "config user.name \"" + githubLogin + "\"");
-                RunGit(gitExe, saveDir, "config user.email \"" + githubMail + "\"");
-
-                // безопасно: удал€ем если есть
-                RunGit(gitExe, saveDir, "remote remove origin");
-
-                RunGit(
-                    gitExe,
-                    saveDir,
-                    "remote add origin https://" +
-                    githubLogin + ":" +
-                    githubToken +
-                    "@github.com/" +
-                    githubLogin +
-                    "/YourAcount.git"
-                );
-
-                RunGit(gitExe, saveDir, "fetch origin");
-
-                // если ветка есть Ч переключаемс€, если нет Ч создаЄм
-                RunGit(gitExe, saveDir, "checkout -B unsave origin/unsave");
-
-                RunGit(gitExe, saveDir, "add .");
-                RunGit(gitExe, saveDir, "commit -m \"First Save\"");
-                RunGit(gitExe, saveDir, "push -u origin unsave");
+				RunGit(gitExe, saveDir, "add .");
+				RunGit(gitExe, saveDir, "commit -m \"SaveComit\"");
+				RunGit(gitExe, saveDir, $"remote add origin https://github.com/"+ifds[0].text+"/YourAcount.git");
+			
+                
             }
             else
             {
-                RunGit(gitExe, saveDir, "fetch origin");
-                RunGit(gitExe, saveDir, "checkout unsave");
-                RunGit(gitExe, saveDir, "commit -m \"Autosave\"");
-                RunGit(gitExe, saveDir, "pull origin unsave");
             }
         }
-        else
+        else if (Atrib == "Save")
         {
-            RunGit(gitExe, saveDir, "fetch origin");
-            RunGit(gitExe, saveDir, "checkout unsave");
-            RunGit(gitExe, saveDir, "pull origin unsave");
+			//RunGit(gitExe, saveDir, $"remote add origin https://github.com/"+ifds[0].text+"/UnauticnaSave.git");
+			RunGit(gitExe, saveDir, "add .");
+			RunGit(gitExe, saveDir, "commit -m \"SaveComit\"");
+			RunGit(gitExe, saveDir, "push -u origin master");
+			//git remote add origin https://github.com/ВашЛогин/ИмяРепозитория.git
+			//git branch -M main
+			//git push -u origin main
+        } else if (Atrib == "Load")
+        {
+			//RunGit(gitExe, saveDir, $"remote add origin https://github.com/"+ifds[0].text+"/UnauticnaSave.git");
+			RunGit(gitExe, saveDir, "fetch origin");
+			RunGit(gitExe, saveDir, "add .");
+			RunGit(gitExe, saveDir, "reset --hard origin/master");
+			RunGit(gitExe, saveDir, "restore .");
+			//git remote add origin https://github.com/ВашЛогин/ИмяРепозитория.git
+			//git branch -M main
+			//git push -u origin main
+        } if (Atrib == "PubCreate") {
+            if (!Directory.Exists(gitFolder2))
+            {
+                RunGit(gitExe, PubDir, "init");
+				RunGit(gitExe, PubDir, "branch -M ModPblishing");
+				RunGit(gitExe, PubDir, "add .");
+				RunGit(gitExe, PubDir, "commit -m \"SaveComit\"");
+				RunGit(gitExe, PubDir, $"remote add origin https://github.com/"+ifds[0].text+"/YourAcount.git");
+			
+                
+            }
+            else
+            {
+            }
+        }
+        else if (Atrib == "PubSave")
+        {
+			//RunGit(gitExe, saveDir, $"remote add origin https://github.com/"+ifds[0].text+"/UnauticnaSave.git");
+			RunGit(gitExe, PubDir, "branch -M ModPblishing");
+			RunGit(gitExe, PubDir, "add .");
+			RunGit(gitExe, PubDir, "commit -m \"SaveComit\"");
+			RunGit(gitExe, PubDir, "push -u origin ModPblishing");
+			//git remote add origin https://github.com/ВашЛогин/ИмяРепозитория.git
+			//git branch -M main
+			//git push -u origin main
+        } else if (Atrib == "PubLoad")
+        {
+			//RunGit(gitExe, saveDir, $"remote add origin https://github.com/"+ifds[0].text+"/UnauticnaSave.git");
+			RunGit(gitExe, PubDir, "fetch origin");
+			RunGit(gitExe, PubDir, "add .");
+			RunGit(gitExe, PubDir, "reset --hard origin/ModPblishing");
+			RunGit(gitExe, PubDir, "restore .");
+			//git remote add origin https://github.com/ВашЛогин/ИмяРепозитория.git
+			//git branch -M main
+			//git push -u origin main
         }
         /*  if (!Directory.Exists(gitFolder2))
           {

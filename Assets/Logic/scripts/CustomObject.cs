@@ -54,6 +54,7 @@ public class CustomObjectData
     public string LoadingMaterial;
     public string LoadingShader;
     public string Realtime;
+	public string ExeRealtime;
     public string[] LoadingMaterials;
     public string[] LoadingShaders;
     public string[] TexutersDoomModel;
@@ -286,6 +287,13 @@ public class CustomObject : CustomSaveObject
                             obj.GetComponent<MeshRenderer>().material = newMaterial2;
                             allMats.Add(newMaterial2);
                         }
+						if (Model.LoadingShaders != null)if (Model.LoadingShader.Length == 0)  if (obj.GetComponent<MeshRenderer>()) if (Model.LoadingMaterials != null) if (Model.LoadingMaterials.Length > 0)
+                        {
+                            Material newMaterial2 = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterials[i]);
+                            newMaterial2.color = Model.m_Colors[i];
+                            obj.GetComponent<MeshRenderer>().material = newMaterial2;
+                            allMats.Add(newMaterial2);
+                        }
             if (Model.LoadingShaders != null) if (obj.GetComponent<MeshRenderer>()) if (Model.LoadingShaders.Length > 0)
                         {
 
@@ -323,7 +331,19 @@ public class CustomObject : CustomSaveObject
         GetComponent<MeshCollider>().sharedMesh = mf.mesh;
         GetComponent<MeshCollider>().cookingOptions = MeshColliderCookingOptions.None;
         transform.localScale = Model.scale;
-        if (Model.LoadingShader == null) if (!SaticForm)
+        if (Model.LoadingShader == null)  if (!SaticForm)
+                {
+                    Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
+                    if (!newMaterial)
+                    {
+                        GetComponent<MeshRenderer>().material = Resources.Load<Material>("Default");
+                    }
+                    else
+                    {
+                        GetComponent<MeshRenderer>().material = newMaterial;
+                    }
+                }       
+				if (Model.LoadingShader != null) if (Model.LoadingShader.Length == 0) if (!SaticForm)
                 {
                     Material newMaterial = Resources.Load<Material>("CO_MainMaterials/" + Model.LoadingMaterial);
                     if (!newMaterial)
@@ -542,6 +562,10 @@ public class CustomObject : CustomSaveObject
         {
             Realtime code = gameObject.AddComponent<Realtime>();
             code.ScriptFile = Model.Realtime;
+        }if (!string.IsNullOrEmpty(Model.ExeRealtime))
+        {
+            CppRealtime code = gameObject.AddComponent<CppRealtime>();
+            code.CppExe = Model.ExeRealtime;
         }
         if (!string.IsNullOrEmpty(Model.skin))
         {

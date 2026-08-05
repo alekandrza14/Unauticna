@@ -1,0 +1,23 @@
+cd "корневая папка проекта"
+Start-Sleep -Seconds 2
+& javac -d out src/Main.java
+& Start-Sleep -Seconds 2
+& javac -d out src/Main.java
+& Start-Sleep -Seconds 2
+& javac -d out src/Main.java
+& Start-Sleep -Seconds 2
+& javac -d out src/Main.java
+& Start-Sleep -Seconds 2
+& javac -d out src/Main.java
+& Start-Sleep -Seconds 2
+& xcopy resources out /E /I /Y
+& Start-Sleep -Seconds 2
+& cd out
+& Start-Sleep -Seconds 2
+& jar cfe ..\Example.jar Main *
+& Start-Sleep -Seconds 2
+& jar cfe ..\Example.jar Main *
+& Start-Sleep -Seconds 2
+& jar cfe ..\Example.jar Main *
+& Start-Sleep -Seconds 2
+& jar cfe ..\Example.jar Main *

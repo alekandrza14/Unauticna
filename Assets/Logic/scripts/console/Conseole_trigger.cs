@@ -1301,7 +1301,7 @@ public class Conseole_trigger : MonoBehaviour
 
                 process.WaitForExit();
                 
-                //jar- Generate Mouse
+                //jar Genarate Mouse
                 if (output.Contains("RunJS:"))
                 {
                   //  Regex.Replace($"file://C:/data/{output}", @"\r\n?|\n", "");
