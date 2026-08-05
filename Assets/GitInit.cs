@@ -86,7 +86,7 @@ public class GitInit : MonoBehaviour
         string saveDir =
             Path.Combine(rootDir, "unsave");
         string PubDir =
-                  Path.Combine(rootDir, "OurWorkspace");
+                  Path.Combine(rootDir, "res\\OurWorkspace");
 
         string gitExe = "C:\\Program Files\\Git\\bin\\git.exe";
 

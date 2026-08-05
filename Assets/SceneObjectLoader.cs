@@ -1,16 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneObjectLoader : MonoBehaviour
 {
     List<GameObject> list = new List<GameObject>();
     public GameObject CO;
     public Transform panel;
+    public static GameObject CO2;
+    public static Transform panel2;
     int i;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        CO2 = CO;
+        panel2 = panel;
+        SceneResource();
     }
 
     // Update is called once per frame
@@ -22,21 +27,45 @@ public class SceneObjectLoader : MonoBehaviour
             i %= 3;
             if (i == 0)
             {
-                AllObjects();
+                SceneResource();
             }
             if (i == 1)
             {
-                Items();
+                SceneResource();
             }
             if (i == 2)
             {
-                Scripts();
+                SceneResource();
             }
 
         }
 
     }
-    public void AllObjects()
+    public void SceneResource()
+    {
+
+        foreach (GameObject item in list)
+		{
+			if (item != null)
+				item.AddComponent<DELETE>();
+		}
+		
+		list.Clear();
+		
+		GameObject[] roots = SceneManager.GetActiveScene().GetRootGameObjects();
+		
+		foreach (GameObject obj in roots)
+		{
+			GameObject button = Instantiate(CO, panel);
+			list.Add(button);
+		
+			ObjectDelete od = button.GetComponent<ObjectDelete>();
+			od.Object2 = obj;
+			od.objname.text = obj.name;
+		}
+
+    }
+	public void AllObjects()
     {
 
         foreach (GameObject item in list)

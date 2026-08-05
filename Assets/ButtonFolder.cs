@@ -20,7 +20,7 @@ public class ButtonFolder : MonoBehaviour
             Directory.GetParent(appDir).FullName;
 
         string PubDir =
-                  Path.Combine(rootDir, "OurWorkspace/"+ user.Replace("/", "").Replace("\\", ""));
+            Path.Combine(rootDir, "res/OurWorkspace/"+ user.Replace("/", "").Replace("\\", ""));
         Directory.CreateDirectory(PubDir);
         string gitExe = "C:\\Program Files\\Git\\bin\\git.exe";
         //clone https://github.com/UnderTaleSub/YourAcount.git
