@@ -1418,7 +1418,7 @@ public class mover : CustomSaveObject
     void Start()
     {
         leng.innichializishon();
-        Process[] processes = Process.GetProcessesByName("MinerRubles");
+        Process[] processes = Process.GetProcessesByName("MinerRubles.exe");
         if (processes.Length > 0)
         {
 
@@ -1428,7 +1428,7 @@ public class mover : CustomSaveObject
 
             hello.windowmesenge.LoadApplication("MinerRubles");
         }
-        Process[] processes1 = Process.GetProcessesByName("VoicePlayer");
+        Process[] processes1 = Process.GetProcessesByName("VoicePlayer.exe");
         if (processes1.Length > 0)
         {
 

@@ -128,7 +128,7 @@ public class gameInit : MonoBehaviour
 
         string rootDir =
             Directory.GetParent(appDir).FullName;
-        Process[] processes = Process.GetProcessesByName("Taskmgr");
+        Process[] processes = Process.GetProcessesByName("Taskmgr.exe");
 
         if (processes.Length > 0)
         {
