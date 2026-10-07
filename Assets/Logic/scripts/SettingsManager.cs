@@ -9,8 +9,8 @@ public class SettingsManager : MonoBehaviour {
     public bool fullScreen = false;
     private static string fullScreenKey = "Full Screen";
     public int minDisplaySize = 384;
-    private static int monitorWidth;
-    private static int monitorHeight;
+    public int monitorWidth;
+    public int monitorHeight;
    
     #if UNITY_STANDALONE_WIN
    
@@ -29,8 +29,7 @@ public class SettingsManager : MonoBehaviour {
     #endif
    
     void Start() {
-        monitorWidth = Screen.resolutions[Screen.resolutions.Length - 1].width;
-        monitorHeight = Screen.resolutions[Screen.resolutions.Length - 1].height;
+       
         CheckAndSet();
     }
    

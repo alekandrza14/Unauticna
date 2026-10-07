@@ -16,7 +16,7 @@ public class Map_saver : MonoBehaviour
 
     public string saveString221;
 
-
+	public GameObject[] t3a = new GameObject[0];
     public static GameObject[] t3 = new GameObject[0];
     public static GameObject[] t4 = new GameObject[0];
     public static GameObject[] t5 = new GameObject[0];
@@ -133,6 +133,7 @@ public class Map_saver : MonoBehaviour
         {
             GameObject[] g = Resources.LoadAll<GameObject>("items");
             t3 = new GameObject[g.Length];
+			t3a = t3;
             info3 = new string[g.Length];
             for (int i = 0; i < g.Length; i++)
             {
@@ -142,6 +143,7 @@ public class Map_saver : MonoBehaviour
                 info3[i] = g[i].GetComponent<itemName>()._Name;
 
             }
+			ElementalInventory.main().getallitems();
         }
         if (t4.Length == 0)
         {
@@ -356,8 +358,19 @@ public class Map_saver : MonoBehaviour
 
 
         Directory.CreateDirectory(name2.ToString());
-        if (t3.Length > 0) File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
-
+        if (t3.Length > 0)
+		{
+			File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));
+		}
+		else
+		{
+		for(int i =0;i<3;i++){
+			if(i==0)GetAllItems();//где блять загруженые объекты дать суда
+			
+			if(i==1)KompObject();//загрузить в класс json
+			if(i==2)File.WriteAllText(name2.ToString() + @"/objects/scene_" + lif + SceneManager.GetActiveScene().name, JsonUtility.ToJson(saveString1));//сохранить
+			}
+		}
 
         saveString1 = new MapData();
 
@@ -404,17 +417,18 @@ public class Map_saver : MonoBehaviour
 
         Directory.CreateDirectory(name2 + @"/objects");
         itemName[] items = FindObjectsByType<itemName>(sortmode.main);
+genmodel[] allGM = Resources.FindObjectsOfTypeAll<genmodel>();
 
-        genmodel[] gm = FindObjectsByType<genmodel>(sortmode.main);
-        if (gm.Length != 0)
-        {
-            for (int i = 0; i < gm.Length; i++)
-            {
-                saveString1.idG.Add(gm[i].s);
-                saveString1.vector3G.Add(gm[i].transform.position);
-                saveString1.Scale3G.Add(gm[i].transform.localScale);
-            }
-        }
+for (int i = 0; i < allGM.Length; i++)
+{
+    genmodel gm = allGM[i];
+
+
+    saveString1.idG.Add(gm.s);
+    saveString1.vector3G.Add(gm.transform.position);
+    saveString1.Scale3G.Add(gm.transform.localScale);
+}
+
         if (items.Length != 0)
         {
 
@@ -2421,8 +2435,17 @@ public class Map_saver : MonoBehaviour
             {
 
                 Debug.Log("1");
-                GameObject g = Instantiate(t3[ToNameToID(saveString1.idA[i3])], new Vector3(saveString1.vector3A[i3].x, saveString1.vector3A[i3].y, saveString1.vector3A[i3].z), saveString1.qA[i3]);
-                g.gameObject.AddComponent<PsyhoSystem1>();
+				
+				int id = ToNameToID(saveString1.idA[i3]);
+				
+				if (id >= 0 && id < t3.Length && t3[id] != null)
+				{
+					GameObject g = Instantiate(
+						t3[id],
+						saveString1.vector3A[i3],
+						saveString1.qA[i3]
+					);
+				g.gameObject.AddComponent<PsyhoSystem1>();
                 if (saveString1.isSlaveA != null)
                 {
                     if (saveString1.isSlaveA.Count != 0)
@@ -2532,6 +2555,16 @@ public class Map_saver : MonoBehaviour
                         {
                             g.GetComponent<MultyObject>().N_Positions = nid[i];
                         }
+				}
+				else
+{
+    Debug.LogError(
+        "Не найден предмет при загрузке: " +
+        saveString1.idA[i3] +
+        " | id=" + id +
+        " | t3.Length=" + t3.Length
+    );
+}
             }
             else
             {

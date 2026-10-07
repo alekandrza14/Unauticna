@@ -55,6 +55,8 @@ public class CustomObjectData
     public string LoadingShader;
     public string Realtime;
 	public string ExeRealtime;
+	public string HDRPModel;
+	public Vector3 HDRPModelPos;
     public string[] LoadingMaterials;
     public string[] LoadingShaders;
     public string[] TexutersDoomModel;
@@ -650,6 +652,14 @@ public class CustomObject : CustomSaveObject
                     StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder(Model.TexutersDoomModel[i], s));
                 }
                 Invoke("Void", 5);
+            }
+		if (!string.IsNullOrEmpty(Model.HDRPModel)) if (Model.HDRPModel != null)
+            {
+                GameObject obj = Instantiate(Resources.Load<GameObject>("point"), transform.position+Model.HDRPModelPos, transform.rotation, transform);
+                obj.transform.localScale *= scaled.x;
+                var hdrpmodel = obj.AddComponent<HDRP3DModelLoader>();
+				hdrpmodel.HDRPMODEL = Model.HDRPModel;
+				
             }
         if (!string.IsNullOrEmpty(Model.TextureTarget)) if (Model.TextureTarget != null)
             {

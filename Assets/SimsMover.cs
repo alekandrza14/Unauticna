@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SimsMover : MonoBehaviour
 {
+	public Transform _Camera;
     void Start()
     {
         mover.main().PlayerCamera.SetActive(false);
@@ -30,5 +31,7 @@ public class SimsMover : MonoBehaviour
         {
             transform.position -= new Vector3(0, 0, 20 * Time.deltaTime);
         }
+		//Input.GetAxis("Mouse ScrollWheel") 
+		_Camera.position += new Vector3(0, -Input.GetAxis("Mouse ScrollWheel"), 0);
     }
 }

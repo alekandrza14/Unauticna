@@ -43,6 +43,10 @@
             this.pictureBox1.Size = new System.Drawing.Size(301, 286);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            //this.autoPasteTimer = new Timer();
+           // this.autoPasteTimer.Interval = 5000; // 5 секунд
+           // this.autoPasteTimer.Tick += AutoPasteTimer_Tick;
+            //this.autoPasteTimer.Start();
             // 
             // button1
             // 

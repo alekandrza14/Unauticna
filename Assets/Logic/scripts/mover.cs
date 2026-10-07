@@ -131,7 +131,8 @@ public class mover : CustomSaveObject
     [HideInInspector] public string lif;
     [HideInInspector] public float HX_Rotation;
 
-    
+    private PlayerRayMarchCollider rayMarchCollider;
+	private Camera mainCamera;
 
     void swapHX3(Transform x, mover w)
     {
@@ -343,7 +344,7 @@ public class mover : CustomSaveObject
     void OnCollisionStay(Collision collision)
     {
 
-        if (!collision.collider.CompareTag("sc") && !Input.GetKey(KeyCode.G)) if (JumpTimer < -2)
+        if (!collision.collider.CompareTag("sc") && !inputGpress) if (JumpTimer < -2)
             {
                 UnityEngine.Debug.Log(JumpTimer);
                 hp += Mathf.FloorToInt(JumpTimer) / 3;
@@ -442,7 +443,7 @@ public class mover : CustomSaveObject
     {
         if (other.CompareTag("lagi"))
         {
-            PlayerCamera.GetComponent<Camera>().enabled = 1 == Global.Random.Range(0, 3);
+            playerCameraComponent.enabled = 1 == Global.Random.Range(0, 3);
 
         }
         if (other.GetComponent<notswiming>())
@@ -467,7 +468,7 @@ public class mover : CustomSaveObject
         }
         if (other.CompareTag("lagi"))
         {
-            PlayerCamera.GetComponent<Camera>().enabled = true;
+            playerCameraComponent.enabled = true;
 
         }
 
@@ -538,17 +539,17 @@ public class mover : CustomSaveObject
        
         if (PhotonNetwork.IsConnected) 
         {
-            if (!GetComponent<PhotonView>())
+            if (!photonView)
             {
 
                 PhotonNetwork.Instantiate(_player.name, transform.position, Quaternion.identity);
                 Invoke("selfDest",0);
             }
-            if (GetComponent<PhotonView>()) if (GetComponent<PhotonView>().IsMine) Init();
+            if (photonView) if (photonView.IsMine) Init();
         }
         else
         {
-            if (!GetComponent<PhotonView>()) Init();
+            if (!photonView) Init();
         }
         //  DNA = JsonUtility.FromJson
 #if !UNITY_EDITOR
@@ -575,6 +576,10 @@ public class mover : CustomSaveObject
     GameObject unityedit;
     private void Init()
     {
+		varibleUpdate();
+		var xbox2 = VarSave.GetBool("Xbox");
+		  rayMarchCollider = GetComponent<PlayerRayMarchCollider>();
+    mainCamera = Camera.main;
         //CharactorDebate
         //Хбокс
         //GeneratorPlakats
@@ -598,7 +603,7 @@ public class mover : CustomSaveObject
             GameObject g = Resources.Load<GameObject>("Политик стар");
             Instantiate(g, transform.position,Quaternion.identity);
 		}
-        if (VarSave.GetBool("Xbox"))
+        if (xbox2)
         {
             GameObject g = Resources.Load<GameObject>("Хбокс");
             Instantiate(g, transform);
@@ -618,7 +623,10 @@ public class mover : CustomSaveObject
         _san.AddComponent<RawImage>();
         
         DirectoryInfo directory = new DirectoryInfo("res");
-        if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder("mick\\Light.png", _san.GetComponent<RawImage>()));
+		lightFromFile =
+    File.Exists("res/mick/Light.ini") &&
+    File.ReadAllText("res/mick/Light.ini") == "True";
+        if (lightFromFile) StartCoroutine(DnSpyFunctionalEasyActivator.GetTextResFolder("mick\\Light.png", sanImage));
         all = FindObjectsByType<Light>(sortmode.main);
         if (VarSave.ExistenceVar("interface")) Acaunt.Spawn(VarSave.GetString("interface"));
         if (VarSave.GetFloat("SevenSouls") > 0)
@@ -919,7 +927,7 @@ public class mover : CustomSaveObject
 
         Camera c = Instantiate(Resources.Load<GameObject>("point"), PlayerCamera.transform).AddComponent<Camera>();
         c.targetDisplay = 0;
-        c.targetTexture = new RenderTexture(new RenderTextureDescriptor(Screen.width, Screen.height));
+		CreateCameraTexture(c);
         c.renderingPath = RenderingPath.DeferredShading;
 
         Globalprefs.camera = c;
@@ -928,14 +936,14 @@ public class mover : CustomSaveObject
         if (isplanet)
         {
             gameObject.AddComponent<PlanetGravity>().body = transform;
-            gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
+            planetGravity.gravity = JumpTimer;
             if (!Smuta) gameObject.GetComponent<Rigidbody>().useGravity = false;
         }
         playerdata.Loadeffect();
 
         if (DNA != null) playerdata.LoadBakeeffect();
         ionenergy.energy = 0;
-        vel = GetComponent<CapsuleCollider>().height;
+        vel = capsuleCollider.height;
 
 
         if (!VarSave.GetBool("Stone")) Instantiate(Resources.LoadAll<GameObject>("ui/postrender")[0]);
@@ -1063,7 +1071,7 @@ public class mover : CustomSaveObject
                 PlayerCamera.transform.rotation = save.q2;
 
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
-                PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
+                playerCameraComponent.fieldOfView = save.vive;
                 if (lt.Length != 0)
                 {
                     lt[0].GetComponent<Camera>().fieldOfView = save.vive;
@@ -1173,7 +1181,7 @@ public class mover : CustomSaveObject
                 PlayerCamera.transform.rotation = save.q2;
 
                 if (Get4DCam()) Get4DCam()._wRotation = save.rotW;
-                PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
+                playerCameraComponent.fieldOfView = save.vive;
                 if (lt.Length != 0)
                 {
                     lt[0].GetComponent<Camera>().fieldOfView = save.vive;
@@ -1211,10 +1219,7 @@ public class mover : CustomSaveObject
         hyperbolicCamera = HyperbolicCamera.Main();
     }
 
-    Metka[] UpdateTargets()
-    {
-        return metka = GameObject.FindObjectsByType<Metka>(sortmode.main);
-    }
+   
     float data_BGPU;
     float data_mana;
     float data_luck;
@@ -1230,8 +1235,34 @@ public class mover : CustomSaveObject
     UniverseSkyType data_universetype;
     //Пробуждение кода
     //Приметивный интерфейс
-    Metka[] metka;
+	private Metka[] metka2 = Array.Empty<Metka>();
+
+private float nextRefresh;
+private float nextRefresh2;
+int metkaLengthold;
+    Texture[] metka;
     FileInfo[] customVaribles;
+	private RenderTexture cameraTexture;
+
+void CreateCameraTexture(Camera camera)
+{
+    if (cameraTexture != null)
+    {
+        cameraTexture.Release();
+        Destroy(cameraTexture);
+    }
+
+    cameraTexture = new RenderTexture(
+        Screen.width,
+        Screen.height,
+        24,
+        RenderTextureFormat.ARGB32
+    );
+
+    cameraTexture.Create();
+
+    camera.targetTexture = cameraTexture;
+}
     private void OnGUI()
     {
 
@@ -1239,25 +1270,26 @@ public class mover : CustomSaveObject
 
 
 
-        if (metka.Length != 0)
+        if (metka2.Length != 0)
         {
-            for (int i = 0; i < metka.Length; i++)
+            for (int i = 0; i < metka2.Length; i++)
             {
 
-                if (metka[i] != null)
+                if (metka2[i] != null)
                 {
-                    Vector3 t = Globalprefs.camera.WorldToViewportPoint(metka[i].transform.position);
+                    Vector3 t = Globalprefs.camera.WorldToViewportPoint(metka2[i].transform.position);
                     if (t.z > 0)
                     {
                         Vector3 u = Globalprefs.camera.ViewportToScreenPoint(t);
-                        GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), metka[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex"));
+						if(metka[i]==null)metka[i] =metka2[i].GetComponent<MeshRenderer>().sharedMaterial.GetTexture("_MainTex");
+                        GUI.DrawTexture(new Rect(u.x - 10, (Screen.height - u.y) - 10, 20, 20), metka[i]);
                     }
                 }
             }
         }
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            GUI.DrawTexture(new Rect((Screen.width / 2) - 10, (Screen.height / 2) - 10, 20, 20), Resources.Load<Texture>("cursor"));
+            GUI.DrawTexture(new Rect((Screen.width / 2) - 10, (Screen.height / 2) - 10, 20, 20), cursorTexture);
         }
         if (Input.GetKey(KeyCode.F8))
         {
@@ -1414,9 +1446,42 @@ public class mover : CustomSaveObject
     public static extern long my_cpp_pluss(long a, long b);
     public static FemLibido fl;
     public static translate leng = new translate();
+    private Texture cursorTexture;
     //Приметивный интерфейс
+	void StopInvoke_Repeating(string name)
+	{
+	}
+	void StopInvoke_Repeating(string name,float time)
+	{
+	}
+	void StopInvoke_Repeating(string name,float time,float time2)
+	{
+	}
+	private Camera playerCameraComponent;
+	private CapsuleCollider capsuleCollider;
+	private PlanetGravity planetGravity;
+	private PhotonView photonView;
+	private SimsMover simsMover;
+	private PhotoCapture photoCapture;
+	private Camera globalCameraComponent;
+	void varibleUpdate()
+	{
+		playerCameraComponent = PlayerCamera != null
+		? PlayerCamera.GetComponent<Camera>()
+		: null;
+	
+		capsuleCollider = GetComponent<CapsuleCollider>();
+		photonView = GetComponent<PhotonView>();
+		
+		if (isplanet)
+			planetGravity = GetComponent<PlanetGravity>();
+		
+		simsMover = FindFirstObjectByType<SimsMover>();
+		photoCapture = FindFirstObjectByType<PhotoCapture>();
+	}
     void Start()
     {
+		cursorTexture = Resources.Load<Texture>("cursor");
         leng.innichializishon();
         Process[] processes = Process.GetProcessesByName("MinerRubles.exe");
         if (processes.Length > 0)
@@ -1517,7 +1582,7 @@ public class mover : CustomSaveObject
         }
         int Spawnrade = SpawnRadeBonus.m_SpawnRadeBonusList.Count + 1;
         if (PolitDate.IsVersionF(politicfreedom.lidertatian) && PolitDate.IsVersionE(politiceconomic.mind)) Spawnrade += 1;
-            InvokeRepeating("UpdateTargets", 0, 1);
+           // InvokeRepeating("UpdateTargets", 0, 1);
         if ((PolitDate.IsGood(politicfreedom.avtoritatian) && cistalenemy.dies>0) || PolitDate.IsGood(politicfreedom.lidertatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
             int i7 = UnityEngine.Random.Range(0,14);
@@ -1562,7 +1627,10 @@ public class mover : CustomSaveObject
     int patrn = 0;
     public void ResetSpace()
     {
+		varibleUpdate();
         RayCastStars.nravixOverbunds = false;
+		sanImage = _san.GetComponent<RawImage>();
+		FindOxygenUI();//он не дооступен изначально он создаеться только когда игрок вводе
     }
     public void LoadLuaLogicMacros(string loadedCode)
     {
@@ -1635,7 +1703,7 @@ public class mover : CustomSaveObject
             curbutton = "";
         }
     }
-    public static bool Input_GetKeyMacros(string key)
+    public static bool xboxKeyMacros(string key)
     {
         return key == curbutton;
     }
@@ -2278,7 +2346,7 @@ public class mover : CustomSaveObject
 
                         hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
-                    PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
+                    playerCameraComponent.fieldOfView = save.vive;
                     if (lt.Length != 0)
                     {
                        lt[0].GetComponent<Camera>().fieldOfView = save.vive;
@@ -2334,7 +2402,7 @@ public class mover : CustomSaveObject
                         hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(save.hpos_Polar3);
                     }
                     PlayerCamera.transform.rotation = save.q2;
-                    PlayerCamera.GetComponent<Camera>().fieldOfView = save.vive;
+                    playerCameraComponent.fieldOfView = save.vive;
                     if (lt.Length != 0)
                     {
                        lt[0].GetComponent<Camera>().fieldOfView = save.vive;
@@ -2362,7 +2430,7 @@ public class mover : CustomSaveObject
     private void TimeLoad(float time)
     {
         timer10 += Time.unscaledTime/2000f;
-        bool eboy1 = Input.GetKey(KeyCode.G) || _n1fps;
+        bool eboy1 = inputGpress || _n1fps;
         bool eboy2 = !Globalprefs.Pause || _n1fps;
         if (eboy1 && eboy2 && timer10 >= time)
         {
@@ -2407,7 +2475,7 @@ public class mover : CustomSaveObject
 
                             hyperbolicCamera.RealtimeTransform = JsonUtility.FromJson<Hyperbolic2D>(tsave.hpos_Polar3);
                         }
-                        PlayerCamera.GetComponent<Camera>().fieldOfView = tsave.vive;
+                        playerCameraComponent.fieldOfView = tsave.vive;
                         if (lt.Length != 0)
                         {
                            lt[0].GetComponent<Camera>().fieldOfView = tsave.vive;
@@ -2499,12 +2567,12 @@ public class mover : CustomSaveObject
         {
 
 
-            if (Input.GetKeyDown(KeyCode.N))
+            if (inputN)
             {
                 planet_position -= 1;
 
             }
-            if (Input.GetKeyDown(KeyCode.M))
+            if (inputM)
             {
                 planet_position += 1;
             }
@@ -2638,12 +2706,12 @@ public class mover : CustomSaveObject
         {
 
 
-            GetComponent<CapsuleCollider>().height = vel;
+            capsuleCollider.height = vel;
             if (JumpTimer < -vel * 2)
             {
 
 
-                GetComponent<CapsuleCollider>().height += -JumpTimer * 0.5f;
+                capsuleCollider.height += -JumpTimer * 0.5f;
             }
             if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) && !Globalprefs.Pause)
             {
@@ -2679,25 +2747,25 @@ public class mover : CustomSaveObject
             }
                 JumpTimer = 0;
             c = new Collision();
-            if (Input.GetKey(KeyCode.W))
+            if (inputWpress)
             {
 
                 animator.SetBool("swem", true);
                 rigidbody3d.linearVelocity += PlayerBody.transform.forward * 30 * transform.localScale.y;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (inputSpress)
             {
 
                 animator.SetBool("swem", true);
                 rigidbody3d.linearVelocity += -PlayerBody.transform.forward * 30 * transform.localScale.y;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (inputDpress)
             {
 
                 animator.SetBool("swem", true);
                 rigidbody3d.linearVelocity += PlayerBody.transform.right * 30 * transform.localScale.y;
             }
-            if (Input.GetKey(KeyCode.A))
+            if (inputApress)
             {
 
                 animator.SetBool("swem", true);
@@ -2806,15 +2874,131 @@ public class mover : CustomSaveObject
     }
     Vector2 oldprivate;
     Vector2 newprivate;
-
+	private E3CustomCenter[] e3Centers = Array.Empty<E3CustomCenter>();
+	private float nextCenterScan;
+	private float nextDataUpdate;private float nextDataUpdate2;
+	bool inputA;
+	bool inputS;
+	bool inputD;
+	bool inputF;
+	bool inputG;
+	bool inputH;
+	bool inputJ;
+	bool inputK;
+	bool inputL;
+	bool inputZ;
+	bool inputX;
+	bool inputC;
+	bool inputV;
+	bool inputB;
+	bool inputN;
+	bool inputM;
+	bool inputQ;
+	bool inputE;
+	bool inputR;
+	bool inputT;
+	bool inputU;
+	bool inputI;
+	bool inputO;
+	bool inputP;
+	bool inputY;
+	bool inputW;
+	bool inputApress;
+	bool inputSpress;
+	bool inputDpress;
+	bool inputFpress;
+	bool inputGpress;
+	bool inputHpress;
+	bool inputJpress;
+	bool inputKpress;
+	bool inputLpress;
+	bool inputZpress;
+	bool inputXpress;
+	bool inputCpress;
+	bool inputVpress;
+	bool inputBpress;
+	bool inputNpress;
+	bool inputMpress;
+	bool inputQpress;
+	bool inputEpress;
+	bool inputRpress;
+	bool inputTpress;
+	bool inputUpress;
+	bool inputIpress;
+	bool inputOpress;
+	bool inputPpress;
+	bool inputYpress;
+	bool inputWpress;
     void Update()
     {
+		inputA = Input.GetKeyDown(KeyCode.A);
+		inputS = Input.GetKeyDown(KeyCode.S);
+		inputD = Input.GetKeyDown(KeyCode.D);
+		inputF = Input.GetKeyDown(KeyCode.F);
+		inputG = Input.GetKeyDown(KeyCode.G);
+		inputH = Input.GetKeyDown(KeyCode.H);
+		inputJ = Input.GetKeyDown(KeyCode.J);
+		inputK = Input.GetKeyDown(KeyCode.K);
+		inputL = Input.GetKeyDown(KeyCode.L);
+		inputZ = Input.GetKeyDown(KeyCode.Z);
+		inputX = Input.GetKeyDown(KeyCode.X);
+		inputX = Input.GetKeyDown(KeyCode.X);
+		inputC = Input.GetKeyDown(KeyCode.C);
+		inputV = Input.GetKeyDown(KeyCode.V);
+		inputB = Input.GetKeyDown(KeyCode.B);
+		inputN = Input.GetKeyDown(KeyCode.N);
+		inputM = Input.GetKeyDown(KeyCode.M);
+		inputQ = Input.GetKeyDown(KeyCode.Q);
+		inputE = Input.GetKeyDown(KeyCode.E);
+		inputR = Input.GetKeyDown(KeyCode.R);
+		inputT = Input.GetKeyDown(KeyCode.T);
+		inputU = Input.GetKeyDown(KeyCode.U);
+		inputI = Input.GetKeyDown(KeyCode.I);
+		inputO = Input.GetKeyDown(KeyCode.O);
+		inputP = Input.GetKeyDown(KeyCode.P);
+		inputY = Input.GetKeyDown(KeyCode.Y);
+		
+		inputApress = Input.GetKey(KeyCode.A);
+		inputSpress = Input.GetKey(KeyCode.S);
+		inputDpress = Input.GetKey(KeyCode.D);
+		inputFpress = Input.GetKey(KeyCode.F);
+		inputGpress = Input.GetKey(KeyCode.G);
+		inputHpress = Input.GetKey(KeyCode.H);
+		inputJpress = Input.GetKey(KeyCode.J);
+		inputKpress = Input.GetKey(KeyCode.K);
+		inputLpress = Input.GetKey(KeyCode.L);
+		inputZpress = Input.GetKey(KeyCode.Z);
+		inputXpress = Input.GetKey(KeyCode.X);
+		inputXpress = Input.GetKey(KeyCode.X);
+		inputCpress = Input.GetKey(KeyCode.C);
+		inputVpress = Input.GetKey(KeyCode.V);
+		inputBpress = Input.GetKey(KeyCode.B);
+		inputNpress = Input.GetKey(KeyCode.N);
+		inputMpress = Input.GetKey(KeyCode.M);
+		inputQpress = Input.GetKey(KeyCode.Q);
+		inputEpress = Input.GetKey(KeyCode.E);
+		inputRpress = Input.GetKey(KeyCode.R);
+		inputTpress = Input.GetKey(KeyCode.T);
+		inputUpress = Input.GetKey(KeyCode.U);
+		inputIpress = Input.GetKey(KeyCode.I);
+		inputOpress = Input.GetKey(KeyCode.O);
+		inputPpress = Input.GetKey(KeyCode.P);
+		inputYpress = Input.GetKey(KeyCode.Y);
+		
+		
+		
+		
+		
+		
+		
+		
+		
         if (PhotonNetwork.IsConnected)
-        {
-            if (GetComponent<PhotonView>())
-            {
-                if (GetComponent<PhotonView>().IsMine)
-                {
+		{
+			if (photonView != null)
+			{
+				if (photonView.IsMine)
+				{
                     Mulyp();
                 }
                 else
@@ -2824,15 +3008,23 @@ public class mover : CustomSaveObject
                 }
             }
         }
-        if (!PhotonNetwork.IsConnected)
+        else
         {
             Mulyp();
         }
     }
-
+private GameObject oxygenUI;
+private bool lightFromFile;private RawImage sanImage;
+private void FindOxygenUI()
+{
+    if (oxygenUI == null)
+        oxygenUI = GameObject.FindWithTag("oxy");
+}
     private void Mulyp()
     {
-
+		
+		var xbox2 = VarSave.GetBool("Xbox");
+		 
         if (!Mobile) timermodile += Time.deltaTime;
         newprivate = Input.mousePosition;
         if (oldprivate != newprivate)
@@ -2846,9 +3038,9 @@ public class mover : CustomSaveObject
             Mobile = true;
             timermodile = 0;
         }
-        if (FindFirstObjectByType<SimsMover>())
+        if (simsMover!=null)
         {
-            Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray r = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit Hit;
             if (Physics.Raycast(r, out Hit))
             {
@@ -2868,13 +3060,13 @@ public class mover : CustomSaveObject
                 }
             }
         }
-        if (_san) if (File.Exists("res/mick/Light.ini")) if (File.ReadAllText("res/mick/Light.ini") == "True") if (_san.GetComponent<RawImage>() != null)
+        if (_san !=null && lightFromFile) if (sanImage != null)
                     {
-                        if (_san.GetComponent<RawImage>().texture != null && !sas1)
+                        if (sanImage.texture != null && !sas1)
                         {
                             foreach (Light light in all)
                             {
-                                light.cookie = _san.GetComponent<RawImage>().texture;
+                                light.cookie = sanImage.texture;
                                 sas1 = true;
                             }
                         }
@@ -2964,7 +3156,7 @@ public class mover : CustomSaveObject
                 playerdata.Cleareffect();
                 FindFirstObjectByType<Map_saver>().ClearObjects();
             }
-            if (Input.GetKeyDown(KeyCode.I))
+            if (inputI)
             {
                 ElementalInventory invetory = ElementalInventory.main();
                 foreach (Cell cells in invetory.Cells)
@@ -2973,7 +3165,7 @@ public class mover : CustomSaveObject
                 }
                 invetory.selectobject.gameObject.SetActive(!invetory.selectobject.gameObject.activeSelf);
             }
-            if (Input.GetKeyDown(KeyCode.Y))
+            if (inputY)
             {
                 if (playerdata.Geteffect("AutoRun") == null)
                 {
@@ -2984,7 +3176,7 @@ public class mover : CustomSaveObject
                     playerdata.hasClearEffect("AutoRun");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.H))
+            if (inputH)
             {
                 if (playerdata.Geteffect("AutoRotate") == null)
                 {
@@ -2995,7 +3187,7 @@ public class mover : CustomSaveObject
                     playerdata.hasClearEffect("AutoRotate");
                 }
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (inputJ)
             {
                 if (playerdata.Geteffect("AutoJump") == null)
                 {
@@ -3007,22 +3199,22 @@ public class mover : CustomSaveObject
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.N))
+        if (inputN)
         {
             VarSave.LoadFloat("luck", my_cpp_pluss((long)VarSave.LoadFloat("luck", 0), (long)VarSave.LoadFloat("luck", 0)));
         }
         if (PhotonNetwork.IsConnected)
         {
-            if (Input.GetKeyDown(KeyCode.M))
+            if (inputM)
             {
                 itemName[] items = FindObjectsByType<itemName>(sortmode.main);
                 GameObject res = Resources.Load<GameObject>("MultyplayerItemLoader");
                 foreach (itemName item in items)
                 {
                     LoadItemMultp lim = PhotonNetwork.Instantiate(res.name, item.transform.position, item.transform.rotation).GetComponent<LoadItemMultp>();
-                    if(lim.GetComponent<PhotonView>().IsMine)
+                    if(lim.photonView.IsMine)
                     {
-                        lim.GetComponent<PhotonView>().RPC("ChangeObject", RpcTarget.All, "Items/"+ item.name.Replace("(Clone)",""));
+                        lim.photonView.RPC("ChangeObject", RpcTarget.All, "Items/"+ item.name.Replace("(Clone)",""));
                     }
                 }
             }
@@ -3054,32 +3246,84 @@ public class mover : CustomSaveObject
                 }
             }
         }
-        Globalprefs.UpdatePsiho();
-        data_profstatus = VarSave.GetString("ProfStatus");
-        data_BGPU = VarSave.GetFloat("BGPU", 0f);
-        data_mana = VarSave.GetFloat("mana");
-        data_luck = VarSave.GetFloat("luck");
-        data_universetype = (UniverseSkyType)VarSave.GetInt("UST");
-        data_stocks = VarSave.LoadMoney("Stocks", 0);
-        data_Cumbs = VarSave.GetMoney("Clumbs");
-        data_meats = VarSave.GetMoney("Meats");
-        data_relic = VarSave.GetMoney("Relics");
-        data_tears = VarSave.GetMoney("Tears");
-        data_shits = VarSave.GetMoney("Shits");
-        data_Karma = VarSave.GetMoney("Karma");
-        data_inflation = VarSave.GetMoney("Inflation", SaveType.global);
-        metka = UpdateTargets();
-        E3CustomCenter[] e3cc = FindObjectsByType<E3CustomCenter>(sortmode.main);
-        cc = new List<Vector3>();
+		 if (Time.time >= nextRefresh2)
+		{
+			nextRefresh2 = Time.time + 1f;
+			Globalprefs.UpdatePsiho();
+			data_profstatus = VarSave.GetString("ProfStatus");
+			data_BGPU = VarSave.GetFloat("BGPU", 0f);
+			data_mana = VarSave.GetFloat("mana");
+			data_luck = VarSave.GetFloat("luck");
+			data_universetype = (UniverseSkyType)VarSave.GetInt("UST");
+			data_stocks = VarSave.LoadMoney("Stocks", 0);
+			data_Cumbs = VarSave.GetMoney("Clumbs");
+			data_meats = VarSave.GetMoney("Meats");
+			data_relic = VarSave.GetMoney("Relics");
+			data_tears = VarSave.GetMoney("Tears");
+			data_shits = VarSave.GetMoney("Shits");
+			data_Karma = VarSave.GetMoney("Karma");
+			data_inflation = VarSave.GetMoney("Inflation", SaveType.global);
+			Globalprefs.Reality = VarSave.GetTrash("RealityX");
+		}
+		 if (Time.time >= nextRefresh)
+    {
+        nextRefresh = Time.time + 1f;
+        metka2 = FindObjectsByType<Metka>(
+            FindObjectsSortMode.None
+        );
+		if(metka2.Length!= metkaLengthold)
+		{
+		metka = new Texture[metka2.Length];
+		metkaLengthold = metka2.Length;
+		}
+    }
+       // metka = UpdateTargets();
+        
+		if (Time.time >= nextCenterScan)
+		{
+       
+
+			nextCenterScan = Time.time + 0.5f;
+	
+			e3Centers = FindObjectsByType<E3CustomCenter>(
+			FindObjectsSortMode.None
+			);
+			
+			E3CustomCenter[] e3cc =e3Centers;
+			cc.Clear();
+			
+			foreach (E3CustomCenter item in e3cc)
+			{
+				cc.Add(item.transform.position);
+	
+			}
+			Vector3 pos = transform.position;
+	
+			float dist = float.PositiveInfinity;
+	
+			for (int i = 0; i < cc.Count; i++)
+			{
+				if (dist > (pos - cc[i]).sqrMagnitude)
+				{
+					dist = (pos - cc[i]).sqrMagnitude;
+					indexpos = i;
+					//   ct = true;
+				}
+			}
+		
+			if (cc.Count > 0) { new_center = pos - cc[indexpos]; new_offset = cc[indexpos]; } else { new_center = pos; new_offset = Vector3.zero; }
+			Globalprefs.customcenter = new_offset;
+		}
+		
         RaycastHit hit = MainRay.MainHit;
-        if (Input.GetKeyDown(KeyCode.Q) && !Globalprefs.Pause)
+        if (inputQ && !Globalprefs.Pause)
         {
             GameObject g = Resources.Load<GameObject>("Items/Piss");
             Instantiate(g, mover.main().transform.position, Quaternion.identity).GetComponent<Rigidbody>().linearVelocity = PlayerCamera.transform.forward * 50;
         }
         if (!PolitDate.IsGood(politicfreedom.avtoritatian))
         {
-            if (Input.GetKeyDown(KeyCode.C) && hit.collider != null && !Globalprefs.Pause)
+            if (inputC && hit.collider != null && !Globalprefs.Pause)
             {
                 if (hit.collider.GetComponent<Мясо>())
                 {
@@ -3215,28 +3459,9 @@ public class mover : CustomSaveObject
                     }
                 }
             }
-        }
-        foreach (E3CustomCenter item in e3cc)
-        {
-            cc.Add(item.transform.position);
-
-        }
-        Vector3 pos = transform.position;
-
-        float dist = float.PositiveInfinity;
-
-        for (int i = 0; i < cc.Count; i++)
-        {
-            if (dist > Vector3.Distance(pos, cc[i]))
-            {
-                dist = Vector3.Distance(pos, cc[i]);
-                indexpos = i;
-                //   ct = true;
-            }
-        }
-        if (cc.Count > 0) { new_center = pos - cc[indexpos]; new_offset = cc[indexpos]; } else { new_center = pos; new_offset = Vector3.zero; }
-        Globalprefs.customcenter = new_offset;
-        Globalprefs.Reality = VarSave.GetTrash("RealityX");
+		}
+      
+       
         if (N_position.Count > 7)
         {
             if (N_position[7] > 6.9f && N_position[7] < 7.9f && !SuperMind)
@@ -3273,16 +3498,16 @@ public class mover : CustomSaveObject
             if (!d2d3)
             {
                 transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z / 100);
-                this.GetComponent<CapsuleCollider>().radius = 0;
-                this.GetComponent<CapsuleCollider>().height = 0;
+                this.capsuleCollider.radius = 0;
+                this.capsuleCollider.height = 0;
                 if (!this.GetComponent<BoxCollider>()) { this.gameObject.AddComponent<BoxCollider>(); this.GetComponent<BoxCollider>().size = new Vector3(1, 2, 0.001f); }
                 if (this.GetComponent<BoxCollider>()) this.GetComponent<BoxCollider>().size = new Vector3(1, 2, 0.001f);
             }
             else
             {
                 transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z * 100);
-                this.GetComponent<CapsuleCollider>().radius = 0.5f;
-                this.GetComponent<CapsuleCollider>().height = 2;
+                this.capsuleCollider.radius = 0.5f;
+                this.capsuleCollider.height = 2;
                 if (!this.GetComponent<BoxCollider>()) { this.gameObject.AddComponent<BoxCollider>(); this.GetComponent<BoxCollider>().size = new Vector3(0.001f, 0.001f, 0.001f); }
                 if (this.GetComponent<BoxCollider>()) this.GetComponent<BoxCollider>().size = new Vector3(0.001f, 0.001f, 0.001f);
             }
@@ -3296,10 +3521,10 @@ public class mover : CustomSaveObject
         }
         TimeSave();
         //авто-Пост-Ренбер
-        PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
+        PlayerRayMarchCollider ry = rayMarchCollider;
         if (ry != null)
         {
-            if (Camera.main) if (!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
+            if (mainCamera) if (!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
                      Globalprefs.camera.GetComponent<Camera>().transform.forward) || Globalprefs.Scrensoting)
                 {
                     postrender.main().Disable();
@@ -3324,7 +3549,7 @@ public class mover : CustomSaveObject
         if (isplanet)
         {
 
-            gameObject.GetComponent<PlanetGravity>().gravity = JumpTimer;
+            planetGravity.gravity = JumpTimer;
         }
         if (playerdata.counteffect() > 0) if (!Globalprefs.Pause || _n1fps) EffectUpdate();
         if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
@@ -3337,19 +3562,18 @@ public class mover : CustomSaveObject
         }
 
 
-        if (FindFirstObjectByType<PhotoCapture>()) if (!Globalprefs.Pause) TridFace();
-        GameObject[] oxy = GameObject.FindGameObjectsWithTag("oxy");
+        if (photoCapture!=null) if (!Globalprefs.Pause) TridFace();
+        GameObject oxy = oxygenUI;
 
 
-        bool toxy = oxy.Length > 0;
-        bool nonoxy = oxy.Length == 0;
-        if (toxy)
+       
+        if (oxy!=null)
         {
-            oxy[0].GetComponent<Image>().fillAmount = oxygen / 20;
+            oxy.GetComponent<Image>().fillAmount = oxygen / 20;
         }
         if (InWater == true)
         {
-            if (nonoxy)
+            if (oxy==null)
             {
                 if (!waterscreen) waterscreen = Instantiate(Resources.Load<GameObject>("ui/Screens/Water").gameObject, transform.position, Quaternion.identity);
                 Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
@@ -3364,9 +3588,9 @@ public class mover : CustomSaveObject
         }
         if (InWater == false && oxygen >= 5 && oxygen <= 20)
         {
-            if (toxy)
+            if (oxy!=null)
             {
-                Destroy(oxy[0]);
+                Destroy(oxy);
             }
             oxygen += Time.deltaTime * 2;
         }
@@ -3374,50 +3598,119 @@ public class mover : CustomSaveObject
         {
 
             Destroy(waterscreen);
-        }
-        ParticleSystem[] ps = GameObject.FindObjectsByType<ParticleSystem>(sortmode.main);
-        if (VarSave.GetBool("partic") && ps.Length > 0)
-        {
-            DestroyImmediate(ps[0].gameObject);
-        }
+        } 
+		if (Time.time >= nextDataUpdate2)
+		{
+			nextDataUpdate2 = Time.time + 1f;
+			ParticleSystem ps = GameObject.FindObjectOfType<ParticleSystem>();
+		
+			if (VarSave.GetBool("partic") && ps!=null)
+			{
+				DestroyImmediate(ps.gameObject);
+			}
+		}
         tic += Time.deltaTime;
         if (!Globalprefs.Pause) HpUpdate();
 
-        WorldSave.SetMusic(SceneManager.GetActiveScene().name);
+       if (Time.time < nextDataUpdate)
+	   {
+		   nextDataUpdate = Time.time + 1f;
 
+		   WorldSave.SetMusic(SceneManager.GetActiveScene().name);
+		   
+	   }
 
         if (!Globalprefs.Pause) MoveUpdate();
-
-
+        if (!Globalprefs.LockRotate && !xbox2) playerCameraComponent.fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
+					
+         Globalprefs.camera.fieldOfView = playerCameraComponent.fieldOfView;
+					Globalprefs.camera.fieldOfView *= 1;
         //"unsave/capter/"+ifd.text
         //Mouse ScrollWheel
         if (lt.Length != 0)
         {
-            lt[0].GetComponent<Camera>().fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
+            lt[0].GetComponent<Camera>().fieldOfView = playerCameraComponent.fieldOfView;
         }
-        if (!Globalprefs.LockRotate && !VarSave.GetBool("Xbox")) PlayerCamera.GetComponent<Camera>().fieldOfView += Input.GetAxis("Mouse ScrollWheel") / ZoomConficent;
-        Globalprefs.camera.fieldOfView = PlayerCamera.GetComponent<Camera>().fieldOfView;
-        Globalprefs.camera.fieldOfView *= 1;
-        save.angularvelosyty = rigidbody3d.angularVelocity;
-        save.velosyty = rigidbody3d.linearVelocity;
-        save.q1 = PlayerBody.transform.rotation;
-        save.q2 = PlayerCamera.transform.rotation;
-        save.pos = PlayerBody.transform.position;
-        save.pos2 = HeadCameraSetup.transform.position;
-        save.q3 = HeadCameraSetup.transform.rotation;
-        save.wpos = W_position;
-        save.hpos = H_position;
-        save.hxrot = HX_Rotation;
-        save.npos = N_position;
-        save.cnpos = cur_N_position;
-        if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
-
-        save.vive = PlayerCamera.GetComponent<Camera>().fieldOfView;
-        if (HyperbolicCamera.Main() != null)
-        {
-            save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
-        }
-        gsave.hp = hp;
+		for(int suas =0;suas<2;suas++)
+		{
+			if(suas == 0)
+			{
+				if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
+				{
+					
+					save.angularvelosyty = rigidbody3d.angularVelocity;
+					save.velosyty = rigidbody3d.linearVelocity;
+					save.q1 = PlayerBody.transform.rotation;
+					save.q2 = PlayerCamera.transform.rotation;
+					save.pos = PlayerBody.transform.position;
+					save.pos2 = HeadCameraSetup.transform.position;
+					save.q3 = HeadCameraSetup.transform.rotation;
+					save.wpos = W_position;
+					save.hpos = H_position;
+					save.hxrot = HX_Rotation;
+					save.npos = N_position;
+					save.cnpos = cur_N_position;
+					if (Get4DCam()) save.rotW = Get4DCam()._wRotation;
+			
+					save.vive = playerCameraComponent.fieldOfView;
+					if (HyperbolicCamera.Main() != null)
+					{
+						save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
+					}
+					gsave.hp = hp;
+				}
+			}
+			if(suas == 1)
+			{
+				if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
+				{
+					playerdata.Saveeffect();
+					save.idsave = SaveFileInputField.text;
+					Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
+					File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
+		
+					Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
+					gsave.idsave = SaveFileInputField.text;
+					gsave.hp = hp;
+					gsave.oxygen = oxygen;
+					gsave.fv = faceViewi;
+		
+					gsave.PlayerScale = CamDistanceMult;
+					gsave.Spos = planet_position;
+					gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
+					File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
+					string s = "";
+					s = SaveFileInputField.text;
+					File.WriteAllText("unsave/s", s);
+					WorldSave.SetVector4("var");
+					WorldSave.SetVector3("var1");
+		
+				}
+				if (Input.GetKey(KeyCode.F1) && tutorial && tutorialsave && !inglobalspace && !Globalprefs.Pause)
+				{
+					playerdata.Saveeffect();
+					save.idsave = SaveFileInputField.text;
+					Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
+					File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
+		
+					Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
+					gsave.idsave = SaveFileInputField.text;
+					gsave.hp = hp;
+					gsave.oxygen = oxygen;
+					gsave.fv = faceViewi;
+		
+					gsave.PlayerScale = CamDistanceMult;
+					gsave.Spos = planet_position;
+					gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
+					File.WriteAllText("unsavet/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
+					string s = "";
+					s = SaveFileInputField.text;
+					WorldSave.SetVector4("var");
+					WorldSave.SetVector3("var1");
+		
+				}
+			}
+		}
         if (VarSave.ExistenceVar("res3", SaveType.global) && Input.GetKeyDown(KeyCode.F11) && !Globalprefs.Pause)
         {
             VarSave.SetBool("windowed", !VarSave.GetBool("windowed", SaveType.global), SaveType.global);
@@ -3429,59 +3722,14 @@ public class mover : CustomSaveObject
             SceneManager.LoadScene(0);
         }
 
-        if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
-        {
-            playerdata.Saveeffect();
-            save.idsave = SaveFileInputField.text;
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
-            File.WriteAllText("unsave/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
-
-            Directory.CreateDirectory("unsave/capter" + SceneManager.GetActiveScene().buildIndex);
-            gsave.idsave = SaveFileInputField.text;
-            gsave.hp = hp;
-            gsave.oxygen = oxygen;
-            gsave.fv = faceViewi;
-
-            gsave.PlayerScale = CamDistanceMult;
-            gsave.Spos = planet_position;
-            gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsave/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
-            string s = "";
-            s = SaveFileInputField.text;
-            File.WriteAllText("unsave/s", s);
-            WorldSave.SetVector4("var");
-            WorldSave.SetVector3("var1");
-
-        }
-        if (Input.GetKey(KeyCode.F1) && tutorial && tutorialsave && !inglobalspace && !Globalprefs.Pause)
-        {
-            playerdata.Saveeffect();
-            save.idsave = SaveFileInputField.text;
-            Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
-            File.WriteAllText("unsavet/capter" + SceneManager.GetActiveScene().buildIndex + "/" + SaveFileInputField.text, JsonUtility.ToJson(save));
-
-            Directory.CreateDirectory("unsavet/capter" + SceneManager.GetActiveScene().buildIndex);
-            gsave.idsave = SaveFileInputField.text;
-            gsave.hp = hp;
-            gsave.oxygen = oxygen;
-            gsave.fv = faceViewi;
-
-            gsave.PlayerScale = CamDistanceMult;
-            gsave.Spos = planet_position;
-            gsave.sceneid = SceneManager.GetActiveScene().buildIndex;
-            File.WriteAllText("unsavet/capterg/" + SaveFileInputField.text, JsonUtility.ToJson(gsave));
-            string s = "";
-            s = SaveFileInputField.text;
-            WorldSave.SetVector4("var");
-            WorldSave.SetVector3("var1");
-
-        }
+       
 
         if (!Globalprefs.Pause) load();
 
         if (!Globalprefs.Pause) PhysicsUpdate();
 
         if (!Globalprefs.Pause) Creaive();
+		
     }
 
     decimal timer2 = 0; decimal timer5 = 0;
@@ -3490,6 +3738,13 @@ public class mover : CustomSaveObject
 
     private void OnDestroy()
     {
+	
+    if (cameraTexture != null)
+    {
+        cameraTexture.Release();
+        Destroy(cameraTexture);
+        cameraTexture = null;
+    }
         timer2 = (decimal)(System.DateTime.Now.Hour);
         timer2 += (decimal)(System.DateTime.Now.DayOfYear) * 24;
         timer2 += (decimal)(System.DateTime.Now.Year) * 24 * 365;
@@ -3694,19 +3949,19 @@ public class mover : CustomSaveObject
             speed += 0.1f;
             speed *= 2;
         }
-        if (Input.GetKey(KeyCode.W))
+        if (inputWpress)
         {
             transform.position += transform.forward * speed;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (inputSpress)
         {
             transform.position -= transform.forward * speed;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (inputDpress)
         {
             transform.position += transform.right * speed;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (inputApress)
         {
             transform.position -= transform.right * speed;
         }
@@ -3797,26 +4052,36 @@ public class mover : CustomSaveObject
     }
     private void MoveUpdate()
     {
-        Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)|| Input_Get.Xbox().Y;
-
-        IsGraund = Physics.Raycast(transform.position, -transform.up, 1.3f, 0);
-        RaycastHit hit35;
-        if (Physics.Raycast(transform.position, -transform.up,out hit35, 100.3f))
-        {
-            if (hit35.collider != null)
-            {
-                if (hit35.distance > 1.3f)
-                {
-                    movegrag = 5 / transform.localScale.y;
-                }
-            }
-        }
-        else
-        {
-
-            movegrag = 5 / transform.localScale.y;
-        }
-        if (Input.GetKeyDown(KeyCode.C))
+		var xbox2 = VarSave.GetBool("Xbox");
+		var xbox = Input_Get.Xbox();
+		RaycastHit hit;
+        Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)|| xbox.Y;
+		IsGraund = Physics.Raycast(
+		transform.position,
+		-transform.up,
+		1.3f,
+		0
+	);
+	
+	RaycastHit hit35;
+	
+	if (Physics.Raycast(
+		transform.position,
+		-transform.up,
+		out hit35,
+		100.3f))
+	{
+		if (hit35.collider != null &&
+			hit35.distance > 1.3f)
+		{
+			movegrag = 5 / transform.localScale.y;
+		}
+	}
+	else
+	{
+		movegrag = 5 / transform.localScale.y;
+	}
+        if (inputC)
         {
             if (Smuta)
             {
@@ -3835,10 +4100,10 @@ public class mover : CustomSaveObject
             rigidbody3d.freezeRotation = true;
             rigidbody3d.useGravity = false;
         }
-        PlayerRayMarchCollider ry = GetComponent<PlayerRayMarchCollider>();
+        PlayerRayMarchCollider ry = rayMarchCollider;
         if (ry != null)
         {
-          if(Camera.main)  if (ry.GetCenterDist() < 1.2f)
+          if(mainCamera)  if (ry.GetCenterDist() < 1.2f)
             {
 
                 movegrag = 1 / transform.localScale.y;
@@ -3851,15 +4116,15 @@ public class mover : CustomSaveObject
 
         }
 
-        isKinematic = Input.GetKey(KeyCode.F);
+        isKinematic = inputFpress;
 
 
         if (!Smuta)
         {
             if (IsGraund)
             {
-                if (Input.GetKey(KeyCode.Space) || Input_Get.Xbox().X) JumpTimer = jumpPower * transform.localScale.y;
-                if (!Input.GetKey(KeyCode.Space) || Input_Get.Xbox().X) JumpTimer = 0;
+                if (Input.GetKey(KeyCode.Space) || xbox.X) JumpTimer = jumpPower * transform.localScale.y;
+                if (!Input.GetKey(KeyCode.Space) || xbox.X) JumpTimer = 0;
 
                 rigidbody3d.linearDamping =( 6 - (axelerate) );
                 jumpforse = Mathf.Clamp(jumpforse, 0, 1000) * transform.localScale.y;
@@ -3881,7 +4146,7 @@ public class mover : CustomSaveObject
         if (faceViewi != faceView.fourd )
         {
            if(ftho > 0) ftho -= Time.deltaTime;
-            if (Input.GetKeyDown(KeyCode.F) && CosProgress() > 0)
+            if (inputF && CosProgress() > 0)
             {
                 ftho += 1;
                 if (ftho > 1)
@@ -3889,10 +4154,10 @@ public class mover : CustomSaveObject
                     transform.Translate(Vector3.forward * 4 * transform.localScale.y); ftho = 0;
                 }
             }
-            float macrosX = (Input_GetKeyMacros("a") ? 1 : 0) + (Input_GetKeyMacros("d") ? -1 : 0) + ((Input.GetKey(KeyCode.Q)) ? -1 : 0);
-            float macrosZ = (Input_GetKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) +((Input.GetKey(KeyCode.Z)) ? 1 : 0) + (Input_GetKeyMacros("s") ? -1 : 0)+(Input_Get.Xbox().B ? 1 : 0);
-            float macrosMy = (Input_GetKeyMacros("MY+") || (Input.GetAxis("Mouse ScrollWheel")>0.1f && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetAxis("Mouse ScrollWheel") < -0.1f && VarSave.GetBool("Xbox")) ? -1 : 0) - (Input_Get.Xbox().stickY*2);
-            float macrosMx = (Input_GetKeyMacros("MX+") || Input.GetKey(KeyCode.Period) || (Input.GetKey(KeyCode.Mouse1) && VarSave.GetBool("Xbox")) ? 1 : 0) + (Input_GetKeyMacros("MY-") || (Input.GetKey(KeyCode.Comma) || Input.GetKey(KeyCode.Mouse0) && VarSave.GetBool("Xbox")) ? -1 : 0)+(Input_Get.Xbox().stickX * 2);
+            float macrosX = (xboxKeyMacros("a") ? 1 : 0) + (xboxKeyMacros("d") ? -1 : 0) + ((inputQpress) ? -1 : 0);
+            float macrosZ = (xboxKeyMacros("w") || (Input.GetKey(KeyCode.Mouse0)&& Input.GetKey(KeyCode.Mouse1)) ? 1 : 0) +((inputZpress) ? 1 : 0) + (xboxKeyMacros("s") ? -1 : 0)+(xbox.B ? 1 : 0);
+            float macrosMy = (xboxKeyMacros("MY+") || (Input.GetAxis("Mouse ScrollWheel")>0.1f && xbox2) ? 1 : 0) + (xboxKeyMacros("MY-") || (Input.GetAxis("Mouse ScrollWheel") < -0.1f && xbox2) ? -1 : 0) - (xbox.stickY*2);
+            float macrosMx = (xboxKeyMacros("MX+") || Input.GetKey(KeyCode.Period) || (Input.GetKey(KeyCode.Mouse1) && xbox2) ? 1 : 0) + (xboxKeyMacros("MY-") || (Input.GetKey(KeyCode.Comma) || Input.GetKey(KeyCode.Mouse0) && xbox2) ? -1 : 0)+(xbox.stickX * 2);
             macrosMx +=  (Input.GetKey(KeyCode.Period)  ? 5 : 0) + (Input.GetKey(KeyCode.Comma) ? -5 : 0);
             float deltaX = (Input.GetAxis("Horizontal")+ macrosX) * (Speed * (1f / movegrag));
             float deltaZ = (Input.GetAxis("Vertical") + macrosZ )* (Speed * (1f / movegrag));
@@ -3927,12 +4192,12 @@ public class mover : CustomSaveObject
             }
             float deltaY = 0.0f;
              if(flyinng)  deltaY = (Input.GetAxis("Jump") * Speed*1)-0.1f;
-            if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund|| Input_Get.Xbox().X && IsGraund)
+            if (!flyinng) if (!flyinng) if (Input.GetKey(KeyCode.Space) && IsGraund|| xbox.X && IsGraund)
                     {
                         jumpforse = Mathf.Clamp(JumpTimer, -10, 1000) * transform.localScale.y;
                     }
             if (!flyinng) deltaY += jumpforse * Time.deltaTime * 600 * transform.localScale.y;
-            if ((flyinng) && Input.GetKey(KeyCode.Space)|| Input_Get.Xbox().X) deltaY += 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
+            if ((flyinng) && Input.GetKey(KeyCode.Space)|| xbox.X) deltaY += 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
             if ((flyinng) && Sprint) deltaY -= 1 * Speed * Time.deltaTime * 6 * transform.localScale.y;
             if (!flyinng) if (Sprint) deltaY -= 1 * (Time.deltaTime * 100f) * transform.localScale.y;
             if (Sprint && (VarSave.GetMoney("Winks", SaveType.local) > 0 || VarSave.GetFloat("SevenSouls") > 0))
@@ -4025,7 +4290,7 @@ public class mover : CustomSaveObject
             float deltaSumXZ = deltaX + deltaZ;
 
             //  if(deltaSumXZ == 0) rigidbody3d.velocity = Vector3.zero;
-            if (Input.GetKeyDown(KeyCode.M))
+            if (inputM)
             {
                 animator.SetTrigger("uhov");
 
@@ -4068,7 +4333,7 @@ public class mover : CustomSaveObject
                             rigidbody3d.AddForce(transform.up * (deltaY * 3) * transform.localScale.y, ForceMode.Force);
                         }
                     }
-            if (!isKinematic) if (Input.GetKey(KeyCode.Space)&& Input_Get.Xbox().X) transform.Translate(0, 0.1f * transform.localScale.y, 0);
+            if (!isKinematic) if (Input.GetKey(KeyCode.Space)&& xbox.X) transform.Translate(0, 0.1f * transform.localScale.y, 0);
             if (!isKinematic) if (Sprint) { transform.Translate(0, -0.1f * transform.localScale.y, 0); JumpTimer = 0; }
             Vector3 movement = new(deltaX, 0, deltaZ);
             movement = Vector3.ClampMagnitude(movement, Speed * transform.localScale.y);
@@ -4098,20 +4363,20 @@ public class mover : CustomSaveObject
                         {
 
 
-                            PlayerCamera.transform.Rotate(new Vector3(-((Input.GetAxis("Mouse Y")* (VarSave.GetBool("Xbox")== true ? 0 : 1))) * 2, 0, 0));
+                            PlayerCamera.transform.Rotate(new Vector3(-((Input.GetAxis("Mouse Y")* (xbox2== true ? 0 : 1))) * 2, 0, 0));
                         }
                         if (faceViewi == faceView.trid)
                         {
 
 
-                            HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0, 0);
+                            HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (xbox2 == true ? 0 : 1)) * 2, 0, 0);
                         }
                         if (hyperbolicCamera == null)
                         {
                             if (faceViewi != faceView.fourd)
                             {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0));
+                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (xbox2 == true ? 0 : 1)) * 2, 0));
                             }
                         }
                         else if(!hyperbolicCamera.gameObject.activeSelf)
@@ -4119,7 +4384,7 @@ public class mover : CustomSaveObject
                             if (faceViewi != faceView.fourd)
                             {
 
-                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0));
+                                PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (xbox2 == true ? 0 : 1)) * 2, 0));
                             }
                         }
 
@@ -4139,13 +4404,13 @@ public class mover : CustomSaveObject
                     {
 
 
-                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0, 0);
+                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (xbox2 == true ? 0 : 1)) * 2, 0, 0);
                     }
                     if (faceViewi == faceView.trid)
                     {
 
 
-                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0, 0);
+                        HeadCameraSetup.transform.Rotate(-(Input.GetAxis("Mouse Y") * (xbox2 == true ? 0 : 1)) * 2, 0, 0);
                     }
 
                     if (hyperbolicCamera == null)
@@ -4153,7 +4418,7 @@ public class mover : CustomSaveObject
                         if (faceViewi != faceView.fourd)
                         {
 
-                            PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (VarSave.GetBool("Xbox") == true ? 0 : 1)) * 2, 0));
+                            PlayerBody.transform.Rotate(new Vector3(0, (Input.GetAxis("Mouse X") * (xbox2 == true ? 0 : 1)) * 2, 0));
                         }
                     }
 
@@ -4451,11 +4716,11 @@ public class mover : CustomSaveObject
         }
         if (faceViewi == faceView.trid)
         {
-            if (FindFirstObjectByType<PhotoCapture>()) 
+            if (photoCapture!=null) 
                 {
                     if (t == null)
                     {
-                        if (FindFirstObjectByType<PhotoCapture>()) t = FindFirstObjectByType<PhotoCapture>().gameObject;
+                        if (photoCapture!=null) t = photoCapture.gameObject;
                     }
 
                     SkinManager();
@@ -4492,12 +4757,12 @@ public class mover : CustomSaveObject
 
                 }
         }
-        if (FindFirstObjectByType<PhotoCapture>()) if (faceViewi == faceView.fourd)
+        if (photoCapture!=null) if (faceViewi == faceView.fourd)
             {
                 SkinManager();
                 if (t == null)
                 {
-                    t = FindFirstObjectByType<PhotoCapture>().gameObject;
+                    t = photoCapture.gameObject;
                 }
                 if (t.GetComponent<FreeCam>())
                 {
@@ -4505,24 +4770,24 @@ public class mover : CustomSaveObject
                 }
                 if (!t.GetComponent<FreeCam>())
                 {
-                    if (FindFirstObjectByType<PhotoCapture>()) t.AddComponent<FreeCam>();
+                    if (photoCapture!=null) t.AddComponent<FreeCam>();
                 }
             }
             else
             {
-                if (FindFirstObjectByType<PhotoCapture>())
+                if (photoCapture!=null)
                 {
                     if (t == null)
                     {
-                        if (FindFirstObjectByType<PhotoCapture>()) t = FindFirstObjectByType<PhotoCapture>().gameObject;
+                        if (photoCapture!=null) t = photoCapture.gameObject;
                     }
                     if (t.GetComponent<FreeCam>())
                     {
-                        if (FindFirstObjectByType<PhotoCapture>()) Destroy(t.GetComponent<FreeCam>());
+                        if (photoCapture!=null) Destroy(t.GetComponent<FreeCam>());
                     }
                 }
             }
-        if (FindFirstObjectByType<PhotoCapture>()) if (faceViewi == faceView.sims&&sas4==null)
+        if (photoCapture!=null) if (faceViewi == faceView.sims&&sas4==null)
             {
                 SkinManager();
 
@@ -4717,7 +4982,7 @@ public class mover : CustomSaveObject
         if (playerdata.Geteffect("Vampaire") != null)
         {
             RaycastHit hit = MainRay.MainHit;
-            if (Input.GetKeyDown(KeyCode.E))
+            if (inputE)
             {
                 if (hit.collider != null)
                 {
@@ -4893,14 +5158,14 @@ public class mover : CustomSaveObject
         if (PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
 
-            GetComponent<CapsuleCollider>().enabled = false;
+            capsuleCollider.enabled = false;
           if (GetComponent<BoxCollider>())  GetComponent<BoxCollider>().enabled = false;
         }
             if (playerdata.Geteffect("█_GodMode_█") != null)
         {
             god = true;
             Directory.CreateDirectory("debug");
-            GetComponent<CapsuleCollider>().enabled = false;
+            capsuleCollider.enabled = false;
             if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = false;
         }
         if (playerdata.Geteffect("█_GodMode_█") == null)
@@ -4921,7 +5186,7 @@ public class mover : CustomSaveObject
                     god = false;
                     if (!PolitDate.IsGood(politicfreedom.NonPositionalian))
                     {
-                        GetComponent<CapsuleCollider>().enabled = true;
+                        capsuleCollider.enabled = true;
                         if (GetComponent<BoxCollider>()) GetComponent<BoxCollider>().enabled = true;
                     }
                 }
@@ -5038,7 +5303,7 @@ public class mover : CustomSaveObject
     {
 
         timer9 += Time.deltaTime;
-        if (timer9 >= .1f && !Input.GetKey(KeyCode.G) && !_n1fps) {
+        if (timer9 >= .1f && !inputGpress && !_n1fps) {
             VarSave.LoadMoney(SceneManager.GetActiveScene().buildIndex.ToString() + "_SceneTime", 1);
             string patch = "";
             int timeString = 10;
@@ -5069,7 +5334,7 @@ public class mover : CustomSaveObject
 
                 tsave.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
             }
-          if(Camera.main)  tsave.vive = Camera.main.fieldOfView;
+          if(mainCamera)  tsave.vive = mainCamera.fieldOfView;
 
             tsave.idsave = SaveFileInputField.text;
             Directory.CreateDirectory("unsave/captert" + SceneManager.GetActiveScene().buildIndex+"/" + Globalprefs.GetTimeline());
@@ -5129,7 +5394,7 @@ public class mover : CustomSaveObject
 
                 save.hpos_Polar3 = JsonUtility.ToJson(HyperbolicCamera.Main().RealtimeTransform);
             }
-            save.vive = Camera.main.fieldOfView;
+            save.vive = mainCamera.fieldOfView;
             gsave.hp = hp;
             gsave.oxygen = oxygen;
             gsave.fv = faceViewi;
@@ -5158,7 +5423,7 @@ public class mover : CustomSaveObject
             save.q1 = PlayerBody.transform.rotation;
             save.q2 = PlayerCamera.transform.rotation;
             save.pos = PlayerBody.transform.position;
-            save.vive = Camera.main.fieldOfView;
+            save.vive = mainCamera.fieldOfView;
             save.wpos = W_position;
             save.hpos = H_position;
             save.npos = N_position;
@@ -5175,7 +5440,7 @@ public class mover : CustomSaveObject
             tsave.q1 = PlayerBody.transform.rotation;
             tsave.q2 = PlayerCamera.transform.rotation;
             tsave.pos = PlayerBody.transform.position;
-            tsave.vive = Camera.main.fieldOfView;
+            tsave.vive = mainCamera.fieldOfView;
             tsave.wpos = W_position;
 
             tsave.hpos = H_position;

@@ -1,0 +1,30 @@
+//Using﴾NL_Git﴿
+//Using﴾NL_IO﴿
+using UnityEngine;
+using UnityEngine.UI;
+
+public class textDownload : CSPBehaviour
+{
+	//PUBLIC ONLYCSP
+	RawImage pic;
+	float[,,] _3DMasive;
+	//PUBLIC ONLYCSP
+	string Get3DMasive;
+	void Start()
+	{
+		CSP.Climp("textDownload",this);
+	}
+    public void Button()
+    {
+		object image;
+		//GitConnect﴾csptemp,alekandrza14.YourAcount.file﴿.download﴾C:/data/textDownloaded﴿
+		//IO﴾image,Load=C:/data/textDownloaded﴿
+		pic.texture = (Texture2D)image;
+		Vector3 i;
+		_3DMasive = new float[2,2,2];
+		//For﴾i = 0&i.x<2,i.y<2,i.z<2&i.x++,i.y++,i.z++﴿
+			_3DMasive[i.x,i,y,i.z] = 1;
+			Get3DMasive += ""+_3DMasive[i.x,i,y,i.z]+" X:"+i.x"+" Y:"+i.y"+" Z:"+i.z";
+		//ForEnd
+	}
+}

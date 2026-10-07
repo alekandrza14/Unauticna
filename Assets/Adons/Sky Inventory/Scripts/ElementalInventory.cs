@@ -4945,7 +4945,7 @@ public class ElementalInventory : MonoBehaviour {
 
                 if (hit.collider.gameObject.layer != 3)
                 {
-                  if(hit.collider.GetComponent<itemName>())  if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject) && hit.collider.GetComponent<itemName>())
+                  if(hit.collider.GetComponent<itemName>()){  if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject) && hit.collider.GetComponent<itemName>())
                     {
 
                         if (!VarSave.ExistenceVar("researchs/" + fullname(hit)))
@@ -4974,6 +4974,7 @@ public class ElementalInventory : MonoBehaviour {
                         sh = true;
 
                     }
+				  }
                     else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<StandartObject>())
                     {
 

@@ -187,8 +187,8 @@ namespace UnauticnaMods
         public string GenerateFromJs(string jsRelativePath, string matName, string outFolder)
         {
             string gameRoot = GetGameRoot();
-            string jsFullPath = Path.GetFullPath(Path.Combine(gameRoot, jsRelativePath));
-
+            string jsFullPath = Path.Combine(gameRoot, jsRelativePath);
+            Debug.Log("jsFullPath "+jsFullPath);
             if (!File.Exists(jsFullPath))
                 throw new FileNotFoundException("Shader.js not found", jsFullPath);
 
@@ -357,12 +357,7 @@ namespace UnauticnaMods
          //   Debug.Log("[SuperShaderJS] Runtime material: " + Path.Combine(Application.persistentDataPath, matName + ".mat"));
 #endif
 
-            return string.Format(
-                "Material '{0}' сгенерирован. Shader='{1}', Texture='{2}', Path='{3}'",
-                matName,
-                _selectedShaderName,
-                _selectedTexturePath ?? "<none>",
-                assetPath);
+            return "";
         }
 
         private static Shader ResolveShader(string name)
@@ -414,7 +409,7 @@ namespace UnauticnaMods
         private static string GetGameRoot()
         {
             string dataPath = Application.dataPath;
-            return Directory.GetParent(dataPath)?.FullName ?? dataPath;
+            return Path.GetDirectoryName(Path.GetDirectoryName(dataPath));
         }
     }
 }

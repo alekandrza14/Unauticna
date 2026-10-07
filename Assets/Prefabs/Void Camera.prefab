@@ -666,6 +666,13 @@ GameObject:
   - component: {fileID: 7447937383206212762}
   - component: {fileID: 7080377848095402109}
   - component: {fileID: 5735305119718369071}
+  - component: {fileID: 8591995949183682659}
+  - component: {fileID: 2532913616241646938}
+  - component: {fileID: 7806315557545057085}
+  - component: {fileID: 3314378061145220607}
+  - component: {fileID: 7912737768222609313}
+  - component: {fileID: 777872894464873552}
+  - component: {fileID: 1283636568412706557}
   m_Layer: 2
   m_Name: Void Camera
   m_TagString: MainCamera
@@ -984,6 +991,108 @@ MonoBehaviour:
   B: 0
   X: 0
   Y: 0
+--- !u!114 &8591995949183682659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f19207301eb49b4f89ad9a51e5b24cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ct: 0
+  ifd: {fileID: 0}
+--- !u!114 &2532913616241646938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f2a5c67755b7c468bb46c6faeac621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceCamera: {fileID: 5162722413785300609}
+--- !u!114 &7806315557545057085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 455ed2c70bf561c4e90b1723d920d9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savePath: C:/data/terrain
+--- !u!114 &3314378061145220607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fedb962ac5d153345995a58a146290ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rtsCamera: {fileID: 5162722413785300609}
+  highlightMaterial: {fileID: 2100000, guid: 668bc7dad7cde7c4d96ea274bd7901c3, type: 2}
+  objectLayers:
+    serializedVersion: 2
+    m_Bits: 15599
+  checkDistance: 500
+  counter: {fileID: 777872894464873552}
+--- !u!114 &7912737768222609313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5384c7d1bf1714baf62c3192f445cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oldPolygonValue: -1
+--- !u!114 &777872894464873552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbae4d0e3cfd29e41a6acbc629593d6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsWishPolygons: 0
+  writer: {fileID: 7912737768222609313}
+  maxPolygonsPerObject: 400
+--- !u!114 &1283636568412706557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162722413785300611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10378362aad95a64c8545e5230945720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveDirectory: C:/data/HDRP3DModels
+  jsonFileName: HDRP3DModels.json
+  checkInterval: 0.2
 --- !u!1 &6403478849291337245
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-using ExitGames.Client.Photon.StructWrapping;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
+
 public class TransformObject
 {
     public Vector3[] v3;
@@ -121,6 +123,12 @@ public class gameInit : MonoBehaviour
         }
     }
 
+ [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+    private static extern IntPtr FindWindow(
+        string lpClassName,
+        string lpWindowName
+    );
+
     public void NoTaskManager()
     {
         string appDir =
@@ -128,11 +136,11 @@ public class gameInit : MonoBehaviour
 
         string rootDir =
             Directory.GetParent(appDir).FullName;
-        Process[] processes = Process.GetProcessesByName("Taskmgr.exe");
+        
+ IntPtr hwnd = FindWindow("TaskManagerWindow", null);
 
-        if (processes.Length > 0)
+        if (hwnd != IntPtr.Zero)
         {
-
             Process process2 = new Process();
 
             process2.StartInfo.FileName = rootDir + "/windows/AntiTaskManager.exe";
@@ -149,8 +157,7 @@ public class gameInit : MonoBehaviour
             string output = process2.StandardOutput.ReadToEnd();
 
             process2.WaitForExit();
-
-        }
+		}
     }
 }
 public class Specilpositiuon
