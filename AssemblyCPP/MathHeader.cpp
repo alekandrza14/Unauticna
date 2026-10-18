@@ -60,3 +60,11 @@ unsigned fibonacci_index()
 {
     return index_;
 }
+
+#include "PerlinNoise2D.h"
+
+int __cdecl PerlinNoise_2DMFloat(float x, float y, int sizeX, int sizeY,
+                                float scale, float* output, int outputLength)
+{
+    return AssemblyNoiseDetail::Fill(x, y, sizeX, sizeY, scale, output, outputLength);
+}

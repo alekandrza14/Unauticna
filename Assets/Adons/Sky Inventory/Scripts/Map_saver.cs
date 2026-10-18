@@ -425,6 +425,7 @@ for (int i = 0; i < allGM.Length; i++)
 
 
     saveString1.idG.Add(gm.s);
+    saveString1.MobNeedsModels.Add(MobNeedsBridge.Capture(gm.gameObject));
     saveString1.vector3G.Add(gm.transform.position);
     saveString1.Scale3G.Add(gm.transform.localScale);
 }
@@ -441,6 +442,7 @@ for (int i = 0; i < allGM.Length; i++)
 
 
                     saveString1.idA.Add(items[i3]._Name);
+                    saveString1.MobNeedsItems.Add(MobNeedsBridge.Capture(items[i3].gameObject));
                     if (items[i3].GetComponent<CharacterStats>())
                     {
 
@@ -594,6 +596,7 @@ for (int i = 0; i < allGM.Length; i++)
         {
             saveString1.vector3B.Add(t[i].transform.position);
             saveString1.NamesCreatures.Add(t[i].nameCreature);
+            saveString1.MobNeedsCreatures.Add(MobNeedsBridge.Capture(t[i].gameObject));
             if (t[i].GetComponent<Slave>())
             {
                 saveString1.isSlaveB.Add(true);
@@ -695,6 +698,7 @@ for (int i = 0; i < allGM.Length; i++)
                     }
                 }
                 saveString1.idC.Add(co[i].s);
+                saveString1.MobNeedsCustomObjects.Add(MobNeedsBridge.Capture(co[i].gameObject));
                 saveString1.SavedPlayer.Add(true);
                 if (co[i].GetComponent<HyperbolicPoint>())
                 {
@@ -786,6 +790,7 @@ for (int i = 0; i < allGM.Length; i++)
                 }
             }
             saveString1.idB.Add(so[i].init);
+            saveString1.MobNeedsStandard.Add(MobNeedsBridge.Capture(so[i].gameObject));
             saveString1.Scale3B.Add(so[i].transform.localScale);
             if (so[i].
                 GetComponent<MultyObject>())
@@ -2200,6 +2205,7 @@ for (int i = 0; i < allGM.Length; i++)
             genmodel g = Instantiate(Resources.Load<GameObject>("Custom model"), saveString1.vector3G[i], Quaternion.identity).GetComponent<genmodel>();
             g.s = saveString1.idG[i];
             g.transform.localScale = saveString1.Scale3G[i];
+            MobNeedsBridge.Restore(g.gameObject, saveString1.MobNeedsModels, i);
 
         }
         List<float[]> nid = new();
@@ -2271,6 +2277,7 @@ for (int i = 0; i < allGM.Length; i++)
 
                 g.nameCreature = saveString1.NamesCreatures[i];
                 g.gameObject.transform.position = saveString1.vector3B[i];
+                MobNeedsBridge.Restore(g.gameObject, saveString1.MobNeedsCreatures, i);
             }
         }
         //StandartObject
@@ -2278,6 +2285,7 @@ for (int i = 0; i < allGM.Length; i++)
         {
 
             GameObject g = Instantiate(t4[ToTagToIDObject(saveString1.idB[i])], saveString1.vector3C[i], Quaternion.identity);
+            MobNeedsBridge.Restore(g, saveString1.MobNeedsStandard, i);
             if (saveString1.PvectorB.Count > i && hc != null)
             {
                 if (!g.GetComponent<HyperbolicPoint>())
@@ -2408,6 +2416,7 @@ for (int i = 0; i < allGM.Length; i++)
                 g.GetComponent<CustomObject>().s = saveString1.idC[i];
                 g.GetComponent<CustomObject>().WHPos = new Vector2(saveString1.posW2[i], saveString1.posH2[i]);
                 g.GetComponent<CustomObject>().saved = saveString1.SavedPlayer[i];
+                MobNeedsBridge.Restore(g, saveString1.MobNeedsCustomObjects, i);
                 if (saveString1.posN2.Count > 0) if (g.GetComponent<MultyObject>()) for (int i2 = 0; i2 < nid2.Count; i2++)
                         {
                             g.GetComponent<MultyObject>().N_Positions = nid2[i];
@@ -2550,6 +2559,7 @@ for (int i = 0; i < allGM.Length; i++)
                 if (g.GetComponent<itemName>())
                 {
                     g.GetComponent<itemName>().ItemData = saveString1.DataItem[i3];
+                    MobNeedsBridge.Restore(g, saveString1.MobNeedsItems, i3);
                 }
                 if (saveString1.posN.Count > 0) if (g.GetComponent<MultyObject>()) for (int i = 0; i < nid.Count; i++)
                         {
@@ -2623,9 +2633,15 @@ for (int i = 0; i < allGM.Length; i++)
 
 
 
-[SerializeField]
+[System.Serializable]
 public class MapData
 {
+    // One entry per matching id list; an empty string means this object has no needs.
+    public List<string> MobNeedsItems = new();
+    public List<string> MobNeedsCreatures = new();
+    public List<string> MobNeedsCustomObjects = new();
+    public List<string> MobNeedsStandard = new();
+    public List<string> MobNeedsModels = new();
 
     public List<Vector3> vector3A = new();
     public List<string> scriptA = new();

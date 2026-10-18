@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dnSpyModer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95de52608fe3b093dc4df54f56d90f592f0d4b56")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ff37e9b458d9897a2e539420a72b38419ab5e13")]
 [assembly: System.Reflection.AssemblyProductAttribute("dnSpyModer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dnSpyModer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

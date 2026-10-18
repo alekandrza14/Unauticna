@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a14ccc8f908dfb42b2a8ffc2e9653dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Camera: {fileID: 3583736485320242172}
 --- !u!114 &2559237947488462446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,6 +1230,7 @@ GameObject:
   - component: {fileID: 3583736485320242172}
   - component: {fileID: 5374875096110696996}
   - component: {fileID: 4718333946094299449}
+  - component: {fileID: 338264442676367367}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -1290,7 +1292,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1310,3 +1312,28 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5162178530493169866}
   m_Enabled: 1
+--- !u!114 &338264442676367367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162178530493169866}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deebb60d8a21a92458cf8e7472b8aaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayCamera: {fileID: 5374875096110696996}
+  wallPrefab: {fileID: 2023657861488716251, guid: 5244d30f3393d7342928bfcaf4eed23a,
+    type: 3}
+  surfaceMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  maxDistance: 1000
+  thickness: 1
+  height: 1
+  growSpeed: 1
+  minLength: 0.05
+  lengthAxis: 1
+  cubes: []

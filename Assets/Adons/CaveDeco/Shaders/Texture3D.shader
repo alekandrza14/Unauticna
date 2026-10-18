@@ -51,7 +51,7 @@ Shader "Tex3D/StandartSurface"
             float3 rayOrigin = IN.worldPos;
 
             // Albedo comes from a texture tinted by color
-            fixed4 c = tex3D(_MainTex, rayOrigin);
+            fixed4 c = tex3D(_MainTex, rayOrigin+float3(sin(rayOrigin.y)*0.01,sin(rayOrigin.x)*0.01,sin(rayOrigin.y)*0.01));
             float mirc = ((sin(_Time.y+IN.worldPos.y)+1)/4)*_BlickIndensity;
             o.Albedo = c.rgb+(tex3D(_BlicsTex, rayOrigin)*mirc);
 ;

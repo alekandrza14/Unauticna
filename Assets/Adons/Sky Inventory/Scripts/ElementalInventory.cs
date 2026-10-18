@@ -18,6 +18,1329 @@ public class MassSelect
 
 public class ElementalInventory : MonoBehaviour {
 
+    [Header("Food need (Static ECS)")]
+    public StaticEcsNeeds playerNeeds;
+    [Min(0f)] public float itemFoodRestore = 10f;
+    [Min(0f)] public float coFoodRestore = 10f;
+
+    [System.Serializable]
+    public class FoodRestoreRule
+    {
+        [Tooltip("Item base name, e.g. Хлеб; CO name with co!, e.g. co!Bread.")]
+        public string itemName;
+        [Min(0f)] public float food = 10f;
+    }
+
+    [Tooltip("Optional overrides. Set Food to 0 for consumables that give no nutrition.")]
+    public FoodRestoreRule[] foodRestoreOverrides = new FoodRestoreRule[0];
+    private bool warnedAboutMissingNeeds;
+
+    private float GetFoodRestoreAmount(string consumedName, bool customObject)
+    {
+        float amount = customObject ? coFoodRestore : itemFoodRestore;
+        if (foodRestoreOverrides != null)
+        {
+            foreach (var rule in foodRestoreOverrides)
+            {
+                if (rule != null && rule.itemName == consumedName)
+                {
+                    amount = rule.food;
+                    break;
+                }
+            }
+        }
+        return float.IsNaN(amount) || float.IsInfinity(amount) ? 0f : Mathf.Max(0f, amount);
+    }
+
+    private void RestoreFoodAfterEating(string consumedName, bool customObject)
+    {
+        float amount = GetFoodRestoreAmount(consumedName, customObject);
+        if (float.IsNaN(amount) || float.IsInfinity(amount) || amount <= 0f) return;
+        if (playerNeeds == null) playerNeeds = GetComponentInParent<StaticEcsNeeds>();
+        if (playerNeeds == null) playerNeeds = FindFirstObjectByType<StaticEcsNeeds>();
+        if (playerNeeds == null || !playerNeeds.isActiveAndEnabled)
+        {
+            if (!warnedAboutMissingNeeds)
+            {
+                Debug.LogWarning("ElementalInventory: assign an active StaticEcsNeeds to Player Needs.", this);
+                warnedAboutMissingNeeds = true;
+            }
+            return;
+        }
+        warnedAboutMissingNeeds = false;
+        playerNeeds.AddFood(amount);
+    }
+
+    // Called only by the player's eating branches, not by crafting or feeding mobs.
+    private void EatItem(string name, string remains)
+    {
+        if (TryLowItem(name, remains))
+        {
+            lastFoodActionSucceeded = true;
+            RestoreFoodAfterEating(name, false);
+        }
+    }
+
+    // Shared by keyboard eating and the hungry-player controller.
+    private bool ExecuteFoodAction(string name)
+    {
+        lastFoodActionSucceeded = false;
+        switch (name)
+        {
+            case "file_рыбы":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("file_рыбы", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "belock":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+                int i = (int)Global.Random.Range(0, 3);
+                if (i == 0)
+                {
+                    Instantiate(Resources.Load("voices/belock"));
+                }
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("belock", "seed");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "4Dvkusnashka":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Addeffect("Trin", 60);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("4Dvkusnashka", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Grib":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Addeffect("Trip", 60);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Grib", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Vodka(100 градусов)":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Addeffect("Trip", 120);
+                DirectoryInfo directory = new DirectoryInfo("res/UserWorckspace/Iterface");
+                FileInfo[] now = directory.GetFiles();
+                for (int i = 0; i < 1; i++)
+                {
+                    Acaunt.Spawn((now[Random.Range(0, now.Length)].Name).Replace(".json", ""));
+                }
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Vodka(100 градусов)", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "СамагонДеда":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                playerdata.Addeffect("InfaltionUp", 120);
+                playerdata.Addeffect("MetabolismUp", 120);
+                playerdata.Addeffect("Tripl3", 120);
+                DirectoryInfo directory = new DirectoryInfo("res/UserWorckspace/Iterface");
+                FileInfo[] now = directory.GetFiles();
+                for (int i = 0; i < 7; i++)
+                {
+                    Acaunt.Spawn((now[Random.Range(0, now.Length)].Name).Replace(".json", ""));
+                }
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("СамагонДеда", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Гашиш":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                playerdata.Addeffect("mild hangover", 120);
+                playerdata.Addeffect("Tripl3", 120);
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Гашиш", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "U":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("U", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "пильмени":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("пильмени", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Мусор":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Meats", 1);
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Мусор", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Мясо":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Meats",1);
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Мясо", "Ca");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Клевер":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Клевер", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Капуста":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Капуста", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Летун":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                VarSave.LoadMoney("Meats", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Летун", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Pizza":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                VarSave.LoadMoney("Meats", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Pizza", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Пиво":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                VarSave.LoadMoney("Meats", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Пиво", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Лепёха":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                VarSave.LoadMoney("Meats", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Лепёха", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Борщ":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadMoney("Tears", 1);
+                VarSave.LoadMoney("Relics", 1);
+
+                VarSave.LoadMoney("Meats", 1);
+
+                playerdata.Addeffect("Undyning", float.PositiveInfinity);
+                playerdata.Addeffect("Шизфрения", float.PositiveInfinity);
+                playerdata.Addeffect("mild hangover", float.PositiveInfinity);
+                playerdata.Addeffect("Trin", float.PositiveInfinity);
+                playerdata.Addeffect("Совиное Зрение", float.PositiveInfinity);
+                playerdata.Addeffect("Metabolism", float.PositiveInfinity);
+
+
+
+                VarSave.LoadFloat("mana", 100f);
+                EatItem("Борщ", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ДомТорт":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Clumbs", 1);
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("ДомТорт", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Взрыв":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Взрыв", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Water":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Water", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "TreeMaodelbulb":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("TreeMaodelbulb", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Fire":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Fire", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "BlackGrib":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Addeffect("Trip", 120);
+
+                playerdata.Addeffect("BigShot", 100);
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("BlackGrib", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Non-exist-colour-Grib":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Addeffect("Tripl3", 120);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Non-exist-colour-Grib", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "jeltok":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("jeltok", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "mad":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Meats", 1);
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                playerdata.Addeffect("Tripl2", 600);
+
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("mad", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Скалапендра":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Meats", 1);
+
+                //  Instantiate(Resources.Load("voices/belock"));
+
+                cistalenemy.dies += 100;
+                playerdata.Addeffect("Tripl2", 600);
+
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("Скалапендра", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "sosisca":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Meats", 1);
+
+                VarSave.LoadMoney("Shits", 1);
+
+
+                int i = (int)Global.Random.Range(0, 6);
+                if (i == 0)
+                {
+                    //  Instantiate(Resources.Load("voices/belock"));
+                    playerdata.Addeffect("Trip", 60);
+                }
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("sosisca", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "RedColour":
+            {
+                GameManager.saveandhill();
+
+
+                //  Instantiate(Resources.Load("voices/belock"));
+                playerdata.Cleareffect();
+
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("RedColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "AnyphingJuice":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Clumbs", 1);
+
+                VarSave.LoadMoney("Meats", 1);
+
+                VarSave.LoadMoney("Relics", 1);
+
+                VarSave.LoadMoney("Tears", 1);
+
+                VarSave.LoadMoney("Shits", 1);
+
+
+                Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
+
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("AnyphingJuice", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "MalineColour":
+            {
+                GameManager.saveandhill();
+
+
+                Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
+
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("MalineColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "BlueColour":
+            {
+                GameManager.saveandhill();
+
+                int i = (int)Global.Random.Range(0, 2);
+                if (i == 0)
+                {
+                    playerdata.Addeffect("invisible", 60);
+                }
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("BlueColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "GreenColour":
+            {
+                GameManager.saveandhill();
+
+                int i = (int)Global.Random.Range(0, 2);
+                if (i == 0)
+                {
+                    playerdata.Addeffect("Axelerate", 60);
+                }
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("GreenColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "UltravioletColour":
+            {
+                GameManager.saveandhill();
+
+                int i = (int)Global.Random.Range(0, 2);
+                if (i == 0)
+                {
+                    playerdata.Addeffect("MetabolismUp", 60);
+                }
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("UltravioletColour", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Pipis":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+                int i = (int)Global.Random.Range(0, 20);
+                if (i == 0)
+                {
+                    playerdata.Addeffect("BigShot", 600);
+
+                }
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("Pipis", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Cat":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Meats", 1);
+                cistalenemy.dies += 100;
+
+                VarSave.LoadFloat("mana", 1f);
+                VarSave.SetInt("libirist", 0);
+                if (FindAnyObjectByType<Lederist>())
+                {
+
+                    VarSave.SetBool("lol you Banned", true);
+                    SceneManager.LoadSceneAsync("Banned forever");
+                }
+                EatItem("Cat", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Absolute_poison":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Shits", 1);
+
+
+                playerdata.Addeffect("BigShot", 600);
+                playerdata.Addeffect("MetabolismUp", 600);
+                playerdata.Addeffect("Axelerate", 600);
+                playerdata.Addeffect("invisible", 600);
+                playerdata.Addeffect("Trip", 600);
+                playerdata.Addeffect("Tripl2", 600);
+
+                VarSave.SetInt("libirist", 0);
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("Absolute_poison", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Absolute_poison_II":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Shits", 1);
+
+
+                playerdata.Addeffect("BigShot", 600);
+                playerdata.Addeffect("MetabolismUp", 600);
+                playerdata.Addeffect("Axelerate", 600);
+                playerdata.Addeffect("invisible", 600);
+                playerdata.Addeffect("Trip", 600);
+                playerdata.Addeffect("Tripl2", 600);
+                playerdata.Addeffect("KsenoMorfin", 600);
+                VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
+                playerdata.Addeffect("Regeneration", 600);
+                playerdata.Addeffect("ImbalenceRegeneration", 600);
+                playerdata.Addeffect("severe hangover", 600);
+                playerdata.Addeffect("InfaltionUp", 600);
+
+                VarSave.SetInt("libirist", 0);
+                VarSave.LoadFloat("mana", 1f);
+                playerdata.FreezeAlleffect();
+
+                EatItem("Absolute_poison_II", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "KsenoMorfin":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Shits", 1);
+
+
+                playerdata.Addeffect("KsenoMorfin", 600);
+                VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
+                VarSave.LoadFloat("mana", 1f);
+                GameManager.saveandhill();
+                EatItem("KsenoMorfin", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                StartCoroutine(ReloadScene());
+                break;
+            }
+            case "StoneJuice":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("StoneJuice", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "AppleJuice":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadFloat("mana", 1f);
+
+                playerdata.Addeffect("Regeneration", 600);
+
+
+
+                EatItem("AppleJuice", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "DamageJuice":
+            {
+                GameManager.saveandDamage();
+                VarSave.LoadMoney("Shits", 1);
+
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+
+                EatItem("DamageJuice", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "YourJuice":
+            {
+                GameManager.saveandhill();
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                playerdata.Addeffect("ImbalenceRegeneration", 600);
+
+                EatItem("YourJuice", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Зелье(БуйнойУдачи)":
+            {
+                GameManager.saveandhill();
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+
+                VarSave.LoadFloat("luck", 10f);
+
+                EatItem("Зелье(БуйнойУдачи)", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Зелье(Неудачи)":
+            {
+                GameManager.saveandhill();
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                VarSave.SetFloat("luck", 0f);
+
+                EatItem("Зелье(Неудачи)", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Зелье(Удачи)":
+            {
+                GameManager.saveandhill();
+
+
+
+                VarSave.LoadFloat("mana", 1f);
+                VarSave.LoadFloat("luck", 0.1f);
+
+                EatItem("Зелье(Удачи)", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ЗельеМанны":
+            {
+                GameManager.saveandhill();
+
+
+
+
+                VarSave.LoadFloat("mana", 5);
+
+                EatItem("ЗельеМанны", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ЗельеИстощения":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+
+
+
+                VarSave.SetFloat("mana", 0);
+
+                EatItem("ЗельеМанны", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Vine":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadMoney("Meats", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+                if (playerdata.Geteffect("mild hangover") != null)
+                {
+                    playerdata.Upeffect("mild hangover", 60);
+                    if (playerdata.Geteffect("mild hangover").time >= 400)
+                    {
+                        playerdata.Addeffect("severe hangover", 400);
+                    }
+                }
+                if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 100);
+
+
+
+                EatItem("Vine", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Дтine":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadMoney("Meats", 1);
+
+                playerdata.Addeffect("Шизфрения", 600);
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("Дтine", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "HotDog":
+            {
+                GameManager.saveandhill();
+
+
+                Instantiate(Resources.Load<GameObject>("Блювота"));
+                VarSave.LoadMoney("Clumbs", 1);
+                VarSave.LoadMoney("Meats", 1);
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("HotDog", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Shaverma":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Clumbs", 1);
+                VarSave.LoadMoney("Meats", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("Shaverma", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "КамунийскийХлеб":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Clumbs", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("КамунийскийХлеб", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Хлеб":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Clumbs", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                EatItem("Хлеб", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "EffectFreezer":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+
+                playerdata.FreezeAlleffect();
+
+
+                EatItem("EffectFreezer", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "EffectBaker":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadMoney("Shits", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+
+                playerdata.BakeAlleffect();
+
+                EatItem("EffectBaker", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Метанфитамин":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+
+                playerdata.Addeffect("meat", 600);
+
+                EatItem("Метанфитамин", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ЗельеВамперизма":
+            {
+                VarSave.LoadFloat("mana", 1f);
+                playerdata.Addeffect("Vampaire", 740);
+                EatItem("ЗельеВамперизма", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Nuclear_plant":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Shits", 1);
+                for (int i = 0; i < 5; i++)
+                {
+
+
+                    Transform t = Instantiate(inv2("Взрыв").gameObject, mover.main().transform.position, Quaternion.identity).transform;
+                }
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("Nuclear_plant", "Взрыв");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ChaosPoution":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Shits", 1);
+                for (int i = 0; i < 5; i++)
+                {
+
+
+                    Transform t = Instantiate(inv2("Chaos_cube").gameObject, mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
+                        Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
+                }
+
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("ChaosPoution", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ЗельеСовы":
+            {
+                GameManager.saveandhill();
+
+
+
+                playerdata.Addeffect("Совиное Зрение", 600);
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("ЗельеСовы", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ЗельеТупости":
+            {
+                GameManager.saveandhill();
+
+
+
+                playerdata.Addeffect("Тупость", 600);
+                VarSave.LoadFloat("BGPU", -0.1f);
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("ЗельеТупости", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "ЗельеВсеЗрения":
+            {
+                GameManager.saveandhill();
+
+
+
+                playerdata.Addeffect("Все Зрение", 600);
+                VarSave.LoadFloat("mana", 1f);
+                EatItem("ЗельеВсеЗрения", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Зелье_-1FPS":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadFloat("mana", 1f);
+
+                playerdata.Addeffect("-1FPS", 30);
+                playerdata.Saveeffect();
+                EatItem("Зелье_-1FPS", "Колба");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "IcyCube":
+            {
+                GameManager.saveandhill();
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadMoney("Relics", 1);
+
+
+                VarSave.LoadFloat("mana", 1f);
+                cistalenemy.dies += 1;
+                EatItem("IcyCube", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "Таблетки_для_GodMode":
+            {
+                GameManager.saveandhill();
+
+                VarSave.LoadMoney("Shits", 1);
+
+                VarSave.LoadFloat("mana", 1f);
+                playerdata.Addeffect("█_GodMode_█", float.PositiveInfinity);
+                EatItem("Таблетки_для_GodMode", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            case "█_█__██":
+            {
+                GameManager.saveandhill();
+
+
+                VarSave.LoadFloat("mana", 1f);
+                playerdata.Addeffect("█_█__██", 30);
+
+                EatItem("█_█__██", "");
+                GlobalInputMenager.KeyCode_eat = 0;
+                break;
+            }
+            default: return false;
+        }
+        return lastFoodActionSucceeded;
+    }
+
+    [Header("Automatic eating: allowed Item base names")]
+    public string[] autoFoodItemNames =
+    {
+        "file_рыбы", "belock", "4Dvkusnashka", "Grib", "пильмени", "Мясо",
+        "Клевер", "Капуста", "Летун", "Pizza", "Лепёха", "Борщ", "ДомТорт",
+        "TreeMaodelbulb", "BlackGrib", "Non-exist-colour-Grib", "jeltok", "mad",
+        "Скалапендра", "sosisca", "Pipis", "HotDog", "Shaverma", "КамунийскийХлеб", "Хлеб"
+    };
+    [Tooltip("Дополнительно разрешает Пиво для автоеды, даже если в префабе сохранён старый список. Требуется восстановление еды больше 0.")]
+    public bool autoDrinkBeer = true;
+
+    private int foodActionCell = -1;
+    private bool lastFoodActionSucceeded;
+
+    public int FindEmptyFoodCell()
+    {
+        if (Cells == null) return -1;
+        for (int i = 0; i < Cells.Length; i++)
+            if (Cells[i] != null && Cells[i].elementCount == 0) return i;
+        return -1;
+    }
+
+    private string AutoFoodBaseName(string name)
+    {
+        if (string.IsNullOrEmpty(name)) return null;
+        // A new field works with the old serialized whitelist on existing prefabs.
+        if (autoDrinkBeer && MatchesFoodPortion(name, "Пиво")) return "Пиво";
+        if (autoFoodItemNames == null) return null;
+        foreach (string candidate in autoFoodItemNames)
+            if (MatchesFoodPortion(name, candidate)) return candidate;
+        return null;
+    }
+
+    private static bool MatchesFoodPortion(string name, string baseName)
+    {
+        if (string.IsNullOrEmpty(baseName)) return false;
+        string portion = baseName;
+        for (int i = 0; i < 6; i++, portion += "x")
+            if (name == portion) return true;
+        return false;
+    }
+
+    private bool TryReadAutoFoodCo(string name, out CustomObjectData data)
+    {
+        data = null;
+        if (string.IsNullOrEmpty(name) || !name.StartsWith("co!")) return false;
+        try
+        {
+            string path = "res/UserWorckspace/Items/" + name.Substring(3) + ".txt";
+            if (!File.Exists(path)) return false;
+            data = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(path));
+            return data != null && data.functional == Functional.steyk;
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogWarning("Cannot read CO food " + name + ": " + ex.Message, this);
+            return false;
+        }
+    }
+
+    public bool CanAutoEatCell(int cell)
+    {
+        if (Cells == null || cell < 0 || cell >= Cells.Length || Cells[cell] == null
+            || Cells[cell].elementCount <= 0) return false;
+        string name = Cells[cell].elementName;
+        if (!string.IsNullOrEmpty(name) && name.StartsWith("co!"))
+            return GetFoodRestoreAmount(name, true) > 0f && TryReadAutoFoodCo(name, out _);
+        string baseName = AutoFoodBaseName(name);
+        return baseName != null && GetFoodRestoreAmount(baseName, false) > 0f;
+    }
+
+    // Pure naming: scanning food must NEVER call fullname(), which destroys objects.
+    private string GetPickupName(Collider source)
+    {
+        string name = source.gameObject.name;
+        if (name.EndsWith("(Clone)")) name = name.Substring(0, name.Length - 7);
+        var portions = source.GetComponent<breauty>();
+        if (portions != null)
+            for (int i = 0; i < 10 - portions.integer; i++) name += "x";
+        return name;
+    }
+
+    // Main thread only. Reads nutrition rules without using the player's cells or eating effects.
+    public bool TryGetMobFood(GameObject source, out float amount)
+    {
+        amount = 0f;
+        if (source == null || !source.activeInHierarchy || !source.scene.IsValid()
+            || source.layer == 3 || source.GetComponentInParent<mover>() != null) return false;
+        var item = source.GetComponent<itemName>();
+        if (item != null && item.Undeleteble) return false;
+        var co = source.GetComponent<CustomObject>();
+        if (co != null)
+        {
+            // Use the loaded model: no file reads while scanning hundreds of COs.
+            if (co.Model == null || co.Model.functional != Functional.steyk) return false;
+            amount = GetFoodRestoreAmount("co!" + co.s, true);
+        }
+        else
+        {
+            if (item == null) return false;
+            string name = AutoFoodBaseName(item._Name);
+            if (name == null)
+            {
+                string objectName = source.name;
+                if (objectName.EndsWith("(Clone)")) objectName = objectName.Substring(0, objectName.Length - 7);
+                name = AutoFoodBaseName(objectName);
+            }
+            if (name == null) return false;
+            amount = GetFoodRestoreAmount(name, false);
+        }
+        return amount > 0f;
+    }
+
+    public bool TryDescribeAutoFood(Collider source, out string name)
+    {
+        name = null;
+        if (nosell || source == null || !source.enabled || !source.gameObject.activeInHierarchy
+            || source.gameObject.layer == 3) return false;
+        var co = source.GetComponent<CustomObject>();
+        if (co != null)
+        {
+            name = "co!" + co.s;
+            return GetFoodRestoreAmount(name, true) > 0f && TryReadAutoFoodCo(name, out _);
+        }
+        if (source.GetComponent<itemName>() == null || itemtags == null
+            || !tag1(source.tag) || !tag2(source.gameObject)) return false;
+        name = GetPickupName(source);
+        string baseName = AutoFoodBaseName(name);
+        return baseName != null && GetFoodRestoreAmount(baseName, false) > 0f;
+    }
+
+    // The same pickup used by Tab / middle mouse. The caller supplies a real raycast hit.
+    public bool TryPickupIntoCell(RaycastHit hit, int cell)
+    {
+        if (nosell || Globalprefs.Pause || hit.collider == null || Cells == null
+            || cell < 0 || cell >= Cells.Length || Cells[cell] == null
+            || Cells[cell].elementCount != 0 || hit.collider.gameObject.layer == 3) return false;
+        var source = hit.collider;
+        var co = source.GetComponent<CustomObject>();
+        var item = source.GetComponent<itemName>();
+        bool standard = source.GetComponent<StandartObject>() != null;
+        if (co == null && item != null && (itemtags == null || !tag1(source.tag) || !tag2(source.gameObject)))
+            return false;
+        if (co == null && item == null && !standard) return false;
+        string name = co != null ? "co!" + co.s : GetPickupName(source);
+        if (string.IsNullOrEmpty(name)) return false;
+
+        if (co == null && !VarSave.ExistenceVar("researchs/" + name))
+        {
+            Directory.CreateDirectory("unsave/var/researchs");
+            VarSave.LoadMoney("research", 1);
+            Globalprefs.research = VarSave.GetMoney("research");
+            VarSave.SetInt("researchs/" + name, 0);
+        }
+        if (VarSave.GetString("Relic") == name) VarSave.LoadFloat("reason", 3);
+
+        if (co != null || item != null)
+        {
+            var slave = source.GetComponent<Slave>();
+            var stats = source.GetComponent<CharacterStats>();
+            string social = (slave != null ? "Slave" : "") + "♥"
+                + (stats != null ? JsonUtility.ToJson(stats.data) : "") + "♥"
+                + (slave != null ? slave.slaveData : "") + "♥"
+                + (slave != null ? "" + slave.WorkQualityTEVRO : "") + "♥"
+                + (slave != null ? "" + slave.solarytimeold : "") + "♥"
+                + (item != null ? JsonUtility.ToJson(item.modsStats) : JsonUtility.ToJson(new itemName().modsStats));
+            setItem(name, 1, Color.red, co != null ? "6" : item.ItemData, social, cell);
+        }
+        else setItem(name, 1, Color.red, cell);
+        Cells[cell].elementSocial = MobNeedsBridge.AppendSocial(source.gameObject, Cells[cell].elementSocial);
+        Cells[cell].UpdateCellInterface();
+        source.enabled = false; // Prevent a second pickup before deferred Destroy.
+        Destroy(source.gameObject);
+        sh = true;
+        return true;
+    }
+
+    // Runs the existing food effects and consumption, with exactly one selected cell.
+    public bool TryAutoEatCell(int cell)
+    {
+        if (Globalprefs.Pause || !CanAutoEatCell(cell)) return false;
+        string beforeName = Cells[cell].elementName;
+        int beforeCount = Cells[cell].elementCount;
+        int oldCell = foodActionCell;
+        foodActionCell = cell;
+        try
+        {
+            if (beforeName.StartsWith("co!"))
+            {
+                if (!TryReadAutoFoodCo(beforeName, out var data)) return false;
+                CustomFunctionalItem(data, cell);
+                return Cells[cell].elementName != beforeName || Cells[cell].elementCount != beforeCount;
+            }
+            return ExecuteFoodAction(AutoFoodBaseName(beforeName));
+        }
+        finally
+        {
+            foodActionCell = oldCell;
+            GlobalInputMenager.KeyCode_eat = 0;
+        }
+    }
+
     //Cell massive
     public Cell[] Cells;
 
@@ -63,7 +1386,8 @@ public class ElementalInventory : MonoBehaviour {
 
         if (instance == null)
         {
-            instance = boxItem.getInventory("i3").inventory;
+            var box = boxItem.getInventory("i3");
+            if (box != null) instance = box.inventory;
         }
         return instance;
         
@@ -524,15 +1848,23 @@ public class ElementalInventory : MonoBehaviour {
     }
     public void lowitem(string name, string covert)
     {
+        TryLowItem(name, covert);
+    }
+
+    // Reports whether an existing, nonempty item was actually consumed.
+    private bool TryLowItem(string name, string covert)
+    {
         for (int i = 0; i < Cells.Length; i++)
         {
+            if (foodActionCell >= 0 && i != foodActionCell) continue;
+            if (Cells[i] == null || Cells[i].elementCount <= 0) continue;
             if (Cells[i].elementName == name)
             {
                 Cells[i].elementName = name + "x";
                 Cells[i].elementCount = 1;
                 Cells[i].UpdateCellInterface();
 
-                return;
+                return true;
             }
             if (Cells[i].elementName == name + "x")
             {
@@ -540,7 +1872,7 @@ public class ElementalInventory : MonoBehaviour {
                 Cells[i].elementCount = 1;
                 Cells[i].UpdateCellInterface();
 
-                return;
+                return true;
             }
             if (Cells[i].elementName == name + "xx")
             {
@@ -548,7 +1880,7 @@ public class ElementalInventory : MonoBehaviour {
                 Cells[i].elementCount = 1;
                 Cells[i].UpdateCellInterface();
 
-                return;
+                return true;
             }
 
             if (Cells[i].elementName == name + "xxx")
@@ -557,7 +1889,7 @@ public class ElementalInventory : MonoBehaviour {
                 Cells[i].elementCount = 1;
                 Cells[i].UpdateCellInterface();
 
-                return;
+                return true;
             }
             if (Cells[i].elementName == name + "xxxx")
             {
@@ -565,7 +1897,7 @@ public class ElementalInventory : MonoBehaviour {
                 Cells[i].elementCount = 1;
                 Cells[i].UpdateCellInterface();
 
-                return;
+                return true;
             }
             if (Cells[i].elementName == name + "xxxxx")
             {
@@ -581,9 +1913,10 @@ public class ElementalInventory : MonoBehaviour {
                 }
                 Cells[i].UpdateCellInterface();
 
-                return;
+                return true;
             }
         }
+        return false;
     }
     public void lowioncube(string name)
     {
@@ -2037,7 +3370,7 @@ public class ElementalInventory : MonoBehaviour {
                             CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/"+ Cells[selectr].elementName.Replace("co!","") + ".txt"));
                             if (cod.standartKey == StandartKey.E)
                             {
-                                CustomFunctionalItem(cod);
+                                CustomFunctionalItem(cod, selectr);
                             }
                
 
@@ -2055,7 +3388,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
-                                CustomFunctionalItem(cod);
+                                CustomFunctionalItem(cod, selectr);
                             }
 
                
@@ -2076,7 +3409,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
-                                CustomFunctionalItem(cod);
+                                CustomFunctionalItem(cod, selectr);
                             }
              
 
@@ -2095,7 +3428,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
-                                CustomFunctionalItem(cod);
+                                CustomFunctionalItem(cod, selectr);
                             }
 
              
@@ -2130,49 +3463,17 @@ public class ElementalInventory : MonoBehaviour {
         //ionic_cube
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("file_рыбы") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("file_рыбы", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("file_рыбы");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("belock") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-            int i = (int)Global.Random.Range(0, 3);
-            if (i == 0)
-            {
-                Instantiate(Resources.Load("voices/belock"));
-            }
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("belock", "seed");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("belock");
         }
         //4Dvkusnashka
         //СвитокПравды
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("4Dvkusnashka") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-            playerdata.Addeffect("Trin", 60);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("4Dvkusnashka", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("4Dvkusnashka");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗлойМультик") != 0 && main() == this)
         {
@@ -2198,323 +3499,81 @@ public class ElementalInventory : MonoBehaviour {
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Grib") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-            playerdata.Addeffect("Trip", 60);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Grib", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Grib");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Vodka(100 градусов)") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-            playerdata.Addeffect("Trip", 120);
-            DirectoryInfo directory = new DirectoryInfo("res/UserWorckspace/Iterface");
-            FileInfo[] now = directory.GetFiles();
-            for (int i = 0; i < 1; i++)
-            {
-                Acaunt.Spawn((now[Random.Range(0, now.Length)].Name).Replace(".json", ""));
-            }
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Vodka(100 градусов)", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Vodka(100 градусов)");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("СамагонДеда") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            playerdata.Addeffect("InfaltionUp", 120);
-            playerdata.Addeffect("MetabolismUp", 120);
-            playerdata.Addeffect("Tripl3", 120);
-            DirectoryInfo directory = new DirectoryInfo("res/UserWorckspace/Iterface");
-            FileInfo[] now = directory.GetFiles();
-            for (int i = 0; i < 7; i++)
-            {
-                Acaunt.Spawn((now[Random.Range(0, now.Length)].Name).Replace(".json", ""));
-            }
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("СамагонДеда", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("СамагонДеда");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Гашиш") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            playerdata.Addeffect("mild hangover", 120);
-            playerdata.Addeffect("Tripl3", 120);
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Гашиш", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Гашиш");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("U") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("U", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("U");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("пильмени") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("пильмени", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("пильмени");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Мусор") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Meats", 1);
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Мусор", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Мусор");
         }
       
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Мясо") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Meats",1);
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            if (Global.Random.Chance(10)) VarSave.SetInt("libirist", 0);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Мясо", "Ca");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Мясо");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Клевер") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Клевер", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Клевер");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Капуста") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Капуста", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Капуста");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Летун") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            VarSave.LoadMoney("Meats", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Летун", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Летун");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Pizza") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            VarSave.LoadMoney("Meats", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Pizza", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Pizza");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Пиво") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            VarSave.LoadMoney("Meats", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Пиво", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Пиво");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Лепёха") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            VarSave.LoadMoney("Meats", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Лепёха", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Лепёха");
         }
         //Борщ
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Борщ") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadMoney("Tears", 1);
-            VarSave.LoadMoney("Relics", 1);
-
-            VarSave.LoadMoney("Meats", 1);
-
-            playerdata.Addeffect("Undyning", float.PositiveInfinity);
-            playerdata.Addeffect("Шизфрения", float.PositiveInfinity);
-            playerdata.Addeffect("mild hangover", float.PositiveInfinity);
-            playerdata.Addeffect("Trin", float.PositiveInfinity);
-            playerdata.Addeffect("Совиное Зрение", float.PositiveInfinity);
-            playerdata.Addeffect("Metabolism", float.PositiveInfinity);
-
-
-
-            VarSave.LoadFloat("mana", 100f);
-            lowitem("Борщ", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Борщ");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ДомТорт") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Clumbs", 1);
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("ДомТорт", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ДомТорт");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Взрыв") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Взрыв", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Взрыв");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Water") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Water", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Water");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("TreeMaodelbulb") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("TreeMaodelbulb", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("TreeMaodelbulb");
         }//FreedomHat
         if (GlobalInputMenager.KeyCode_eat == 1 && Cells[selectr].elementName == "GPU"
          && Cells[selectr].elementCount > 0 && main() == this)
@@ -2669,34 +3728,11 @@ public class ElementalInventory : MonoBehaviour {
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Fire") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Fire", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Fire");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("BlackGrib") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-            playerdata.Addeffect("Trip", 120);
-
-            playerdata.Addeffect("BigShot", 100);
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("BlackGrib", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("BlackGrib");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье_Чистки_Инвенторя") != 0 && main() == this)
         {
@@ -2713,332 +3749,79 @@ public class ElementalInventory : MonoBehaviour {
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Non-exist-colour-Grib") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-            playerdata.Addeffect("Tripl3", 120);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Non-exist-colour-Grib", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Non-exist-colour-Grib");
         }
         //Non-exist-colour-Grib
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("jeltok") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("jeltok", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("jeltok");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("mad") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Meats", 1);
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            playerdata.Addeffect("Tripl2", 600);
-
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("mad", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("mad");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Скалапендра") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Meats", 1);
-
-            //  Instantiate(Resources.Load("voices/belock"));
-
-            cistalenemy.dies += 100;
-            playerdata.Addeffect("Tripl2", 600);
-
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("Скалапендра", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Скалапендра");
         }
         //Скалапендра
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("sosisca") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Meats", 1);
-
-            VarSave.LoadMoney("Shits", 1);
-
-
-            int i = (int)Global.Random.Range(0, 6);
-            if (i == 0)
-            {
-                //  Instantiate(Resources.Load("voices/belock"));
-                playerdata.Addeffect("Trip", 60);
-            }
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("sosisca", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("sosisca");
         }
         //RedColour
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("RedColour") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            //  Instantiate(Resources.Load("voices/belock"));
-            playerdata.Cleareffect();
-
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("RedColour", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("RedColour");
         }
         //AnyphingJuice
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("AnyphingJuice") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Clumbs", 1);
-
-            VarSave.LoadMoney("Meats", 1);
-
-            VarSave.LoadMoney("Relics", 1);
-
-            VarSave.LoadMoney("Tears", 1);
-
-            VarSave.LoadMoney("Shits", 1);
-
-
-            Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
-
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("AnyphingJuice", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("AnyphingJuice");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("MalineColour") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            Instantiate(Resources.Load<GameObject>("Right_of_Fly"));
-
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("MalineColour", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("MalineColour");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("BlueColour") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            int i = (int)Global.Random.Range(0, 2);
-            if (i == 0)
-            {
-                playerdata.Addeffect("invisible", 60);
-            }
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("BlueColour", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("BlueColour");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("GreenColour") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            int i = (int)Global.Random.Range(0, 2);
-            if (i == 0)
-            {
-                playerdata.Addeffect("Axelerate", 60);
-            }
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("GreenColour", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("GreenColour");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("UltravioletColour") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            int i = (int)Global.Random.Range(0, 2);
-            if (i == 0)
-            {
-                playerdata.Addeffect("MetabolismUp", 60);
-            }
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("UltravioletColour", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("UltravioletColour");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Pipis") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-            int i = (int)Global.Random.Range(0, 20);
-            if (i == 0)
-            {
-                playerdata.Addeffect("BigShot", 600);
-
-            }
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("Pipis", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Pipis");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Cat") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Meats", 1);
-            cistalenemy.dies += 100;
-
-            VarSave.LoadFloat("mana", 1f);
-            VarSave.SetInt("libirist", 0);
-            if (FindAnyObjectByType<Lederist>())
-            {
-
-                VarSave.SetBool("lol you Banned", true);
-                SceneManager.LoadSceneAsync("Banned forever");
-            }
-            lowitem("Cat", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Cat");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Absolute_poison") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Shits", 1);
-
-
-            playerdata.Addeffect("BigShot", 600);
-            playerdata.Addeffect("MetabolismUp", 600);
-            playerdata.Addeffect("Axelerate", 600);
-            playerdata.Addeffect("invisible", 600);
-            playerdata.Addeffect("Trip", 600);
-            playerdata.Addeffect("Tripl2", 600);
-
-            VarSave.SetInt("libirist", 0);
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("Absolute_poison", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Absolute_poison");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Absolute_poison_II") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Shits", 1);
-
-
-            playerdata.Addeffect("BigShot", 600);
-            playerdata.Addeffect("MetabolismUp", 600);
-            playerdata.Addeffect("Axelerate", 600);
-            playerdata.Addeffect("invisible", 600);
-            playerdata.Addeffect("Trip", 600);
-            playerdata.Addeffect("Tripl2", 600);
-            playerdata.Addeffect("KsenoMorfin", 600);
-            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
-            playerdata.Addeffect("Regeneration", 600);
-            playerdata.Addeffect("ImbalenceRegeneration", 600);
-            playerdata.Addeffect("severe hangover", 600);
-            playerdata.Addeffect("InfaltionUp", 600);
-
-            VarSave.SetInt("libirist", 0);
-            VarSave.LoadFloat("mana", 1f);
-            playerdata.FreezeAlleffect();
-
-            lowitem("Absolute_poison_II", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Absolute_poison_II");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("KsenoMorfin") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Shits", 1);
-
-
-            playerdata.Addeffect("KsenoMorfin", 600);
-            VarSave.SetInt("CurrentMorf", (int)Global.Random.Range(0, Map_saver.t5.Length));
-            VarSave.LoadFloat("mana", 1f);
-            GameManager.saveandhill();
-            lowitem("KsenoMorfin", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
-            StartCoroutine(ReloadScene());
-
+            ExecuteFoodAction("KsenoMorfin");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("StoneJuice") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("StoneJuice", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("StoneJuice");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("AppleJuice") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadFloat("mana", 1f);
-
-            playerdata.Addeffect("Regeneration", 600);
-
-
-
-            lowitem("AppleJuice", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("AppleJuice");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("WarQuest") != 0 && main() == this)
         {
@@ -3057,109 +3840,35 @@ public class ElementalInventory : MonoBehaviour {
 
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("DamageJuice") != 0 && main() == this)
         {
-
-
-            GameManager.saveandDamage();
-            VarSave.LoadMoney("Shits", 1);
-
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-
-            lowitem("DamageJuice", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("DamageJuice");
         }
         //ЗельеМанны
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("YourJuice") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            playerdata.Addeffect("ImbalenceRegeneration", 600);
-
-            lowitem("YourJuice", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("YourJuice");
         }
         //Зелье(БуйнойУдачи)
         //Зелье(Неудачи)
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(БуйнойУдачи)") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-
-            VarSave.LoadFloat("luck", 10f);
-
-            lowitem("Зелье(БуйнойУдачи)", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Зелье(БуйнойУдачи)");
         }
         //Зелье(Удачи)
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(Неудачи)") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            VarSave.SetFloat("luck", 0f);
-
-            lowitem("Зелье(Неудачи)", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Зелье(Неудачи)");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье(Удачи)") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            VarSave.LoadFloat("mana", 1f);
-            VarSave.LoadFloat("luck", 0.1f);
-
-            lowitem("Зелье(Удачи)", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Зелье(Удачи)");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеМанны") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-
-            VarSave.LoadFloat("mana", 5);
-
-            lowitem("ЗельеМанны", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ЗельеМанны");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеИстощения") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-
-
-
-            VarSave.SetFloat("mana", 0);
-
-            lowitem("ЗельеМанны", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ЗельеИстощения");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("УнивёрсиумнаяКарточка") != 0 && main() == this)
         {
@@ -3176,48 +3885,11 @@ public class ElementalInventory : MonoBehaviour {
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Vine") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadMoney("Meats", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-            if (playerdata.Geteffect("mild hangover") != null)
-            {
-                playerdata.Upeffect("mild hangover", 60);
-                if (playerdata.Geteffect("mild hangover").time >= 400)
-                {
-                    playerdata.Addeffect("severe hangover", 400);
-                }
-            }
-            if (playerdata.Geteffect("mild hangover") == null) playerdata.Addeffect("mild hangover", 100);
-
-
-
-            lowitem("Vine", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Vine");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Дтine") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadMoney("Meats", 1);
-
-            playerdata.Addeffect("Шизфрения", 600);
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("Дтine", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Дтine");
         }
         //РекламаАрмии
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("РекламаАрмии") != 0 && main() == this)
@@ -3239,213 +3911,64 @@ public class ElementalInventory : MonoBehaviour {
         //КамунийскийХлеб
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("HotDog") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            Instantiate(Resources.Load<GameObject>("Блювота"));
-            VarSave.LoadMoney("Clumbs", 1);
-            VarSave.LoadMoney("Meats", 1);
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("HotDog", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("HotDog");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Shaverma") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Clumbs", 1);
-            VarSave.LoadMoney("Meats", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("Shaverma", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Shaverma");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("КамунийскийХлеб") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Clumbs", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("КамунийскийХлеб", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("КамунийскийХлеб");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Хлеб") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Clumbs", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            lowitem("Хлеб", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Хлеб");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("EffectFreezer") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-
-            playerdata.FreezeAlleffect();
-
-
-            lowitem("EffectFreezer", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("EffectFreezer");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("EffectBaker") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadMoney("Shits", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-
-            playerdata.BakeAlleffect();
-
-            lowitem("EffectBaker", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("EffectBaker");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Метанфитамин") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-
-            playerdata.Addeffect("meat", 600);
-
-            lowitem("Метанфитамин", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Метанфитамин");
         }
         //ChaosPoution
 
         // ЗельеВамперизма
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеВамперизма") != 0 && main() == this)
         {
-
-            VarSave.LoadFloat("mana", 1f);
-            playerdata.Addeffect("Vampaire", 740);
-            lowitem("ЗельеВамперизма", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ЗельеВамперизма");
         }
         //Nuclear_plant
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Nuclear_plant") != 0 && main() == this)
         {
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Shits", 1);
-            for (int i = 0; i < 5; i++)
-            {
-
-
-                Transform t = Instantiate(inv2("Взрыв").gameObject, mover.main().transform.position, Quaternion.identity).transform;
-            }
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("Nuclear_plant", "Взрыв");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Nuclear_plant");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ChaosPoution") != 0 && main() == this)
         {
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Shits", 1);
-            for (int i = 0; i < 5; i++)
-            {
-
-
-                Transform t = Instantiate(inv2("Chaos_cube").gameObject, mover.main().transform.position, Quaternion.identity).transform; if (t.GetComponent<itemName>())
-                    Chaos_cube.ChaosFunction(t.GetComponent<Chaos_cube>());
-            }
-
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("ChaosPoution", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ChaosPoution");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеСовы") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            playerdata.Addeffect("Совиное Зрение", 600);
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("ЗельеСовы", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ЗельеСовы");
         }
         //ЗельеТупости
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеТупости") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            playerdata.Addeffect("Тупость", 600);
-            VarSave.LoadFloat("BGPU", -0.1f);
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("ЗельеТупости", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ЗельеТупости");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("ЗельеВсеЗрения") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-
-            playerdata.Addeffect("Все Зрение", 600);
-            VarSave.LoadFloat("mana", 1f);
-            lowitem("ЗельеВсеЗрения", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("ЗельеВсеЗрения");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Зелье_-1FPS") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadFloat("mana", 1f);
-
-            playerdata.Addeffect("-1FPS", 30);
-            playerdata.Saveeffect();
-            lowitem("Зелье_-1FPS", "Колба");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Зелье_-1FPS");
         }
         //БилетБезплано
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("БилетБезплано") != 0 && main() == this)
@@ -3465,45 +3988,16 @@ public class ElementalInventory : MonoBehaviour {
         //  █_█__██
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("IcyCube") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadMoney("Relics", 1);
-
-
-            VarSave.LoadFloat("mana", 1f);
-            cistalenemy.dies += 1;
-            lowitem("IcyCube", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("IcyCube");
         }
         //Таблетки_для_GodMode
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("Таблетки_для_GodMode") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-            VarSave.LoadMoney("Shits", 1);
-
-            VarSave.LoadFloat("mana", 1f);
-            playerdata.Addeffect("█_GodMode_█", float.PositiveInfinity);
-            lowitem("Таблетки_для_GodMode", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("Таблетки_для_GodMode");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && priaritet("█_█__██") != 0 && main() == this)
         {
-
-
-            GameManager.saveandhill();
-
-
-            VarSave.LoadFloat("mana", 1f);
-            playerdata.Addeffect("█_█__██", 30);
-
-            lowitem("█_█__██", "");
-            GlobalInputMenager.KeyCode_eat = 0;
+            ExecuteFoodAction("█_█__██");
         }
         if (GlobalInputMenager.KeyCode_eat == 1 && main() == this
               && Cells[selectr].elementName == "ItemSandFromMinecraft" && Cells[selectr].elementCount > 0)
@@ -4632,8 +5126,18 @@ public class ElementalInventory : MonoBehaviour {
         if (mover.main().DNA.talant == null) mover.main().DNA.talant = new List<int>(2) { 0, 0 }; else if (mover.main().DNA.talant != null) if (mover.main().DNA.talant.Count == 0) mover.main().DNA.talant = new List<int>(2) { 0, 0 };
     }
 
-    private void CustomFunctionalItem(CustomObjectData cod)
+    private void CustomFunctionalItem(CustomObjectData cod, int usedCell)
     {
+        if (cod == null) return;
+        string consumedCoName = null;
+        if (cod.functional == Functional.steyk)
+        {
+            if (usedCell < 0 || usedCell >= Cells.Length || Cells[usedCell] == null
+                || Cells[usedCell].elementCount <= 0
+                || string.IsNullOrEmpty(Cells[usedCell].elementName)
+                || !Cells[usedCell].elementName.StartsWith("co!")) return;
+            consumedCoName = Cells[usedCell].elementName;
+        }
         mover m = mover.main();
         if (cod.functional == Functional.user)
         {
@@ -4709,8 +5213,9 @@ public class ElementalInventory : MonoBehaviour {
         }
         if (cod.functional == Functional.steyk)
         {
-            setItem("", 0, Color.red, select);
-            Cells[select].UpdateCellInterface();
+            setItem("", 0, Color.red, usedCell);
+            Cells[usedCell].UpdateCellInterface();
+            RestoreFoodAfterEating(consumedCoName, true);
         }
     }
     public string itemselect;
@@ -4794,7 +5299,7 @@ public class ElementalInventory : MonoBehaviour {
 
 
 
-                                        CustomFunctionalItem(cod);
+                                        CustomFunctionalItem(cod, select);
                                     }
 
                        
@@ -4937,94 +5442,7 @@ public class ElementalInventory : MonoBehaviour {
          
             if (resy && main() == this && !nosell)
             {
-
-
-
-                Globalprefs.selectitem = "";
-                RaycastHit hit = MainRay.MainHit;
-
-                if (hit.collider.gameObject.layer != 3)
-                {
-                  if(hit.collider.GetComponent<itemName>()){  if (hit.collider && Cells[select].elementCount == 0 && tag1(hit.collider.tag) && tag2(hit.collider.gameObject) && hit.collider.GetComponent<itemName>())
-                    {
-
-                        if (!VarSave.ExistenceVar("researchs/" + fullname(hit)))
-                        {
-                            Directory.CreateDirectory("unsave/var/researchs");
-
-
-                            VarSave.LoadMoney("research", 1);
-
-                            Globalprefs.research = VarSave.GetMoney("research");
-                            VarSave.SetInt("researchs/" + fullname(hit), 0);
-
-                        }
-                        if (VarSave.GetString("Relic") == fullname(hit))
-                        {
-                            VarSave.LoadFloat("reason", 3);
-                        }
-
-                        setItem(fullname(hit), 1, Color.red, hit.collider.GetComponent<itemName>().ItemData, (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
-                            + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
-                            + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(new itemName().modsStats)), select);
-                        Cells[select].UpdateCellInterface();
-                        sh = true;
-
-                    }
-				  }
-                    else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<StandartObject>())
-                    {
-
-
-                        if (!VarSave.ExistenceVar("researchs/" + fullname(hit)))
-                        {
-                            Directory.CreateDirectory("unsave/var/researchs");
-
-
-                            VarSave.LoadMoney("research", 1);
-
-                            Globalprefs.research = VarSave.GetMoney("research");
-                            VarSave.SetInt("researchs/" + fullname(hit), 0);
-
-                        }
-                        if (VarSave.GetString("Relic") == fullname(hit))
-                        {
-                            VarSave.LoadFloat("reason", 3);
-                        }
-                        setItem(fullname(hit), 1, Color.red, select);
-                        Cells[select].UpdateCellInterface();
-                        sh = true;
-
-                    }
-                    else if (hit.collider && Cells[select].elementCount == 0 && hit.collider.GetComponent<CustomObject>())
-                    {
-
-                        CustomObject co = hit.collider.GetComponent<CustomObject>();
-
-                        if (VarSave.GetString("Relic") == fullname(hit))
-                        {
-                            VarSave.LoadFloat("reason", 3);
-                        }
-                        setItem("co!" + co.s, 1, Color.red, "6", (hit.collider.GetComponent<Slave>() == true ? "Slave" : "") + "♥"
-                            + (hit.collider.GetComponent<CharacterStats>() == true ? JsonUtility.ToJson(hit.collider.GetComponent<CharacterStats>().data) : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? hit.collider.GetComponent<Slave>().slaveData : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
-                            + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
-                            + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(new itemName().modsStats)), select);
-                        Destroy(co.gameObject);
-
-                        Cells[select].UpdateCellInterface();
-                        sh = true;
-
-                    }
-
-                }
-
-
-
+                TryPickupIntoCell(MainRay.MainHit, select);
             }
             if (resy && main() == this && !nosell)
             {
@@ -5041,6 +5459,7 @@ public class ElementalInventory : MonoBehaviour {
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
                             + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(new itemName().modsStats)), select);
+                        Cells[select].elementSocial = MobNeedsBridge.AppendSocial(hit.collider.gameObject, Cells[select].elementSocial);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -5061,6 +5480,7 @@ public class ElementalInventory : MonoBehaviour {
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().WorkQualityTEVRO : "") + "♥"
                             + (hit.collider.GetComponent<Slave>() == true ? "" + hit.collider.GetComponent<Slave>().solarytimeold : "") + "♥"
                             + (hit.collider.GetComponent<itemName>() == true ? "" + JsonUtility.ToJson(hit.collider.GetComponent<itemName>().modsStats) : "" + JsonUtility.ToJson(new itemName().modsStats)), select);
+                        Cells[select].elementSocial = MobNeedsBridge.AppendSocial(hit.collider.gameObject, Cells[select].elementSocial);
                         Cells[select].UpdateCellInterface();
                         sh = true;
 
@@ -5245,7 +5665,8 @@ public class ElementalInventory : MonoBehaviour {
     private void LoadSocial(Transform body)
     {
         body.localScale *= mover.main().transform.localScale.y;
-        string[] SocialAspects = Cells[select].elementSocial.Split('♥');
+        string[] SocialAspects = (Cells[select].elementSocial ?? "").Split('♥');
+        MobNeedsBridge.RestoreSocial(body.gameObject, SocialAspects);
         if (SocialAspects.Length > 0) if (SocialAspects[0] == "Slave")
             {
                 body.gameObject.AddComponent<Slave>();

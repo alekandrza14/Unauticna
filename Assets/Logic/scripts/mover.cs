@@ -3014,6 +3014,13 @@ void CreateCameraTexture(Camera camera)
         }
     }
 private GameObject oxygenUI;
+RaycastCubeBuilder sali;
+public void BuildRejimeActive()
+{
+	if(sali==null) sali =  FindFirstObjectByType<RaycastCubeBuilder>();
+	sali.enabled = true; 
+	
+}
 private bool lightFromFile;private RawImage sanImage;
 private void FindOxygenUI()
 {
@@ -3264,6 +3271,7 @@ private void FindOxygenUI()
 			data_Karma = VarSave.GetMoney("Karma");
 			data_inflation = VarSave.GetMoney("Inflation", SaveType.global);
 			Globalprefs.Reality = VarSave.GetTrash("RealityX");
+			  mainCamera = Camera.main;
 		}
 		 if (Time.time >= nextRefresh)
     {
@@ -3934,7 +3942,32 @@ private void FindOxygenUI()
     }
     float ftho;
     bool isKinematic;
-    bool Smuta;
+    [SerializeField] public bool Smuta;
+    public bool NeedsRest { get; private set; }
+    private bool smutaBeforeNeedsRest;
+
+    public void SetNeedsRest(bool value)
+    {
+        if (NeedsRest == value) return;
+        NeedsRest = value;
+        if (value)
+        {
+            smutaBeforeNeedsRest = Smuta;
+            Smuta = true;
+            // Stop existing player momentum once; gravity and collisions remain active.
+            var body = GetComponent<Rigidbody>();
+            if (body != null && !body.isKinematic)
+            {
+                body.linearVelocity = Vector3.zero;
+                body.angularVelocity = Vector3.zero;
+            }
+        }
+        else
+        {
+            Smuta = smutaBeforeNeedsRest;
+            if (!Smuta) transform.rotation = Quaternion.identity;
+        }
+    }
     float movegrag;
     static float speed = 8;
     private void GostUpdate()
@@ -4052,6 +4085,17 @@ private void FindOxygenUI()
     }
     private void MoveUpdate()
     {
+        if (NeedsRest)
+        {
+            Smuta = true;
+            Sprint = false;
+            JumpTimer = 0f;
+            rigidbody3d.freezeRotation = false;
+            rigidbody3d.useGravity = true;
+            rigidbody3d.linearDamping = 3f;
+            if (animator != null) animator.SetFloat("MoveVelosity", 0f);
+            return;
+        }
 		var xbox2 = VarSave.GetBool("Xbox");
 		var xbox = Input_Get.Xbox();
 		RaycastHit hit;
