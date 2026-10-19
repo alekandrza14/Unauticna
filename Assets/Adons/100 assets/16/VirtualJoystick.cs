@@ -1,79 +1,24 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class VirtualJoystick :
-    MonoBehaviour,
-    IDragHandler,
-    IPointerUpHandler,
-    IPointerDownHandler
+public class VirtualJoystick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointerDownHandler
 {
     public RectTransform handle;
-
     public AndroidGamepad network;
-
-    private Vector2 input;
-
-    public void OnPointerDown(
-        PointerEventData eventData)
+    RectTransform rect;
+    void Awake() { rect = transform as RectTransform; }
+    public void OnPointerDown(PointerEventData data) { OnDrag(data); }
+    public void OnDrag(PointerEventData data)
     {
-        OnDrag(eventData);
+        if (rect == null) return;
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, data.position, data.pressEventCamera, out var pos)) return;
+        Vector2 center = rect.rect.center;
+        var input = Vector2.ClampMagnitude(new Vector2((pos.x - center.x) / Mathf.Max(1, rect.rect.width * 0.5f),
+            (pos.y - center.y) / Mathf.Max(1, rect.rect.height * 0.5f)), 1);
+        if (handle != null) handle.anchoredPosition = input * 100;
+        if (network != null) network.SendJoystick(input.x, input.y);
     }
-
-    public void OnDrag(
-        PointerEventData eventData)
-    {
-        RectTransform rect =
-            transform as RectTransform;
-
-        Vector2 pos;
-
-        RectTransformUtility.
-        ScreenPointToLocalPointInRectangle(
-            rect,
-            eventData.position,
-            eventData.pressEventCamera,
-            out pos);
-
-        pos.x /= rect.sizeDelta.x;
-        pos.y /= rect.sizeDelta.y;
-
-        input = new Vector2(
-            pos.x * 2,
-            pos.y * 2);
-
-        input = Vector2.ClampMagnitude(
-            input,
-            1);
-
-        handle.anchoredPosition =
-            new Vector2(
-                input.x * 100,
-                input.y * 100);
-
-      //  network.SendJoystick(
-    //        input.x,
-      //      input.y);
-    }
-    float timer;
-
-    void Update()
-    {
-        timer += Time.deltaTime;
-
-        if (timer > 0.02f) // 50 FPS отправка
-        {
-            timer = 0;
-            network.SendJoystick(input.x, input.y);
-        }
-    }
-    public void OnPointerUp(
-        PointerEventData eventData)
-    {
-        input = Vector2.zero;
-
-        handle.anchoredPosition =
-            Vector2.zero;
-
-        network.SendJoystick(0,0);
-    }
+    public void OnPointerUp(PointerEventData data) { Release(); }
+    void Release() { if (handle != null) handle.anchoredPosition = Vector2.zero; if (network != null) network.SendJoystick(0, 0); }
+    void OnDisable() { Release(); }
 }

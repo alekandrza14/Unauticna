@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Unauticna.Mechanics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,6 +67,78 @@ public enum faceView
 
 public class mover : CustomSaveObject
 {
+    // Media Studio: created lazily by F9/F10; existing movement stays in mover.
+    private bool mediaStudioOwnsPause, mediaStudioPreviousPause;
+    private bool MediaStudioTick()
+    {
+        if (PhotonNetwork.IsConnected && (photonView == null || !photonView.IsMine)) return false;
+        bool editing = Unauticna.MediaStudio.MediaStudioHost.PlayerUpdate(PlayerCamera);
+        if (editing)
+        {
+            if (!mediaStudioOwnsPause)
+            {
+                mediaStudioPreviousPause = Globalprefs.Pause;
+                mediaStudioOwnsPause = true;
+            }
+            Globalprefs.Pause = true;
+            return true;
+        }
+        MediaStudioReleasePause();
+        return false;
+    }
+    private void MediaStudioReleasePause()
+    {
+        if (!mediaStudioOwnsPause) return;
+        Globalprefs.Pause = mediaStudioPreviousPause;
+        mediaStudioOwnsPause = false;
+    }
+    public void OpenMediaStudio() => Unauticna.MediaStudio.MediaStudioHost.OpenEditor(PlayerCamera);
+    public void ToggleVideoRecording() => Unauticna.MediaStudio.MediaStudioHost.TogglePlayerRecording(PlayerCamera);
+
+
+    sealed class MechanicTimer
+    {
+        public string name; public float delay, repeat; public bool running;
+    }
+    readonly List<MechanicTimer> mechanicTimers = new List<MechanicTimer>();
+    float nextStrategyScan, nextTalentScan, nextPostrenderScan, nextInputSettings;
+    bool cachedXboxMode, creativeAvailable, mechanicStarted, mechanicRaymarchWasOn;
+    JSPlayer mechanicJs;
+    bool CachedXboxMode
+    {
+        get { if (Time.unscaledTime >= nextInputSettings) { nextInputSettings = Time.unscaledTime + 0.5f; cachedXboxMode = VarSave.GetBool("Xbox"); } return cachedXboxMode; }
+    }
+    void ScheduleMechanic(string name, float delay, float repeat)
+    {
+        mechanicTimers.Add(new MechanicTimer { name = name, delay = delay, repeat = repeat });
+        RefreshMechanicTimers();
+    }
+    void RefreshMechanicTimers()
+    {
+        foreach (var timer in mechanicTimers)
+        {
+            bool wanted = nameIsCore(timer.name) || PlayerMechanics.Active(MechanicId.WorldEvents);
+            if (wanted == timer.running) continue;
+            timer.running = wanted;
+            if (wanted) InvokeRepeating(timer.name, timer.delay, timer.repeat); else CancelInvoke(timer.name);
+        }
+    }
+    static bool nameIsCore(string name) { return name == "ResetSpace" || name == "reasonUpdate"; }
+    void MechanicSettingsChanged()
+    {
+        RefreshMechanicTimers();
+        creativeAvailable = PlayerMechanics.Active(MechanicId.Creative) && Directory.Exists("debug");
+        if (!PlayerMechanics.Active(MechanicId.Dimensions)) { new_offset = Vector3.zero; Globalprefs.customcenter = Vector3.zero; }
+        bool raymarchOn = PlayerMechanics.Active(MechanicId.Raymarch);
+        if (!raymarchOn && mechanicRaymarchWasOn) { Globalprefs.RaymarchOn = false; if (postrender.main() != null) postrender.main().Disable(); }
+        mechanicRaymarchWasOn = raymarchOn;
+        if (sali != null) sali.enabled = PlayerMechanics.Active(MechanicId.Building);
+        if (!mechanicStarted) return;
+        if (PlayerMechanics.Active(MechanicId.CustomScripts) && mechanicJs == null)
+        { mechanicJs = GetComponent<JSPlayer>(); if (mechanicJs == null) mechanicJs = gameObject.AddComponent<JSPlayer>(); }
+        if (mechanicJs != null) mechanicJs.enabled = PlayerMechanics.Active(MechanicId.CustomScripts);
+    }
+
 
     public GameObject PlayerBody;
     public GameObject PlayerCamera;
@@ -175,7 +248,9 @@ public class mover : CustomSaveObject
     public static RaymarchCam maincam4;
     public static RaymarchCam Get4DCam()
     {
-        if (!maincam4) maincam4 = mover.main().PlayerCamera.GetComponent<RaymarchCam>(); else return maincam4 = mover.main().PlayerCamera.GetComponent<RaymarchCam>();
+        var player = mover.main();
+        if (player == null || player.PlayerCamera == null) return null;
+        if (maincam4 == null) maincam4 = player.PlayerCamera.GetComponent<RaymarchCam>();
         return maincam4;
     }
     DateTime timeUnauticna()
@@ -222,6 +297,8 @@ public class mover : CustomSaveObject
     }
     void Building()
     {
+        if (!PlayerMechanics.Active(MechanicId.Building)) return;
+
 
         string vaule1;
         string vaule2;
@@ -536,6 +613,9 @@ public class mover : CustomSaveObject
     //Пробуждение кода
     private void Awake()
     {
+        PlayerMechanics.Changed += MechanicSettingsChanged;
+        photonView = GetComponent<PhotonView>();
+
        
         if (PhotonNetwork.IsConnected) 
         {
@@ -553,7 +633,7 @@ public class mover : CustomSaveObject
         }
         //  DNA = JsonUtility.FromJson
 #if !UNITY_EDITOR
-        dnSpyModer.MainModData.LoadScene();
+        if (PlayerMechanics.Active(MechanicId.CustomScripts)) dnSpyModer.MainModData.LoadScene();
 #endif
         point = transform.position;
     }
@@ -577,7 +657,7 @@ public class mover : CustomSaveObject
     private void Init()
     {
 		varibleUpdate();
-		var xbox2 = VarSave.GetBool("Xbox");
+		var xbox2 = CachedXboxMode;
 		  rayMarchCollider = GetComponent<PlayerRayMarchCollider>();
     mainCamera = Camera.main;
         //CharactorDebate
@@ -735,7 +815,7 @@ public class mover : CustomSaveObject
             Instantiate(g, Vector3.zero, Quaternion.identity);
         }
         Global.MEM.UE();
-        InvokeRepeating("reasonUpdate", 1, 10);
+        ScheduleMechanic("reasonUpdate", 1, 10);
 
         /*  Collider[] allobj = FindObjectsByType<Collider>(sortmode.main);
           Vector3[] allpos = new Vector3[allobj.Length];
@@ -1265,12 +1345,15 @@ void CreateCameraTexture(Camera camera)
 }
     private void OnGUI()
     {
+        if (Unauticna.MediaStudio.MediaStudioHost.IsOpen) return;
+        if (PlayerMechanics.CapturesInput || Event.current.type != EventType.Repaint) return;
 
 
 
 
 
-        if (metka2.Length != 0)
+
+        if (PlayerMechanics.Active(MechanicId.Markers) && Globalprefs.camera != null && metka2.Length != 0)
         {
             for (int i = 0; i < metka2.Length; i++)
             {
@@ -1291,7 +1374,7 @@ void CreateCameraTexture(Camera camera)
         {
             GUI.DrawTexture(new Rect((Screen.width / 2) - 10, (Screen.height / 2) - 10, 20, 20), cursorTexture);
         }
-        if (Input.GetKey(KeyCode.F8))
+        if (PlayerMechanics.Active(MechanicId.DebugHud) && Input.GetKey(KeyCode.F8))
         {
             GUI.Label(new Rect(0f, 0, 200f, 100f), "Unauticna Alpha*and Omega*-version");
             if (!hyperbolicCamera) GUI.Label(new Rect(0f, 20, 200f, 100f), "Euclidian World Position x : " + new_center.x.ToString() + " y : " + new_center.y.ToString() + " z : " + new_center.z.ToString() + " w : " + W_position.ToString());
@@ -1476,13 +1559,15 @@ void CreateCameraTexture(Camera camera)
 		if (isplanet)
 			planetGravity = GetComponent<PlanetGravity>();
 		
-		simsMover = FindFirstObjectByType<SimsMover>();
-		photoCapture = FindFirstObjectByType<PhotoCapture>();
+				if (PlayerMechanics.Active(MechanicId.Strategy) && simsMover == null) simsMover = FindFirstObjectByType<SimsMover>();
+				if (photoCapture == null && faceViewi != faceView.first) photoCapture = FindFirstObjectByType<PhotoCapture>();
 	}
     void Start()
     {
 		cursorTexture = Resources.Load<Texture>("cursor");
         leng.innichializishon();
+        if (PlayerMechanics.Active(MechanicId.ExternalApps))
+        {
         Process[] processes = Process.GetProcessesByName("MinerRubles.exe");
         if (processes.Length > 0)
         {
@@ -1502,6 +1587,7 @@ void CreateCameraTexture(Camera camera)
         {
 
             hello.windowmesenge.LoadApplication("VoicePlayer");
+        }
         }
         if (VarSave.GetFloat("PetDetermination") > 0)
         {
@@ -1524,7 +1610,7 @@ void CreateCameraTexture(Camera camera)
                 SceneManager.LoadScene("Slave");
             }
         }
-        // InvokeRepeating("GameUpdate", 1, 0.07f);
+        // ScheduleMechanic("GameUpdate", 1, 0.07f);
         gameObject.AddComponent<Conseole_trigger>();
         fog = RenderSettings.fogStartDistance;
         fog2 = RenderSettings.fogEndDistance;
@@ -1582,32 +1668,32 @@ void CreateCameraTexture(Camera camera)
         }
         int Spawnrade = SpawnRadeBonus.m_SpawnRadeBonusList.Count + 1;
         if (PolitDate.IsVersionF(politicfreedom.lidertatian) && PolitDate.IsVersionE(politiceconomic.mind)) Spawnrade += 1;
-           // InvokeRepeating("UpdateTargets", 0, 1);
+           // ScheduleMechanic("UpdateTargets", 0, 1);
         if ((PolitDate.IsGood(politicfreedom.avtoritatian) && cistalenemy.dies>0) || PolitDate.IsGood(politicfreedom.lidertatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
             int i7 = UnityEngine.Random.Range(0,14);
             
 
-                if (i7 == 0)InvokeRepeating("bomjspawn", (60 * 3f) / Spawnrade, (60 * 3) / Spawnrade);
-                if (i7 == 1)InvokeRepeating("мгеspawn", (60 * 5f) / Spawnrade, (60 * 2.7f) / Spawnrade);
-                if (i7 == 2)InvokeRepeating("kilspawn", (60 * 5f) / Spawnrade, (60 * 2.5f) / Spawnrade);
-                if (i7 == 3)InvokeRepeating("Raydspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 4)InvokeRepeating("pirspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 5)InvokeRepeating("Rayhspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
-                if (i7 == 6)InvokeRepeating("spamspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
-            if (i7 == 7) InvokeRepeating("hamspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
-            if (i7 == 8) InvokeRepeating("Karavanspawn", (10f) / Spawnrade, (60 * 2f) / Spawnrade);
-            if (i7 == 9)InvokeRepeating("libspawn", 20f / Spawnrade, 20f / Spawnrade);
-                if (i7 == 10)InvokeRepeating("Ultralibspawn", 10f / Spawnrade, 10f / Spawnrade);
-            if (i7 == 11) InvokeRepeating("LeftAnarhistspawn", 10f / Spawnrade, 10f / Spawnrade);
-            if (i7 == 12) InvokeRepeating("Plantspawn", 10f / Spawnrade, 10f / Spawnrade);
-            if (i7 == 13) InvokeRepeating("libertaectspawn", 10f / Spawnrade, 10f / Spawnrade);
-            InvokeRepeating("NAKOMANightmares", 10f / Spawnrade, 10f / Spawnrade);
+                if (i7 == 0)ScheduleMechanic("bomjspawn", (60 * 3f) / Spawnrade, (60 * 3) / Spawnrade);
+                if (i7 == 1)ScheduleMechanic("мгеspawn", (60 * 5f) / Spawnrade, (60 * 2.7f) / Spawnrade);
+                if (i7 == 2)ScheduleMechanic("kilspawn", (60 * 5f) / Spawnrade, (60 * 2.5f) / Spawnrade);
+                if (i7 == 3)ScheduleMechanic("Raydspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 4)ScheduleMechanic("pirspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 5)ScheduleMechanic("Rayhspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+                if (i7 == 6)ScheduleMechanic("spamspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+            if (i7 == 7) ScheduleMechanic("hamspawn", (60 * 5f) / Spawnrade, (60 * 1.5f) / Spawnrade);
+            if (i7 == 8) ScheduleMechanic("Karavanspawn", (10f) / Spawnrade, (60 * 2f) / Spawnrade);
+            if (i7 == 9)ScheduleMechanic("libspawn", 20f / Spawnrade, 20f / Spawnrade);
+                if (i7 == 10)ScheduleMechanic("Ultralibspawn", 10f / Spawnrade, 10f / Spawnrade);
+            if (i7 == 11) ScheduleMechanic("LeftAnarhistspawn", 10f / Spawnrade, 10f / Spawnrade);
+            if (i7 == 12) ScheduleMechanic("Plantspawn", 10f / Spawnrade, 10f / Spawnrade);
+            if (i7 == 13) ScheduleMechanic("libertaectspawn", 10f / Spawnrade, 10f / Spawnrade);
+            ScheduleMechanic("NAKOMANightmares", 10f / Spawnrade, 10f / Spawnrade);
 
             //libertaectspawn()
         }
-        InvokeRepeating("Portal", 0, 1);
-        if(VarSave.GetInt("Virus")>=1) InvokeRepeating("Virus", 0, 5);
+        ScheduleMechanic("Portal", 0, 1);
+        if(VarSave.GetInt("Virus")>=1) ScheduleMechanic("Virus", 0, 5);
         //  Invoke("Karavanspawn", 10f / Spawnrade);
         //Ultralibspawn
         if (UnityEngine.Random.Range(0, 35) < 1)
@@ -1617,8 +1703,11 @@ void CreateCameraTexture(Camera camera)
         DirectoryInfo dif = new DirectoryInfo("res/UserWorckspace/Vars");
         customVaribles = dif.GetFiles();
         //
-        InvokeRepeating("ResetSpace", 5, 1);
-        gameObject.AddComponent<JSPlayer>();
+        ScheduleMechanic("ResetSpace", 5, 1);
+        if (sali == null) sali = FindFirstObjectByType<RaycastCubeBuilder>(FindObjectsInactive.Include);
+        mechanicJs = GetComponent<JSPlayer>();
+        mechanicStarted = true;
+        MechanicSettingsChanged();
 
     }
     public static string curbutton;
@@ -1629,11 +1718,13 @@ void CreateCameraTexture(Camera camera)
     {
 		varibleUpdate();
         RayCastStars.nravixOverbunds = false;
-		sanImage = _san.GetComponent<RawImage>();
+		if (_san != null && sanImage == null) sanImage = _san.GetComponent<RawImage>();
 		FindOxygenUI();//он не дооступен изначально он создаеться только когда игрок вводе
     }
     public void LoadLuaLogicMacros(string loadedCode)
     {
+        if (!PlayerMechanics.Active(MechanicId.CustomScripts)) return;
+
         TimeButtonMacros = new();
         Key = new();
         //   string scriptCode = @"    
@@ -1687,6 +1778,8 @@ void CreateCameraTexture(Camera camera)
     float timer13;
     public void IRMacros()
     {
+        if (!PlayerMechanics.Active(MechanicId.CustomScripts)) return;
+
         timer13 += 0.01f;
         if (TimeButtonMacros.Count!= 0)
         {
@@ -1735,6 +1828,8 @@ void CreateCameraTexture(Camera camera)
     //РейдерГипопотам
     void NAKOMANightmares()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         //Чёрное_радио
 
 
@@ -1754,6 +1849,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Portal()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         //Чёрное_радио
         if (button6.randomportal1)
         {
@@ -1767,6 +1864,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Virus()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         //Чёрное_радио
         if (!lml1.Find())
         {
@@ -1790,6 +1889,8 @@ void CreateCameraTexture(Camera camera)
     }
     void bomjspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         //Чёрное_радио
         if (VarSave.LoadInt("одинСпамтонПопрошайка" + Map_saver.total_lif + SceneManager.GetActiveScene().name, 1) > 7) if (IfSpawn("Попрашайка")) if (Global.Random.Chance(2))
                 {
@@ -1851,6 +1952,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Raydspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("РейдерГипопотам")) if (!lml2.Find()) if (Global.Random.Chance(2))
                 {
                     if (UnityEngine.Random.Range(0, 9) < 1)
@@ -1892,6 +1995,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Karavanspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
 
         {
             if (UnityEngine.Random.Range(0, 300) < 1)
@@ -1914,6 +2019,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Plantspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
 
         {
             if (UnityEngine.Random.Range(0, 300) < 1)
@@ -1936,6 +2043,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Rayhspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("FashistEnemye")) if (!lml2.Find()) if (Global.Random.Chance(2))
                 {
                     
@@ -1955,6 +2064,8 @@ void CreateCameraTexture(Camera camera)
     }
     void pirspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("Pirat")) if (!lml2.Find()) if (Global.Random.Chance(2))
                 {
                     
@@ -1974,6 +2085,8 @@ void CreateCameraTexture(Camera camera)
     }
     void spamspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("spamton")) if (!lml2.Find()) if (Global.Random.Chance(12))
                 {
                     if (UnityEngine.Random.Range(0, 22) < 1)
@@ -2088,6 +2201,8 @@ void CreateCameraTexture(Camera camera)
     }
     void hamspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (VarSave.GetFloat("Vorast" + "_gameSettings", SaveType.global) > 16)
         {
             if (IfSpawn("БезКультурный")) if (!lml1.Find()) if (Global.Random.Chance(12))
@@ -2149,6 +2264,8 @@ void CreateCameraTexture(Camera camera)
     }
     void kilspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("ПростоУбийца")) if (!lml1.Find()) if (Global.Random.Chance(2))
         {
             for (int i = 0; i < 6; i++)
@@ -2167,6 +2284,8 @@ void CreateCameraTexture(Camera camera)
     }
     void libertaectspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("LGBTTerorist")) if (!lml1.Find()) 
                 {
                     if (Global.Random.Chance(5))
@@ -2188,6 +2307,8 @@ void CreateCameraTexture(Camera camera)
     }
     void libspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("либирист")) if (!lml1.Find()) if (VarSave.ExistenceVar("libirist"))
                 {
                     if (Global.Random.Chance(5))
@@ -2246,6 +2367,8 @@ void CreateCameraTexture(Camera camera)
     }
     void Ultralibspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (!VarSave.ExistenceVar("одинСпамтонСнайпер" + Map_saver.total_lif + SceneManager.GetActiveScene().name)) if (IfSpawn("spamtonСнайпер")) if (!lml1.Find()) if (VarSave.ExistenceVar("ВластныеМести"))
                     {
                         if (Global.Random.Chance(5))
@@ -2287,6 +2410,8 @@ void CreateCameraTexture(Camera camera)
     }
     void LeftAnarhistspawn()
     {
+        if (!PlayerMechanics.Active(MechanicId.WorldEvents) || PlayerMechanics.GameplayBlocked) return;
+
         if (IfSpawn("КлювастаяТварь"))
         {
             if (Global.Random.Chance(5))
@@ -2315,7 +2440,7 @@ void CreateCameraTexture(Camera camera)
 
         if (!tutorial)
         {
-            if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
+            if (Input.GetKeyDown(KeyCode.F2) && !Globalprefs.Pause)
             {
                 if (VarSave.GetFloat(
            "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
@@ -2371,7 +2496,7 @@ void CreateCameraTexture(Camera camera)
         }
         else
         {
-            if (Input.GetKey(KeyCode.F2) && !Globalprefs.Pause)
+            if (Input.GetKeyDown(KeyCode.F2) && !Globalprefs.Pause)
             {
                 if (VarSave.GetFloat(
            "Freedomfil" + "_gameSettings", SaveType.global) >= .1f)
@@ -2429,7 +2554,9 @@ void CreateCameraTexture(Camera camera)
 
     private void TimeLoad(float time)
     {
-        timer10 += Time.unscaledTime/2000f;
+        if (!PlayerMechanics.Active(MechanicId.Timeline)) return;
+
+        timer10 += Time.unscaledDeltaTime;
         bool eboy1 = inputGpress || _n1fps;
         bool eboy2 = !Globalprefs.Pause || _n1fps;
         if (eboy1 && eboy2 && timer10 >= time)
@@ -2561,9 +2688,11 @@ void CreateCameraTexture(Camera camera)
     public void stop()
     {
 
+        if (PlayerMechanics.Active(MechanicId.Dimensions))
+        {
         bool r = !Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.UpArrow);
 
-        if (Directory.Exists("debug") && !Globalprefs.Pause)
+        if (creativeAvailable && !Globalprefs.Pause)
         {
 
 
@@ -2691,16 +2820,17 @@ void CreateCameraTexture(Camera camera)
                 }
             }
         }
+        }
         if (Input.GetKeyDown(KeyCode.F4) && !Globalprefs.Pause)
         {
             Unload();
         }
 
 
-        if (mover.Get4DCam())
+        if (PlayerMechanics.Active(MechanicId.Dimensions))
         {
-            RaymarchCam ra = FindFirstObjectByType<RaymarchCam>();
-            ra._wPosition = W_position;
+            RaymarchCam ra = Get4DCam();
+            if (ra != null) ra._wPosition = W_position;
         }
         if (inglobalspace != true)
         {
@@ -2724,8 +2854,10 @@ void CreateCameraTexture(Camera camera)
     }
     public void Creaive()
     {
+        if (!PlayerMechanics.Active(MechanicId.Creative)) return;
+
         
-        if (Directory.Exists("debug"))
+        if (creativeAvailable)
         {
             fly1();
         }
@@ -2931,6 +3063,13 @@ void CreateCameraTexture(Camera camera)
 	bool inputWpress;
     void Update()
     {
+        if (MediaStudioTick()) return;
+        inputW = Input.GetKeyDown(KeyCode.W);
+        inputWpress = Input.GetKey(KeyCode.W);
+
+        if (PlayerMechanics.SuppressGameplayFrame) return;
+        if (Globalprefs.Pause) return;
+
 		inputA = Input.GetKeyDown(KeyCode.A);
 		inputS = Input.GetKeyDown(KeyCode.S);
 		inputD = Input.GetKeyDown(KeyCode.D);
@@ -3017,9 +3156,18 @@ private GameObject oxygenUI;
 RaycastCubeBuilder sali;
 public void BuildRejimeActive()
 {
-	if(sali==null) sali =  FindFirstObjectByType<RaycastCubeBuilder>();
-	sali.enabled = true; 
+    PlayerMechanics.SetMode(MechanicId.Building, MechanicMode.On);
 	
+    sali = FindFirstObjectByType<RaycastCubeBuilder>(FindObjectsInactive.Include);
+    sali.enabled = true;
+}
+public void BuildRejimeDeactive()
+{
+    PlayerMechanics.SetMode(MechanicId.Building, MechanicMode.On);
+	
+    sali = FindFirstObjectByType<RaycastCubeBuilder>(FindObjectsInactive.Include);
+    sali.enabled = false;
+	waitingact = false;
 }
 private bool lightFromFile;private RawImage sanImage;
 private void FindOxygenUI()
@@ -3030,7 +3178,7 @@ private void FindOxygenUI()
     private void Mulyp()
     {
 		
-		var xbox2 = VarSave.GetBool("Xbox");
+		var xbox2 = CachedXboxMode;
 		 
         if (!Mobile) timermodile += Time.deltaTime;
         newprivate = Input.mousePosition;
@@ -3045,7 +3193,7 @@ private void FindOxygenUI()
             Mobile = true;
             timermodile = 0;
         }
-        if (simsMover!=null)
+        if (PlayerMechanics.Active(MechanicId.Strategy) && simsMover!=null)
         {
             Ray r = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit Hit;
@@ -3053,6 +3201,11 @@ private void FindOxygenUI()
             {
                 if (Hit.collider != null)
                 {
+					if(Input.GetKeyDown(KeyCode.Mouse0))
+					{
+						if(FindFirstObjectByType<buttonAct>()==null&&FindFirstObjectByType<RaycastCubeBuilder>()==null) waitingact = false;
+						if(FindFirstObjectByType<RaycastCubeBuilder>()!=null){if(FindFirstObjectByType<buttonAct>()==null&&!FindFirstObjectByType<RaycastCubeBuilder>().enabled) waitingact = false;}
+					}
                     if (Input.GetKeyDown(KeyCode.Mouse0) && !waitingact)
                     {
                         Instantiate(Resources.Load<GameObject>("SimsInterfcae"), transform);
@@ -3078,11 +3231,11 @@ private void FindOxygenUI()
                             }
                         }
                     }
-        if (Input.GetKeyDown(KeyCode.RightControl))
+        if (PlayerMechanics.Active(MechanicId.Creative) && Input.GetKeyDown(KeyCode.RightControl))
         {
          if(!unityedit)  unityedit = Instantiate(Resources.Load<GameObject>("UnityEditor"), mover.main().transform); else Destroy(unityedit);
         }
-        if (PolitDate.IsGood(politicfreedom.NonPositionalian))
+        if (PlayerMechanics.Active(MechanicId.Creative) && PolitDate.IsGood(politicfreedom.NonPositionalian))
         {
             if (Input.GetKeyDown(KeyCode.F7))
             {
@@ -3105,7 +3258,7 @@ private void FindOxygenUI()
                 process.Start();
             }
         }
-        if (PolitDate.IsGood(politicfreedom.avtoritatian) || PolitDate.IsGood(politicfreedom.NonPositionalian))
+        if (PlayerMechanics.Active(MechanicId.Creative) && (PolitDate.IsGood(politicfreedom.avtoritatian) || PolitDate.IsGood(politicfreedom.NonPositionalian)))
         {
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
@@ -3226,31 +3379,23 @@ private void FindOxygenUI()
                 }
             }
         }
-        if (FindAnyObjectByType<taktikpoint>() == null && FindAnyObjectByType<TeleportButton>() != null)
+        if (PlayerMechanics.Active(MechanicId.Strategy) && Time.unscaledTime >= nextStrategyScan)
         {
-            GameObject g6 = Resources.Load<GameObject>("items/StartegyInterface");
-            Instantiate(g6);
-        }
-        List<TalantDNA> tals = new List<TalantDNA>();
-        if (DNA.talant != null)
-        {
-            if (DNA.talant.Count > 0)
+            nextStrategyScan = Time.unscaledTime + 1f;
+            if (FindAnyObjectByType<taktikpoint>() == null && FindAnyObjectByType<TeleportButton>() != null)
             {
-                tals.Add((TalantDNA)DNA.talant[0]);
-                tals.Add((TalantDNA)DNA.talant[1]);
-                foreach (TalantDNA item in tals)
-                {
-
-                    if (item == TalantDNA.KillGod)
-                    {
-                        DeadGod = true;
-                        CharacterName[] CharacterNames = FindObjectsByType<CharacterName>(sortmode.main);
-                        foreach (CharacterName item2 in CharacterNames)
-                        {
-                            item2.gameObject.AddComponent<DELETE>();
-                        }
-                    }
-                }
+                var resource = Resources.Load<GameObject>("items/StartegyInterface");
+                if (resource != null) Instantiate(resource);
+            }
+        }
+        if (PlayerMechanics.Active(MechanicId.WorldEvents) && Time.unscaledTime >= nextTalentScan)
+        {
+            nextTalentScan = Time.unscaledTime + 1f;
+            if (DNA.talant != null && DNA.talant.Contains((int)TalantDNA.KillGod))
+            {
+                DeadGod = true;
+                foreach (var character in FindObjectsByType<CharacterName>(FindObjectsSortMode.None))
+                    if (character != null && !character.TryGetComponent<DELETE>(out _)) character.gameObject.AddComponent<DELETE>();
             }
         }
 		 if (Time.time >= nextRefresh2)
@@ -3273,21 +3418,18 @@ private void FindOxygenUI()
 			Globalprefs.Reality = VarSave.GetTrash("RealityX");
 			  mainCamera = Camera.main;
 		}
-		 if (Time.time >= nextRefresh)
+		 if (PlayerMechanics.Active(MechanicId.Markers) && Time.time >= nextRefresh)
     {
         nextRefresh = Time.time + 1f;
-        metka2 = FindObjectsByType<Metka>(
-            FindObjectsSortMode.None
-        );
-		if(metka2.Length!= metkaLengthold)
-		{
-		metka = new Texture[metka2.Length];
-		metkaLengthold = metka2.Length;
-		}
+        var found = FindObjectsByType<Metka>(FindObjectsSortMode.None);
+        bool changed = found.Length != metka2.Length;
+        if (!changed) for (int i = 0; i < found.Length; i++) if (found[i] != metka2[i]) { changed = true; break; }
+        metka2 = found;
+        if (changed) { metka = new Texture[found.Length]; metkaLengthold = found.Length; }
     }
        // metka = UpdateTargets();
         
-		if (Time.time >= nextCenterScan)
+		if (PlayerMechanics.Active(MechanicId.Dimensions) && Time.time >= nextCenterScan)
 		{
        
 
@@ -3323,6 +3465,7 @@ private void FindOxygenUI()
 			Globalprefs.customcenter = new_offset;
 		}
 		
+        if (!PlayerMechanics.Active(MechanicId.Dimensions)) new_center = transform.position;
         RaycastHit hit = MainRay.MainHit;
         if (inputQ && !Globalprefs.Pause)
         {
@@ -3470,7 +3613,7 @@ private void FindOxygenUI()
 		}
       
        
-        if (N_position.Count > 7)
+        if (PlayerMechanics.Active(MechanicId.Dimensions) && N_position.Count > 7)
         {
             if (N_position[7] > 6.9f && N_position[7] < 7.9f && !SuperMind)
             {
@@ -3479,7 +3622,7 @@ private void FindOxygenUI()
                 SuperMind = !SuperMind;
             }
         }
-        if (N_position.Count > 3)
+        if (PlayerMechanics.Active(MechanicId.Dimensions) && N_position.Count > 3)
         {
             if (N_position[3] > 9.9f && N_position[3] < 10.9f && !SuperMind)
             {
@@ -3489,18 +3632,18 @@ private void FindOxygenUI()
             }
         }
 #if !UNITY_EDITOR
-        dnSpyModer.MainModData.UpadeteScene();
+        if (PlayerMechanics.Active(MechanicId.CustomScripts)) dnSpyModer.MainModData.UpadeteScene();
 #endif
         //  EffectUpdate();
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !Globalprefs.Pause)
+        if (PlayerMechanics.Active(MechanicId.Dimensions) && Input.GetKeyDown(KeyCode.Alpha2) && !Globalprefs.Pause)
         {
             swapWXALL();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && !Globalprefs.Pause && CosProgress() >= 2)
+        if (PlayerMechanics.Active(MechanicId.Dimensions) && Input.GetKeyDown(KeyCode.Alpha3) && !Globalprefs.Pause && CosProgress() >= 2)
         {
             swapHXALL();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6) && !Globalprefs.Pause)
+        if (PlayerMechanics.Active(MechanicId.Dimensions) && Input.GetKeyDown(KeyCode.Alpha6) && !Globalprefs.Pause)
         {
 
             if (!d2d3)
@@ -3521,7 +3664,7 @@ private void FindOxygenUI()
             }
             d2d3 = !d2d3;
         }
-        foreach (string _script in Globalprefs.SelfFunctions)
+        if (PlayerMechanics.Active(MechanicId.CustomScripts)) foreach (string _script in Globalprefs.SelfFunctions)
         {
             script.Use(_script, script.Lost_Magic_obj);
             Globalprefs.KomplexX++;
@@ -3530,10 +3673,11 @@ private void FindOxygenUI()
         TimeSave();
         //авто-Пост-Ренбер
         PlayerRayMarchCollider ry = rayMarchCollider;
-        if (ry != null)
+        if (PlayerMechanics.Active(MechanicId.Raymarch) && ry != null && Time.unscaledTime >= nextPostrenderScan)
         {
-            if (mainCamera) if (!ry.CenterMarchCast(Globalprefs.camera.GetComponent<Camera>().transform.position,
-                     Globalprefs.camera.GetComponent<Camera>().transform.forward) || Globalprefs.Scrensoting)
+            nextPostrenderScan = Time.unscaledTime + 0.1f;
+            if (mainCamera) if (!ry.CenterMarchCast(mainCamera.transform.position,
+                     mainCamera.transform.forward) || Globalprefs.Scrensoting)
                 {
                     postrender.main().Disable();
                     Globalprefs.RaymarchOn = false;
@@ -3545,7 +3689,11 @@ private void FindOxygenUI()
                     Globalprefs.RaymarchOn = true;
                 }
 
-        }
+        }else
+		{
+			  postrender.main().Disable();
+                    Globalprefs.RaymarchOn = false;
+		}
         //авто-Пост-Ренбер
 
         if (!Globalprefs.Pause) WPositionUpdate();
@@ -3560,7 +3708,7 @@ private void FindOxygenUI()
             planetGravity.gravity = JumpTimer;
         }
         if (playerdata.counteffect() > 0) if (!Globalprefs.Pause || _n1fps) EffectUpdate();
-        if (File.Exists("unsave/capterg/" + SaveFileInputField.text) && Input.GetKeyDown(KeyCode.F3) && !Globalprefs.Pause && !tutorial)
+        if (Input.GetKeyDown(KeyCode.F3) && File.Exists("unsave/capterg/" + SaveFileInputField.text) && !Globalprefs.Pause && !tutorial)
         {
             gsave = JsonUtility.FromJson<GameData>(File.ReadAllText("unsave/capterg/" + SaveFileInputField.text));
             string s = "";
@@ -3584,7 +3732,7 @@ private void FindOxygenUI()
             if (oxy==null)
             {
                 if (!waterscreen) waterscreen = Instantiate(Resources.Load<GameObject>("ui/Screens/Water").gameObject, transform.position, Quaternion.identity);
-                Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
+                oxygenUI = Instantiate(Resources.Load<GameObject>("ui/info/oxygen").gameObject, transform.position, Quaternion.identity);
             }
 
             oxygen -= Time.deltaTime;
@@ -3610,9 +3758,9 @@ private void FindOxygenUI()
 		if (Time.time >= nextDataUpdate2)
 		{
 			nextDataUpdate2 = Time.time + 1f;
-			ParticleSystem ps = GameObject.FindObjectOfType<ParticleSystem>();
+			ParticleSystem ps = VarSave.GetBool("partic") ? GameObject.FindObjectOfType<ParticleSystem>() : null;
 		
-			if (VarSave.GetBool("partic") && ps!=null)
+			if (ps!=null)
 			{
 				DestroyImmediate(ps.gameObject);
 			}
@@ -3620,7 +3768,7 @@ private void FindOxygenUI()
         tic += Time.deltaTime;
         if (!Globalprefs.Pause) HpUpdate();
 
-       if (Time.time < nextDataUpdate)
+       if (Time.time >= nextDataUpdate)
 	   {
 		   nextDataUpdate = Time.time + 1f;
 
@@ -3643,7 +3791,7 @@ private void FindOxygenUI()
 		{
 			if(suas == 0)
 			{
-				if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
+				if (Input.GetKeyDown(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
 				{
 					
 					save.angularvelosyty = rigidbody3d.angularVelocity;
@@ -3670,7 +3818,7 @@ private void FindOxygenUI()
 			}
 			if(suas == 1)
 			{
-				if (Input.GetKey(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
+				if (Input.GetKeyDown(KeyCode.F1) && !tutorial && !inglobalspace && !Globalprefs.Pause)
 				{
 					playerdata.Saveeffect();
 					save.idsave = SaveFileInputField.text;
@@ -3694,7 +3842,7 @@ private void FindOxygenUI()
 					WorldSave.SetVector3("var1");
 		
 				}
-				if (Input.GetKey(KeyCode.F1) && tutorial && tutorialsave && !inglobalspace && !Globalprefs.Pause)
+				if (Input.GetKeyDown(KeyCode.F1) && tutorial && tutorialsave && !inglobalspace && !Globalprefs.Pause)
 				{
 					playerdata.Saveeffect();
 					save.idsave = SaveFileInputField.text;
@@ -3719,7 +3867,7 @@ private void FindOxygenUI()
 				}
 			}
 		}
-        if (VarSave.ExistenceVar("res3", SaveType.global) && Input.GetKeyDown(KeyCode.F11) && !Globalprefs.Pause)
+        if (Input.GetKeyDown(KeyCode.F11) && VarSave.ExistenceVar("res3", SaveType.global) && !Globalprefs.Pause)
         {
             VarSave.SetBool("windowed", !VarSave.GetBool("windowed", SaveType.global), SaveType.global);
             Screen.SetResolution(VarSave.GetInt("res3", SaveType.global), VarSave.GetInt("res4", SaveType.global), !VarSave.GetBool("windowed", SaveType.global));
@@ -3746,6 +3894,10 @@ private void FindOxygenUI()
 
     private void OnDestroy()
     {
+        if (mediaStudioOwnsPause) Unauticna.MediaStudio.MediaStudioHost.CloseEditor();
+        MediaStudioReleasePause();
+        PlayerMechanics.Changed -= MechanicSettingsChanged;
+
 	
     if (cameraTexture != null)
     {
@@ -3764,6 +3916,8 @@ private void FindOxygenUI()
     }
     private void EconomicUpdate()
     {
+        if (!PlayerMechanics.Active(MechanicId.Economy)) return;
+
         Globalprefs.UpadateTevro();
         if (VarSave.GetMoney("Inflation", SaveType.global) < 0) VarSave.SetMoney("Inflation", 0, SaveType.global);
         timer += (decimal)Time.deltaTime;
@@ -3848,7 +4002,9 @@ private void FindOxygenUI()
 
         void WPositionUpdate()
     {
-        Get4DCam()._wPosition = W_position;
+        if (!PlayerMechanics.Active(MechanicId.Dimensions)) return;
+
+        if (Get4DCam() != null) Get4DCam()._wPosition = W_position;
         if (((int)W_position) >= 500 && ((int)W_position) <= 550 && !FindFirstObjectByType<Logic_tag_kataBlock>())
         {
             Globalprefs.WMovepos = transform.position;
@@ -4081,10 +4237,16 @@ private void FindOxygenUI()
     }
     private void OnDisable()
     {
-        gameObject.SetActive(true);
+        if (mediaStudioOwnsPause) Unauticna.MediaStudio.MediaStudioHost.CloseEditor();
+        MediaStudioReleasePause();
+        // Do not reactivate the player while another mechanic owns control.
+
     }
+    public bool HyperbolicPlanetHookInstalled => true;
     private void MoveUpdate()
     {
+        // H2 planet mode owns movement only while the player is on a planet.
+        
         if (NeedsRest)
         {
             Smuta = true;
@@ -4096,8 +4258,8 @@ private void FindOxygenUI()
             if (animator != null) animator.SetFloat("MoveVelosity", 0f);
             return;
         }
-		var xbox2 = VarSave.GetBool("Xbox");
-		var xbox = Input_Get.Xbox();
+		var xbox2 = CachedXboxMode;
+		var xbox = WindowsReceiver.GetInput();
 		RaycastHit hit;
         Sprint = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)|| xbox.Y;
 		IsGraund = Physics.Raycast(
@@ -5345,6 +5507,8 @@ private void FindOxygenUI()
     float timer9;
     public void TimeSave()
     {
+        if (!PlayerMechanics.Active(MechanicId.Timeline)) return;
+
 
         timer9 += Time.deltaTime;
         if (timer9 >= .1f && !inputGpress && !_n1fps) {

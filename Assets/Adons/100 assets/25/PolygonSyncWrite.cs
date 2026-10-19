@@ -3,101 +3,24 @@ using UnityEngine;
 
 public class PolygonSyncWrite : MonoBehaviour
 {
-    private Dictionary<Transform, Mesh> Polygons =
-        new Dictionary<Transform, Mesh>();
-	private Dictionary<Transform, Mesh> APolygons =
-        new Dictionary<Transform, Mesh>();
-
+    readonly HashSet<Transform> counted = new HashSet<Transform>();
     public int objectsWishPolygons;
-
     public PolygonSyncWriter writer;
-
     public int maxPolygonsPerObject = 400;
-	
-    public void AddObject(GameObject obj,bool forWriter = false)
+    public void AddObject(GameObject obj, bool forWriter = false)
     {
-		if(forWriter)
-		{
-			if (obj == null)
-				return;
-	
-			MeshFilter meshFilter = obj.GetComponent<MeshFilter>();
-	
-			if (meshFilter == null)
-				return;
-	
-			Mesh mesh = meshFilter.sharedMesh;
-	
-			if (mesh == null)
-				return;
-	
-			// Проверяем количество треугольников
-			int polygonCount = mesh.triangles.Length / 3;
-	
-			// Слишком сложный объект не сохраняем
-			if (polygonCount >= maxPolygonsPerObject)
-				return;
-	
-			Transform tr = obj.transform;
-	
-			if (Polygons.ContainsKey(tr))
-				return;
-	
-			Polygons.Add(tr, mesh);
-	
-	
-			
-				writer.AddPolygon(
-				tr,
-				mesh);
-			
-		}
-		else
-		{
-			if (obj == null)
-				return;
-	
-			MeshFilter meshFilter = obj.GetComponent<MeshFilter>();
-	
-			Mesh mesh = meshFilter.sharedMesh;
-			Transform tr = obj.transform;
-	
-			if (APolygons.ContainsKey(tr))
-				return;
-	
-			APolygons.Add(tr, mesh);
-			objectsWishPolygons++;
-		}
+        if (obj == null || !obj.TryGetComponent<MeshFilter>(out var filter) || filter.sharedMesh == null) return;
+        if (!forWriter) { counted.Add(obj.transform); counted.RemoveWhere(t => t == null); objectsWishPolygons = counted.Count; return; }
+        Mesh mesh = filter.sharedMesh; long indices = 0;
+        for (int i = 0; i < mesh.subMeshCount; i++) indices += mesh.GetIndexCount(i);
+        if (writer != null && indices / 3 < maxPolygonsPerObject) writer.AddPolygon(obj.transform, mesh);
     }
-
-    public void RemoveObject(GameObject obj,bool forWriter = false)
-    {	
-		if(forWriter)
-		{
-			
-		}
-		else
-		{
-			if (obj == null)
-				return;
-	
-			Transform tr = obj.transform;
-	
-			if (!APolygons.ContainsKey(tr))
-				return;
-	
-			APolygons.Remove(tr);
-			objectsWishPolygons--;
-		}
-    }
-
-    private void Update()
+    public void RemoveObject(GameObject obj, bool forWriter = false)
     {
-        SaveAllPolygons();
+        if (obj == null) return;
+        if (forWriter) { if (writer != null) writer.RemovePolygon(obj.transform); }
+        else { counted.Remove(obj.transform); objectsWishPolygons = counted.Count; }
     }
-
-    public void SaveAllPolygons()
-    {
-        writer.BuildMesh();
-    }
+    // No per-frame Update here. PolygonSyncWriter owns its schedule.
+    public void SaveAllPolygons() { if (writer != null) writer.BuildMesh(); }
 }

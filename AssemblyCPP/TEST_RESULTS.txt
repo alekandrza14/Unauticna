@@ -1,1 +1,6 @@
-Native noise core: compiled with GCC C++11, -Wall -Wextra -Werror and AddressSanitizer/UndefinedBehaviorSanitizer. Tests passed: determinism, finite 0..1 range, variation, non-square layout/shared edge, guard values, invalid arguments and buffer capacity. LeakSanitizer disabled due to container restrictions. Windows MSVC build and Unity C# P/Invoke execution were not available and have not been tested.
+PASS 250 bit-exact maps, boundary guards, 8 concurrent callers
+512x512 baseline_ms=3.40244 optimized_ms=2.86342
+1024x1024 baseline_ms=15.0478 optimized_ms=12.3283
+
+P/Invoke .NET 8 Linux: PASS pinned rectangular layout, stride/tail, reuse, async, cancellation. Managed allocation: 0 bytes / 100 reused fills.
+Windows DLL not built; MSVC and Unity not executed.

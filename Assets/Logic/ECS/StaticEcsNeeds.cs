@@ -1,3 +1,4 @@
+﻿using Unauticna.Mechanics;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public sealed class StaticEcsNeeds : MonoBehaviour
         [Min(0f)] public float lossPerMinute = 1f;
         public Slider slider;
         public Text valueText;
+        [NonSerialized] public int shownValue = -1;
+        [NonSerialized] public Text shownText;
     }
 
     public NeedSettings food = new NeedSettings { lossPerMinute = 2f };
@@ -40,6 +43,7 @@ public sealed class StaticEcsNeeds : MonoBehaviour
     private Rigidbody playerBody;
     private Vector3 previousPosition;
 
+    float nextUI, nextRates;
     public bool paused;
     private static StaticEcsNeeds owner;
     private bool ready, worldCreated, systemsCreated;
@@ -86,6 +90,7 @@ public sealed class StaticEcsNeeds : MonoBehaviour
             ApplyDecaySettings();
             if (VarSave.ExistenceVar("Energy")) LoadNeeds();
             RefreshUI();
+            PlayerMechanics.Register(this, MechanicId.Needs);
         }
         catch (Exception)
         {
@@ -98,7 +103,7 @@ public sealed class StaticEcsNeeds : MonoBehaviour
     void Update()
     {
         if (!ready) return;
-        ApplyDecaySettings(); // Live editing of rates in Inspector.
+        if (Time.unscaledTime >= nextRates) { nextRates = Time.unscaledTime + 0.5f; ApplyDecaySettings(); }
         if (!paused && !Globalprefs.Pause && Time.deltaTime > 0f)
         {
             SampleSleep();
@@ -107,7 +112,8 @@ public sealed class StaticEcsNeeds : MonoBehaviour
         }
         previousPosition = playerMover.transform.position;
         NeedsWorld.Tick();
-        RefreshUI();
+        if (Time.unscaledTime >= nextUI) { nextUI = Time.unscaledTime + 0.1f; RefreshUI(); }
+        if (PlayerMechanics.SuppressGameplayFrame) return;
 #if ENABLE_INPUT_SYSTEM
         if (Keyboard.current != null)
         {
@@ -326,8 +332,8 @@ public sealed class StaticEcsNeeds : MonoBehaviour
         }
         if (settings.valueText != null)
         {
-            string label = Mathf.CeilToInt(value).ToString() + " / 100";
-            if (settings.valueText.text != label) settings.valueText.text = label;
+            int rounded = Mathf.CeilToInt(value);
+            if (rounded != settings.shownValue || settings.shownText != settings.valueText) { settings.shownValue = rounded; settings.shownText = settings.valueText; settings.valueText.text = rounded.ToString() + " / 100"; }
         }
     }
 
@@ -342,7 +348,7 @@ public sealed class StaticEcsNeeds : MonoBehaviour
             throw new ArgumentException("Need values must be finite.");
     }
 
-    void OnDestroy() { Cleanup(); }
+    void OnDestroy() { PlayerMechanics.Unregister(this); Cleanup(); }
 
     private void Cleanup()
     {

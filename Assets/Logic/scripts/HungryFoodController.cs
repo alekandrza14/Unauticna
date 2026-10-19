@@ -1,3 +1,4 @@
+﻿using Unauticna.Mechanics;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,7 +50,10 @@ public sealed class HungryFoodController : MonoBehaviour
     private readonly List<Behaviour> disabled = new List<Behaviour>();
     private readonly Dictionary<int, float> rejected = new Dictionary<int, float>();
 
-    private void Start() { ResolveReferences(); }
+    private Collider[] foodCandidates = new Collider[128];
+    private IComparer<Collider> foodComparer;
+    private void Awake() { PlayerMechanics.Register(this, MechanicId.AutoEat); }
+    private void Start() { ResolveReferences(); foodComparer = Comparer<Collider>.Create((a, b) => DistanceSquared(a).CompareTo(DistanceSquared(b))); }
 
     private void ResolveReferences()
     {
@@ -57,7 +61,7 @@ public sealed class HungryFoodController : MonoBehaviour
         if (needs == null) needs = FindFirstObjectByType<StaticEcsNeeds>();
         if (playerMover == null && needs != null) playerMover = needs.playerMover;
         if (playerMover == null) playerMover = GetComponent<mover>();
-        if (inventory == null) inventory = ElementalInventory.instance;
+        if (inventory == null) inventory = ElementalInventory.main();
         if (playerBody == null && playerMover != null) playerBody = playerMover.GetComponent<Rigidbody>();
         if (playerCamera == null && playerMover != null && playerMover.PlayerCamera != null)
             playerCamera = playerMover.PlayerCamera.GetComponent<Camera>();
@@ -76,6 +80,8 @@ public sealed class HungryFoodController : MonoBehaviour
 
     private void Tick()
     {
+        if (PlayerMechanics.GameplayBlocked) { if (IsControlling) Release("Автоеда приостановлена"); return; }
+
         if (!IsControlling)
         {
             if (Time.unscaledTime < nextSearch || owner != null) return;
@@ -137,10 +143,19 @@ public sealed class HungryFoodController : MonoBehaviour
     private bool FindNearestFood()
     {
         target = null;
-        var candidates = Physics.OverlapSphere(playerBody.position, searchRadius, foodLayers, QueryTriggerInteraction.Collide);
-        Array.Sort(candidates, (a, b) => DistanceSquared(a).CompareTo(DistanceSquared(b)));
-        foreach (var candidate in candidates)
+        int count = Physics.OverlapSphereNonAlloc(playerBody.position, searchRadius, foodCandidates, foodLayers, QueryTriggerInteraction.Collide);
+        Collider[] candidates = foodCandidates;
+        if (count == foodCandidates.Length)
         {
+            // A full NonAlloc buffer is not guaranteed to contain the nearest colliders.
+            candidates = Physics.OverlapSphere(playerBody.position, searchRadius, foodLayers, QueryTriggerInteraction.Collide);
+            count = candidates.Length;
+            if (count <= 4096) foodCandidates = new Collider[Mathf.NextPowerOfTwo(count + 1)];
+        }
+        Array.Sort(candidates, 0, count, foodComparer);
+        for (int candidateIndex = 0; candidateIndex < count; candidateIndex++)
+        {
+            var candidate = candidates[candidateIndex];
             if (candidate == null || IsPlayer(candidate)) continue;
             if (rejected.TryGetValue(candidate.GetInstanceID(), out float until) && until > Time.unscaledTime) continue;
             if (!inventory.TryDescribeAutoFood(candidate, out _)) continue;
@@ -342,7 +357,7 @@ public sealed class HungryFoodController : MonoBehaviour
     }
 
     private void OnDisable() { Release("Автоеда отключена"); }
-    private void OnDestroy() { Release("Автоеда отключена"); }
+    private void OnDestroy() { Release("Автоеда отключена"); PlayerMechanics.Unregister(this); }
     private void OnApplicationFocus(bool focused) { if (!focused) Release("Игра потеряла фокус"); }
 
     private void OnGUI()

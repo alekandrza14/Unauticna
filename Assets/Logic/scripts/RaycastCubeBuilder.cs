@@ -88,7 +88,7 @@ public class RaycastCubeBuilder : MonoBehaviour
         }
 		if(Input.GetKeyDown(KeyCode.LeftAlt))
 		{
-			this.enabled = false;
+			mover.main().BuildRejimeDeactive();
 		}
 #endif
     }

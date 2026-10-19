@@ -1,130 +1,46 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unauticna.Mechanics;
 
 public class RTSVisibleHighlight : MonoBehaviour
 {
-    [Header("Камера RTS")]
     public Camera rtsCamera;
-
-    [Header("Зелёный материал")]
     public Material highlightMaterial;
-
-    [Header("Какие объекты проверять")]
     public LayerMask objectLayers;
-
-    [Header("Размер области проверки")]
     public float checkDistance = 500f;
-
-    private Dictionary<Renderer, Material[]> originalMaterials =
-        new Dictionary<Renderer, Material[]>();
-
-    private HashSet<Renderer> visibleNow =
-        new HashSet<Renderer>();
-
-    private HashSet<Renderer> visibleLastFrame =
-        new HashSet<Renderer>();
-	public PolygonSyncWrite counter;
-
+    public PolygonSyncWrite counter;
+    [Min(0.05f)] public float checkInterval = 0.1f;
+    [Min(0.2f)] public float discoveryInterval = 1f;
+    Renderer[] candidates = new Renderer[0];
+    readonly Plane[] planes = new Plane[6];
+    HashSet<Renderer> visible = new HashSet<Renderer>(), previous = new HashSet<Renderer>();
+    float next, discoverAt;
+    void Awake() { PlayerMechanics.Register(this, MechanicId.PolygonSync); }
+    void OnEnable() { next = discoverAt = 0; }
     void Update()
     {
-        visibleNow.Clear();
-
-        // Находим все Renderer на нужных слоях
-        Renderer[] renderers = FindObjectsOfType<Renderer>();
-
-        foreach (Renderer rend in renderers)
+        if (Time.unscaledTime < next || rtsCamera == null || counter == null) return;
+        next = Time.unscaledTime + Mathf.Max(0.05f, checkInterval);
+        if (Time.unscaledTime >= discoverAt)
+        { discoverAt = Time.unscaledTime + Mathf.Max(0.2f, discoveryInterval); candidates = FindObjectsByType<Renderer>(FindObjectsSortMode.None); }
+        GeometryUtility.CalculateFrustumPlanes(rtsCamera, planes); // Once per scan, not once per object.
+        visible.Clear(); Vector3 position = rtsCamera.transform.position; float distance2 = checkDistance * checkDistance;
+        foreach (var rend in candidates)
         {
-            if (!IsInCamera(rend))
-                continue;
-
-            visibleNow.Add(rend);
-            // Если объект появился в поле зрения
-            if (!visibleLastFrame.Contains(rend))
-            {
-                Highlight(rend);
-				counter.AddObject(rend.gameObject);
-				counter.AddObject(rend.gameObject,true);
-            }
+            if (rend == null || !rend.enabled || !rend.gameObject.activeInHierarchy || ((1 << rend.gameObject.layer) & objectLayers.value) == 0) continue;
+            if (rend.bounds.SqrDistance(position) > distance2 || !GeometryUtility.TestPlanesAABB(planes, rend.bounds)) continue;
+            visible.Add(rend);
+            if (!previous.Contains(rend)) { counter.AddObject(rend.gameObject); counter.AddObject(rend.gameObject, true); }
         }
-
-        // Объекты, которые вышли из камеры
-        foreach (Renderer rend in visibleLastFrame)
-        {
-            if (!visibleNow.Contains(rend))
-            {
-                Restore(rend);
-				counter.RemoveObject(rend.gameObject);
-            }
-        }
-
-        // Переносим текущий список в предыдущий
-        HashSet<Renderer> temp = visibleLastFrame;
-        visibleLastFrame = visibleNow;
-        visibleNow = temp;
+        foreach (var rend in previous) if (rend != null && !visible.Contains(rend))
+        { counter.RemoveObject(rend.gameObject); counter.RemoveObject(rend.gameObject, true); }
+        var swap = previous; previous = visible; visible = swap;
     }
-
-    bool IsInCamera(Renderer rend)
-    {
-        if (rtsCamera == null)
-            return false;
-
-        if (((1 << rend.gameObject.layer) & objectLayers) == 0)
-            return false;
-
-        Bounds bounds = rend.bounds;
-
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(rtsCamera);
-
-        return GeometryUtility.TestPlanesAABB(planes, bounds);
-    }
-
-    void Highlight(Renderer rend)
-    {
-        //if (rend == null)
-        //    return;
-		//
-        //if (!originalMaterials.ContainsKey(rend))
-        //{
-        //    originalMaterials.Add(
-        //        rend,
-        //        rend.sharedMaterials
-        //    );
-        //}
-		//
-        //Material[] materials = new Material[rend.sharedMaterials.Length];
-		//
-        //for (int i = 0; i < materials.Length; i++)
-        //{
-        //    materials[i] = highlightMaterial;
-        //}
-		//
-        //rend.sharedMaterials = materials;
-    }
-
-    void Restore(Renderer rend)
-    {
-        //if (rend == null)
-        //    return;
-		//
-        //if (!originalMaterials.TryGetValue(rend, out Material[] materials))
-        //    return;
-		//
-        //rend.sharedMaterials = materials;
-        //originalMaterials.Remove(rend);
-    }
-
     void OnDisable()
     {
-        foreach (var pair in originalMaterials)
-        {
-            if (pair.Key != null)
-            {
-                pair.Key.sharedMaterials = pair.Value;
-            }
-        }
-
-        originalMaterials.Clear();
-        visibleLastFrame.Clear();
+        if (counter != null) foreach (var rend in previous) if (rend != null)
+        { counter.RemoveObject(rend.gameObject); counter.RemoveObject(rend.gameObject, true); }
+        previous.Clear(); visible.Clear(); candidates = new Renderer[0];
     }
+    void OnDestroy() { PlayerMechanics.Unregister(this); }
 }

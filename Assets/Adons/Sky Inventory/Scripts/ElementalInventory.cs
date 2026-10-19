@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unauticna.Mechanics;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
@@ -17,6 +18,31 @@ public class MassSelect
 
 
 public class ElementalInventory : MonoBehaviour {
+
+    readonly List<int> selectedMechanicCells = new List<int>();
+    int lastSavedAggression = int.MinValue;
+    string cachedCoPath;
+    CustomObjectData cachedCoData;
+    System.DateTime cachedCoWrite;
+    float nextCoCheck;
+    private CustomObjectData ReadSelectedCo(string path)
+    {
+        bool changedPath = cachedCoPath != path;
+        if (!changedPath && Time.unscaledTime < nextCoCheck) return cachedCoData;
+        nextCoCheck = Time.unscaledTime + 0.5f;
+        try
+        {
+            var stamp = File.GetLastWriteTimeUtc(path);
+            if (changedPath || stamp != cachedCoWrite)
+            {
+                cachedCoPath = path; cachedCoWrite = stamp;
+                cachedCoData = File.Exists(path) ? JsonUtility.FromJson<CustomObjectData>(File.ReadAllText(path)) : null;
+            }
+        }
+        catch (System.Exception ex) { cachedCoPath = path; cachedCoData = null; Debug.LogWarning("CO: " + ex.Message, this); }
+        return cachedCoData;
+    }
+
 
     [Header("Food need (Static ECS)")]
     public StaticEcsNeeds playerNeeds;
@@ -2019,6 +2045,12 @@ public class ElementalInventory : MonoBehaviour {
     GameObject editObject;
     void itemUse(int selectr)
     {
+        if (selectr < 0 || selectr >= Cells.Length || Cells[selectr] == null) return;
+        string currentName = Cells[selectr].elementName ?? "";
+        if (!Input.anyKey && !Input.GetKeyUp(KeyCode.E) && !Input.GetKeyUp(KeyCode.Mouse0)
+            && !Input.GetKeyUp(KeyCode.Q) && !Input.GetKeyUp(KeyCode.R) && GlobalInputMenager.KeyCode_eat == 0
+            && currentName != "Gift_item_from_other_Universe") return;
+
 
         bool batteytype = Cells[selectr].elementName == "battery" || Cells[selectr].elementName == "mathimatic_battery" || Cells[selectr].elementName == "Reload_battery";
         bool weitghtelemets = Cells[selectr].elementName == "U" || Cells[selectr].elementName == "Ṳx" || Cells[selectr].elementName == "Nuclear_plant" || Cells[selectr].elementName == "bomb" || Cells[selectr].elementName == "UranMarker";
@@ -5118,7 +5150,8 @@ public class ElementalInventory : MonoBehaviour {
         //GenColour
         //Absolute_poison
         //sosisca
-        VarSave.SetInt("Agr", cistalenemy.dies);
+        if (lastSavedAggression != cistalenemy.dies)
+        { lastSavedAggression = cistalenemy.dies; VarSave.SetInt("Agr", lastSavedAggression); }
     }
 
     private static void PoverkaDNA()
@@ -5128,6 +5161,8 @@ public class ElementalInventory : MonoBehaviour {
 
     private void CustomFunctionalItem(CustomObjectData cod, int usedCell)
     {
+        if (!PlayerMechanics.Active(MechanicId.CustomItems)) return;
+
         if (cod == null) return;
         string consumedCoName = null;
         if (cod.functional == Functional.steyk)
@@ -5225,7 +5260,8 @@ public class ElementalInventory : MonoBehaviour {
         typeItem item = typeItem.none;
         if(Cells[select].elementName.Contains("co!"))
         {
-            CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + Cells[select].elementName.Replace("co!", "") + ".txt"));
+            CustomObjectData cod = ReadSelectedCo("res/UserWorckspace/Items/" + Cells[select].elementName.Replace("co!", "") + ".txt");
+            if (cod == null) return typeItem.none;
             if (cod.functional == Functional.mgickStick)
             {
                 item = typeItem.gun;
@@ -5286,15 +5322,21 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void Update()
     {
+        if (PlayerMechanics.SuppressGameplayFrame || !PlayerMechanics.Active(MechanicId.Inventory)) return;
+        if (Cells == null || select < 0 || select >= Cells.Length || Cells[select] == null) return;
+        if (!Globalprefs.Pause && (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0)
+            || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Mouse2)
+            || GlobalInputMenager.KeyCode_eat != 0 || WindowsReceiver.GetInput().ADown)) MainRay.RefreshNow(true);
+
         if (main() == this)
         {
-            bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox")|| Input_Get.Xbox().A);
-            if (!Globalprefs.Pause && main() == this) if (Cells[select].elementName.Length > 2 && Cells[select].elementName.Remove(3, Cells[select].elementName.Length - 3) == "co!") if (main() == this)
+            bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox")|| WindowsReceiver.GetInput().ADown);
+            if (PlayerMechanics.Active(MechanicId.CustomItems) && !Globalprefs.Pause && main() == this) if (Cells[select].elementName.Length > 2 && Cells[select].elementName.Remove(3, Cells[select].elementName.Length - 3) == "co!") if (main() == this)
                     {
 
                      
-                                    CustomObjectData cod = JsonUtility.FromJson<CustomObjectData>(File.ReadAllText("res/UserWorckspace/Items/" + Cells[select].elementName.Replace("co!", "") + ".txt"));
-                                    if (cod.standartKey == StandartKey.notrequired)
+                                    CustomObjectData cod = ReadSelectedCo("res/UserWorckspace/Items/" + Cells[select].elementName.Replace("co!", "") + ".txt");
+                                    if (cod != null && cod.standartKey == StandartKey.notrequired)
                                     {
 
 
@@ -5306,17 +5348,8 @@ public class ElementalInventory : MonoBehaviour {
 
 
                     }
-            for (int i = 0; i < 2; i++)
-            {
-                if (i == 0)
-                {
-                    SelectLayItem();
-                }
-                if (i == 1)
-                {
-                    DeselectLayItem();
-                }
-            }
+            // Refresh once: this also clears a lost hit and switches targets in the same frame.
+            SelectLayItem();
 
             if (main() == this)
             {
@@ -5355,7 +5388,7 @@ public class ElementalInventory : MonoBehaviour {
                 }
             }
             int vaule = 0;
-            if (File.Exists("C:/myMods/give.sig"))
+            if (PlayerMechanics.Active(MechanicId.CustomScripts) && Input.GetKeyDown(KeyCode.Mouse0) && File.Exists("C:/myMods/give.sig"))
             {
                 vaule = int.Parse(File.ReadAllText("C:/myMods/give.sig"));
 
@@ -5419,7 +5452,7 @@ public class ElementalInventory : MonoBehaviour {
 
                 }
             }
-            List<int> items = new List<int>();
+            List<int> items = selectedMechanicCells; items.Clear();
             for(int i = 0; i < selects.Count; i++)
             {
                 items.Add(selects[i].selects);
@@ -5437,7 +5470,7 @@ public class ElementalInventory : MonoBehaviour {
             if (itemselect != itemselectold)
             {
                 ItemDetector.type = GetTypeItem();
-                itemselect = itemselectold;
+                itemselectold = itemselect;
             }
          
             if (resy && main() == this && !nosell)
@@ -5763,7 +5796,7 @@ public class ElementalInventory : MonoBehaviour {
     float mouseDoubele2;
     private void euclideanray()
     {
-        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || Input_Get.Xbox().A);
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || WindowsReceiver.GetInput().ADown);
 
         if (resy && !sh && main() == this && !nosell)
         {
@@ -5781,7 +5814,7 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void Sphericalray()
     {
-        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || Input_Get.Xbox().A);
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || WindowsReceiver.GetInput().ADown);
 
         if (resy && !sh && main() == this && !nosell)
         {
@@ -5868,7 +5901,7 @@ public class ElementalInventory : MonoBehaviour {
     }
     private void hyperbolicray()
     {
-        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || Input_Get.Xbox().A);
+        bool resy = Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Mouse2) && VarSave.GetBool("Xbox") || WindowsReceiver.GetInput().ADown);
 
         if (resy && !sh && main() == this && !nosell)
         {
@@ -5884,157 +5917,61 @@ public class ElementalInventory : MonoBehaviour {
     public itemName it;
     public CustomObject co2;
     public void SelectLayItem()
-	{
-        if (it == null)
+    {
+        if (main() != this || nosell) return;
+        Collider collider = MainRay.HitError ? null : MainRay.MainHit.collider;
+        if (collider == null)
         {
-
-
-            RaycastHit hit = MainRay.MainHit;
-            if (hit.collider != null)
-            {
-                if (hit.collider.GetComponent<itemName>() && main() == this && !nosell)
-                {
-
-
-                    for (int i = 0; i < hit.collider.gameObject.name.Length - 7; i++)
-                    {
-
-
-                        if (hit.collider.gameObject.name[i] != '_')
-                        {
-                            Globalprefs.ItemPrise = (decimal)hit.collider.GetComponent<itemName>().ItemPrise;
-                            Globalprefs.selectitemobj = hit.collider.GetComponent<itemName>();
-
-
-                            Globalprefs.selectitem += hit.collider.gameObject.name[i];
-
-                        }
-                        if (hit.collider.gameObject.name[i] == '_')
-                        {
-
-                            Globalprefs.ItemPrise = 0;
-
-                            Globalprefs.selectitemobj = null;
-                            Globalprefs.selectitem += " ";
-
-                        }
-
-
-                    }
-
-                    it = hit.collider.GetComponent<itemName>();
-                }
-            }
+            ClearLayItemSelection();
+            return;
         }
-        if (co2 == null)
+
+        itemName nextItem = collider.GetComponent<itemName>();
+        CustomObject nextCo = collider.GetComponent<CustomObject>();
+        // A CO can exist before its model data finishes loading.
+        if (nextCo != null && nextCo.Model == null) nextCo = null;
+        if (nextItem == null && nextCo == null)
         {
-
-
-            RaycastHit hit = MainRay.MainHit;
-            if (hit.collider != null)
-            {
-                if (hit.collider.GetComponent<CustomObject>() && main() == this && !nosell)
-                {
-
-
-                    for (int i = 0; i < hit.collider.gameObject.name.Length - 7; i++)
-                    {
-
-
-                        if (hit.collider.gameObject.name[i] != '_')
-                        {
-                            Globalprefs.ItemPrise = (decimal)hit.collider.GetComponent<CustomObject>().Model.ItemPrice;
-
-                            Globalprefs.selectcoobj = hit.collider.GetComponent<CustomObject>();
-                            Globalprefs.selectitem += hit.collider.gameObject.name[i];
-
-                        }
-                        if (hit.collider.gameObject.name[i] == '_')
-                        {
-
-                            Globalprefs.ItemPrise = 0;
-
-                            Globalprefs.selectitemobj = null;
-                            Globalprefs.selectitem += " ";
-
-                        }
-
-
-                    }
-
-                    co2 = hit.collider.GetComponent<CustomObject>();
-                }
-            }
+            ClearLayItemSelection();
+            return;
         }
+        if (it == nextItem && co2 == nextCo) return;
+
+        it = nextItem;
+        co2 = nextCo;
+        Globalprefs.selectitemobj = nextItem;
+        Globalprefs.selectcoobj = nextCo;
+        Globalprefs.ItemPrise = nextCo != null
+            ? (decimal)nextCo.Model.ItemPrice : (decimal)nextItem.ItemPrise;
+        string label = collider.gameObject.name ?? "";
+        const string cloneSuffix = "(Clone)";
+        if (label.EndsWith(cloneSuffix, System.StringComparison.Ordinal))
+            label = label.Substring(0, label.Length - cloneSuffix.Length);
+        Globalprefs.selectitem = label.Replace('_', ' ');
     }
-	public void DeselectLayItem()
-	{
-        if (it != null)
+
+    public void DeselectLayItem()
+    {
+        if (main() != this || nosell) return;
+        Collider collider = MainRay.HitError ? null : MainRay.MainHit.collider;
+        if (collider == null || (it == null && co2 == null))
         {
-            RaycastHit hit = MainRay.MainHit;
-            if (!hit.collider.GetComponent<itemName>() && main() == this && !nosell)
-            {
-
-
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                it = null;
-            }
-            if (hit.collider.GetComponent<itemName>()!=it && main() == this && !nosell)
-            {
-
-
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                it = null;
-            }
-
-            if (MainRay.HitError && main() == this && !nosell)
-            {
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                it = null;
-            }
-
+            ClearLayItemSelection();
+            return;
         }
-        if (co2 != null)
-        {
-            RaycastHit hit = MainRay.MainHit;
-            if (!hit.collider.GetComponent<CustomObject>() && main() == this && !nosell)
-            {
+        if ((it != null && collider.GetComponent<itemName>() != it)
+            || (co2 != null && (co2.Model == null || collider.GetComponent<CustomObject>() != co2)))
+            ClearLayItemSelection();
+    }
 
-
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                co2 = null;
-            }
-            if (hit.collider.GetComponent<CustomObject>()!=co2 && main() == this && !nosell)
-            {
-
-
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                co2 = null;
-            }
-
-            if (MainRay.HitError && main() == this && !nosell)
-            {
-                Globalprefs.selectitemobj = null;
-                Globalprefs.ItemPrise = 0;
-                Globalprefs.selectitem = "";
-                co2 = null;
-            }
-
-        }
-
-
-
-
+    private void ClearLayItemSelection()
+    {
+        it = null;
+        co2 = null;
+        Globalprefs.selectitemobj = null;
+        Globalprefs.selectcoobj = null;
+        Globalprefs.ItemPrise = 0;
+        Globalprefs.selectitem = "";
     }
     public bool contains (string name, int count, Color color)
 	{
@@ -6076,6 +6013,7 @@ public class ElementalInventory : MonoBehaviour {
         thisCell.elementData = data;
         thisCell.elementSocial = social;
     }
+
 
     //Moves item
     public void moveItem(int moveFrom, int moveTo)

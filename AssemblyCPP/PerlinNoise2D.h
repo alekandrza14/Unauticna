@@ -2,6 +2,8 @@
 #include <cmath>
 #include <cstdint>
 #include <limits>
+#include <vector>
+#include <new>
 
 namespace AssemblyNoiseDetail {
 inline std::uint32_t Hash(int x, int y) {
@@ -11,9 +13,9 @@ inline std::uint32_t Hash(int x, int y) {
     h ^= h >> 15; h *= 0x846ca68bu;
     return h ^ (h >> 16);
 }
-inline double Gradient(int x, int y, double dx, double dy) {
+inline double GradientCode(std::uint32_t code, double dx, double dy) {
     const double d = 0.7071067811865475244;
-    switch (Hash(x, y) & 7u) {
+    switch (code & 7u) {
     case 0: return dx;
     case 1: return -dx;
     case 2: return dy;
@@ -23,6 +25,9 @@ inline double Gradient(int x, int y, double dx, double dy) {
     case 6: return (-dx + dy) * d;
     default: return (-dx - dy) * d;
     }
+}
+inline double Gradient(int x, int y, double dx, double dy) {
+    return GradientCode(Hash(x, y), dx, dy);
 }
 inline double Fade(double t) { return t*t*t*(t*(t*6.0-15.0)+10.0); }
 inline double Lerp(double a, double b, double t) { return a+(b-a)*t; }
@@ -52,12 +57,50 @@ inline int Fill(float x, float y, int sizeX, int sizeY, float scale,
     const double y1 = (static_cast<double>(y)+sizeY-1)*scale;
     if (!ValidCoordinate(x0) || !ValidCoordinate(y0)
         || !ValidCoordinate(x1) || !ValidCoordinate(y1)) return 1;
-    for (int ix = 0; ix < sizeX; ++ix) {
-        const double sx = (static_cast<double>(x)+ix)*scale;
-        for (int iy = 0; iy < sizeY; ++iy)
-            output[static_cast<std::int64_t>(ix)*sizeY+iy] =
-                Sample(sx, (static_cast<double>(y)+iy)*scale);
+    // Tiny requests do not justify a temporary axis cache.
+    if (count < 256) {
+        for (int ix = 0; ix < sizeX; ++ix)
+            for (int iy = 0; iy < sizeY; ++iy)
+                output[static_cast<std::int64_t>(ix)*sizeY+iy] =
+                    Sample((static_cast<double>(x)+ix)*scale, (static_cast<double>(y)+iy)*scale);
+        return 0;
     }
-    return 0;
+    struct Axis { int cell; double fraction, fade; };
+    try {
+        // Each y coordinate/fade is shared by every x row; keep row-major writes.
+        std::vector<Axis> ys(static_cast<std::size_t>(sizeY));
+        for (int iy = 0; iy < sizeY; ++iy) {
+            const double sy = (static_cast<double>(y)+iy)*scale;
+            const int cell = static_cast<int>(std::floor(sy));
+            const double fraction = sy-cell;
+            ys[iy] = Axis{cell, fraction, Fade(fraction)};
+        }
+        for (int ix = 0; ix < sizeX; ++ix) {
+            const double sx = (static_cast<double>(x)+ix)*scale;
+            const int cx = static_cast<int>(std::floor(sx));
+            const double dx = sx-cx, fx = Fade(dx);
+            int cachedY = 0;
+            std::uint32_t h00=0,h10=0,h01=0,h11=0;
+            float* row = output+static_cast<std::int64_t>(ix)*sizeY;
+            for (int iy = 0; iy < sizeY; ++iy) {
+                const Axis& axis=ys[iy];
+                if (iy==0 || axis.cell!=cachedY) {
+                    cachedY=axis.cell;
+                    h00=Hash(cx,cachedY); h10=Hash(cx+1,cachedY);
+                    h01=Hash(cx,cachedY+1); h11=Hash(cx+1,cachedY+1);
+                }
+                const double dy=axis.fraction;
+                const double a=Lerp(GradientCode(h00,dx,dy),GradientCode(h10,dx-1,dy),fx);
+                const double b=Lerp(GradientCode(h01,dx,dy-1),GradientCode(h11,dx-1,dy-1),fx);
+                const double v=0.5+0.5*Lerp(a,b,axis.fade);
+                row[iy]=static_cast<float>(v<0 ? 0 : (v>1 ? 1 : v));
+            }
+        }
+        return 0;
+    } catch (const std::bad_alloc&) {
+        return 3; // Never let an allocation exception cross the C/PInvoke ABI.
+    } catch (...) {
+        return 3;
+    }
 }
 }

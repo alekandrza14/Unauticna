@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Unauticna.Mechanics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,30 @@ public class RaymarchCam : SceneViewFilter
     [SerializeField]
     [Header("Global Settings")]
     private Shader _shader;
-    List<ComputeBuffer> buffersToDispose;
+    ComputeBuffer shapeBuffer;
+    ShapeData[] shapeData = new ShapeData[0];
+    float nextShapeScan, nextReferenceScan;
+    NegativeLight negativeLight;
+    int negativeGlasses;
+    public void InvalidateScene() { nextShapeScan = 0f; }
+    void Awake()
+    {
+        if (!Application.isPlaying) return;
+        PlayerMechanics.Changed += MechanicsChanged;
+        PlayerMechanics.Register(this, MechanicId.Raymarch);
+        MechanicsChanged();
+    }
+    // Preserve any editor lifecycle callbacks inherited from SceneViewFilter.
+    void MechanicsChanged() { if (!PlayerMechanics.Active(MechanicId.Raymarch)) ReleaseShapeBuffer(); }
+    void OnDestroy()
+    {
+        PlayerMechanics.Changed -= MechanicsChanged;
+        ReleaseShapeBuffer();
+        if (_raymarchMat != null) DestroyImmediate(_raymarchMat);
+        PlayerMechanics.Unregister(this);
+    }
+    void ReleaseShapeBuffer() { if (shapeBuffer != null) { shapeBuffer.Dispose(); shapeBuffer = null; } }
+
     public bool mat;
 
     public Material _raymarchMaterial
@@ -107,7 +131,8 @@ public class RaymarchCam : SceneViewFilter
     // the main function that sends the data to the shader
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        buffersToDispose = new List<ComputeBuffer>();
+        if ((Application.isPlaying && !PlayerMechanics.Active(MechanicId.Raymarch)) || !_raymarchMaterial)
+        { Graphics.Blit(source, destination); return; }
         CreateScene();
         SetParameters();
 
@@ -148,17 +173,16 @@ public class RaymarchCam : SceneViewFilter
         GL.End();
         GL.PopMatrix();
 
-        foreach (var buffer in buffersToDispose)
-        {
-            buffer.Dispose();
-        }
+
     }
     private void SetParameters()
     {
-        if (!instance)
+        if (Time.realtimeSinceStartup >= nextReferenceScan)
         {
-            instance = FindFirstObjectByType<MultyTransform>();
-
+            nextReferenceScan = Time.realtimeSinceStartup + 1f;
+            if (!instance) instance = FindFirstObjectByType<MultyTransform>();
+            if (!negativeLight) negativeLight = FindFirstObjectByType<NegativeLight>();
+            if (Application.isPlaying) negativeGlasses = VarSave.GetInt("НегативныеОчки");
         }
         if (_useNormal)
         {
@@ -210,9 +234,8 @@ public class RaymarchCam : SceneViewFilter
         _raymarchMaterial.SetVector("_player", _player ? _player.position : Vector3.zero);
         _raymarchMaterial.SetColor("_skyColor", _skyColor);
         _raymarchMaterial.SetColor("_ChaosColor", _ChaosColor);
-        if (FindObjectOfType<NegativeLight>()) _raymarchMaterial.SetInt("_useNegativeLight", FindObjectOfType<NegativeLight>().enabled == true ? 1 : 0); else { _raymarchMaterial.SetInt("_useNegativeLight", 0); }
-        if (Globalprefs.item == "НегативныеОчки") _raymarchMaterial.SetInt("_useNegative", Globalprefs.item == "НегативныеОчки" ? 1 : 0); else if(VarSave.GetInt("НегативныеОчки") <= 0) { _raymarchMaterial.SetInt("_useNegative", 0); }
-       else if (VarSave.GetInt("НегативныеОчки")>0) _raymarchMaterial.SetInt("_useNegative", VarSave.GetInt("НегативныеОчки") > 0 ? 1 : 0); else { _raymarchMaterial.SetInt("_useNegative", 0); }
+        _raymarchMaterial.SetInt("_useNegativeLight", negativeLight != null && negativeLight.isActiveAndEnabled ? 1 : 0);
+        _raymarchMaterial.SetInt("_useNegative", Globalprefs.item == "НегативныеОчки" || negativeGlasses > 0 ? 1 : 0);
         //_useCordinateTexture
         _raymarchMaterial.SetInt("_use14texture", _useCordinateTexture ? 1 : 0);
         _raymarchMaterial.SetVector("_wRotation", _wRotation * Mathf.Deg2Rad);
@@ -294,67 +317,39 @@ public class RaymarchCam : SceneViewFilter
 
     void CreateScene()
     {
-        List<Shape4D> allShapes = new List<Shape4D>(FindObjectsByType<Shape4D>(sortmode.main));
-        allShapes.Sort((a, b) => a.operation.CompareTo(b.operation));
-        if (mat)
+        if (mat) { orderedShapes.Clear(); nextShapeScan = 0; _raymarchMaterial.SetInt("numShapes", 0); return; }
+        if (Time.realtimeSinceStartup >= nextShapeScan || orderedShapes.Exists(shape => shape == null))
         {
-            allShapes = null;
-        }
-        orderedShapes = new List<Shape4D>();
-
-        for (int i = 0; i < allShapes.Count; i++)
-        {
-            // Add top-level shapes (those without a parent)
-            if (allShapes[i].transform.parent == null)
+            nextShapeScan = Time.realtimeSinceStartup + 0.5f;
+            var shapes = new List<Shape4D>(FindObjectsByType<Shape4D>(FindObjectsSortMode.None));
+            shapes.Sort((a, b) => a.operation.CompareTo(b.operation));
+            orderedShapes.Clear();
+            foreach (var shape in shapes)
             {
-
-                Transform parentShape = allShapes[i].transform;
-                orderedShapes.Add(allShapes[i]);
-                allShapes[i].numChildren = parentShape.childCount;
-                // Add all children of the shape (nested children not supported currently)
-                for (int j = 0; j < parentShape.childCount; j++)
-                {
-                    if (parentShape.GetChild(j).GetComponent<Shape4D>() != null)
-                    {
-                        orderedShapes.Add(parentShape.GetChild(j).GetComponent<Shape4D>());
-                        orderedShapes[orderedShapes.Count - 1].numChildren = 1;
-                    }
-                }
+                if (!shape.isActiveAndEnabled) continue;
+                Transform parent = shape.transform.parent;
+                if (parent != null && parent.GetComponent<Shape4D>() != null) continue;
+                orderedShapes.Add(shape); shape.numChildren = 0;
+                for (int j = 0; j < shape.transform.childCount; j++)
+                    if (shape.transform.GetChild(j).TryGetComponent<Shape4D>(out var child) && child.isActiveAndEnabled)
+                    { orderedShapes.Add(child); child.numChildren = 1; shape.numChildren++; }
             }
-
         }
-
-        ShapeData[] shapeData = new ShapeData[orderedShapes.Count];
-        for (int i = 0; i < orderedShapes.Count; i++)
+        int count = orderedShapes.Count;
+        if (count == 0) { _raymarchMaterial.SetInt("numShapes", 0); return; }
+        if (shapeData.Length != count) shapeData = new ShapeData[count];
+        for (int i = 0; i < count; i++)
         {
             var s = orderedShapes[i];
-            Vector3 col = new Vector3(s.colour.r, s.colour.g, s.colour.b);
-            shapeData[i] = new ShapeData()
-            {
-                position = s.Position(),
-                scale = s.Scale(),
-                rotation = s.Rotation(),
-                rotationW = s.RotationW(),
-                colour = col,
-                shapeType = (int)s.shapeType,
-                operation = (int)s.operation,
-                blendStrength = s.smoothRadius * 3,
-                numChildren = s.numChildren,
-                numTexture = s.numTexture
-            };
+            shapeData[i] = new ShapeData { position = s.Position(), scale = s.Scale(), rotation = s.Rotation(),
+                rotationW = s.RotationW(), colour = new Vector3(s.colour.r, s.colour.g, s.colour.b),
+                shapeType = (int)s.shapeType, operation = (int)s.operation, blendStrength = s.smoothRadius * 3,
+                numChildren = s.numChildren, numTexture = s.numTexture };
         }
-
-        if (0 != FindObjectsByType<Shape4D>(sortmode.main).Length) 
-        {
-            ComputeBuffer shapeBuffer = new ComputeBuffer(shapeData.Length, ShapeData.GetSize());
-            shapeBuffer.SetData(shapeData);
-            _raymarchMaterial.SetBuffer("shapes", shapeBuffer);
-            _raymarchMaterial.SetInt("numShapes", shapeData.Length);
-
-            buffersToDispose.Add(shapeBuffer);
-        }
-        
-
+        if (shapeBuffer == null || shapeBuffer.count != count)
+        { ReleaseShapeBuffer(); shapeBuffer = new ComputeBuffer(count, ShapeData.GetSize()); }
+        shapeBuffer.SetData(shapeData);
+        _raymarchMaterial.SetBuffer("shapes", shapeBuffer); _raymarchMaterial.SetInt("numShapes", count);
     }
     struct ShapeData
     {

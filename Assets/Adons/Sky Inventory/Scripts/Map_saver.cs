@@ -223,6 +223,8 @@ public class Map_saver : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerMechanics.SuppressGameplayFrame) return;
+
 
 
 

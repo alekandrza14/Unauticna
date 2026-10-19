@@ -1,3 +1,5 @@
+﻿using Unauticna.Mechanics;
+using System.Collections.Generic;
 //```csharp
 using System;
 using System.IO;
@@ -7,6 +9,78 @@ using UnityEngine.SceneManagement;
 
 public class TerrainSyncWriter : MonoBehaviour
 {
+
+    readonly LatestFileWorker syncWorker = new LatestFileWorker();
+    bool syncDirty = true;
+    int syncRevision = -1;
+    float nextTopologyCheck;
+    string capturedPath, capturedScene;
+    struct TerrainStamp
+    {
+        public Matrix4x4 matrix;
+        public TerrainData data;
+        public Vector3 size;
+        public int heightResolution, holesResolution, index;
+        public string name;
+    }
+    readonly Dictionary<Terrain, TerrainStamp> terrainTransforms = new Dictionary<Terrain, TerrainStamp>();
+    static TerrainStamp Stamp(Terrain terrain, int index)
+    {
+        var data = terrain.terrainData;
+        return new TerrainStamp { matrix = terrain.transform.localToWorldMatrix, data = data,
+            size = data != null ? data.size : Vector3.zero,
+            heightResolution = data != null ? data.heightmapResolution : 0,
+            holesResolution = data != null ? data.holesResolution : 0,
+            index = index, name = terrain.name };
+    }
+    public void MarkDirty() { syncDirty = true; }
+    void Awake() { PlayerMechanics.Register(this, MechanicId.TerrainSync); }
+    void OnEnable()
+    {
+        syncDirty = true; nextTopologyCheck = 0;
+        TerrainCallbacks.heightmapChanged += HeightsChanged;
+        TerrainCallbacks.textureChanged += TextureChanged;
+    }
+    void HeightsChanged(Terrain terrain, RectInt region, bool synced) { syncDirty = true; }
+    void TextureChanged(Terrain terrain, string texture, RectInt region, bool synced) { syncDirty = true; }
+    void OnDisable()
+    {
+        TerrainCallbacks.heightmapChanged -= HeightsChanged;
+        TerrainCallbacks.textureChanged -= TextureChanged;
+        syncWorker.Cancel(); syncDirty = true;
+    }
+    void OnDestroy() { syncWorker.Cancel(); PlayerMechanics.Unregister(this); }
+    void Update()
+    {
+        if (!PlayerMechanics.Active(MechanicId.TerrainSync)) return;
+        string error = syncWorker.TakeError();
+        if (error != null) { syncDirty = true; Debug.LogWarning("Terrain sync: " + error, this); }
+        if (syncRevision != PlayerMechanics.RendererRevision) syncDirty = true;
+        if (capturedPath != savePath || capturedScene != SceneManager.GetActiveScene().name) syncDirty = true;
+        if (Time.unscaledTime >= nextTopologyCheck)
+        {
+            nextTopologyCheck = Time.unscaledTime + 1f;
+            terrains = Terrain.activeTerrains;
+            if (terrains.Length != terrainTransforms.Count) syncDirty = true;
+            for (int i = 0; i < terrains.Length; i++)
+            {
+                var terrain = terrains[i]; if (terrain == null) continue;
+                var current = Stamp(terrain, i);
+                if (!terrainTransforms.TryGetValue(terrain, out var old) || old.matrix != current.matrix
+                    || old.data != current.data || old.size != current.size || old.heightResolution != current.heightResolution
+                    || old.holesResolution != current.holesResolution || old.index != current.index || old.name != current.name)
+                    syncDirty = true;
+            }
+        }
+        if (syncDirty && !syncWorker.Busy) SaveAllTerrains();
+    }
+    sealed class TerrainSnapshot
+    {
+        public string path; public Vector3 position, size;
+        public int heightResolution, holesResolution;
+        public float[,] heights; public bool[,] holes;
+    }
+
     private Terrain[] terrains;
 
     // =========================================================
@@ -27,12 +101,7 @@ public class TerrainSyncWriter : MonoBehaviour
 
     private void Start()
     {
-        FindTerrains();
-
-        if (terrains == null || terrains.Length == 0)
-            return;
-
-        SaveAllTerrains();
+        // Captured lazily only after an external renderer is detected.
     }
 
 
@@ -66,56 +135,44 @@ public class TerrainSyncWriter : MonoBehaviour
 
     public void SaveAllTerrains()
     {
-        if (terrains == null || terrains.Length == 0)
+        syncDirty = true;
+        if (!isActiveAndEnabled || !PlayerMechanics.Active(MechanicId.TerrainSync) || syncWorker.Busy) return;
+        terrains = Terrain.activeTerrains;
+        var snapshots = new List<TerrainSnapshot>(); terrainTransforms.Clear();
+        for (int i = 0; i < terrains.Length; i++)
         {
-            FindTerrains();
-
-            if (terrains == null || terrains.Length == 0)
-                return;
+            var terrain = terrains[i]; if (terrain == null) continue;
+            terrainTransforms[terrain] = Stamp(terrain, i);
+            if (terrain.terrainData == null) continue;
+            var data = terrain.terrainData;
+            snapshots.Add(new TerrainSnapshot { path = GetTerrainPath(terrain, i), position = terrain.transform.position,
+                size = data.size, heightResolution = data.heightmapResolution, holesResolution = data.holesResolution,
+                heights = data.GetHeights(0, 0, data.heightmapResolution, data.heightmapResolution),
+                holes = data.GetHoles(0, 0, data.holesResolution, data.holesResolution) });
         }
-
-        Directory.CreateDirectory(savePath);
-
-        string pathsFile =
-            Path.Combine(
-                savePath,
-                PathsFileName
-            );
-
-        // -----------------------------------------------------
-        // Файл со всеми путями
-        // -----------------------------------------------------
-
-        using (StreamWriter pathsWriter =
-            new StreamWriter(
-                pathsFile,
-                false,
-                Encoding.UTF8))
+        string pathsFile = Path.Combine(savePath, PathsFileName);
+        capturedPath = savePath; capturedScene = SceneManager.GetActiveScene().name;
+        syncRevision = PlayerMechanics.RendererRevision; syncDirty = false;
+        syncWorker.Submit(publish =>
         {
-            for (int i = 0; i < terrains.Length; i++)
+            var paths = new StringBuilder();
+            foreach (var item in snapshots)
             {
-                Terrain terrain = terrains[i];
-
-                if (terrain == null)
-                    continue;
-
-                string path =
-                    SaveTerrain(
-                        terrain,
-                        i
-                    );
-
-                if (!string.IsNullOrEmpty(path))
+                using (var stream = new MemoryStream()) using (var writer = new BinaryWriter(stream))
                 {
-                    pathsWriter.WriteLine(path);
+                    writer.Write(FileVersion);
+                    writer.Write(item.position.x); writer.Write(item.position.y); writer.Write(item.position.z);
+                    writer.Write(item.size.x); writer.Write(item.size.y); writer.Write(item.size.z);
+                    writer.Write(item.heightResolution); writer.Write(item.holesResolution);
+                    writer.Write(item.heights.Length); foreach (float v in item.heights) writer.Write(v);
+                    writer.Write(item.holes.Length); foreach (bool v in item.holes) writer.Write(v ? 1f : 0f);
+                    publish(item.path, stream.ToArray());
                 }
+                paths.AppendLine(item.path);
             }
-        }
-
-        Debug.Log(
-            "Файл путей Terrain сохранён: " +
-            pathsFile
-        );
+            // Manifest published last; an empty scene clears the previous list.
+            publish(pathsFile, new UTF8Encoding(false).GetBytes(paths.ToString()));
+        });
     }
 
 
